@@ -10,14 +10,8 @@ To export the document structure parser, do something like this:
 % mv docstructure docstructure-saved
 % mv docstructure-20120922 docstructure
 
-The tries utilities is taken from my utilities repository. To export from that repository,
-do something like th efollowing:
-
-% cd ~marc/Dropbox/code/misc
-...
-
-TODO: write a script to import utilities from here
-
+The tries utilities is taken from my utilities repository. To import from that repository,
+use the scripts in runtime/utils.
 
 Marc Verhagen
 marc@cs.brandeis.edu
