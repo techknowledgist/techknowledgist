@@ -13,7 +13,7 @@ Usage:
 """
 
 
-import os, sys
+import os, sys, codecs
 
 script_path = os.path.abspath(sys.argv[0])
 script_dir = os.path.dirname(script_path)
@@ -23,6 +23,7 @@ sys.path.append(code_dir)
 import sys, getopt, time
 from utils.docstructure.main import Parser
 from utils.splitter import Splitter
+from utils.tries.matcher import Matcher, Trie
 
 TRAP_ERRORS = True
 TRAP_ERRORS = False
@@ -57,9 +58,11 @@ class TechnologyTagger(object):
         # a simple list of technologies, or perhaps tuples with maturity scores added
         # (note that the maturity score are time stamped)
         # these will be used for the prefix trie lookup
-        self.technologies = OntologyReader().technologies()
+        self.technologies = OntologyReader().technologies(language)
         self.lookup = Lookup(self.language, self.technologies)
-        self.storage = DataStorage()
+        self.storage = ResultStore()
+        self.exporter = Exporter(language, output_dir, '../ontology')
+
         
     def __str__(self):
         return "<TechnologyTagger on \"%s\" language=\"%s\">" \
@@ -67,22 +70,22 @@ class TechnologyTagger(object):
 
     def process_files(self):
         count = 0
-        # 1. loop through all files for patent-level processing
-        for filename in self.files[:1]:  # let's cap it for now
-            print "%04d Processing %s" % (count, os.path.basename(filename))
+        for filename in self.files[:2]:  # let's cap it for now
             count += 1
+            print "%04d Processing %s" % (count, os.path.basename(filename))
             if TRAP_ERRORS:
                 try:
                     self.process_file(filename)
                 except Exception, e:
-                    # TODO: use something lower
                     print e
             else:
                 self.process_file(filename)
-        # 2. use Scorer to process data from DataCollector (RDG level and per year)
-        # 3. use Exporter to write html files, one for each year and one for the RDG
+        self.storage.pp()
+        # TODO: use Scorer to process data from DataCollector (RDG level and per year)
+        Scorer().score(self.storage)
+        # TODO: use Exporter to write html files, one for each year and one for the RDG
+        self.exporter.export(self.storage)
 
-        
     def process_file(self, filename):
         """Run the document structure parser, select the section wewant to use, perform
         technology lookup on those sections,and store the results."""
@@ -143,62 +146,93 @@ class TechnologyTagger(object):
 
 class OntologyReader(object):
 
-    def technologies(self):
-        return ['the', 'of the', 'the principal idea']
+    def technologies(self, language):
+        """Read the technologies as stored in the lists for the three languages."""
+        with codecs.open("technologies/technologies-%s.txt" % language, encoding='utf-8') as fh:
+            technologies = [t.strip() for t in fh.readlines()]
+            return technologies
 
     
 class Lookup(object):
 
     def __init__(self, language, technologies):
         self.language = language
-        self.technologies = technologies
         self.splitter = Splitter(language)
+        self.matcher = Matcher(Trie([(t,'t') for t in technologies]))
         if language == 'CHINESE':
             # TODO: make this less brittle, it now requires that the script is run from
             # this very directory
             library_dir = '../utils/library'
             self.splitter.add_chinese_split_character(library_dir + '/chinese_comma.txt')
             self.splitter.add_chinese_split_character(library_dir + '/chinese_degree.txt')
-
             
     def search(self, sections):
-
-        result = {}
-
+        use_boundaries = False if self.language == 'CHINESE' else True
+        technologies_found = []
         for (sectype, weight, text) in sections:
-
             fragments = self.splitter.split(text)
-
-            if 1:
-                print "\n%s %s [%s ==> %s]" % (weight, sectype, len(text), len(fragments))
-                for s in fragments: print s
-                print
-
-            # 1.split input
-            # 2.lookup
-            # 3. order and filter results
-            # 4 add to results dictionary
-            pass
-        
-        return result
+            for fragment in fragments:
+                self.matcher.lookup(fragment, use_boundaries=use_boundaries)
+                for r in self.matcher.result:
+                    technologies_found.append((sectype, weight, u''.join(r.found)))
+        return technologies_found
 
     
-class DataStorage(object):
+class ResultStore(object):
 
     def __init__(self):
-        pass
-    
+        self.data = {}
+        self.weights = {}
+        
     def add(self, filename, year, results):
-        #print "Adding results for %s from %s" % (os.path.basename(filename), year)
+        """Adding results, indexing on year, but for now ignoring the filename."""
+        if not self.data.has_key(year):
+            self.data[year] = {}
+        for (sectype, weight, technology) in results:
+            self.weights[sectype] = weight
+            technology = self.data[year].setdefault(technology, { 'TOTAL': 0 })
+            technology[sectype] = technology.setdefault(sectype,0) + 1
+            technology['TOTAL'] += 1
+                                                    
+    def pp(self):
+        print "\nWEIGHTS:"
+        for k,v in self.weights.items():
+            print '  ', v, '-', k
+        print "\nTECHNOLOGIES:"
+        for year in sorted(self.data.keys()):
+            print "\n%s" % year
+            for technology in sorted(self.data[year].keys()):
+                print "   %4d %s" % ( self.data[year][technology]['TOTAL'], technology),
+                counts = []
+                for sectype, count in self.data[year][technology].items():
+                    if sectype == 'TOTAL':
+                        continue
+                    counts.append("%s=%d" % (sectype, count))
+                print " { " + ' , '.join(counts) + " }"
+
+            
+        
+class Scorer(object):
+
+    # TODO: must use mockup scores for the technologies
+    # TODO: calculate yearly scores, add scores instvar to result_store
+    
+    def score(self, result_store):
         pass
 
+
+class Exporter(object):
+
+    # TODO: must use mockup of histogram in year html
+    # TODO: must use mockup of ontology entry
     
-
-class Scorer(object): pass
-
-
-class Exporter(object): pass
-
+    def __init__(self, language, html_dir, ontology_dir):
+        self.language = language
+        self.html_dir = html_dir
+        self.ontology_dir = ontology_dir
+        
+    def export(self, result_store):
+        pass
 
 
 
