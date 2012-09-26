@@ -3,6 +3,7 @@ import codecs
 
 default_split_chars = ['.', '!', '?']
 chinese_split_chars = [',', '.', ':', ';', '!', '?']
+chinese_split_chars = [u'\uff0c', u'\u3002'] # comma and period
 
 (tab, cr, lf) = ("\t", "\n", "\f")
 
@@ -21,12 +22,6 @@ class Splitter(object):
     def change_language(self, language):
         self.language = language
         self.set_split_chars()
-
-    def add_chinese_split_character(self, filename):
-        """Add a single character from a file to the list of Chinese split
-        characters. This is really a kluge because I do not how to do this properly"""
-        char = codecs.open(filename, encoding='utf-8').read().strip()
-        self.split_chars.append(char)
 
         
     def split(self, text):
@@ -70,8 +65,6 @@ if __name__ == '__main__':
 
     # run the script from this directory to make this work
     splitter.change_language('CHINESE')
-    splitter.add_chinese_split_character('library/chinese_comma.txt')
-    splitter.add_chinese_split_character('library/chinese_degree.txt')
     for l in codecs.open('examples/CN1159155A-short.txt', encoding='utf-8'):
         if not l.strip():
             continue

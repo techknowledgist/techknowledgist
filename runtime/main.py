@@ -4,16 +4,18 @@ Main script for the technology tagger.
 
 Usage:
 
-    % python main.py -l LANGUAGE -o OUTPUT_DIR FILE_LIST
+    % python main.py [--debug] [--cap N] [-l LANGUAGE] [-o OUTPUT_DIR] FILE_LIST
 
-    LANGUAGE is one of ENGLISH, CHINESE and GERMAN
-    OUTPUT_DIR is the directory where the HTML files are written
+    LANGUAGE is one of ENGLISH, CHINESE and GERMAN, default is ENGLISH
+    OUTPUT_DIR is the directory where the HTML files are written, default is data/html
     FILE_LIST is a list with paths to XML files
+    [--debug] switches off error trapping
+    [--cap N] indicates limit to number of files processed
     
 """
 
 
-import os, sys, getopt, time, codecs, random, pprint
+import os, sys, getopt, time, codecs, random, pprint, glob
 
 script_path = os.path.abspath(sys.argv[0])
 script_dir = os.path.dirname(script_path)
@@ -25,13 +27,25 @@ from utils.splitter import Splitter
 from utils.tries.matcher import Matcher, Trie
 from html import HTML_PREFIX, HTML_END
 
+# try to trap as many Exceptions as possible
 TRAP_ERRORS = True
-TRAP_ERRORS = False
+
+# process all elements of th einput list, positive integers indicate a limit to the number
+# of files processed
+CAP = 0
 
 
 def usage():
-    print "Usage: % python main.py -l LANGUAGE -o OUTPUT_DIR FILE_LIST\n"
+    print "Usage: % python main.py [--debug] [--cap N] [-l LANGUAGE] [-o OUTPUT_DIR] FILE_LIST\n"
 
+
+def handle_exception(e, message=None):
+    message_string = "Exception occured." if message is None else message
+    print "WARNING: %s" % message_string
+    try:
+        print e.__class__.__name__, e
+    except Exception:
+        pass
 
     
 class TechnologyTagger(object):
@@ -56,33 +70,36 @@ class TechnologyTagger(object):
         self.file_list = file_list
         self.files = [l.strip() for l in open(file_list).readlines()]
         # a simple list of technologies, or perhaps tuples with maturity scores added
-        # (note that the maturity score are time stamped)
+        # (note that the maturity scores are time stamped)
         # these will be used for the prefix trie lookup
         self.technologies = OntologyReader().technologies(language)
         self.lookup = Lookup(self.language, self.technologies)
         self.storage = ResultStore()
         self.exporter = Exporter(language, output_dir, '../ontology')
 
-        
     def __str__(self):
         return "<TechnologyTagger on \"%s\" language=\"%s\">" \
                % (self.file_list, self.language)
 
     def process_files(self):
+        self.clear_tmp_files()
         count = 0
-        # use this to limit how often you iterate, set to 0 if there is not limit
-        cap = 10
         for filename in self.files:
+            t1 = time.time()
+            size = os.stat(filename).st_size
             count += 1
-            print "%04d Processing %s" % (count, os.path.basename(filename))
+            print "%04d Processing %s" % (count, os.path.basename(filename)),
             if TRAP_ERRORS:
                 try:
                     self.process_file(filename)
                 except Exception, e:
-                    print e
+                    handle_exception(e)
             else:
                 self.process_file(filename)
-            if count == cap:
+            t2 = time.time()
+            elapsed_time_per_kb = ((t2-t1)/size)*1000
+            print "(%.4fs/Kb)" % elapsed_time_per_kb
+            if count == CAP:
                 break
         Scorer().score(self.storage)
         #self.storage.pp()
@@ -97,7 +114,12 @@ class TechnologyTagger(object):
         filtered_data = self._select_data(data)
         lookup_results = self.lookup.search(filtered_data)
         self.storage.add(os.path.basename(filename), year, lookup_results)
-        
+    
+    def clear_tmp_files(self):
+        files = glob.glob('data/tmp/*')
+	for f in files:
+            os.remove(f)
+
     def _get_data_from_document(self):
         """Return a data structure with sections from the document, includes some meta
         data and all sections where we expect to find technologies. It casts a wide net,
@@ -141,9 +163,12 @@ class TechnologyTagger(object):
     def _select_data(self, data):
         """Barebones version. Should return a list of tuples with type and weight:
         ('ABSTRACT', '1.0', 'We describe a ...'). """
-        # TODO: make more robust
-        return [('ABSTRACT', 1.0, data['ABSTRACTS'][0]),
-                ('DESCRIPTION', 0.4, data['DESCRIPTION'])]
+        abstract, description = [], []
+        if data.has_key('ABSTRACTS'):
+            abstract = [('ABSTRACT', 1.0, data['ABSTRACTS'][0])]
+        if data.has_key('DESCRIPTION'):
+            description = [('DESCRIPTION', 0.4, data['DESCRIPTION'])] 
+        return abstract + description
 
 
 
@@ -162,12 +187,6 @@ class Lookup(object):
         self.language = language
         self.splitter = Splitter(language)
         self.matcher = Matcher(Trie([(t,'t') for t in technologies]))
-        if language == 'CHINESE':
-            # TODO: make this less brittle, it now requires that the script is run from
-            # this very directory
-            library_dir = '../utils/library'
-            self.splitter.add_chinese_split_character(library_dir + '/chinese_comma.txt')
-            self.splitter.add_chinese_split_character(library_dir + '/chinese_degree.txt')
             
     def search(self, sections):
         use_boundaries = False if self.language == 'CHINESE' else True
@@ -327,8 +346,11 @@ class Scorer(object):
                 score = self.calculate_score(tuples)
                 result_store.set_score(year, filename, score)
 
-        total_average_maturity1 = self.sum_maturity_x_weight_x_count / self.sum_weight_x_count
-        total_average_maturity2 = total_average_maturity1 / 3
+        try:
+            total_average_maturity1 = self.sum_maturity_x_weight_x_count / self.sum_weight_x_count
+            total_average_maturity2 = total_average_maturity1 / 3
+        except ZeroDivisionError:
+            total_average_maturity2 = 0.0
         result_store.overall_score = total_average_maturity2
 
         
@@ -336,9 +358,13 @@ class Scorer(object):
         sum_maturity_x_weight_x_count = sum([t[1]*t[3]*t[4] for t in tuples])
         sum_weight_x_count = sum([t[3]*t[4] for t in tuples])
         self.sum_maturity_x_weight_x_count += sum_maturity_x_weight_x_count
-        self.sum_weight_x_count += sum_weight_x_count 
-        return (sum_maturity_x_weight_x_count / sum_weight_x_count) / 3
-                
+        self.sum_weight_x_count += sum_weight_x_count
+        try:
+            return (sum_maturity_x_weight_x_count / sum_weight_x_count) / 3
+        except ZeroDivisionError:
+            # TODO: must track when this happens
+            return 0.0
+        
     
 class Exporter(object):
 
@@ -353,8 +379,11 @@ class Exporter(object):
     def export(self, result_store):
         self.result_store = result_store
         for year in result_store.get_years():
-            self.export_year(year)
-
+            try:
+                self.export_year(year)
+            except Exception, e:
+                handle_exception(e, "Exception while exporting year %s" % year)
+                
     def export_year(self, year):
         fh = codecs.open(os.path.join(self.html_dir, "%s.html" % year), 'w', encoding='utf-8')
         fh.write(HTML_PREFIX)
@@ -364,7 +393,8 @@ class Exporter(object):
         self.export_technologies(fh, year)
         fh.write("\n")
         fh.write(HTML_END)
-
+        fh.close()
+        
     def export_maturity_score(self, fh, year):
         fh.write("<h3>Average maturity score for 2006</h3>\n")
         fh.write("<blockquote>\n")
@@ -388,9 +418,9 @@ class Exporter(object):
                 bins[int(str(score)[2])] += 1
         maxval = sorted(bins)[-1]
         adjustment = 1
+        # TODO: change adjustment for long bars, use this below
         #if max > 100:
         #    adjustment =
-
         fh.write("<h3>Histogram of Maturity Score Distribution over %s Patents </h3>\n" % year)
         fh.write("<blockquote>\n")
         fh.write("<pre>\n")
@@ -399,10 +429,7 @@ class Exporter(object):
             fh.write("%s\n" % bar_string)
         bottom_line = '-' * maxval
         fh.write("        +-%s" % bottom_line)
-        
-        fh.write("\n")
-        fh.write("\n")
-        fh.write("\n")
+        #fh.write("\n")
         fh.write("</pre>\n")
         fh.write("</blockquote>\n")
 
@@ -427,23 +454,38 @@ class Exporter(object):
         fh.write("\n")
         fh.write("\n")
 
-        
 
-if __name__ == '__main__':
 
-    try:
-        (opts, args) = getopt.getopt(sys.argv[1:], 'l:o:')
-    except getopt.GetoptError, err:
-        print str(err)
-        usage()
-        sys.exit(2)
-    language, output_dir = 'ENGLISH', 'data/tmp'
-    for opt, val in opts:
-        if opt == '-l': language = val
-        if opt == '-o': output_dir = val
-    file_list = args[0]
-
+def run():
     tagger = TechnologyTagger(language, output_dir, file_list)
     tagger.process_files()
     #tagger.process_file("data/US4192770A.xml")
     #tagger.process_file("data/DE3539484C1.xml")
+    #tagger.process_file("data/CN101243817A.xml")
+    
+
+    
+
+if __name__ == '__main__':
+
+    try:
+        (opts, args) = getopt.getopt(sys.argv[1:], 'l:o:', ['debug', 'cap='])
+    except getopt.GetoptError, err:
+        print str(err)
+        usage()
+        sys.exit(2)
+    language, output_dir = 'ENGLISH', 'data/html'
+    for opt, val in opts:
+        if opt == '-l': language = val
+        if opt == '-o': output_dir = val
+        if opt == '--debug': TRAP_ERRORS = False
+        if opt == '--cap': CAP = int(val)
+    file_list = args[0]
+
+    if TRAP_ERRORS:
+        try:
+            run()
+        except Exception, e:
+            handle_exception(e)
+    else:
+        run()

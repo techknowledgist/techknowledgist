@@ -1,0 +1,502 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright ©2011 LexisNexis Univentio, The Netherlands. -->
+<lexisnexis-patent-document schema-version="1.08" date-produced="20111007" file="CN101243817A.xml" produced-by="LexisNexis-Univentio" lang="eng" date-inserted="20081127" time-inserted="051312" date-changed="20110507" time-changed="070014">
+  <bibliographic-data lang="chi">
+    <publication-reference publ-type="Application" publ-desc="Unexamined application for a patent for invention">
+      <document-id>
+        <country>CN</country>
+        <doc-number>101243817</doc-number>
+        <kind>A</kind>
+        <date>20080820</date>
+      </document-id>
+    </publication-reference>
+    <application-reference>
+      <document-id>
+        <country>CN</country>
+        <doc-number>200710008616</doc-number>
+        <date>20070213</date>
+      </document-id>
+    </application-reference>
+    <language-of-filing>eng</language-of-filing>
+    <language-of-publication>chi</language-of-publication>
+    <priority-claims date-changed="20081127">
+      <priority-claim sequence="1" kind="national">
+        <country>CN</country>
+        <doc-number>200710008616</doc-number>
+        <date>20070213</date>
+      </priority-claim>
+    </priority-claims>
+    <dates-of-public-availability date-changed="20091225">
+      <gazette-reference>
+        <date>20080820</date>
+      </gazette-reference>
+      <unexamined-printed-without-grant>
+        <date>20080820</date>
+      </unexamined-printed-without-grant>
+    </dates-of-public-availability>
+    <kind-of-official-gazette lang="eng">24-33</kind-of-official-gazette>
+    <classifications-ipcr date-changed="20081210">
+      <classification-ipcr sequence="1">
+        <text>A23F   3/06        20060101CFI20080820BHCN        </text>
+        <ipc-version-indicator>
+          <date>20060101</date>
+        </ipc-version-indicator>
+        <classification-level>C</classification-level>
+        <section>A</section>
+        <class>23</class>
+        <subclass>F</subclass>
+        <main-group>3</main-group>
+        <subgroup>06</subgroup>
+        <symbol-position>F</symbol-position>
+        <classification-value>I</classification-value>
+        <action-date>
+          <date>20080820</date>
+        </action-date>
+        <generating-office>
+          <country>CN</country>
+        </generating-office>
+        <classification-status>B</classification-status>
+        <classification-data-source>H</classification-data-source>
+      </classification-ipcr>
+      <classification-ipcr sequence="2">
+        <text>A23F   3/06        20060101AFI20080820BHCN        </text>
+        <ipc-version-indicator>
+          <date>20060101</date>
+        </ipc-version-indicator>
+        <classification-level>A</classification-level>
+        <section>A</section>
+        <class>23</class>
+        <subclass>F</subclass>
+        <main-group>3</main-group>
+        <subgroup>06</subgroup>
+        <symbol-position>F</symbol-position>
+        <classification-value>I</classification-value>
+        <action-date>
+          <date>20080820</date>
+        </action-date>
+        <generating-office>
+          <country>CN</country>
+        </generating-office>
+        <classification-status>B</classification-status>
+        <classification-data-source>H</classification-data-source>
+      </classification-ipcr>
+    </classifications-ipcr>
+    <number-of-claims calculated="yes">8</number-of-claims>
+    <invention-title id="title_chi" date-changed="20091229" lang="chi" format="original">一种茶叶萎凋处理设备</invention-title>
+    <invention-title id="title_eng" date-changed="20091229" lang="eng" format="original">Tea leaf withering process plant</invention-title>
+    <parties date-changed="20091225">
+      <applicants>
+        <applicant sequence="1" app-type="applicant">
+          <addressbook lang="chi">
+            <orgname>林清矫</orgname>
+            <address>
+              <address-1>362400福建省泉州市安溪县凤城镇中山街166－702</address-1>
+            </address>
+          </addressbook>
+          <addressbook lang="eng">
+            <orgname>LIN QINGJIAO</orgname>
+            <address>
+              <country>CN</country>
+            </address>
+          </addressbook>
+        </applicant>
+        <applicant sequence="1" app-type="applicant" data-format="original">
+          <addressbook lang="chi">
+            <orgname>林清矫</orgname>
+            <address>
+              <address-1>362400福建省泉州市安溪县凤城镇中山街166－702</address-1>
+            </address>
+          </addressbook>
+        </applicant>
+        <applicant sequence="1" app-type="applicant" data-format="docdb">
+          <addressbook lang="eng">
+            <orgname>QINGJIAO LIN</orgname>
+            <address>
+              <country>CN</country>
+            </address>
+          </addressbook>
+        </applicant>
+        <applicant sequence="1" app-type="applicant" data-format="docdba">
+          <addressbook lang="eng">
+            <orgname>LIN QINGJIAO</orgname>
+            <address>
+              <country>CN</country>
+            </address>
+          </addressbook>
+        </applicant>
+      </applicants>
+      <inventors>
+        <inventor sequence="1">
+          <addressbook lang="chi">
+            <name>林清矫</name>
+          </addressbook>
+          <addressbook lang="eng">
+            <name>LIN QINGJIAO</name>
+            <address>
+              <country>CN</country>
+            </address>
+          </addressbook>
+        </inventor>
+        <inventor sequence="1" data-format="original">
+          <addressbook lang="chi">
+            <name>林清矫</name>
+          </addressbook>
+        </inventor>
+        <inventor sequence="1" data-format="docdb">
+          <addressbook lang="eng">
+            <name>QINGJIAO LIN</name>
+            <address>
+              <country>CN</country>
+            </address>
+          </addressbook>
+        </inventor>
+        <inventor sequence="1" data-format="docdba">
+          <addressbook lang="eng">
+            <name>LIN QINGJIAO</name>
+            <address>
+              <country>CN</country>
+            </address>
+          </addressbook>
+        </inventor>
+      </inventors>
+      <agents>
+        <agent sequence="1" rep-type="attorney">
+          <addressbook lang="chi">
+            <name>厦门市首创君合专利事务所有限公司 (洪渊源)</name>
+          </addressbook>
+        </agent>
+        <agent sequence="1" rep-type="attorney" data-format="original">
+          <addressbook lang="chi">
+            <name>厦门市首创君合专利事务所有限公司 (洪渊源)</name>
+          </addressbook>
+        </agent>
+      </agents>
+    </parties>
+    <patent-family date-changed="20081127">
+      <main-family family-id="114744558">
+        <family-member>
+          <document-id>
+            <country>CN</country>
+            <doc-number>101243817</doc-number>
+            <kind>A</kind>
+            <date>20080820</date>
+          </document-id>
+          <application-date>
+            <date>20070213</date>
+          </application-date>
+        </family-member>
+      </main-family>
+      <complete-family family-id="114744257">
+        <family-member>
+          <document-id>
+            <country>CN</country>
+            <doc-number>101243817</doc-number>
+            <kind>A</kind>
+            <date>20080820</date>
+          </document-id>
+          <application-date>
+            <date>20070213</date>
+          </application-date>
+        </family-member>
+      </complete-family>
+    </patent-family>
+  </bibliographic-data>
+  <abstract id="abstr_chi" date-changed="20091229" lang="chi" format="original">
+    <p num="1">本发明旨在提供一种节省空间、萎凋效果好的茶叶萎凋处理设备，包括机架、电控箱以及设于机架后上部的箱体；箱体前方的机架上设有向箱体内传送茶青的提料输送带，输送带上密布有通风细孔，其下方对应设有冷热风供应装置；箱体内通过两侧分设进、出风口的分隔板形成茶青、空气处理室；空气处理室配设有循环风温湿度处理装置、风机，风机与分隔板出风口相连；茶青处理室设有排风装置，且装设有多层用于承接提料输送带茶青并逐层向下传送的铺青输送带，最下层铺青输送带下料口端下方设有出料输送带，出料输送带的一端与所述料斗之间设有用于回送茶青至料斗内的循环回送装置、另一端下方设有接料槽；茶青处理室内设有与控制系统输入端相连的温、湿度传感器。</p>
+  </abstract>
+  <abstract id="abstr_eng" date-changed="20091229" lang="eng" format="original">
+    <p>The patent refers to the field of 'coffee; tea; their substitutes; manufacture, preparation, or infusion thereof'. The invention provides a tea withering machine, comprising a frame, an electric cabinet and a case on the rear part of the frame. A feeding and conveying belt for delivering tealeaves into the case is arranged on the frame in front of the case; small vent holes are densely arranged on the conveying belt, and a heating and cooling air supplying device is positioned under the conveying belt; the case is divided into a tealeaves treating chamber and an air treatment chamber by a separating plate with respective air inlets and outlets at both sides; the air treatment chamber is provided with a temperature and humidity treatment device for recirculation air, and a blower; the blower is connected with the air outlets of the separating plate; the tealeaves treating chamber is provided with an air exhausting device and a multi-layer tealeaves distributing and conveying belt; the tealeaves distributing and conveying belt is used to support the tealeaves on the feeding and conveying belt, and deliver downward the tealeaves layer-by-layer; a conveying belt for the discharge tealeaves is arranged at the lower part of a discharge port of the lowest tealeaves distributing and conveying belt; a circulating and back-feeding device for delivering the tealeaves to a hopper is arranged between one end of the conveying belt for the discharge tealeaves and the hopper; a receiving chute is positioned below the other end of the conveying belt for the discharge tealeaves; a temperature and humidity sensor connected with an input end of a control system is arranged in the tealeaves treatment chamber. The tea withering machine has the advantages of saved space and excellent withering effects.</p>
+  </abstract>
+  <legal-data date-changed="20100618">
+    <legal-event sequence="1">
+      <publication-date>
+        <date>20080820</date>
+      </publication-date>
+      <event-code-1>C06</event-code-1>
+      <effect>+</effect>
+      <legal-description>PUBLICATION</legal-description>
+      <status-identifier>N</status-identifier>
+      <docdb-publication-number> CN   101243817A</docdb-publication-number>
+    </legal-event>
+    <legal-event sequence="2">
+      <publication-date>
+        <date>20100303</date>
+      </publication-date>
+      <event-code-1>C10</event-code-1>
+      <legal-description>REQUEST OF EXAMINATION AS TO SUBSTANCE</legal-description>
+      <status-identifier>N</status-identifier>
+      <docdb-publication-number> CN   101243817A</docdb-publication-number>
+    </legal-event>
+  </legal-data>
+  <description id="descr_chi" lang="chi" format="original" date-changed="20091226">
+    <technical-field>
+      <p id="p-0001-zh" num="0001">技术领域  		  	 
+  </p>
+      <p id="p-0002-zh" num="0002">本发明涉及制茶机械领域，具体是一种对采摘后的茶青进行萎凋处理的设 	    	 
+    <br />备。 		 	 	 
+    </p>
+    </technical-field>
+    <background-art>
+      <p id="p-0003-zh" num="0003">背景技术  		  	 
+  </p>
+      <p id="p-0004-zh" num="0004">根据茶叶种类的不同，其制作工艺有所不同，但萎凋处理却是所有制茶工 	    	 
+    <br />艺必经的第一道工序，也是形成茶叶品质的基础工序。萎凋是指对采摘后地鲜 		 	 	 
+    <br />茶叶，经过一段时间失水，促使硬脆的鲜茶叶梗叶呈萎蔫凋谢状况的过程，使  		  	 
+    <br />叶质柔软，可塑性大，便于造形。萎凋既有物理方面的失水作用，也有内含物	 	 	 	 
+    <br />质的化学变化的过程；其一是蒸发部分水分，降低茶叶细胞的张力，使叶梗由 	    	 
+    <br />脆变软，增加芽叶的韧性，便于揉捻成条；其二是由于水分的散失而引起茶梢 		 	 	 
+    <br />中的内含物质的一系列化学变化，为形成茶叶色香味的特定品质，奠定物质变  		  	 
+    <br />化的基础。萎凋由摇青与晾青两个过程所组成，摇青与晾青交替进行。摇青是	 	 	 	 
+    <br />将采摘后的鲜茶叶放在筛筒内，利用筛筒来回筛动，使茶叶在筛筒内不断翻滚， 	    	 
+    <br />翻滚的茶叶边缘相互摩擦，叶缘细胞受损，经摊置失水，叶中多酚类在霉的作 		 	 	 
+    <br />用下，渐渐氧化，形成茶叶特有的品质。摇青过程中，组织因振动而增加细胞  		  	 
+    <br />吸水力，茎梗的水分往叶脉、叶片输送，香味及可溶性物质输送到叶片，水分	 	 	 	 
+    <br />由叶片蒸发，摇青后叶子恢复舒张状态，俗称“还青”。还青后静置晾青，水分 	    	 
+    <br />继续蒸发，又呈萎凋状态，经过多次摇青、晾青交替进行，使茶叶呈绿叶红边， 		 	 	 
+    <br />状如汤匙状，外观硬挺，手感软，即为作青的适度。然而，上述制作方法须多  		  	 
+    <br />次摇青、晾青，将摇青后的茶叶从筛筒内倒出薄层铺摊静置晾青，晾青后再次 	    	 
+    <br />将茶叶送入筛简内摇青，如此重复多次，其操作烦琐，工作效率低。摇青力度 		 	 	 
+    <br />难于控制，力度轻无法达到摇青目的，力度太重又容易导致梗叶折断造成死青。  		  	 
+    <br />晾青通常有以下两种方式：一是采用日光晾青，即利用太阳光照进行自然晾青，	 	 	 	 
+    <br />因为天气状况的不同，环境温湿度无法控制，晾青过程难于控制。二是采用人 	    	 
+    <br />工环境室内晾青，将鲜叶置于温湿度可控的封闭室中，通以热空气，加速晾青 		 	 	 
+    <br />进程。上述两种方式都存在用空间大，且在静置过程必须反复翻拌方能确保上、  		  	 
+    <br />下层茶叶及茶叶的每个面晾青均匀，萎凋作业劳动强度高、过程时间长，浪费	 	 	 	 
+    <br />大量的人力、物力，无法适应规模化生产要求。 	    	 
+    </p>
+    </background-art>
+    <disclosure>
+      <p id="p-0005-zh" num="0005">发明内容 		 	 	 
+  </p>
+      <p id="p-0006-zh" num="0006">本发明是为解决上述现有技术所存在的问题，提供一种操作简单、实用的	 	 	 	 
+    <br />茶叶萎凋处理设备，以解决现有多次重复摇青、晾青的萎凋制作方法所带来的 	    	 
+    <br />各种弊端，大大提高工作效率和毛茶质量。 		 	 	 
+    </p>
+      <p id="p-0007-zh" num="0007">实现本发明目的的技术方案为： 	    	 
+    </p>
+      <p id="p-0008-zh" num="0008">一种茶叶萎凋处理设备，其特征在于：包括机架以及装设于机架后上部的	 	 	 	 
+    <br />箱体；箱体前方的机架上装设提料输送带，该输送带上密布有通风孔，其上料 	    	 
+    <br />端设有料斗、卸料端穿过箱体侧板伸入箱体内上方，输送带下方对应设有冷热 		 	 	 
+    <br />风供应装置；箱体内后部设有分隔板，分隔板与箱体前、后侧板之间分别形成  		  	 
+    <br />茶青处理室、空气处理室，分隔板的两侧对应分设连通两处理室的循环风进、	 	 	 	 
+    <br />出风口；空气处理室配设有循环风温湿度处理装置、风机，风机的送风口与分 	    	 
+    <br />隔板上的出风口相连；茶青处理室的顶板上装设有排风装置，提料输送带卸料 		 	 	 
+    <br />端下方的茶青处理室内装设有多层横向交错布置将提料输送带送入的茶青逐层  		  	 
+    <br />向下承送的铺青输送带，上、下相邻层铺青输送带的转动方向相反，最下层铺 	    	 
+    <br />青输送带下料口端下方设有出料输送带，出料输送带的一端与所述料斗之间设 		 	 	 
+    <br />有用于回送茶青至料斗内的循环回送装置、另一端下方设有接料槽；茶青处理  		  	 
+    <br />室内设有与控制系统连接的温、湿度传感器；还包括电控箱。	 	 	 	 
+    </p>
+      <p id="p-0009-zh" num="0009">所述茶青处理室内多层铺青输送带中至少有一层输送带上设有高频振动  		  	 
+    <br />器，通过振动器对茶青进行摇青处理。	 	 	 	 
+    </p>
+      <p id="p-0010-zh" num="0010">所述空气处理室内的循环风温湿度处理装置包括冷凝器、加湿器、电热器，  		  	 
+    <br />冷凝器安装于分隔板循环风进、出风口之间的空气处理室的中部，加湿器装设	 	 	 	 
+    <br />于冷凝器循环风入风口一侧、加热装置、风机装设于冷凝器出风口一侧；冷凝 	    	 
+    <br />器、加湿器、电热器分别连接控制系统的对应输出端。 		 	 	 
+    </p>
+      <p id="p-0011-zh" num="0011">所述冷热风供应装置包括出风口正对输送带的风箱，风箱的进风口连接鼓 	    	 
+    <br />风机，风箱内下部装设有红外电热管。 		 	 	 
+    </p>
+      <p id="p-0012-zh" num="0012">所述循环回送装置包括回送输送带、导料槽，回送输送带的一端位于出料 	    	 
+    <br />输送带对应端下方、另一端位于料斗的侧上方且设有卸料口，导料槽倾斜设于 		 	 	 
+    <br />料斗与回送输送带的卸料口之间。  		  	 
+    </p>
+      <p id="p-0013-zh" num="0013">本萎凋设备的工作方式：启动设备使各部件进入工作状态，循环风温湿度 		 	 	 
+    <br />处理装置控制茶青处理室的空气温湿度，确保茶青处理室的空气指标控制在预  		  	 
+    <br />定的范围内；将采摘后鲜茶叶倒入料斗中并通过提料输送带提升至茶青处理室，	 	 	 	 
+    <br />风箱鼓风机向提料输送带吹送经红外电热管加热的热风，热风通过提料输送带 	    	 
+    <br />上的通风孔对输送带上的茶青进行热风萎凋；茶青自提料输送带卸料端落入最 		 	 	 
+    <br />上层铺青输送带上，经最上层铺青输送带传送并向下逐层承送至最下层铺青输  		  	 
+    <br />送带，设有高频振动器的输送带在振动器作用下产生高频震荡波，使送经该传	 	 	 	 
+    <br />动带的茶青随之震荡起到摇青的功效；然后，最下层铺青输送带将茶青送入出 	    	 
+    <br />料输送带经回送输送带、导料槽再次送入料斗进行重复循环，如此反复；茶青  		  	 
+    <br />萎凋处理的预设时间到，出料输送带反向转动，将萎凋处理后的茶青送入接料	 	 	 	 
+    <br />槽，茶青全部送出后，本批次茶青萎凋处理完毕。 	    	 
+    </p>
+      <p id="p-0014-zh" num="0014">上述萎凋设备，提料输送带提升茶青的过程中同时由风箱鼓风机吹送经红	 	 	 	 
+    <br />外电热管加热的热风进行热风萎凋(或直接吹送冷风)，热风萎凋后的茶青被送 	    	 
+    <br />入最上层铺青输送带上，并经多层铺青输送带向下逐层承送，在铺青输送带上 		 	 	 
+    <br />传送过程中，控制系统根据温、湿度传感器信号，通过循环风温湿度处理装置  		  	 
+    <br />调整茶青处理室的温湿度，保证茶青在理想的空气环境中进行萎凋处理，设有	 	 	 	 
+    <br />高频振动器的输送带在振动器作用下产生高频震荡波，茶叶随之振动而增加细 	    	 
+    <br />胞吸水力，茎梗的水分往叶脉、叶片输送，香味及可溶性物质输送到叶片，水 		 	 	 
+    <br />分由叶片蒸发，茶叶恢复舒张状态，起到摇青的功效，茶青在送经没有配设振  		  	 
+    <br />动器的铺青输送带上随输送带向前传送的同时静置发酵；回送输送带、导料槽	 	 	 	 
+    <br />可使茶叶自动重复循环，直至萎凋处理完毕，解决现有人工操作多次摇青、晾 	    	 
+    <br />青的烦琐操作。 		 	 	 
+    </p>
+      <p id="p-0015-zh" num="0015">茶青在循环过程中每落料一次，便自动翻拌一次，无需人工操作，保证上、 	    	 
+    <br />下层茶叶及茶叶的每个面晾青均匀，在循环过程中，自动重复热风萎凋、振动 		 	 	 
+    <br />摇青、静置发酵的循环过程，提高萎凋处理后的毛茶质量；利用多层铺青输送  		  	 
+    <br />带传送茶青，铺青面积大、节省空间，采用自动温湿度控制系统，保证茶青可	 	 	 	 
+    <br />及时进行萎凋处理，不受天气状况影响，满足规模化生产要求。 	    	 
+    </p>
+    </disclosure>
+    <description-of-drawings>
+      <p id="p-0016-zh" num="0016">附图说明 		 	 	 
+  </p>
+      <p id="p-0017-zh" num="0017">图1是本发明第一实施例的外部结构示意图。	 	 	 	 
+    </p>
+      <p id="p-0018-zh" num="0018">图2是图1拆除箱体前侧板后的结构示意图(不包括电控箱)。  		  	 
+    </p>
+      <p id="p-0019-zh" num="0019">图3是沿图2中A-A方向的剖视图。  		  	 
+    </p>
+      <p id="p-0020-zh" num="0020">图4是本发明第二实施例的结构示意图。 		 	 	 
+    </p>
+    </description-of-drawings>
+    <mode-for-invention>
+      <p id="p-0021-zh" num="0021">具体实施方式  		  	 
+  </p>
+      <p id="p-0022-zh" num="0022">实施例1：参照图1。茶叶萎凋处理设备，主要包括机架1、电控箱2，装 	    	 
+    <br />设于机架1上的提料输送带3、箱体4、冷热风供应装置、出料输送带、循环回 		 	 	 
+    <br />送装置。下面结合图1至图3对本实施例的结构进行详细描述：  		  	 
+    </p>
+      <p id="p-0023-zh" num="0023">提料输送带3通过支架装设于机架1的前上部，箱体4固定安装在提料输 		 	 	 
+    <br />送带3后部的机架1上。固装在机架1上的驱动电机30与提料输送带3传动连  		  	 
+    <br />接，驱动电机30通过皮带带动提料输送带3旋转。提料输送带3其上料端设有	 	 	 	 
+    <br />料斗3a、卸料端穿过箱体4侧板伸入箱体3内上方；提料输送带3密布有通风 	    	 
+    <br />孔3b。 		 	 	 
+    </p>
+      <p id="p-0024-zh" num="0024">冷热风供应装置包括固定在提料输送带3下方机架1上的风箱5a、鼓风机 	    	 
+    <br />5b以及装设于风箱内下部的多根红外电热管5c；风箱5a出风口正对输送带3、 		 	 	 
+    <br />进风口连接鼓风机5b；红外电热管5c并排装设于风箱5a。鼓风机5b向风箱5a  		  	 
+    <br />内送风，送入的风经风箱5a出风口吹向提料输送带3，并经通风孔3b对提料输	 	 	 	 
+    <br />送带3上的茶青进行风萎凋；根据气温状况和制茶工艺需要，可选择是否启用 	    	 
+    <br />红外电热管5c，启用红外电热管5c后形成热风萎凋，未启用红外电热管5c形 		 	 	 
+    <br />成冷风萎凋。  		  	 
+    </p>
+      <p id="p-0025-zh" num="0025">为可及时排除热湿汽，在提料输送带3上方的支架上设有排风扇5d。 		 	 	 
+    </p>
+      <p id="p-0026-zh" num="0026">箱体4由外壳由夹层保温板封闭构成，箱体4的内后部设有分隔板4a，分 	    	 
+    <br />隔板4a与箱体前、后侧板之间分别形成茶青处理室6、空气处理室7，分隔板 		 	 	 
+    <br />4a的两侧对应分设连通茶青处理室6、空气处理室7的循环风进、出风口4b、  		  	 
+    <br />4c；茶青处理室6、循环风进风4b、空气处理室7、循环风出风4c形成空	 	 	 	 
+    <br />气循环通道。 		 	 	 
+    </p>
+      <p id="p-0027-zh" num="0027">茶青处理室6的顶板上装设有两个排风扇8，通过排风扇8可排除茶青处理 	    	 
+    <br />室6的湿汽。上述提料输送带3卸料端下方的茶青处理室6内装设有八层横向 		 	 	 
+    <br />上、下交错布置将提料输送带送入的茶青逐层向下承送的铺青输送带9；但不局  		  	 
+    <br />限于此，铺青输送带9的数量可根据箱体空间大小、茶叶的种类以及设备布局	 	 	 	 
+    <br />具体设定，一般可设计为6至12层。最下层铺青输送带98与驱动电机90通过 	    	 
+    <br />传动皮带90a传动连接，各相邻层输送带之间通过传动齿轮90b传动连接，电 		 	 	 
+    <br />机90通过皮带90a、传动齿轮90b带动各铺青输送带9旋转，上、下相邻层输  		  	 
+    <br />送带的转动方向相反。最下层输送带98的下料口端正下方的茶青处理室6的底	 	 	 	 
+    <br />板上设有过料口11，茶青处理室6底板下方设有与过料口11相配合的出料输送 	    	 
+    <br />带12，出料输送带12两端延伸至茶青处理室6两侧板外。出料输送带12与驱 		 	 	 
+    <br />动电机120通过传动皮带传动连接，出料输送带12可正反向旋转分别向两端输  		  	 
+    <br />出茶叶。出料输送带12的一端与上述料斗3b之间设有用于回送茶青至料斗3a	 	 	 	 
+    <br />内的循环回送装置、另一端下方设有接料槽13。 	    	 
+    </p>
+      <p id="p-0028-zh" num="0028">上述循环回送装置包括回送输送带14a、导料槽14b。回送输送带14a与驱	 	 	 	 
+    <br />动电机140传动连接，回送输送带14a的一端位于出料输送带12对应端下方承 	    	 
+    <br />接出料输送带12送出的茶青、另一端位于料斗的侧上方且设有卸料口15，导料 		 	 	 
+    <br />槽14b倾斜设于料斗3b与回送输送带的卸料口15之间。自箱体4内铺青输送  		  	 
+    <br />带9送出的茶青经过料口11落入出料输送带12，出料输送带12朝回送输送带	 	 	 	 
+    <br />14a方向送料，将茶青送至回送输送带14a上，再经回送输送带14a、导料槽14b 	    	 
+    <br />再次送入料斗3b进行重复循环，如此反复，直至茶青萎凋处理完毕。茶青萎凋 		 	 	 
+    <br />处理完成后形成毛茶，此时，调整电机反转，使出料输送带12朝接料槽13方  		  	 
+    <br />向送料，将所有毛茶送入接料槽13中，进入下一道制茶工序。	 	 	 	 
+    </p>
+      <p id="p-0029-zh" num="0029">另，在上述铺青输送带9中的部分输送带91、94中分别设有均布有3个高	 	 	 	 
+    <br />频振动器16，每个高频振动器16分别通过与箱体固定连接的横支架17固设于 	    	 
+    <br />输送带的上下面之间，高频振动器16靠近输送带的载物面。在高频振动器16 		 	 	 
+    <br />作用下输送带91、94载物面产生高频震荡波，茶青随之振动而增加细胞吸水力，  		  	 
+    <br />茎梗的水分往叶脉、叶片输送，香味及可溶性物质输送到叶片，水分由叶片蒸	 	 	 	 
+    <br />发，茶叶恢复舒张状态，起到摇青的功效。而，茶青在没有配设振动器的铺青 	    	 
+    <br />输送带上随输送带向前传送的同时静置发酵。 		 	 	 
+    </p>
+      <p id="p-0030-zh" num="0030">空气处理室7内装设风机18以及由冷凝器191、加湿器192、电热器193 	    	 
+    <br />构成的循环风温湿度处理装置。分隔板循环风进、出风口4b、4c之间设有横向 		 	 	 
+    <br />隔板4d，该隔板4d将空气处理室7内空间分隔为两个腔室，冷凝器191嵌装于  		  	 
+    <br />分隔板循环风进、出风口之间的横向隔板4d上，冷凝器191的进风口21位于	 	 	 	 
+    <br />分隔板循环风进风口4b一侧、出风口22位于循环风出风口4c一侧。加湿器192 	    	 
+    <br />装设于循环风进风口4b一侧，电热器193、风机18装设于循环风出风口4c一 		 	 	 
+    <br />侧；风机18的送风口与分隔板上的出风口4c相连，电热器193靠近风机18的  		  	 
+    <br />进风口。在空气处理室7的后侧板上开有与外部连通的进风口，该进风口上设	 	 	 	 
+    <br />有自动风门23，自动风门23与风门电机230传动连接并驱动，自动风门23的 	    	 
+    <br />开闭、开度由控制系统通过电机230自动控制。 		 	 	 
+    </p>
+      <p id="p-0031-zh" num="0031">茶青处理室6的内侧壁上装设有温、湿度传感器24、25，用于采集并向控 	    	 
+    <br />制系统传送茶青处理室6的温、湿度实时值。电控箱2独立设置，电控箱2内 		 	 	 
+    <br />设有可编程控制器PLC以及与PLC连接的操作面板，温、湿度传感器24、25与  		  	 
+    <br />PLC输入端连接，各执行件包括各输送带的驱动电机30、90、120、140、230、	 	 	 	 
+    <br />红外电热管5c、高频振动器16、风机18、循环风温湿度处理装置的冷凝器191、 	    	 
+    <br />加湿器192、电热器193、排风扇8分别与PLC的控制输出端连接，通过可编程 		 	 	 
+    <br />控制器PLC实现设备的自动控制，同时也可利用手工手动操作。茶青处理室6	 	 	 	 
+    <br />内的空气自循环风进风口4b进入空气处理室，经过循环风温湿度处理装置处理 	    	 
+    <br />后，通过风机18经循环风出风口4c再次送入茶青处理室6内，如此重复循环。 		 	 	 
+    <br />当茶青处理室6内的湿度大于设定值时，排风扇8、自动风门23自动开启，排  		  	 
+    <br />风扇8将茶青处理室6内的湿汽排除，空气处理室7的后侧板上的进风口被打	 	 	 	 
+    <br />开，外部新鲜空气及时补充到茶青处理室6内。 	    	 
+    </p>
+      <p id="p-0032-zh" num="0032">实施例2：如图5所示。本实施例与实施例1不同的是：出料输送带12直	 	 	 	 
+    <br />接设于最下层输送带98的下料口端下方的茶青处理室6的内底部，茶青处理室 	    	 
+    <br />6的两侧板上对应设有供出料输送带12通过的开口26，出料输送带12的两端 		 	 	 
+    <br />通过对应开口26伸出茶青处理室6外。最下层输送带98送出的茶叶直接落入  		  	 
+    <br />出料输送带12上，不再设置过料口。其余结构与实施例1相同，在此不再赘述。	 	 	 	 
+    </p>
+    </mode-for-invention>
+  </description>
+  <claims id="claims_chi" lang="chi" format="original" date-changed="20091226">
+    <claim num="1">
+      <claim-text>1. 一种茶叶萎凋处理设备，其特征在于：包括机架以及装设于机架后上部	 	 	 	 
+      <br />的箱体；箱体前方的机架上装设提料输送带，该输送带上密布有通风孔，其上 	    	 
+      <br />料端设有料斗、卸料端穿过箱体侧板伸入箱体内上方，输送带下方对应设有冷 		 	 	 
+      <br />热风供应装置；箱体内后部设有分隔板，分隔板与箱体前、后侧板之间分别形  		  	 
+      <br />成茶青处理室、空气处理室，分隔板的两侧对应分设连通两处理室的循环风进、	 	 	 	 
+      <br />出风口；空气处理室配设有循环风温湿度处理装置、风机，风机的送风口与分 	    	 
+      <br />隔板上的出风口相连；茶青处理室的顶板上装设有排风装置，提料输送带卸料 		 	 	 
+      <br />端下方的茶青处理室内装设有多层横向交错布置将提料输送带送入的茶青逐层  		  	 
+      <br />向下承送的铺青输送带，上、下相邻层铺青输送带的转动方向相反，最下层铺	 	 	 	 
+      <br />青输送带下料口端下方设有出料输送带，出料输送带的一端与所述料斗之间设 	    	 
+      <br />有用于回送茶青至料斗内的循环回送装置、另一端下方设有接料槽；茶青处理 		 	 	 
+      <br />室内设有与控制系统相连的温、湿度传感器；还包括电控箱。  		  	 
+      </claim-text>
+    </claim>
+    <claim num="2">
+      <claim-text>2. 根据权利要求1所述的茶叶萎凋处理设备，其特征在于：所述茶青处理	 	 	 	 
+      <br />室内多层输送带中至少有一层输送带上设有高频振动器。 	    	 
+      </claim-text>
+    </claim>
+    <claim num="3">
+      <claim-text>3. 根据权利要求1所述的茶叶萎凋处理设备，其特征在于：所述空气处理 		 	 	 
+      <br />室内的循环风温湿度处理装置包括冷凝器、加湿器、电热器，冷凝器安装于分  		  	 
+      <br />隔板上循环风进、出风口之间的空气处理室的中部，加湿器装设于冷凝器循环	 	 	 	 
+      <br />风入风口一侧、加热装置、风机装设于冷凝器出风口一侧；冷凝器、加湿器、 	    	 
+      <br />电热器分别连接控制系统的对应输出端。 		 	 	 
+      </claim-text>
+    </claim>
+    <claim num="4">
+      <claim-text>4. 根据权利要求1所述的茶叶萎凋处理设备，其特征在于：所述冷热风供  		  	 
+      <br />应装置包括出风口正对提料输送带的风箱，风箱的进风口连接鼓风机，风箱内	 	 	 	 
+      <br />下部装设有红外电热管。 	    	 
+      </claim-text>
+    </claim>
+    <claim num="5">
+      <claim-text>5. 根据权利要求1所述的茶叶萎凋处理设备，其特征在于：所述循环回送  		  	 
+      <br />装置包括回送输送带、导料槽，回送输送带的一端位于出料输送带对应端下方、	 	 	 	 
+      <br />另一端位于料斗的侧上方且设有卸料口，导料槽倾斜设于料斗与回送输送带的 	    	 
+      <br />卸料口之间。 		 	 	 
+      </claim-text>
+    </claim>
+    <claim num="6">
+      <claim-text>6. 根据权利要求1所述的茶叶萎凋处理设备，其特征在于：所述出料输送  		  	 
+      <br />带设于茶青处理室的底板下方，最下层输送带下料口端与出料输送带之间的箱	 	 	 	 
+      <br />体底板对应设有纵向贯通的过料口。 	    	 
+      </claim-text>
+    </claim>
+    <claim num="7">
+      <claim-text>7. 根据权利要求1所述的茶叶萎凋处理设备，其特征在于：所述出料输送 		 	 	 
+      <br />带设于茶青处理室内底部，茶青处理室的两侧板对开有可供出料输送带穿过的  		  	 
+      <br />开口。最下层输送带下料口端下方的，与出料输送带之间的箱体底板对应设有	 	 	 	 
+      <br />纵向贯通的过料口。 	    	 
+      </claim-text>
+    </claim>
+    <claim num="8">
+      <claim-text>8. 根据权利要求1所述的茶叶萎凋处理设备，其特征在于：所述茶青处理 		 	 	 
+      <br />室的顶板上装设有排风装置为排气扇。  		  	 
+      </claim-text>
+    </claim>
+  </claims>
+</lexisnexis-patent-document>
