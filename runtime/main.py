@@ -30,13 +30,14 @@ from html import HTML_PREFIX, HTML_END
 # try to trap as many Exceptions as possible
 TRAP_ERRORS = True
 
-# process all elements of th einput list, positive integers indicate a limit to the number
+# process all elements of the input list, positive integers indicate a limit to the number
 # of files processed
 CAP = 0
 
 
 def usage():
-    print "Usage: % python main.py [--debug] [--cap N] [-l LANGUAGE] [-o OUTPUT_DIR] FILE_LIST\n"
+    print "Usage: % python main.py [--debug] [--cap N] " + \
+          "[-l LANGUAGE] [-o OUTPUT_DIR] FILE_LIST\n"
 
 
 def handle_exception(e, message=None):

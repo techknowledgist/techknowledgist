@@ -24,4 +24,4 @@ cd $target_dir
 
 # this assumes we are in ../../utils directory
 # must change this if $target_dir is changed
-../runtime/utils/unpack.sh tries
+../runtime/scripts/unpack.sh tries
