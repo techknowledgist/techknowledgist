@@ -1,0 +1,3 @@
+# run on first five German patents in the list
+python main.py --debug --cap=5 -l GERMAN -o data/html data/list-DE-random.txt 
+

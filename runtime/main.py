@@ -17,11 +17,12 @@ Usage:
 
 import os, sys, getopt, time, codecs, random, pprint, glob
 
-script_path = os.path.abspath(sys.argv[0])
-script_dir = os.path.dirname(script_path)
-code_dir = os.path.split(script_dir)[0]
-sys.path.append(code_dir)
+saved_dir = os.getcwd()
+os.chdir('..')
+sys.path.insert(0, os.getcwd())
+os.chdir(saved_dir)
 
+import runtime.utils.test
 from utils.docstructure.main import Parser
 from utils.splitter import Splitter
 from utils.tries.matcher import Matcher, Trie
@@ -177,7 +178,9 @@ class OntologyReader(object):
 
     def technologies(self, language):
         """Read the technologies as stored in the lists for the three languages."""
-        with codecs.open("technologies/technologies-%s.txt" % language, encoding='utf-8') as fh:
+        technology_file = "technologies/technologies-%s.txt" % language
+        #technology_file = "technologies/DNA_Giga_IDF_rankingList.txt"
+        with codecs.open(technology_file, encoding='utf-8') as fh:
             technologies = [t.strip() for t in fh.readlines()]
             return technologies
 
