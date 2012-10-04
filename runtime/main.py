@@ -210,7 +210,7 @@ class ResultStore(object):
         self.data = {}
         self.weights = {}
         self.overall_score = None   # will be added by the Scorer
-        
+
     def add(self, filename, year, results):
         """Adding results, indexing on year and filename."""
         self._ensure_year(year)
@@ -232,6 +232,19 @@ class ResultStore(object):
     def get_file_scores(self, year):
         return [d['SCORE'] for d in self.data[year]['FILES'].values()]
         
+    def get_all_file_scores(self):
+        scores = []
+        for year in self.data.keys():
+            scores.extend([d['SCORE'] for d in self.data[year]['FILES'].values()])
+        return scores
+
+    def get_all_year_scores(self):
+        scores = []
+        for year in sorted(self.data.keys()): 
+            if self.data[year]['TOTAL'].has_key('SCORE'):
+                scores.append((year, self.data[year]['TOTAL']['SCORE']))
+        return scores
+
     def get_weight(self, section):
         return self.weights.get(section, 0)
 
@@ -261,7 +274,18 @@ class ResultStore(object):
 
     def get_technologies(self, year):
         return self.data[year]['TOTAL']['TECHNOLOGIES']
-                
+
+    def get_all_technologies(self):
+        all_technologies = {}
+        for year in self.data.keys():
+            technologies = self.get_technologies(year)
+            for technology, counts in technologies.items():
+                all_technologies.setdefault(technology, {})
+                for section, count in counts.items():
+                    all_technologies[technology].setdefault(section, 0)
+                    all_technologies[technology][section] += count
+        return all_technologies
+    
     def _ensure_year(self, year):
         self.data.setdefault(year, { 'FILES': {}, 'TOTAL': { 'TECHNOLOGIES': {}}})
         
@@ -311,7 +335,7 @@ class Scorer(object):
 
     """ The scoring scheme for calculating the average maturity scores over a year from
     the individual technology scores proceeds as follows. Each technology is associated
-    with or more tuples of technology name T, maturity level ML for the year, section name
+    with one or more tuples of technology name T, maturity level ML for the year, section name
     S, section weight W_s and number of times the technology occurred in the section (N):
 
        <T, ML, S, Ws, N>
@@ -366,15 +390,12 @@ class Scorer(object):
         try:
             return (sum_maturity_x_weight_x_count / sum_weight_x_count) / 3
         except ZeroDivisionError:
-            # TODO: must track when this happens
+            # TODO: track when this happens
             return 0.0
         
     
 class Exporter(object):
 
-    # TODO: must use mockup of histogram in year html
-    # TODO: must use mockup of ontology entry
-    
     def __init__(self, language, html_dir, ontology_dir):
         self.language = language
         self.html_dir = html_dir
@@ -382,12 +403,24 @@ class Exporter(object):
         
     def export(self, result_store):
         self.result_store = result_store
+        self.export_rdg()
         for year in result_store.get_years():
             try:
                 self.export_year(year)
             except Exception, e:
                 handle_exception(e, "Exception while exporting year %s" % year)
-                
+
+    def export_rdg(self):
+        fh = codecs.open(os.path.join(self.html_dir, "rdg.html"), 'w', encoding='utf-8')
+        fh.write(HTML_PREFIX)
+        fh.write("<h1>Technological Maturity Scores for the RDG</h1>\n")
+        self.export_maturity_score(fh)
+        self.export_year_scores(fh)
+        self.export_histogram(fh)
+        self.export_technologies(fh)
+        fh.write(HTML_END)
+        fh.close()
+
     def export_year(self, year):
         fh = codecs.open(os.path.join(self.html_dir, "%s.html" % year), 'w', encoding='utf-8')
         fh.write(HTML_PREFIX)
@@ -395,23 +428,47 @@ class Exporter(object):
         self.export_maturity_score(fh, year)
         self.export_histogram(fh, year)
         self.export_technologies(fh, year)
-        fh.write("\n")
         fh.write(HTML_END)
         fh.close()
         
-    def export_maturity_score(self, fh, year):
-        fh.write("<h3>Average maturity score for 2006</h3>\n")
+    def export_maturity_score(self, fh, year=None):
+        if year is not None:
+            fh.write("<h3>Average maturity score for %s</h3>\n" % year)
+        else:
+            fh.write("<h3>Average maturity score for the RDG</h3>\n")
         fh.write("<blockquote>\n")
         fh.write("<table cellspacing=0 cellpadding=5 border=1>\n")
         fh.write("<tr>\n")
         fh.write("  <td>AVERAGE_MATURITY_SCORE\n")
-        fh.write("    <td>%.4f\n" % self.result_store.get_score(year))
+        if year is not None:
+            fh.write("    <td>%.4f\n" % self.result_store.get_score(year))
+        else:
+            fh.write("    <td>%.4f\n" % self.result_store.overall_score)
         fh.write("</table>\n")
         fh.write("</blockquote>\n\n")
         
-    def export_histogram(self, fh, year):
+    def export_year_scores(self, fh):
+        scores = self.result_store.get_all_year_scores()
+        fh.write("<h3>Scores for all years</h3>\n")
+        fh.write("<blockquote>\n")
+        fh.write("<table cellpadding=3 cellspacing=0 border=1>\n")
+        for year, score in scores:
+            fh.write("<tr>\n")
+            fh.write("  <td><a href=%s.html>%s</a></td>\n" % (year, year))
+            fh.write("  <td>%.4f</td>\n" % score)
+        fh.write("</table>\n")
+        fh.write("</blockquote>\n\n")
 
-        scores = self.result_store.get_file_scores(year)
+        
+    def export_histogram(self, fh, year=None):
+
+        # TODO: something seems wrong in these histograms, they do not seem to match the
+        # scores
+        
+        if year is not None:
+            scores = self.result_store.get_file_scores(year)
+        else:
+            scores = self.result_store.get_all_file_scores()
         bins = [0,0,0,0,0,0,0,0,0,0]
         names = ['0.0-0.1', '0.1-0.2', '0.2-0.3', '0.3-0.4', '0.4-0.5',
                  '0.5-0.6', '0.6-0.7', '0.7-0.8', '0.8-0.9', '0.9-1.0']
@@ -425,7 +482,8 @@ class Exporter(object):
         # TODO: change adjustment for long bars, use this below
         #if max > 100:
         #    adjustment =
-        fh.write("<h3>Histogram of Maturity Score Distribution over %s Patents </h3>\n" % year)
+        year_str = year if year is not None else "All"
+        fh.write("<h3>Histogram of Maturity Score Distribution over %s Patents </h3>\n" % year_str)
         fh.write("<blockquote>\n")
         fh.write("<pre>\n")
         for i in range(9, -1, -1):
@@ -433,22 +491,25 @@ class Exporter(object):
             fh.write("%s\n" % bar_string)
         bottom_line = '-' * maxval
         fh.write("        +-%s" % bottom_line)
-        #fh.write("\n")
         fh.write("</pre>\n")
         fh.write("</blockquote>\n")
 
 
         
-    def export_technologies(self, fh, year):
+    def export_technologies(self, fh, year=None):
+        # TODO: make sure we only get 50 (this is not essential for the mockup)
         fh.write("<h3>Top 50 technologies referenced, with occurrence count, maturity score, ")
         fh.write("and links to the ontology</h3>\n")
         fh.write("<blockquote>\n")
         fh.write("<table cellspacing=0 cellpadding=3 border=1>\n")
-        technologies = self.result_store.get_technologies(year)
+        if year is not None:
+            technologies = self.result_store.get_technologies(year)
+        else:
+            technologies = self.result_store.get_all_technologies()
         for t in sorted(technologies.keys()):
             #print technologies[t]
             fh.write("<tr>\n")
-            fh.write("   <td><a href=#>%s</a>\n" % t)
+            fh.write("   <td><a href=ontology/planetary_gearing/index.html>%s</a>\n" % t)
             fh.write("   <td align=right>%d\n" % sum(technologies[t].values()))
             fh.write("   <td>%s\n" % random.randint(0,2))
         fh.write("</table>\n")

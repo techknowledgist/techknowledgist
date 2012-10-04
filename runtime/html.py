@@ -18,6 +18,7 @@ HTML_PREFIX = """
 """
 
 HTML_END = """
+
 </body>
 </html>
 """
