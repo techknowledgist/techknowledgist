@@ -17,10 +17,17 @@ Usage:
 
 import os, sys, getopt, time, codecs, random, pprint, glob
 
-saved_dir = os.getcwd()
+#saved_dir = os.getcwd()
+#os.chdir('..')
+#sys.path.insert(0, os.getcwd())
+#os.chdir(saved_dir)
+
+script_path = os.path.abspath(sys.argv[0])
+script_dir = os.path.dirname(script_path)
+os.chdir(script_dir)
 os.chdir('..')
 sys.path.insert(0, os.getcwd())
-os.chdir(saved_dir)
+os.chdir(script_dir)
 
 import runtime.utils.test
 from utils.docstructure.main import Parser
@@ -118,7 +125,8 @@ class TechnologyTagger(object):
         self.storage.add(os.path.basename(filename), year, lookup_results)
     
     def clear_tmp_files(self):
-        files = glob.glob('data/tmp/*')
+        #files = glob.glob('data/tmp/*')
+        files = glob.glob('%sdata/tmp/*' % script_dir)
 	for f in files:
             os.remove(f)
 
@@ -160,7 +168,8 @@ class TechnologyTagger(object):
         extensions = ('txt', 'tags', 'fact', 'sect')
         basename = os.path.basename(self.filename)
         timestamp = time.strftime("%Y%m%d-%H%M%S")
-        return ["data/tmp/%s-%s.%s" % (timestamp, basename, ext) for ext in extensions]
+        #return ["data/tmp/%s-%s.%s" % (timestamp, basename, ext) for ext in extensions]
+        return ["%s/data/tmp/%s-%s.%s" % (script_dir, timestamp, basename, ext) for ext in extensions]
 
     def _select_data(self, data):
         """Barebones version. Should return a list of tuples with type and weight:
@@ -178,7 +187,8 @@ class OntologyReader(object):
 
     def technologies(self, language):
         """Read the technologies as stored in the lists for the three languages."""
-        technology_file = "technologies/technologies-%s.txt" % language
+        #technology_file = "technologies/technologies-%s.txt" % language
+        technology_file = "%s/technologies/technologies-%s.txt" % (script_dir, language)
         #technology_file = "technologies/DNA_Giga_IDF_rankingList.txt"
         with codecs.open(technology_file, encoding='utf-8') as fh:
             technologies = [t.strip() for t in fh.readlines()]
