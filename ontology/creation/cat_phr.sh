@@ -2,6 +2,13 @@
 # sh /home/j/anick/fuse/cat_phr.sh /home/j/anick/fuse/data/patents/en/phr_occ /home/j/anick/fuse/data/patents/tmp/en
 # sh /home/j/anick/fuse/cat_phr.sh /home/j/anick/fuse/data/patents/de/phr_occ /home/j/anick/fuse/data/patents/tmp/de
 
+# Creates summary files for the chunk output, creates lists summed over years:
+#
+#    $output_dir/phr_occ.all  all instances
+#    $output_dir/phr_occ.lab  all chunks, sorted by frequency, formatted for annotation
+#    $output_dir/phr_occ.uct  all chunks, sorted by frequency, frequency added in first column
+
+
 input_dir=$1
 output_dir=$2
 
@@ -15,7 +22,7 @@ output_dir=$2
 
 for f in $input_dir/*/*; do
     echo $f
-    cat $f | cut -f1  >> $output_dir/phr_occ.all
+    cat $f | cut -f3  >> $output_dir/phr_occ.all
 done
 
 #COMMENT

@@ -44,6 +44,7 @@ class Doc:
 
     def __init__(self, input,  output_phr_occ, output_phr_feats, chunk_schema):
         self.input = input
+        self.year = input.split(os.sep)[-2]
         self.output_phr_occ = output_phr_occ
         self.output_phr_feats = output_phr_feats
         self.chunk_schema = chunk_schema
@@ -196,7 +197,7 @@ class Doc:
 
                         if section == "TITLE" or share_term_p(self.l_lc_title_noun, chunk.lc_tokens):
                             #print "matched term for %s and %s" %  (self.l_lc_title_noun, chunk.lc_tokens)
-                            unlabeled_out = "\t".join([uid, chunk.phrase.lower(), hsent + '\n'])
+                            unlabeled_out = "\t".join([uid, self.year, chunk.phrase.lower(), hsent + '\n'])
 
                             unlabeled_out = unlabeled_out.encode('utf-8')
                             s_output_phr_occ.write(unlabeled_out)
@@ -837,7 +838,7 @@ def patent_tag2chunk_dir(patent_path, language):
         phr_occ_year_dir = phr_occ_path + "/" + year
         phr_feats_year_dir = phr_feats_path + "/" + year
         tag_year_dir = tag_path + "/" + year
-        #print "[patent_tag2chunk_dir]calling tag2chunk for dir: %s" % tag_year_dir
+        print "[patent_tag2chunk_dir]calling tag2chunk for dir: %s" % tag_year_dir
         tag2chunk_dir(tag_year_dir, phr_occ_year_dir, phr_feats_year_dir, c_schema)
     print "[patent_tag2chunk_dir]finished writing chunked data to %s and %s" % (phr_occ_path, phr_feats_path)
 

@@ -60,7 +60,7 @@ import pdb
 # import Popen3
 
 # debug_p value for sdpWrapper instance 
-debug_p = 1
+debug_p = 0
 
 # To align sdp token nos with tokens starting at index 0, we need to 
 # add the token_no_offset of -1.  To use the sdp token numbering, set this to 0
@@ -495,19 +495,19 @@ class sdpWrapper:
             if line[0:2] =="~_": break
 
 
-            print "[get_output_to_end]in while loop.  line: |%s|" % line
+            #print "[get_output_to_end]in while loop.  line: |%s|" % line
             #result=result+line
             result=result + "\t" + line
-            print "[get_output_to_end]result: |%s|" % result
+            #print "[get_output_to_end]result: |%s|" % result
             #line = self.proc.stdout.readline()
             #line = self.proc.stdout.readline().decode('utf8')
             line = self.proc.stdout.readline().decode(sys.stdout.encoding)
             line = self.proc.stdout.readline()
             line = unicode(line)
-            print "[get_output_to_end]next line: |%s|" % line
+            #print "[get_output_to_end]next line: |%s|" % line
 
 
-        print "[get_output_to_end]Out of loop.  Returning..."
+        #print "[get_output_to_end]Out of loop.  Returning..."
         return result[1:]
 
 
@@ -1139,7 +1139,7 @@ class STagger:
             self.debug_p = 0
 
         global debug_p
-        debug_p = 0
+        debug_p = 1
 
     # model should be a file name in the tagger models subdirectory 
     # /home/j/anick/fuse/share/stanford-postagger-full-2012-07-09/models
@@ -1377,8 +1377,8 @@ class Segmenter:
         self.data_dir = self.seg_dir + "/data"
 
         # print debugging statements if True
-        #self.verbose = False
-        self.verbose = True
+        self.verbose = False
+        #self.verbose = True
 
         # make the models directory explicit
         # This fixes a broken pipe error that results when the entire models path is not specified.

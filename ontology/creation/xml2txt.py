@@ -2,7 +2,7 @@
 # module to create a fielded text file from an xml (patent) file
 # top level call: patents_xml2txt(patent_path, lang)
 
-from lxml import etree
+#from lxml import etree
 import os
 import pdb
 import sys
@@ -44,31 +44,23 @@ def test():
 def patents_xml2txt(patent_path, lang):
     xml_parser = Parser()
     xml_parser.onto_mode = True
-    start_year = 1980
-    end_year = 2012
     if lang == "en":
         xml_parser.language = "ENGLISH"
         print "[patents_xml2txt]xml_parser.language: %s" % xml_parser.language
-        
     elif lang == "de":
         xml_parser.language = "GERMAN"
         print "[patents_xml2txt]xml_parser.language: %s" % xml_parser.language
-        start_year = 1980
-        end_year = 2012
     elif lang == "cn":
         xml_parser.language = "CHINESE"
         print "[patents_xml2txt]xml_parser.language: %s" % xml_parser.language
-        start_year = 1987
-        end_year = 2012
 
     lang_path = patent_path + "/" + lang
-
     
     # create the year list and process those docs
-    l_year = [] 
-    for year in range(start_year, end_year):
-        year = str(year)
+    l_year = os.listdir(lang_path + "/xml")
 
+    for year in l_year:
+        year = str(year)
         source_path = lang_path + "/xml" + "/" + year
         target_path = lang_path + "/txt" + "/" + year
         ds_text_path = lang_path + "/ds_text" + "/" + year

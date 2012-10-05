@@ -28,13 +28,14 @@ def tag(input, output, tagger):
                 # we are at a section header
                 # write it back out as is
                 line_out = line.encode('utf-8')
-                s_output.write(line_out)
+                s_output.write("%s\n" % line_out)
             else:
                 if debug_p:
                     print "[tag]line: %s" % line
                 # process the sentences in the section
                 l_tag_string = tagger.tag(line)
-
+                if debug_p:
+                    print "[tag]line2: %s" % line
                 for tag_string in l_tag_string:
                     tag_string = tag_string.encode('utf-8')
                     if debug_p:
