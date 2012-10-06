@@ -134,6 +134,9 @@ class Doc:
 
 
                         m_chunk = mallet_feature("", chunk.phrase.lower())
+                        # remove the __ separator at the beginning of the chunk, since we don't
+                        # really need it
+                        m_chunk = m_chunk[2:]
                         m_section = mallet_feature("section", section)
                         m_section_loc = mallet_feature("section_loc", section_loc)
                         m_prev_n3 = mallet_feature("prev_n3", prev_n3 )
@@ -504,7 +507,7 @@ class Sent:
 
     def next_n_tags(self, index, count):
         next_n_string = ""
-        end = self.chart[index].chunk_end + count
+        end = (self.chart[index].chunk_end + count) - 1
         sent_end = self.len - 1
         if sent_end < end:
             end = sent_end
@@ -775,13 +778,42 @@ def chunk_schema(lang):
         end_pat = [ ["NN", []], ["NE", []] ]
 
     elif lang == "cn":
-        start_pat =  [ ["NN", []] ]
-        cont_pat = [ ["NN", []] ] 
-        end_pat = [ ["NN", []] ]
-
+        load_patterns = False
+        if load_patterns:
+            start_pat = []
+            cont_pat = []
+            end_pat = []
+            fh = codecs.open("chunk_schema_%s.txt" % lang)
+            for line in fh:
+                line = line.strip()
+                if not line:
+                    continue
+                add_chunk_pattern_element(line, start_pat, cont_pat, end_pat)
+        else:
+            start_pat =  [ ["NN", []], ["NR", []], ["NT", []], ["JJ", []], ["VA", []] ]
+            cont_pat = [ ["NN", []], ["NR", []], ["NT", []], ["JJ", []], ["VA", []], ["DEG", []], ["DEC", []] ]
+            end_pat = [ ["NN", []]  ]
     
     cs = chunkSchema(start_pat, cont_pat, end_pat)
     return(cs)
+
+
+def add_chunk_pattern_element(line, start_pat, cont_pat, end_pat):
+    (pattern_type, l_elements) = line.split("\t")
+    l_elements = l_elements.split()
+    tag = l_elements[0]
+    constraint = l_elements[1:]
+    if pattern_type == "start_pat":
+        pattern_list = start_pat
+    elif pattern_type == "cont_pat":
+        pattern_list = cont_pat
+    elif pattern_type == "end_pat":
+        pattern_list = end_pat
+    else:
+        print "Warning: illegal pattern type"
+        return
+    pattern_list.append([tag, constraint])
+
 
 def tag2chunk_dir(tag_dir, phr_occ_dir, phr_feats_dir, chunk_schema):
     #output_chunk = "/home/j/anick/fuse/data/patents/en_test/chunk/US20110052365A1.xml"

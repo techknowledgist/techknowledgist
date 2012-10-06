@@ -37,6 +37,9 @@ The final results of these steps are in:
     TARGET_PATH/LANGUAGE/phr_feat
     TARGET_PATH/LANGUAGE/ws
 
+Example calls:
+python2.6 patent_analyzer.py -l cn --tag2chk
+
 """
 
 
