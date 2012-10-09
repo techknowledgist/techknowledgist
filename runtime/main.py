@@ -83,8 +83,8 @@ class TechnologyTagger(object):
         # these will be used for the prefix trie lookup
         self.technologies = OntologyReader().technologies(language)
         self.lookup = Lookup(self.language, self.technologies)
-        self.storage = ResultStore()
-        self.exporter = Exporter(language, output_dir, '../ontology')
+        self.storage = ResultStore(self.technologies)
+        self.exporter = Exporter(language, self.technologies, output_dir, '../ontology')
 
     def __str__(self):
         return "<TechnologyTagger on \"%s\" language=\"%s\">" \
@@ -187,20 +187,27 @@ class OntologyReader(object):
 
     def technologies(self, language):
         """Read the technologies as stored in the lists for the three languages."""
-        #technology_file = "technologies/technologies-%s.txt" % language
-        technology_file = "%s/technologies/technologies-%s.txt" % (script_dir, language)
-        #technology_file = "technologies/DNA_Giga_IDF_rankingList.txt"
-        with codecs.open(technology_file, encoding='utf-8') as fh:
-            technologies = [t.strip() for t in fh.readlines()]
-            return technologies
-
+        technology_file1 = "%s/technologies/%s/phr_occ6_identifiers.tab" % (script_dir, language)
+        technology_file2 = "%s/technologies/%s/phr_occ5_maturity.tab" % (script_dir, language)
+        technologies = {}
+        with codecs.open(technology_file1, encoding='utf-8') as fh:
+            for line in fh:
+                (term, id) = line.strip().split("\t")
+                technologies[term] = [id]
+        with codecs.open(technology_file2, encoding='utf-8') as fh:
+            for line in fh:
+                (term, maturity) = line.strip().split("\t")
+                technologies[term].append(maturity.split())
+        #for k,v in technologies.items(): print k,v
+        return technologies
+        
     
 class Lookup(object):
 
     def __init__(self, language, technologies):
         self.language = language
         self.splitter = Splitter(language)
-        self.matcher = Matcher(Trie([(t,'t') for t in technologies]))
+        self.matcher = Matcher(Trie([(t,'t') for t in technologies.keys()]))
             
     def search(self, sections):
         use_boundaries = False if self.language == 'CHINESE' else True
@@ -216,7 +223,9 @@ class Lookup(object):
     
 class ResultStore(object):
 
-    def __init__(self):
+    def __init__(self, technologies):
+        # This needs the technologies list to retrieve the maturity score
+        self.technologies = technologies
         self.data = {}
         self.weights = {}
         self.overall_score = None   # will be added by the Scorer
@@ -232,7 +241,7 @@ class ResultStore(object):
             technology_inyear = self.get_technology(year, None, technology)
             for tech in (technology_inyear, technology_infile):
                 tech[sectype] = tech.setdefault(sectype,0) + 1
-    
+                
     def get_years(self):
         return self.data.keys()
     
@@ -262,7 +271,13 @@ class ResultStore(object):
         """Return the maturity level of the technology for the given year. This should
         query the ontology, or the list derived from the ontology that is stored in
         TechnologyTagger.technologies. For now, we just make it up."""
-        return random.randint(0,2)
+        tipping_points = self.technologies[technology][1]
+        if year < tipping_points[0]:
+            return 0
+        elif year < tipping_points[1]:
+            return 1
+        else:
+            return 2
 
     def get_score(self, year, filename=None):
         if filename is None:
@@ -406,8 +421,9 @@ class Scorer(object):
     
 class Exporter(object):
 
-    def __init__(self, language, html_dir, ontology_dir):
+    def __init__(self, language, technologies, html_dir, ontology_dir):
         self.language = language
+        self.technologies = technologies
         self.html_dir = html_dir
         self.ontology_dir = ontology_dir
         
@@ -517,9 +533,10 @@ class Exporter(object):
         else:
             technologies = self.result_store.get_all_technologies()
         for t in sorted(technologies.keys()):
+            technology_id = self.technologies[t][0]
             #print technologies[t]
             fh.write("<tr>\n")
-            fh.write("   <td><a href=ontology/planetary_gearing/index.html>%s</a>\n" % t)
+            fh.write("   <td><a href=ontology/t%s/index.html>%s</a>\n" % (technology_id, t))
             fh.write("   <td align=right>%d\n" % sum(technologies[t].values()))
             fh.write("   <td>%s\n" % random.randint(0,2))
         fh.write("</table>\n")
