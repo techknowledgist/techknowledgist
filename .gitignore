@@ -2,3 +2,6 @@
 *~
 utils/docstructure/*
 utils/tries/*
+ontology/creation/log.dat
+ontology/creation/data/patents/*
+ontology/creation/data/patents_backup
