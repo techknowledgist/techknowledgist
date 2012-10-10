@@ -121,3 +121,28 @@ def patent_txt2tag_dir(lang_path, language):
 def tag_lang(lang):
     patent_path = "/home/j/anick/fuse/data/patents"
     patent_txt2tag_dir("/home/j/anick/fuse/data/patents", lang)
+
+### added by PGA 10/8
+
+def pipeline_txt2tag_dir(root, language):
+    source_path = os.path.join(root, "txt")
+    target_path = os.path.join(root, "tag")
+
+    # choose tagger for language
+    if language == "en":
+        tagger = sdp.STagger("english-caseless-left3words-distsim.tagger")
+    elif language == "de":
+        # note: german-fast is much faster than german-dewac although 4% poorer in dealing
+        # with unknown words.
+        tagger = sdp.STagger("german-fast.tagger")
+    elif language == "cn":
+        tagger = sdp.STagger("chinese.tagger")
+
+    for file in os.listdir(source_path):
+        source_file = source_path + "/" + file
+        target_file = target_path + "/" + file
+        print "[txt2tag_dir]from %s to %s" % (source_file, target_file)
+        #txt2tag_file(source_file, target_file, tagger)
+        tag(source_file, target_file, tagger)
+    print "[txt2tag_dir]done"
+

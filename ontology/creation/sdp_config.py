@@ -13,21 +13,19 @@
 #sdp_dir = "/home/g/grad/anick/ie/stanford-parser-2010-02-26"
 
 # parser location
-# sdp_dir = "/home/j/anick/fuse/share/stanford-parser-2012-07-09"
-
-TOOLS_DIR = "/home/j/corpuswork/fuse/code/patent-classifier/tools/"
+# not needed for chunking
+sdp_dir = "/home/j/anick/fuse/share/stanford-parser-2012-07-09"
 
 # tagger location
 #stag_dir="/home/j/anick/fuse/share/stanford-postagger-full-2012-07-09"
-stag_dir = TOOLS_DIR + "stanford/stanford-postagger-full-2012-07-09"
+stag_dir="/home/j/corpuswork/fuse/code/patent-classifier/tools/stanford/stanford-postagger-full-2012-07-09" 
 
 # segmenter location
 #seg_dir="/home/j/anick/fuse/share/stanford-segmenter-2012-07-09"
-seg_dir = TOOLS_DIR + "stanford/stanford-segmenter-2012-07-09"
-
+seg_dir="/home/j/corpuswork/fuse/code/patent-classifier/tools/stanford/stanford-segmenter-2012-07-09"
 
 mx = "3000m"
- 
+
 
 debug_p = 1
 sentences = "newline"

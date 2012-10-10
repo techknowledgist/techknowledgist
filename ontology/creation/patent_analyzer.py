@@ -19,6 +19,7 @@ Usage:
     -l LANG     --  provides the language, one of ('en, 'de', 'cn'), default is 'en'
     -s PATH     --  external source directory with XML files, see below for the default
     -t PATH     --  target directory, default is data/patents
+    -v VERSION  -- version number (defaults to 1)
     --init      --  initialize directory structure in target path (non-destructive)
     --populate  --  populate directory in target path with files from source path
     --xml2txt   --  document structure parsing
@@ -39,7 +40,21 @@ The final results of these steps are in:
 
 Example calls:
 python2.6 patent_analyzer.py -l cn --tag2chk
+python2.6 patent_analyzer.py -l cn --summary
+python2.6 patent_analyzer.py -l en --tag2chk
+python2.6 patent_analyzer.py -l en --pf2dfeats
 
+python2.6 patent_analyzer.py -l en --init
+
+python2.6 patent_analyzer.py -l en -x 0 -v 1 --utrain
+python2.6 patent_analyzer.py -l en -v 1 --utest
+python2.6 patent_analyzer.py -l en -v 1 --scores
+
+python2.6 patent_analyzer.py -l en -v 1 --all
+python2.6 patent_analyzer.py -l de -v 1 --all
+
+python2.6 patent_analyzer.py -l en --pf2dfeats
+python2.6 patent_analyzer.py -l en --summary
 """
 
 
@@ -51,28 +66,41 @@ import txt2tag
 import tag2chunk
 import cn_txt2seg
 import cn_seg2tag
+import pf2dfeats
+import train
 
+import config_data
 
-source_path = "/home/j/clp/chinese/corpora/fuse-patents/" + \
-              "500-patents/DATA/Lexis-Nexis/US/Xml"
-target_path = "data/patents"
-language = "en"
+# moved to config_data.py
+#source_path = "/home/j/clp/chinese/corpora/fuse-patents/" + \
+#              "500-patents/DATA/Lexis-Nexis/US/Xml"
+#target_path = "data/patents"
+#language = "en"
 
+source_path = config_data.external_patent_path
+target_path = config_data.working_patent_path
+language = config_data.language
 
 
 if __name__ == '__main__':
 
     (opts, args) = getopt.getopt(
         sys.argv[1:],
-        'l:s:t:',
-        ['init', 'populate', 'xml2txt', 'txt2tag', 'tag2chk', 'summary', 'all'])
+        'l:s:t:v:x:',
+        ['init', 'populate', 'xml2txt', 'txt2tag', 'tag2chk', 'pf2dfeats', 'summary', 'utrain', 'utest', 'scores', 'all'])
     
+    version = "1"
+    xval = "0"
     init = False
     populate = False
     xml_to_txt = False
     txt_to_seg = False
     txt_to_tag = False
     tag_to_chk = False
+    pf_to_dfeats = False
+    union_train = False
+    union_test = False
+    tech_scores = False
     summary = False
     all = False
     
@@ -80,11 +108,19 @@ if __name__ == '__main__':
         if opt == '-l': language = val
         if opt == '-s': source_path = val
         if opt == '-t': target_path = val
+        if opt == '-v': version = val
+        if opt == '-x': xval = val
+
         if opt == '--init': init = True
         if opt == '--populate': populate = True
         if opt == '--xml2txt': xml_to_txt = True
         if opt == '--txt2tag': txt_to_tag = True
         if opt == '--tag2chk': tag_to_chk = True
+        if opt == '--pf2dfeats': pf_to_dfeats = True
+        if opt == '--utrain': union_train = True
+        if opt == '--utest': union_test = True
+        if opt == '--scores': tech_scores = True
+
         if opt == '--summary': summary = True
         if opt == '--all': all = True
 
@@ -118,12 +154,35 @@ if __name__ == '__main__':
     elif tag_to_chk:
         # populates language/phr_occ and language/phr_feat
         tag2chunk.patent_tag2chunk_dir(target_path, language)
+    
+    elif pf_to_dfeats:
+        # creates a union of the features for each chunk in a doc (for training)
+        pf2dfeats.patent_pf2dfeats_dir(target_path, language)
 
     elif summary:
-        command = "sh ./cat_phr.sh %s/%s/phr_occ %s/%s/ws" % \
-                  (target_path, language, target_path, language)
+        # create summary data phr_occ and phr_feats across dates, also phrase file suitable for 
+        # annotation (phr_occ.unlab) in the ws subdirectory
+        command = "sh ./cat_phr.sh %s %s" % (target_path, language)
+        subprocess.call(command, shell=True)
+
+    # Note: At this point, user must manually create an annotated file phr_occ.lab and place it in <lang>/ws subdirectory.
+        
+    elif union_train:
+        # creates a mallet training file for labeled data with features as union of all phrase
+        # instances within a doc.
+        # Creates a model: utrain.<version>.MaxEnt.model in train subdirectory
+        train.patent_utraining_data(target_path, language, version, xval)
+
+    elif union_test:
+        train.patent_utraining_test_data(target_path, language, version)
+
+    elif tech_scores:
+        # use the mallet.out file from union_test to generate a sorted list of 
+        # technology terms with their probabilities
+        command = "sh ./patent_tech_scores.sh %s %s %s" % (target_path, version, language)
         subprocess.call(command, shell=True)
         
+
     elif all:
         l_year = os.listdir(source_path)
         putils.make_patent_dir(language, target_path, l_year)
@@ -135,3 +194,6 @@ if __name__ == '__main__':
         else:
             txt2tag.patent_txt2tag_dir(target_path, language)
         tag2chunk.patent_tag2chunk_dir(target_path, language)
+        pf2dfeats.patent_pf2dfeats_dir(target_path, language)
+        command = "sh ./cat_phr.sh %s %s" % (target_path, language)
+        subprocess.call(command, shell=True)

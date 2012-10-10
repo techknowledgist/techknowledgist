@@ -29,22 +29,25 @@ def make_section_loc(section, sent_no_in_section):
 
 # symbol without blanks, with name and value separated by "__"
 # name should be a string without blanks
-# value should be a sting and may contain blanks
+# value should be a string and may contain blanks
 def mallet_feature(name, value):
+    value_separator = "="
     if value == "":
         return("")
     else:
         symbol = value.strip(" ").replace(" ", "_")
-        feature = name + "__" + symbol
+        feature = name + value_separator + symbol
         #print "created feature: %s" % feature
         return(feature)
     
 
 class Doc:
 
-    def __init__(self, input,  output_phr_occ, output_phr_feats, chunk_schema):
+    def __init__(self, input,  output_phr_occ, output_phr_feats, chunk_schema, year):
         self.input = input
-        self.year = input.split(os.sep)[-2]
+        # PGA made year a parameter so not dependent on path structure 10/9/12
+        #self.year = input.split(os.sep)[-2]
+        self.year = year
         self.output_phr_occ = output_phr_occ
         self.output_phr_feats = output_phr_feats
         self.chunk_schema = chunk_schema
@@ -136,7 +139,7 @@ class Doc:
                         m_chunk = mallet_feature("", chunk.phrase.lower())
                         # remove the __ separator at the beginning of the chunk, since we don't
                         # really need it
-                        m_chunk = m_chunk[2:]
+                        m_chunk = m_chunk[1:]
                         m_section = mallet_feature("section", section)
                         m_section_loc = mallet_feature("section_loc", section_loc)
                         m_prev_n3 = mallet_feature("prev_n3", prev_n3 )
@@ -182,16 +185,26 @@ class Doc:
 
                         # remove empty features from the list
                         mallet_feature_list = [uid]
+
+                        # PGA 10/7                                                                                                                    
+                        year = self.year
+
+                        # meta data at beginning of mallet feature list
+                        mallet_feature_list = [uid, year, chunk.phrase.lower()]
+
+                        # remove empty features from the list                                                                                         
                         for feature in pre_mallet_feature_list:
                             if feature != "":
                                 mallet_feature_list.append(feature)
 
+                        # PGA removed 10/7
+                        """
                         chunk_string = "\t".join(chunk_list)
                         chunk_string = chunk_string.encode('utf-8')
 
                         feature_string = "\t".join(feature_list)
                         feature_string = feature_string.encode('utf-8')
-
+                        """
 
 
                         if debug_p:
@@ -764,7 +777,7 @@ def chunk_schema(lang):
     end_pat = []
     
     if lang == "en":
-        both_pat =  [ ["NN", []], ["NNP", []], ["NNS", []], ["NNPS", []], ["POS", []],  ["JJ", ["-", "further", "such", "therebetween", "same", "following"] ], ["JJR", [] ], ["JJS", [] ], ["FW", [] ], ["VBG", ["-", "describing", "improving", "using", "employing",  "according", "resulting", "having", "following", "including", "containing", "consisting", "disclosing"]  ] ] 
+        both_pat =  [ ["NN", []], ["NNP", []], ["NNS", []], ["NNPS", []], ["POS", []],  ["JJ", ["-", "further", "such", "therebetween", "same", "following"] ], ["JJR", [] ], ["JJS", [] ], ["FW", ["-", "e.g.", "i.e"] ], ["VBG", ["-", "describing", "improving", "using", "employing",  "according", "resulting", "having", "following", "including", "containing", "consisting", "disclosing"]  ] ] 
         #start_pat = [ ["NN", ["-", "method"]] ] 
         start_pat = []
         cont_pat = [ ["NN", []], ["VBN", []], ["IN", ["+", "of"]], ["DT",  []], ["CC", []], ["RP", []] ]
@@ -797,7 +810,7 @@ def chunk_schema(lang):
     cs = chunkSchema(start_pat, cont_pat, end_pat)
     return(cs)
 
-
+# This is needed to deal with proper encoding of Chinese characters within chunk patterns
 def add_chunk_pattern_element(line, start_pat, cont_pat, end_pat):
     (pattern_type, l_elements) = line.split("\t")
     l_elements = l_elements.split()
@@ -815,14 +828,14 @@ def add_chunk_pattern_element(line, start_pat, cont_pat, end_pat):
     pattern_list.append([tag, constraint])
 
 
-def tag2chunk_dir(tag_dir, phr_occ_dir, phr_feats_dir, chunk_schema):
+def tag2chunk_dir(tag_dir, phr_occ_dir, phr_feats_dir, chunk_schema, year):
     #output_chunk = "/home/j/anick/fuse/data/patents/en_test/chunk/US20110052365A1.xml"
     for file in os.listdir(tag_dir):
         input = tag_dir + "/" + file
         output_phr_occ = phr_occ_dir + "/" + file
         output_phr_feats = phr_feats_dir + "/" + file
 
-        doc = Doc(input, output_phr_occ, output_phr_feats, chunk_schema)
+        doc = Doc(input, output_phr_occ, output_phr_feats, chunk_schema, year)
 
 # tag2chunk.test_t2c()
 def test_t2c():
@@ -830,7 +843,8 @@ def test_t2c():
     output_phr_occ = "/home/j/anick/fuse/data/patents/en_test/phr_occ/US20110052365A1.xml"
     output_phr_feats = "/home/j/anick/fuse/data/patents/en_test/phr_feats/US20110052365A1.xml"
     cs = chunk_schema("en")
-    doc = Doc(input, output_phr_occ, output_phr_feats, cs)
+    year = "1980"
+    doc = Doc(input, output_phr_occ, output_phr_feats, cs, year)
     return(doc)
 
 # tag2chunk.test_t2c_cn()
@@ -841,7 +855,8 @@ def test_t2c_cn():
     #chunk_schema = chunk_schema("cn")
     cs = chunk_schema("cn")
     #doc = Doc(input, output_phr_occ, output_phr_feats, chunk_schema)
-    doc = Doc(input, output_phr_occ, output_phr_feats, cs)
+    year = "1980"
+    doc = Doc(input, output_phr_occ, output_phr_feats, cs, year)
     return(doc)
 
 
@@ -871,8 +886,39 @@ def patent_tag2chunk_dir(patent_path, language):
         phr_feats_year_dir = phr_feats_path + "/" + year
         tag_year_dir = tag_path + "/" + year
         print "[patent_tag2chunk_dir]calling tag2chunk for dir: %s" % tag_year_dir
-        tag2chunk_dir(tag_year_dir, phr_occ_year_dir, phr_feats_year_dir, c_schema)
+        tag2chunk_dir(tag_year_dir, phr_occ_year_dir, phr_feats_year_dir, c_schema, year)
     print "[patent_tag2chunk_dir]finished writing chunked data to %s and %s" % (phr_occ_path, phr_feats_path)
+
+### debugging _no output produced PGA 10/8
+def pipeline_tag2chunk_dir(root, language):
+    
+    phr_occ_path = root + "/phr_occ"
+    phr_feats_path = root + "/phr_feats"
+    tag_path = root + "/tag"
+    c_schema = chunk_schema(language)
+    # The only way to determine the year for a file is to look in file_list.txt
+    d_file2year = {}
+    file_list_file = os.path.join(root, "file_list.txt")
+    s_list = open(file_list_file)
+    year = ""
+    file_path = ""
+    for line in s_list:
+        (id, year, path) = line.split(" ")
+        # create the file name from id + .xml
+        file_name = id + ".xml"
+        tag_file = os.path.join(root, "tag", file_name)
+
+        output_phr_occ = os.path.join(root, "phr_occ", file_name)
+        output_phr_feats = os.path.join(root, "phr_feats", file_name)
+
+        print "[pipeline_tag2chunk_dir]about to process doc: %s, phr_occ: %s, phr_feats: %s, year: %s" % (tag_file, output_phr_occ, output_phr_feats, year)
+        doc = Doc(tag_file, output_phr_occ, output_phr_feats, c_schema, year)
+
+
+    s_list.close()
+
+    print "[pipeline_tag2chunk_dir]finished writing chunked data to %s and %s" % (phr_occ_path, phr_feats_path)
+
 
 # top level call to tag txt data dir in a language
 # tag2chunk.chunk_lang("en")
