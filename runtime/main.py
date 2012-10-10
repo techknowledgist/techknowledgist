@@ -15,7 +15,7 @@ Usage:
 """
 
 
-import os, sys, getopt, time, codecs, random, pprint, glob
+import os, sys, getopt, time, codecs, pprint, glob
 
 #saved_dir = os.getcwd()
 #os.chdir('..')
@@ -453,7 +453,7 @@ class Exporter(object):
         fh.write("<h1>Technological Maturity Scores for %s</h1>\n" % year)
         self.export_maturity_score(fh, year)
         self.export_histogram(fh, year)
-        self.export_technologies(fh, year)
+        self.export_technologies(fh, year=year)
         fh.write(HTML_END)
         fh.close()
         
@@ -524,7 +524,7 @@ class Exporter(object):
         
     def export_technologies(self, fh, year=None):
         # TODO: make sure we only get 50 (this is not essential for the mockup)
-        fh.write("<h3>Top 50 technologies referenced, with occurrence count, maturity score, ")
+        fh.write("<h3>Technologies referenced, with occurrence count, maturity score, ")
         fh.write("and links to the ontology</h3>\n")
         fh.write("<blockquote>\n")
         fh.write("<table cellspacing=0 cellpadding=3 border=1>\n")
@@ -532,13 +532,24 @@ class Exporter(object):
             technologies = self.result_store.get_technologies(year)
         else:
             technologies = self.result_store.get_all_technologies()
+        # TODO: get 50 most frequent technologies
         for t in sorted(technologies.keys()):
             technology_id = self.technologies[t][0]
             #print technologies[t]
             fh.write("<tr>\n")
             fh.write("   <td><a href=ontology/t%s/index.html>%s</a>\n" % (technology_id, t))
             fh.write("   <td align=right>%d\n" % sum(technologies[t].values()))
-            fh.write("   <td>%s\n" % random.randint(0,2))
+            tipping_points = self.technologies[t][1]
+            fh.write("   <td>%s\n" % tipping_points[0])
+            fh.write("   <td>%s\n" % tipping_points[1])
+            if year is not None:
+                maturity_score = 0
+                if int(year) >= int(tipping_points[0]):
+                    maturity_score = 1
+                if int(year) >= int(tipping_points[1]):
+                    maturity_score = 2
+                fh.write("   <td>%d\n" % maturity_score)
+                    
         fh.write("</table>\n")
         fh.write("</blockquote>\n")
         fh.write("\n")
