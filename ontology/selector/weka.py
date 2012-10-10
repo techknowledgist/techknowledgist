@@ -1,3 +1,11 @@
+"""
+
+Creating weka input from the features file. Is a bit of a dead end until we figure out a
+better way to deal with the string valued features.
+
+"""
+
+
 import os, glob, codecs
 
 from config import BASE_DIR
@@ -35,7 +43,7 @@ for line in fh:
 
         
 FIELDS = {}
-fh_out = codecs.open('weka.arff', 'w')
+fh_out = codecs.open('technologies.arff', 'w')
 fh_out.write("@relation technology\n\n")
 for f in defined_fields:
     fh_out.write("@attribute %s string\n" % f)
