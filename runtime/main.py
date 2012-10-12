@@ -4,14 +4,28 @@ Main script for the technology tagger.
 
 Usage:
 
-    % python main.py [--debug] [--cap N] [-l LANGUAGE] [-o OUTPUT_DIR] FILE_LIST
+    % python main.py [OPTIONS] -o OUTPUT_DIR FILE_LIST
+    % python main.py [OPTIONS] --infile INPATH --outfile OUTPATH
 
-    LANGUAGE is one of ENGLISH, CHINESE and GERMAN, default is ENGLISH
-    OUTPUT_DIR is the directory where the HTML files are written, default is data/html
-    FILE_LIST is a list with paths to XML files
-    [--debug] switches off error trapping
-    [--cap N] indicates limit to number of files processed
+    Use the first version to run in batch on the elements listed in FILE_LIST, writing
+    results to OUTPUT_DIR. Results are either overview html files or individual fact
+    files. In the latter case, the names of files written to OUTPUT_DIR are the
+    concatenation of the the basename of the path in FILE_LIST and '.tech'.
+
+    One of the options is to set the mode. In monolingual mode, fact files are created for
+    each input file. In multilingual mode, html overview files are created for the entire
+    file list and for each year.
     
+    The second version can only be used for the monolingual mode (it implies --mode=MONO)
+    and requires a path for the input file and the output file.
+    
+    OPTIONS
+        
+    [--language en|de|cn]   language, en by default
+    [--debug]               switches off error trapping
+    [--cap N]               indicates limit to number of files processed
+    [--mode MONO|MULTI]     sets monolingual or multilingual mode, MULTI by default
+                                
 """
 
 
@@ -35,11 +49,12 @@ from utils.splitter import Splitter
 from utils.tries.matcher import Matcher, Trie
 from html import HTML_PREFIX, HTML_END
 
-# try to trap as many Exceptions as possible
+# trap as many Exceptions as possible, this default can be overruled here or from the
+# command line
 TRAP_ERRORS = True
 
 # process all elements of the input list, positive integers indicate a limit to the number
-# of files processed
+# of files processed, this default can be overruled here or from the command line
 CAP = 0
 
 
@@ -73,11 +88,16 @@ class TechnologyTagger(object):
     - calling the Exporter to generate output
     """
 
-    def __init__(self, language, output_dir, file_list):
+    def __init__(self, language, output_dir, file_list, infile=None, outfile=None):
         self.language = language
         self.output_dir = output_dir
         self.file_list = file_list
-        self.files = [l.strip() for l in open(file_list).readlines()]
+        self.infile = infile
+        self.outfile = outfile
+        if file_list is None:
+            self.files = [infile]
+        else:
+            self.files = [l.strip() for l in open(file_list).readlines()]
         # a simple list of technologies, or perhaps tuples with maturity scores added
         # (note that the maturity scores are time stamped)
         # these will be used for the prefix trie lookup
@@ -87,8 +107,11 @@ class TechnologyTagger(object):
         self.exporter = Exporter(language, self.technologies, output_dir, '../ontology')
 
     def __str__(self):
-        return "<TechnologyTagger on \"%s\" language=\"%s\">" \
-               % (self.file_list, self.language)
+        if self.file_list is not None:
+            source = self.file_list
+        else:
+            source = os.path.basename(self.infile)
+        return "<TechnologyTagger on \"%s\" language=\"%s\">" % (source, self.language)
 
     def process_files(self):
         self.clear_tmp_files()
@@ -112,10 +135,14 @@ class TechnologyTagger(object):
                 break
         Scorer().score(self.storage)
         #self.storage.pp()
-        self.exporter.export(self.storage)
+        if self.export_html:
+            self.exporter.export_html(self.storage)
+        if self.export_fact:
+            self.exporter.export_fact(self.files, self.output_dir,
+                                      self.infile, self.outfile, self.storage)
 
     def process_file(self, filename):
-        """Run the document structure parser, select the section wewant to use, perform
+        """Run the document structure parser, select the section we want to use, perform
         technology lookup on those sections,and store the results."""
         self.filename = filename
         data = self._get_data_from_document()
@@ -248,6 +275,12 @@ class ResultStore(object):
     def get_filenames(self, year):
         return self.data[year]['FILES'].keys()
 
+    def get_year_of_file(self, filename):
+        for year in self.get_years():
+            if self.data[year]['FILES'].has_key(filename):
+                return year
+        return None
+        
     def get_file_scores(self, year):
         return [d['SCORE'] for d in self.data[year]['FILES'].values()]
         
@@ -297,9 +330,15 @@ class ResultStore(object):
         else:
             return self.data[year]['FILES'][filename]['TECHNOLOGIES'][technology]
 
-    def get_technologies(self, year):
-        return self.data[year]['TOTAL']['TECHNOLOGIES']
-
+    def get_technologies(self, year, filename=None):
+        if filename is None:
+            return self.data[year]['TOTAL']['TECHNOLOGIES']
+        else:
+            try:
+                return self.data[year]['FILES'][filename]['TECHNOLOGIES']
+            except KeyError:
+                return []
+            
     def get_all_technologies(self):
         all_technologies = {}
         for year in self.data.keys():
@@ -341,21 +380,39 @@ class ResultStore(object):
         """For each year, print the file list and the counts for all technologies. Does
         not print the totals or the numbers for individual files, although those data are
         available."""
-        #pprint.PrettyPrinter(indent=4).pprint(self.data)
+        print "\npprint.PrettyPrinter(indent=4).pprint(self.data)\n"
+        pprint.PrettyPrinter(indent=4).pprint(self.data)
         print
         for k,v in self.weights.items():
             print v, '-', k
         for year in sorted(self.data.keys()):
             print "\n%s" % year
-            for filename in sorted(self.data[year]['FILES'].keys()):
-                print '  ', filename
-            for technology in sorted(self.data[year]['TOTAL']['TECHNOLOGIES'].keys()):
-                print '  ', technology, self.data[year]['TOTAL']['TECHNOLOGIES'][technology]
+            # print all filename
+            if 0:
+                for filename in sorted(self.data[year]['FILES'].keys()):
+                    print '  ', filename
+            # print total for all files
             if self.data[year]['TOTAL'].has_key('SCORE'):
                 print "   SCORE = %.4f" % self.data[year]['TOTAL']['SCORE']
+            if 0:
+                for technology in sorted(self.data[year]['TOTAL']['TECHNOLOGIES'].keys()):
+                    print '  ', technology, self.data[year]['TOTAL']['TECHNOLOGIES'][technology]
+            # print file scores
+            if 1:
+                for fname in sorted(self.data[year]['FILES'].keys()):
+                    print "  ", fname
+                    print "     SCORE = %.4f" % self.data[year]['FILES'][fname]['SCORE']
+                    for t in sorted(self.data[year]['FILES'][fname]['TECHNOLOGIES'].keys()):
+                        print "    ", t, self.data[year]['FILES'][fname]['TECHNOLOGIES'][t]
         print "\nAVERAGE MATURITY SCORE = %.2f" % self.overall_score
-            
+
         
+    def print_data(self, year, basename):
+        print self.data[year]['FILES'].get(basename,{})
+
+        
+        
+    
 class Scorer(object):
 
     """ The scoring scheme for calculating the average maturity scores over a year from
@@ -373,10 +430,10 @@ class Scorer(object):
 
     That is, multiply the maturity level with the weight and the count, and sum it over
     the set of tuples. In short hand: SUM(ML.Ws.N). This is adjusted for the total count
-    adjusted by weights: SUM(Ws.C). This is a number from 0 to 3, which we will map to a
+    adjusted by weights: SUM(Ws.C). This is a number from 0 to 2, which we will map to a
     number between 0 and 1. So the full formula is:
 
-       (SUM(ML.Ws.N) / SUM(Ws.N)) / 3
+       (SUM(ML.Ws.N) / SUM(Ws.N)) / 2
 
     This formual may need to be revised. For example, if technology Ti occurs a thousand
     times and technology Tj occurs once, then Ti will count a 1000 more towards the result
@@ -401,7 +458,7 @@ class Scorer(object):
 
         try:
             total_average_maturity1 = self.sum_maturity_x_weight_x_count / self.sum_weight_x_count
-            total_average_maturity2 = total_average_maturity1 / 3
+            total_average_maturity2 = total_average_maturity1 / 2
         except ZeroDivisionError:
             total_average_maturity2 = 0.0
         result_store.overall_score = total_average_maturity2
@@ -413,7 +470,7 @@ class Scorer(object):
         self.sum_maturity_x_weight_x_count += sum_maturity_x_weight_x_count
         self.sum_weight_x_count += sum_weight_x_count
         try:
-            return (sum_maturity_x_weight_x_count / sum_weight_x_count) / 3
+            return (sum_maturity_x_weight_x_count / sum_weight_x_count) / 2
         except ZeroDivisionError:
             # TODO: track when this happens
             return 0.0
@@ -427,7 +484,7 @@ class Exporter(object):
         self.html_dir = html_dir
         self.ontology_dir = ontology_dir
         
-    def export(self, result_store):
+    def export_html(self, result_store):
         self.result_store = result_store
         self.export_rdg()
         for year in result_store.get_years():
@@ -488,9 +545,6 @@ class Exporter(object):
         
     def export_histogram(self, fh, year=None):
 
-        # TODO: something seems wrong in these histograms, they do not seem to match the
-        # scores
-        
         if year is not None:
             scores = self.result_store.get_file_scores(year)
         else:
@@ -504,26 +558,29 @@ class Exporter(object):
             else:
                 bins[int(str(score)[2])] += 1
         maxval = sorted(bins)[-1]
-        adjustment = 1
-        # TODO: change adjustment for long bars, use this below
-        #if max > 100:
-        #    adjustment =
         year_str = year if year is not None else "All"
-        fh.write("<h3>Histogram of Maturity Score Distribution over %s Patents </h3>\n" % year_str)
+
+        #fh.write("<h3>Histogram of Maturity Score Distribution over %s Patents </h3>\n" % year_str)
+        fh.write("<h3>Maturity Score Distribution over %s Patents </h3>\n" % year_str)
         fh.write("<blockquote>\n")
-        fh.write("<pre>\n")
-        for i in range(9, -1, -1):
-            bar_string = "%s | %s" % (names[i], '+' * bins[i])
-            fh.write("%s\n" % bar_string)
-        bottom_line = '-' * maxval
-        fh.write("        +-%s" % bottom_line)
-        fh.write("</pre>\n")
+        if 0:
+            fh.write("<pre>\n")
+            for i in range(9, -1, -1):
+                bar_string = "%s | %s" % (names[i], '+' * bins[i])
+                fh.write("%s\n" % bar_string)
+            bottom_line = '-' * maxval
+            fh.write("        +-%s" % bottom_line)
+            fh.write("</pre>\n")
+        if 1:
+            fh.write("<table cellpadding=3 cellspacing=0 border=1>\n")
+            for i in range(9, -1, -1):
+                bar_string = "%s | %s" % (names[i], '+' * bins[i])
+                fh.write("<tr>\n  <td>%s\n  <td>%d\n" % (names[i], bins[i]))
+            fh.write("</table>\n")
         fh.write("</blockquote>\n")
-
-
+        
         
     def export_technologies(self, fh, year=None):
-        # TODO: make sure we only get 50 (this is not essential for the mockup)
         fh.write("<h3>Technologies referenced, with occurrence count, maturity score, ")
         fh.write("and links to the ontology</h3>\n")
         fh.write("<blockquote>\n")
@@ -532,10 +589,15 @@ class Exporter(object):
             technologies = self.result_store.get_technologies(year)
         else:
             technologies = self.result_store.get_all_technologies()
-        # TODO: get 50 most frequent technologies
+        # this can be used to reduce the number of technologies printed
+        MIN_FREQUENCY = 1
         for t in sorted(technologies.keys()):
             technology_id = self.technologies[t][0]
             #print technologies[t]
+            frequency = sum(technologies[t].values())
+            #print type(frequency), frequency
+            if frequency < MIN_FREQUENCY:
+                continue
             fh.write("<tr>\n")
             fh.write("   <td><a href=ontology/t%s/index.html>%s</a>\n" % (technology_id, t))
             fh.write("   <td align=right>%d\n" % sum(technologies[t].values()))
@@ -549,7 +611,6 @@ class Exporter(object):
                 if int(year) >= int(tipping_points[1]):
                     maturity_score = 2
                 fh.write("   <td>%d\n" % maturity_score)
-                    
         fh.write("</table>\n")
         fh.write("</blockquote>\n")
         fh.write("\n")
@@ -557,38 +618,102 @@ class Exporter(object):
         fh.write("\n")
         fh.write("\n")
 
+        
+    def export_fact(self, infiles, output_dir, infile, outfile, storage):
+        #storage.pp()
+        if infile and outfile:
+            self.export_fact_for_file(infile, outfile, storage)
+        else:
+            for infile in infiles[:CAP]:
+                outfile = os.path.join(output_dir, os.path.basename(infile) + '.tech')
+                self.export_fact_for_file(infile, outfile, storage)
+
+    def export_fact_for_file_et(self, infile, outfile, storage):
+        if TRAP_ERRORS:
+            try:
+                self.export_fact_for_file_et(infile, outfile, storage)
+            except:
+                print "WARNING: error exporting data to", outfile
+        else:
+            self.export_fact_for_file_et(infile, outfile, storage)
+
+    def export_fact_for_file(self, infile, outfile, storage):
+        basename = os.path.basename(infile)
+        year = storage.get_years()[0]
+        year = storage.get_year_of_file(basename)
+        technologies = storage.get_technologies(year, filename=basename)
+        #storage.print_data(year, basename)
+        fh = codecs.open(outfile, 'w', encoding='utf-8')
+        if technologies:
+            file_score = storage.data[year]['FILES'][basename]['SCORE']
+            fh.write("AVERAGE_MATURITY_SCORE value=%.2f\n" % file_score)
+            for t in technologies:
+                freq = sum(technologies[t].values())
+                score = storage.get_maturity_score(t, year)
+                fh.write("TECHNOLOGY name=\"%s\" frequency=%s maturity_level=%d\n" % (t, freq, score))
+        fh.close()
+
+        
+def run(language, output_dir, file_list, infile, outfile, mode):
+
+    if output_dir and file_list:
+        tagger = TechnologyTagger(language, output_dir, file_list)
+        if mode == 'MONO':
+            tagger.export_fact = True
+            tagger.export_html = False
+        else:
+            tagger.export_fact = False
+            tagger.export_html = True
+        tagger.process_files()
+        # tagger.process_file("data/US4192770A.xml")
+        # tagger.process_file("data/DE3539484C1.xml")
+        # tagger.process_file("data/CN101243817A.
+
+    elif infile and outfile:
+        tagger = TechnologyTagger(language, None, None, infile=infile, outfile=outfile)
+        tagger.export_fact = True
+        tagger.export_html = False
+        # when called from here, this will only process one file
+        tagger.process_files()
+        
+    else:
+        print "WARNING: nothing to do"
 
 
-def run():
-    tagger = TechnologyTagger(language, output_dir, file_list)
-    tagger.process_files()
-    #tagger.process_file("data/US4192770A.xml")
-    #tagger.process_file("data/DE3539484C1.xml")
-    #tagger.process_file("data/CN101243817A.xml")
-    
-
-    
-
+        
 if __name__ == '__main__':
 
     try:
-        (opts, args) = getopt.getopt(sys.argv[1:], 'l:o:', ['debug', 'cap='])
+        (opts, args) = getopt.getopt(sys.argv[1:],
+                                     'l:o:',
+                                     ['debug', 'cap=', 'infile=', 'outfile=', 'mode='])
     except getopt.GetoptError, err:
         print str(err)
         usage()
         sys.exit(2)
-    language, output_dir = 'ENGLISH', 'data/html'
+
+    language = 'ENGLISH'
+    mode = 'MULTI'
+    output_dir = None
+    file_list = None
+    infile = None
+    outfile = None
+    
     for opt, val in opts:
         if opt == '-l': language = val
-        if opt == '-o': output_dir = val
-        if opt == '--debug': TRAP_ERRORS = False
-        if opt == '--cap': CAP = int(val)
-    file_list = args[0]
+        elif opt == '--mode': mode = val
+        elif opt == '-o': output_dir = val
+        elif opt == '--debug': TRAP_ERRORS = False
+        elif opt == '--cap': CAP = int(val)
+        elif opt == '--infile': infile = val
+        elif opt == '--outfile': outfile = val
+    if args:
+        file_list = args[0]
 
     if TRAP_ERRORS:
         try:
-            run()
+            run(language, output_dir, file_list, infile, outfile, mode)
         except Exception, e:
             handle_exception(e)
     else:
-        run()
+        run(language, output_dir, file_list, infile, outfile, mode)
