@@ -90,7 +90,8 @@ if __name__ == '__main__':
     (opts, args) = getopt.getopt(
         sys.argv[1:],
         'l:s:t:v:x:',
-        ['init', 'populate', 'xml2txt', 'txt2tag', 'tag2chk', 'pf2dfeats', 'summary', 'utrain', 'utest', 'scores', 'all'])
+        ['init', 'populate', 'xml2txt', 'txt2tag', 'tag2chk', 'pf2dfeats', 'summary',
+         'utrain', 'utest', 'scores', 'all'])
     
     version = "1"
     xval = "0"
@@ -108,6 +109,7 @@ if __name__ == '__main__':
     all = False
     
     for opt, val in opts:
+        
         if opt == '-l': language = val
         if opt == '-s': source_path = val
         if opt == '-t': target_path = val
@@ -123,25 +125,24 @@ if __name__ == '__main__':
         if opt == '--utrain': union_train = True
         if opt == '--utest': union_test = True
         if opt == '--scores': tech_scores = True
-
         if opt == '--summary': summary = True
         if opt == '--all': all = True
 
 
-
     if init:
-        print "[patent_analyzer]source_path: %s, target_path: %s, language: %s" % (source_path, target_path, language)
+        print "[patent_analyzer]source_path: %s, target_path: %s, language: %s" % \
+            (source_path, target_path, language)
         # creates a directory inside data/patents, using the language and the range of years
         # as determined by the year range in the external sample's subdirectory
         # clear the directory if it exists first.
         lang_path = os.path.join(target_path, language)
         putils.removeDir(lang_path)
-
         l_year = os.listdir(source_path)
         putils.make_patent_dir(language, target_path, l_year)
  
     elif populate:
-        print "[patent_analyzer]source_path: %s, target_path: %s, language: %s" % (source_path, target_path, language)
+        print "[patent_analyzer]source_path: %s, target_path: %s, language: %s" % \
+            (source_path, target_path, language)
         # populates target xml directory from the external source
         l_year = os.listdir(source_path)
         putils.populate_patent_xml_dir(language, source_path, target_path, l_year)
@@ -151,6 +152,7 @@ if __name__ == '__main__':
         # takes xml files and runs the document structure parser in onto mode
         # populates language/txt directory and ds_* directories with intermediate
         # document structure parser results
+        l_year = os.listdir(source_path)
         xml2txt.patents_xml2txt(target_path, language)
 
     elif txt_to_tag:
@@ -176,7 +178,8 @@ if __name__ == '__main__':
         command = "sh ./cat_phr.sh %s %s" % (target_path, language)
         subprocess.call(command, shell=True)
 
-    # Note: At this point, user must manually create an annotated file phr_occ.lab and place it in <lang>/ws subdirectory.
+    # Note: At this point, user must manually create an annotated file phr_occ.lab and
+    # place it in <lang>/ws subdirectory.
         
     elif union_train:
         # creates a mallet training file for labeled data with features as union of all phrase
@@ -192,7 +195,6 @@ if __name__ == '__main__':
         # technology terms with their probabilities
         command = "sh ./patent_tech_scores.sh %s %s %s" % (target_path, version, language)
         subprocess.call(command, shell=True)
-        
 
     elif all:
         print "[patent_analyzer]source_path: %s, target_path: %s, language: %s" % (source_path, target_path, language)

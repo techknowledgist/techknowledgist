@@ -206,10 +206,9 @@ class Doc:
                         feature_string = feature_string.encode('utf-8')
                         """
 
-
                         if debug_p:
-                            print "index: %i, start: %i, end: %i, sentence: %s" % (i, chunk.chunk_start, chunk.chunk_end, sent.sentence)
-
+                            print "index: %i, start: %i, end: %i, sentence: %s" % \
+                                (i, chunk.chunk_start, chunk.chunk_end, sent.sentence)
 
                         if section == "TITLE" or share_term_p(self.l_lc_title_noun, chunk.lc_tokens):
                             #print "matched term for %s and %s" %  (self.l_lc_title_noun, chunk.lc_tokens)
@@ -217,13 +216,13 @@ class Doc:
 
                             unlabeled_out = unlabeled_out.encode('utf-8')
                             s_output_phr_occ.write(unlabeled_out)
-
                             
                             mallet_feature_string = "\t".join(mallet_feature_list)
                             mallet_feature_string = mallet_feature_string.encode('utf-8')
 
                             s_output_phr_feats.write(mallet_feature_string)
                             #print "mallet_feature string: %s" % mallet_feature_string
+                            
                         if debug_p:
                             print ""
 
@@ -234,16 +233,19 @@ class Doc:
                         self.next_chunk_id += 1
 
                     i = chunk.chunk_end
+                    
                 # keep track of the location of this sentence within the section
                 sent_no_in_section += 1
                 #print "[process_doc]section: |%s|" % section
                 self.d_field[section].append(sent)
                 self.d_sent[self.next_sent_id] = sent
                 self.next_sent_id += 1
+                
         s_input.close()
         s_output_phr_occ.close()
         s_output_phr_feats.close()
 
+        
 class Sent:
 
     # given a tag_string, generate all chunks in the sentence in a chart

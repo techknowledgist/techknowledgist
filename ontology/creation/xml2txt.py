@@ -2,7 +2,6 @@
 # module to create a fielded text file from an xml (patent) file
 # top level call: patents_xml2txt(patent_path, lang)
 
-from lxml import etree
 import os
 import pdb
 import sys
@@ -11,7 +10,8 @@ import sys
 sys.path.append("/home/j/corpuswork/fuse/code/patent-classifier")
 from utils.docstructure.main import Parser
 
-def xml2txt_dir(xml_parser, source_path, target_path, ds_text_path, ds_tags_path , ds_fact_path, ds_sect_path):
+def xml2txt_dir(xml_parser, source_path, target_path,
+                ds_text_path, ds_tags_path , ds_fact_path, ds_sect_path):
     print "[xml2txt_dir]source_path: %s, target_path: %s" % (source_path, target_path)
     for file in os.listdir(source_path):
         source_file = source_path + "/" + file
@@ -23,7 +23,8 @@ def xml2txt_dir(xml_parser, source_path, target_path, ds_text_path, ds_tags_path
         print "[xml2txt_dir]from %s to %s" % (source_file, target_file)
         #p1 = Patent(source_file, target_file)
         # xml_file, text_file, tags_file, fact_file, sect_file, onto_file)
-        xml_parser.create_ontology_creation_input(source_file, ds_text_file, ds_tags_file , ds_fact_file, ds_sect_file, target_file)
+        xml_parser.create_ontology_creation_input(source_file, ds_text_file, ds_tags_file,
+                                                  ds_fact_file, ds_sect_file, target_file)
 
 def test():
     xml_parser = Parser()
@@ -37,7 +38,8 @@ def test():
     ds_tags_path = "/home/j/anick/fuse/data/patents/en_test/ds_tags"
     ds_fact_path = "/home/j/anick/fuse/data/patents/en_test/ds_fact"
     ds_sect_path = "/home/j/anick/fuse/data/patents/en_test/ds_sect"
-    xml2txt_dir(xml_parser, source_path, target_path, ds_text_path, ds_tags_path, ds_fact_path, ds_sect_path)
+    xml2txt_dir(xml_parser, source_path, target_path, ds_text_path, ds_tags_path,
+                ds_fact_path, ds_sect_path)
 
 # run xml doc analysis for lang (en, de, cn)
 # eg. xml2txt.patents_xml2txt("/home/j/anick/fuse/data/patents", "en")
@@ -45,16 +47,13 @@ def test():
 def patents_xml2txt(patent_path, lang):
     xml_parser = Parser()
     xml_parser.onto_mode = True
-    start_year = 1980
-    end_year = 2012
+
     if lang == "en":
         xml_parser.language = "ENGLISH"
         print "[patents_xml2txt]xml_parser.language: %s" % xml_parser.language
-        
     elif lang == "de":
         xml_parser.language = "GERMAN"
         print "[patents_xml2txt]xml_parser.language: %s" % xml_parser.language
-
     elif lang == "cn":
         xml_parser.language = "CHINESE"
         print "[patents_xml2txt]xml_parser.language: %s" % xml_parser.language
@@ -63,17 +62,16 @@ def patents_xml2txt(patent_path, lang):
     xml_path = os.path.join(lang_path, "xml") 
     
     # create the year list and process those docs
-
     for year in os.listdir(xml_path):
         year = str(year)
-
         source_path = os.path.join(xml_path, year)
         target_path = lang_path + "/txt" + "/" + year
         ds_text_path = lang_path + "/ds_text" + "/" + year
         ds_tags_path = lang_path + "/ds_tags" + "/" + year
         ds_fact_path = lang_path + "/ds_fact" + "/" + year
         ds_sect_path = lang_path + "/ds_sect" + "/" + year
-        xml2txt_dir(xml_parser, source_path, target_path, ds_text_path, ds_tags_path, ds_fact_path, ds_sect_path)
+        xml2txt_dir(xml_parser, source_path, target_path, ds_text_path, ds_tags_path,
+                    ds_fact_path, ds_sect_path)
 
 # we assume all the work will be done in a single directory
 def pipeline_xml2txt(root_dir, lang):

@@ -69,7 +69,8 @@ def populate_rdg_xml_dir(source_list_file, target_path):
 # putils.make_patent_dir("cn")
 # Just make the directory structure but do not populate (per language)
 def make_patent_dir(lang, patent_lang_path, l_year):
-    patent_lang_path = "data/patents" + "/" + lang
+    patent_lang_path = os.path.join(patent_lang_path, lang)
+    print "Initializing", patent_lang_path
     create_patent_dir(patent_lang_path, l_year)
 
 
