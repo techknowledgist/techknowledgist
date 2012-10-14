@@ -7,8 +7,7 @@ data_root = "data"
 
 # for patent_analysis.py
 # directory of patent xml files arranged into yearly subdirectories
-external_patent_path = "/home/j/clp/chinese/corpora/fuse-patents/" + \
-              "500-patents/DATA/Lexis-Nexis/US/Xml"
+external_patent_path = "/home/j/clp/chinese/corpora/fuse-patents/500-patents/DATA/Lexis-Nexis/US/Xml"
 
 # location where patents are copied to local directory for processing steps.  The directory structure 
 # arranges files by language/step/year

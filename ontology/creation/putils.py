@@ -160,3 +160,8 @@ def file_strip_control_characters(input, output):
 
     s_input.close()
     s_output.close()
+
+# remove a directory and subdirectories after testing if it exists
+def removeDir(path):
+    if os.path.isdir(path):
+        shutil.rmtree(path)

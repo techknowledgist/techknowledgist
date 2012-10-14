@@ -54,23 +54,20 @@ def patents_xml2txt(patent_path, lang):
     elif lang == "de":
         xml_parser.language = "GERMAN"
         print "[patents_xml2txt]xml_parser.language: %s" % xml_parser.language
-        start_year = 1980
-        end_year = 2012
+
     elif lang == "cn":
         xml_parser.language = "CHINESE"
         print "[patents_xml2txt]xml_parser.language: %s" % xml_parser.language
-        start_year = 1987
-        end_year = 2012
 
-    lang_path = patent_path + "/" + lang
-
+    lang_path = os.path.join(patent_path, lang)
+    xml_path = os.path.join(lang_path, "xml") 
     
     # create the year list and process those docs
-    l_year = [] 
-    for year in range(start_year, end_year):
+
+    for year in os.listdir(xml_path):
         year = str(year)
 
-        source_path = lang_path + "/xml" + "/" + year
+        source_path = os.path.join(xml_path, year)
         target_path = lang_path + "/txt" + "/" + year
         ds_text_path = lang_path + "/ds_text" + "/" + year
         ds_tags_path = lang_path + "/ds_tags" + "/" + year

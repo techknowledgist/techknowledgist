@@ -51,7 +51,11 @@ python2.6 patent_analyzer.py -l en -v 1 --utest
 python2.6 patent_analyzer.py -l en -v 1 --scores
 
 python2.6 patent_analyzer.py -l en -v 1 --all
-python2.6 patent_analyzer.py -l de -v 1 --all
+python2.6 patent_analyzer.py -l de -v 1 -s /home/j/clp/chinese/corpora/fuse-patents/500-patents/DATA/Lexis-Nexis/DE/Xml --all
+python2.6 patent_analyzer.py -l de -s /home/j/clp/chinese/corpora/fuse-patents/500-patents/DATA/Lexis-Nexis/DE/Xml --init
+python2.6 patent_analyzer.py -l de -s /home/j/clp/chinese/corpora/fuse-patents/500-patents/DATA/Lexis-Nexis/DE/Xml --populate
+
+python2.6 patent_analyzer.py -l cn -v 1 -s /home/j/clp/chinese/corpora/fuse-patents/500-patents/DATA/Lexis-Nexis/CN/Xml --all
 
 python2.6 patent_analyzer.py -l en --pf2dfeats
 python2.6 patent_analyzer.py -l en --summary
@@ -80,7 +84,6 @@ import config_data
 source_path = config_data.external_patent_path
 target_path = config_data.working_patent_path
 language = config_data.language
-
 
 if __name__ == '__main__':
 
@@ -125,18 +128,26 @@ if __name__ == '__main__':
         if opt == '--all': all = True
 
 
+
     if init:
-        # creates a directory inside data/patents, using a hard-code range of years
-        # suitable to the 500 patents sample, needs to be generalized
+        print "[patent_analyzer]source_path: %s, target_path: %s, language: %s" % (source_path, target_path, language)
+        # creates a directory inside data/patents, using the language and the range of years
+        # as determined by the year range in the external sample's subdirectory
+        # clear the directory if it exists first.
+        lang_path = os.path.join(target_path, language)
+        putils.removeDir(lang_path)
+
         l_year = os.listdir(source_path)
         putils.make_patent_dir(language, target_path, l_year)
  
     elif populate:
+        print "[patent_analyzer]source_path: %s, target_path: %s, language: %s" % (source_path, target_path, language)
         # populates target xml directory from the external source
         l_year = os.listdir(source_path)
         putils.populate_patent_xml_dir(language, source_path, target_path, l_year)
 
     elif xml_to_txt:
+        print "[patent_analyzer]target_path: %s, language: %s" % (target_path, language)
         # takes xml files and runs the document structure parser in onto mode
         # populates language/txt directory and ds_* directories with intermediate
         # document structure parser results
@@ -184,6 +195,7 @@ if __name__ == '__main__':
         
 
     elif all:
+        print "[patent_analyzer]source_path: %s, target_path: %s, language: %s" % (source_path, target_path, language)
         l_year = os.listdir(source_path)
         putils.make_patent_dir(language, target_path, l_year)
         putils.populate_patent_xml_dir(language, source_path, target_path, l_year)

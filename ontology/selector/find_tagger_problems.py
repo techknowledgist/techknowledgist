@@ -23,9 +23,15 @@ def find_title(fh, prefix):
         elif line.startswith('FH_'):
             print_title = False
         elif print_title:
-            print '  ', prefix, '<', line[:80].strip(), '>'
-            return
+            return line[:80].strip()
+    return ''
 
+def check_dot(fh):
+    dot = u'\u2022'
+    text = fh.read()
+    print '  ', text.find(dot)
+    
+        
 for year in sorted(glob.glob("%s/????" % (dir1))):
     print year
     date = os.path.basename(year)
@@ -34,5 +40,11 @@ for year in sorted(glob.glob("%s/????" % (dir1))):
         print date, os.path.basename(fname1)
         fh1 = codecs.open(fname1)
         fh2 = codecs.open(fname2)
-        find_title(fh1, 'txt')
-        find_title(fh2, 'tag')
+        t1 = find_title(fh1, 'txt')
+        t2 = find_title(fh2, 'tag')
+        if t1[:4] != t2[:4] or t1 == '' :
+            print '   txt' , t1
+            print '   tag' , t2
+        fh1.close()
+        fh1 = codecs.open(fname1, encoding='utf-8')
+        check_dot(fh1)
