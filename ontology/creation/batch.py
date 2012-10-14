@@ -1,0 +1,209 @@
+"""
+
+Run al processing in batch. Very similar to patent_analyzer.py, but approaches the task
+from a different angle:
+
+1. Does not copy the external source files
+
+2. Works with lists of files pointing to all single files in the external directory, with
+   a list for each language. these lists have all files for a lnaguage in a random order
+   
+3. Maintains a file for each lannguage which stores what what was done for each processing
+   stage. Lines in that file look as follows:
+
+   --xml2txt 500
+   --txt2tag 200
+   --tag2chk 100
+
+   These lines indicate that the first 500 lines of the input have gone through the
+   xml2txt stage, 200 through the txt2tag stage and 100 through the tag2chk phase.
+
+   Initially all values are set to 0.
+   
+4. Input to the scipt is a stage and a number of documents to process. For example:
+
+   % python batch.py --xml2txt -n 100
+
+   This sends 100 documents through the xml2txt phase, after which the lines in the
+   progress file are updated to
+
+   --xml2txt 600
+   --txt2tag 200
+   --tag2chk 100
+
+5. Internally, the script does not call directory level methods like
+   xml2txt.patents_xml2txt(...), but instead calls methods that process one file only,
+   doing all th ehousekeeping itself.
+
+
+Usage:
+    
+    % python patent_analyzer.py [OPTIONS]
+
+    -l LANG     --  provides the language, one of ('en, 'de', 'cn'), default is 'en'
+    -s PATH     --  external source directory with XML files, see below for the default
+    -t PATH     --  target directory, default is data/patents
+    -n INTEGER  --  number of documents to process
+    --init      --  initialize directory structure in target path (non-destructive)
+    --populate  --  populate directory in target path with files from source path
+    --xml2txt   --  document structure parsing
+    --txt2tag   --  tagging
+    --tag2chk   --  creating chunks in context
+    --summary   --  create summary lists
+
+    All long options require a target path and a language (via the -l and -t options or
+    their defaults). The long options --init, --populate and --all also require a source
+    path (via -s or its default).
+    
+The final results of these steps are in:
+
+    TARGET_PATH/LANGUAGE/phr_occ
+    TARGET_PATH/LANGUAGE/phr_feat
+    TARGET_PATH/LANGUAGE/ws
+
+"""
+
+import os, sys, getopt, subprocess
+
+import putils
+import xml2txt
+import txt2tag
+import tag2chunk
+import cn_txt2seg
+import cn_seg2tag
+import pf2dfeats
+import train
+
+import config_data
+
+
+# will be overwritten by command line options
+source_path = config_data.external_patent_path
+target_path = config_data.working_patent_path
+language = config_data.language
+limit = 0
+
+
+if __name__ == '__main__':
+
+    (opts, args) = getopt.getopt(
+        sys.argv[1:],
+        'l:s:t:n:',
+        ['init', 'populate', 'xml2txt', 'txt2tag', 'tag2chk', 'pf2dfeats', 'summary',
+         'utrain', 'utest', 'scores', 'all'])
+
+    init = False
+    populate = False
+    xml_to_txt = False
+    txt_to_seg = False
+    txt_to_tag = False
+    tag_to_chk = False
+    pf_to_dfeats = False
+    union_train = False
+    union_test = False
+    tech_scores = False
+    summary = False
+    all = False
+    
+    for opt, val in opts:
+        
+        if opt == '-l': language = val
+        if opt == '-s': source_path = val
+        if opt == '-t': target_path = val
+        if opt == '-n': limit == int(val)
+        
+        if opt == '--init': init = True
+        if opt == '--populate': populate = True
+        if opt == '--xml2txt': xml_to_txt = True
+        if opt == '--txt2tag': txt_to_tag = True
+        if opt == '--tag2chk': tag_to_chk = True
+        if opt == '--pf2dfeats': pf_to_dfeats = True
+        if opt == '--utrain': union_train = True
+        if opt == '--utest': union_test = True
+        if opt == '--scores': tech_scores = True
+        if opt == '--summary': summary = True
+        if opt == '--all': all = True
+
+
+    if init:
+        print "[patent_analyzer]source_path: %s, target_path: %s, language: %s" % \
+            (source_path, target_path, language)
+        # creates a directory inside data/patents, using the language and the range of years
+        # as determined by the year range in the external sample's subdirectory
+        # clear the directory if it exists first.
+        lang_path = os.path.join(target_path, language)
+        putils.removeDir(lang_path)
+        l_year = os.listdir(source_path)
+        putils.make_patent_dir(language, target_path, l_year)
+ 
+    elif populate:
+        print "[patent_analyzer]source_path: %s, target_path: %s, language: %s" % \
+            (source_path, target_path, language)
+        # populates target xml directory from the external source
+        l_year = os.listdir(source_path)
+        putils.populate_patent_xml_dir(language, source_path, target_path, l_year)
+
+    elif xml_to_txt:
+        print "[patent_analyzer]target_path: %s, language: %s" % (target_path, language)
+        # takes xml files and runs the document structure parser in onto mode
+        # populates language/txt directory and ds_* directories with intermediate
+        # document structure parser results
+        l_year = os.listdir(source_path)
+        xml2txt.patents_xml2txt(target_path, language)
+
+    elif txt_to_tag:
+        # populates language/tag directory
+        # works on pasiphae but not on chalciope
+        if language == 'cn':
+            cn_txt2seg.patent_txt2seg_dir(target_path, language)
+            cn_seg2tag.patent_txt2tag_dir(target_path, language)
+        else:
+            txt2tag.patent_txt2tag_dir(target_path, language)
+
+    elif tag_to_chk:
+        # populates language/phr_occ and language/phr_feat
+        tag2chunk.patent_tag2chunk_dir(target_path, language)
+    
+    elif pf_to_dfeats:
+        # creates a union of the features for each chunk in a doc (for training)
+        pf2dfeats.patent_pf2dfeats_dir(target_path, language)
+
+    elif summary:
+        # create summary data phr_occ and phr_feats across dates, also phrase file suitable for 
+        # annotation (phr_occ.unlab) in the ws subdirectory
+        command = "sh ./cat_phr.sh %s %s" % (target_path, language)
+        subprocess.call(command, shell=True)
+
+    # Note: At this point, user must manually create an annotated file phr_occ.lab and
+    # place it in <lang>/ws subdirectory.
+        
+    elif union_train:
+        # creates a mallet training file for labeled data with features as union of all phrase
+        # instances within a doc.
+        # Creates a model: utrain.<version>.MaxEnt.model in train subdirectory
+        train.patent_utraining_data(target_path, language, version, xval)
+
+    elif union_test:
+        train.patent_utraining_test_data(target_path, language, version)
+
+    elif tech_scores:
+        # use the mallet.out file from union_test to generate a sorted list of 
+        # technology terms with their probabilities
+        command = "sh ./patent_tech_scores.sh %s %s %s" % (target_path, version, language)
+        subprocess.call(command, shell=True)
+
+    elif all:
+        print "[patent_analyzer]source_path: %s, target_path: %s, language: %s" % (source_path, target_path, language)
+        l_year = os.listdir(source_path)
+        putils.make_patent_dir(language, target_path, l_year)
+        putils.populate_patent_xml_dir(language, source_path, target_path, l_year)
+        xml2txt.patents_xml2txt(target_path, language)
+        if language == 'cn':
+            cn_txt2seg.patent_txt2seg_dir(target_path, language)
+            cn_seg2tag.patent_txt2tag_dir(target_path, language)
+        else:
+            txt2tag.patent_txt2tag_dir(target_path, language)
+        tag2chunk.patent_tag2chunk_dir(target_path, language)
+        pf2dfeats.patent_pf2dfeats_dir(target_path, language)
+        command = "sh ./cat_phr.sh %s %s" % (target_path, language)
+        subprocess.call(command, shell=True)
