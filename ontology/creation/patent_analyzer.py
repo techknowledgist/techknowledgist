@@ -59,6 +59,25 @@ python2.6 patent_analyzer.py -l cn -v 1 -s /home/j/clp/chinese/corpora/fuse-pate
 
 python2.6 patent_analyzer.py -l en --pf2dfeats
 python2.6 patent_analyzer.py -l en --summary
+
+python2.6 patent_analyzer.py -l de -v 1 -x 0   --utrain
+python2.6 patent_analyzer.py -l de -v 1 --utest
+python2.6 patent_analyzer.py -l de -v 1 --scores
+
+python2.6 patent_analyzer.py -l cn -v 1 -x 0   --utrain 
+python2.6 patent_analyzer.py -l cn -v 1 --utest 
+python2.6 patent_analyzer.py -l cn -v 1 --scores
+
+# 10/14/2012 trying a more annotated .lab file for english
+python2.6 patent_analyzer.py -l en -v 2 -x 0   --utrain 
+python2.6 patent_analyzer.py -l en -v 2 --utest 
+python2.6 patent_analyzer.py -l en -v 2 --scores
+# The output seems to be reversed (y <=> n)
+
+# Try again, this time redoing the chunking first.
+python2.6 patent_analyzer.py -l en --tag2chk
+
+
 """
 
 
