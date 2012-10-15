@@ -30,11 +30,15 @@ def seg(input, output, segmenter):
         if debug_p == True:
             print "[tag]Processing line: %s\n" % line
         if line != "":
+            pureEng=re.match(r'^[a-zA-Z0-9_\/\(\)\:\"\;\.\-\s\=]+$', line)
             pureNum=re.match(r'^[0-9]+$', line)
             if line[0:3] == "FH_" or line[0:3] == "END" or pureNum !=None:
                 # we are at a section header or date
                 # write it back out as is
-                s_output.write(line)                
+                s_output.write(line)
+            elif pureEng!= None:
+                #line=line+'_NN'.encode('utf-8')
+                s_output.write(line)
             else:
 
                 #line= line + "\n".encode('utf-8')

@@ -8,6 +8,7 @@
 
 import os
 import codecs
+from xml.sax.saxutils import escape
 
 # returns True if lists share at least one term
 def share_term_p(l1, l2):
@@ -455,7 +456,7 @@ class Sent:
         for chunk in self.chart:
             chunk.__display__()
 
-    # return sentence with square brackets around the chunk starting at index
+    # return sentence with np tag around the chunk starting at index
     def highlight_chunk(self, index):
         l_tok = self.toks
         last_tok = self.chart[index].chunk_end - 1
@@ -463,10 +464,11 @@ class Sent:
         i = 0
         for tok in l_tok:
             if i == index:
-                l_highlight.append("[")
-            l_highlight.append(tok)
+                l_highlight.append("<np>")
+            l_highlight.append(escape(tok))
+            #l_highlight.append(tok)
             if i == last_tok:
-                l_highlight.append("]")
+                l_highlight.append("</np>")
             i += 1
 
         hsent = " ".join(l_highlight)
