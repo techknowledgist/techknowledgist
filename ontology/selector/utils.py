@@ -26,16 +26,16 @@ def write_histogram(fh, term, frequencies):
     for f in (10,9,8,7,6,5,4,3,2,1):
         fh.write("%3s" % str(f * 10) + '% | ')
         for y in all_years:
-            bars = '--' if all_frequencies[y] > f-1 else '  '
+            bars = '-- ' if all_frequencies[y] > f-1 else '   '
             fh.write(bars)
         fh.write("\n")
     fh.write("     +-")
     for y in all_years:
-        fh.write('--')
+        fh.write('---')
     fh.write('-')
     fh.write("\n       ")
     for y in all_years:
-        x_axis = str(y)[2:] if y % 5 == 0 else '  '
+        x_axis = str(y)[2:] + ' ' if y % 5 == 0 else '   '
         fh.write(str(x_axis))
 
 
