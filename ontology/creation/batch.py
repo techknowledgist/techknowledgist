@@ -1,39 +1,37 @@
 """
 
 Run al processing in batch. Very similar to patent_analyzer.py, but approaches the task
-from a different angle:
+from a different angle
 
-1. Does not copy the external source files
-
-2. Works with lists of files pointing to all single files in the external directory, with
-   a list for each language. these lists have all files for a lnaguage in a random order
+The script starts with lists of files pointing to all single files in the external
+directory, with a list for each language. these lists have all files for a lnaguage in a
+random order
    
-3. Maintains a file for each lannguage which stores what what was done for each processing
-   stage. Lines in that file look as follows:
+Maintains a file for each lannguage which stores what what was done for each processing
+stage. Lines in that file look as follows:
 
    --xml2txt 500
    --txt2tag 200
    --tag2chk 100
 
-   These lines indicate that the first 500 lines of the input have gone through the
-   xml2txt stage, 200 through the txt2tag stage and 100 through the tag2chk phase.
-
-   Initially all values are set to 0.
+These lines indicate that the first 500 lines of the input have gone through the xml2txt
+stage, 200 through the txt2tag stage and 100 through the tag2chk phase. Initially this
+file is empty but when a value is first retrieved it is initialized to 0.
    
-4. Input to the scipt is a stage and a number of documents to process. For example:
+The input to the scipt is a stage and a number of documents to process. For example:
 
    % python batch.py --xml2txt -n 100
 
-   This sends 100 documents through the xml2txt phase, after which the lines in the
-   progress file are updated to
+This sends 100 documents through the xml2txt phase (using a default data directory), after
+which the lines in the progress file are updated to
 
    --xml2txt 600
    --txt2tag 200
    --tag2chk 100
 
-5. Internally, the script does not call directory level methods like
-   xml2txt.patents_xml2txt(...), but instead calls methods that process one file only,
-   doing all th ehousekeeping itself.
+Unlike patent_analyzer.opy, this script does not call directory level methods like
+xml2txt.patents_xml2txt(...), but instead calls methods that process one file only, doing
+all the housekeeping itself.
 
 
 Usage:

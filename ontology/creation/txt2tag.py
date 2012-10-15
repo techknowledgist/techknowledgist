@@ -20,6 +20,10 @@ def tag(input, output, tagger):
     sent_no_in_section = 0
     for line in s_input:
         line = line.strip("\n")
+        # TODO: this is hack to make the tagger work, but it loses information
+        # TODO: could replace with &tilde;
+        # TODO: or find the real solution
+        line = line.replace('~','')
         if debug_p == True:
             print "[tag]Processing line: %s\n" % line
         if line != "":
@@ -43,10 +47,10 @@ def tag(input, output, tagger):
 
                     s_output.write("%s\n" % tag_string)
 
-
     s_input.close()
     s_output.close()
 
+    
 def test_tag_en():
     input = "/home/j/anick/fuse/data/patents/en_test/txt/US20110052365A1.xml"
     output = "/home/j/anick/fuse/data/patents/en_test/tag/US20110052365A1.xml"
