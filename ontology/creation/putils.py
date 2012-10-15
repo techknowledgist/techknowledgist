@@ -75,7 +75,7 @@ def make_patent_dir(lang, patent_lang_path, l_year):
 
 
 # If path already exists, print a message and continue
-def make_sure_path_exists(path, msg=True):
+def make_sure_path_exists(path, msg=False):
     try:
         os.makedirs(path)
     except OSError as exception:

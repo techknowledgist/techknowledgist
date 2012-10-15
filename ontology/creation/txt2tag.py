@@ -146,3 +146,14 @@ def pipeline_txt2tag_dir(root, language):
         tag(source_file, target_file, tagger)
     print "[txt2tag_dir]done"
 
+
+### Added MV 10/15
+
+def get_tagger(language):
+    """Used by batch.py."""
+    if language == "en":
+        return sdp.STagger("english-caseless-left3words-distsim.tagger")
+    elif language == "de":
+        return sdp.STagger("german-fast.tagger")
+    elif language == "cn":
+        return sdp.STagger("chinese.tagger")
