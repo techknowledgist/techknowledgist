@@ -779,11 +779,11 @@ def chunk_schema(lang):
     end_pat = []
     
     if lang == "en":
-        both_pat =  [ ["NN", []], ["NNP", []], ["NNS", []], ["NNPS", []], ["POS", []],  ["JJ", ["-", "further", "such", "therebetween", "same", "following"] ], ["JJR", [] ], ["JJS", [] ], ["FW", ["-", "e.g.", "i.e"] ], ["VBG", ["-", "describing", "improving", "using", "employing",  "according", "resulting", "having", "following", "including", "containing", "consisting", "disclosing"]  ] ] 
+        both_pat =  [ ["NN", []], ["NNP", []], ["NNS", []], ["NNPS", []], ["POS", []],  ["JJ", ["-", "further", "such", "therebetween", "same", "following", "respective", "first", "second", "third", "fourth", "respective", "preceding", "predetermined", "next", "more"] ], ["JJR", ["-", "more"] ], ["JJS", [] ], ["FW", ["-", "e.g.", "i.e"] ], ["VBG", ["-", "describing", "improving", "using", "employing",  "according", "resulting", "having", "following", "including", "containing", "consisting", "disclosing"]  ] ] 
         #start_pat = [ ["NN", ["-", "method"]] ] 
         start_pat = []
         cont_pat = [ ["NN", []], ["VBN", []], ["IN", ["+", "of"]], ["DT",  []], ["CC", []], ["RP", []] ]
-        end_pat = [ ["NN", []], ["NNP", []], ["NNS", []], ["NNPS", []], ["VBG", ["-", "describing", "improving", "using", "employing", "according", "resulting", "having", "following", "including", "containing", "consisting", "disclosing"]  ] ]
+        end_pat = [ ["NN", []], ["NNP", []], ["NNS", []], ["NNPS", []], ["VBG", ["-", "describing", "improving", "using", "employing", "according", "resulting", "having", "following", "including", "containing", "consisting", "disclosing", "pertaining", "being", "comprising", "corresponding"]  ] ]
         start_pat.extend(both_pat)
         cont_pat.extend(both_pat)
 
