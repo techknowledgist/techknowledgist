@@ -1,5 +1,17 @@
 # configuration defaults for sdp in sdpWrapper
 
+import os, sys
+
+script_path = os.path.abspath(sys.argv[0])
+if script_path.startswith('/home/fuse'):
+    LOCATION = 'FUSENET'
+elif script_path.startswith('/home/j/corpuswork'):
+    LOCATION = 'CORPUSWORK'
+elif script_path.startswith('/home/j/marc'):
+    LOCATION = 'MARC'
+else:
+    LOCATION = None
+
 # sdp_dir is the location of the stanford-parser executable
 # ie. /your full path/ stanford-parser-2010-02-26
 
@@ -16,13 +28,19 @@
 # not needed for chunking
 sdp_dir = "/home/j/anick/fuse/share/stanford-parser-2012-07-09"
 
-# tagger location
-#stag_dir="/home/j/anick/fuse/share/stanford-postagger-full-2012-07-09"
-stag_dir="/home/j/corpuswork/fuse/code/patent-classifier/tools/stanford/stanford-postagger-full-2012-07-09" 
+# tagger and segmenter location
+if LOCATION in ('CORPUSWORK', 'MARC'):
+    stag_dir = "/home/j/corpuswork/fuse/code/patent-classifier/tools/stanford/" + \
+               "stanford-postagger-full-2012-07-09" 
+    seg_dir = "/home/j/corpuswork/fuse/code/patent-classifier/tools/stanford/" + \
+              "stanford-segmenter-2012-07-09"
+elif LOCATION == 'FUSENET':
+    stag_dir = "home/fuse/tools/stanford-postagger-full-2012-07-09" 
+    seg_dir = "home/fuse/tools/stanford-segmenter-2012-07-09"
 
-# segmenter location
-#seg_dir="/home/j/anick/fuse/share/stanford-segmenter-2012-07-09"
-seg_dir="/home/j/corpuswork/fuse/code/patent-classifier/tools/stanford/stanford-segmenter-2012-07-09"
+# stag_dir="/home/j/anick/fuse/share/stanford-postagger-full-2012-07-09"
+# seg_dir="/home/j/anick/fuse/share/stanford-segmenter-2012-07-09"
+
 
 mx = "3000m"
 
