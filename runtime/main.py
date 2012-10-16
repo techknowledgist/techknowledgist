@@ -21,10 +21,10 @@ Usage:
     
     OPTIONS
         
-    [--language en|de|cn]   language, en by default
-    [--debug]               switches off error trapping
-    [--cap N]               indicates limit to number of files processed
-    [--mode MONO|MULTI]     sets monolingual or multilingual mode, MULTI by default
+       [-l en|de|cn]          language, 'en' by default
+       [--debug]              switches off error trapping
+       [--cap N]              indicates limit to number of files processed
+       [--mode MONO|MULTI]    sets monolingual or multilingual mode, MULTI by default
                                 
 """
 
@@ -237,7 +237,7 @@ class Lookup(object):
         self.matcher = Matcher(Trie([(t,'t') for t in technologies.keys()]))
             
     def search(self, sections):
-        use_boundaries = False if self.language == 'CHINESE' else True
+        use_boundaries = False if self.language == 'cn' else True
         technologies_found = []
         for (sectype, weight, text) in sections:
             fragments = self.splitter.split(text)
@@ -535,10 +535,12 @@ class Exporter(object):
         fh.write("<h3>Scores for all years</h3>\n")
         fh.write("<blockquote>\n")
         fh.write("<table cellpadding=3 cellspacing=0 border=1>\n")
+        fh.write("<tr>\n")
         for year, score in scores:
-            fh.write("<tr>\n")
             fh.write("  <td><a href=%s.html>%s</a></td>\n" % (year, year))
-            fh.write("  <td>%.4f</td>\n" % score)
+        fh.write("<tr>\n")
+        for year, score in scores:
+            fh.write("  <td>%.2f</td>\n" % score)
         fh.write("</table>\n")
         fh.write("</blockquote>\n\n")
 
@@ -573,9 +575,12 @@ class Exporter(object):
             fh.write("</pre>\n")
         if 1:
             fh.write("<table cellpadding=3 cellspacing=0 border=1>\n")
-            for i in range(9, -1, -1):
-                bar_string = "%s | %s" % (names[i], '+' * bins[i])
-                fh.write("<tr>\n  <td>%s\n  <td>%d\n" % (names[i], bins[i]))
+            fh.write("<tr>\n")
+            for name in  names:
+                fh.write("  <td>%s\n\n" % (name))
+            fh.write("<tr>\n")
+            for bin in  bins:
+                fh.write("  <td align=right>%d\n" % (bin))
             fh.write("</table>\n")
         fh.write("</blockquote>\n")
         
@@ -692,13 +697,13 @@ if __name__ == '__main__':
         usage()
         sys.exit(2)
 
-    language = 'ENGLISH'
+    language = 'en'
     mode = 'MULTI'
     output_dir = None
     file_list = None
     infile = None
     outfile = None
-    
+
     for opt, val in opts:
         if opt == '-l': language = val
         elif opt == '--mode': mode = val
