@@ -44,6 +44,7 @@ html_prefix = """
 <head>
 <style>
 term { color: darkblue; font-weight: bold}
+np { color: darkblue; font-weight: bold}
 </style>
 </head>
 <body>

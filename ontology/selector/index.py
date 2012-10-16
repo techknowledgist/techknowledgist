@@ -11,11 +11,12 @@ Given a base directory (imported from config.py), it creates the following files
 
 Usage:
 
-    % python index.py [-l LANGUAGE] [-c N]
+    % python index.py [-l LANGUAGE] [-c N] [-d PATH]
 
     -l LANG  --  specifies the language, default is 'en'
     -c N     --  maximum numbers of files to process per year, default is 1000
-
+    -d PATH  --  base directory of the data
+    
     The source directory is expected to have subdirectories for each year (1980..2011)
     and each of those contains files with tagged output with lines as follows:
 
@@ -36,12 +37,13 @@ LANGUAGE = 'en'
 
 def usage():
     print "Usage:"
-    print "% python index.py [-l LANGUAGE] [-c N]"
+    print "% python index.py [-l LANGUAGE] [-c N] [-d PATH]"
 
 
 def create_index(source_dir, target_dir, maxfiles):
     
     subdirs = glob.glob(os.path.join(source_dir, "*"))
+    print "%s%sindex" % (target_dir, os.sep)
     INDEX = shelve.open("%s%sindex" % (target_dir, os.sep))
     SIZES = open("%s%sindex.sizes.txt" % (target_dir, os.sep), 'w')
     for subdir in subdirs:
@@ -85,13 +87,16 @@ if __name__ == '__main__':
 
     language = LANGUAGE
     maxfiles = MAX_FILES
-    (opts, args) = read_opts('l:c:', [], usage)
+    base_dir = BASE_DIR
+    
+    (opts, args) = read_opts('l:c:d:', [], usage)
     for opt, val in opts:
         if opt == '-l': language = val
         if opt == '-c': maxfiles = int(val)
-
-    source_dir = os.path.join(BASE_DIR, language, 'phr_occ')
-    target_dir = os.path.join(BASE_DIR, language, 'idx')
+        if opt == '-d': base_dir = val
+            
+    source_dir = os.path.join(base_dir, language, 'phr_occ')
+    target_dir = os.path.join(base_dir, language, 'idx')
     create_index(source_dir, target_dir, maxfiles)
 
     if 0:

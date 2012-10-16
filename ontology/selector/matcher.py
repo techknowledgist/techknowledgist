@@ -54,8 +54,8 @@ def match(source_dir, phr_occ2_file, patterns):
                 # TODO: must do somehting about lines with extra square brackets
                 try:
                     (match_id, year, term, sentence) = line.strip().split("\t")
-                    (left_context, rest) = sentence.split("[")
-                    (t, right_context) = rest.split("]")
+                    (left_context, rest) = sentence.split("<np>")
+                    (t, right_context) = rest.split("</np>")
                     tokens_left = left_context.strip().split()[-3:]
                     tokens_right = right_context.strip().split()[:3]
                     for (pattern_id, pattern) in patterns.items():

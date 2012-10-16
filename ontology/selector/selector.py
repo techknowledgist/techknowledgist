@@ -63,7 +63,7 @@ def select(source_dir, phr_occ2_file, phr_occ3_file, phr_occ4_file, language):
     
 def load_negative_annotation_examples(language):
     """Returns a dictionary with all negative samples from the annotations file."""
-    annotations_file = os.path.join('annotations', language, 'phr_occ.lab')
+    annotations_file = os.path.join('..', 'annotation', language, 'phr_occ.lab')
     samples = {}
     for line in codecs.open(annotations_file):
         if line.startswith('n'):

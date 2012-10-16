@@ -195,12 +195,13 @@ def write_matches(fh, dict, h2_string, term, table=True, cap=10, embed=False):
         for match in dict[year][:cap]:
             try:
                 sentence = match[1]
-                (left, rest) = sentence.split('[')
-                (t, right) = rest.split(']')
-                if not t.strip().lower() == term:
-                    print "WARNING: matched sentence does not line up with term"
-                    continue
-                fh.write("<p>%s [<term>%s</term>] %s</p>\n" % (left, t.strip(), right))
+                fh.write("<p>%s</p>\n" % (sentence))
+                #(left, rest) = sentence.split('[')
+                #(t, right) = rest.split(']')
+                #if not t.strip().lower() == term:
+                #    print "WARNING: matched sentence does not line up with term"
+                #    continue
+                #fh.write("<p>%s [<term>%s</term>] %s</p>\n" % (left, t.strip(), right))
             except ValueError:
                 print "WARNING: to many square brackets in match:", sentence
         if table:

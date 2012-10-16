@@ -1,8 +1,8 @@
 Code that implements the technpology selector. Includes the following:
 
-
 * A configuration file
   - config.py defines the base directory where the input and output data 
+  - edit this file to set a default directory
 
 * The Indexer
   - python index.py -l LANG -c N
@@ -35,7 +35,7 @@ Code that implements the technpology selector. Includes the following:
     examples to reduce false positives.
     
 * The Maturity Scorer
-  - python selector.py -l LANG
+  - python maturity.py -l LANG
   - Takes the result of the Selector and creates a file
     base_dir/language/selector/phr_occ5.tab, which has maturity scores added.
   - The output can be consumed by the runtime system.
