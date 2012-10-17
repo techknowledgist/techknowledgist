@@ -629,7 +629,8 @@ class Exporter(object):
         if infile and outfile:
             self.export_fact_for_file(infile, outfile, storage)
         else:
-            for infile in infiles[:CAP]:
+            files_to_export = infiles if CAP == 0 else infiles[:CAP]
+            for infile in files_to_export:
                 outfile = os.path.join(output_dir, os.path.basename(infile) + '.tech')
                 self.export_fact_for_file(infile, outfile, storage)
 

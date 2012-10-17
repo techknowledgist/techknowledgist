@@ -1,7 +1,7 @@
 #!/bin/csh -f
 
-# Shell script to export a directory to a given destination. Running it from this
-# directory will create an archive of the git repository with the following name
+# Shell script to export a directory to a given destination. Running it from its parent
+# directory will create an archive of the git repository with the following name 
 #
 #     patent-classifier-SHA1.tar
 #
