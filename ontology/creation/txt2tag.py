@@ -44,7 +44,6 @@ def tag(input, output, tagger):
                     tag_string = tag_string.encode('utf-8')
                     if debug_p:
                         print "[tag]tag_string: %s" % tag_string
-
                     s_output.write("%s\n" % tag_string)
 
     s_input.close()

@@ -7,7 +7,14 @@ import pdb
 import sys
 
 # path to include Marc's code
-# MV: find a better way to do this since it requires work when we move code to fusenet
+# MV: added the manipulations with the directory since that works on fusenet
+# MV: kept all code for safety (and it doe not hurt on fusenet)
+script_path = os.path.abspath(sys.argv[0])
+script_dir = os.path.dirname(script_path)
+os.chdir(script_dir)
+os.chdir('../..')
+sys.path.insert(0, os.getcwd())
+os.chdir(script_dir)
 sys.path.append("/home/j/corpuswork/fuse/code/patent-classifier")
 from utils.docstructure.main import Parser
 

@@ -51,7 +51,7 @@ Usage:
 
     All long options require a target path and a language (via the -l and -t options or
     their defaults). The long options --init and --populate also require a source path
-    (via -s or its default).
+    (via -s or its default). The -n option is ignored if --init is used.
     
 The final results of these steps are in:
 
@@ -147,9 +147,12 @@ def populate_xml_directory(source_path, target_path, language, limit):
     print "[--populate] using %d files from %s" % (limit, source_path)
     stages = read_stages(target_path, language)
     fnames = files_to_process(stages, '--populate', limit)
-    for source_file in fnames:
-        target_file = get_target_filename(source_file, 'xml')
-        print '[--populate] adding', target_file
+    count = 0
+    for (year, fname) in fnames:
+        count += 1
+        source_file = os.path.join(source_path, year, fname)
+        target_file = os.path.join(target_path, language, 'xml', year, fname)
+        print "[--populate] %04d adding %s" % (count, target_file)
         shutil.copyfile(source_file, target_file)
     stages['--populate'] += limit
     write_stages(target_path, language, stages)
@@ -165,9 +168,12 @@ def run_xml2txt(target_path, language, limit):
     mappings = {'en': 'ENGLISH', 'de': "GERMAN", 'cn': "CHINESE" }
     xml_parser.language = mappings[language]
     fnames = files_to_process(stages, '--xml2txt', limit)
-    for source_file in fnames:
-        target_file = get_target_filename(source_file, 'txt')
-        print "[--xml2txt] creating", target_file
+    count = 0
+    for year, fname in fnames:
+        count += 1
+        source_file = os.path.join(target_path, language, 'xml', year, fname)
+        target_file = os.path.join(target_path, language, 'txt', year, fname)
+        print "[--xml2txt] %04d creating %s" % (count, target_file)
         xml2txt.xml2txt(xml_parser, source_file, target_file)
     stages['--xml2txt'] += limit
     stages = write_stages(target_path, language, stages)
@@ -179,17 +185,20 @@ def run_txt2tag(target_path, language, limit):
     stages = read_stages(target_path, language)
     tagger = txt2tag.get_tagger(language)
     fnames = files_to_process(stages, '--txt2tag', limit)
-    for source_file in fnames:
-        target_file = get_target_filename(source_file, 'tag')
+    count = 0
+    for year, fname in fnames:
+        count += 1
+        source_file = os.path.join(target_path, language, 'txt', year, fname)
+        target_file = os.path.join(target_path, language, 'tag', year, fname)
         if language == 'cn':
             # TODO: need the equivalent of the one below
             cn_txt2seg.patent_txt2seg_dir(target_path, language)
             cn_seg2tag.patent_txt2tag_dir(target_path, language)
         else:
+            print "[--txt2tag] %04d creating %s" % (count, target_file)
             txt2tag.tag(source_file, target_file, tagger)
     stages['--txt2tag'] += limit
-    #stages = write_stages(target_path, language, stages)
-
+    stages = write_stages(target_path, language, stages)
 
     
 def read_stages(target_path, language):
@@ -203,7 +212,8 @@ def read_stages(target_path, language):
 
 def write_stages(target_path, language, stages):
     stages_file = os.path.join(target_path, language, 'ALL_STAGES.txt')
-    backup_file = os.path.join(target_path, language, "ALL_STAGES.%s.txt" % time.strftime("%Y%m%d-%H%M%S"))
+    backup_file = os.path.join(target_path, language,
+                               "ALL_STAGES.%s.txt" % time.strftime("%Y%m%d-%H%M%S"))
     shutil.copyfile(stages_file, backup_file)
     fh = open(stages_file, 'w')
     for stage, count in stages.items():
@@ -221,15 +231,13 @@ def files_to_process(stages, stage, limit):
     fnames = []
     while files_read < limit:
         fname = files.readline().strip()
-        fnames.append(fname)
+        basename = os.path.basename(fname)
+        dirname = os.path.dirname(fname)
+        year = os.path.split(dirname)[1]
+        fnames.append((year, basename))
         files_read += 1
     return fnames
 
-def get_target_filename(fname, subdir):
-    (dir1, basename) = os.path.split(fname)
-    (dir2, year) = os.path.split(dir1)
-    return os.path.join(target_path, language, subdir, year, basename)
-    
 
     
 if __name__ == '__main__':
@@ -265,16 +273,8 @@ if __name__ == '__main__':
         populate_xml_directory(source_path, target_path, language, limit)
     elif xml_to_txt:
         run_xml2txt(target_path, language, limit)
-
     elif txt_to_tag:
         run_txt2tag(target_path, language, limit)
-        # populates language/tag directory
-        # works on pasiphae but not on chalciope
-        if language == 'cn':
-            cn_txt2seg.patent_txt2seg_dir(target_path, language)
-            cn_seg2tag.patent_txt2tag_dir(target_path, language)
-        else:
-            txt2tag.patent_txt2tag_dir(target_path, language)
 
     elif tag_to_chk:
         # populates language/phr_occ and language/phr_feat

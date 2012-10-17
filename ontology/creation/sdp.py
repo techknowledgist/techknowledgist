@@ -1202,7 +1202,13 @@ class STagger:
         # This fixes a broken pipe error that results when the entire models path is not specified.
         # Note that option: -outputFormatOptions lemmatize  does not work.
         tagcmd = ('java -mx' + self.mx + ' -cp \'' + self.stag_dir + '/stanford-postagger.jar:\' '  + 'edu.stanford.nlp.tagger.maxent.MaxentTagger ' + '-model /home/j/anick/fuse/share/stanford-postagger-full-2012-07-09/models/' + self.model + tag_separator_option + '  2>log.dat')
-
+        
+        tagger_jar = self.stag_dir + "/stanford-postagger.jar:"
+        maxent_tagger = 'edu.stanford.nlp.tagger.maxent.MaxentTagger'
+        model = "%s/models/%s" % (self.stag_dir, self.model)
+        tagcmd = ("java -mx%s -cp '%s' %s -model %s%s  2>log.dat" % \
+                  (self.mx, tagger_jar, maxent_tagger, model, tag_separator_option))
+        
         if self.verbose:
             print "[stagWrapper init]tagcmd: %s" % tagcmd
 
