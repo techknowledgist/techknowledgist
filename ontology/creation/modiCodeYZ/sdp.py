@@ -1433,23 +1433,17 @@ class Segmenter:
         #print "************************"
         return(result)
     
+    def is_ascii(self, s):
+        
+        return all(ord(c) < 128 for c in s)
+
     def get_output_to_end(self):
 
         #YZresult=[]
 
         line = self.proc.stdout.readline()
-        #print "txt read out: %s" %line
-
-        non_cn=re.match(r'^[a-zA-Z0-9_\/\(\)\:\"\;\.\-\s\=]+$', line)
-        line=re.sub(r'^\s*$', '', line)
-        #heading=re.match('^[A-Z\:_]+$', line)
-        
-        while non_cn !=None or line == '':
-            line = self.proc.stdout.readline()
-            #print "in line read out: %s" %line
-            non_cn=re.match(r'^[a-zA-Z0-9_\/\(\)\:\"\;\.\-\s\=]+$', line)
-            line=re.sub(r'^\s*$', '', line)
-                                   
+        while self.is_ascii(line):
+            line = self.proc.stdout.readline()                                   
     
         line = line.decode(sys.stdout.encoding)
             

@@ -88,7 +88,7 @@ slightly different:
 
 """
 
-import os, sys, time, shutil, getopt, subprocess
+import os, sys, time, shutil, getopt, subprocess, codecs
 from random import shuffle
 
 import putils
@@ -98,6 +98,7 @@ import tag2chunk
 import cn_txt2seg
 import cn_seg2tag
 import pf2dfeats
+import sdp
 
 import config_data
 
@@ -174,9 +175,14 @@ def run_xml2txt(target_path, language, limit):
         source_file = os.path.join(target_path, language, 'xml', year, fname)
         target_file = os.path.join(target_path, language, 'txt', year, fname)
         print "[--xml2txt] %04d creating %s" % (count, target_file)
-        xml2txt.xml2txt(xml_parser, source_file, target_file)
+        try:
+            xml2txt.xml2txt(xml_parser, source_file, target_file)
+        except Exception:
+            fh = codecs.open(target_file, 'w')
+            fh.close()
+            print "[--xml2txt]      WARNING: error on", source_file
     stages['--xml2txt'] += limit
-    stages = write_stages(target_path, language, stages)
+    #stages = write_stages(target_path, language, stages)
 
 def run_txt2tag(target_path, language, limit):
     """Takes txt files and runs the tagger (and segmenter for Chinese) on them. Adds files to
@@ -184,21 +190,24 @@ def run_txt2tag(target_path, language, limit):
     print "[--txt2tag] on %s/%s/txt/" % (target_path, language)
     stages = read_stages(target_path, language)
     tagger = txt2tag.get_tagger(language)
+    segmenter = sdp.Segmenter()
     fnames = files_to_process(stages, '--txt2tag', limit)
     count = 0
     for year, fname in fnames:
         count += 1
-        source_file = os.path.join(target_path, language, 'txt', year, fname)
-        target_file = os.path.join(target_path, language, 'tag', year, fname)
+        txt_file = os.path.join(target_path, language, 'txt', year, fname)
+        seg_file = os.path.join(target_path, language, 'seg', year, fname)
+        tag_file = os.path.join(target_path, language, 'tag', year, fname)
         if language == 'cn':
-            # TODO: need the equivalent of the one below
-            cn_txt2seg.patent_txt2seg_dir(target_path, language)
-            cn_seg2tag.patent_txt2tag_dir(target_path, language)
+            print "[--txt2tag] %04d creating %s" % (count, seg_file)
+            cn_txt2seg.seg(txt_file, seg_file, segmenter)
+            print "[--txt2tag] %04d creating %s" % (count, tag_file)
+            cn_seg2tag.tag(seg_file, tag_file, tagger)
         else:
             print "[--txt2tag] %04d creating %s" % (count, target_file)
-            txt2tag.tag(source_file, target_file, tagger)
+            txt2tag.tag(txt_file, tag_file, tagger)
     stages['--txt2tag'] += limit
-    stages = write_stages(target_path, language, stages)
+    #stages = write_stages(target_path, language, stages)
 
     
 def read_stages(target_path, language):

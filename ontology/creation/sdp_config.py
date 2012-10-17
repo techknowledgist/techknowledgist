@@ -35,8 +35,8 @@ if LOCATION in ('CORPUSWORK', 'MARC'):
     seg_dir = "/home/j/corpuswork/fuse/code/patent-classifier/tools/stanford/" + \
               "stanford-segmenter-2012-07-09"
 elif LOCATION == 'FUSENET':
-    stag_dir = "home/fuse/tools/stanford-postagger-full-2012-07-09" 
-    seg_dir = "home/fuse/tools/stanford-segmenter-2012-07-09"
+    stag_dir = "/home/fuse/tools/stanford-postagger-full-2012-07-09" 
+    seg_dir = "/home/fuse/tools/stanford-segmenter-2012-07-09"
 
 # stag_dir="/home/j/anick/fuse/share/stanford-postagger-full-2012-07-09"
 # seg_dir="/home/j/anick/fuse/share/stanford-segmenter-2012-07-09"

@@ -30,18 +30,11 @@ def seg(input, output, segmenter):
         if debug_p == True:
             print "[tag]Processing line: %s\n" % line
         if line != "":
-            pureEng=re.match(r'^[a-zA-Z0-9_\/\(\)\:\"\;\.\-\s\=]+$', line)
-            pureNum=re.match(r'^[0-9]+$', line)
-            if line[0:3] == "FH_" or line[0:3] == "END" or pureNum !=None:
-                # we are at a section header or date
-                # write it back out as is
-                s_output.write(line)
-            elif pureEng!= None:
-                #line=line+'_NN'.encode('utf-8')
-                s_output.write(line)
-            else:
 
-                #line= line + "\n".encode('utf-8')
+            if is_omitable(line):
+                s_output.write(line)
+                #print "Omit: %s" %line
+            else:
                 l_seg_string = segmenter.seg(line)
                 if l_seg_string != '':
                     s_output.write("%s" % l_seg_string)
@@ -49,15 +42,21 @@ def seg(input, output, segmenter):
     s_input.close()        
     s_output.close()
 
+def is_omitable(s):
+    #ord(c)==160 represents the 'Chinese' whitespace u'\xa0' ugh!
+    return all((ord(c) < 128 or ord(c)==160) for c in s)
+
                  
 # cn_txt2seg.test_seg_cn()
 def test_seg_cn():
-    input = "/home/j/anick/fuse/data/patents/tmp/cn/CN1394959A-tf.txt"
-    output = "/home/j/anick/fuse/data/patents/tmp/cn/CN1394959A-tf.seg2"
+    input = "/home/j/yzhou/patentWork/data/cn/txt/1999/CN1214051A.xml"
+    #input = "/home/j/yzhou/patentWork/data/cn/txt/2009/CN101573383A.xml"
+    output = "/home/j/yzhou/patentWork/data/cn/seg/1999/CN1214051A.xml"
+    #output = "/home/j/yzhou/patentWork/data/cn/seg/2009/CN101573383A.xml"
     # segment using Stanford segmenter with chinese tree bank model
     segmenter = sdp.Segmenter()
-    #seg(input, output, segmenter)
-    segmenter.cn_segment_file(input, output)
+    seg(input, output, segmenter)
+    #segmenter.cn_segment_file(input, output)
 
 ###-----------------------------------------------
 
