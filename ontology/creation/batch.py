@@ -318,7 +318,6 @@ if __name__ == '__main__':
         if opt == '--utrain': union_train = True
         if opt == '--utest': union_test = True
         if opt == '--scores': tech_scores = True
-         'union_train', 'union_test', 'tech_scores'])
 
          
     if init:

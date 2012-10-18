@@ -174,3 +174,12 @@ Processing time for 1000 documents: 32 minutes, 1.92s/document
 
 
 
+Size of directories:
+
+	129232  seg
+	172800  tag
+	114536  txt
+	249860  xml
+
+
+
