@@ -182,7 +182,7 @@ def run_xml2txt(target_path, language, limit):
             fh.close()
             print "[--xml2txt]      WARNING: error on", source_file
     stages['--xml2txt'] += limit
-    #stages = write_stages(target_path, language, stages)
+    stages = write_stages(target_path, language, stages)
 
 def run_txt2tag(target_path, language, limit):
     """Takes txt files and runs the tagger (and segmenter for Chinese) on them. Adds files to
@@ -207,7 +207,7 @@ def run_txt2tag(target_path, language, limit):
             print "[--txt2tag] %04d creating %s" % (count, target_file)
             txt2tag.tag(txt_file, tag_file, tagger)
     stages['--txt2tag'] += limit
-    #stages = write_stages(target_path, language, stages)
+    stages = write_stages(target_path, language, stages)
 
     
 def read_stages(target_path, language):

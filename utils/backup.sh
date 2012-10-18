@@ -7,7 +7,7 @@
 set version = `date +"%Y%m%d-%H%M%S"`
 set target = /local/chalciope/marc/fuse/patent-classifier-${version}.tar
 
-cd /home/j/corpuswork/fuse/code
+cd /home/j/marc/Desktop/FUSE/code
 rm patent-classifier/runtime/data/tmp/*
 tar cfp $target patent-classifier/documents
 tar rfp $target patent-classifier/examples
@@ -15,6 +15,7 @@ tar rfp $target patent-classifier/runtime
 tar rfp $target patent-classifier/utils
 tar rfp $target patent-classifier/ontology/creation/*py
 tar rfp $target patent-classifier/ontology/creation/*sh
+tar rfp $target patent-classifier/ontology/creation/*txt
 tar rfp $target patent-classifier/.git
 gzip $target
 ls -al /local/chalciope/marc/fuse

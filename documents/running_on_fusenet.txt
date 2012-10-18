@@ -121,7 +121,7 @@ CHINESE
 --xml2txt
 
 Error on
-	[--xml2txt] 0165 creating /shared/home/marc/batch/cn/txt/2006/CN1852921A.xml
+	[--xml2txt] 0665 creating /shared/home/marc/batch/cn/txt/2006/CN1852921A.xml
 
 
 
