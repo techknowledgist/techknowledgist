@@ -136,28 +136,37 @@ Hangs at
 
 	[--txt2tag] 0373 creating /shared/home/marc/batch/cn/seg/2009/CN101388511A.xml
 
-	Culprit line:
-	(306)Å†Å†Å†Å†Å†PS/2ëº¸ë≈Ãë¡¨
+	Culprit line: "(306)Å†Å†Å†Å†Å†PS/2ëº¸ë≈Ãë¡¨"
 
 This problem is very hard to deal with because it involves an interaction between our code
-trying to read warning lines and a bug in the segmenter, which in some reare conditions
+trying to read warning lines and a bug in the segmenter, which in some rare conditions
 seems to chop off parts of the sentence.
 
-A files with partial segmentation results is created but no tag file is created.
+A file with partial segmentation results is created but no tag file is created.
 
 To deal with this:
-
-	1- make note of where the pointer in ALL_STAGES.txt is (for example at x).
-	2- run batch.py from that pointer 
-	3- wait till it hangs again (this should be infrequent)
-	4- note count and file where it hangs (for example, it hangs at y)
-	5- change ALL_STAGES manually, set pointer to x+y
-	6- go back to one
+1- make note of where the pointer in ALL_STAGES.txt is (for example at x).
+2- run batch.py from that pointer 
+3- wait till it hangs again (this should be infrequent)
+4- note count and file where it hangs (for example, it hangs at y)
+5- change ALL_STAGES manually, set pointer to x+y
+6- go back to one
 
 Avoided errors by skipping long lines and lines where all characters are ASCII-8
 characters.
 
-No more errors after this was done.
+Still some errors after this was done, but frequency was way down:
+
+	[--txt2tag] 2792 creating /shared/home/marc/batch/cn/seg/2008/CN101208589A.xml
+	[--txt2tag] 0710 creating /shared/home/marc/batch/cn/seg/2004/CN1152900C.xml
+	[--txt2tag] 4194 creating /shared/home/marc/batch/cn/seg/2007/CN1910227A.xml
+
+	Culprits: 
+
+		"p1Å†Å†Å†Å†Å†Å†Å†Å†(í¬Ëí∞Ï)ëæ¯ë∂‘ë—πíŒœë÷µ"
+		"IPDI(g)Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†Å†í°ß37"
+		"-O-CH2-CH2-S-CH2-CH2-O-Å†Å†(I)í°§"
+
 
 Processing time for first 372 documents: about 5 minutes, 1.83s/document
 

@@ -209,7 +209,6 @@ def run_txt2tag(target_path, language, limit):
     stages['--txt2tag'] += limit
     stages = write_stages(target_path, language, stages)
 
-
 def run_tag2chk(target_path, language, limit):
     """Runs the np-in-context code on tagged input. Populates language/phr_occ and
     language/phr_feat."""
@@ -219,23 +218,37 @@ def run_tag2chk(target_path, language, limit):
     count = 0
     for (year, fname) in fnames:
         count += 1
-        source_file = os.path.join(source_path, year, fname)
-        target_file = os.path.join(target_path, language, 'xml', year, fname)
         tag_file = os.path.join(target_path, language, 'tag', year, fname)
         occ_file = os.path.join(target_path, language, 'phr_occ', year, fname)
         fea_file = os.path.join(target_path, language, 'phr_feats', year, fname)
-        print "[--populate] %04d adding %s" % (count, target_file)
+        print "[--tag2chk] %04d adding %s" % (count, target_file)
         tag2chunk.Doc(tag_file, occ_file, fea_file, year, language)
     stages['--tag2chk'] += limit
     write_stages(target_path, language, stages)
 
-    args = ('<tag2chunk.Doc instance at 0x881d96c>',
-            'data/patents2/en/tag/1985/DE3403361C1.xml',
-            'data/patents2/en/phr_occ/1985/DE3403361C1.xml',
-            'data/patents2/en/phr_feats/1985/DE3403361C1.xml',
-            '1985',
-            'en')
+def run_pf2dfeats(target_path, language, limit):
+    """Creates a union of the features for each chunk in a doc (for training)."""
+    print "[--pf2dfeats] on %s/%s/txt/" % (target_path, language)
+    stages = read_stages(target_path, language)
+    fnames = files_to_process(stages, '--pf2dfeats', limit)
+    count = 0
+    for (year, fname) in fnames:
+        count += 1
+        doc_id = os.path.splitext(os.path.basename(fname))[0]
+        phr_file = os.path.join(target_path, language, 'phr_feats', year, fname)
+        doc_file = os.path.join(target_path, language, 'doc_feats', year, fname)
+        print "[--pf2dfeats] %04d adding %s" % (count, doc_file)
+        pf2dfeats.make_doc_feats(phr_file, doc_file, doc_id, year)
+    stages['--pf2dfeats'] += limit
+    write_stages(target_path, language, stages)
+
+def run_summary(target_path, language):
+    """Create summary data phr_occ and phr_feats across dates, also phrase file suitable
+    for annotation (phr_occ.unlab) in the ws subdirectory."""
+    command = "sh ./cat_phr.sh %s %s" % (target_path, language)
+    subprocess.call(command, shell=True)
     
+        
 def read_stages(target_path, language):
     stages = {}
     for line in open(os.path.join(target_path, language, 'ALL_STAGES.txt')):
@@ -280,13 +293,15 @@ if __name__ == '__main__':
     (opts, args) = getopt.getopt(
         sys.argv[1:],
         'l:s:t:n:',
-        ['init', 'populate', 'xml2txt', 'txt2tag', 'tag2chk', 'pf2dfeats', 'summary'])
+        ['init', 'populate', 'xml2txt', 'txt2tag', 'tag2chk', 'pf2dfeats', 
+         'summary', 'utrain', 'utest', 'scores'])
 
     init, populate = False, False
     limit = 0
     xml_to_txt, txt_to_seg, txt_to_tag, tag_to_chk = False, False, False, False
     pf_to_dfeats = False
     summary = False
+    union_train, union_test, tech_scores = False, False, False
     
     for opt, val in opts:
         if opt == '-l': language = val
@@ -300,8 +315,12 @@ if __name__ == '__main__':
         if opt == '--tag2chk': tag_to_chk = True
         if opt == '--pf2dfeats': pf_to_dfeats = True
         if opt == '--summary': summary = True
+        if opt == '--utrain': union_train = True
+        if opt == '--utest': union_test = True
+        if opt == '--scores': tech_scores = True
+         'union_train', 'union_test', 'tech_scores'])
 
-
+         
     if init:
         run_init(source_path, target_path, language)
     elif populate:
@@ -312,25 +331,18 @@ if __name__ == '__main__':
         run_txt2tag(target_path, language, limit)
     elif tag_to_chk:
         run_tag2chk(target_path, language, limit)
-
-        
     elif pf_to_dfeats:
-        # creates a union of the features for each chunk in a doc (for training)
-        pf2dfeats.patent_pf2dfeats_dir(target_path, language)
-
+        run_pf2dfeats(target_path, language, limit)
     elif summary:
-        # create summary data phr_occ and phr_feats across dates, also phrase file
-        # suitable for annotation (phr_occ.unlab) in the ws subdirectory
-        command = "sh ./cat_phr.sh %s %s" % (target_path, language)
-        subprocess.call(command, shell=True)
+        run_summary(target_path, language)
 
     # Note: At this point, user must manually create an annotated file phr_occ.lab and
     # place it in <lang>/ws subdirectory.
         
     elif union_train:
-        # creates a mallet training file for labeled data with features as union of all phrase
-        # instances within a doc.
-        # Creates a model: utrain.<version>.MaxEnt.model in train subdirectory
+        # creates a mallet training file for labeled data with features as union of all
+        # phrase instances within a doc.  Creates a model: utrain.<version>.MaxEnt.model
+        # in train subdirectory
         train.patent_utraining_data(target_path, language, version, xval)
 
     elif union_test:
@@ -342,6 +354,7 @@ if __name__ == '__main__':
         command = "sh ./patent_tech_scores.sh %s %s %s" % (target_path, version, language)
         subprocess.call(command, shell=True)
 
+        
     elif all:
         print "[patent_analyzer]source_path: %s, target_path: %s, language: %s" % (source_path, target_path, language)
         l_year = os.listdir(source_path)

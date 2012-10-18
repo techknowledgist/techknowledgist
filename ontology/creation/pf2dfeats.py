@@ -3,10 +3,11 @@
 
 import collections
 import os
+import codecs
 
 def make_doc_feats(phr_feats, doc_feats, doc_id, year):
-    s_phr_feats = open(phr_feats)
-    s_doc_feats = open(doc_feats, "w")
+    s_phr_feats = codecs.open(phr_feats)
+    s_doc_feats = codecs.open(doc_feats, "w")
     
     # map phrase to features
     d_p2f = {}
