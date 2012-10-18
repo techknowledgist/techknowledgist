@@ -46,7 +46,7 @@ python2.6 patent_analyzer.py -l en --pf2dfeats
 
 python2.6 patent_analyzer.py -l en --init
 
-python2.6 patent_analyzer.py -l en -x 0 -v 1 --utrain
+python2.6 patent_analyzer.py -l en -x 0 -v 4 --utrain
 python2.6 patent_analyzer.py -l en -v 1 --utest
 python2.6 patent_analyzer.py -l en -v 1 --scores
 
@@ -77,11 +77,13 @@ python2.6 patent_analyzer.py -l en -v 2 --scores
 # Try again, this time redoing the chunking first.
 python2.6 patent_analyzer.py -l en --tag2chk
 
+python2.6 patent_analyzer.py -l de --tag2chk
+
 
 """
 
 
-import os, sys, getopt, subprocess
+import os, sys, getopt, subprocess, shutil
 
 import putils
 import xml2txt
@@ -103,6 +105,7 @@ import config_data
 source_path = config_data.external_patent_path
 target_path = config_data.working_patent_path
 language = config_data.language
+annot_path = config_data.annot_lang_path
 
 if __name__ == '__main__':
 
@@ -201,6 +204,11 @@ if __name__ == '__main__':
     # place it in <lang>/ws subdirectory.
         
     elif union_train:
+        # copy the latest annotation file for the language into our working directory
+        source_annot_lang_file = annot_path + "/phr_occ.lab"
+        ws_annot_lang_file = target_path + "/" + language + "/ws/phr_occ.lab"
+        shutil.copyfile(source_annot_lang_file, ws_annot_lang_file)
+
         # creates a mallet training file for labeled data with features as union of all phrase
         # instances within a doc.
         # Creates a model: utrain.<version>.MaxEnt.model in train subdirectory

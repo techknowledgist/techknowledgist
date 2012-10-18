@@ -99,7 +99,7 @@ class Doc:
                     #print "[process_doc] found title or abstract"
                     self.l_lc_title_noun.extend(lc_nouns(tag_string))
 
-                # change this to call the language specific subclass of Sentence by language ///PGA
+                # call the appropriate Sentence subclass based on the language (get_sentence_for_lang)
                 sent_args = [self.next_sent_id, section, sent_no_in_section, tag_string, self.chunk_schema]
                 sent = sentence.get_sentence_for_lang(self.lang, sent_args)
                 ###print "[process_doc]sent: %s" % sent
@@ -224,7 +224,9 @@ def test_t2c_de():
     input = "/home/j/anick/fuse/data/patents/de/tag/1982/DE3102424A1.xml"
     output_phr_occ = "/home/j/anick/fuse/data/patents/de_test/DE3102424A1.phr_occ"
     output_phr_feats = "/home/j/anick/fuse/data/patents/de_test/DE3102424A1.phr_feats"
-    #cs = sentence.chunk_schema("de")
+    cs = sentence.chunk_schema("de")
+
+
     year = "1980"
     lang = "en"
     doc = Doc(input, output_phr_occ, output_phr_feats, year, lang)
@@ -266,7 +268,8 @@ def patent_tag2chunk_dir(patent_path, language):
         phr_occ_year_dir = phr_occ_path + "/" + year
         phr_feats_year_dir = phr_feats_path + "/" + year
         tag_year_dir = tag_path + "/" + year
-        print "[patent_tag2chunk_dir]calling tag2chunk for dir: %s" % tag_year_dir
+        #print "[patent_tag2chunk_dir]calling tag2chunk for dir: %s" % tag_year_dir
+        print "[patent_tag2chunk_dir]calling tag2chunk, output dirs: %s, %s" % (phr_feats_year_dir, phr_occ_year_dir)
         tag2chunk_dir(tag_year_dir, phr_occ_year_dir, phr_feats_year_dir, year, language)
     print "[patent_tag2chunk_dir]finished writing chunked data to %s and %s" % (phr_occ_path, phr_feats_path)
 

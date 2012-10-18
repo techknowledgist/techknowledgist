@@ -18,6 +18,8 @@ working_patent_path = os.path.join(data_root, "patents")
 # default language
 language = "en"
 
+# for training annotations
+annot_lang_path = "../annotation/" + language
 
 # for pipeline.py
 

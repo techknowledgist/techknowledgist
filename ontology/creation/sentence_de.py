@@ -470,7 +470,7 @@ class Sentence_english(Sentence):
             if self.chart[i].tag[0] == "N":
                 break
             # keep a prep if reached before verb
-            if self.chart[i].tag in ["RP", "IN"]:
+            if self.chart[i].tag[0] in ["RP", "IN"]:
                 prep = self.chart[i].tok
             else:
                 # keep looking 
@@ -567,6 +567,7 @@ class Sentence_english(Sentence):
                 res = self.chart[following_index].tok.lower()
         return(fname("following_prep", res))        
 
+    
 class Sentence_german(Sentence):
     """Class that contains the German feature methods. These feature methods are often
     very similar to the English ones. You could almost imagine having some non feature
@@ -583,12 +584,16 @@ class Sentence_german(Sentence):
         i = index -1
         while i > 0:
             # terminate if verb is found, but skip copula
-            if self.chart[i].tag[0] == "V" and self.chart[i].tag != 'VAINF':
+            if self.chart[i].tag[0] == "V" and self.chart[i].tag != 'VAINF'
                 verb = self.chart[i].tok
                 break
             # terminate if a noun is reached before a verb
             if self.chart[i].tag[0] == "N":
                 break
+            # NOTE MV: I removed the preposition since it is not needed for German, but I
+            # left a note here because I think the code you use for English may be
+            # wrong. You have an if statement with self.chart[i].tag[0] in ["RP", "IN"],
+            # which should always fail if tag is a pos string.
             else:
                 # keep looking 
                 i = i - 1
@@ -699,10 +704,12 @@ class Sentence_german(Sentence):
             i += 1
         return(-1)
     
-
+    
 class Sentence_chinese(Sentence):
     print "Creating Sentence_chinese subclass"
 
+
+    
 ### chunking
 
 # chunking related classes

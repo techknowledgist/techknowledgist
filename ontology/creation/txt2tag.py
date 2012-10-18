@@ -56,6 +56,18 @@ def test_tag_en():
     tagger = sdp.STagger("english-caseless-left3words-distsim.tagger")
     tag(input, output, tagger)
 
+# txt2tag.test_tag_de
+def test_tag_de():
+    tagger = sdp.STagger("german-fast.tagger")
+    dir = "/home/j/anick/fuse/data/tmp"
+    file_list = ["DE3102424A1_all_caps", "DE3102424A1_all_lower", "DE3102424A1_first_cap"]
+    for file in file_list:
+        full_inpath = dir + "/" + file + ".xml"
+        full_outpath = dir + "/" + file + ".tag"
+        tag(full_inpath, full_outpath, tagger)
+        print "Created %s" % full_outpath
+
+
 def txt2tag_file(txt_file, tag_file, tagger):
     tag(txt_file, tag_file, tagger)
 
