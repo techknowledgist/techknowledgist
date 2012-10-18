@@ -1,0 +1,138 @@
+
+Running English pipeline using batch.py on 5000 documents
+=========================================================
+
+--init
+
+Note that the step where ALL_FILES.txt is created has to be done by hand.
+
+
+--populate
+
+Trivial copy of files
+
+
+--xml2txt
+
+Errors on 6 files:
+   [--xml2txt] 1231 creating /shared/home/marc/batch/en/txt/2005/US20050177225A1.xml
+   [--xml2txt] 1759 creating /shared/home/marc/batch/en/txt/2005/US20050143452A1.xml
+   [--xml2txt] 2241 creating /shared/home/marc/batch/en/txt/2011/US20110171172A1.xml
+   [--xml2txt] 2910 creating /shared/home/marc/batch/en/txt/2011/US7951828B1.xml
+   [--xml2txt] 4804 creating /shared/home/marc/batch/en/txt/2003/US20030180792A1.xml
+   [--xml2txt] 4853 creating /shared/home/marc/batch/en/txt/2003/US20030166639A1.xml
+
+In all cases, the output was a file with just one line containing the word 'END'
+
+Processing time: less than 20 minutes, 0.25s/document
+
+
+--txt2tag
+
+Ran this frist in batches of 500, but did last 2500 in one batch.
+
+Processing time on first batch of 500: less than 10 minutes, 1s/document
+
+processing time on batch of 2500: just over 40 minutes, 1s/document
+
+No errors while tagging. The files that caused errors in the previous step now have just
+one line with 'END_NN'.
+
+
+--intermezzo
+
+At this point (after tagging the first 5000 documents) we have a directory with 3.6G of
+data. Removing the intermediate files in ds_* (created by the document parser) reduces
+this number to 1.4G
+
+More specifically, disk usage for xmt, txt and tag directories:
+
+	482016  xml
+	241668  txt
+	352872  tag
+
+
+Protected all tagged files from accidental removal:
+
+	chmod 555 tag
+	chmod 555 tag/*
+	chmod 444 tag/*/*
+
+
+--tag2chk
+
+Note: check what happens with the END_NN files.
+
+
+
+Running German pipeline using batch.py on 5000 documents
+========================================================
+
+
+--xml2txt
+
+In many cases there is no German text in the file and all we get is a file with content
+like
+
+   FH_DATE:
+   19800508
+   END
+
+After about three minutes the system breaks on 
+
+   [--xml2txt] 2380 creating /shared/home/marc/batch/de/txt/2007/DE102006022365B3.xml
+
+The reason is that there is a line in the fact file with an unescaped double quote:
+
+   SECTION ID=73 PARENT_ID=4 TYPE="OTHER" 
+   TITLE="Aktionsanweisung AA1: %Gâ%@Limit forwarding to eguidistant nodes":" 
+   START=22197 END=23364
+
+Need to solve this properly, but for now just added code to batch.py to catch this
+error (and other errors in this stage).
+
+
+--txt2tag
+
+Processing time for first batch of 500: about 7 minutes, 0.84s/doc.
+
+Processing time for batch of 4000: 57 minutes, 0.86s/doc.
+
+A bit faster than for English, but that is mostly due to the size of the patents. In fact,
+I would have expected it to be even faster.
+
+No errors noticed. The file that had an error in the stepabove is simply an empty file
+after this step.
+
+Sizes of directories:
+
+	223272  xml
+	109340  txt
+	163168  tag
+
+Like with English, the tagged files were frozen.
+
+
+
+
+CHINESE
+
+
+--xml2txt
+
+Error on
+	[--xml2txt] 0165 creating /shared/home/marc/batch/cn/txt/2006/CN1852921A.xml
+
+
+
+133364  txt
+249860  xml
+
+
+
+--txt2tag
+
+Hangs at
+
+[--txt2tag] 0273 creating /shared/home/marc/batch/cn/seg/2009/CN101388511A.xml
+

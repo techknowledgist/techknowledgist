@@ -20,5 +20,5 @@ gzip $target
 ls -al /local/chalciope/marc/fuse
 
 # okay, let's add the update of the mirror, so I do not forget updating it once in a while
-cd /local/chalciope/marc/fuse/patent-classifier.git
-git remote update
+#cd /local/chalciope/marc/fuse/patent-classifier.git
+#git remote update
