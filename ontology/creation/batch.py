@@ -118,7 +118,7 @@ target_path = config_data.working_patent_path
 language = config_data.language
 
 
-def initialize(source_path, target_path, language):
+def run_init(source_path, target_path, language):
     """Creates a directory inside data/patents, using the language and the range of years as
     determined by the year range in the external sample's subdirectory. Also creates a
     file named ALL_FILES.tx with all file paths in the source directory and creates an
@@ -142,7 +142,7 @@ def initialize(source_path, target_path, language):
     fh = open(os.path.join(lang_path, 'ALL_STAGES.txt'), 'w')
     fh.close()
     
-def populate_xml_directory(source_path, target_path, language, limit):
+def run_populate(source_path, target_path, language, limit):
     """Populate xml directory in the target directory with limit files from the source path."""
     print "[--populate] populating %s/%s/xml" % (target_path, language)
     print "[--populate] using %d files from %s" % (limit, source_path)
@@ -204,11 +204,37 @@ def run_txt2tag(target_path, language, limit):
             print "[--txt2tag] %04d creating %s" % (count, tag_file)
             cn_seg2tag.tag(seg_file, tag_file, tagger)
         else:
-            print "[--txt2tag] %04d creating %s" % (count, target_file)
+            print "[--txt2tag] %04d creating %s" % (count, tag_file)
             txt2tag.tag(txt_file, tag_file, tagger)
     stages['--txt2tag'] += limit
     stages = write_stages(target_path, language, stages)
 
+
+def run_tag2chk(target_path, language, limit):
+    """Runs the np-in-context code on tagged input. Populates language/phr_occ and
+    language/phr_feat."""
+    print "[--txt2tag] on %s/%s/txt/" % (target_path, language)
+    stages = read_stages(target_path, language)
+    fnames = files_to_process(stages, '--tag2chk', limit)
+    count = 0
+    for (year, fname) in fnames:
+        count += 1
+        source_file = os.path.join(source_path, year, fname)
+        target_file = os.path.join(target_path, language, 'xml', year, fname)
+        tag_file = os.path.join(target_path, language, 'tag', year, fname)
+        occ_file = os.path.join(target_path, language, 'phr_occ', year, fname)
+        fea_file = os.path.join(target_path, language, 'phr_feats', year, fname)
+        print "[--populate] %04d adding %s" % (count, target_file)
+        tag2chunk.Doc(tag_file, occ_file, fea_file, year, language)
+    stages['--tag2chk'] += limit
+    write_stages(target_path, language, stages)
+
+    args = ('<tag2chunk.Doc instance at 0x881d96c>',
+            'data/patents2/en/tag/1985/DE3403361C1.xml',
+            'data/patents2/en/phr_occ/1985/DE3403361C1.xml',
+            'data/patents2/en/phr_feats/1985/DE3403361C1.xml',
+            '1985',
+            'en')
     
 def read_stages(target_path, language):
     stages = {}
@@ -277,25 +303,24 @@ if __name__ == '__main__':
 
 
     if init:
-        initialize(source_path, target_path, language)
+        run_init(source_path, target_path, language)
     elif populate:
-        populate_xml_directory(source_path, target_path, language, limit)
+        run_populate(source_path, target_path, language, limit)
     elif xml_to_txt:
         run_xml2txt(target_path, language, limit)
     elif txt_to_tag:
         run_txt2tag(target_path, language, limit)
-
     elif tag_to_chk:
-        # populates language/phr_occ and language/phr_feat
-        tag2chunk.patent_tag2chunk_dir(target_path, language)
-    
+        run_tag2chk(target_path, language, limit)
+
+        
     elif pf_to_dfeats:
         # creates a union of the features for each chunk in a doc (for training)
         pf2dfeats.patent_pf2dfeats_dir(target_path, language)
 
     elif summary:
-        # create summary data phr_occ and phr_feats across dates, also phrase file suitable for 
-        # annotation (phr_occ.unlab) in the ws subdirectory
+        # create summary data phr_occ and phr_feats across dates, also phrase file
+        # suitable for annotation (phr_occ.unlab) in the ws subdirectory
         command = "sh ./cat_phr.sh %s %s" % (target_path, language)
         subprocess.call(command, shell=True)
 

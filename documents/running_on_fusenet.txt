@@ -85,7 +85,7 @@ After about three minutes the system breaks on
 The reason is that there is a line in the fact file with an unescaped double quote:
 
    SECTION ID=73 PARENT_ID=4 TYPE="OTHER" 
-   TITLE="Aktionsanweisung AA1: %G√¢¬Ä¬û%@Limit forwarding to eguidistant nodes":" 
+   TITLE="Aktionsanweisung AA1: %GÅ‚Äû%@Limit forwarding to eguidistant nodes":" 
    START=22197 END=23364
 
 Need to solve this properly, but for now just added code to batch.py to catch this
@@ -134,5 +134,34 @@ Error on
 
 Hangs at
 
-[--txt2tag] 0273 creating /shared/home/marc/batch/cn/seg/2009/CN101388511A.xml
+	[--txt2tag] 0373 creating /shared/home/marc/batch/cn/seg/2009/CN101388511A.xml
+
+	Culprit line:
+	(306)Å†Å†Å†Å†Å†PS/2ëº¸ë≈Ãë¡¨
+
+This problem is very hard to deal with because it involves an interaction between our code
+trying to read warning lines and a bug in the segmenter, which in some reare conditions
+seems to chop off parts of the sentence.
+
+A files with partial segmentation results is created but no tag file is created.
+
+To deal with this:
+
+	1- make note of where the pointer in ALL_STAGES.txt is (for example at x).
+	2- run batch.py from that pointer 
+	3- wait till it hangs again (this should be infrequent)
+	4- note count and file where it hangs (for example, it hangs at y)
+	5- change ALL_STAGES manually, set pointer to x+y
+	6- go back to one
+
+Avoided errors by skipping long lines and lines where all characters are ASCII-8
+characters.
+
+No more errors after this was done.
+
+Processing time for first 372 documents: about 5 minutes, 1.83s/document
+
+Processing time for 1000 documents: 32 minutes, 1.92s/document
+
+
 

@@ -44,7 +44,10 @@ def seg(input, output, segmenter):
 
 def is_omitable(s):
     #ord(c)==160 represents the 'Chinese' whitespace u'\xa0' ugh!
-    return all((ord(c) < 128 or ord(c)==160) for c in s)
+    #return all((ord(c) < 128 or ord(c)==160) for c in s)
+    if len(s) > 500:
+        return True
+    return all(ord(c) < 256 for c in s)
 
                  
 # cn_txt2seg.test_seg_cn()
