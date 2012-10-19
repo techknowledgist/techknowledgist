@@ -472,9 +472,7 @@ class Sentence_english(Sentence):
             # keep a prep if reached before verb
             if self.chart[i].tag in ["RP", "IN"]:
                 prep = self.chart[i].tok
-            else:
-                # keep looking 
-                i = i - 1
+            i = i - 1
         if verb != "":
             verb_prep = verb + " " + prep
         res = verb_prep.lower()
@@ -589,9 +587,7 @@ class Sentence_german(Sentence):
             # terminate if a noun is reached before a verb
             if self.chart[i].tag[0] == "N":
                 break
-            else:
-                # keep looking 
-                i = i - 1
+            i = i - 1
         return(fname("prev_V", verb.lower()))
     
     # first noun to the left of chunk, within 3 words

@@ -212,7 +212,7 @@ def run_txt2tag(target_path, language, limit):
 def run_tag2chk(target_path, language, limit):
     """Runs the np-in-context code on tagged input. Populates language/phr_occ and
     language/phr_feat."""
-    print "[--txt2tag] on %s/%s/txt/" % (target_path, language)
+    print "[--tag2chk] on %s/%s/txt/" % (target_path, language)
     stages = read_stages(target_path, language)
     fnames = files_to_process(stages, '--tag2chk', limit)
     count = 0
@@ -221,7 +221,7 @@ def run_tag2chk(target_path, language, limit):
         tag_file = os.path.join(target_path, language, 'tag', year, fname)
         occ_file = os.path.join(target_path, language, 'phr_occ', year, fname)
         fea_file = os.path.join(target_path, language, 'phr_feats', year, fname)
-        print "[--tag2chk] %04d adding %s" % (count, target_file)
+        print "[--tag2chk] %04d adding %s" % (count, occ_file)
         tag2chunk.Doc(tag_file, occ_file, fea_file, year, language)
     stages['--tag2chk'] += limit
     write_stages(target_path, language, stages)
@@ -321,7 +321,7 @@ if __name__ == '__main__':
         if opt == '--utest': union_test = True
         if opt == '--scores': tech_scores = True
 
-    annot_path = os.path.join(config_data.annotion_directory, language)
+    annot_path = os.path.join(config_data.annotation_directory, language)
          
     if init:
         run_init(source_path, target_path, language)
