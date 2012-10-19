@@ -11,7 +11,7 @@ n	anspruch
 n	weise
 y	schaltkreisunterbrecher
 n	bereich
-n	lüftungsleitung
+y	lüftungsleitung
 y	mobiltelefon
 n	art
 n	de
@@ -24,13 +24,13 @@ n	beispiel
 n	aufgabe
 n	a
 y	mikroprozessor
-n	anschlussvorrichtung
+y	anschlussvorrichtung
 n	\/
 y	transportband
 y	ankerplatte
-y	system
-y	sitzplatte
-y	halter
+n	system
+n	sitzplatte
+n	halter
 y	umkehrbogenabschnitt
 n	objektiv
 n	d.
@@ -41,26 +41,26 @@ y	verschließelement
 y	ventilkörper
 y	überhitzungs-temperaturfühler
 n	abb
-y	zuschauerplätze
+n	zuschauerplätze
 y	seiltrommel
 n	richtung
 n	gehäuse
 n	funktionspolster
-y	bewegliche element
+n	bewegliche element
 n	abstand
-y	träger
+n	träger
 n	signal
 n	m
 n	aufnahme
 y	abzweigleitung
 y	schusswaffe
 n	öffnung
-y	kette
+n	kette
 n	grundfläche
 n	b
 n	verbindung
 y	ventilgehäuse
-y	probe
+n	probe
 n	form
 n	ende
 n	einrichtung
@@ -71,13 +71,13 @@ y	wischarm
 y	seitenwandungen
 n	sanitäreinrichtung
 y	prozessor
-y	magazin
+n	magazin
 y	kanister
-n	hauptstromkreis
+y	hauptstromkreis
 n	ausgang
 n	tft
 n	feststehenden kontaktbereichen
-n	fahrzeugheizgerät
+y	fahrzeugheizgerät
 n	anordnung
 y	zylinder
 n	wesentlichen
@@ -95,12 +95,12 @@ n	panikzahnstange
 n	oberfläche
 n	meißelspitze
 y	kraftfahrzeug
-y	flachrohr
+n	flachrohr
 y	brennkraftmaschine
 y	bremseinrichtung
 n	vertikaler richtung
-y	tank
-n	steckmuffe
+n	tank
+y	steckmuffe
 n	sackbohrung
 n	lamellen
 n	int
@@ -160,8 +160,8 @@ y	vergaser
 y	ventilstange
 n	stunden
 y	stopfbuchse
-y	scheibe
-y	riegel
+n	scheibe
+n	riegel
 y	pixel-elektrode
 y	lichtquelle
 n	leder
@@ -171,8 +171,8 @@ y	innenbeleuchtung
 n	formaldehyd
 y	federelement
 y	externen streifenleiter
-n	druckfeder
-y	dreherfäden
+y	druckfeder
+n	dreherfäden
 n	differenzwert
 n	dachfläche
 y	außenbeleuchtung
@@ -183,13 +183,13 @@ y	wärmeträger-temperaturfühler
 y	ventil
 n	unterdruck
 n	teile
-y	spiegelschrank
+n	spiegelschrank
 y	schiene
 n	rohrabschnitte
 y	pumpe
 y	prozeßvorkammer
 y	prozeßkammer
-y	paniknuß
+n	paniknuß
 y	metallischen anschlusseinpassungen
 y	matrix
 n	kraftstoffeinspritzvorrichtung
@@ -198,174 +198,174 @@ n	klappsitz
 n	kanten
 n	hemmung des getriebes
 y	freilaufzahnstange
-	flachrohrebene
-	durchgangsloch
-	abhängigkeit
-	zweiten anschlussabschnitt
-	welle
-	wehentätigkeit
-	vorstehende erste anschlussabschnitt
-	ventilspindel
-	taschenklappe
-	tasche
-	speicher
-	saccharoseacetatisobutyrat
-	pumpenraum
-	mm
-	minuten
-	hilfsstromkreis
-	heizertemperaturfühler
-	halterung
-	halbleiterschalter
-	flüssigkeit
-	fettungsmittel
-	externe streifenleiter
-	externen streifenleitern
-	elektrosmog
-	eingriff
-	drehschiebermotor
-	containers
-	brandschutzeinrichtung
-	betätigungshebels
-	beschreibung
-	aufgabe der erfindung
-	zustand
-	zahnstangen
-	zahnstange
-	wellenende
-	wechselstrommotor
-	wärmeaustauscher
-	wärme
-	vorliegende erfindung
-	türen
-	temperatur
-	stützlager
-	stützelementen
-	steuerkolben
-	spaxschrauben
-	sic
-	seitenwandung
-	seite
-	rippen
-	polsterelement
-	oberseite
-	normsteckanschluß
+y	flachrohrebene
+n	durchgangsloch
+n	abhängigkeit
+n	zweiten anschlussabschnitt
+n	welle
+n	wehentätigkeit
+n	vorstehende erste anschlussabschnitt
+y	ventilspindel
+n	taschenklappe
+n	tasche
+n	speicher
+y	saccharoseacetatisobutyrat
+y	pumpenraum
+n	mm
+n	minuten
+y	hilfsstromkreis
+y	heizertemperaturfühler
+y	halterung
+y	halbleiterschalter
+n	flüssigkeit
+y	fettungsmittel
+y	externe streifenleiter
+y	externen streifenleitern
+n	elektrosmog
+n	eingriff
+y	drehschiebermotor
+n	containers
+y	brandschutzeinrichtung
+y	betätigungshebels
+n	beschreibung
+n	aufgabe der erfindung
+n	zustand
+y	zahnstangen
+y	zahnstange
+n	wellenende
+y	wechselstrommotor
+y	wärmeaustauscher
+n	wärme
+n	vorliegende erfindung
+n	türen
+n	temperatur
+y	stützlager
+y	stützelementen
+n	steuerkolben
+n	spaxschrauben
+n	sic
+n	seitenwandung
+n	seite
+n	rippen
+n	polsterelement
+n	oberseite
+n	normsteckanschluß
 	neigung des betätigungshebels
-	meoa
-	material
+n	meoa
+n	material
 	kombinationsbauteil
-	horizontaler richtung
-	gewichtsschätzung
-	gemeinsamen kontaktbereiche
-	filter
-	fall
-	drehzahl des motors
-	doppelseitige dvd
+n	horizontaler richtung
+n	gewichtsschätzung
+n	gemeinsamen kontaktbereiche
+n	filter
+n	fall
+n	drehzahl des motors
+y	doppelseitige dvd
 	dachziegel
 	brandfall
-	ausstellungseinrichtung
-	ausgangsmischung
-	achse
-	abschaltventil
-	a1
-	\*
-	vorteil
-	vorliegenden erfindung
-	vierkant-leiste
-	ventilverschlußglied
+n	ausstellungseinrichtung
+n	ausgangsmischung
+n	achse
+y	abschaltventil
+n	a1
+n	\*
+n	vorteil
+n	vorliegenden erfindung
+n	vierkant-leiste
+y	ventilverschlußglied
 	umschaltanordnung
 	umfangsrichtung des betätigungshebels
-	überprüfung der echtheit von dokumenten
+n	überprüfung der echtheit von dokumenten
 	tangentialriemen
 	tafelschere
-	tabelle
-	spinnmaschinen
+n	tabelle
+y	spinnmaschinen
 	sollwert
 	seitenscheiben
 	schwellwert
-	schnitt
-	rolle
-	reihe
-	ort
-	nh3
-	mittenbohrung
-	metall
-	medientemperaturfühler
-	luft
-	linie
-	leuchtmittel
+n	schnitt
+n	rolle
+n	reihe
+n	ort
+n	nh3
+y	mittenbohrung
+n	metall
+y	medientemperaturfühler
+n	luft
+n	linie
+y	leuchtmittel
 	kraftstoff
-	kondensatorbank
+y	kondensatorbank
 	kohlenstoffkanister
-	klappen
-	klappe
+n	klappen
+n	klappe
 	integrierter führung
-	innen
-	häuten
+n	innen
+n	häuten
 	gelenklöcher
 	fördervorrichtung
-	erfindungsgemäße verfahren
-	erdungsleitung
-	energie
+n	erfindungsgemäße verfahren
+y	erdungsleitung
+n	energie
 	elektronenstrahlerzeugereinheit
-	einlaßventil
+y	einlaßventil
 	einfügen
-	ebene
-	dichtglied
-	dichtendem kontakt
-	cm
-	ci
-	bolzen
-	betätigungsgriff
+n	ebene
+n	dichtglied
+n	dichtendem kontakt
+n	cm
+n	ci
+n	bolzen
+n	betätigungsgriff
 	belüftungsdüse
 	behältern
-	bedienungsperson
-	auslaßventil
+n	bedienungsperson
+y	auslaßventil
 	ausgangssignal
-	aufgeblasenen zustand
-	^
-	zwischenwert
-	wand
-	walzenspalt
-	vorzeichenoperation
-	verlängerungen
-	verlängerung
-	verbindungsglieder
-	unteren ende
-	toröffnung
-	strömungskanal
+n	aufgeblasenen zustand
+n	^
+n	zwischenwert
+n	wand
+y	walzenspalt
+n	vorzeichenoperation
+n	verlängerungen
+n	verlängerung
+y	verbindungsglieder
+n	unteren ende
+n	toröffnung
+y	strömungskanal
 	stromspiegelschaltungen
 	stereodekodierschaltung
-	sensoren
-	seitenansicht
+y	sensoren
+n	seitenansicht
 	schwellenwertschalter
-	schutzschicht
+n	schutzschicht
 	schließstellung
 	schieberplatte
-	schicht
+n	schicht
 	schalt-vorrichtung
 	schaffung
 	runge
 	riemen
-	prozessoren
-	positionierring
+y	prozessoren
+n	positionierring
 	mitnehmer
-	mikroskop
+y	mikroskop
 	meißelkopf
 	magazingrundkörper
 	luft-behälter
-	leitung
-	kraftstofftank
-	kraft
-	kontaktbereiche
-	kondensatoren
+n	leitung
+n	kraftstofftank
+n	kraft
+n	kontaktbereiche
+y	kondensatoren
 	kohlefasern
-	kanal
+n	kanal
 	hilfsfalle
 	gradientensollwert
-	generator
-	genannten art
-	gegenstand der erfindung
+y	generator
+n	genannten art
+n	gegenstand der erfindung
 	folienbahn
 	flächenelement
 	fahrzeugsitz
@@ -374,23 +374,23 @@ y	freilaufzahnstange
 	draufsicht
 	deta
 	bremsbogen
-	bezug
-	betrieb
+n	bezug
+n	betrieb
 	außennuß
-	außen
+n	außen
 	ausgleichskammer
 	ausgangswelle
 	auflageflansch
 	anzahl leinen
-	zwischenschaltung
+y	zwischenschaltung
 	weisenden stirnflächen
-	vordertür
-	vielzahl
-	ventile
-	vakuumventile
-	überhitzungszustand
-	trommeln
-	transport
+n	vordertür
+n	vielzahl
+y	ventile
+y	vakuumventile
+n	überhitzungszustand
+n	trommeln
+y	transport
 	tragerplatte
 	teil
 	stirnwandungen
