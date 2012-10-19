@@ -147,7 +147,7 @@ class Sentence(object):
         self.sentence = " ".join(l_tok)
         self.toks = l_tok
 
-    # fill out phrasal chunks in the chart that match the technology phrase patterns.
+    # fill out phrasal chunks in the chart
     # This uses the patterns in the chunk_schema to combine tokens into a chunk
     # The chunk must end in certain toks, so we keep track of the last legal end token
     # and if it differs from the actual end token (such as a conjunction or adjective),
@@ -206,10 +206,9 @@ class Sentence(object):
                 self.chart[cstart].lc_tokens.append(chunk.tok.lower())
                 inChunk_p = True
                 # check if this token could be a legal end
-                # ///PGA bug - sometimes the tag_sig includes the tags beyond the legal end
                 if self.legal_end_p(chunk, chunk_schema):
                     last_legal_end_index = i
-                    # update the last legal phrase and chunk tag list to the current token.
+                    # update the last legal phrase
                     last_legal_phrase = self.chart[cstart].phrase
                     last_legal_chunk_tags = self.chart[cstart].chunk_tags
             else:
@@ -471,10 +470,11 @@ class Sentence_english(Sentence):
             if self.chart[i].tag[0] == "N":
                 break
             # keep a prep if reached before verb
-            if self.chart[i].tag in ["RP", "IN"]:
+            if self.chart[i].tag[0] in ["RP", "IN"]:
                 prep = self.chart[i].tok
-            # keep looking 
-            i = i - 1
+            else:
+                # keep looking 
+                i = i - 1
         if verb != "":
             verb_prep = verb + " " + prep
         res = verb_prep.lower()
@@ -487,8 +487,7 @@ class Sentence_english(Sentence):
         i = index - 1
         distance_limit = 3
         while i > 0 and distance_limit > 0:
-            # PGA: It may make sense to add some blocking conditions,
-            # such as punc or verb.
+            # terminate if verb is found
             if self.chart[i].tag[0] == "N":
                 noun = self.chart[i].tok
                 break
@@ -569,136 +568,7 @@ class Sentence_english(Sentence):
         return(fname("following_prep", res))        
 
 class Sentence_german(Sentence):
-    """Class that contains the German feature methods. These feature methods are often
-    very similar to the English ones. You could almost imagine having some non feature
-    methods on the parent class that implements comon behaviour."""
-    
     print "Creating Sentence_german subclass"
-
-    # previous verb
-    # return closest verb to left of NP
-    # as well as prep or particle if there is one after verb
-    @feature_method
-    def prev_V(self, index):
-        verb = ""
-        i = index -1
-        while i > 0:
-            # terminate if verb is found, but skip copula
-            if self.chart[i].tag[0] == "V" and self.chart[i].tag != 'VAINF':
-                verb = self.chart[i].tok
-                break
-            # terminate if a noun is reached before a verb
-            if self.chart[i].tag[0] == "N":
-                break
-            # keep looking 
-            i = i - 1
-        return(fname("prev_V", verb.lower()))
-    
-    # first noun to the left of chunk, within 3 words
-    # NOTE MV: same as for English
-    @feature_method
-    def prev_N(self, index):
-        noun = ""
-        i = index - 1
-        distance_limit = 3
-        while i > 0 and distance_limit > 0:
-            # terminate if verb is found
-            if self.chart[i].tag[0] == "N":
-                noun = self.chart[i].tok
-                break
-            else:
-                # keep looking 
-                i = i - 1
-
-            distance_limit = distance_limit - 1
-        res = noun.lower()
-        return(fname("prev_N", res))
-
-    # initial adj in chunk, if there is one
-    @feature_method
-    def chunk_lead_J(self, index):
-        res = ""
-        if self.chart[index].tag == "ADJA":
-            res = self.chart[index].tok
-        return(fname("chunk_lead_J", res))
-
-    # initial V-ing verb in chunk, if there is one
-    # NOTE MV: not much going on in German here, by skipping the copula you usually
-    # already have what you want
-    #@feature_method
-    #def chunk_lead_VBG(self, index):
-    #    res = ""
-    #    if self.chart[index].tag[0] == "VBG":
-    #        res = self.chart[index].tok
-    #    return(fname("chunk_lead_VBG", res))
-
-    # head of prep in chunk, if there is one
-    @feature_method
-    def von_head(self, index):
-        res = ""
-        i = index
-        head = ""
-        prep_idx = self.first_prep_idx(index)
-        if prep_idx != -1:
-            head_loc = prep_idx - 1
-            head = self.chart[head_loc].tok
-            res = head.lower()
-        return(fname("von_head", res))
-
-    # previous adj (JJ, JJR, JJS)
-    # Adj must be immediately bfore index term
-    @feature_method
-    def prev_J(self, index):
-        res = ""
-        i = index - 1
-        if self.chart[i].tag == "ADJA":
-            res = self.chart[i].tok.lower()
-        return(fname("prev_J", res))
-
-    # first adjective in the chunk
-    @feature_method
-    def initial_J(self, index):
-        res = ""
-        i = index
-        if self.chart[i].tag == "ADJA":
-            res = self.chart[i].tok.lower()
-        return(fname("initial_J", res))
-
-    @feature_method
-    def initial_V(self, index):
-        res = ""
-        i = index
-        if self.chart[i].tag[0] == "V":
-            res = self.chart[i].tok.lower()
-        return(fname("initial_V", res))
-
-    # If a prep occurs directly after the chunk, return the token
-    # NOTE MV: same as in English
-    @feature_method
-    def following_prep(self, index):
-        res = ""
-        i = index
-        following_index = self.chart[i].chunk_end
-        if following_index <= self.last:
-            if self.chart[following_index].tag == "IN":
-                res = self.chart[following_index].tok.lower()
-        return(fname("following_prep", res))
-
-
-    # find index of the first prep in the chunk
-    # Used to identify location of a PP
-    # returns -1 if no prep
-    # NOTE MV: this overrules the method on the super class, but the only change is in the
-    # name of the tag so we can do this in a nocer way
-    def first_prep_idx(self, index):
-        i = index
-        chunk_end_loc = self.chart[index].chunk_end
-        while i < chunk_end_loc:
-            if self.chart[i].tag == "APPR":
-                return(i)
-            i += 1
-        return(-1)
-    
 
 class Sentence_chinese(Sentence):
     print "Creating Sentence_chinese subclass"
@@ -720,7 +590,7 @@ class Sentence_chinese(Sentence):
 
             distance_limit = distance_limit - 1
         
-        return(fname("prev_N", noun))
+        return(fname("prev_N", res))
     
     @feature_method
     def penultimate_word (self, index):
@@ -817,7 +687,22 @@ class Sentence_chinese(Sentence):
             i = i - 1
         return(fname("prev_DT", determiner))
 
+    """
+    #previous PN within 3 words
+    @feature_method
+    def prev_PN(self, index):
+        propN = ''
+        i = index -1
+        distance_limit = 3
+        while i > 0 and distance_limit > 0:        
+            # terminate if verb is found
+            if self.chart[i].tag == "M":
+                determiner = self.chart[i].tok
+                break
+            i = i - 1
+        return(fname("prev_DT", determiner))
 
+    """
 ### chunking
 
 # chunking related classes
@@ -951,7 +836,7 @@ def chunk_schema(lang):
 
     elif lang == "de":
         start_pat =  [ ["NN", []], ["NE", []], ["ADJA", []] ]
-        cont_pat = [ ["NN", []], ["NE", []], ["ADJA", []], ["APPR", ["+", "von"]], ["ART", ["+", "des", "der"]] ]
+        cont_pat = [ ["NN", []], ["EN", []], ["ADJA", []], ["APPR", ["+", "von"]], ["ART", ["+", "des", "der"]] ]
         end_pat = [ ["NN", []], ["NE", []] ]
 
     elif lang == "cn":
@@ -969,6 +854,7 @@ def chunk_schema(lang):
                 if not line:
                     continue
                 add_chunk_pattern_element(line, start_pat, cont_pat, end_pat)
+    
         else:
             start_pat =  [ ["NN", []], ["NR", []], ["NT", []], ["JJ", []], ["VA", []] ]
             cont_pat = [ ["NN", []], ["NR", []], ["NT", []], ["JJ", []], ["VA", []], ["DEG", []], ["DEC", []] ]
