@@ -20,6 +20,8 @@ language = "en"
 
 # for training annotations
 annot_lang_path = "../annotation/" + language
+# another version that is less language specific (the above always uses 'en')
+annotation_directory = "../anotation"
 
 # for pipeline.py
 

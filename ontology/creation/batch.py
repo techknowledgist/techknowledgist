@@ -91,16 +91,16 @@ slightly different:
 import os, sys, time, shutil, getopt, subprocess, codecs
 from random import shuffle
 
+import config_data
 import putils
 import xml2txt
 import txt2tag
+import sdp
 import tag2chunk
 import cn_txt2seg
 import cn_seg2tag
 import pf2dfeats
-import sdp
-
-import config_data
+import train
 
 script_path = os.path.abspath(sys.argv[0])
 script_dir = os.path.dirname(script_path)
@@ -302,7 +302,9 @@ if __name__ == '__main__':
     pf_to_dfeats = False
     summary = False
     union_train, union_test, tech_scores = False, False, False
-    
+    version = "1"
+    xval = "0"
+
     for opt, val in opts:
         if opt == '-l': language = val
         if opt == '-s': source_path = val
@@ -319,6 +321,7 @@ if __name__ == '__main__':
         if opt == '--utest': union_test = True
         if opt == '--scores': tech_scores = True
 
+    annot_path = os.path.join(config_data.annotion_directory, language)
          
     if init:
         run_init(source_path, target_path, language)
@@ -335,13 +338,17 @@ if __name__ == '__main__':
     elif summary:
         run_summary(target_path, language)
 
-    # Note: At this point, user must manually create an annotated file phr_occ.lab and
-    # place it in <lang>/ws subdirectory.
+    # Note: At this point, user must manually create an annotated file phr_occ.lab, it is
+    # expected that this file lives in ../annotation/<language>. It is automatically
+    # copied to the <language>/ws subdirectory.
         
     elif union_train:
         # creates a mallet training file for labeled data with features as union of all
         # phrase instances within a doc.  Creates a model: utrain.<version>.MaxEnt.model
         # in train subdirectory
+        source_annot_lang_file = os.path.join(annot_path, 'phr_occ.lab')
+        target_annot_lang_file = os.path.join(target_path, language, 'ws', 'phr_occ.lab')
+        shutil.copyfile(source_annot_lang_file, target_annot_lang_file)
         train.patent_utraining_data(target_path, language, version, xval)
 
     elif union_test:
@@ -351,21 +358,4 @@ if __name__ == '__main__':
         # use the mallet.out file from union_test to generate a sorted list of 
         # technology terms with their probabilities
         command = "sh ./patent_tech_scores.sh %s %s %s" % (target_path, version, language)
-        subprocess.call(command, shell=True)
-
-        
-    elif all:
-        print "[patent_analyzer]source_path: %s, target_path: %s, language: %s" % (source_path, target_path, language)
-        l_year = os.listdir(source_path)
-        putils.make_patent_dir(language, target_path, l_year)
-        putils.populate_patent_xml_dir(language, source_path, target_path, l_year)
-        xml2txt.patents_xml2txt(target_path, language)
-        if language == 'cn':
-            cn_txt2seg.patent_txt2seg_dir(target_path, language)
-            cn_seg2tag.patent_txt2tag_dir(target_path, language)
-        else:
-            txt2tag.patent_txt2tag_dir(target_path, language)
-        tag2chunk.patent_tag2chunk_dir(target_path, language)
-        pf2dfeats.patent_pf2dfeats_dir(target_path, language)
-        command = "sh ./cat_phr.sh %s %s" % (target_path, language)
         subprocess.call(command, shell=True)
