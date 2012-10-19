@@ -16,7 +16,7 @@ scores_nr_noexp_file=$test_path/utest.$version.MaxEnt.out.scores
 
 cat $mallet_out_file | egrep '^[0-9]'  > $all_scores_file
 # capture the column that contains the value for the technology = "y" in mallet output file
-score_col=`python26 find_mallet_field_value_column.py $all_scores_file y`
+score_col=`python find_mallet_field_value_column.py $all_scores_file y`
 echo "score is found in column $score_col of $all_scores_file"
 cat $all_scores_file | cut -f1,$score_col | sort -k2 -nr > $scores_nr_file
 cat $scores_nr_file | grep -v "E-" > $scores_nr_noexp_file

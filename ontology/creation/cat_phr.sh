@@ -42,7 +42,8 @@ echo "[cat_phr.sh]Created $output_dir/phr_feats.all"
 #COMMENT
 
 # count up the number of phr_occ occurrences
-cat $output_dir/phr_occ.all | sort | uniq -c | sort -nr | python /home/j/anick/fuse/reformat_uc.py > $output_dir/phr_occ.uct
+#cat $output_dir/phr_occ.all | sort | uniq -c | sort -nr | python /home/j/anick/fuse/reformat_uc.py > $output_dir/phr_occ.uct
+cat $output_dir/phr_occ.all | sort | uniq -c | sort -nr | python reformat_uc.py > $output_dir/phr_occ.uct
 
 echo "[cat_phr.sh]Created $output_dir/phr_occ.uct" 
 
