@@ -170,7 +170,7 @@ class Sentence(object):
         last_legal_end_index = -1
         last_legal_phrase = ""
         # list of tags in a chunk
-        last_legal_chunk_tags = []
+        last_legal_tag_sig = ""
 
         if self.debug_p:
             print "[chunk_chart]self.len: %i" % self.len
@@ -201,7 +201,8 @@ class Sentence(object):
                     # continue the phrase by concatenation
                     self.chart[cstart].phrase = self.chart[cstart].phrase + " " + chunk.tok
 
-                self.chart[cstart].chunk_tags.append(chunk.tag)
+                self.chart[cstart].tag_sig = self.chart[cstart].tag_sig + "_" + chunk.tag
+                #print "[chunk_chart_tech]appending chunk tag: %s" % chunk.tag
                 self.chart[cstart].tokens.append(chunk.tok)
                 self.chart[cstart].lc_tokens.append(chunk.tok.lower())
                 inChunk_p = True
@@ -211,26 +212,32 @@ class Sentence(object):
                     last_legal_end_index = i
                     # update the last legal phrase and chunk tag list to the current token.
                     last_legal_phrase = self.chart[cstart].phrase
-                    last_legal_chunk_tags = self.chart[cstart].chunk_tags
+                    last_legal_tag_sig = self.chart[cstart].tag_sig
             else:
                 # terminate chunk
                 # make sure the phrase and index correspond to the last legal end
                 # We'll throw away any tokens up to the last legal ending of a chunk.
                 if last_legal_end_index > -1:
                     self.chart[cstart].phrase = last_legal_phrase
-                    self.chart[cstart].chunk_tags = last_legal_chunk_tags
+                    self.chart[cstart].tag_sig = last_legal_tag_sig[1:]
+                    # also keep the list of tags as a list
+                    # Note that we used the string tag_sig to build the tag list here since
+                    # it makes it easy to back up to last_legal tag_sig.  Using lists is
+                    # trickier, since append is destructive, making it harder to keep a last legal back up
+                    # list, without contantly recopying the list.
+                    self.chart[cstart].chunk_tags = self.chart[cstart].tag_sig.split("_")
                     self.chart[cstart].chunk_end = last_legal_end_index + 1
                 else:
                     # reset the start chunk to remove all (now invalidated) phrasal info
                     self.chart[cstart].label = ""
                     self.chart[cstart].chunk_end = self.chart[cstart].tok_end + 1
                     self.chart[cstart].phrase = self.chart[cstart].tok
-                    self.chart[cstart].chunk_tags = []
+                    self.chart[cstart].tag_sig = ""
 
-                # last_legal_chunk_tags tracks the last set of terms that 
+                # last_legal_tag_sig tracks the last set of terms that 
                 # includes a legitimate end term.  We use this if we reach the end of a chunk
                 # at an illegal termination token and need to back up.
-                last_legal_chunk_tags = []
+                last_legal_tag_sig = ""
 
                 last_legal_end_index = -1
                 cstart = i
@@ -443,8 +450,8 @@ class Sentence(object):
         
     @feature_method
     # tag signature (sequence of tags as a string)
-    def tag_sig(self, index):
-        res = "_".join(self.chart[index].chunk_tags)
+    def tag_list(self, index):
+        res = self.chart[index].tag_sig
         return(fname("tag_sig", res))
 
 ### language specific Sentence subclass definitions
@@ -852,6 +859,8 @@ class Chunk:
         self.prep_head_idx = -1
         self.chunk_lead_J = ""
         self.chunk_lead_VBG = ""
+        # string of tags for words in the chunk, separated by _
+        self.tag_sig = ""
 
     # return the token loc in sentence for head of the chunk
     def head_idx(self):

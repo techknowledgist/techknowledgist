@@ -221,16 +221,30 @@ def test_t2c():
 
 # tag2chunk.test_t2c()
 def test_t2c_de():
+    
     input = "/home/j/anick/fuse/data/patents/de/tag/1982/DE3102424A1.xml"
     output_phr_occ = "/home/j/anick/fuse/data/patents/de_test/DE3102424A1.phr_occ"
     output_phr_feats = "/home/j/anick/fuse/data/patents/de_test/DE3102424A1.phr_feats"
     cs = sentence.chunk_schema("de")
 
-
     year = "1980"
-    lang = "en"
+    lang = "de"
     doc = Doc(input, output_phr_occ, output_phr_feats, year, lang)
     return(doc)
+
+# tag2chunk.test_t2c_de_tag_sig()
+def test_t2c_de_tag_sig():
+    
+    input = "/home/j/anick/fuse/data/patents/de_test/tag_sig_test.xml"
+    output_phr_occ = "/home/j/anick/fuse/data/patents/de_test/tag_sig_test.phr_occ"
+    output_phr_feats = "/home/j/anick/fuse/data/patents/de_test/tag_sig_test.phr_feats"
+    cs = sentence.chunk_schema("de")
+
+    year = "1982"
+    lang = "de"
+    doc = Doc(input, output_phr_occ, output_phr_feats, year, lang)
+    return(doc)
+
 
 # tag2chunk.test_t2c_cn()
 def test_t2c_cn():

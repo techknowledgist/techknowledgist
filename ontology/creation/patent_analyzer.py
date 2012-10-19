@@ -76,12 +76,13 @@ python2.6 patent_analyzer.py -l en -v 2 --scores
 
 # Try again, this time redoing the chunking first.
 python2.6 patent_analyzer.py -l en --tag2chk
+python2.6 patent_analyzer.py -l en -v 7 --scores
 
 python2.6 patent_analyzer.py -l de --tag2chk
 python2.6 patent_analyzer.py -l de --pf2dfeats
-python2.6 patent_analyzer.py -l de -v 5 -x 0   --utrain
-python2.6 patent_analyzer.py -l de -v 5 --utest 
-python2.6 patent_analyzer.py -l de -v 5 --scores  
+python2.6 patent_analyzer.py -l de -v 7 -x 0   --utrain
+python2.6 patent_analyzer.py -l de -v 7 --utest 
+python2.6 patent_analyzer.py -l de -v 7 --scores  
 """
 
 
@@ -95,6 +96,7 @@ import cn_txt2seg
 import cn_seg2tag
 import pf2dfeats
 import train
+import sum_scores
 
 import config_data
 
