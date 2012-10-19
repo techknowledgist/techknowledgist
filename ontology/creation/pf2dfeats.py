@@ -17,8 +17,8 @@ def make_doc_feats(phr_feats, doc_feats, doc_id, year):
         l_feat = line.split("\t")
         # key is the chunk itself
         key = l_feat[2]
-        #print "key: %s, l_feat: %s" % (key, l_feat[4:])
-        feats = l_feat[4:]
+        #print "key: %s, l_feat: %s" % (key, l_feat[3:])
+        feats = l_feat[3:]
         if d_p2f.has_key(key):
             l_current_feat = d_p2f.get(key)
             #if l_current_feat == None:
@@ -96,4 +96,5 @@ def test_p2d():
     input_phr_feats = "/home/j/anick/fuse/data/patents/en_test/phr_feats/US20110052365A1.xml"
     output_doc_feats = "/home/j/anick/fuse/data/patents/en_test/doc_feats/US20110052365A1.xml"
     year = "1980"
-    make_doc_feats(input_phr_feats, output_doc_feats, year)
+    (doc_id, extension) = input_phr_feats.split(".")
+    make_doc_feats(input_phr_feats, output_doc_feats, doc_id, year)

@@ -78,8 +78,10 @@ python2.6 patent_analyzer.py -l en -v 2 --scores
 python2.6 patent_analyzer.py -l en --tag2chk
 
 python2.6 patent_analyzer.py -l de --tag2chk
-
-
+python2.6 patent_analyzer.py -l de --pf2dfeats
+python2.6 patent_analyzer.py -l de -v 5 -x 0   --utrain
+python2.6 patent_analyzer.py -l de -v 5 --utest 
+python2.6 patent_analyzer.py -l de -v 5 --scores  
 """
 
 
