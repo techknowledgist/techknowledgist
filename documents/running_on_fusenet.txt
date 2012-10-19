@@ -173,13 +173,27 @@ Processing time for first 372 documents: about 5 minutes, 1.83s/document
 Processing time for 1000 documents: 32 minutes, 1.92s/document
 
 
-
 Size of directories:
 
 	129232  seg
 	172800  tag
 	114536  txt
 	249860  xml
+
+
+
+
+CHINESE tagging 5000-10000
+
+[--txt2tag] 0151 creating /shared/home/marc/batch/cn/seg/2008/CN101139621A.xml
+[--txt2tag] 2277 creating /shared/home/marc/batch/cn/seg/2000/CN1246660A.xml
+[--txt2tag] 3481 creating /shared/home/marc/batch/cn/seg/2011/CN102079564A.xml
+[--txt2tag] 4038 creating /shared/home/marc/batch/cn/seg/2009/CN101517379A.xml
+[--txt2tag] 4586 creating /shared/home/marc/batch/cn/seg/2009/CN101464796A.xml
+
+
+GERMAN tagging 10000-15000
+
 
 
 

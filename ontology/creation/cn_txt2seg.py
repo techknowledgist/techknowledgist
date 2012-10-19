@@ -30,11 +30,13 @@ def seg(input, output, segmenter):
         if debug_p == True:
             print "[tag]Processing line: %s\n" % line
         if line != "":
-
             if is_omitable(line):
                 s_output.write(line)
                 #print "Omit: %s" %line
             else:
+                # this is a hack needed becuase the segmenter has a normalization error
+                # for non-breaking spaces, replace them here with regular spaces.
+                line = line.replace(unichr(160),' ')
                 l_seg_string = segmenter.seg(line)
                 if l_seg_string != '':
                     s_output.write("%s" % l_seg_string)
@@ -42,9 +44,9 @@ def seg(input, output, segmenter):
     s_input.close()        
     s_output.close()
 
+    
 def is_omitable(s):
-    #ord(c)==160 represents the 'Chinese' whitespace u'\xa0' ugh!
-    #return all((ord(c) < 128 or ord(c)==160) for c in s)
+    """Do not segment anything over 500 characters or with ascii-8 only."""
     if len(s) > 500:
         return True
     return all(ord(c) < 256 for c in s)

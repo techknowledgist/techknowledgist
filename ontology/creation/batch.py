@@ -287,7 +287,7 @@ def files_to_process(stages, stage, limit):
     return fnames
 
 
-    
+
 if __name__ == '__main__':
 
     (opts, args) = getopt.getopt(
