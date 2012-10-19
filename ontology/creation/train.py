@@ -1,5 +1,14 @@
 # create a training set for fuse technology classification
 
+# This file contains functions for training a classifier using a file of phrases annotated
+# with "y" for "is a technology term", "n", and "?", not sure.
+# Format of the labeled file is 
+# <label><tab><phrase>
+# label can be left out.
+# Labeled data is used for training
+# For testing/classification, the annotation file's labels can be used to limit test data to 
+# instances of unlabeled chunks only or all chunks.  
+
 # labeled data is in 
 # /home/j/anick/fuse/data/patents/en/ws/phr_occ.lab
 # /home/j/corpuswork/fuse/code/patent-classifier/ontology/creation/data/patents/cn/ws
@@ -11,6 +20,8 @@ import putils
 
 # populate dictionary of labeled phrases with their labels
 # assume label file is in the workspace (ws) directory
+# We will treat the "?" as a special label which for the purposes
+# of this function is equivalent to no label/
 def load_phrase_labels(patent_dir, lang):
     d_phr2label = {}
     label_file = os.path.join(patent_dir, lang, "ws", "phr_occ.lab")
@@ -19,7 +30,8 @@ def load_phrase_labels(patent_dir, lang):
     for line in s_label_file:
         line = line.strip("\n")
         (label, phrase) = line.split("\t")
-        if label != "":
+        # store the label if the line has one and is not "?"
+        if label != "" and label != "?":
             d_phr2label[phrase] = label
 
     s_label_file.close()
@@ -95,8 +107,9 @@ def patent_utraining_data(patent_dir, lang, version="1", xval=0):
 
 
 # testing using features unioned over all chunk occurrences within a doc
-# We only include chunks which are unlabeled in our testing data for testing
-def make_utraining_test_file(patent_dir, lang, version, d_phr2label):
+# We only include chunks which are unlabeled in our testing data file for testing if use_all_chunks_p is set
+# to False.  Otherwise we include all chunk instances, whether they have been manually annotated or not.
+def make_utraining_test_file(patent_dir, lang, version, d_phr2label, use_all_chunks_p = True):
     # We include a default label ("n") for the 2nd column in the .mallet output file but it will be ignored for classification.
     default_label = "n"
 
@@ -111,6 +124,9 @@ def make_utraining_test_file(patent_dir, lang, version, d_phr2label):
 
     labeled_count = 0
     unlabeled_count = 0
+    # total count should equal unlabeled count if use_all_chunks_p is False
+    # If True, it should be the sum of labeled and unlabeled counts
+    total_count = 0
     for year in os.listdir(doc_feats_dir):
         year_path = os.path.join(doc_feats_dir, year)
         for file in os.listdir(year_path):
@@ -129,6 +145,10 @@ def make_utraining_test_file(patent_dir, lang, version, d_phr2label):
                 if d_phr2label.has_key(phrase):
                     labeled_count += 1
                 else:
+                    unlabeled_count += 1
+                # include the instance if use_all_chunks_p is True or if it doesn't
+                # have a label.
+                if use_all_chunks_p == True or not d_phr2label.has_key(phrase):
                     mallet_list = [uid, default_label]
                     #mallet_list = [uid]
                     mallet_list.extend(feats)
@@ -137,17 +157,12 @@ def make_utraining_test_file(patent_dir, lang, version, d_phr2label):
                     mallet_line = " ".join(mallet_list) + "\n"
                     s_test.write(mallet_line)
 
-                    unlabeled_count += 1
+                    total_count += 1
 
             s_doc_feats_input.close()
     s_test.close()
-    print "labeled instances: %i, unlabeled: %i" % (labeled_count, unlabeled_count)
+    print "labeled instances: %i, unlabeled: %i, total: %i" % (labeled_count, unlabeled_count, total_count)
     print "[make_utraining_test_file]Created testing data in: %s" % test_file
-
-
-
-
-
 
 def patent_utraining_test_data(patent_dir, lang, version="1"):
     # get dictionary of annotations

@@ -22,3 +22,11 @@ cat $all_scores_file | cut -f1,$score_col | sort -k2 -nr > $scores_nr_file
 cat $scores_nr_file | grep -v "E-" > $scores_nr_noexp_file
 
 echo "[tech_scores]Created $scores_nr_noexp_file"
+
+# version of python is system dependent!
+python26 sum_scores.py $scores_nr_noexp_file $scores_nr_noexp_file.sum
+#python sum_scores.py $scores_nr_noexp_file $scores_nr_noexp_file.sum
+
+# insert tab in emacs using ctr-q <tab>
+cat $scores_nr_noexp_file.sum | sort -k2,2 -nr -t"	" > $scores_nr_noexp_file.sum.nr
+echo "[tech_scores]Summed, sorted scores in: $scores_nr_noexp_file.sum.nr"
