@@ -1,4 +1,4 @@
-import sys, getopt
+import os, sys, codecs, getopt, glob
 
 def read_opts(short, long, usage_function):
     try:
@@ -8,6 +8,22 @@ def read_opts(short, long, usage_function):
         print str(err)
         usage_function()
         sys.exit(2)
+
+def read_frequencies(directory):
+    """Return a dictionary with all frequencies as stored in the tab files in the
+    directory."""
+    freqs = {}
+    print "Loading frequencies from:"
+    print "    ", directory
+    #for fname in glob.glob('/shared/home/marc/batch/en/idx/*tab'):
+    for fname in glob.glob(directory + "/*.tab"):
+        year = os.path.basename(fname).split('.')[0]
+        #print year, fname
+        for line in codecs.open(fname):
+            (np, freq) = line.strip().split("\t")
+            freqs.setdefault(np,{})
+            freqs[np][year] = int(freq)
+    return freqs
 
 
 def write_histogram(fh, term, frequencies):

@@ -19,7 +19,7 @@ evaluation because it looks to be quite complicated to do this for the immature 
 import glob, os, sys, codecs, shelve
 
 from config import BASE_DIR
-from utils import read_opts
+from utils import read_opts, read_frequencies
 
 LANGUAGE = 'en'
 
@@ -33,7 +33,7 @@ def usage():
 def maturity(index_file, phr_occ4_file, phr_occ5_file, language):
 
     #INDEX = shelve.open(index_file)
-    INDEX = read_frequencies(index_file)
+    INDEX = read_frequencies(os.path.dirname(index_file))
 
     infile = codecs.open(phr_occ4_file)
     outfile = codecs.open(phr_occ5_file, 'w')
@@ -49,31 +49,28 @@ def maturity(index_file, phr_occ4_file, phr_occ5_file, language):
                       (term, ' '.join(maturity)))
         DONE[term] = True
 
-        
-def read_frequencies(file):
-    print file
-    freqs = {}
-    for fname in glob.glob('/shared/home/marc/batch/en/idx/*tab'):
-        year = os.path.basename(fname).split('.')[0]
-        print year, fname
-        for line in codecs.open(fname):
-            (np, freq) = line.strip().split("\t")
-            freqs.setdefault(np,{})
-            freqs[np][year] = int(freq)
-    return freqs
 
 
 def calculate_maturity(INDEX, patterns, term):
     frequencies = INDEX.get(term,{})
     if not frequencies:
         print "WARNING: no frequencies found for term '%s'" % term
+    #print frequencies
+    eligable_maturity_years = []
+    years = sorted(frequencies.keys())
+    for y in years:
+        if int(y) < 1982:
+            eligable_maturity_years.append(y)
+    eligable_maturity_years.extend(years[1:])
+    eligable_maturity_years = set(eligable_maturity_years)
+    #print '>', eligable_maturity_years
     total_instances = sum(frequencies.values())
     immature = None
     mature = None
-    for year in sorted(frequencies.keys()):
+    for year in years:
         if frequencies[year] > 2 and immature is None:
             immature = year
-        if frequencies[year] >= 5 and mature is None:
+        if frequencies[year] >= 5 and mature is None and year in eligable_maturity_years:
             mature = year
     if immature is None:
         immature = str(9999)

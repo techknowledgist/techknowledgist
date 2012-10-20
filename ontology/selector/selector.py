@@ -34,7 +34,7 @@ def select(source_dir, phr_occ2_file, phr_occ3_file, phr_occ4_file, language):
     # this file collects all elements that go into the ontology
     out = codecs.open(phr_occ4_file, 'w')
 
-    print "Cheching all NPS in context..."
+    print "Checking all NPS in context..."
     subdirs = glob.glob(os.path.join(source_dir, "*"))
     patterns_matched = 0
     technologies_found = 0

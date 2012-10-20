@@ -8,10 +8,10 @@ The script need to be run from this directory.
 
 """
 
-import glob, os, sys, codecs, shelve
+import glob, os, sys, codecs
 
 from config import BASE_DIR
-from utils import read_opts
+from utils import read_opts, read_frequencies
 
 LANGUAGE = 'en'
 
@@ -23,7 +23,7 @@ def usage():
 def classify(source_dir1, source_dir2, phr_occ3_file, index_file, language):
 
     #frequencies = shelve.open(index_file)
-    frequencies = read_frequencies(index_file)
+    frequencies = read_frequencies(os.path.dirname(index_file))
     technologies = load_annotation_examples(language)
     more_technologies = load_classifier_results(language, source_dir2)
     technologies.update(more_technologies)
@@ -31,6 +31,7 @@ def classify(source_dir1, source_dir2, phr_occ3_file, index_file, language):
     filtered_technologies = {}
     for t in technologies.keys():
         #print t, frequencies.get(t, {})
+        # skip the ones that occur in one year only
         if len(frequencies.get(t, {}).keys()) > 1:
             filtered_technologies[t] = technologies[t]
             
@@ -52,19 +53,6 @@ def classify(source_dir1, source_dir2, phr_occ3_file, index_file, language):
                     #out.write("%s\t%s\n" % (match_id, term))
                     out.write("%s\n" % (match_id))
 
-                    
-def read_frequencies(file):
-    print file
-    freqs = {}
-    for fname in glob.glob('/shared/home/marc/batch/en/idx/*tab'):
-        year = os.path.basename(fname).split('.')[0]
-        print year, fname
-        for line in codecs.open(fname):
-            (np, freq) = line.strip().split("\t")
-            freqs.setdefault(np,{})
-            freqs[np][year] = int(freq)
-    return freqs
-                    
 
 def load_annotation_examples(language):
     annotations_file = os.path.join('..', 'annotation', language, 'phr_occ.lab')
