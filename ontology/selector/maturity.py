@@ -32,7 +32,8 @@ def usage():
 
 def maturity(index_file, phr_occ4_file, phr_occ5_file, language):
 
-    INDEX = shelve.open(index_file)
+    #INDEX = shelve.open(index_file)
+    INDEX = read_frequencies(index_file)
 
     infile = codecs.open(phr_occ4_file)
     outfile = codecs.open(phr_occ5_file, 'w')
@@ -47,7 +48,20 @@ def maturity(index_file, phr_occ4_file, phr_occ5_file, language):
         outfile.write("%s\t%s\n" % \
                       (term, ' '.join(maturity)))
         DONE[term] = True
+
         
+def read_frequencies(file):
+    print file
+    freqs = {}
+    for fname in glob.glob('/shared/home/marc/batch/en/idx/*tab'):
+        year = os.path.basename(fname).split('.')[0]
+        print year, fname
+        for line in codecs.open(fname):
+            (np, freq) = line.strip().split("\t")
+            freqs.setdefault(np,{})
+            freqs[np][year] = int(freq)
+    return freqs
+
 
 def calculate_maturity(INDEX, patterns, term):
     frequencies = INDEX.get(term,{})

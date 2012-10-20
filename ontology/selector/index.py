@@ -44,7 +44,7 @@ def create_index(source_dir, target_dir, maxfiles):
     
     subdirs = glob.glob(os.path.join(source_dir, "*"))
     print "%s%sindex" % (target_dir, os.sep)
-    INDEX = shelve.open("%s%sindex" % (target_dir, os.sep))
+    #INDEX = shelve.open("%s%sindex" % (target_dir, os.sep))
     SIZES = open("%s%sindex.sizes.txt" % (target_dir, os.sep), 'w')
     for subdir in subdirs:
         year = os.path.basename(subdir)
@@ -53,10 +53,10 @@ def create_index(source_dir, target_dir, maxfiles):
         fh = codecs.open("%s%s%s.tab" % (target_dir, os.sep, year))
         for l in fh:
             (np, count) = l.strip().split("\t")
-            val = INDEX[np] if INDEX.has_key(np) else {}
-            val[year] = int(count) 
-            INDEX[np] = val
-    INDEX.close()
+            #val = INDEX[np] if INDEX.has_key(np) else {}
+            #val[year] = int(count) 
+            #INDEX[np] = val
+    #INDEX.close()
 
     
 def collect_counts(fname, target_dir, year, maxfiles, sizes_fh):
@@ -74,6 +74,8 @@ def collect_counts(fname, target_dir, year, maxfiles, sizes_fh):
                 now_reading = line.strip()
             else:
                 (id, year, np, sentence) = line.strip().split("\t")
+                #(np, year_doc_np, feats) = line.strip().split("\t", 2)
+                #(year, rest) = year_doc_np.split('|',1)
                 YEAR_INDEX.setdefault(np, 0)
                 YEAR_INDEX[np] += 1
     
@@ -96,6 +98,7 @@ if __name__ == '__main__':
         if opt == '-d': base_dir = val
             
     source_dir = os.path.join(base_dir, language, 'phr_occ')
+    #source_dir = os.path.join(base_dir, language, 'doc_feats')
     target_dir = os.path.join(base_dir, language, 'idx')
     create_index(source_dir, target_dir, maxfiles)
 

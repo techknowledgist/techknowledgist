@@ -17,6 +17,7 @@ tar rfp $target patent-classifier/ontology/creation/*py
 tar rfp $target patent-classifier/ontology/creation/*sh
 tar rfp $target patent-classifier/ontology/creation/*txt
 tar rfp $target patent-classifier/ontology/annotation
+tar rfp $target patent-classifier/ontology/selector
 tar rfp $target patent-classifier/.git
 gzip $target
 ls -al /local/chalciope/marc/fuse

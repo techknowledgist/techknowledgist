@@ -10,7 +10,7 @@ Input:
 
 """
 
-import glob, os, sys, codecs, shelve, subprocess
+import glob, os, sys, codecs, subprocess
 
 from config import BASE_DIR
 from patterns import patterns
@@ -155,7 +155,8 @@ def create_html(index_file, patterns, phr_occ4_file, phr_occ5_file, phr_occ6_fil
                 language, html_directory):
 
     maturity_scores = load_maturity_scores(phr_occ5_file)
-    frequencies = shelve.open(index_file)
+    #frequencies = shelve.open(index_file)
+    frequencies = read_frequencies(index_file)
     infile = codecs.open(phr_occ4_file)
 
     ontology = Ontology(frequencies, maturity_scores, patterns)
@@ -170,7 +171,20 @@ def create_html(index_file, patterns, phr_occ4_file, phr_occ5_file, phr_occ6_fil
     ontology.export_as_html(html_directory)
     #ontology.pp()
 
-        
+    
+def read_frequencies(file):
+    print file
+    freqs = {}
+    for fname in glob.glob('/shared/home/marc/batch/en/idx/*tab'):
+        year = os.path.basename(fname).split('.')[0]
+        print year, fname
+        for line in codecs.open(fname):
+            (np, freq) = line.strip().split("\t")
+            freqs.setdefault(np,{})
+            freqs[np][year] = int(freq)
+    return freqs
+
+ 
 def load_maturity_scores(phr_occ5_file):
     scores = {}
     for line in codecs.open(phr_occ5_file):

@@ -24,7 +24,7 @@ cat $scores_nr_file | grep -v "E-" > $scores_nr_noexp_file
 echo "[tech_scores]Created $scores_nr_noexp_file"
 
 # version of python is system dependent!
-python26 sum_scores.py $scores_nr_noexp_file $scores_nr_noexp_file.sum
+python sum_scores.py $scores_nr_noexp_file $scores_nr_noexp_file.sum
 #python sum_scores.py $scores_nr_noexp_file $scores_nr_noexp_file.sum
 
 # insert tab in emacs using ctr-q <tab>
