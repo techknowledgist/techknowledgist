@@ -972,7 +972,7 @@ def chunk_schema(lang):
             start_pat = []
             cont_pat = []
             end_pat = []
-            fh = codecs.open("chunk_schema_%s.txt" % lang)
+            fh = codecs.open("chunk_schema_%s.txt" % lang, encoding='utf-8')
             for line in fh:
                 line = line.strip()
                 if not line:

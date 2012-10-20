@@ -28,16 +28,24 @@ def sum_scores(doc_scores_file, sum_scores_file, remove_backslash_p = True):
 
     s_doc_scores_file = open(doc_scores_file)
     s_sum_scores_file = open(sum_scores_file, "w")
+    unexpected_input = 0
     for line in s_doc_scores_file:
         line = line.strip("\n")
         fields = line.split("\t")
-        doc_score = fields[1]
+        try:
+            # for chinese, we are getting lines like "0.00002(107723)=1.0"
+            doc_score = fields[1]
+        except IndexError:
+            unexpected_input += 1
         phrase = fields[0]
         # pull out the phrase and replace the underscores with blanks
         phrase = phrase[phrase.rfind("|")+1:].replace("_", " ")
         #print "phrase: %s" % phrase
         d_phr2score[phrase].append(float(doc_score))
 
+    if unexpected_input > 0:
+        print "WARNING: %d lines in the input were unexpected" % unexpected_input
+        
     for key in d_phr2score.keys():
         sum = 0.0
         count = 0
