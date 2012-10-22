@@ -92,14 +92,21 @@ class TechnologyTagger(object):
         self.language = language
         self.output_dir = output_dir
         self.file_list = file_list
+        self.files = []
         self.infile = infile
         self.outfile = outfile
         if file_list is None:
             self.files = [infile]
         else:
-            self.files = [l.strip() for l in open(file_list).readlines()]
-        # a simple list of technologies, or perhaps tuples with maturity scores added
-        # (note that the maturity scores are time stamped)
+            fh = open(file_list)
+            if CAP == 0:
+                for l in fh:
+                    self.files.append(l.strip())
+            else:
+                for i in range(CAP):
+                    l = fh.readline()
+                    self.files.append(l.strip())
+        # a simple list of technologies with maturity scores added
         # these will be used for the prefix trie lookup
         self.technologies = OntologyReader().technologies(language)
         self.lookup = Lookup(self.language, self.technologies)
