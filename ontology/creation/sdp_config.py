@@ -5,10 +5,8 @@ import os, sys
 script_path = os.path.abspath(sys.argv[0])
 if script_path.startswith('/home/fuse'):
     LOCATION = 'FUSENET'
-elif script_path.startswith('/home/j/corpuswork'):
-    LOCATION = 'CORPUSWORK'
-elif script_path.startswith('/home/j/marc'):
-    LOCATION = 'MARC'
+elif script_path.startswith('/home/j'):
+    LOCATION = 'BRANDEIS'
 else:
     LOCATION = None
 
@@ -29,7 +27,7 @@ else:
 sdp_dir = "/home/j/anick/fuse/share/stanford-parser-2012-07-09"
 
 # tagger and segmenter location
-if LOCATION in ('CORPUSWORK', 'MARC'):
+if LOCATION in ('BRANDEIS'):
     stag_dir = "/home/j/corpuswork/fuse/code/patent-classifier/tools/stanford/" + \
                "stanford-postagger-full-2012-07-09" 
     seg_dir = "/home/j/corpuswork/fuse/code/patent-classifier/tools/stanford/" + \
