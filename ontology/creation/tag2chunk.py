@@ -33,7 +33,7 @@ def mallet_feature(name, value):
 
 class Doc:
 
-    def __init__(self, input,  output_phr_occ, output_phr_feats, year, lang):
+    def __init__(self, input,  output_phr_occ, output_phr_feats, year, lang, filter_p = True):
         self.input = input
         # PGA made year a parameter so not dependent on path structure 10/9/12
         #self.year = input.split(os.sep)[-2]
@@ -57,12 +57,16 @@ class Doc:
         self.l_lc_title_noun = []
 
         # create the chunks
-        self.process_doc()
+        self.process_doc(filter_p)
         
 
     # process the doc, creating all potential technology chunks
-    def process_doc(self):
+    def process_doc(self, filter_p = True):
         debug_p = False
+        #debug_p = True
+        if debug_p:
+        
+            print "[process_doc]filter_p: %s, writing to %s" % (filter_p, self.output_phr_feats)
         s_input = codecs.open(self.input, encoding='utf-8')
         s_output_phr_occ = open(self.output_phr_occ, "w")
         s_output_phr_feats = open(self.output_phr_feats, "w")
@@ -153,11 +157,16 @@ class Doc:
                             print "index: %i, start: %i, end: %i, sentence: %s" % \
                                 (i, chunk.chunk_start, chunk.chunk_end, sent.sentence)
 
-                        # FILTERING technology terms to output
+                        # FILTERING technology terms to output (if filter_p is True)
                         # Here we only output terms that are in the title or share a term with a title term
                         # Note that our "title terms" can actually come from title or abstract.   Many German
                         # patent titles are only one word long!
-                        if section == "TITLE" or share_term_p(self.l_lc_title_noun, chunk.lc_tokens):
+                        # This filter may need adjustment (e.g. for German compound terms, which may not match exactly,
+                        # fitering ought to be based on component terms, not the compound as a whole).
+                        # Filtering is not applied if filter_p parameter is False.
+                        if debug_p:
+                            print "[process_doc] filter_p: %s" % filter_p
+                        if not filter_p or (section == "TITLE" or share_term_p(self.l_lc_title_noun, chunk.lc_tokens)):
                             # write out the phrase occurrence data (phr_occ)
                             # For each phrase occurrence, include uid, year, phrase and full sentence (with highlighted chunk)
                             #print "matched term for %s and %s" %  (self.l_lc_title_noun, chunk.lc_tokens)
@@ -198,14 +207,14 @@ class Doc:
         s_output_phr_occ.close()
         s_output_phr_feats.close()
 
-def tag2chunk_dir(tag_dir, phr_occ_dir, phr_feats_dir, year, lang):
+def tag2chunk_dir(tag_dir, phr_occ_dir, phr_feats_dir, year, lang, filter_p = True):
     #output_chunk = "/home/j/anick/fuse/data/patents/en_test/chunk/US20110052365A1.xml"
     for file in os.listdir(tag_dir):
         input = tag_dir + "/" + file
         output_phr_occ = phr_occ_dir + "/" + file
         output_phr_feats = phr_feats_dir + "/" + file
 
-        doc = Doc(input, output_phr_occ, output_phr_feats, year, lang)
+        doc = Doc(input, output_phr_occ, output_phr_feats, year, lang, filter_p)
 
 # tag2chunk.test_t2c()
 def test_t2c():
@@ -215,12 +224,15 @@ def test_t2c():
     #cs = sentence.chunk_schema("en")
     year = "1980"
     lang = "en"
-    doc = Doc(input, output_phr_occ, output_phr_feats, year, lang)
+    #filter_p = True
+    filter_p = False
+
+    doc = Doc(input, output_phr_occ, output_phr_feats, year, lang, filter_p)
     return(doc)
 
 
-# tag2chunk.test_t2c()
-def test_t2c_de():
+# tag2chunk.test_t2c_de(True)
+def test_t2c_de(filter_p):
     
     input = "/home/j/anick/fuse/data/patents/de/tag/1982/DE3102424A1.xml"
     output_phr_occ = "/home/j/anick/fuse/data/patents/de_test/DE3102424A1.phr_occ"
@@ -229,7 +241,9 @@ def test_t2c_de():
 
     year = "1980"
     lang = "de"
-    doc = Doc(input, output_phr_occ, output_phr_feats, year, lang)
+    #filter_p = True
+    #filter_p = False
+    doc = Doc(input, output_phr_occ, output_phr_feats, year, lang, filter_p)
     return(doc)
 
 # tag2chunk.test_t2c_de_tag_sig()
@@ -272,7 +286,7 @@ def lc_nouns(tag_string):
 # language is en, de, cn
 # lang_path (above year_dir)
 # e.g. tag2chunk.patent_tag2chunk_dir("/home/j/anick/fuse/data/patents", "de")
-def patent_tag2chunk_dir(patent_path, language):
+def patent_tag2chunk_dir(patent_path, language, filter_p = True):
     lang_path = patent_path + "/" + language
     phr_occ_path = lang_path + "/phr_occ"
     phr_feats_path = lang_path + "/phr_feats"
@@ -283,12 +297,12 @@ def patent_tag2chunk_dir(patent_path, language):
         phr_feats_year_dir = phr_feats_path + "/" + year
         tag_year_dir = tag_path + "/" + year
         #print "[patent_tag2chunk_dir]calling tag2chunk for dir: %s" % tag_year_dir
-        print "[patent_tag2chunk_dir]calling tag2chunk, output dirs: %s, %s" % (phr_feats_year_dir, phr_occ_year_dir)
-        tag2chunk_dir(tag_year_dir, phr_occ_year_dir, phr_feats_year_dir, year, language)
+        print "[patent_tag2chunk_dir]calling tag2chunk, filter_p: %s, output dirs: %s, %s" % (filter_p, phr_feats_year_dir, phr_occ_year_dir)
+        tag2chunk_dir(tag_year_dir, phr_occ_year_dir, phr_feats_year_dir, year, language, filter_p)
     print "[patent_tag2chunk_dir]finished writing chunked data to %s and %s" % (phr_occ_path, phr_feats_path)
 
 ### debugging _no output produced PGA 10/8
-def pipeline_tag2chunk_dir(root, language):
+def pipeline_tag2chunk_dir(root, language, filter_p = True):
     
     phr_occ_path = root + "/phr_occ"
     phr_feats_path = root + "/phr_feats"
@@ -310,7 +324,7 @@ def pipeline_tag2chunk_dir(root, language):
         output_phr_feats = os.path.join(root, "phr_feats", file_name)
 
         print "[pipeline_tag2chunk_dir]about to process doc: %s, phr_occ: %s, phr_feats: %s, year: %s" % (tag_file, output_phr_occ, output_phr_feats, year)
-        doc = Doc(tag_file, output_phr_occ, output_phr_feats, year, language)
+        doc = Doc(tag_file, output_phr_occ, output_phr_feats, year, language, filter_p)
 
 
     s_list.close()
@@ -322,6 +336,6 @@ def pipeline_tag2chunk_dir(root, language):
 # tag2chunk.chunk_lang("en")
 # tag2chunk.chunk_lang("de")
 # tag2chunk.chunk_lang("cn")
-def chunk_lang(lang):
+def chunk_lang(lang, filter_p = True):
     patent_path = "/home/j/anick/fuse/data/patents"
-    patent_tag2chunk_dir("/home/j/anick/fuse/data/patents", lang)
+    patent_tag2chunk_dir("/home/j/anick/fuse/data/patents", lang, filter_p)

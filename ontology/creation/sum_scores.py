@@ -20,6 +20,9 @@
 # NOTE: Phrases input to this function may contain escaped forward slash ("\/").  By default, this will be converted to "/" unless
 # remove_backslash_p parameter is set to False in sum_scores.
 
+# error reported on 
+# 0.00002(107723)=1.0
+
 import sys
 from collections import defaultdict
 
