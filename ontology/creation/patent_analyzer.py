@@ -19,7 +19,8 @@ Usage:
     -l LANG     --  provides the language, one of ('en, 'de', 'cn'), default is 'en'
     -s PATH     --  external source directory with XML files, see below for the default
     -t PATH     --  target directory, default is data/patents
-    -v VERSION  -- version number (defaults to 1)
+    -v VERSION  --  version number (defaults to 1)
+    -f FILTER   --  one of (True, False) to turn chunk filtering on/off in tag2chk step 
     --init      --  initialize directory structure in target path (non-destructive)
     --populate  --  populate directory in target path with files from source path
     --xml2txt   --  document structure parsing
@@ -78,7 +79,7 @@ python2.6 patent_analyzer.py -l en -v 2 --scores
 python2.6 patent_analyzer.py -l en --tag2chk
 python2.6 patent_analyzer.py -l en -v 7 --scores
 
-python2.6 patent_analyzer.py -l de --tag2chk
+python2.6 patent_analyzer.py -l de -f False --tag2chk
 python2.6 patent_analyzer.py -l de --pf2dfeats
 python2.6 patent_analyzer.py -l de -v 7 -x 0   --utrain
 python2.6 patent_analyzer.py -l de -v 7 --utest 
@@ -115,12 +116,14 @@ if __name__ == '__main__':
 
     (opts, args) = getopt.getopt(
         sys.argv[1:],
-        'l:s:t:v:x:',
+        'l:s:t:v:x:f:',
         ['init', 'populate', 'xml2txt', 'txt2tag', 'tag2chk', 'pf2dfeats', 'summary',
          'utrain', 'utest', 'scores', 'all'])
     
+
     version = "1"
     xval = "0"
+    filter_p = True
     init = False
     populate = False
     xml_to_txt = False
@@ -141,6 +144,15 @@ if __name__ == '__main__':
         if opt == '-t': target_path = val
         if opt == '-v': version = val
         if opt == '-x': xval = val
+        if opt == '-f': 
+            if val == "True":
+                filter_p = True
+            elif val == "False":
+                filter_p = False
+            else:
+                print "Illegal value for Boolean option -f: %s" % val
+                sys.exit()
+                
 
         if opt == '--init': init = True
         if opt == '--populate': populate = True
@@ -192,7 +204,8 @@ if __name__ == '__main__':
 
     elif tag_to_chk:
         # populates language/phr_occ and language/phr_feat
-        tag2chunk.patent_tag2chunk_dir(target_path, language)
+        print "[patent_analyzer] filter_p: %s" % filter_p
+        tag2chunk.patent_tag2chunk_dir(target_path, language, filter_p)
     
     elif pf_to_dfeats:
         # creates a union of the features for each chunk in a doc (for training)
@@ -238,7 +251,7 @@ if __name__ == '__main__':
             cn_seg2tag.patent_txt2tag_dir(target_path, language)
         else:
             txt2tag.patent_txt2tag_dir(target_path, language)
-        tag2chunk.patent_tag2chunk_dir(target_path, language)
+        tag2chunk.patent_tag2chunk_dir(target_path, language, filter_p)
         pf2dfeats.patent_pf2dfeats_dir(target_path, language)
         command = "sh ./cat_phr.sh %s %s" % (target_path, language)
         subprocess.call(command, shell=True)
