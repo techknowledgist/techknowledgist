@@ -458,7 +458,7 @@ class Sentence(object):
 
 class Sentence_english(Sentence):
 
-    print "Creating Sentence_english subclass"
+    #print "Creating Sentence_english subclass"
 
     # previous verb
     # return closest verb to left of NP
@@ -580,7 +580,7 @@ class Sentence_german(Sentence):
     very similar to the English ones. You could almost imagine having some non feature
     methods on the parent class that implements comon behaviour."""
     
-    print "Creating Sentence_german subclass"
+    #print "Creating Sentence_german subclass"
 
     # previous verb
     # return closest verb to left of NP
@@ -708,7 +708,8 @@ class Sentence_german(Sentence):
     
 
 class Sentence_chinese(Sentence):
-    print "Creating Sentence_chinese subclass"
+
+    #print "Creating Sentence_chinese subclass"
     
     # first noun to the left of chunk, within 3 words
     @feature_method

@@ -24,10 +24,13 @@
 # 0.00002(107723)=1.0
 
 import sys
-from collections import defaultdict
+#from collections import defaultdict
 
 def sum_scores(doc_scores_file, sum_scores_file, remove_backslash_p = True):
-    d_phr2score = defaultdict(list)
+
+    # MV: Changed this so that we can use a generic python in patent_tech_scores.py
+    # d_phr2score = defaultdict(list)
+    d_phr2score = {}
 
     s_doc_scores_file = open(doc_scores_file)
     s_sum_scores_file = open(sum_scores_file, "w")
@@ -44,7 +47,8 @@ def sum_scores(doc_scores_file, sum_scores_file, remove_backslash_p = True):
         # pull out the phrase and replace the underscores with blanks
         phrase = phrase[phrase.rfind("|")+1:].replace("_", " ")
         #print "phrase: %s" % phrase
-        d_phr2score[phrase].append(float(doc_score))
+        #d_phr2score[phrase].append(float(doc_score))
+        d_phr2score.setdefault(phrase,[]).append(float(doc_score))
 
     if unexpected_input > 0:
         print "WARNING: %d lines in the input were unexpected" % unexpected_input

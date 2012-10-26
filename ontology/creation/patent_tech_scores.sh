@@ -23,9 +23,11 @@ cat $scores_nr_file | grep -v "E-" > $scores_nr_noexp_file
 
 echo "[tech_scores]Created $scores_nr_noexp_file"
 
-# version of python is system dependent!
+# Version of python needed was 2.5, which caused prblems for systems where the default
+# Python version was lower. Either needed to add a parameter to the script, or remove use
+# of defaultdict in sum_scores.py, did the latter.
 python sum_scores.py $scores_nr_noexp_file $scores_nr_noexp_file.sum
-#python sum_scores.py $scores_nr_noexp_file $scores_nr_noexp_file.sum
+
 
 # insert tab in emacs using ctr-q <tab>
 cat $scores_nr_noexp_file.sum | sort -k2,2 -nr -t"	" > $scores_nr_noexp_file.sum.nr

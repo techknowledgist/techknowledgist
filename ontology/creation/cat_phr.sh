@@ -25,8 +25,7 @@ echo "Finished initialization"
 
 # merge all phr_occ lines into one file (phr_occ.all)
 for f in $input_phr_occ_dir/*/*; do
-    
-    echo $f
+    #echo $f
     cat $f | cut -f3  >> $output_dir/phr_occ.all
 done
 echo "[cat_phr.sh]Created $output_dir/phr_occ.all"
@@ -34,7 +33,7 @@ echo "[cat_phr.sh]Created $output_dir/phr_occ.all"
 #<<COMMENT
 # merge all phr_feats lines into one file (phr_feats.all)
 for f in $input_phr_feats_dir/*/*; do
-    echo $f
+    #echo $f
     cat $f >> $output_dir/phr_feats.all
 done
 echo "[cat_phr.sh]Created $output_dir/phr_feats.all"
