@@ -38,7 +38,7 @@ def load_phrase_labels(patent_dir, lang):
     return(d_phr2label)
 
 # Create a .mallet training file using features unioned over all chunk occurrences within a doc
-def make_utraining_file(patent_dir, lang, version, d_phr2label):
+def make_utraining_file_by_dir(patent_dir, lang, version, d_phr2label):
     doc_feats_dir = os.path.join(patent_dir, lang, "doc_feats")
     train_dir = os.path.join(patent_dir, lang, "train")
     train_file_prefix = "utrain." + str(version)
@@ -81,9 +81,57 @@ def make_utraining_file(patent_dir, lang, version, d_phr2label):
                 else:
                     unlabeled_count += 1
 
-
-
             s_doc_feats_input.close()
+    s_train.close()
+    print "labeled instances: %i, unlabeled: %i" % (labeled_count, unlabeled_count)
+    print "[make_training_file]Created training data in: %s" % train_file
+
+
+# This uses the precomputed summary of all doc_feats for multiple directories
+# in <lang>/ws/doc_feats.all
+# This is a more efficient version of make_utraining_file_by_dir
+def make_utraining_file(patent_dir, lang, version, d_phr2label):
+    doc_feats_dir = os.path.join(patent_dir, lang, "doc_feats")
+    doc_feats_file = os.path.join(patent_dir, lang, "ws", "doc_feats.all")
+    train_dir = os.path.join(patent_dir, lang, "train")
+    train_file_prefix = "utrain." + str(version)
+    train_file_name = train_file_prefix + ".mallet"
+    train_file = os.path.join(train_dir, train_file_name)
+    #print "[make_training_file]doc_feats_dir: %s, train_file: %s" % (doc_feats_dir, train_file)
+
+    s_train = open(train_file, "w")
+
+    labeled_count = 0
+    unlabeled_count = 0
+            
+    s_doc_feats_input = open(doc_feats_file)
+
+    # extract key, uid, and features
+    for line in s_doc_feats_input:
+        line = line.strip("\n")
+        fields = line.split("\t")
+        phrase = fields[0]
+        uid = fields[1]
+        feats = fields[2:]
+        # check if the phrase has a known label
+        if d_phr2label.has_key(phrase):
+            label = d_phr2label.get(phrase)
+            if label == "":
+                print "[make_training_file]Error: found phrase with null label: %s" % phrase
+                sys.exit()
+            else:
+                mallet_list = [uid, label]
+                mallet_list.extend(feats)
+                # create a whitespace separated line with format
+                # uid label f1 f2 f3 ...
+                mallet_line = " ".join(mallet_list) + "\n"
+                s_train.write(mallet_line)
+                labeled_count += 1
+        else:
+            unlabeled_count += 1
+
+    s_doc_feats_input.close()
+
     s_train.close()
     print "labeled instances: %i, unlabeled: %i" % (labeled_count, unlabeled_count)
     print "[make_training_file]Created training data in: %s" % train_file

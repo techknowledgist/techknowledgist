@@ -84,6 +84,8 @@ python2.6 patent_analyzer.py -l de --pf2dfeats
 python2.6 patent_analyzer.py -l de -v 7 -x 0   --utrain
 python2.6 patent_analyzer.py -l de -v 7 --utest 
 python2.6 patent_analyzer.py -l de -v 7 --scores  
+
+
 """
 
 
@@ -253,5 +255,6 @@ if __name__ == '__main__':
             txt2tag.patent_txt2tag_dir(target_path, language)
         tag2chunk.patent_tag2chunk_dir(target_path, language, filter_p)
         pf2dfeats.patent_pf2dfeats_dir(target_path, language)
+        # summary step (next two line) creates the files in ws
         command = "sh ./cat_phr.sh %s %s" % (target_path, language)
         subprocess.call(command, shell=True)
