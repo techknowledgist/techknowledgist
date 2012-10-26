@@ -11,6 +11,7 @@ patents_path=$1
 language=$2
 input_phr_occ_dir=$patents_path/$language/phr_occ
 input_phr_feats_dir=$patents_path/$language/phr_feats
+input_doc_feats_dir=$patents_path/$language/doc_feats
 output_dir=$patents_path/$language/ws
 
 echo "[cat_phr.sh]input_phr_occ_dir: $input_phr_occ_dir, input_phr_feats_dir: $input_phr_feats_dir, output_dir: $output_dir"
@@ -19,6 +20,7 @@ echo "[cat_phr.sh]input_phr_occ_dir: $input_phr_occ_dir, input_phr_feats_dir: $i
 :> $output_dir/phr_occ.uct
 :> $output_dir/phr_occ.all
 :> $output_dir/phr_feats.all
+:> $output_dir/doc_feats.all
 
 echo "Finished initialization"
 #<<COMMENT
@@ -38,6 +40,21 @@ for f in $input_phr_feats_dir/*/*; do
     cat $f >> $output_dir/phr_feats.all
 done
 echo "[cat_phr.sh]Created $output_dir/phr_feats.all"
+
+
+# merge all doc_feats lines into one file (doc_feats.all)                                               
+# This file can be used by train.py to get all training instances from a single
+# file rather than requiring python to navigate through the directory structure 
+# to gather up individual doc_feats files for training. 
+# The 1st field will also be used to populate a phrase index (date, phrase, filename)
+# for creating a histogram of phrase doc counts over years
+#  
+for f in $input_doc_feats_dir/*/*; do
+    echo $f
+    cat $f >> $output_dir/doc_feats.all
+done
+echo "[cat_phr.sh]Created $output_dir/doc_feats.all"
+
 
 #COMMENT
 
