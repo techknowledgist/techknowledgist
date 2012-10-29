@@ -42,13 +42,20 @@ Usage:
     -s PATH     --  external source directory with XML files, see below for the default
     -t PATH     --  target directory, default is data/patents
     -n INTEGER  --  number of documents to process
+    
     --init      --  initialize directory structure in target path (non-destructive)
     --populate  --  populate directory in target path with files from source path
     --xml2txt   --  document structure parsing
     --txt2tag   --  tagging
     --tag2chk   --  creating chunks in context
     --summary   --  create summary lists
+    --annotate  --  prepare files for annotation
+    --utrain    --  create model for classifier
+    --utest     --  run classifier
+    --scores    --  generate scores from classifier results
 
+    --verbose   --  print name of each processed file to stdout
+    
     All long options require a target path and a language (via the -l and -t options or
     their defaults). The long options --init and --populate also require a source path
     (via -s or its default). The -n option is ignored if --init is used.
@@ -116,7 +123,7 @@ from utils.docstructure.main import Parser
 source_path = config_data.external_patent_path
 target_path = config_data.working_patent_path
 language = config_data.language
-
+verbose = False
 
 def run_init(source_path, target_path, language):
     """Creates a directory inside data/patents, using the language and the range of years as
@@ -153,7 +160,8 @@ def run_populate(source_path, target_path, language, limit):
         count += 1
         source_file = os.path.join(source_path, year, fname)
         target_file = os.path.join(target_path, language, 'xml', year, fname)
-        print "[--populate] %04d adding %s" % (count, target_file)
+        if verbose:
+            print "[--populate] %04d adding %s" % (count, target_file)
         shutil.copyfile(source_file, target_file)
     stages['--populate'] += limit
     write_stages(target_path, language, stages)
@@ -174,7 +182,8 @@ def run_xml2txt(target_path, language, limit):
         count += 1
         source_file = os.path.join(target_path, language, 'xml', year, fname)
         target_file = os.path.join(target_path, language, 'txt', year, fname)
-        print "[--xml2txt] %04d creating %s" % (count, target_file)
+        if verbose:
+            print "[--xml2txt] %04d creating %s" % (count, target_file)
         try:
             xml2txt.xml2txt(xml_parser, source_file, target_file)
         except Exception:
@@ -199,12 +208,15 @@ def run_txt2tag(target_path, language, limit):
         seg_file = os.path.join(target_path, language, 'seg', year, fname)
         tag_file = os.path.join(target_path, language, 'tag', year, fname)
         if language == 'cn':
-            print "[--txt2tag] %04d creating %s" % (count, seg_file)
+            if verbose:
+                print "[--txt2tag] %04d creating %s" % (count, seg_file)
             cn_txt2seg.seg(txt_file, seg_file, segmenter)
-            print "[--txt2tag] %04d creating %s" % (count, tag_file)
+            if verbose:
+                print "[--txt2tag] %04d creating %s" % (count, tag_file)
             cn_seg2tag.tag(seg_file, tag_file, tagger)
         else:
-            print "[--txt2tag] %04d creating %s" % (count, tag_file)
+            if verbose:
+                print "[--txt2tag] %04d creating %s" % (count, tag_file)
             txt2tag.tag(txt_file, tag_file, tagger)
     stages['--txt2tag'] += limit
     stages = write_stages(target_path, language, stages)
@@ -212,7 +224,7 @@ def run_txt2tag(target_path, language, limit):
 def run_tag2chk(target_path, language, limit):
     """Runs the np-in-context code on tagged input. Populates language/phr_occ and
     language/phr_feat."""
-    print "[--tag2chk] on %s/%s/txt/" % (target_path, language)
+    print "[--tag2chk] on %s/%s/tag/" % (target_path, language)
     stages = read_stages(target_path, language)
     fnames = files_to_process(stages, '--tag2chk', limit)
     count = 0
@@ -221,14 +233,15 @@ def run_tag2chk(target_path, language, limit):
         tag_file = os.path.join(target_path, language, 'tag', year, fname)
         occ_file = os.path.join(target_path, language, 'phr_occ', year, fname)
         fea_file = os.path.join(target_path, language, 'phr_feats', year, fname)
-        print "[--tag2chk] %04d adding %s" % (count, occ_file)
+        if verbose:
+            print "[--tag2chk] %04d adding %s" % (count, occ_file)
         tag2chunk.Doc(tag_file, occ_file, fea_file, year, language)
     stages['--tag2chk'] += limit
     write_stages(target_path, language, stages)
 
 def run_pf2dfeats(target_path, language, limit):
     """Creates a union of the features for each chunk in a doc (for training)."""
-    print "[--pf2dfeats] on %s/%s/txt/" % (target_path, language)
+    print "[--pf2dfeats] on %s/%s/phr_feats/" % (target_path, language)
     stages = read_stages(target_path, language)
     fnames = files_to_process(stages, '--pf2dfeats', limit)
     count = 0
@@ -237,18 +250,78 @@ def run_pf2dfeats(target_path, language, limit):
         doc_id = os.path.splitext(os.path.basename(fname))[0]
         phr_file = os.path.join(target_path, language, 'phr_feats', year, fname)
         doc_file = os.path.join(target_path, language, 'doc_feats', year, fname)
-        print "[--pf2dfeats] %04d adding %s" % (count, doc_file)
+        if verbose:
+            print "[--pf2dfeats] %04d adding %s" % (count, doc_file)
         pf2dfeats.make_doc_feats(phr_file, doc_file, doc_id, year)
     stages['--pf2dfeats'] += limit
     write_stages(target_path, language, stages)
 
-def run_summary(target_path, language):
-    """Create summary data phr_occ and phr_feats across dates, also phrase file suitable
-    for annotation (phr_occ.unlab) in the ws subdirectory."""
-    command = "sh ./cat_phr.sh %s %s" % (target_path, language)
-    subprocess.call(command, shell=True)
+def run_summary(target_path, language, limit):
+    """Collect data from directories into workspace area: ws/doc_feats.all,
+    ws/phr_feats.all and ws/phr_occ.all. Al downstream processing should rely on these
+    data and nothing else."""
+    #subprocess.call("sh ./cat_phr.sh %s %s" % (target_path, language), shell=True)
+    stages = read_stages(target_path, language)
+    fnames = files_to_process(stages, '--summary', limit)
+    doc_feats_file = os.path.join(target_path, language, 'ws', 'doc_feats.all')
+    phr_feats_file = os.path.join(target_path, language, 'ws', 'phr_feats.all')
+    phr_occ_file = os.path.join(target_path, language, 'ws', 'phr_occ.all')
+    fh_doc_feats = codecs.open(doc_feats_file, 'a', encoding='utf-8')
+    fh_phr_feats = codecs.open(phr_feats_file, 'a', encoding='utf-8')
+    fh_phr_occ = codecs.open(phr_occ_file, 'a', encoding='utf-8')
+    for (year, fname) in fnames:
+        doc_feats_file = os.path.join(target_path, language, 'doc_feats', year, fname)
+        phr_feats_file = os.path.join(target_path, language, 'phr_feats', year, fname)
+        phr_occ_file = os.path.join(target_path, language, 'phr_occ', year, fname)
+        fh_doc_feats.write(codecs.open(doc_feats_file, encoding='utf-8').read())
+        fh_phr_feats.write(codecs.open(phr_feats_file, encoding='utf-8').read())
+        fh_phr_occ.write(codecs.open(phr_occ_file, encoding='utf-8').read())
+    stages['--summary'] += limit
+    write_stages(target_path, language, stages)
+
     
-        
+def run_annotate(target_path, language, limit):
+    """Create input for annotation effort. This function is different in the sense that it
+    does not keep track of how far it got into the corpus. Rather, you tell it how many
+    files you want to use and it takes those files off the top of the ws/phr_occ.all file
+    and generates the input for annotation from there. And unlike --summary, this does not
+    append to theoutput files but overwrites older versions."""
+    
+    phr_occ_all_file = os.path.join(target_path, language, 'ws', 'phr_occ.all')
+    phr_occ_phr_file = os.path.join(target_path, language, 'ws', 'phr_occ.phr')
+    fh_phr_occ_all = codecs.open(phr_occ_all_file, 'r', encoding='utf-8')
+    fh_phr_occ_phr = codecs.open(phr_occ_phr_file, 'w', encoding='utf-8')
+
+    # first collect all phrases
+    print "Creating", phr_occ_phr_file 
+    current_fname = None
+    count = 0
+    for line in fh_phr_occ_all:
+        (fname, year, phrase, sentence) = line.strip("\n").split("\t")
+        fname = fname.split('.xml_')[0] + '.xml'
+        if fname != current_fname:
+            current_fname = fname
+            count += 1
+        if count > limit:
+            break
+        fh_phr_occ_phr.write(phrase+"\n")
+
+    # now create phr_occ.uct and phr_occ.unlab
+    phr_occ_uct_file = os.path.join(target_path, language, 'ws', 'phr_occ.uct')
+    phr_occ_unlab_file = os.path.join(target_path, language, 'ws', 'phr_occ.unlab')
+    print "Creating", phr_occ_uct_file 
+    command = "cat %s | sort | uniq -c | sort -nr | python reformat_uc.py > %s" \
+              % (phr_occ_phr_file, phr_occ_uct_file)
+    print '%', command
+    subprocess.call(command, shell=True)    
+    print "Creating", phr_occ_unlab_file 
+    command = "cat %s | sed -e 's/^[0-9]*\t/\t/' > %s" \
+              % (phr_occ_uct_file, phr_occ_unlab_file)
+    print '%', command
+    subprocess.call(command, shell=True)    
+
+
+
 def read_stages(target_path, language):
     stages = {}
     for line in open(os.path.join(target_path, language, 'ALL_STAGES.txt')):
@@ -294,13 +367,13 @@ if __name__ == '__main__':
         sys.argv[1:],
         'l:s:t:n:',
         ['init', 'populate', 'xml2txt', 'txt2tag', 'tag2chk', 'pf2dfeats', 
-         'summary', 'utrain', 'utest', 'scores'])
+         'summary', 'annotate', 'utrain', 'utest', 'scores'])
 
     init, populate = False, False
     limit = 0
     xml_to_txt, txt_to_seg, txt_to_tag, tag_to_chk = False, False, False, False
     pf_to_dfeats = False
-    summary = False
+    summary, annotate = False, False
     union_train, union_test, tech_scores = False, False, False
     version = "1"
     xval = "0"
@@ -317,9 +390,11 @@ if __name__ == '__main__':
         if opt == '--tag2chk': tag_to_chk = True
         if opt == '--pf2dfeats': pf_to_dfeats = True
         if opt == '--summary': summary = True
+        if opt == '--annotate': annotate = True
         if opt == '--utrain': union_train = True
         if opt == '--utest': union_test = True
         if opt == '--scores': tech_scores = True
+        if opt == '--verbose': verbose = True
 
     annot_path = os.path.join(config_data.annotation_directory, language)
          
@@ -336,8 +411,10 @@ if __name__ == '__main__':
     elif pf_to_dfeats:
         run_pf2dfeats(target_path, language, limit)
     elif summary:
-        run_summary(target_path, language)
-
+        run_summary(target_path, language, limit)
+    elif annotate:
+        run_annotate(target_path, language, limit)
+        
     # Note: At this point, user must manually create an annotated file phr_occ.lab, it is
     # expected that this file lives in ../annotation/<language>. It is automatically
     # copied to the <language>/ws subdirectory.

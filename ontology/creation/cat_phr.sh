@@ -49,7 +49,7 @@ echo "[cat_phr.sh]Created $output_dir/phr_feats.all"
 # for creating a histogram of phrase doc counts over years
 #  
 for f in $input_doc_feats_dir/*/*; do
-    echo $f
+    #echo $f
     cat $f >> $output_dir/doc_feats.all
 done
 echo "[cat_phr.sh]Created $output_dir/doc_feats.all"

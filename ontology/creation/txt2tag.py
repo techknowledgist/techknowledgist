@@ -19,6 +19,11 @@ def tag(input, output, tagger):
     section = ""
     sent_no_in_section = 0
     for line in s_input:
+        # skip very long lines since these typically contain non-tectual crut like gene
+        # sequences; skip them because some of them break the tagger
+        # TODO: now we just lose them, write them to the output but mark them somehow
+        if len(line) > 10000:
+            continue
         line = line.strip("\n")
         # TODO: this is hack to make the tagger work, but it loses information
         # TODO: could replace with &tilde;
