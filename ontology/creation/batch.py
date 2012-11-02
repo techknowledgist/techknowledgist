@@ -163,8 +163,7 @@ def run_populate(source_path, target_path, language, limit):
         if verbose:
             print "[--populate] %04d adding %s" % (count, target_file)
         shutil.copyfile(source_file, target_file)
-    stages['--populate'] += limit
-    write_stages(target_path, language, stages)
+    update_stages(target_path, language, '--populate', limit)
 
 def run_xml2txt(target_path, language, limit):
     """Takes xml files and runs the document structure parser in onto mode. Adds files
@@ -190,8 +189,7 @@ def run_xml2txt(target_path, language, limit):
             fh = codecs.open(target_file, 'w')
             fh.close()
             print "[--xml2txt]      WARNING: error on", source_file
-    stages['--xml2txt'] += limit
-    stages = write_stages(target_path, language, stages)
+    update_stages(target_path, language, '--xml2txt', limit)
 
 def run_txt2tag(target_path, language, limit):
     """Takes txt files and runs the tagger (and segmenter for Chinese) on them. Adds files to
@@ -218,8 +216,7 @@ def run_txt2tag(target_path, language, limit):
             if verbose:
                 print "[--txt2tag] %04d creating %s" % (count, tag_file)
             txt2tag.tag(txt_file, tag_file, tagger)
-    stages['--txt2tag'] += limit
-    stages = write_stages(target_path, language, stages)
+    update_stages(target_path, language, '--txt2tag', limit)
 
 def run_tag2chk(target_path, language, limit):
     """Runs the np-in-context code on tagged input. Populates language/phr_occ and
@@ -236,8 +233,7 @@ def run_tag2chk(target_path, language, limit):
         if verbose:
             print "[--tag2chk] %04d adding %s" % (count, occ_file)
         tag2chunk.Doc(tag_file, occ_file, fea_file, year, language)
-    stages['--tag2chk'] += limit
-    write_stages(target_path, language, stages)
+    update_stages(target_path, language, '--tag2chk', limit)
 
 def run_pf2dfeats(target_path, language, limit):
     """Creates a union of the features for each chunk in a doc (for training)."""
@@ -253,8 +249,7 @@ def run_pf2dfeats(target_path, language, limit):
         if verbose:
             print "[--pf2dfeats] %04d adding %s" % (count, doc_file)
         pf2dfeats.make_doc_feats(phr_file, doc_file, doc_id, year)
-    stages['--pf2dfeats'] += limit
-    write_stages(target_path, language, stages)
+    update_stages(target_path, language, '--pf2dfeats', limit)
 
 def run_summary(target_path, language, limit):
     """Collect data from directories into workspace area: ws/doc_feats.all,
@@ -276,8 +271,7 @@ def run_summary(target_path, language, limit):
         fh_doc_feats.write(codecs.open(doc_feats_file, encoding='utf-8').read())
         fh_phr_feats.write(codecs.open(phr_feats_file, encoding='utf-8').read())
         fh_phr_occ.write(codecs.open(phr_occ_file, encoding='utf-8').read())
-    stages['--summary'] += limit
-    write_stages(target_path, language, stages)
+    update_stages(target_path, language, '--summary', limit)
 
     
 def run_annotate(target_path, language, limit):
@@ -331,6 +325,16 @@ def read_stages(target_path, language):
         stages[stage] = int(count)
     return stages
 
+def update_stages(target_path, language, stage, limit):
+    """Updates the counts in ALL_STAGES.txt. This includes rereading the file because
+    during processing on one machine another machine could have done some other processing
+    and have updated the fiel, we do not want to lose those updates. This could
+    potentially go wrong when to separate processes terminate at the same time, a rather
+    unlikely occurrence."""
+    stages = read_stages(target_path, language)
+    stages[stage] += limit
+    write_stages(target_path, language, stages)
+    
 def write_stages(target_path, language, stages):
     stages_file = os.path.join(target_path, language, 'ALL_STAGES.txt')
     backup_file = os.path.join(target_path, language,
@@ -426,7 +430,7 @@ if __name__ == '__main__':
         source_annot_lang_file = os.path.join(annot_path, 'phr_occ.lab')
         target_annot_lang_file = os.path.join(target_path, language, 'ws', 'phr_occ.lab')
         shutil.copyfile(source_annot_lang_file, target_annot_lang_file)
-        train.patent_utraining_data(target_path, language, version, xval)
+        train.patent_utraining_data(target_path, language, version, xval, limit)
 
     elif union_test:
         train.patent_utraining_test_data(target_path, language, version)

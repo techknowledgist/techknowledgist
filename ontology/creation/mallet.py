@@ -62,7 +62,7 @@ class Mallet_instance:
 class Mallet_training:
 
     def __init__(self, file_prefix, version, train_output_dir):
-        print "calling init"
+        #print "calling init"
         self.train_output_dir = train_output_dir
         self.file_prefix = file_prefix
         # id's are 0 based

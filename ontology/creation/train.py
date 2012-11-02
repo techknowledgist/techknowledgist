@@ -37,8 +37,12 @@ def load_phrase_labels(patent_dir, lang):
     s_label_file.close()
     return(d_phr2label)
 
-# Create a .mallet training file using features unioned over all chunk occurrences within a doc
+
 def make_utraining_file_by_dir(patent_dir, lang, version, d_phr2label):
+
+    """Create a .mallet training file using features unioned over all chunk occurrences
+    within a doc """
+    
     doc_feats_dir = os.path.join(patent_dir, lang, "doc_feats")
     train_dir = os.path.join(patent_dir, lang, "train")
     train_file_prefix = "utrain." + str(version)
@@ -87,31 +91,43 @@ def make_utraining_file_by_dir(patent_dir, lang, version, d_phr2label):
     print "[make_training_file]Created training data in: %s" % train_file
 
 
-# This uses the precomputed summary of all doc_feats for multiple directories
-# in <lang>/ws/doc_feats.all
-# This is a more efficient version of make_utraining_file_by_dir
-def make_utraining_file(patent_dir, lang, version, d_phr2label):
+def make_utraining_file(patent_dir, lang, version, d_phr2label, limit=0):
+
+    """ Create a file with training instances for Mallet. It uses the precomputed summary
+    of all doc_feats for multiple directories in <lang>/ws/doc_feats.all and is a more
+    efficient version of make_utraining_file_by_dir. The limit parameter gives the maximum
+    number of files from the input that should be used for the model, if it is zero, than
+    all files will be taken."""
+
     doc_feats_dir = os.path.join(patent_dir, lang, "doc_feats")
     doc_feats_file = os.path.join(patent_dir, lang, "ws", "doc_feats.all")
     train_dir = os.path.join(patent_dir, lang, "train")
     train_file_prefix = "utrain." + str(version)
     train_file_name = train_file_prefix + ".mallet"
     train_file = os.path.join(train_dir, train_file_name)
-    #print "[make_training_file]doc_feats_dir: %s, train_file: %s" % (doc_feats_dir, train_file)
-
-    s_train = open(train_file, "w")
 
     labeled_count = 0
     unlabeled_count = 0
-            
+    s_train = open(train_file, "w")
     s_doc_feats_input = open(doc_feats_file)
 
     # extract key, uid, and features
+    current_fname = None
+    file_count = 0
     for line in s_doc_feats_input:
         line = line.strip("\n")
         fields = line.split("\t")
         phrase = fields[0]
         uid = fields[1]
+        if limit > 0:
+            # do not do this check if no limit was given, partially so that code from
+            # patent_analyzer.py does nto need to be changed and behaves the same
+            (year, fname, rest) = uid.split('|',2)
+            if fname != current_fname:
+                current_fname = fname
+                file_count += 1
+            if file_count == limit:
+                break
         feats = fields[2:]
         # check if the phrase has a known label
         if d_phr2label.has_key(phrase):
@@ -131,17 +147,17 @@ def make_utraining_file(patent_dir, lang, version, d_phr2label):
             unlabeled_count += 1
 
     s_doc_feats_input.close()
-
     s_train.close()
     print "labeled instances: %i, unlabeled: %i" % (labeled_count, unlabeled_count)
     print "[make_training_file]Created training data in: %s" % train_file
 
 
-def patent_utraining_data(patent_dir, lang, version="1", xval=0):
+def patent_utraining_data(patent_dir, lang, version="1", xval=0, limit=0):
     # get dictionary of annotations
     d_phr2label = load_phrase_labels(patent_dir, lang)
     # create .mallet file
-    make_utraining_file(patent_dir, lang, version, d_phr2label)
+    make_utraining_file(patent_dir, lang, version, d_phr2label, limit)
+    return
     # create an instance of Mallet_training class to do the rest
     # let's do the work in the train directory for now.
     train_output_dir = os.path.join(patent_dir, lang, "train")
@@ -150,6 +166,7 @@ def patent_utraining_data(patent_dir, lang, version="1", xval=0):
     mtr.write_train_mallet_vectors_file()
     # make sure xval is an int (since it can be passed in by command line args)
     xval = int(xval)
+    # create the model (utrain.<version>.MaxEnt.model)
     mtr.mallet_train_classifier("MaxEnt", xval)
 
 
