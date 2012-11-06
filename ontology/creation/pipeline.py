@@ -219,6 +219,7 @@ if __name__ == '__main__':
             txt2tag.pipeline_txt2tag_dir(target_path, language)
 
         tag2chunk.pipeline_tag2chunk_dir(target_path, language)
+        #tag2chunk.pipeline_tag2chunk_dir(target_path, language, filter_p=False)
         pf2dfeats.pipeline_pf2dfeats_dir(target_path, language)
 
         command = "sh ./cat_phr.sh %s %s" % (target_path, language)
