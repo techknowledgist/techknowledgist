@@ -275,11 +275,14 @@ def run_summary(target_path, language, limit):
 
     
 def run_annotate(target_path, language, limit):
+
     """Create input for annotation effort. This function is different in the sense that it
     does not keep track of how far it got into the corpus. Rather, you tell it how many
     files you want to use and it takes those files off the top of the ws/phr_occ.all file
     and generates the input for annotation from there. And unlike --summary, this does not
-    append to theoutput files but overwrites older versions."""
+    append to the output files but overwrites older versions. The limit is used just to
+    determine how many files are taken to create the list for annotation, it is not used
+    to increment any number in the ALL_STAGES.txt file."""
     
     phr_occ_all_file = os.path.join(target_path, language, 'ws', 'phr_occ.all')
     phr_occ_phr_file = os.path.join(target_path, language, 'ws', 'phr_occ.phr')
@@ -314,8 +317,18 @@ def run_annotate(target_path, language, limit):
     print '%', command
     subprocess.call(command, shell=True)    
 
+def run_utrain(target_path, language, version, xval, limit):
+    """Creates a mallet training file for labeled data with features as union of all
+    phrase instances within a doc. Also creates a model utrain.<version>.MaxEnt.model in
+    the train subdirectory. Limit is used to determine the size of the training set, as
+    with run_annotate, it is not used for incrementing values in ALL_STAGES.txt. """
+    annot_path = os.path.join(config_data.annotation_directory, language)
+    source_annot_lang_file = os.path.join(annot_path, 'phr_occ.lab')
+    target_annot_lang_file = os.path.join(target_path, language, 'ws', 'phr_occ.lab')
+    shutil.copyfile(source_annot_lang_file, target_annot_lang_file)
+    train.patent_utraining_data(target_path, language, version, xval, limit)
 
-
+        
 def read_stages(target_path, language):
     stages = {}
     for line in open(os.path.join(target_path, language, 'ALL_STAGES.txt')):
@@ -400,8 +413,6 @@ if __name__ == '__main__':
         if opt == '--scores': tech_scores = True
         if opt == '--verbose': verbose = True
 
-    annot_path = os.path.join(config_data.annotation_directory, language)
-         
     if init:
         run_init(source_path, target_path, language)
     elif populate:
@@ -421,16 +432,10 @@ if __name__ == '__main__':
         
     # Note: At this point, user must manually create an annotated file phr_occ.lab, it is
     # expected that this file lives in ../annotation/<language>. It is automatically
-    # copied to the <language>/ws subdirectory.
+    # copied to the <language>/ws subdirectory in the next step.
         
     elif union_train:
-        # creates a mallet training file for labeled data with features as union of all
-        # phrase instances within a doc.  Creates a model: utrain.<version>.MaxEnt.model
-        # in train subdirectory
-        source_annot_lang_file = os.path.join(annot_path, 'phr_occ.lab')
-        target_annot_lang_file = os.path.join(target_path, language, 'ws', 'phr_occ.lab')
-        shutil.copyfile(source_annot_lang_file, target_annot_lang_file)
-        train.patent_utraining_data(target_path, language, version, xval, limit)
+        run_utrain(target_path, language, version, xval, limit)
 
     elif union_test:
         train.patent_utraining_test_data(target_path, language, version)
