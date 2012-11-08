@@ -97,8 +97,13 @@ def np_db_insert_doc_feats(db_path, doc_feats_file):
 # Example of creating an np_db.  Needs to be done only once per language
 # np_db.test_create()
 def np_db_test_create():
-    lang__path = "/home/j/anick/patent-classifier/ontology/creation/data/patents/en/ws"    
-    np_db_create(lang__path)
+    lang_path = "/home/j/anick/patent-classifier/ontology/creation/data/patents/en/ws"    
+    np_db_create(lang_path)
+
+def np_db_test_create_cn():
+    lang_path = "/home/j/anick/patent-classifier/ontology/creation/data/patents/cn/ws"    
+    np_db_create(lang_path)
+
 
 # Example of inserting a file of doc_feats records into the np_db
 #np_db.np_db_test_insert()
@@ -109,6 +114,16 @@ def np_db_test_insert():
     # Note: No other processes should have the database open when you are trying to do updates
     # unless they have opened it in readonly mode.
     np_db_insert_doc_feats(ws_path, doc_feats_file)
+
+def np_db_test_insert_cn():
+    ws_path = "/home/j/anick/patent-classifier/ontology/creation/data/patents/cn/ws"
+    doc_feats_file = os.path.join(ws_path, "doc_feats.all")
+
+    # Note: No other processes should have the database open when you are trying to do updates
+    # unless they have opened it in readonly mode.
+    np_db_insert_doc_feats(ws_path, doc_feats_file)
+
+
 
 # Example of getting a (readonly) connection for doing database queries
 # Readonly mode isn't actually supported but you should be allowed to have 
@@ -149,5 +164,25 @@ def np_db_counts_test():
     np_db_close(conn)
 
 
+def np_db_counts_test_cn():
+    db_filename = "/home/j/anick/patent-classifier/ontology/creation/data/patents/cn/ws/np.db"
+    conn = np_db_conn(db_filename)
+    res = np_db_counts(conn, "link", [2008, 2009, 2010, 2011])
+    print "Counts for phrase link: %s" % res
+    res = np_db_counts(conn, "invention", [2001, 2002, 2003])
+    print "Counts for phrase invention: %s" % res
+    np_db_close(conn)
+
+"""
+Running the Chinese counts_test_cn gives the following error part way through:
+sql is: INSERT INTO NP VALUES("滤波 的 方法", "CN101216894A", 2008)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "np_db.py", line 124, in np_db_test_insert_cn
+    np_db_insert_doc_feats(ws_path, doc_feats_file)
+  File "np_db.py", line 68, in np_db_insert_doc_feats
+    (date, docid, symbol) = fields[1].split("|")
+ValueError: too many values to unpack
+"""
 
         
