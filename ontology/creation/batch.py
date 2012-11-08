@@ -95,7 +95,7 @@ slightly different:
 
 """
 
-import os, sys, time, shutil, getopt, subprocess, codecs
+import os, sys, time, shutil, getopt, subprocess, codecs, textwrap
 from random import shuffle
 
 import config_data
@@ -274,15 +274,15 @@ def run_summary(target_path, language, limit):
     update_stages(target_path, language, '--summary', limit)
 
     
-def run_annotate(target_path, language, limit):
+def run_annotate1(target_path, language, limit):
 
-    """Create input for annotation effort. This function is different in the sense that it
-    does not keep track of how far it got into the corpus. Rather, you tell it how many
-    files you want to use and it takes those files off the top of the ws/phr_occ.all file
-    and generates the input for annotation from there. And unlike --summary, this does not
-    append to the output files but overwrites older versions. The limit is used just to
-    determine how many files are taken to create the list for annotation, it is not used
-    to increment any number in the ALL_STAGES.txt file."""
+    """Create input for annotation effort fro creating a prior. This function is different
+    in the sense that it does not keep track of how far it got into the corpus. Rather,
+    you tell it how many files you want to use and it takes those files off the top of the
+    ws/phr_occ.all file and generates the input for annotation from there. And unlike
+    --summary, this does not append to the output files but overwrites older versions. The
+    limit is used just to determine how many files are taken to create the list for
+    annotation, it is not used to increment any number in the ALL_STAGES.txt file."""
     
     phr_occ_all_file = os.path.join(target_path, language, 'ws', 'phr_occ.all')
     phr_occ_phr_file = os.path.join(target_path, language, 'ws', 'phr_occ.phr')
@@ -317,6 +317,93 @@ def run_annotate(target_path, language, limit):
     print '%', command
     subprocess.call(command, shell=True)    
 
+    
+def run_annotate2(target_path, language, limit):
+
+    eval1 = os.path.join(target_path, language, 'ws', 'phr_occ.eval.unlab')
+    eval2 = os.path.join(target_path, language, 'ws', 'doc_feats.eval')
+    fh_eval1 = codecs.open(eval1, 'w', encoding='utf-8')
+    fh_eval2 = codecs.open(eval2, 'w', encoding='utf-8')
+    
+    phr_occ_array = _read_phr_occ(target_path, language, limit)
+    doc_feats_array = _read_doc_feats(target_path, language, limit)
+
+    # sort phrases on how many contexts we have
+    phrases = phr_occ_array.keys()
+    sort_fun = lambda x: sum([len(x) for x in phr_occ_array[x].values()])
+    phrases = reversed(sorted(phrases, key=sort_fun))
+
+    #i = 0
+    #for ph in phrases:
+    #    i += 1
+    #    if i > 25:
+    #        break
+    #    print ph, sum([len(x) for x in phr_occ_array[ph].values()])
+        
+    for phrase in phrases:
+        #print phrase
+        if not (phr_occ_array.has_key(phrase) and doc_feats_array.has_key(phrase)):
+            continue
+        for doc in phr_occ_array[phrase].keys():
+            fh_eval1.write("\n?\t%s\t%s\n\n" % (phrase, doc))
+            for sentence in phr_occ_array[phrase][doc]:
+                lines = textwrap.wrap(sentence, 100)
+                fh_eval1.write("\t- %s\n" %  lines[0])
+                for line in lines[1:]:
+                    fh_eval1.write("\t  %s\n" % line)
+        for doc in doc_feats_array[phrase].keys():
+            for sentence in doc_feats_array[phrase][doc]:
+                fh_eval2.write(sentence)
+            
+    #for phrase in phrases:
+    #    print phrase
+    #for phrase in doc_feats_array.keys():
+    #    for doc in doc_feats_array[phrase].keys():
+    #        for sentence in doc_feats_array[phrase][doc]:
+    #            fh_eval2.write(sentence)
+
+
+def _read_phr_occ(target_path, language, limit):
+    """Return the contents of ws/phr_occ.all in a dictionary."""
+    phr_occ_file = os.path.join(target_path, language, 'ws', 'phr_occ.all')
+    fh_phr_occ = codecs.open(phr_occ_file, encoding='utf-8')
+    phr_occ_array = {}
+    current_fname = None
+    count = 0
+    for line in fh_phr_occ:
+        (fname, year, phrase, sentence) = line.strip("\n").split("\t")
+        fname = fname.split('.xml_')[0]
+        if count >= limit:
+            break
+        if fname != current_fname:
+            #print fname
+            current_fname = fname
+            count += 1
+        phr_occ_array.setdefault(phrase, {})
+        phr_occ_array[phrase].setdefault(fname, []).append(sentence)
+    return phr_occ_array
+
+def _read_doc_feats(target_path, language, limit):
+    """Return the contents of ws/doc_feats.all in a dictionary."""
+    doc_fea_file = os.path.join(target_path, language, 'ws', 'doc_feats.all')
+    fh_doc_fea = codecs.open(doc_fea_file, encoding='utf-8')
+    doc_feats_array = {}
+    current_fname = None
+    count = 0
+    for line in fh_doc_fea:
+        (phrase, id, feats) = line.strip("\n").split("\t",2)
+        (year, fname, phrase2) = id.split('|')
+        if count >= limit:
+            break
+        if fname != current_fname:
+            #print fname
+            current_fname = fname
+            count += 1
+        doc_feats_array.setdefault(phrase, {})
+        doc_feats_array[phrase].setdefault(fname, []).append(line)
+    return doc_feats_array
+
+
 def run_utrain(target_path, language, version, xval, limit):
     """Creates a mallet training file for labeled data with features as union of all
     phrase instances within a doc. Also creates a model utrain.<version>.MaxEnt.model in
@@ -327,6 +414,10 @@ def run_utrain(target_path, language, version, xval, limit):
     target_annot_lang_file = os.path.join(target_path, language, 'ws', 'phr_occ.lab')
     shutil.copyfile(source_annot_lang_file, target_annot_lang_file)
     train.patent_utraining_data(target_path, language, version, xval, limit)
+
+    
+def run_utest(target_path, language, version, limit):
+    train.patent_utraining_test_data(target_path, language, version)
 
         
 def read_stages(target_path, language):
@@ -342,9 +433,10 @@ def update_stages(target_path, language, stage, limit):
     """Updates the counts in ALL_STAGES.txt. This includes rereading the file because
     during processing on one machine another machine could have done some other processing
     and have updated the fiel, we do not want to lose those updates. This could
-    potentially go wrong when to separate processes terminate at the same time, a rather
+    potentially go wrong when two separate processes terminate at the same time, a rather
     unlikely occurrence."""
     stages = read_stages(target_path, language)
+    stages.setdefault(stage, 0)
     stages[stage] += limit
     write_stages(target_path, language, stages)
     
@@ -384,13 +476,13 @@ if __name__ == '__main__':
         sys.argv[1:],
         'l:s:t:n:',
         ['init', 'populate', 'xml2txt', 'txt2tag', 'tag2chk', 'pf2dfeats', 
-         'summary', 'annotate', 'utrain', 'utest', 'scores'])
+         'summary', 'annotate1', 'annotate2', 'utrain', 'utest', 'scores'])
 
     init, populate = False, False
     limit = 0
     xml_to_txt, txt_to_seg, txt_to_tag, tag_to_chk = False, False, False, False
     pf_to_dfeats = False
-    summary, annotate = False, False
+    summary, annotate1, annotate2 = False, False, False
     union_train, union_test, tech_scores = False, False, False
     version = "1"
     xval = "0"
@@ -407,7 +499,8 @@ if __name__ == '__main__':
         if opt == '--tag2chk': tag_to_chk = True
         if opt == '--pf2dfeats': pf_to_dfeats = True
         if opt == '--summary': summary = True
-        if opt == '--annotate': annotate = True
+        if opt == '--annotate1': annotate1 = True
+        if opt == '--annotate2': annotate2 = True
         if opt == '--utrain': union_train = True
         if opt == '--utest': union_test = True
         if opt == '--scores': tech_scores = True
@@ -427,8 +520,10 @@ if __name__ == '__main__':
         run_pf2dfeats(target_path, language, limit)
     elif summary:
         run_summary(target_path, language, limit)
-    elif annotate:
-        run_annotate(target_path, language, limit)
+    elif annotate1:
+        run_annotate1(target_path, language, limit)
+    elif annotate2:
+        run_annotate2(target_path, language, limit)
         
     # Note: At this point, user must manually create an annotated file phr_occ.lab, it is
     # expected that this file lives in ../annotation/<language>. It is automatically
@@ -438,7 +533,7 @@ if __name__ == '__main__':
         run_utrain(target_path, language, version, xval, limit)
 
     elif union_test:
-        train.patent_utraining_test_data(target_path, language, version)
+        run_utest(target_path, language, version, limit)
 
     elif tech_scores:
         # use the mallet.out file from union_test to generate a sorted list of 
