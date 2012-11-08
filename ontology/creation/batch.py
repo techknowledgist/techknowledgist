@@ -320,6 +320,12 @@ def run_annotate1(target_path, language, limit):
     
 def run_annotate2(target_path, language, limit):
 
+    """Prepare two files that can be used for evaluation. One file named
+    phr_occ.eval.unlab that lists a term-file pairs from n=limit files where all contexts
+    are listed following the pair. This file is input for manual annotation. And one file
+    named doc_feats.eval which is a subset of doc_feats.all, but it contains only those
+    term-file pairs that occur in phr_occ.eval.unlab."""
+    
     eval1 = os.path.join(target_path, language, 'ws', 'phr_occ.eval.unlab')
     eval2 = os.path.join(target_path, language, 'ws', 'doc_feats.eval')
     fh_eval1 = codecs.open(eval1, 'w', encoding='utf-8')
@@ -328,20 +334,12 @@ def run_annotate2(target_path, language, limit):
     phr_occ_array = _read_phr_occ(target_path, language, limit)
     doc_feats_array = _read_doc_feats(target_path, language, limit)
 
-    # sort phrases on how many contexts we have
+    # sort phrases on how many contexts we have for each
     phrases = phr_occ_array.keys()
     sort_fun = lambda x: sum([len(x) for x in phr_occ_array[x].values()])
     phrases = reversed(sorted(phrases, key=sort_fun))
 
-    #i = 0
-    #for ph in phrases:
-    #    i += 1
-    #    if i > 25:
-    #        break
-    #    print ph, sum([len(x) for x in phr_occ_array[ph].values()])
-        
     for phrase in phrases:
-        #print phrase
         if not (phr_occ_array.has_key(phrase) and doc_feats_array.has_key(phrase)):
             continue
         for doc in phr_occ_array[phrase].keys():
@@ -355,55 +353,45 @@ def run_annotate2(target_path, language, limit):
             for sentence in doc_feats_array[phrase][doc]:
                 fh_eval2.write(sentence)
             
-    #for phrase in phrases:
-    #    print phrase
-    #for phrase in doc_feats_array.keys():
-    #    for doc in doc_feats_array[phrase].keys():
-    #        for sentence in doc_feats_array[phrase][doc]:
-    #            fh_eval2.write(sentence)
-
 
 def _read_phr_occ(target_path, language, limit):
     """Return the contents of ws/phr_occ.all in a dictionary."""
-    phr_occ_file = os.path.join(target_path, language, 'ws', 'phr_occ.all')
+    def get_stuff(line):
+        """Returns the file name, the phrase and the context, here the context is the
+        sentence listed with the phrase."""
+        (fname, year, phrase, sentence) = line.strip("\n").split("\t")
+        fname = fname.split('.xml_')[0]
+        return (fname, phrase, sentence)
+    return _read_phrocc_or_docfeats('phr_occ.all', get_stuff)
+
+def _read_doc_feats(target_path, language, limit):
+    """Return the contents of ws/doc_feats.all in a dictionary."""
+    def get_stuff(line):
+        """Returns the file name, the phrase and the context, here the context is the
+        entire line."""
+        (phrase, id, feats) = line.strip("\n").split("\t",2)
+        (year, fname, phrase2) = id.split('|')
+        return (fname, phrase, line)
+    return _read_phrocc_or_docfeats('doc_feats.all', get_stuff)
+
+def _read_phrocc_or_docfeats(fname, get_stuff_fun):
+    phr_occ_file = os.path.join(target_path, language, 'ws', fname)
     fh_phr_occ = codecs.open(phr_occ_file, encoding='utf-8')
     phr_occ_array = {}
     current_fname = None
     count = 0
     for line in fh_phr_occ:
-        (fname, year, phrase, sentence) = line.strip("\n").split("\t")
-        fname = fname.split('.xml_')[0]
+        fname, phrase, context = get_stuff_fun(line)
         if count >= limit:
             break
         if fname != current_fname:
-            #print fname
             current_fname = fname
             count += 1
         phr_occ_array.setdefault(phrase, {})
-        phr_occ_array[phrase].setdefault(fname, []).append(sentence)
+        phr_occ_array[phrase].setdefault(fname, []).append(context)
     return phr_occ_array
 
-def _read_doc_feats(target_path, language, limit):
-    """Return the contents of ws/doc_feats.all in a dictionary."""
-    doc_fea_file = os.path.join(target_path, language, 'ws', 'doc_feats.all')
-    fh_doc_fea = codecs.open(doc_fea_file, encoding='utf-8')
-    doc_feats_array = {}
-    current_fname = None
-    count = 0
-    for line in fh_doc_fea:
-        (phrase, id, feats) = line.strip("\n").split("\t",2)
-        (year, fname, phrase2) = id.split('|')
-        if count >= limit:
-            break
-        if fname != current_fname:
-            #print fname
-            current_fname = fname
-            count += 1
-        doc_feats_array.setdefault(phrase, {})
-        doc_feats_array[phrase].setdefault(fname, []).append(line)
-    return doc_feats_array
-
-
+                                                   
 def run_utrain(target_path, language, version, xval, limit):
     """Creates a mallet training file for labeled data with features as union of all
     phrase instances within a doc. Also creates a model utrain.<version>.MaxEnt.model in
