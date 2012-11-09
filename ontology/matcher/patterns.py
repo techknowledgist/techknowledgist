@@ -1,9 +1,25 @@
 """
 
-Need to run this scirpt from this directory. (NO, not true anymore)
+Run the pattern matcher on a file with phrase features (the default file is
+../creation/data/patents/en/ws/phr_feats.all) and generate a tab-separated file with
+matches where each match has the following fields:
+
+    document_ID
+    document_year
+    patternID
+    technology_name
+    pattern_part*
+
+Each pattern part is a pattern element like prev_N=door[a-z]* where the value has been
+replaced with the actual tewxt matched.
+
+The three methods for outside consumption are:
+
+    read_patterns(patterns_file)
+    find_technologies(patterns, input_file, output_file)
+    find_technologies_batch(patterns, target_path, language, limit, verbose)
 
 """
-
 
 import re, os, sys, codecs, string, getopt
 
@@ -30,9 +46,7 @@ def read_patterns(input_file):
 
 
 def find_technologies(patterns, input_file, output_file):
-    """Find pattern matches in a file and output results in a tab separated file with
-    fields document_ID, document_year, PatternID, technology_name, Pattern_part1,
-    Patter_part2, ..."""
+    """Run patterns on input_file and write matches to output_file."""
     f1 = codecs.open(input_file, encoding = 'utf8')
     f2 = codecs.open(output_file, 'w', encoding = 'utf8')
     for phrase in f1:
@@ -65,11 +79,11 @@ def find_technologies_batch(patterns, target_path, language, limit, verbose):
         if file_count > end:
             break
         (fname_id, year, term, rest) = phrase.strip("\n").split("\t", 3)
-        (current_fname, file_count) = update_state(fname_id, current_fname,
+        (current_fname, file_count) = _update_state(fname_id, current_fname,
                                                    file_count, begin, end, verbose)
         if file_count > begin:
             for p in patterns:
-                matched_part = pattern_matched(p, phrase)
+                matched_part = _match_pattern(p, phrase)
                 if not matched_part is False:
                     line = "%s\t%s\t%s\t%s\t%s\n" % (fname_id, year, p[0], term, matched_part)
                     f2.write(line)
@@ -77,7 +91,7 @@ def find_technologies_batch(patterns, target_path, language, limit, verbose):
     update_stages(target_path, language, '--matcher', limit)
         
 
-def update_state(fname_id, current_fname, file_count, begin, end, verbose):
+def _update_state(fname_id, current_fname, file_count, begin, end, verbose):
     """Update current file name and file count given the fname_id, which is an identifier
     that consists of a file name and an integer."""
     fname = fname_id.split('_')[0]
@@ -90,7 +104,7 @@ def update_state(fname_id, current_fname, file_count, begin, end, verbose):
     return (current_fname, file_count)
 
 
-def pattern_matched(p, phrase):
+def _match_pattern(p, phrase):
     """See whether pattern p matches the phrase, if yes, return the matched part, if no,
     return False."""
     count = 0
