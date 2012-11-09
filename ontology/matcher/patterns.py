@@ -18,8 +18,6 @@ os.chdir(script_dir)
 from ontology.utils.batch import read_stages, update_stages, write_stages
 
 
-
-
 def read_patterns(input_file):
     """Read patterns from a file, create a list of patterns"""
     f = codecs.open(input_file, encoding = 'utf8')
@@ -38,8 +36,9 @@ def find_technologies(patterns, input_file, output_file, limit=0):
 
     f1 = codecs.open(input_file, encoding = 'utf8')
     f2 = codecs.open(output_file, 'w', encoding = 'utf8')
-    phrase = f1.readline()
-    while phrase:
+    #phrase = f1.readline()
+    #while phrase:
+    for phrase in f1
         for p in patterns:
             count = 0
             matched_part = ''
@@ -57,46 +56,11 @@ def find_technologies(patterns, input_file, output_file, limit=0):
                     if (word == '') and ('=' in w):
                         ind = phrase.split().index(w)
                         word += string.join(phrase.split()[2:ind], ' ')
-
                 f2.write(phrase.split()[0] + '\t' + phrase.split()[1] + '\t' +
                 matched_part + re.sub('_', ' ', word) + '\n')
-        phrase = f1.readline()
+        #phrase = f1.readline()
 
 
-
-# the following three are copied from batch.py, don't do that        
-
-def read_stages(target_path, language):
-    stages = {}
-    for line in open(os.path.join(target_path, language, 'ALL_STAGES.txt')):
-        if not line.strip():
-            continue
-        (stage, count) = line.strip().split("\t")
-        stages[stage] = int(count)
-    return stages
-
-def update_stages(target_path, language, stage, limit):
-    """Updates the counts in ALL_STAGES.txt. This includes rereading the file because
-    during processing on one machine another machine could have done some other processing
-    and have updated the fiel, we do not want to lose those updates. This could
-    potentially go wrong when two separate processes terminate at the same time, a rather
-    unlikely occurrence."""
-    stages = read_stages(target_path, language)
-    stages.setdefault(stage, 0)
-    stages[stage] += limit
-    write_stages(target_path, language, stages)
-    
-def write_stages(target_path, language, stages):
-    stages_file = os.path.join(target_path, language, 'ALL_STAGES.txt')
-    backup_file = os.path.join(target_path, language,
-                               "ALL_STAGES.%s.txt" % time.strftime("%Y%m%d-%H%M%S"))
-    shutil.copyfile(stages_file, backup_file)
-    fh = open(stages_file, 'w')
-    for stage, count in stages.items():
-        fh.write("%s\t%d\n" % (stage, count))
-    fh.close()
-
-    
 
 if __name__ == '__main__':
 
@@ -116,4 +80,3 @@ if __name__ == '__main__':
 
     patterns = read_patterns(patterns_file)
     find_technologies(patterns, features_file, matches_file)
-
