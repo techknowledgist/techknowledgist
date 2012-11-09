@@ -391,22 +391,22 @@ y	vakuumventile
 n	überhitzungszustand
 n	trommeln
 y	transport
-	tragerplatte
-	teil
+y	tragerplatten
+n	teil
 	stirnwandungen
 	stiftbohrung
-	stelle
-	stein
-	sitz
-	sektionen
+n	stelle
+n	stein
+n	sitz
+n	sektionen
 	seilwinde
 	schwellenwert
-	schloß
+n	schloß
 	scheibenwischvorrichtung
 	schaftmeißel
-	rückhaltesystem
+y	rückhaltesystem
 	rollenführung
-	richtung der breite
+n	richtung der breite
 	radaufhängung
 	querschnitt
 	prozeßvorkammern
@@ -414,27 +414,27 @@ y	transport
 	mikrohybrid
 	materialgemischen
 	massenteilen
-	luftpumpe
+y	luftpumpe
 	lösungsmittel
 	leitwalze
 	längung
 	lamelle
 	kristalline phase
-	körner
-	kombination
-	kindermöbelbausystem
-	kammer
-	integrieren
-	holzwerkstoff
-	hinteren ende
-	geschlossenen position
-	flugzeug
+n	körner
+n	kombination
+n	kindermöbelbausystem
+n	kammer
+n	integrieren
+n	holzwerkstoff
+n	hinteren ende
+n	geschlossenen position
+y	flugzeug
 	flugbahn des meßkörpers
 	feststehende kontaktbereiche
-	federn
-	fähigkeit
-	ersten schutz-isolationsschicht
-	elektronenstrahl
+n	federn
+n	fähigkeit
+y	ersten schutz-isolationsschicht
+y	elektronenstrahl
 	elastomerteile
 	drückbetätigung
 	dichtenden kontakt
@@ -442,13 +442,13 @@ y	transport
 	deckel
 	darstellungskörper
 	darstellung
-	dampfförmige emissionen
-	bzw
+n	dampfförmige emissionen
+n	bzw
 	bohrungen
-	banknoten
-	anschluß
+n	banknoten
+n	anschluß
 	anpreßrollen
-	aluminium
+n	aluminium
 	aktivkohle
 	abweiser
 	abdeckbleche
@@ -458,145 +458,145 @@ y	transport
 	wärmeübertrager
 	vorstehende zweite anschlussabschnitt
 	vorspannung
-	vorderen ende
-	videodaten
-	vergleich
+n	vorderen ende
+n	videodaten
+n	vergleich
 	verformten zustand
 	verfahrensschritt
 	verbraucher
-	verbindungshülse
-	ventilantrieb
-	vakuum
-	transmittergerät
+y	verbindungshülse
+y	ventilantrieb
+n	vakuum
+y	transmittergerät
 	tft-bereich
-	temperatursensor
-	temperaturen
+y	temperatursensor
+n	temperaturen
 	stützrollen
-	steuerventil
-	steuerung
-	sitzmatte
-	selektion von kunststoffen
-	sechste ausführungsform der einrichtung
-	schußfaden
-	schlitze
-	schere
-	rotationskörper
+y	steuerventil
+y	steuerung
+n	sitzmatte
+n	selektion von kunststoffen
+n	sechste ausführungsform der einrichtung
+n	schußfaden
+n	schlitze
+n	schere
+y	rotationskörper
 	reinräumen
 	querrichtung
 	positionsermittlungseinheit
-	position
-	platte
+n	position
+n	platte
 	pkw
 	panikfunktion
-	paarweise
-	optimalen abwurfpunkt
-	nummer
-	netz zurückspeisenden netzstromrichterbrücke
+n	paarweise
+n	optimalen abwurfpunkt
+n	nummer
+y	netz zurückspeisenden netzstromrichterbrücke
 	netz
-	neigungsrichtung des betätigungshebels entsprechendes elektrisches signal
-	meßeinrichtung
-	medium
+n	neigungsrichtung des betätigungshebels entsprechendes elektrisches signal
+y	meßeinrichtung
+n	medium
 	mauerstein
 	massenteile
-	magnetgehäuse
+y	magnetgehäuse
 	lüftungstechnische anlage
-	leitfähigen material
-	laufwagen
+n	leitfähigen material
+y	laufwagen
 	lager
-	kupplungshebel
+y	kupplungshebel
 	ks
-	kraftfahrzeuges
-	kraftfahrzeugen
-	kippstufe
+y	kraftfahrzeuges
+y	kraftfahrzeugen
+y	kippstufe
 	kern
-	katalysator
+y	katalysator
 	kastenartigen bauelementen
 	innenring
 	holzwerkstoffen
-	herstellung und\/oder behandlung von leder
+n	herstellung und\/oder behandlung von leder
 	hauptbiegeachse
 	grundflache
-	gleitlager
-	geradlinigen rohrabschnitte
-	gehäuses
-	gegenüberliegenden seite
-	gas
+y	gleitlager
+y	geradlinigen rohrabschnitte
+n	gehäuses
+n	gegenüberliegenden seite
+n	gas
 	freilaufnuß
 	freilauffunktion
-	flugbahn
-	flg
-	fl
+n	flugbahn
+n	flg
+n	fl
 	filteranordnung
-	fernbedienung
+y	fernbedienung
 	externer streifenleiter
 	erste schutz-isolationsschicht
 	ersten seilwinde
 	ersten seewasserverrottbaren formgebungselement
-	ersten abschnitten
-	ersten abschnitt
-	erste anschlussabschnitt
-	erfindungsgemäß
-	entsprechenden gelenklöcher
-	enden
-	einlaß
-	druckventil
-	druckstücke
-	drückbetätigung des betätigungshebels
-	druck
-	differenz-schwellenwert
-	dichtung
+n	ersten abschnitten
+n	ersten abschnitt
+n	erste anschlussabschnitt
+n	erfindungsgemäß
+n	entsprechenden gelenklöcher
+n	enden
+n	einlaß
+y	druckventil
+y	druckstücke
+n	drückbetätigung des betätigungshebels
+n	druck
+n	differenz-schwellenwert
+n	dichtung
 	de-os
-	co
-	brennstoffdosierpumpe
+n	co
+y	brennstoffdosierpumpe
 	bogens
-	bildung
-	bilden
-	bezugszeichenliste1
+n	bildung
+n	bilden
+n	bezugszeichenliste1
 	beweglichen element
 	betrag der zeitlichen ableitung
 	befestigungsflansch
-	auslabventil
+y	auslabventil
 	ausführungsbeispiel
 	arme
 	analyse
 	abtastfrequenz
 	absperrscheibe
-	ablaßventil
+y	ablaßventil
 	ablaßleitung
 	abdichtung
-	\
+n	\
 	zweite schutz-isolationsschicht
 	zweite pfeil
-	ziegel
-	zentrierung
+n	ziegel
+n	zentrierung
 	zellenträger
 	wendestange
 	weiteren abschnitte
 	weisenden stirnseiten der stützelemente
-	wein
+n	wein
 	wafer
 	vorstehlänge
 	vorstehende externe streifenleiter
-	verbundenen teile
-	ventilschieber
+n	verbundenen teile
+y	ventilschieber
 	untermesser
 	unterbeton
 	unebene schwellen
-	trocknung
-	tellerventil
-	teilen
-	tangentialriemenantrieb von textilspindeln
-	t
-	stützwalze
+n	trocknung
+y	tellerventil
+n	teilen
+y	tangentialriemenantrieb von textilspindeln
+n	t
+y	stützwalze
 	stufen
-	strom
-	straßenfräsmaschine
+n	strom
+y	straßenfräsmaschine
 	strahlerzeugerbaugruppe
 	strahlablenkkammer
 	stirnflächen
 	steuersignale
 	steueroder hilfsstromkreis
-	steuergerät
+y	steuergerät
 	spülöffnung
 	spiegelscheibe
 	spiegelfläche
@@ -608,58 +608,58 @@ y	transport
 	schleppseil
 	schleppkörperanordnung
 	schlauch
-	schaltung
+y	schaltung
 	rohrlängserstreckung
 	ring
-	richtungen
+n	richtungen
 	reißverschlusshälfte
-	raum
-	rahmenspanner
+n	raum
+y	rahmenspanner
 	puzzleteile
 	plattenartigen deckelement
-	physikalischen daten des meßkörpers
-	pfeil
-	personenklassifizierung
-	p
-	ölwanne
-	öl
-	öffnungen
-	offene position
-	oberflächen der massenteile
-	oberen ende
-	neigungsrichtung des betätigungshebels
-	min
-	membran
-	mai
-	magnetkern
-	magnete
+n	physikalischen daten des meßkörpers
+n	pfeil
+n	personenklassifizierung
+n	p
+y	ölwanne
+n	öl
+n	öffnungen
+n	offene position
+n	oberflächen der massenteile
+n	oberen ende
+n	neigungsrichtung des betätigungshebels
+n	min
+n	membran
+n	mai
+n	magnetkern
+n	magnete
 	luftzieldarstellung
-	ltd.
-	lokalisierung auszustellender gegenstände
+n	ltd.
+n	lokalisierung auszustellender gegenstände
 	l-leiste
-	linearzylinder
+y	linearzylinder
 	leitfähiges bewegliches element
-	laufrichtung des tangentialriemens
+n	laufrichtung des tangentialriemens
 	ladepritsche
-	l
-	kurzschlußthyristor
+n	l
+y	kurzschlußthyristor
 	kraftstofftankanordnung
-	kraftstoffeinspritzventil
-	körperfunktionswerte
-	körper
-	konzentration
-	kettenzug
+y	kraftstoffeinspritzventil
+n	körperfunktionswerte
+n	körper
+n	konzentration
+y	kettenzug
 	kettennuß
 	keilnabenkörper
 	kegeldichtung
 	kastenplatte
 	inneren bodenfläche des gehäuses
 	innengewinde
-	hydraulikzylinder
+y	hydraulikzylinder
 	homogenen ladungsdüsenauslasssatz
-	herstellen
+n	herstellen
 	heckteil
-	hand
+n	hand
 	gradientenstromversorgung
 	gradientenspule
 	gewinde
@@ -672,26 +672,26 @@ y	transport
 	fahrzeugsitz sitzenden person
 	fahrzeuge
 	ersten seewasserverrottbaren bzw
-	ermittlung
+n	ermittlung
 	erfindungsgemäße fettungsmittel
 	ep-a
-	endstellungen
-	einzelsegmente
-	einzelsegment
+n	endstellungen
+n	einzelsegmente
+n	einzelsegment
 	einzelnen kettenglieder
 	eckbereiche
-	druckmittelzylinder
-	drücken des betätigungsknopfes
+y	druckmittelzylinder
+n	drücken des betätigungsknopfes
 	drehkreuze
 	dreherkante
 	drehantrieb
-	drahtlosen übertragung von körperfunktionswerten von anwendern
-	dimensionen
-	digitales medium
-	differenz
+n	drahtlosen übertragung von körperfunktionswerten von anwendern
+n	dimensionen
+n	digitales medium
+n	differenz
 	dichtbuchsen
 	datenübermittlungsstrecke
-	dachpappe
+y	dachpappe
 	bus
 	betonwerksteinplatte
 	berührung
