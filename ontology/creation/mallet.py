@@ -164,7 +164,7 @@ class Mallet_training:
         os.system(cmd)
 
 ##################
-# PGA (in progress)
+# PGA 
 # class for creating a test data set using the same features as a pre-existing classifier
 # Test data contains <id> <feature>+
 
