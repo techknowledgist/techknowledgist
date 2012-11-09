@@ -108,6 +108,7 @@ import cn_txt2seg
 import cn_seg2tag
 import pf2dfeats
 import train
+import mallet
 
 script_path = os.path.abspath(sys.argv[0])
 script_dir = os.path.dirname(script_path)
@@ -406,38 +407,47 @@ def run_utrain(target_path, language, version, xval, limit):
 
     
 def run_utest(target_path, language, version, limit):
-    train.patent_utraining_test_data(target_path, language, version)
 
-        
-def Xread_stages(target_path, language):
-    stages = {}
-    for line in open(os.path.join(target_path, language, 'ALL_STAGES.txt')):
-        if not line.strip():
-            continue
-        (stage, count) = line.strip().split("\t")
-        stages[stage] = int(count)
-    return stages
-
-def Xupdate_stages(target_path, language, stage, limit):
-    """Updates the counts in ALL_STAGES.txt. This includes rereading the file because
-    during processing on one machine another machine could have done some other processing
-    and have updated the fiel, we do not want to lose those updates. This could
-    potentially go wrong when two separate processes terminate at the same time, a rather
-    unlikely occurrence."""
-    stages = read_stages(target_path, language)
-    stages.setdefault(stage, 0)
-    stages[stage] += limit
-    write_stages(target_path, language, stages)
+    """Run the classifier on n=limit documents. Batch version of the function
+    train.patent_utraining_test_data(). Appends to two files, adding raw feature vectors
+    to test/utest.1.mallet and writing classification results to
+    test/utest.1.MaxEnt.out."""
     
-def Xwrite_stages(target_path, language, stages):
-    stages_file = os.path.join(target_path, language, 'ALL_STAGES.txt')
-    backup_file = os.path.join(target_path, language,
-                               "ALL_STAGES.%s.txt" % time.strftime("%Y%m%d-%H%M%S"))
-    shutil.copyfile(stages_file, backup_file)
-    fh = open(stages_file, 'w')
-    for stage, count in stages.items():
-        fh.write("%s\t%d\n" % (stage, count))
-    fh.close()
+    print "[--utest] on %s/%s/tag/" % (target_path, language)
+
+    # get dictionary of annotations
+    d_phr2label = train.load_phrase_labels(target_path, language)
+    
+    # keep count of labels, note that total count should be equal to unlabeled count if
+    # use_all_chunks_p is False, otherwise it should be the sum of labeled and unlabeled
+    # counts
+    stats = { 'labeled_count': 0, 'unlabeled_count': 0, 'total_count': 0 }
+
+    stages = read_stages(target_path, language)
+    fnames = files_to_process(stages, '--utest', limit)
+    start = stages.get('--utest', 0)
+    range = "%06d-%06d" % (start, start + limit)
+    
+    test_output_dir = os.path.join(target_path, language, "test")
+    train_output_dir = os.path.join(target_path, language, "train")
+    mallet_file = os.path.join(test_output_dir, "utest.%s.mallet.%s" % (version, range))
+    s_test = codecs.open(mallet_file, "a", encoding='utf-8')
+
+    count = 0
+    for (year, fname) in fnames:
+        count += 1
+        doc_feats_file = os.path.join(target_path, language, 'doc_feats', year, fname)
+        if verbose:
+            print "%05d %s" % (count, doc_feats_file)
+        train.add_file_to_utraining_test_file(doc_feats_file, s_test, d_phr2label, stats,
+                                              use_all_chunks_p=True, default_label='n')
+
+    update_stages(target_path, language, '--utest', limit)
+        
+    # create an instance of Mallet_test class and run the classifier
+    mtest = mallet.Mallet_test("utest", version , test_output_dir, "utrain", train_output_dir)
+    mtest.mallet_test_classifier("MaxEnt", range)
+    
 
 def files_to_process(stages, stage, limit):
     current_count = stages.setdefault(stage, 0)
@@ -464,8 +474,8 @@ if __name__ == '__main__':
     (opts, args) = getopt.getopt(
         sys.argv[1:],
         'l:s:t:n:',
-        ['init', 'populate', 'xml2txt', 'txt2tag', 'tag2chk', 'pf2dfeats', 
-         'summary', 'annotate1', 'annotate2', 'utrain', 'utest', 'scores'])
+        ['init', 'populate', 'xml2txt', 'txt2tag', 'tag2chk', 'pf2dfeats', 'summary',
+         'annotate1', 'annotate2', 'utrain', 'utest', 'scores', 'verbose'])
 
     init, populate = False, False
     limit = 0
