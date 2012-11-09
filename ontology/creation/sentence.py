@@ -483,6 +483,7 @@ class Sentence_english(Sentence):
             # keep looking 
             i = i - 1
         if verb != "":
+            # 11/9/21 PGA replaced blank with _
             verb_prep = verb + "_" + prep
         res = verb_prep.lower()
         return(fname("prev_V", res))        
