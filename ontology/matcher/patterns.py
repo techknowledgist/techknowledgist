@@ -1,63 +1,142 @@
+"""
 
+Run the pattern matcher on a file with phrase features (the default file is
+../creation/data/patents/en/ws/phr_feats.all) and generate a tab-separated file with
+matches where each match has the following fields:
 
-import re
-import os
-import codecs
+    document_ID
+    document_year
+    patternID
+    technology_name
+    pattern_part*
 
-"""Read patterns from a file, create a list of patters"""
+Each pattern part is a pattern element like prev_N=door[a-z]* where the value has been
+replaced with the actual tewxt matched.
+
+The three methods for outside consumption are:
+
+    read_patterns(patterns_file)
+    find_technologies(patterns, input_file, output_file)
+    find_technologies_batch(patterns, target_path, language, limit, verbose)
+
+"""
+
+import re, os, sys, codecs, string, getopt
+
+script_path = os.path.abspath(sys.argv[0])
+script_dir = os.path.dirname(script_path)
+os.chdir(script_dir)
+os.chdir('..')
+os.chdir('..')
+sys.path.insert(0, os.getcwd())
+os.chdir(script_dir)
+
+from ontology.utils.batch import read_stages, update_stages, write_stages
+
 
 def read_patterns(input_file):
-    f = open(input_file, 'r')
+    """Read patterns from a file, create a list of patterns"""
+    f = codecs.open(input_file, encoding = 'utf8')
     pattern_list = []
     pattern = f.readline()
     while pattern:
-        pattern_list.append([pattern.split()[0], pattern.split()[1], pattern.split()[2]]) 
+        pattern_list.append(pattern.split()) 
         pattern = f.readline()
-
     return pattern_list
 
 
-"""Find pattern matches in a file and output results
-in the format:
-<document_ID>\t<document_year>\t<PatternID>\t<Pattern_part1>\t<Patter_part2>\t<technology_name>.
-Return a list of found technologies."""
-
 def find_technologies(patterns, input_file, output_file):
-    tecs = []
-    f1 = open(input_file, 'r')
-    phrases = []
-    phrase = f1.readline()
-    while phrase:
-        phrases.append(phrase)
-        phrase = f1.readline()
-
-    f2 = open(output_file, 'w')
-    for phrase in phrases:
+    """Run patterns on input_file and write matches to output_file."""
+    f1 = codecs.open(input_file, encoding = 'utf8')
+    f2 = codecs.open(output_file, 'w', encoding = 'utf8')
+    for phrase in f1:
+        (fname_id, year, term, rest) = phrase.strip("\n").split("\t", 3)
         for p in patterns:
-            match1 = re.findall(p[1], phrase)
-            match2 = re.findall(p[2], phrase)
-            if len(match1) > 0 and len(match2) > 0:
+            matched_part = pattern_matched(p, phrase)
+            if not matched_part is False:
+                line = "%s\t%s\t%s\t%s\t%s\n" % (fname_id, year, p[0], term, matched_part)
+                f2.write(line)
 
-                #Find the name of the technology in the input file
-                word = ''
-                for w in phrase.split()[1:len(phrase.split())]:
-                    if (word == '') and ('=' in w):
-                        ind = phrase.split().index(w)
-                        word += phrase.split()[ind - 1]
-       
-                f2.write(phrase.split()[0] + '\t' + phrase.split()[1] + '\t' +
-                str(p[0]) + '\t' + str(p[1]) + '\t' + str(p[2]) + '\t' +
-                re.sub('_', ' ', word) + '\n')
                 
-                tecs.append(phrase.split('\t')[0])
+def find_technologies_batch(patterns, target_path, language, limit, verbose):
 
-    tecs = set(tecs)
-    return tecs
+    """Similar to find_technologies() in that it finds pattern matches in a file and
+    output results in a tab separated file. The difference is that this version runs in
+    batch mode and will only do those parts of the file that fall within the limit."""
+
+    features_file = os.path.join(target_path, language, "ws", "phr_feats.all")
+    matches_file = os.path.join(target_path, language, "ws", "matches.all")
+    f1 = codecs.open(features_file, encoding = 'utf8')
+    f2 = codecs.open(matches_file, 'a', encoding = 'utf8')
+
+    stages = read_stages(target_path, language)
+    begin = stages.get('--matcher', 0)
+    end = begin + limit
+    
+    current_fname = None
+    file_count = 0
+    for phrase in f1:
+        if file_count > end:
+            break
+        (fname_id, year, term, rest) = phrase.strip("\n").split("\t", 3)
+        (current_fname, file_count) = _update_state(fname_id, current_fname,
+                                                   file_count, begin, end, verbose)
+        if file_count > begin:
+            for p in patterns:
+                matched_part = _match_pattern(p, phrase)
+                if not matched_part is False:
+                    line = "%s\t%s\t%s\t%s\t%s\n" % (fname_id, year, p[0], term, matched_part)
+                    f2.write(line)
+
+    update_stages(target_path, language, '--matcher', limit)
+        
+
+def _update_state(fname_id, current_fname, file_count, begin, end, verbose):
+    """Update current file name and file count given the fname_id, which is an identifier
+    that consists of a file name and an integer."""
+    fname = fname_id.split('_')[0]
+    if fname != current_fname:
+        if verbose:
+            bool = '+' if begin <= file_count < end else '-'
+            print "\n%s %s" % (bool, fname),
+        file_count += 1
+        current_fname = fname
+    return (current_fname, file_count)
 
 
+def _match_pattern(p, phrase):
+    """See whether pattern p matches the phrase, if yes, return the matched part, if no,
+    return False."""
+    count = 0
+    matched_parts = []
+    for part in p[1:]:
+        match = re.findall(part, phrase)
+        if len(match) > 0:
+            matched_parts.append(match[0])
+            count += 1
+    # return the matched part if all parts of the pattern matched the line
+    return "\t".join(matched_parts) if count == len(p) - 1 else False
+                
 
 if __name__ == '__main__':
 
-    patterns = read_patterns('./patterns.txt')            
-    find_technologies(patterns, "./phr_feats.all", "./matches.txt")       
+    target_path = os.path.join('..', 'creation', 'data', 'patents')
+    language = 'en'
+    limit = 0
+    verbose = False
+    
+    (opts, args) = getopt.getopt(sys.argv[1:], 'l:t:n:v', [])
+    for opt, val in opts:
+        if opt == '-l': language = val
+        if opt == '-t': target_path = val
+        if opt == '-n': limit = int(val)
+        if opt == '-v': verbose = True
 
+    patterns_file = "./patterns_%s.txt" % language
+    patterns = read_patterns(patterns_file)
+
+    #features_file = os.path.join(target_path, language, "ws", "phr_feats.all")
+    #matches_file = os.path.join(target_path, language, "ws", "matches.all")
+    #find_technologies(patterns, features_file, matches_file)
+
+    find_technologies_batch(patterns, target_path, language, limit, verbose)

@@ -243,10 +243,14 @@ class Mallet_test:
     # Note also that training with xvalidation on will create multiple models, one per trial.
     # You need to train with no xvalidation to generate a model file name that will work with the tester here.
     
-    def mallet_test_classifier(self, trainer):
+    def mallet_test_classifier(self, trainer, range=None):
+
         print "[mallet_test_classifier] trainer is %s" % trainer
         self.classifier_file = self.train_path_prefix + "." + trainer + ".model"
-        self.classifier_out_file = self.test_path_prefix + "." + trainer + ".out"
+        if range is None:
+            self.classifier_out_file = self.test_path_prefix + "." + trainer + ".out"
+        else:
+            self.classifier_out_file = self.test_path_prefix + "." + trainer + "." + range + ".out"
         self.classifier_stderr_file = self.test_path_prefix + "." + trainer + ".stderr"
 
         # ///todo
@@ -254,6 +258,11 @@ class Mallet_test:
         #sh /home/j/anick/mallet/mallet-2.0.7/bin/mallet classify-file --input $test_dir/$type.$version.features.vectors  --classifier $train_dir/$type.$version.classifier.mallet  --output -  >  $test_dir/$type.$version.res.stdout
 
         cmd = "sh " + mallet_dir + "/mallet classify-file --line-regex \"^(\S*)[\s,]*(\S*)[\s]*(.*)$\" --name 1 --data 3 --input " + self.test_mallet_file + " --classifier " + self.classifier_file + " --output -  > " + self.classifier_out_file + " 2> " + self.classifier_stderr_file
+
+        cmd = "sh " + mallet_dir + "/mallet classify-file " + \
+              "--line-regex \"^(\S*)[\s,]*(\S*)[\s]*(.*)$\" --name 1 --data 3 --input " + \
+              self.test_mallet_file + " --classifier " + self.classifier_file + \
+              " --output -  > " + self.classifier_out_file + " 2> " + self.classifier_stderr_file
 
         print "[mallet_test_classifier]cmd: %s" % cmd
         os.system(cmd)
