@@ -306,7 +306,7 @@ def pipeline_utraining_test_data(root, lang, patent_dir, version="1"):
     pipeline_make_utraining_test_file(root, lang, version)
     #sys.exit()
 
-    # create an instance of Mallet_training class to do the rest
+    # create an instance of Mallet_test class to do the rest
     # let's do the work in the test directory for now.
     mtest = mallet.Mallet_test("utest", version , test_output_dir, "utrain", train_output_dir)
     # create the mallet vectors file from the mallet file

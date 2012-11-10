@@ -483,7 +483,8 @@ class Sentence_english(Sentence):
             # keep looking 
             i = i - 1
         if verb != "":
-            verb_prep = verb + " " + prep
+            # 11/9/21 PGA replaced blank with _
+            verb_prep = verb + "_" + prep
         res = verb_prep.lower()
         return(fname("prev_V", res))        
 
@@ -761,7 +762,7 @@ class Sentence_chinese(Sentence):
             i = i - 1
         """
         if verb != "":
-            verb_prep = verb + " " + prep
+            verb_prep = verb + "_" + prep
         res = verb_prep.lower()
         """
         return(fname("prev_V", verb))

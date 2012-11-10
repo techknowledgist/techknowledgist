@@ -244,7 +244,7 @@ n	pin
 n	password
 n	part image
 n	metadata
-o	daisy chain of memory chips
+n	daisy chain of memory chips
 n	armature
 y	antenna
 y	voip server
@@ -463,7 +463,7 @@ y	muzzle body
 y	low protection level storage unit
 n	item
 y	ipdl
-d	i
+n	i
 n	energy
 n	embodiments
 n	data word
@@ -3833,7 +3833,7 @@ n	zn concentration
 n	y-direction drive mechanism
 y	x-ray tube and x-ray detector
 n	x-direction drive mechanism
-nn	x and a conductivity
+n	x and a conductivity
 n	writing data
 y	wrap control system
 y	working fluid
@@ -4158,7 +4158,7 @@ n	input value
 n	input interface
 n	inner layer
 n	inner electrode
-nn	inner bottom of the bottom member
+n	inner bottom of the bottom member
 n	infrared radiation non-exposed areas
 y	information presentation system
 y	information display device
