@@ -176,8 +176,7 @@ def patent_utraining_data(patent_dir, lang, version="1", xval=0, limit=0):
 
 
 
-def make_utraining_test_file(patent_dir, lang, version, d_phr2label,
-                             use_all_chunks_p=True, limit=0):
+def make_utraining_test_file(patent_dir, lang, version, d_phr2label, use_all_chunks_p=True):
 
     """Testing using features unioned over all chunk occurrences within a doc. We only
     include chunks which are unlabeled in our testing data file for testing if
@@ -218,7 +217,8 @@ def _get_testing_io(patent_dir, lang, version):
 def add_file_to_utraining_test_file(fname, s_test, d_phr2label, stats,
                                     use_all_chunks_p=True, default_label='n'):
 
-    """Add document features from fname as vectors to s_test."""
+    """Add document features from fname as vectors to s_test. This was factored out from
+    make_utraining_test_file() so that I could call it from batch.py (MV)."""
     
     def incr(x): stats[x] += 1
     s_doc_feats_input = codecs.open(fname, encoding='utf-8')
@@ -241,11 +241,11 @@ def add_file_to_utraining_test_file(fname, s_test, d_phr2label, stats,
     
 
 
-def patent_utraining_test_data(patent_dir, lang, version="1", limit=0):
+def patent_utraining_test_data(patent_dir, lang, version="1"):
     # get dictionary of annotations
     d_phr2label = load_phrase_labels(patent_dir, lang)
     # create .mallet file
-    make_utraining_test_file(patent_dir, lang, version, d_phr2label, limit)
+    make_utraining_test_file(patent_dir, lang, version, d_phr2label)
     return
     # create an instance of Mallet_test class to do the rest
     # let's do the work in the test directory for now.

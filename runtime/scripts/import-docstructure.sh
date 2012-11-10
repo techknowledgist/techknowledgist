@@ -4,14 +4,14 @@
 # ~marc/Dropbox/FUSE/document-processing/structure/git and add it to ../../utils.
 
 set source_dir = '/home/j/marc/Dropbox/FUSE/document-processing/structure/git'
-set target_dir = '/home/j/corpuswork/fuse/code/patent-classifier/utils'
+set source_dir = '/Users/marc/Dropbox/FUSE/document-processing/structure/git'
 set target_dir = '/home/j/marc/Desktop/FUSE/code/patent-classifier/utils'
+set target_dir = '/Users/marc/Documents/fuse/git/patent-classifier/utils'
 
 echo
 echo "IMPORTING..."
 echo
 
-echo cd $source_dir
 cd $source_dir
 echo ./utils/export.sh $target_dir
 ./utils/export.sh $target_dir

@@ -119,9 +119,9 @@ os.chdir(script_dir)
 
 from utils.docstructure.main import Parser
 from ontology.utils.batch import read_stages, update_stages, write_stages
+from ontology.utils.batch import files_to_process
 
-
-# can be overwritten by command line options
+# defaults that can be overwritten by command line options
 source_path = config_data.external_patent_path
 target_path = config_data.working_patent_path
 language = config_data.language
@@ -156,7 +156,7 @@ def run_populate(source_path, target_path, language, limit):
     print "[--populate] populating %s/%s/xml" % (target_path, language)
     print "[--populate] using %d files from %s" % (limit, source_path)
     stages = read_stages(target_path, language)
-    fnames = files_to_process(stages, '--populate', limit)
+    fnames = files_to_process(target_path, language, stages, '--populate', limit)
     count = 0
     for (year, fname) in fnames:
         count += 1
@@ -177,7 +177,7 @@ def run_xml2txt(target_path, language, limit):
     xml_parser.onto_mode = True
     mappings = {'en': 'ENGLISH', 'de': "GERMAN", 'cn': "CHINESE" }
     xml_parser.language = mappings[language]
-    fnames = files_to_process(stages, '--xml2txt', limit)
+    fnames = files_to_process(target_path, language, stages, '--xml2txt', limit)
     count = 0
     for year, fname in fnames:
         count += 1
@@ -200,7 +200,7 @@ def run_txt2tag(target_path, language, limit):
     stages = read_stages(target_path, language)
     tagger = txt2tag.get_tagger(language)
     segmenter = sdp.Segmenter()
-    fnames = files_to_process(stages, '--txt2tag', limit)
+    fnames = files_to_process(target_path, language, stages, '--txt2tag', limit)
     count = 0
     for year, fname in fnames:
         count += 1
@@ -225,7 +225,7 @@ def run_tag2chk(target_path, language, limit):
     language/phr_feat."""
     print "[--tag2chk] on %s/%s/tag/" % (target_path, language)
     stages = read_stages(target_path, language)
-    fnames = files_to_process(stages, '--tag2chk', limit)
+    fnames = files_to_process(target_path, language, stages, '--tag2chk', limit)
     count = 0
     for (year, fname) in fnames:
         count += 1
@@ -241,7 +241,7 @@ def run_pf2dfeats(target_path, language, limit):
     """Creates a union of the features for each chunk in a doc (for training)."""
     print "[--pf2dfeats] on %s/%s/phr_feats/" % (target_path, language)
     stages = read_stages(target_path, language)
-    fnames = files_to_process(stages, '--pf2dfeats', limit)
+    fnames = files_to_process(target_path, language, stages, '--pf2dfeats', limit)
     count = 0
     for (year, fname) in fnames:
         count += 1
@@ -259,7 +259,7 @@ def run_summary(target_path, language, limit):
     data and nothing else."""
     #subprocess.call("sh ./cat_phr.sh %s %s" % (target_path, language), shell=True)
     stages = read_stages(target_path, language)
-    fnames = files_to_process(stages, '--summary', limit)
+    fnames = files_to_process(target_path, language, stages, '--summary', limit)
     doc_feats_file = os.path.join(target_path, language, 'ws', 'doc_feats.all')
     phr_feats_file = os.path.join(target_path, language, 'ws', 'phr_feats.all')
     phr_occ_file = os.path.join(target_path, language, 'ws', 'phr_occ.all')
@@ -410,7 +410,7 @@ def run_utest(target_path, language, version, limit):
 
     """Run the classifier on n=limit documents. Batch version of the function
     train.patent_utraining_test_data(). Appends to two files, adding raw feature vectors
-    to test/utest.1.mallet and writing classification results to
+    to test/utest.1.mallet and appending classification results to
     test/utest.1.MaxEnt.out."""
     
     print "[--utest] on %s/%s/tag/" % (target_path, language)
@@ -418,55 +418,38 @@ def run_utest(target_path, language, version, limit):
     # get dictionary of annotations
     d_phr2label = train.load_phrase_labels(target_path, language)
     
-    # keep count of labels, note that total count should be equal to unlabeled count if
-    # use_all_chunks_p is False, otherwise it should be the sum of labeled and unlabeled
-    # counts
+    # keep count of labels; total_count == unlabeled_count if use_all_chunks_p is False,
+    # otherwise total_count == unlabeled_count + labeled_counts
     stats = { 'labeled_count': 0, 'unlabeled_count': 0, 'total_count': 0 }
 
     stages = read_stages(target_path, language)
-    fnames = files_to_process(stages, '--utest', limit)
+    fnames = files_to_process(target_path, language, stages, '--utest', limit)
     start = stages.get('--utest', 0)
-    range = "%06d-%06d" % (start, start + limit)
+    file_range = "%06d-%06d" % (start, start + limit)
+    train_dir, test_dir, mallet_file = \
+        _classifier_io(target_path, language, version, file_range)
     
-    test_output_dir = os.path.join(target_path, language, "test")
-    train_output_dir = os.path.join(target_path, language, "train")
-    mallet_file = os.path.join(test_output_dir, "utest.%s.mallet.%s" % (version, range))
-    s_test = codecs.open(mallet_file, "a", encoding='utf-8')
-
     count = 0
     for (year, fname) in fnames:
         count += 1
         doc_feats_file = os.path.join(target_path, language, 'doc_feats', year, fname)
         if verbose:
             print "%05d %s" % (count, doc_feats_file)
-        train.add_file_to_utraining_test_file(doc_feats_file, s_test, d_phr2label, stats,
-                                              use_all_chunks_p=True, default_label='n')
+        train.add_file_to_utraining_test_file(doc_feats_file, mallet_file, d_phr2label, stats)
 
     update_stages(target_path, language, '--utest', limit)
-        
-    # create an instance of Mallet_test class and run the classifier
-    mtest = mallet.Mallet_test("utest", version , test_output_dir, "utrain", train_output_dir)
-    mtest.mallet_test_classifier("MaxEnt", range)
     
+    # create an instance of the classifier and run it
+    mtest = mallet.Mallet_test("utest", version , test_dir, "utrain", train_dir)
+    mtest.mallet_test_classifier("MaxEnt", file_range)
 
-def files_to_process(stages, stage, limit):
-    current_count = stages.setdefault(stage, 0)
-    files = open(os.path.join(target_path, language, 'ALL_FILES.txt'))
-    line_number = 0
-    while line_number < current_count:
-        files.readline(),
-        line_number += 1
-    files_read = 0
-    fnames = []
-    while files_read < limit:
-        fname = files.readline().strip()
-        basename = os.path.basename(fname)
-        dirname = os.path.dirname(fname)
-        year = os.path.split(dirname)[1]
-        fnames.append((year, basename))
-        files_read += 1
-    return fnames
-
+    
+def _classifier_io(target_path, language, version, file_range):
+    test_dir = os.path.join(target_path, language, "test")
+    train_dir = os.path.join(target_path, language, "train")
+    mallet_file = os.path.join(test_dir, "utest.%s.mallet.%s" % (version, file_range))
+    fh = codecs.open(mallet_file, "a", encoding='utf-8')
+    return (train_dir, test_dir, fh)
 
 
 if __name__ == '__main__':

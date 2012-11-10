@@ -243,14 +243,15 @@ class Mallet_test:
     # Note also that training with xvalidation on will create multiple models, one per trial.
     # You need to train with no xvalidation to generate a model file name that will work with the tester here.
     
-    def mallet_test_classifier(self, trainer, range=None):
+    def mallet_test_classifier(self, trainer, file_range=None):
 
         print "[mallet_test_classifier] trainer is %s" % trainer
         self.classifier_file = self.train_path_prefix + "." + trainer + ".model"
-        if range is None:
+        if file_range is None:
             self.classifier_out_file = self.test_path_prefix + "." + trainer + ".out"
         else:
-            self.classifier_out_file = self.test_path_prefix + "." + trainer + "." + range + ".out"
+            print type(file_range), file_range
+            self.classifier_out_file = self.test_path_prefix + "." + trainer + "." + file_range + ".out"
         self.classifier_stderr_file = self.test_path_prefix + "." + trainer + ".stderr"
 
         # ///todo
