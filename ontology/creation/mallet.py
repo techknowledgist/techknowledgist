@@ -62,7 +62,7 @@ class Mallet_instance:
 class Mallet_training:
 
     def __init__(self, file_prefix, version, train_output_dir):
-        #print "calling init"
+
         self.train_output_dir = train_output_dir
         self.file_prefix = file_prefix
         # id's are 0 based
@@ -171,7 +171,7 @@ class Mallet_training:
 class Mallet_test:
 
     def __init__(self, test_file_prefix, version, test_dir, train_file_prefix, train_output_dir):
-        print "calling init"
+
         self.test_dir = test_dir
         self.test_file_prefix = test_file_prefix
         self.train_file_prefix = train_file_prefix
@@ -243,18 +243,17 @@ class Mallet_test:
     # Note also that training with xvalidation on will create multiple models, one per trial.
     # You need to train with no xvalidation to generate a model file name that will work with the tester here.
     
-    def mallet_test_classifier(self, trainer, file_range=None):
+    def mallet_test_classifier(self, trainer, mallet_file=None, results_file=None):
 
         print "[mallet_test_classifier] trainer is %s" % trainer
         self.classifier_file = self.train_path_prefix + "." + trainer + ".model"
-        if file_range is None:
-            self.classifier_out_file = self.test_path_prefix + "." + trainer + ".out"
-        else:
-            print type(file_range), file_range
-            self.classifier_out_file = self.test_path_prefix + "." + trainer + "." + file_range + ".out"
+        self.classifier_out_file = self.test_path_prefix + "." + trainer + ".out"
         self.classifier_stderr_file = self.test_path_prefix + "." + trainer + ".stderr"
-
-        # ///todo
+        # override defaults above with filenames handed in by the caller (MV)
+        if mallet_file is not None:
+            self.test_mallet_file = mallet_file
+        if results_file is not None:
+            self.classifier_out_file = results_file
 
         #sh /home/j/anick/mallet/mallet-2.0.7/bin/mallet classify-file --input $test_dir/$type.$version.features.vectors  --classifier $train_dir/$type.$version.classifier.mallet  --output -  >  $test_dir/$type.$version.res.stdout
 

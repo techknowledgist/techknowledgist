@@ -406,50 +406,62 @@ def run_utrain(target_path, language, version, xval, limit):
     train.patent_utraining_data(target_path, language, version, xval, limit)
 
     
-def run_utest(target_path, language, version, limit):
+def run_utest(target_path, language, version, limit, classifier='MaxEnt'):
 
     """Run the classifier on n=limit documents. Batch version of the function
-    train.patent_utraining_test_data(). Appends to two files, adding raw feature vectors
-    to test/utest.1.mallet and appending classification results to
-    test/utest.1.MaxEnt.out."""
+    train.patent_utraining_test_data(). Appends results to test/utest.1.MaxEnt.out and
+    keeps intermediate results for this invocation in test/utest.1.mallet.START-END (raw
+    feature vectors) and test/utest.1.MaxEnt.out.BEGIN_END, where begin and end are taken
+    from ALL_STAGES.txt and the limit parameter."""
     
-    print "[--utest] on %s/%s/tag/" % (target_path, language)
-
-    # get dictionary of annotations
+    # get dictionary of annotations and keep label stats (total_count == unlabeled_count
+    # if use_all_chunks_p is False, otherwisetal_count == unlabeled_count + labeled_counts
     d_phr2label = train.load_phrase_labels(target_path, language)
-    
-    # keep count of labels; total_count == unlabeled_count if use_all_chunks_p is False,
-    # otherwise total_count == unlabeled_count + labeled_counts
     stats = { 'labeled_count': 0, 'unlabeled_count': 0, 'total_count': 0 }
 
     stages = read_stages(target_path, language)
     fnames = files_to_process(target_path, language, stages, '--utest', limit)
-    start = stages.get('--utest', 0)
-    file_range = "%06d-%06d" % (start, start + limit)
-    train_dir, test_dir, mallet_file = \
-        _classifier_io(target_path, language, version, file_range)
-    
+    (train_dir, test_dir, mallet_file, results_file, all_results_file) = \
+        _classifier_io(target_path, language, version, classifier, stages)
+    print "[--utest] vector file - %s" %  mallet_file
+    print "[--utest] results file - %s" %  results_file
+
     count = 0
+    fh = codecs.open(mallet_file, "a", encoding='utf-8')
     for (year, fname) in fnames:
         count += 1
         doc_feats_file = os.path.join(target_path, language, 'doc_feats', year, fname)
         if verbose:
             print "%05d %s" % (count, doc_feats_file)
-        train.add_file_to_utraining_test_file(doc_feats_file, mallet_file, d_phr2label, stats)
-
+        train.add_file_to_utraining_test_file(doc_feats_file, fh, d_phr2label, stats)
+    fh.close()
+    
+    _run_classifier(train_dir, test_dir, version, classifier, mallet_file, results_file)
+    _append_classifier_results(results_file, all_results_file)
     update_stages(target_path, language, '--utest', limit)
     
-    # create an instance of the classifier and run it
-    mtest = mallet.Mallet_test("utest", version , test_dir, "utrain", train_dir)
-    mtest.mallet_test_classifier("MaxEnt", file_range)
-
     
-def _classifier_io(target_path, language, version, file_range):
+def _classifier_io(target_path, language, version, classifier, stages):
+    start = stages.get('--utest', 0)
+    file_range = "%06d-%06d" % (start, start + limit)
     test_dir = os.path.join(target_path, language, "test")
     train_dir = os.path.join(target_path, language, "train")
     mallet_file = os.path.join(test_dir, "utest.%s.mallet.%s" % (version, file_range))
+    results_file = os.path.join(test_dir, "utest.%s.%s.out.%s" % (version, classifier, file_range))
+    all_results_file = os.path.join(test_dir, "utest.%s.%s.out" % (version, classifier))
     fh = codecs.open(mallet_file, "a", encoding='utf-8')
-    return (train_dir, test_dir, fh)
+    return (train_dir, test_dir, mallet_file, results_file, all_results_file)
+
+def _run_classifier(train_dir, test_dir, version, classifier, mallet_file, results_file):
+    """Create an instance of the classifier and run it."""
+    mtest = mallet.Mallet_test("utest", version , test_dir, "utrain", train_dir)
+    mtest.mallet_test_classifier(classifier, mallet_file, results_file)
+
+def _append_classifier_results(results_file, all_results_file):
+    """Append the results file to test/utest.1.MaxEnt.out"""
+    command = "cat %s >> %s" % (results_file, all_results_file)
+    print '[--utest]', command
+    subprocess.call(command, shell=True)
 
 
 if __name__ == '__main__':
