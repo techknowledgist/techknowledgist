@@ -42,6 +42,7 @@ Usage:
     -s PATH     --  external source directory with XML files, see below for the default
     -t PATH     --  target directory, default is data/patents
     -n INTEGER  --  number of documents to process
+    -r STRING   --  range of documents to take, that is, the postfix of classifier output
     
     --init      --  initialize directory structure in target path (non-destructive)
     --populate  --  populate directory in target path with files from source path
@@ -109,6 +110,8 @@ import cn_seg2tag
 import pf2dfeats
 import train
 import mallet
+import find_mallet_field_value_column
+import sum_scores
 
 script_path = os.path.abspath(sys.argv[0])
 script_dir = os.path.dirname(script_path)
@@ -437,7 +440,7 @@ def run_utest(target_path, language, version, limit, classifier='MaxEnt'):
     fh.close()
     
     _run_classifier(train_dir, test_dir, version, classifier, mallet_file, results_file)
-    _append_classifier_results(results_file, all_results_file)
+    #_append_classifier_results(results_file, all_results_file)
     update_stages(target_path, language, '--utest', limit)
     
     
@@ -464,16 +467,58 @@ def _append_classifier_results(results_file, all_results_file):
     subprocess.call(command, shell=True)
 
 
+def run_scores(target_path, version, language, range, classifier='MaxEnt'):
+    
+    """Use the clasifier output files from --utest to generate a sorted list of technology
+    terms with their probabilities. This is an alternative way of using the commands in
+    patent_tech_scores.sh."""
+
+    def run_command(command):
+        print "[--scores]", command.replace('data/patents/en/test/','')
+        subprocess.call(command, shell=True)
+
+    dir = os.path.join(target_path, language, 'test')
+    base = os.path.join(dir, "utest.%s.%s.out" % (version, classifier))
+    fin = base + ".%s" % range
+    fout1 = base + ".s1.all_scores.%s" % range
+    fout2 = base + ".s2.y.nr.%s" % range
+    fout3 = base + ".s3.scores.%s" % range
+    fout4 = base + ".s4.scores.sum.%s" % range
+    fout5 = base + ".s5.scores.sum.nr.%s" % range
+    
+    print "[--scores] select the line from the classifier output that contains the scores"
+    command = "cat %s | egrep '^[0-9]' > %s" % (fin, fout1)
+    run_command(command)
+
+    print "[--scores] select 'y' scores and sort"
+    column = find_mallet_field_value_column.find_column(fout1, 'y')
+    print "[--scores] 'y' score is in column %s of %s" % (column, os.path.basename(fout1))
+    command = "cat %s | cut -f1,%s | sort -k2 -nr > %s" % (fout1, column, fout2)
+    run_command(command)
+
+    print "[--scores] remove tiny scores (that is, scores like 8.833699651282083E-6)"
+    command = "cat %s | grep -v \"E-\" > %s" % (fout2, fout3)
+    run_command(command)
+
+    print "[--scores] summing scores into", fout4
+    sum_scores.sum_scores(fout3, fout4)
+
+    print "[--scores] sort on average scores"
+    command = "cat %s | sort -k2,2 -nr -t\"\t\" > %s" % (fout4, fout5)
+    run_command(command)
+    
+
 if __name__ == '__main__':
 
     (opts, args) = getopt.getopt(
         sys.argv[1:],
-        'l:s:t:n:',
+        'l:s:t:n:r:',
         ['init', 'populate', 'xml2txt', 'txt2tag', 'tag2chk', 'pf2dfeats', 'summary',
          'annotate1', 'annotate2', 'utrain', 'utest', 'scores', 'verbose'])
 
     init, populate = False, False
     limit = 0
+    range = None
     xml_to_txt, txt_to_seg, txt_to_tag, tag_to_chk = False, False, False, False
     pf_to_dfeats = False
     summary, annotate1, annotate2 = False, False, False
@@ -486,6 +531,7 @@ if __name__ == '__main__':
         if opt == '-s': source_path = val
         if opt == '-t': target_path = val
         if opt == '-n': limit = int(val)
+        if opt == '-r': range = val
         if opt == '--init': init = True
         if opt == '--populate': populate = True
         if opt == '--xml2txt': xml_to_txt = True
@@ -525,12 +571,7 @@ if __name__ == '__main__':
         
     elif union_train:
         run_utrain(target_path, language, version, xval, limit)
-
     elif union_test:
         run_utest(target_path, language, version, limit)
-
     elif tech_scores:
-        # use the mallet.out file from union_test to generate a sorted list of 
-        # technology terms with their probabilities
-        command = "sh ./patent_tech_scores.sh %s %s %s" % (target_path, version, language)
-        subprocess.call(command, shell=True)
+        run_scores(target_path, version, language, range)
