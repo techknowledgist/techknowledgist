@@ -101,10 +101,14 @@ class Mallet_training:
     def write_train_mallet_file(self):
 
         mallet_stream = open(self.train_mallet_file, "w")
-        print "writing to: %s" %  self.train_mallet_file
+        print "writing to: %s (with feature uniqueness enforced)" %  self.train_mallet_file
         for instance in self.l_instance:
             mallet_stream.write("%s %s " % (instance.id, instance.label))
-            mallet_stream.write(" ".join(instance.l_feat))
+            # use (list(set(...))) to insure that each feature is only included once.
+            # Some features, like prev_J, tend to occur multiple times.  Mallet will 
+            # create a vector with value for the feature > 1.0 if it appears multiple times.
+            # However, we are currently treating all features as binary (present/absent)
+            mallet_stream.write(" ".join(list(set(instance.l_feat))))
             mallet_stream.write("\n")
         mallet_stream.close()
 
@@ -212,7 +216,10 @@ class Mallet_test:
         for instance in self.l_instance:
             # note the label is not included as a field in test data for mallet
             mallet_stream.write("%s %s " % (instance.id))
-            mallet_stream.write(" ".join(instance.l_feat))
+            # Make sure l_feat list is unique before creating the mallet output line.
+            # We are treating each feature as binary(present/absent) and some features can
+            # occur more than once in phr_feats file.
+            mallet_stream.write(" ".join(list(set(instance.l_feat))))
             mallet_stream.write("\n")
         mallet_stream.close()
 

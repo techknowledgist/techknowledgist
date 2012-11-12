@@ -445,7 +445,7 @@ class Sentence(object):
     @feature_method
     def last_word(self, index):
         last_index = self.chart[index].chunk_end - 1
-        res = self.chart[last_index].tok.lower()
+        res = self.chart[last_index].lc_tok
         return(fname("last_word", res))
         
     @feature_method
@@ -472,20 +472,24 @@ class Sentence_english(Sentence):
         while i > 0:
             # terminate if verb is found
             if self.chart[i].tag[0] == "V":
-                verb = self.chart[i].tok
+                verb = self.chart[i].lc_tok
                 break
             # terminate if a noun is reached before a verb
             if self.chart[i].tag[0] == "N":
                 break
             # keep a prep if reached before verb
             if self.chart[i].tag in ["RP", "IN"]:
-                prep = self.chart[i].tok
+                prep = self.chart[i].lc_tok
             # keep looking 
             i = i - 1
         if verb != "":
             # 11/9/21 PGA replaced blank with _
-            verb_prep = verb + "_" + prep
-        res = verb_prep.lower()
+            if prep != "":
+                verb_prep = verb + "_" + prep
+            else:
+                verb_prep = verb
+            #print "[sentence.py] verb_prep: %s" % verb_prep
+        res = verb_prep
         return(fname("prev_V", res))        
 
     # first noun to the left of chunk, within 3 words
@@ -498,7 +502,7 @@ class Sentence_english(Sentence):
             # PGA: It may make sense to add some blocking conditions,
             # such as punc or verb.
             if self.chart[i].tag[0] == "N":
-                noun = self.chart[i].tok
+                noun = self.chart[i].lc_tok
                 break
             else:
                 # keep looking 
@@ -513,7 +517,7 @@ class Sentence_english(Sentence):
     def chunk_lead_J(self, index):
         res = ""
         if self.chart[index].tag[0] == "J":
-            res = self.chart[index].tok
+            res = self.chart[index].lc_tok
         return(fname("chunk_lead_J", res))
 
 
@@ -522,7 +526,7 @@ class Sentence_english(Sentence):
     def chunk_lead_VBG(self, index):
         res = ""
         if self.chart[index].tag[0] == "VBG":
-            res = self.chart[index].tok
+            res = self.chart[index].lc_tok
         return(fname("chunk_lead_VBG", res))
 
     # head of prep in chunk, if there is one
@@ -534,7 +538,7 @@ class Sentence_english(Sentence):
         prep_idx = self.first_prep_idx(index)
         if prep_idx != -1:
             head_loc = prep_idx - 1
-            head = self.chart[head_loc].tok
+            head = self.chart[head_loc].lc_tok
             res = head.lower()
         return(fname("of_head", res))
 
@@ -545,7 +549,7 @@ class Sentence_english(Sentence):
         res = ""
         i = index - 1
         if self.chart[i].tag[0] == "J":
-            res = self.chart[i].tok.lower()
+            res = self.chart[i].lc_tok
         return(fname("prev_J", res))
 
     # first adjective in the chunk
@@ -554,7 +558,7 @@ class Sentence_english(Sentence):
         res = ""
         i = index
         if self.chart[i].tag[0] == "J":
-            res = self.chart[i].tok.lower()
+            res = self.chart[i].lc_tok
         return(fname("initial_J", res))
 
     @feature_method
@@ -562,7 +566,7 @@ class Sentence_english(Sentence):
         res = ""
         i = index
         if self.chart[i].tag[0] == "V":
-            res = self.chart[i].tok.lower()
+            res = self.chart[i].lc_tok
         return(fname("initial_V", res))
 
     # If a prep occurs directly after the chunk, return the token
@@ -573,7 +577,7 @@ class Sentence_english(Sentence):
         following_index = self.chart[i].chunk_end
         if following_index <= self.last:
             if self.chart[following_index].tag == "IN":
-                res = self.chart[following_index].tok.lower()
+                res = self.chart[following_index].lc_tok
         return(fname("following_prep", res))        
 
 class Sentence_german(Sentence):
@@ -593,7 +597,7 @@ class Sentence_german(Sentence):
         while i > 0:
             # terminate if verb is found, but skip copula
             if self.chart[i].tag[0] == "V" and self.chart[i].tag != 'VAINF':
-                verb = self.chart[i].tok
+                verb = self.chart[i].lc_tok
                 break
             # terminate if a noun is reached before a verb
             if self.chart[i].tag[0] == "N":
@@ -612,7 +616,7 @@ class Sentence_german(Sentence):
         while i > 0 and distance_limit > 0:
             # terminate if verb is found
             if self.chart[i].tag[0] == "N":
-                noun = self.chart[i].tok
+                noun = self.chart[i].lc_tok
                 break
             else:
                 # keep looking 
@@ -627,7 +631,7 @@ class Sentence_german(Sentence):
     def chunk_lead_J(self, index):
         res = ""
         if self.chart[index].tag == "ADJA":
-            res = self.chart[index].tok
+            res = self.chart[index].lc_tok
         return(fname("chunk_lead_J", res))
 
     # initial V-ing verb in chunk, if there is one
@@ -637,7 +641,7 @@ class Sentence_german(Sentence):
     #def chunk_lead_VBG(self, index):
     #    res = ""
     #    if self.chart[index].tag[0] == "VBG":
-    #        res = self.chart[index].tok
+    #        res = self.chart[index].lc_tok
     #    return(fname("chunk_lead_VBG", res))
 
     # head of prep in chunk, if there is one
@@ -649,7 +653,7 @@ class Sentence_german(Sentence):
         prep_idx = self.first_prep_idx(index)
         if prep_idx != -1:
             head_loc = prep_idx - 1
-            head = self.chart[head_loc].tok
+            head = self.chart[head_loc].lc_tok
             res = head.lower()
         return(fname("von_head", res))
 
@@ -660,7 +664,7 @@ class Sentence_german(Sentence):
         res = ""
         i = index - 1
         if self.chart[i].tag == "ADJA":
-            res = self.chart[i].tok.lower()
+            res = self.chart[i].lc_tok
         return(fname("prev_J", res))
 
     # first adjective in the chunk
@@ -669,7 +673,7 @@ class Sentence_german(Sentence):
         res = ""
         i = index
         if self.chart[i].tag == "ADJA":
-            res = self.chart[i].tok.lower()
+            res = self.chart[i].lc_tok
         return(fname("initial_J", res))
 
     @feature_method
@@ -677,7 +681,7 @@ class Sentence_german(Sentence):
         res = ""
         i = index
         if self.chart[i].tag[0] == "V":
-            res = self.chart[i].tok.lower()
+            res = self.chart[i].lc_tok
         return(fname("initial_V", res))
 
     # If a prep occurs directly after the chunk, return the token
@@ -689,7 +693,7 @@ class Sentence_german(Sentence):
         following_index = self.chart[i].chunk_end
         if following_index <= self.last:
             if self.chart[following_index].tag == "IN":
-                res = self.chart[following_index].tok.lower()
+                res = self.chart[following_index].lc_tok
         return(fname("following_prep", res))
 
 
@@ -712,6 +716,9 @@ class Sentence_chinese(Sentence):
 
     #print "Creating Sentence_chinese subclass"
     
+    # We lower case tokens in Chinese because occasionally English words show up
+    # in Chinese patents
+
     # first noun to the left of chunk, within 3 words
     @feature_method
     def prev_N(self, index):
@@ -721,7 +728,7 @@ class Sentence_chinese(Sentence):
         while i > 0 and distance_limit > 0:
             # terminate if NN is found
             if self.chart[i].tag == "NN":
-                noun = self.chart[i].tok
+                noun = self.chart[i].lc_tok
                 break
             else:
                 # keep looking 
@@ -737,7 +744,7 @@ class Sentence_chinese(Sentence):
         if last_index ==0:
             return(fname("last_word", ''))
         else:
-            res = self.chart[last_index-1].tok
+            res = self.chart[last_index-1].lc_tok
             return(fname("last_word", res))
         
     @feature_method
@@ -747,7 +754,7 @@ class Sentence_chinese(Sentence):
         while i > 0:
             # terminate if verb is found
             if self.chart[i].tag[0] == "V":
-                verb = self.chart[i].tok
+                verb = self.chart[i].lc_tok
                 break
             # terminate if a noun is reached before a verb
             if self.chart[i].tag[0] == "N":
@@ -755,7 +762,7 @@ class Sentence_chinese(Sentence):
             """
             # keep a prep if reached before verb
             if self.chart[i].tag[0] in ["P", "IN"]:
-                prep = self.chart[i].tok
+                prep = self.chart[i].lc_tok
             else:
                 # keep looking
             """
@@ -775,7 +782,7 @@ class Sentence_chinese(Sentence):
 
         while i < self.chart[index].chunk_end:
             if self.chart[i].tag == "JJ" or self.chart[i].tag == "VA":
-                res = self.chart[i].tok
+                res = self.chart[i].lc_tok
                 break
             i = i + 1
             
@@ -789,7 +796,7 @@ class Sentence_chinese(Sentence):
 
         while i>=index:
             if self.chart[i].tag == "JJ" or self.chart[i].tag == "VA":
-                res = self.chart[i].tok
+                res = self.chart[i].lc_tok
                 break
             i = i - 1
         return(fname("prev_J", res))
@@ -803,9 +810,9 @@ class Sentence_chinese(Sentence):
         while i > 0 and distance_limit > 0:        
             # terminate if verb is found
             if self.chart[i].tag == "M":
-                measure = self.chart[i].tok
+                measure = self.chart[i].lc_tok
                 if i > 1:
-                    measure = measure + ' ' + self.chart[i-1].tok
+                    measure = measure + ' ' + self.chart[i-1].lc_tok
                 break
             i = i - 1
             
@@ -821,7 +828,7 @@ class Sentence_chinese(Sentence):
         while i > 0 and distance_limit > 0:        
             # terminate if verb is found
             if self.chart[i].tag == "DT":
-                determiner = self.chart[i].tok
+                determiner = self.chart[i].lc_tok
                 break
             i = i - 1
         return(fname("prev_DT", determiner))
@@ -837,6 +844,8 @@ class Chunk:
         self.tok_start = tok_start
         self.tok_end = tok_end
         self.tok = tok
+        # normalize case since token will be used as a feature value for some features (e.g. chunk_lead_J)
+        self.lc_tok = tok.lower()
         self.tag = tag
         # label is changed if a chunk pattern is matched
         self.label = tag

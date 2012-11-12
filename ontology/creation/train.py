@@ -19,6 +19,11 @@ import mallet
 import putils
 import codecs
 
+# return a list in which each element only appears once.
+# NOTE: The order of the list may change.
+def unique_list(non_unique_list):
+    #print "calling unique_list"
+    return (list(set(non_unique_list)))
 
 def load_phrase_labels(patent_dir, lang):
 
@@ -71,7 +76,7 @@ def make_utraining_file_by_dir(patent_dir, lang, version, d_phr2label):
                 fields = line.split("\t")
                 phrase = fields[0]
                 uid = fields[1]
-                feats = fields[2:]
+                feats = unique_list(fields[2:])
                 # check if the phrase has a known label
                 if d_phr2label.has_key(phrase):
                     label = d_phr2label.get(phrase)
@@ -123,7 +128,7 @@ def make_utraining_file(patent_dir, lang, version, d_phr2label, limit=0):
                 file_count += 1
             if file_count == limit:
                 break
-        feats = fields[2:]
+        feats = unique_list(fields[2:])
         # check if the phrase has a known label
         if d_phr2label.has_key(phrase):
             label = d_phr2label.get(phrase)
@@ -226,7 +231,7 @@ def add_file_to_utraining_test_file(fname, s_test, d_phr2label, stats,
         fields = line.strip("\n").split("\t")
         phrase = fields[0]
         uid = fields[1]
-        feats = fields[2:]
+        feats = unique_list(fields[2:])
         # keep count of labeled and unlabeled instances
         incr('labeled_count') if d_phr2label.has_key(phrase) else incr('unlabeled_count')
         # include the instance if all chunks are used or if it doesn't have a label.
@@ -246,7 +251,7 @@ def patent_utraining_test_data(patent_dir, lang, version="1"):
     d_phr2label = load_phrase_labels(patent_dir, lang)
     # create .mallet file
     make_utraining_test_file(patent_dir, lang, version, d_phr2label)
-    return
+    ###return
     # create an instance of Mallet_test class to do the rest
     # let's do the work in the test directory for now.
     test_output_dir = os.path.join(patent_dir, lang, "test")
@@ -277,7 +282,7 @@ def make_unlabeled_mallet_file(doc_feats_path, mallet_subdir, file_name, featnam
         fields = line.split("\t")
         phrase = fields[0]
         uid = fields[1]
-        feats = fields[2:]
+        feats = unique_list(fields[2:])
         mallet_list = [uid, default_label]
         #mallet_list = [uid]
         mallet_list.extend(feats)
@@ -340,7 +345,7 @@ def pipeline_make_utraining_test_file(root, lang, version):
             fields = line.split("\t")
             phrase = fields[0]
             uid = fields[1]
-            feats = fields[2:]
+            feats = unique_list(fields[2:])
             # check if the phrase has a known label
             mallet_list = [uid, default_label]
             #mallet_list = [uid]
