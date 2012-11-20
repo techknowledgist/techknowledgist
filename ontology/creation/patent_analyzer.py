@@ -26,8 +26,14 @@ Usage:
     --xml2txt   --  document structure parsing
     --txt2tag   --  tagging
     --tag2chk   --  creating chunks in context
+    --pf2dfeats --  creating doc level features for mallet
     --summary   --  create summary lists
-    --all       --  all processing steps
+    --utrain    --  train a model to recognize technology terms
+    --utest     --  run the model
+    --scores    --  generate scores 
+
+    --all       --  all processing steps up to utrain
+    --classify  --  all steps from utrain to scores
 
     All long options require a target path and a language (via the -l and -t options or
     their defaults). The long options --init, --populate and --all also require a source
@@ -58,8 +64,6 @@ python2.6 patent_analyzer.py -l de -s /home/j/clp/chinese/corpora/fuse-patents/5
 
 python2.6 patent_analyzer.py -l cn -v 1 -s /home/j/clp/chinese/corpora/fuse-patents/500-patents/DATA/Lexis-Nexis/CN/Xml --all
 
-python2.6 patent_analyzer.py -l en --pf2dfeats
-python2.6 patent_analyzer.py -l en --summary
 
 python2.6 patent_analyzer.py -l de -v 1 -x 0   --utrain
 python2.6 patent_analyzer.py -l de -v 1 --utest
@@ -84,6 +88,13 @@ python2.6 patent_analyzer.py -l de --pf2dfeats
 python2.6 patent_analyzer.py -l de -v 7 -x 0   --utrain
 python2.6 patent_analyzer.py -l de -v 7 --utest 
 python2.6 patent_analyzer.py -l de -v 7 --scores  
+
+python2.6 patent_analyzer.py -l en -f False --all
+python2.6 patent_analyzer.py -l en -f False --tag2chk
+python2.6 patent_analyzer.py -l en --pf2dfeats
+python2.6 patent_analyzer.py -l en --summary
+python2.6 patent_analyzer.py -l en --classify
+
 """
 
 
@@ -98,7 +109,7 @@ import cn_seg2tag
 import pf2dfeats
 import train
 import sum_scores
-
+import log
 import config_data
 
 # moved to config_data.py
@@ -118,7 +129,7 @@ if __name__ == '__main__':
         sys.argv[1:],
         'l:s:t:v:x:f:',
         ['init', 'populate', 'xml2txt', 'txt2tag', 'tag2chk', 'pf2dfeats', 'summary',
-         'utrain', 'utest', 'scores', 'all'])
+         'utrain', 'utest', 'scores', 'all', 'classify'])
     
 
     version = "1"
@@ -165,7 +176,7 @@ if __name__ == '__main__':
         if opt == '--scores': tech_scores = True
         if opt == '--summary': summary = True
         if opt == '--all': all = True
-
+        if opt == '--classify': classify = True
 
     if init:
         print "[patent_analyzer]source_path: %s, target_path: %s, language: %s" % \
@@ -241,17 +252,69 @@ if __name__ == '__main__':
         subprocess.call(command, shell=True)
 
     elif all:
-        print "[patent_analyzer]source_path: %s, target_path: %s, language: %s" % (source_path, target_path, language)
+        # append time info to log file
+        s_log = open("time.log", "a")
+        run_string = ("[patent_analyzer]source_path: %s, target_path: %s, language: %s" % (source_path, target_path, language))
         l_year = os.listdir(source_path)
+        time = log.log_current_time(s_log, run_string)
+
         putils.make_patent_dir(language, target_path, l_year)
+        time = log.log_time_diff(time, s_log, "Finished make_patent_dir")
+
         putils.populate_patent_xml_dir(language, source_path, target_path, l_year)
+        time = log.log_time_diff(time, s_log, "Finished populate_patent_xml")
+
         xml2txt.patents_xml2txt(target_path, language)
+        time = log.log_time_diff(time, s_log, "Finished patents_xml2txt")
+
         if language == 'cn':
             cn_txt2seg.patent_txt2seg_dir(target_path, language)
+            time = log.log_time_diff(time, s_log, "Finished patent_txt2seg")
+
             cn_seg2tag.patent_txt2tag_dir(target_path, language)
+            time = log.log_time_diff(time, s_log, "Finished patent_txt2tag_dir")
+            
         else:
             txt2tag.patent_txt2tag_dir(target_path, language)
+            time = log.log_time_diff(time, s_log, "Finished patent_txt2tag_dir")
+            
         tag2chunk.patent_tag2chunk_dir(target_path, language, filter_p)
+        time = log.log_time_diff(time, s_log, "Finished patent_txt2chunk_dir")
+        
         pf2dfeats.patent_pf2dfeats_dir(target_path, language)
+        time = log.log_time_diff(time, s_log, "Finished patent_pf2feats_dir")
+        
         command = "sh ./cat_phr.sh %s %s" % (target_path, language)
         subprocess.call(command, shell=True)
+        time = log.log_time_diff(time, s_log, "Finished cat_phr.sh")
+        
+        time = log.log_time_diff(time, s_log, "Completed All")
+        s_log.close()
+        
+    elif classify:
+        # Do everything from training to classifying a test set
+        # we assume that a .lab file exists in ws dir to use for training
+        s_log = open("time.log", "a")
+        run_string = ("[patent_analyzer]classify source_path: %s, target_path: %s, language: %s" % (source_path, target_path, language))
+        time = log.log_current_time(s_log, run_string)
+
+        source_annot_lang_file = annot_path + "/phr_occ.lab"
+        ws_annot_lang_file = target_path + "/" + language + "/ws/phr_occ.lab"
+        shutil.copyfile(source_annot_lang_file, ws_annot_lang_file)
+
+        # creates a mallet training file for labeled data with features as union of all phrase
+        # instances within a doc.
+        # Creates a model: utrain.<version>.MaxEnt.model in train subdirectory
+        train.patent_utraining_data(target_path, language, version, xval)
+        time = log.log_time_diff(time, s_log, "Finished patent_utraining_data")
+    
+        train.patent_utraining_test_data(target_path, language, version)
+        time = log.log_time_diff(time, s_log, "Finished patent_utraining_test_data")
+    
+        # use the mallet.out file from union_test to generate a sorted list of 
+        # technology terms with their probabilities
+        command = "sh ./patent_tech_scores.sh %s %s %s" % (target_path, version, language)
+        subprocess.call(command, shell=True)
+        time = log.log_time_diff(time, s_log, "Finished patent_tech_scores.sh")
+
+        s_log.close()

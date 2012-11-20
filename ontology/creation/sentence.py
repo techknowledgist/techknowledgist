@@ -948,8 +948,20 @@ def chunk_schema(lang):
     start_pat = []
     cont_pat = []
     end_pat = []
-    
+
+
     if lang == "en":
+        both_pat =  [ ["NN", []], ["NNP", []], ["NNS", []], ["NNPS", []], ["POS", []],  ["JJ", ["-", "further", "such", "therebetween", "same", "following", "respective", "first", "second", "third", "fourth", "respective", "preceding", "predetermined", "next", "more"] ], ["JJR", ["-", "more"] ], ["JJS", [] ], ["FW", ["-", "e.g.", "i.e"] ], ["VBG", ["-", "describing", "improving", "using", "employing",  "according", "resulting", "having", "following", "including", "containing", "consisting", "disclosing"]  ] ] 
+        #start_pat = [ ["NN", ["-", "method"]] ] 
+        start_pat = []
+        # 11/16/12 PGA removed "of" from cont_pattern, removed "CC"
+        cont_pat = [ ["NN", []], ["VBN", []], ["DT",  []], ["RP", []] ]
+        end_pat = [ ["NN", []], ["NNP", []], ["NNS", []], ["NNPS", []], ["VBG", ["-", "describing", "improving", "using", "employing", "according", "resulting", "having", "following", "including", "containing", "consisting", "disclosing", "pertaining", "being", "comprising", "corresponding"]  ] ]
+        start_pat.extend(both_pat)
+        cont_pat.extend(both_pat)
+
+    
+    if lang == "en_w_of":
         both_pat =  [ ["NN", []], ["NNP", []], ["NNS", []], ["NNPS", []], ["POS", []],  ["JJ", ["-", "further", "such", "therebetween", "same", "following", "respective", "first", "second", "third", "fourth", "respective", "preceding", "predetermined", "next", "more"] ], ["JJR", ["-", "more"] ], ["JJS", [] ], ["FW", ["-", "e.g.", "i.e"] ], ["VBG", ["-", "describing", "improving", "using", "employing",  "according", "resulting", "having", "following", "including", "containing", "consisting", "disclosing"]  ] ] 
         #start_pat = [ ["NN", ["-", "method"]] ] 
         start_pat = []
