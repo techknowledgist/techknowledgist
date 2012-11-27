@@ -50,7 +50,7 @@ import collections
 
 
 class PRA:
-    def __init__(self, d_eval, d_system, threshold):
+    def __init__(self, d_eval, d_system, threshold, s_log):
         self.d_eval = d_eval
         self.d_system = d_system
 
@@ -91,6 +91,9 @@ class PRA:
                         self.true_neg += 1
                     else:
                         self.false_pos += 1
+            # log the gold and system labels for each phrase
+            s_log.write("%s\t%s\t%s\n" % (gold_label, system_label, phrase))
+
 
     def precision(self):
         res = float(self.true_pos) / (self.true_pos + self.false_pos)
@@ -151,26 +154,47 @@ class EvalData:
         #s_training.close()
         s_system.close()
 
+def t4(threshold):
+    eval_test_file = "/home/j/anick/patent-classifier/ontology/annotation/en/phr_occ.eval.newchunk.lab"
+    system_test_file = "/home/j/anick/patent-classifier/ontology/creation/data/patents/en/test/utest.1.MaxEnt.out.avg_scores.nr"
+    log_file_name = "t4_" + str(threshold) + ".gs.log"
+    test(eval_test_file, system_test_file, threshold, log_file_name)
+
+
+def t3(threshold):
+    eval_test_file = "/home/j/anick/patent-classifier/ontology/annotation/en/phr_occ.eval.lab"
+    system_test_file = "/home/j/anick/patent-classifier/ontology/creation/data/patents/en/test/utest.1.MaxEnt.out.avg_scores.nr"
+    log_file_name = "t3_" + str(threshold) + ".gs.log"
+    test(eval_test_file, system_test_file, threshold, log_file_name)
+
+
 def t2(threshold):
     eval_test_file = "/home/j/anick/patent-classifier/ontology/annotation/en/phr_occ.eval.lab"
     system_test_file = "/home/j/corpuswork/fuse/code/patent-classifier/ontology/creation/data/patents-20121111/en/test/utest.1.MaxEnt.out.s5.scores.sum.nr.000000-000500"
-    test(eval_test_file, system_test_file, threshold)
+    log_file_name = "t2_" + str(threshold) + ".gs.log"
+    test(eval_test_file, system_test_file, threshold, log_file_name)
 
 
 def t1(threshold):
     eval_test_file = "/home/j/anick/patent-classifier/ontology/annotation/en/phr_occ.eval.lab"
     system_test_file = "/home/j/anick/patent-classifier/ontology/creation/data/patents/en/test/utest.9.MaxEnt.out.scores.sum.nr"
-    test(eval_test_file, system_test_file, threshold)
+    log_file_name = "t1_" + str(threshold) + ".gs.log"
+    test(eval_test_file, system_test_file, threshold, log_file_name)
 
 # use ctrl-q <tab> to put real tabs in file in emacs
 def t0(threshold):
     eval_test_file = "/home/j/anick/patent-classifier/ontology/creation/data/patents/en/test/t0.phr_occ.eval.lab" 
     system_test_file = "/home/j/anick/patent-classifier/ontology/creation/data/patents/en/test/t0.scores.sum.nr" 
-    test(eval_test_file, system_test_file, threshold)
+    log_file_name = "t0_" + str(threshold) + ".gs.log"
+    test(eval_test_file, system_test_file, threshold, log_file_name)
        
-def test(eval_test_file, system_test_file, threshold):
+def test(eval_test_file, system_test_file, threshold, log_file_name):
     edata = EvalData(eval_test_file, system_test_file)
-    pra = PRA(edata.d_eval_phr2label, edata.d_system_phr2score, threshold)
+    # open a log file to keep gold and system labels for each phrase
+    s_log = open(log_file_name, "w")
+
+    pra = PRA(edata.d_eval_phr2label, edata.d_system_phr2score, threshold, s_log)
+
     precision = pra.precision()
     print "precision: %.2f" % precision
     recall = pra.recall()
@@ -185,7 +209,7 @@ def test(eval_test_file, system_test_file, threshold):
     print "true neg: %i" % pra.true_neg
     print "correct: %i" % pra.correct
     print "precision: %.2f, recall: %.2f, accuracy: %.2f, threshold: %.2f, total: %i" % (precision, recall, accuracy, threshold, total)
-
+    s_log.close()
 
 
 ####################################################################################
