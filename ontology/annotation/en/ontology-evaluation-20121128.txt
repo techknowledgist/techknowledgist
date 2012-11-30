@@ -1,0 +1,104 @@
+# These are 100 randomly selected elements from the English ontology that was created for
+# the T&E evaluation run of November 2012. They are (to be) annotated with one of three
+# categories: y, n or ?, to be placed before the tab.
+
+	liquid crystal cell
+	photoresist film
+	welding process
+	uv radiation
+	three-phase motor
+	brake system
+	network controller
+	remote computer
+	variable gain amplifier circuit
+	suitable fuel
+	sample dna
+	polymer electrolyte membrane
+	zno film
+	operation of the operational amplifier
+	projection lens
+	transparent electrodes
+	cutting blade
+	screen of the computer
+	types of electromagnetic radiation
+	carburetor
+	forming a gate electrode
+	ion-conducting polymer
+	generating plasma
+	capacitor switch
+	electronic control
+	electrical communication
+	diesel fuel
+	memory circuits
+	target device
+	user input interface
+	data storage unit
+	light sensor
+	access device
+	polymer coating
+	arc tube
+	voltage control circuit
+	electrical contacts
+	control piston
+	amplifier circuit
+	gel-like electrolyte
+	piston head
+	plane of the sensor
+	optical network
+	rotational speed sensor
+	liquid coating film
+	memory chip
+	semiconductor integrated circuits
+	pin encryption
+	resistance sensor
+	steering angle sensor
+	receiving node
+	x-ray tube
+	accessing the database
+	plasma display
+	removing the metal film
+	playing the game
+	sixth switch
+	input screen
+	semiconductor film
+	portion of the polymer
+	linear polymer
+	reflecting surface
+	electrical output signals
+	tip electrode
+	stylus
+	optical fiber type
+	valve device
+	color film
+	bare chip
+	high heat resistance
+	proximity sensor
+	audio file
+	feedback capacitor
+	receiving system
+	electrical resistance
+	tank circuit
+	searching a database
+	sensor chip
+	ability of the electrodes
+	transgenic plants
+	ip data packets
+	x-ray radiation
+	ionizing radiation
+	sio2 film
+	outer electrode
+	hologram lens
+	forming the metal film
+	high voltages
+	discrete cosine transformer
+	extending flanges
+	object lens
+	method of printing
+	ip phone
+	filter circuit
+	aluminum alloy
+	toner
+	formation of a thin film
+	control program
+	gaming system
+	feedback control
