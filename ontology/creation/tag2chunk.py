@@ -33,7 +33,7 @@ def mallet_feature(name, value):
 
 class Doc:
 
-    def __init__(self, input,  output_phr_occ, output_phr_feats, year, lang, filter_p = True):
+    def __init__(self, input,  output_phr_occ, output_phr_feats, year, lang, filter_p=True):
         self.input = input
         # PGA made year a parameter so not dependent on path structure 10/9/12
         #self.year = input.split(os.sep)[-2]
