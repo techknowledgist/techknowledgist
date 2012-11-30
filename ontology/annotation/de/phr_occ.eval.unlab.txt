@@ -1,0 +1,555 @@
+# Terms to be annotated for evaluation, using first 20 patents
+
+	spulengatter
+	wärmetransportleitung
+	stifte
+	stift
+	stiften
+	kühlkörper
+	spule
+	bauteil
+	positionierglied
+	hängebügel
+	förderer
+	spulen
+	roboter
+	anlegerseil
+	stützelemente
+	kühlsystem
+	lamellen
+	wesentlichen
+	fig
+	hülsen
+	anleger
+	tür
+	stützelementen
+	bremsbogen
+	belüftungsdüse
+	gehäuses
+	vorrichtung
+	türen
+	vertikalförderer
+	flüssigkeit
+	schaltungsanordnung
+	klappen
+	weisenden stirnflächen
+	restfadentragenden hülsen
+	kindermöbelbausystem
+	container
+	alarmanlage
+	energiequelle
+	axialen hohlraum
+	ausschalter
+	bremseinrichtung
+	sicherheits-ein
+	abbremsen von beweglichen teilen
+	gehäuse
+	kastenartigen bauelementen
+	bewegungssensor
+	ersten abschnitten
+	umlaufenden förderer
+	kraftfahrzeugen
+	einrichtung
+	ersten abschnitt
+	plattenartigen deckelement
+	eckbereiche
+	anzeige
+	achse
+	oberseite
+	weisenden stirnseiten der stützelemente
+	wirkverbindung
+	weiteren abschnitte
+	heckteil
+	lamelle
+	a
+	ladepritsche
+	wärmeerzeugendes bauteil
+	abstehenden stützelementen
+	lage
+	baugruppen
+	spulen p
+	weitere abschnitte der stirnflächen
+	akustischer alarmgeber
+	spulenwechselanlage
+	eckbereichen
+	deckelement
+	bewegung
+	anleger vertäute boote
+	bewegungsbahn
+	restfadentragende hülsen
+	gew
+	fahrzeuge
+	abstand
+	ebene des deckelementes
+	mehrzahl
+	zweiten teil
+	eingriffselementen
+	vertikalen ebene
+	eingriff
+	umlauf
+	schlüssel
+	anlegertau
+	eckbereichen von plattenartigen verbindungselementen
+	bilderzeugungsprozessor
+	verschlechterten vakuums
+	vorderkante
+	verstärker
+	bandeisenwickler
+	frontteil
+	schalter
+	darstellung
+	auftretenden hindernissen
+	funksignalgeber
+	videobeobachtungsteil
+	freizustand des betriebsmittels
+	bereich des beweglichen teils
+	abstandssensoren
+	optischer signalgeber
+	einen seite
+	pv-solarstation
+	zwischenschichten
+	widerstände
+	grundlage
+	bremsbogen anliegende bremsbacken
+	heckteile
+	diebstahlsicherung
+	erste teil
+	behälter
+	entfernen des gehäuses
+	zahlen
+	bildsensor
+	platz
+	wärmeerzeugende bauteil
+	bootes
+	handliches stabiles geschlossenes gehäuse
+	verbindbaren kästenoder tischartigen bauelementen
+	mittel
+	videosignale
+	angeordnete gegenelemente
+	elektronischer bauelemente
+	buchstabencode
+	mehrzweck-raupenfahrzeug
+	tür des kraftfahrzeugs angeordneten bremsbogen
+	wärmeerzeugenden bauteil
+	zweite teil
+	bremsbacken
+	magnetfelds aktivierbaren magneten
+	weiterer verwendung
+	mehrzahl von ausnehmungen
+	dioden
+	alarmgeber
+	schwenkbare heckklappe
+	wind
+	aufnahme des anlegerseiles
+	unterseite anliegenden stützplatte
+	öffnungen
+	berührungs
+	behandlung
+	mechanik
+	ebene
+	widerlagers
+	transponder
+	düsengehäuse
+	stützplatte
+	widerlager
+	stirnflächen
+	wirkenden berührungs
+	stirnflächen der stützelemente
+	anschluß
+	wärmetransportleitungen
+	gleichstrompumpe
+	ersten abschnitte
+	eckbereiche der deckelemente
+	kofferraumdeckel
+	problem
+	sicherung
+	angeordnete vordere schwenkachse
+	mikrodispersionsverfahren
+	vorragenden stiften
+	objektbild vergrößerter darstellung
+	restfadentragenden hülse
+	frontseitige gehäuseöffnung
+	verdeckkastenklappe
+	hinterkante
+	ölkomponenten
+	längsrichtung
+	anleger vertäuten booten
+	herausziehen des anlegerseils
+	hutförmige wärmetransportleitung
+	erfindungsgemäße spulenwechselanlage
+	aufnehmen von restfadentragenden hülsen
+	anpassung
+	bauteile
+	aufbauten
+	betriebsmittels
+	anzeige des belegtzustands
+	hintere schwenkachse
+	angeordnete hintere schwenkachse
+	erhöhter viskosität
+	eckbereichen der plattenartigen verbindungselemente
+	pixeln
+	vorderen viergelenkmechanismus
+	überwachung des vakuums
+	nutartigen ausnehmungen der stützelemente
+	seitenkanten der stützplatte
+	neue spulen
+	seite
+	diagonallinien der quadratischen stirnflächen
+	restfadentragende hülsen b
+	vertikalen förderer
+	boden der wärmetransportleitung
+	anbindestelle
+	wärmeerzeugende bauteile
+	fahrzeug
+	befestigungsmitteln
+	innenraum
+	kohlenstoffatomen
+	photovoltaikmodul
+	wäßrige dispersionen
+	hinteren viergelenkmechanismus
+	elektronisches endoskop
+	gekrümmte wandflächen
+	seitenkanten des deckelementes
+	angeordneten magneten
+	normalen darstellung
+	übrigen lamellen
+	einbau
+	% der höhe von zweiten bauelementen
+	vergrößerte darstellung
+	weiteren abschnitte der stirnflächen
+	eckbereiche des deckelementes
+	metallenen wärmetransportleitung
+	signalprozessor
+	angelötetem kühlsystem
+	bauelementen
+	abziehen von restfadentragenden hülsen
+	wellenbewegungen
+	allpixel-objektbild
+	bewegung des anlegerseiles
+	anwendungen
+	übertragen von restfadentragenden hülsen
+	weiteren abschnitten der stirnflächen
+	objektbild normaler darstellung
+	beabstandete stifte
+	halbe kantenlänge der stirnflächen
+	versuchen
+	vordere schwenkachse
+	herstellung von haarfärbepräparaten
+	feststehenden teil des kraftfahrzeugs
+	videoprozessor
+	angeordneten deckelementes
+	sukzessives auswechseln der spulen
+	wandung des gehäuses
+	gesamte kindermöbelbausystem
+	verbindungsverfahren
+	türen3 widerlager
+	weisenden stirnflächen der stützelemente
+	behälter vorliegenden hülsen
+	bestückten wärmetransportleitung
+	anlegerseiles
+	unterseite des deckelementes
+	anlegerseil befindlichen leiterschleife
+	tragbarer cd-player
+	auswechseln der restfadentragenden hülsen
+	dargestellten bremseinrichtung
+	automatische stoppfunktion
+	zufälliger anordnung
+	stiften des spulengatters
+	wärmeerzeugenden bauteil zugewandten seite
+	geordnete anordnung
+	viergelenkmechanismen
+	unmittelbaren anschluß
+	zusammenhängende ebene
+	eingriffselementen versehenen weiteren abschnitte
+	innern der wärmetransportleitung
+	entsprechenden seitlichen türen
+	elektrischen alarmanlage
+	befindliche bewegungssensor
+	abgewandelte einrichtung
+	anordnung der vorrichtung
+	kanten des deckelementes
+	benutzbaren betriebsmittels anzeigende speicherzelle
+	magneten
+	plattenartigen verbindungselementen
+	ueberwachung des vakuums
+	verfahren
+	darstellungszustand von normaler darstellung
+	hohe temperaturen
+	ersten bewegungssensor
+	umrandung der wärmetransportleitung
+	umgekehrten aufbau kühlsystem
+	wärmeerzeugenden bauteil zugewandeten fläche
+	wechsel von restfadentragenden hülsen
+	betätigen der positionierglieder
+	vakuumschaltroehre
+	krümmung der wandfläche
+	einheitliche ebene
+	verbindenden ladepritschen
+	krümmungsverlauf der wandfläche
+	ungesättigten alkylrest
+	microdispersionsverfahren
+	kombination von vergärung
+	tür hindernisse
+	lamellen parallelen gehäusewände des düsengehäuses
+	anbindung speicherladepumpe
+	rückwärtigen gehäuseöffnung
+	erfindung
+	bremssteuergeräte
+	nachfuellvorrichtung fuer
+	frontund heckteil
+	kraftfahrzeugs
+	nete gegenelemente
+	angeordneten stützelemente
+	zierleiste der tür
+	entsprechenden teile
+	passenden gegenelemente
+	wechseln des darstellungszustandes von normaler darstellung
+	positioniereinrichtung angeordneten hängebügel
+	undeinem darstellungsänderungsprozessor
+	ordnungsgemäße übertragen von restfadentragenden hülsen
+	geeigneten befestigungsmitteln
+	zweiten verbindungselementen
+	ansprechende geschlossene gestaltung der wandfläche
+	durchgehende ebene
+	ladepritschen
+	abziehen von spulen
+	unterseite der stützplatte
+	bereich der bewegungsbahn der tür
+	bogenförmige vorderkante tragenden frontteil
+	bereich der scharniereinrichtung
+	de © schaltungsanordnung
+	axialen hohlräume der spulen
+	frontseitigen gehäuseöffnung
+	verwendung der bremseinrichtung
+	bestückten stifte
+	aufnehmen von spulen
+	gleiche schwenkbewegung
+	einzelheiten der erfindung
+	gemeinsame ebene
+	korrosionsfestes duesentauchrohr
+	geringeren anzahl von pixeln
+	boot befindlichen alarmanlage
+	weisenden seite restfadentragende hülsen b
+	aufgesteckten restfadentragenden hülse
+	aufbaurichtung wärmeerzeugendes bauteil
+	übertragen der restfadentragenden hülsen
+	gehäusewände
+	abnehmen der restfadentragenden hülsen
+	hohe zuverlässigkeit
+	frontteilen
+	langgestrecktes viereckiges kastenförmiges düsengehäuse
+	vertikaler förderer
+	gleichen schwenkbewegung der übrigen lamellen
+	aufnehmen der spulen
+	freien umfangswänden der ladepritsche
+	abzuwickelnde spulen
+	bildprozessor
+	übereinander angeordneten stützelemente
+	vakuumkammer
+	klappen angeordneten sensoren
+	miteinem bilderzeugungsprozessor
+	oberfläche des deckelementes
+	verlaufende vorderkante
+	vorteilhafte schaltungsanordnung der erfindung
+	verlaufenden vorderkanten von der schwenkbewegung
+	lösen des anlegerseiles
+	vertikalen seitlichen gehäusewände
+	unbefugten lockern des anlegerseils
+	bauteil abgewandten seite profile
+	verschiedenen stützelementen
+	jeweiligen bauteil von der flächenabmessung
+	öffnung
+	stifte des vertikalförderers
+	leichter transport der restfadentragenden hülsen
+	übergang von wärmeerzeugendem bauteil
+	funkalarmgeber9 energiequelle10 bewegungssensor11 bewegungssensor
+	tragenden frontteil
+	frontbild prägenden frontteile der lamellen
+	darstellungsänderungsprozessor
+	entsprechende eingriffsund gegenelemente
+	innere stufe der wärmetransportleitung
+	$ a
+	metallischen kühlkörper
+	restfadentragende spulen
+	problem der erfindung
+	aufstecken der hülse
+	verstellbaren bremsbogen
+	auswechseln von restfadentragenden hülsen
+	bezugszeichenliste1 vorrichtung2 klappen
+	anlöten der wärmetransportleitung
+	belüftungsdüse austretenden luftströmung
+	gehäuse verlaufenden anlegerseiles
+	audio-raubpiraterie
+	einzigen behälter definierten raum
+	anliegende stützplatte
+	leeren stifte
+	hindernissen
+	nachrotte
+	bereich der beweglichen teile des kraftfahrzeugs
+	anordnung der erfindungsgemäßen anlage
+	benachbarten stiften
+	aktivierbaren magneten
+	anderen seite der wärmetransportleitung
+	gemeinsamen schwenkbewegung
+	paßgerechte öffnungen
+	anordnung
+	großen ladepritschen
+	oberen fläche der zwischenschicht teile unterschiedlicher aufbauten
+	eckbereiche der oberseite der stützplatte
+	jeweiligen eckbereichen der stirnflächen
+	dargestellte ausbildung der stirnflächen
+	kodier-verfahren
+	guten wärmekontakt
+	durchtrennen des anlegerseils
+	erstreckungsrichtung verlaufenden gehäusewänden des kastenförmigen düsengehäuses
+	transportfluß der spulen
+	auswechseln der spulen
+	eckbereiche der plattenartigen deckelemente
+	gegenelemente
+	herabfallenden hülsen
+	basisende der stifte
+	metallgehäuse angeordnete wärmetransportleitung
+	bandförmigen zwischenschichten
+	einbau der belüftungsdüse
+	ersten teil
+	rückseitige gehäuseöffnung
+	r
+	schwenkbewegung
+	bereich des gelenkmechanismus
+	verbindung der ladepritschen
+	ladepritsche des fahrzeuges gegenüberliegenden fläche
+	geringere thermische wechselbeanspruchung der bauteile
+	system
+	herausziehen des anlegerseiles
+	übrigen lamellen ausgebildeten mittellamelle
+	teilbereichs
+	umwälzung des solarfluid
+	neuen spule
+	bogenförmige vorderkante
+	abnehmen der spulen
+	weisenden stirnseiten
+	angeordnete stifte
+	anordnung der stifte
+	freie ende des anlegerseils
+	gleichartige schwenkbewegung
+	hintere endbordwand der viereckigen ladepritsche
+	weiteren abschnitte der freibleibenden stirnflächen
+	verschiedenen ladepritschen
+	einfaches abschneiden des anlegerseiles
+	kraftfahrzeuges
+	aufbau der kombinierten verfahren
+	ästhetischen erscheinungsbildes
+	haarfarbstoffe
+	auswechselbare zwischenschichten
+	gesamt länge des anlegerseiles
+	hülse
+	gestalt der wärmetransportleitung
+	einzelne wärmetransportleitungen
+	erfindungsgemäßen alarmanlage
+	anordnung von stiften
+	bauelementen geschaffene kindermöbelbausystem
+	korrosionsfestes düsentauchrohr richard glawe klaus delfs dr-ing
+	verdampfungsquelle
+	entsprechenden türen versehene behälter
+	wechsel von spulen
+	tischartigen bauelementen
+	beispiele von plattenartigen verbindungselementen
+	ebene liegenden ladepritschen
+	erste abschnitt
+	tragvorrichtung angeordneten magneten
+	kunststoff hergestellten lamelle
+	einrichtung der genannten art
+	vorteilhafte ausführungsformen der erfindungsgemäßen belüftungsdüse
+	positionierglieder
+	restfadentragenden hülsen b
+	geruchsprobleme aerober verfahren
+	gegenüberliegenden seite
+	befüllenden hohlraum der wärmetransportleitung
+	weitere abschnitte der oberseite
+	bewegung der tür
+	halten
+	bekannten belüftungsdüse
+	angeordnete lamelle
+	ausgestaltungen der erfindung
+	befestigung der wärmetransportleitung
+	ausgebildeten stützelemente
+	leeren hülsen
+	satz
+	art der alarmanlage
+	zusetzenden spulen
+	bildsensor stammender bildpixelsignale
+	außenseiten der stützelemente
+	geringeren anzahl
+	beweglichen teil
+	pixeln des bildsensors
+	sicherung von booten
+	gehäuseöffnung
+	wärmetransport einzelnen zylinderförmige wärmetransportleitungen
+	fortsetzenden heckteil
+	deckelementes
+	autotüren
+	vorgeschlagen
+	wesentlichen der dicke des plattenartigen elementes
+	wärmeableitenden flüssigkeit
+	ladepritschen der verschiedenen einheiten
+	gekrümmte wandfläche
+	herstellung von haarfärbepräparaten erhöhter viskosität
+	gleichmäßige belastung der stützelemente
+	stabilen gehäuses
+	restfadentragende hülse
+	teilbereichs des allpixel-objektbildes angeordneten pixeln
+	rückwärtige bordwand der ladepritsche
+	rutschbahn verbauten bauelementen
+	satz von schwenkbaren lamellen
+	transportweg der restfadentragenden hülsen b
+	herausgeschwenkten klappen
+	tiefstkälterecycling
+	ständigen bewegung
+	horizontale axiale abweichung der positionierglieder
+	erster bewegungssensor
+	metallene wärmetransportleitungen
+	weiteren stützelementen
+	korrosionsfestes düsentauchrohr
+	einsetzbereich der belüftungsdüse
+	eckbereichen der oberseite der stützplatte
+	fertigung der lamellen
+	verlauf der vorderkante der lamellen
+	aufnahme von zwischenschichten
+	darstellungsobjektbild entsprechender bildpixelsignale
+	kraftfahrzeug
+	gehäuseöffnung der belüftungsdüse
+	gemeinsamen hebel
+	transport von spulen
+	teil der flüssigkeit
+	schwenken der lamellen
+	verstellung des beweglichen teils
+	nachträgliche befüllung des hohlraum
+	boote
+	video
+	äußere ansicht der alarmanlage
+	nachträgliche befüllung
+	eckbereichen der stützplatte
+	leistung abgestimmtes photovoltaikmodul
+	aufstecken der spule
+	anleger befestigte boote
+	anwendbarkeit der einrichtung
+	liegenden metallischen kühlkörper
+	aktive viergelenkmechanismus
+	zettelmaschine angeordneten förderer
+	beliebigen teile
+	angeordnete deckelement
+	hohle metallene wärmetransportleitung
+	restmüllverwertung
+	biologisch-mechanischen restmüllverwertung
+	wandfläche integrierten belüftungsdüse
+	zwecks erzielung
+	ersten abschnitten der stirnflächen
+	jeweilige eckbereich der oberseite der stützplatte
+	geringsten kosten
+	anderen seite
+	stifte des förderers
+	ausschalter4 gehäuse5 öffnung6 alarmgeber
+	plattenartiges deckelement
+	energie
+	freien abschnitte der stirnfläche des stützelementes
+	jeweiligen schwenken der heckklappe

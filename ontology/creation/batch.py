@@ -49,6 +49,7 @@ Usage:
     --xml2txt    --  document structure parsing
     --txt2tag    --  tagging
     --tag2chk    --  creating chunks in context
+    --pf2dfeats  --  go from phrase features to document features
     --summary    --  create summary lists
     --annotate1  --  prepare files for annotation of the prior
     --annotate2  --  prepare files for annotation for evaluation
