@@ -38,24 +38,25 @@ Usage:
     
     % python patent_analyzer.py [OPTIONS]
 
-    -l LANG     --  provides the language, one of ('en, 'de', 'cn'), default is 'en'
-    -s PATH     --  external source directory with XML files, see below for the default
-    -t PATH     --  target directory, default is data/patents
-    -n INTEGER  --  number of documents to process
-    -r STRING   --  range of documents to take, that is, the postfix of classifier output
+    -l LANG      --  provides the language, one of ('en, 'de', 'cn'), default is 'en'
+    -s PATH      --  external source directory with XML files, see below for the default
+    -t PATH      --  target directory, default is data/patents
+    -n INTEGER   --  number of documents to process
+    -r STRING    --  range of documents to take, that is, the postfix of classifier output
     
-    --init      --  initialize directory structure in target path (non-destructive)
-    --populate  --  populate directory in target path with files from source path
-    --xml2txt   --  document structure parsing
-    --txt2tag   --  tagging
-    --tag2chk   --  creating chunks in context
-    --summary   --  create summary lists
-    --annotate  --  prepare files for annotation
-    --utrain    --  create model for classifier
-    --utest     --  run classifier
-    --scores    --  generate scores from classifier results
+    --init       --  initialize directory structure in target path (non-destructive)
+    --populate   --  populate directory in target path with files from source path
+    --xml2txt    --  document structure parsing
+    --txt2tag    --  tagging
+    --tag2chk    --  creating chunks in context
+    --summary    --  create summary lists
+    --annotate1  --  prepare files for annotation of the prior
+    --annotate2  --  prepare files for annotation for evaluation
+    --utrain     --  create model for classifier
+    --utest      --  run classifier
+    --scores     --  generate scores from classifier results
 
-    --verbose   --  print name of each processed file to stdout
+    --verbose    --  print name of each processed file to stdout
     
     All long options require a target path and a language (via the -l and -t options or
     their defaults). The long options --init and --populate also require a source path
@@ -333,23 +334,37 @@ def run_annotate2(target_path, language, limit):
     
     eval1 = os.path.join(target_path, language, 'ws', 'phr_occ.eval.unlab')
     eval2 = os.path.join(target_path, language, 'ws', 'doc_feats.eval')
+    eval3 = os.path.join(target_path, language, 'ws', 'phr_occ.eval.unlab.html')
+    eval4 = os.path.join(target_path, language, 'ws', 'phr_occ.eval.unlab.txt')
     fh_eval1 = codecs.open(eval1, 'w', encoding='utf-8')
     fh_eval2 = codecs.open(eval2, 'w', encoding='utf-8')
-    
+    fh_eval3 = codecs.open(eval3, 'w', encoding='utf-8')
+    fh_eval4 = codecs.open(eval4, 'w', encoding='utf-8')
+
+    fh_eval3.write("<html>\n")
+    fh_eval3.write("<head>\n")
+    fh_eval3.write("<style>\n")
+    fh_eval3.write("np { color: blue; }\n")
+    fh_eval3.write("</style>\n")
+    fh_eval3.write("</head>\n")
+    fh_eval3.write("<body>\n")
+    fh_eval4.write("# Terms to be annotated for evaluation, using first %d patents\n\n" % limit)
+
     phr_occ_array = _read_phr_occ(target_path, language, limit)
     doc_feats_array = _read_doc_feats(target_path, language, limit)
 
     # sort phrases on how many contexts we have for each
     phrases = phr_occ_array.keys()
     sort_fun = lambda x: sum([len(x) for x in phr_occ_array[x].values()])
-    phrases = reversed(sorted(phrases, key=sort_fun))
-
-    for phrase in phrases:
+    for phrase in reversed(sorted(phrases, key=sort_fun)):
+        fh_eval3.write("<p>%s</p>\n" % phrase)
+        fh_eval4.write("\t%s\n" % phrase)
         if not (phr_occ_array.has_key(phrase) and doc_feats_array.has_key(phrase)):
             continue
         for doc in phr_occ_array[phrase].keys():
             fh_eval1.write("\n?\t%s\t%s\n\n" % (phrase, doc))
             for sentence in phr_occ_array[phrase][doc]:
+                fh_eval3.write("<blockquote>%s</blockquote>\n" % sentence)
                 lines = textwrap.wrap(sentence, 100)
                 fh_eval1.write("\t- %s\n" %  lines[0])
                 for line in lines[1:]:
@@ -357,8 +372,8 @@ def run_annotate2(target_path, language, limit):
         for doc in doc_feats_array[phrase].keys():
             for sentence in doc_feats_array[phrase][doc]:
                 fh_eval2.write(sentence)
-            
 
+                
 def _read_phr_occ(target_path, language, limit):
     """Return the contents of ws/phr_occ.all in a dictionary."""
     def get_stuff(line):
@@ -374,8 +389,8 @@ def _read_doc_feats(target_path, language, limit):
     def get_stuff(line):
         """Returns the file name, the phrase and the context, here the context is the
         entire line."""
-        (phrase, id, feats) = line.strip("\n").split("\t",2)
-        (year, fname, phrase2) = id.split('|')
+        (phrase, id, feats) = line.strip("\n").split("\t", 2)
+        (year, fname, phrase2) = id.split('|', 2)
         return (fname, phrase, line)
     return _read_phrocc_or_docfeats('doc_feats.all', get_stuff)
 
