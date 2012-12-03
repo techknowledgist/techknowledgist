@@ -1,3 +1,6 @@
+#!/usr/bin/python26
+# -*- coding: utf-8 -*-
+
 # eval.py
 # PGA 11/9/12
 # Evaluation module
@@ -41,14 +44,13 @@ import train
 import mallet
 import os
 import collections
+import codecs
 
 ####################################################################################
 ### Testing static classification 
 ### 
 
-
-
-
+# precision/recall/accuracy calculation
 class PRA:
 
     def __init__(self, d_eval, d_system, threshold, s_log):
@@ -71,11 +73,30 @@ class PRA:
         self.eval_pos = 0
         self.eval_labeled = 0
         
+        i = 0
         for phrase in self.d_eval.keys():
+
+            i += 1
+            if i < 10:
+                print "[PRA]phrase: %s" % phrase
+
             self.total += 1
             gold_label = self.d_eval.get(phrase)
+            if i < 10:
+                if self.d_system.has_key(phrase):
+                    print "[PRA]Found key: %s" % phrase
+                else:
+                    print "[PRA]key not found: %s" % phrase
             system_score = self.d_system.get(phrase)
+            if i < 10:
+                print "[PRA]system_score: %s" % system_score
             system_label = "n"
+            if i < 10:
+                print "[PRA]%s,%s,%s\n" % (phrase, gold_label, system_score) 
+            # Handle the case where the gold phrase doesn't appear in the scored subset (data sample) at all.
+            # Default the score to 0.0
+            if system_score == None:
+                system_score = 0.0
             if system_score > threshold:
                 system_label = "y"
 
@@ -94,12 +115,18 @@ class PRA:
                         self.false_pos += 1
 
             # log the gold and system labels for each phrase
-            s_log.write("%s\t%s\t%s\n" % (gold_label, system_label, phrase))
+            
+            s_log.write("%s\t|%s|\t%s\t%d\n" % (gold_label, system_label, phrase, system_score))
 
 
     def precision(self):
-        res = float(self.true_pos) / (self.true_pos + self.false_pos)
-        return(res)
+        total_pos = self.true_pos + self.false_pos
+        if total_pos >0:
+            res = float(self.true_pos) / (self.true_pos + self.false_pos)
+            return(res)
+        else:
+            print "[WARNING: precision]true_pos: %i, false_pos: %i" % (self.true_pos, self.false_pos) 
+            return(-1)
 
     def recall(self):
         res = float(self.true_pos) / (self.true_pos + self.false_neg)
@@ -109,52 +136,101 @@ class PRA:
         res = float(self.correct) / self.total
         return(res)
 
+# function used to initialize the label dictionaries to the label "n"
 def default_n():
     return("n")
 
+# class to take an evaluation (gold standard) file (terms labeled with "y", "n") and the output of the mallet classifier (in the form of 
+# a scores file, and populate dictionaries to hold this information, keyed by term.
 class EvalData:
     
     def __init__(self, eval_file, system_file):
         
-        self.d_eval_phr2label = collections.defaultdict(default_n)   # map from evaluation phrase to class
-        #self.d_training_phr2label = collections.defaultdict(default_n)   # map from training phrase to class
-        self.d_system_phr2score = collections.defaultdict(float)   # map from phrase to score (between 0.0 and 1.0)
-        s_eval = open(eval_file)
-        #s_training = open(training_file)
-        s_system = open(system_file)
+        self.d_eval_phr2label = {}   # map from evaluation phrase to class
+        self.d_system_phr2score = {}   # map from phrase to score (between 0.0 and 1.0)
+        s_eval = codecs.open(eval_file, "r", encoding='utf-8')
         
+        s_system = codecs.open(system_file, "r", encoding='utf-8')
+
         # populate dictionaries
 
-        # manually annotated file of random phrases
+        # gold data: manually annotated file of random phrases
         for line in s_eval:
-            # if line begins with tab, it has not been labeled
-            if line[0] != "\t":
-                line = line.strip("\n")
-                (label, phrase) = line.split("\t")
-                self.d_eval_phr2label[phrase] = label
 
-        """
-        # manually annotated file used for training a mallet maxent classifier
-        for line in s_training:
-            # if line begins with tab, it has not been labeled
+            # if line begins with tab, it has not been labeled, since y/n should appear in col 1 before the tab.
             if line[0] != "\t":
-                line = line.strip("\n")
-                (label, phrase) = line.split("\t")
-                self.d_gold_phr2label[phrase] = label
-        """
+                # also omit any header lines that don't contain a tab in column two
+                if line[1] == "\t":
+                    line = line.strip("\n")
+                    (label, phrase) = line.split("\t")
+
+                    #print "[EvalData]storing: %s, %s" % (label, phrase)
+                    # NOTE how the phrase and label are printed out.  First byte(s) of phrase seems lost or misplaced
+                    print "[EvalData]storing phrase/label: %s, %s" % (phrase, label)
+                    print "[EvalData]storing label/phrase: %s, %s" % (label, phrase)
+
+                    self.d_eval_phr2label[phrase] = label
 
         # output from mallet maxent classifier ("yes" score, averaged over multiple document instances)
         n = 0
         for line in s_system:
+
             n += 1
             #print "line %i" % n
             line = line.strip("\n")
             (phrase, score, count, min, max) = line.split("\t")
-            self.d_system_phr2score[phrase] = float(score)
+            
+            if n < 10:
+                print "[ED]phrase: %s, score: %s" % (phrase, score)
+                self.d_system_phr2score[phrase] = float(score)
+                
+            if n < 10:
+                if self.d_system_phr2score.has_key(phrase):
+                    print "[ED]Found key in d_system: %s" % phrase
+                else:
+                    print "[ED]key not found in d_system: %s" % phrase
+
+
+                if self.d_eval_phr2label.has_key(phrase):
+                    print "[ED]Found key in d_eval: %s" % phrase
+                else:
+                    print "[ED]key not found in d_eval: %s" % phrase
+
+                print "[EvalData]Storing sys score, phrase: %s, score: %f, actual: %f"  % (phrase, float(score), self.d_system_phr2score.get(phrase))
 
         s_eval.close()
         #s_training.close()
         s_system.close()
+
+# tests over the 500 doc patent databases for each language
+def tcn(threshold):
+    eval_dir = "/home/j/anick/patent-classifier/ontology/eval/"
+    eval_test_file = "/home/j/corpuswork/fuse/code/patent-classifier/ontology/annotation/cn/phr_occ.eval.lab.txt"
+    #eval_test_file = "/home/j/anick/patent-classifier/ontology/annotation/cn/phr_occ.eval.lab"
+    #eval_test_file = "/home/j/anick/patent-classifier/ontology/annotation/cn/phr_occ.lab"
+
+    system_test_file = "/home/j/corpuswork/fuse/code/patent-classifier/ontology/creation/data/patents-20121130/cn/test/utest.1.MaxEnt.out.s5.scores.sum.nr.000000-000500"
+    log_file_name = eval_dir + "tcn_c1_" + str(threshold) + ".gs.log"
+    test(eval_test_file, system_test_file, threshold, log_file_name)
+
+def tde(threshold):
+    eval_dir = "/home/j/anick/patent-classifier/ontology/eval/"
+    eval_test_file = "/home/j/corpuswork/fuse/code/patent-classifier/ontology/annotation/de/phr_occ.eval.lab"
+    system_test_file = "/home/j/corpuswork/fuse/code/patent-classifier/ontology/creation/data/patents-20121130/de/test/utest.1.MaxEnt.out.s5.scores.sum.nr.000000-000500" 
+    log_file_name = eval_dir + "tde_c1_" + str(threshold) + ".gs.log"
+    test(eval_test_file, system_test_file, threshold, log_file_name)
+
+def ten(threshold):
+    eval_dir = "/home/j/anick/patent-classifier/ontology/eval/"
+    # data labeled for phrases chunked by the original rules, which included conjunction and "of"
+    eval_test_file = "/home/j/anick/patent-classifier/ontology/annotation/en/phr_occ.eval.lab"
+    # data labeled for more restrictive chunks"
+    #eval_test_file = "/home/j/anick/patent-classifier/ontology/annotation/en/phr_occ.eval.newchunk.lab"
+    #system_test_file = "/home/j/anick/patent-classifier/ontology/creation/data/patents/en/test/utest.1.MaxEnt.out.avg_scores.nr"
+    system_test_file = "/home/j/corpuswork/fuse/code/patent-classifier/ontology/creation/data/patents-20121111/en/test/utest.1.MaxEnt.out.s5.scores.sum.nr.000000-000500"
+
+    log_file_name = eval_dir + "ten_c1_" + str(threshold) + ".gs.log"
+    test(eval_test_file, system_test_file, threshold, log_file_name)
 
 
 def t4(threshold):
@@ -195,7 +271,7 @@ def t0(threshold):
 def test(eval_test_file, system_test_file, threshold, log_file_name):
     edata = EvalData(eval_test_file, system_test_file)
     # open a log file to keep gold and system labels for each phrase
-    s_log = open(log_file_name, "w")
+    s_log = codecs.open(log_file_name, "w", 'utf-8')
 
     pra = PRA(edata.d_eval_phr2label, edata.d_system_phr2score, threshold, s_log)
 
