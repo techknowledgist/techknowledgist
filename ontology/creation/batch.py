@@ -43,6 +43,7 @@ Usage:
     -t PATH      --  target directory, default is data/patents
     -n INTEGER   --  number of documents to process
     -r STRING    --  range of documents to take, that is, the postfix of classifier output
+    -f ON|OFF    --  use filter in the --tag2chk module, default is ON
     
     --init       --  initialize directory structure in target path (non-destructive)
     --populate   --  populate directory in target path with files from source path
@@ -225,7 +226,7 @@ def run_txt2tag(target_path, language, limit):
             txt2tag.tag(txt_file, tag_file, tagger)
     update_stages(target_path, language, '--txt2tag', limit)
 
-def run_tag2chk(target_path, language, limit):
+def run_tag2chk(target_path, language, limit, filter):
     """Runs the np-in-context code on tagged input. Populates language/phr_occ and
     language/phr_feat."""
     print "[--tag2chk] on %s/%s/tag/" % (target_path, language)
@@ -239,7 +240,7 @@ def run_tag2chk(target_path, language, limit):
         fea_file = os.path.join(target_path, language, 'phr_feats', year, fname)
         if verbose:
             print "[--tag2chk] %04d adding %s" % (count, occ_file)
-        tag2chunk.Doc(tag_file, occ_file, fea_file, year, language)
+        tag2chunk.Doc(tag_file, occ_file, fea_file, year, language, filter_p=filter)
     update_stages(target_path, language, '--tag2chk', limit)
 
 def run_pf2dfeats(target_path, language, limit):
@@ -528,26 +529,27 @@ if __name__ == '__main__':
 
     (opts, args) = getopt.getopt(
         sys.argv[1:],
-        'l:s:t:n:r:',
+        'l:s:t:n:r:f:',
         ['init', 'populate', 'xml2txt', 'txt2tag', 'tag2chk', 'pf2dfeats', 'summary',
          'annotate1', 'annotate2', 'utrain', 'utest', 'scores', 'verbose'])
 
     init, populate = False, False
-    limit = 0
-    range = None
     xml_to_txt, txt_to_seg, txt_to_tag, tag_to_chk = False, False, False, False
     pf_to_dfeats = False
     summary, annotate1, annotate2 = False, False, False
     union_train, union_test, tech_scores = False, False, False
-    version = "1"
-    xval = "0"
+    limit, range, filter = 0, None, True
+    version, xval = "1", "0"
 
     for opt, val in opts:
+
         if opt == '-l': language = val
         if opt == '-s': source_path = val
         if opt == '-t': target_path = val
         if opt == '-n': limit = int(val)
         if opt == '-r': range = val
+        if opt == '-f' and val == 'OFF': filter = False
+        
         if opt == '--init': init = True
         if opt == '--populate': populate = True
         if opt == '--xml2txt': xml_to_txt = True
@@ -571,7 +573,7 @@ if __name__ == '__main__':
     elif txt_to_tag:
         run_txt2tag(target_path, language, limit)
     elif tag_to_chk:
-        run_tag2chk(target_path, language, limit)
+        run_tag2chk(target_path, language, limit, filter)
     elif pf_to_dfeats:
         run_pf2dfeats(target_path, language, limit)
     elif summary:
