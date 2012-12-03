@@ -14,12 +14,15 @@ tar cfp $target patent-classifier/documents
 tar rfp $target patent-classifier/examples
 tar rfp $target patent-classifier/runtime
 tar rfp $target patent-classifier/utils
+tar rfp $target patent-classifier/utils/*py
+tar rfp $target patent-classifier/ontology/*py
 tar rfp $target patent-classifier/ontology/creation/*py
 tar rfp $target patent-classifier/ontology/creation/*sh
 tar rfp $target patent-classifier/ontology/creation/*txt
 tar rfp $target patent-classifier/ontology/annotation/??/phr_occ.lab
 tar rfp $target patent-classifier/ontology/selector/*.py
 tar rfp $target patent-classifier/ontology/selector/*.txt
+tar rfp $target patent-classifier/ontology/utils/*py
 gzip $target
 ls -al /local/chalciope/marc/fuse
 

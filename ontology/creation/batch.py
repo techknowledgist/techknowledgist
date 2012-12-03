@@ -58,11 +58,15 @@ Usage:
     --utest      --  run classifier
     --scores     --  generate scores from classifier results
 
-    --verbose    --  print name of each processed file to stdout
+    All the above long options require a target path and a language (via the -l and -t
+    options or their defaults). The long options --init and --populate also require a
+    source path (via -s or its default). The -n option is ignored if --init is used.
+
+    --verbose   --  print name of each processed file to stdout
+
+    --chunk-filter    -- use a filter when proposing technology chunks, this is the default
+    --no-chunk-filter -- do not use a filter when proposing technology chunks
     
-    All long options require a target path and a language (via the -l and -t options or
-    their defaults). The long options --init and --populate also require a source path
-    (via -s or its default). The -n option is ignored if --init is used.
     
 The final results of these steps are in:
 
@@ -226,10 +230,16 @@ def run_txt2tag(target_path, language, limit):
             txt2tag.tag(txt_file, tag_file, tagger)
     update_stages(target_path, language, '--txt2tag', limit)
 
-def run_tag2chk(target_path, language, limit, filter):
+def run_tag2chk(target_path, language, limit, chunk_filter):
     """Runs the np-in-context code on tagged input. Populates language/phr_occ and
-    language/phr_feat."""
+    language/phr_feat. Sets the contents of config-chunk-filter.txt given the value of
+    chunk_filter."""
     print "[--tag2chk] on %s/%s/tag/" % (target_path, language)
+    fh = open(os.path.join(target_path, language, 'config-chunk-filter.txt'), 'w')
+    filter_setting = "on" if chunk_filter else "off"
+    fh.write("chunk-filter %s\n" % filter_setting)
+    fh.close()
+    #return
     stages = read_stages(target_path, language)
     fnames = files_to_process(target_path, language, stages, '--tag2chk', limit)
     count = 0
@@ -240,7 +250,7 @@ def run_tag2chk(target_path, language, limit, filter):
         fea_file = os.path.join(target_path, language, 'phr_feats', year, fname)
         if verbose:
             print "[--tag2chk] %04d adding %s" % (count, occ_file)
-        tag2chunk.Doc(tag_file, occ_file, fea_file, year, language, filter_p=filter)
+        tag2chunk.Doc(tag_file, occ_file, fea_file, year, language, filter_p=chunk_filter)
     update_stages(target_path, language, '--tag2chk', limit)
 
 def run_pf2dfeats(target_path, language, limit):
@@ -261,8 +271,9 @@ def run_pf2dfeats(target_path, language, limit):
 
 def run_summary(target_path, language, limit):
     """Collect data from directories into workspace area: ws/doc_feats.all,
-    ws/phr_feats.all and ws/phr_occ.all. Al downstream processing should rely on these
+    ws/phr_feats.all and ws/phr_occ.all. All downstream processing should rely on these
     data and nothing else."""
+    print "[--summary] appending to files in ws"
     #subprocess.call("sh ./cat_phr.sh %s %s" % (target_path, language), shell=True)
     stages = read_stages(target_path, language)
     fnames = files_to_process(target_path, language, stages, '--summary', limit)
@@ -531,11 +542,13 @@ if __name__ == '__main__':
         sys.argv[1:],
         'l:s:t:n:r:f:',
         ['init', 'populate', 'xml2txt', 'txt2tag', 'tag2chk', 'pf2dfeats', 'summary',
-         'annotate1', 'annotate2', 'utrain', 'utest', 'scores', 'verbose'])
+         'annotate1', 'annotate2', 'utrain', 'utest', 'scores',
+         'verbose', 'chunk-filter', 'no-chunk-filter'])
 
     init, populate = False, False
     xml_to_txt, txt_to_seg, txt_to_tag, tag_to_chk = False, False, False, False
     pf_to_dfeats = False
+    chunk_filter = True
     summary, annotate1, annotate2 = False, False, False
     union_train, union_test, tech_scores = False, False, False
     limit, range, filter = 0, None, True
@@ -563,6 +576,8 @@ if __name__ == '__main__':
         if opt == '--utest': union_test = True
         if opt == '--scores': tech_scores = True
         if opt == '--verbose': verbose = True
+        if opt == '--chunk-filter': chunk_filter = True
+        if opt == '--no-chunk-filter': chunk_filter = False
 
     if init:
         run_init(source_path, target_path, language)
@@ -573,7 +588,7 @@ if __name__ == '__main__':
     elif txt_to_tag:
         run_txt2tag(target_path, language, limit)
     elif tag_to_chk:
-        run_tag2chk(target_path, language, limit, filter)
+        run_tag2chk(target_path, language, limit, chunk_filter)
     elif pf_to_dfeats:
         run_pf2dfeats(target_path, language, limit)
     elif summary:
