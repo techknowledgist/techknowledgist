@@ -34,7 +34,8 @@ def load_phrase_labels(patent_dir, lang):
     d_phr2label = {}
     label_file = os.path.join(patent_dir, lang, "ws", "phr_occ.lab")
 
-    s_label_file = open(label_file)
+    s_label_file = codecs.open(label_file, encoding='utf-8')
+    #s_label_file = open(label_file)
     for line in s_label_file:
         line = line.strip("\n")
         (label, phrase) = line.split("\t")
@@ -154,13 +155,16 @@ def make_utraining_file(patent_dir, lang, version, d_phr2label, limit=0):
 
 def _get_training_io(patent_dir, lang, version):
     """Open an input file with document features and a mallet output file."""
-    doc_feats_file = os.path.join(patent_dir, lang, "ws", "doc_feats.all")
+    doc_feats_file = os.path.join(patent_dir, lang, 'ws', "doc_feats.all")
+    doc_feats_fh = codecs.open(doc_feats_file, encoding='utf-8')
+    # doc_feats_fh = open(doc_feats_file)
     train_dir = os.path.join(patent_dir, lang, "train")
     train_file = os.path.join(train_dir, "utrain.%s.mallet" % str(version))
-    s_doc_feats_input = codecs.open(doc_feats_file, encoding='utf-8')
-    s_train = codecs.open(train_file, "w", encoding='utf-8')
-    return (s_train, s_doc_feats_input)
-
+    train_fh = codecs.open(train_file, "w", encoding='utf-8')
+    # train_fh = open(train_file, "w")
+    print "[_get_training_io] input taken from", doc_feats_fh
+    print "[_get_training_io] output written to", train_fh
+    return (train_fh, doc_feats_fh)
 
 
 def patent_utraining_data(patent_dir, lang, version="1", xval=0, limit=0):
