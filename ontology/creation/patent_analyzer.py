@@ -95,6 +95,7 @@ python2.6 patent_analyzer.py -l en --pf2dfeats
 python2.6 patent_analyzer.py -l en --summary
 python2.6 patent_analyzer.py -l en --classify
 
+python2.6 patent_analyzer.py -l cn -f False -s /home/j/clp/chinese/corpora/fuse-patents/500-patents/DATA/Lexis-Nexis/CN/Xml --all
 """
 
 
@@ -121,7 +122,7 @@ import config_data
 source_path = config_data.external_patent_path
 target_path = config_data.working_patent_path
 language = config_data.language
-annot_path = config_data.annot_lang_path
+annot_path = config_data.annotation_directory
 
 if __name__ == '__main__':
 
@@ -233,7 +234,7 @@ if __name__ == '__main__':
         
     elif union_train:
         # copy the latest annotation file for the language into our working directory
-        source_annot_lang_file = annot_path + "/phr_occ.lab"
+        source_annot_lang_file = annot_path + "/" + language + "/phr_occ.lab"
         ws_annot_lang_file = target_path + "/" + language + "/ws/phr_occ.lab"
         shutil.copyfile(source_annot_lang_file, ws_annot_lang_file)
 
@@ -252,6 +253,10 @@ if __name__ == '__main__':
         subprocess.call(command, shell=True)
 
     elif all:
+        # NOTE: --all assumes that init and populate have been done.
+        # ie. that a collection of docs exists in the data/xml directory and all 
+        # other date subdirectories are empty.
+
         # append time info to log file
         s_log = open("time.log", "a")
         run_string = ("[patent_analyzer]source_path: %s, target_path: %s, language: %s" % (source_path, target_path, language))
@@ -299,7 +304,7 @@ if __name__ == '__main__':
         run_string = ("[patent_analyzer]classify source_path: %s, target_path: %s, language: %s" % (source_path, target_path, language))
         time = log.log_current_time(s_log, run_string)
 
-        source_annot_lang_file = annot_path + "/phr_occ.lab"
+        source_annot_lang_file = annot_path + "/" + language + "/phr_occ.lab"
         ws_annot_lang_file = target_path + "/" + language + "/ws/phr_occ.lab"
         shutil.copyfile(source_annot_lang_file, ws_annot_lang_file)
 

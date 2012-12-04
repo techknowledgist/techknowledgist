@@ -74,6 +74,7 @@ class PRA:
         self.eval_labeled = 0
         
         i = 0
+        none_count = 0
         for phrase in self.d_eval.keys():
 
             i += 1
@@ -90,15 +91,21 @@ class PRA:
             system_score = self.d_system.get(phrase)
             if i < 10:
                 print "[PRA]system_score: %s" % system_score
-            system_label = "n"
+            system_label = "u"
             if i < 10:
                 print "[PRA]%s,%s,%s\n" % (phrase, gold_label, system_score) 
             # Handle the case where the gold phrase doesn't appear in the scored subset (data sample) at all.
             # Default the score to 0.0
             if system_score == None:
                 system_score = 0.0
+                none_count += 1
             if system_score > threshold:
                 system_label = "y"
+            else:
+                if system_score > 0.0:
+                    system_label = "n"
+                    # otherwise leave it as "u" for unknown, meaning the term does not 
+                    # show up in the system data.
 
             if gold_label == "y":
                 if system_label == "y":
@@ -115,9 +122,9 @@ class PRA:
                         self.false_pos += 1
 
             # log the gold and system labels for each phrase
-            
-            s_log.write("%s\t|%s|\t%s\t%d\n" % (gold_label, system_label, phrase, system_score))
 
+            s_log.write("%s\t|%s|\t%s\t%f\n" % (gold_label, system_label, phrase, system_score))
+        print "Counts. total phrases in eval: %i, non-matches: %i" % (i, none_count) 
 
     def precision(self):
         total_pos = self.true_pos + self.false_pos
@@ -161,9 +168,11 @@ class EvalData:
             if line[0] != "\t":
                 # also omit any header lines that don't contain a tab in column two
                 if line[1] == "\t":
-                    line = line.strip("\n")
+                    line = line.strip()
                     (label, phrase) = line.split("\t")
-
+                    
+                    # normalize segmentation by removing all spaces from Chinese words
+                    phrase = phrase.replace(' ','')
                     #print "[EvalData]storing: %s, %s" % (label, phrase)
                     # NOTE how the phrase and label are printed out.  First byte(s) of phrase seems lost or misplaced
                     print "[EvalData]storing phrase/label: %s, %s" % (phrase, label)
@@ -179,6 +188,10 @@ class EvalData:
             #print "line %i" % n
             line = line.strip("\n")
             (phrase, score, count, min, max) = line.split("\t")
+            
+            # normalize segmentation by removing all spaces from Chinese words
+            phrase = phrase.replace(' ','')
+
             
             if n < 10:
                 print "[ED]phrase: %s, score: %s" % (phrase, score)
@@ -212,6 +225,18 @@ def tcn(threshold):
     system_test_file = "/home/j/corpuswork/fuse/code/patent-classifier/ontology/creation/data/patents-20121130/cn/test/utest.1.MaxEnt.out.s5.scores.sum.nr.000000-000500"
     log_file_name = eval_dir + "tcn_c1_" + str(threshold) + ".gs.log"
     test(eval_test_file, system_test_file, threshold, log_file_name)
+
+# use the annotation data for testing rather than the evaluation data
+def tcna(threshold):
+    eval_dir = "/home/j/anick/patent-classifier/ontology/eval/"
+    eval_test_file = "/home/j/corpuswork/fuse/code/patent-classifier/ontology/annotation/cn/phr_occ.lab"
+    #eval_test_file = "/home/j/anick/patent-classifier/ontology/annotation/cn/phr_occ.eval.lab"
+    #eval_test_file = "/home/j/anick/patent-classifier/ontology/annotation/cn/phr_occ.lab"
+
+    system_test_file = "/home/j/corpuswork/fuse/code/patent-classifier/ontology/creation/data/patents-20121130/cn/test/utest.1.MaxEnt.out.s5.scores.sum.nr.000000-000500"
+    log_file_name = eval_dir + "tcna_c1_" + str(threshold) + ".gs.log"
+    test(eval_test_file, system_test_file, threshold, log_file_name)
+
 
 def tde(threshold):
     eval_dir = "/home/j/anick/patent-classifier/ontology/eval/"
