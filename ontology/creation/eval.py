@@ -31,13 +31,22 @@
 
 # Note that the model used should be consistent across each set  of evaluations.
 # However,  we should also run metrics on different models (built on different sized document sets)
-
+    
 """
 I named the doc_feats file sample1
 bash-3.2$ cd /home/j/anick/patent-classifier/ontology/annotation/en/
 bash-3.2$ ls
 doc_feats.eval  phr_occ.cum  phr_occ.eval.unlab  phr_occ.lab  phr_occ.uct
 bash-3.2$ cp doc_feats.eval sample1
+
+To run tests, uyou can use one of the hard-coded versions:
+
+    eval.ten(.8)  # run english test with threshold set to .9
+    eval.tcn(.8)  # run Chinese test
+    eval.tde(.8)  # run German test
+
+To get the nubers with threshold set to 0, use 0.000000000001 (to avoid cofusion with no data)
+
 """
 
 import train
@@ -78,54 +87,54 @@ class PRA:
         for phrase in self.d_eval.keys():
 
             i += 1
-            if i < 10:
-                print "[PRA]phrase: %s" % phrase
+            #if i < 10:
+            #    print "[PRA]phrase: %s" % phrase
 
             self.total += 1
             gold_label = self.d_eval.get(phrase)
+            """
             if i < 10:
                 if self.d_system.has_key(phrase):
                     print "[PRA]Found key: %s" % phrase
                 else:
                     print "[PRA]key not found: %s" % phrase
+            """
             system_score = self.d_system.get(phrase)
-            if i < 10:
-                print "[PRA]system_score: %s" % system_score
-            system_label = "u"
-            if i < 10:
-                print "[PRA]%s,%s,%s\n" % (phrase, gold_label, system_score) 
+            #if i < 10:
+            #    print "[PRA]system_score: %s" % system_score
+            #    print "[PRA]%s,%s,%s\n" % (phrase, gold_label, system_score) 
+
             # Handle the case where the gold phrase doesn't appear in the scored subset (data sample) at all.
             # Default the score to 0.0
             if system_score == None:
                 system_score = 0.0
                 none_count += 1
+
             if system_score > threshold:
                 system_label = "y"
             else:
                 if system_score > 0.0:
                     system_label = "n"
-                    # otherwise leave it as "u" for unknown, meaning the term does not 
-                    # show up in the system data.
-
-            if gold_label == "y":
-                if system_label == "y":
-                    self.true_pos += 1
-                    self.correct += 1
                 else:
-                    self.false_neg += 1
-            else:
-                if gold_label == "n":
-                    if system_label == "n":
-                        self.correct += 1
-                        self.true_neg += 1
-                    else:
-                        self.false_pos += 1
+                    # "u" for unknown, meaning the term does not show up in the system data.
+                    system_label = "u"
+
+            if gold_label == "y" and system_label == "y":
+                self.true_pos += 1
+                self.correct += 1
+            elif gold_label == "y" and system_label == "n":
+                self.false_neg += 1
+            elif gold_label == "n" and system_label == "n":
+                self.correct += 1
+                self.true_neg += 1
+            elif gold_label == "n" and system_label == 'y':
+                self.false_pos += 1
 
             # log the gold and system labels for each phrase
-
             s_log.write("%s\t|%s|\t%s\t%f\n" % (gold_label, system_label, phrase, system_score))
         print "Counts. total phrases in eval: %i, non-matches: %i" % (i, none_count) 
 
+        
     def precision(self):
         total_pos = self.true_pos + self.false_pos
         if total_pos >0:
@@ -154,9 +163,8 @@ class EvalData:
     def __init__(self, eval_file, system_file):
         
         self.d_eval_phr2label = {}   # map from evaluation phrase to class
-        self.d_system_phr2score = {}   # map from phrase to score (between 0.0 and 1.0)
+        self.d_system_phr2score = {} # map from phrase to score (between 0.0 and 1.0)
         s_eval = codecs.open(eval_file, "r", encoding='utf-8')
-        
         s_system = codecs.open(system_file, "r", encoding='utf-8')
 
         # populate dictionaries
@@ -165,6 +173,9 @@ class EvalData:
         for line in s_eval:
 
             # if line begins with tab, it has not been labeled, since y/n should appear in col 1 before the tab.
+            if line.strip() == '': continue
+            if line.lstrip()[0] == '#': continue
+
             if line[0] != "\t":
                 # also omit any header lines that don't contain a tab in column two
                 if line[1] == "\t":
@@ -172,52 +183,60 @@ class EvalData:
                     (label, phrase) = line.split("\t")
                     
                     # normalize segmentation by removing all spaces from Chinese words
-                    phrase = phrase.replace(' ','')
-                    #print "[EvalData]storing: %s, %s" % (label, phrase)
+                    #phrase = phrase.replace(' ','')
                     # NOTE how the phrase and label are printed out.  First byte(s) of phrase seems lost or misplaced
-                    print "[EvalData]storing phrase/label: %s, %s" % (phrase, label)
-                    print "[EvalData]storing label/phrase: %s, %s" % (label, phrase)
+                    #print "[EvalData]storing label/phrase: %s, %s" % (label, phrase)
 
                     self.d_eval_phr2label[phrase] = label
 
         # output from mallet maxent classifier ("yes" score, averaged over multiple document instances)
         n = 0
+        x = 0
         for line in s_system:
 
             n += 1
             #print "line %i" % n
-            line = line.strip("\n")
+            line = line.rstrip()
             (phrase, score, count, min, max) = line.split("\t")
             
+            #if count == '1': continue
+            x += 1
             # normalize segmentation by removing all spaces from Chinese words
-            phrase = phrase.replace(' ','')
+            #phrase = phrase.replace(' ','')
 
-            
+            self.d_system_phr2score[phrase] = float(score)
+            """
             if n < 10:
                 print "[ED]phrase: %s, score: %s" % (phrase, score)
-                self.d_system_phr2score[phrase] = float(score)
-                
-            if n < 10:
                 if self.d_system_phr2score.has_key(phrase):
                     print "[ED]Found key in d_system: %s" % phrase
                 else:
                     print "[ED]key not found in d_system: %s" % phrase
-
-
                 if self.d_eval_phr2label.has_key(phrase):
                     print "[ED]Found key in d_eval: %s" % phrase
                 else:
                     print "[ED]key not found in d_eval: %s" % phrase
-
                 print "[EvalData]Storing sys score, phrase: %s, score: %f, actual: %f"  % (phrase, float(score), self.d_system_phr2score.get(phrase))
+            """
+
+        print x
+        #print system_file
+        #print len(self.d_system_phr2score)
+        #print self.d_system_phr2score.keys()
+        #for w in [u"camera", u"data", u"database"]:
+        #    print w, self.d_eval_phr2label.get(w), self.d_system_phr2score.get(w)
+
+        #sys.exit()
 
         s_eval.close()
         #s_training.close()
         s_system.close()
 
+        
 # tests over the 500 doc patent databases for each language
 def tcn(threshold):
     eval_dir = "/home/j/anick/patent-classifier/ontology/eval/"
+    eval_dir = "../eval/"
     eval_test_file = "/home/j/corpuswork/fuse/code/patent-classifier/ontology/annotation/cn/phr_occ.eval.lab.txt"
     #eval_test_file = "/home/j/anick/patent-classifier/ontology/annotation/cn/phr_occ.eval.lab"
     #eval_test_file = "/home/j/anick/patent-classifier/ontology/annotation/cn/phr_occ.lab"
@@ -247,6 +266,7 @@ def tde(threshold):
 
 def ten(threshold):
     eval_dir = "/home/j/anick/patent-classifier/ontology/eval/"
+    eval_dir = "../eval/"
     # data labeled for phrases chunked by the original rules, which included conjunction and "of"
     eval_test_file = "/home/j/anick/patent-classifier/ontology/annotation/en/phr_occ.eval.lab"
     # data labeled for more restrictive chunks"
@@ -356,3 +376,53 @@ def test1():
 
     
 ##########################
+
+
+def mten(threshold):
+    eval_dir = "../eval/"
+    # data labeled for phrases chunked by the original rules, which included conjunction and "of"
+    eval_test_file = "../annotation/en/phr_occ.eval.lab"
+    # data labeled for more restrictive chunks"
+    system_test_file = "data/patents/en/test/utest.1.MaxEnt.out.s5.scores.sum.nr.000000-000500"
+    log_file_name = eval_dir + "ten_c1_" + str(threshold) + ".gs.log"
+    test(eval_test_file, system_test_file, threshold, log_file_name)
+
+def mtcn(threshold):
+    eval_dir = "../eval/"
+    # data labeled for phrases chunked by the original rules, which included conjunction and "of"
+    eval_test_file = "../annotation/cn/phr_occ.eval.lab.txt"
+    # data labeled for more restrictive chunks"
+    system_test_file = "data/patents/cn/test/utest.1.MaxEnt.out.s5.scores.sum.nr.000000-000500"
+    log_file_name = eval_dir + "tcn_c1_" + str(threshold) + ".gs.log"
+    test(eval_test_file, system_test_file, threshold, log_file_name)
+
+def mtde(threshold):
+    eval_dir = "../eval/"
+    # data labeled for phrases chunked by the original rules, which included conjunction and "of"
+    eval_test_file = "../annotation/de/phr_occ.eval.lab.txt"
+    # data labeled for more restrictive chunks"
+    system_test_file = "data/patents/de/test/utest.1.MaxEnt.out.s5.scores.sum.nr.000000-000500"
+    log_file_name = eval_dir + "tde_c1_" + str(threshold) + ".gs.log"
+    test(eval_test_file, system_test_file, threshold, log_file_name)
+
+def mo():
+    training_file = "../annotation/en/phr_occ.lab"
+    fragment_file = "../annotation/en/ontology-evaluation-20121128.lab"
+    get_overlap(training_file, fragment_file)
+    
+def get_overlap(training_set, ontology_fragment):
+    training_y = {}
+    for line in codecs.open(training_set, encoding='utf-8'):
+        (boolean, term) = line.rstrip().split("\t")
+        if boolean == 'y':
+            training_y[term] = True
+    terms = 0
+    terms_in_training_set = 0
+    for line in codecs.open(ontology_fragment, encoding='utf-8'):
+        terms += 1
+        (boolean, term) = line.rstrip().split("\t")
+        if boolean == 'y':
+            if training_y.has_key(term):
+                terms_in_training_set += 1
+    print "Terms in training set: %d/%d (%.0f%%)" % (terms_in_training_set, terms,
+                                                     100*(terms_in_training_set/float(terms)))

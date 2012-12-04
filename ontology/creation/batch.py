@@ -43,8 +43,7 @@ Usage:
     -t PATH      --  target directory, default is data/patents
     -n INTEGER   --  number of documents to process
     -r STRING    --  range of documents to take, that is, the postfix of classifier output
-    -f ON|OFF    --  use filter in the --tag2chk module, default is ON
-    
+     
     --init       --  initialize directory structure in target path (non-destructive)
     --populate   --  populate directory in target path with files from source path
     --xml2txt    --  document structure parsing
@@ -64,8 +63,8 @@ Usage:
 
     --verbose   --  print name of each processed file to stdout
 
-    --chunk-filter    -- use a filter when proposing technology chunks, this is the default
-    --no-chunk-filter -- do not use a filter when proposing technology chunks
+    --chunk-filter     --  use a filter when proposing technology chunks (the default)
+    --no-chunk-filter  --  do not use a filter when proposing technology chunks
     
     
 The final results of these steps are in:
@@ -235,11 +234,14 @@ def run_tag2chk(target_path, language, limit, chunk_filter):
     language/phr_feat. Sets the contents of config-chunk-filter.txt given the value of
     chunk_filter."""
     print "[--tag2chk] on %s/%s/tag/" % (target_path, language)
-    fh = open(os.path.join(target_path, language, 'config-chunk-filter.txt'), 'w')
+
     filter_setting = "on" if chunk_filter else "off"
-    fh.write("chunk-filter %s\n" % filter_setting)
-    fh.close()
-    #return
+    _save_config(target_path, language, 'chunk-filter', value)
+    #fh = open(os.path.join(target_path, language, 'config-chunk-filter.txt'), 'w')
+    #filter_setting = "on" if chunk_filter else "off"
+    #fh.write("chunk-filter %s\n" % filter_setting)
+    #fh.close()
+
     stages = read_stages(target_path, language)
     fnames = files_to_process(target_path, language, stages, '--tag2chk', limit)
     count = 0
@@ -252,6 +254,12 @@ def run_tag2chk(target_path, language, limit, chunk_filter):
             print "[--tag2chk] %04d adding %s" % (count, occ_file)
         tag2chunk.Doc(tag_file, occ_file, fea_file, year, language, filter_p=chunk_filter)
     update_stages(target_path, language, '--tag2chk', limit)
+
+def _save_config(target_path, language, variable, value):
+    """Save value of variable in a config file."""
+    fh = open(os.path.join(target_path, language, "config-%s.txt" % variable), 'w')
+    fh.write("%s %s\n" % (variable, value))
+    fh.close()
 
 def run_pf2dfeats(target_path, language, limit):
     """Creates a union of the features for each chunk in a doc (for training)."""
@@ -430,8 +438,8 @@ def run_utrain(target_path, language, version, xval, limit):
     phrase instances within a doc. Also creates a model utrain.<version>.MaxEnt.model in
     the train subdirectory. Limit is used to determine the size of the training set, as
     with run_annotate, it is not used for incrementing values in ALL_STAGES.txt. """
-    annot_path = os.path.join(config_data.annotation_directory, language)
-    source_annot_lang_file = os.path.join(annot_path, 'phr_occ.lab')
+    annot_path = config_data.annotation_directory
+    source_annot_lang_file = os.path.join(annot_path, language, 'phr_occ.lab')
     target_annot_lang_file = os.path.join(target_path, language, 'ws', 'phr_occ.lab')
     shutil.copyfile(source_annot_lang_file, target_annot_lang_file)
     train.patent_utraining_data(target_path, language, version, xval, limit)
@@ -540,7 +548,7 @@ if __name__ == '__main__':
 
     (opts, args) = getopt.getopt(
         sys.argv[1:],
-        'l:s:t:n:r:f:',
+        'l:s:t:n:r:',
         ['init', 'populate', 'xml2txt', 'txt2tag', 'tag2chk', 'pf2dfeats', 'summary',
          'annotate1', 'annotate2', 'utrain', 'utest', 'scores',
          'verbose', 'chunk-filter', 'no-chunk-filter'])
@@ -551,7 +559,7 @@ if __name__ == '__main__':
     chunk_filter = True
     summary, annotate1, annotate2 = False, False, False
     union_train, union_test, tech_scores = False, False, False
-    limit, range, filter = 0, None, True
+    limit, range = 0, None
     version, xval = "1", "0"
 
     for opt, val in opts:
@@ -561,7 +569,6 @@ if __name__ == '__main__':
         if opt == '-t': target_path = val
         if opt == '-n': limit = int(val)
         if opt == '-r': range = val
-        if opt == '-f' and val == 'OFF': filter = False
         
         if opt == '--init': init = True
         if opt == '--populate': populate = True
@@ -575,6 +582,7 @@ if __name__ == '__main__':
         if opt == '--utrain': union_train = True
         if opt == '--utest': union_test = True
         if opt == '--scores': tech_scores = True
+
         if opt == '--verbose': verbose = True
         if opt == '--chunk-filter': chunk_filter = True
         if opt == '--no-chunk-filter': chunk_filter = False
