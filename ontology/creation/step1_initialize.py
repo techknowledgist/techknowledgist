@@ -22,28 +22,30 @@ The directory tree created inside the language directory is as follows:
     |   |-- stages.txt
     |   |-- testing-files-000000-000500.txt
     |   `-- training-files-000000-000500.txt
-    `-- data
-        |-- annotate       'input for annotation effort'
-        |-- classify       'classification results'
-        |-- doc_feats      'results from merging phrase features intro doc features'
-        |-- ds_fact        'intermediate results from document structure parser'
-        |-- ds_sect        'intermediate results from document structure parser'
-        |-- ds_tags        'intermediate results from document structure parser'
-        |-- ds_text        'intermediate results from document structure parser'
-        |-- idx            'term indexes'
-        |-- phr_feats      'results from candidate selection'
-        |-- phr_occ        'results from candidate selection'
-        |-- seg            'segmenter results'
-        |-- selector       'results of the selector'
-        |-- tag            'tagger results '
-        |-- test           'test and evlauation area'
-        |-- train          'vectors for the classifier and classifier models'
-        |-- txt            'results of document structure parser'
-        |-- ws             'work space to save data that crosses years'
-        `-- xml            'import of XML data'
-
-No existing files or directories will be overwritten, except for the five files in config
-listed above.
+    |-- data
+    |   |-- annotate       'input for annotation effort'
+    |   |-- classify       'classification results'
+    |   |-- doc_feats      'results from merging phrase features intro doc features'
+    |   |-- ds_fact        'intermediate results from document structure parser'
+    |   |-- ds_sect        'intermediate results from document structure parser'
+    |   |-- ds_tags        'intermediate results from document structure parser'
+    |   |-- ds_text        'intermediate results from document structure parser'
+    |   |-- idx            'term indexes'
+    |   |-- phr_feats      'results from candidate selection'
+    |   |-- phr_occ        'results from candidate selection'
+    |   |-- seg            'segmenter results'
+    |   |-- selector       'results of the selector'
+    |   |-- tag            'tagger results '
+    |   |-- test           'test and evlauation area'
+    |   |-- train          'vectors for the classifier and classifier models'
+    |   |-- txt            'results of document structure parser'
+    |   |-- ws             'work space to save data that crosses years'
+    |   `-- xml            'import of XML data'
+    `-- state
+    
+No existing files or directories will be overwritten, except for the five files in the
+config directory that are listed above (creation_settings.txt, files.txt, stages.txt,
+testing-files-000000-000500.txt, and training-files-000000-000500.txt).
 
 
 USAGE
@@ -53,9 +55,9 @@ USAGE
 OPTIONS
 
    -l en|de|cn   --  language
-   -f FILE       --  use external FILE and copy it to ALL_FILES.txt
-   -s DIRECTORY  --  generate ALL_FILES.txt from DIRECTORY
-   -t DIRECTORY  --  target directory where the language directory is put
+   -f FILE       --  input: use external FILE and copy it to ALL_FILES.txt
+   -s DIRECTORY  --  input: generate ALL_FILES.txt from DIRECTORY
+   -t DIRECTORY  --  output: target directory where the language directory is put
    --shuffle     --  performs a random sort of FILES.txt, used with the -s option
 
 Typical invocations:
@@ -64,7 +66,7 @@ Typical invocations:
     % python step1_initialize.py -l en -t data/patents -s ../external/US/Xml --shuffle
 
     Both commands create a directory en/ inside of data/patents/, with config/ and data/
-    subdirectories and several files mentioned above in the config/ subsirectory. The
+    subdirectories and several files mentioned above in the config/ subdirectory. The
     first form copies filelist.txt to en/config/files.txt. The second form traverses the
     directory ../external/US/Xml/, takes all file paths, randomly shuffles them, and then
     saves the result to en/config/files.txt.
@@ -96,7 +98,9 @@ def init(language, source_file, source_path, target_path, shuffle_file):
         sys.exit("[--init] ERROR: %s already exists" % lang_path)
     data_path = os.path.join(lang_path, 'data')
     conf_path = os.path.join(lang_path, 'config')
+    state_path = os.path.join(lang_path, 'state')
     ensure_path(conf_path)
+    ensure_path(state_path)
     create_data_directories(data_path)
 
     print "[--init] creating %s/creation_settings.txt" % (conf_path)
