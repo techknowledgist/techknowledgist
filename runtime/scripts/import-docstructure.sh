@@ -7,6 +7,7 @@ set source_dir = '/home/j/marc/Dropbox/FUSE/document-processing/structure/git'
 set source_dir = '/Users/marc/Dropbox/FUSE/document-processing/structure/git'
 set target_dir = '/home/j/marc/Desktop/FUSE/code/patent-classifier/utils'
 set target_dir = '/Users/marc/Documents/fuse/git/patent-classifier/utils'
+set target_dir = '/Users/marc/Desktop/FUSE/code/patent-classifier/utils'
 
 echo
 echo "IMPORTING..."

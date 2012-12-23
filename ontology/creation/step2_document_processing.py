@@ -44,7 +44,6 @@ Usage:
     -n INTEGER   --  number of documents to process
     -r STRING    --  range of documents to take, that is, the postfix of classifier output
      
-    --init       --  initialize directory structure in target path (non-destructive)
     --populate   --  populate directory in target path with files from source path
     --xml2txt    --  document structure parsing
     --txt2tag    --  tagging
@@ -58,6 +57,7 @@ Usage:
 
     --verbose   --  print name of each processed file to stdout
 
+    --config FILE      --  optional configuration file to overrule the default configuration
     --chunk-filter     --  use a filter when proposing technology chunks (the default)
     --no-chunk-filter  --  do not use a filter when proposing technology chunks
     
@@ -69,18 +69,12 @@ The final results of these steps are in:
     TARGET_PATH/LANGUAGE/ws
 
     
-Examples for all stages:
-
-Initialization of directories is purely defined by what is found in the source data,
-initializing directories for all years. It also creates the file with all patents in
-random order.
-
-% setenv SOURCE_PATENTS /home/j/corpuswork/fuse/fuse-patents/500-patents/DATA/Lexis-Nexis
-% python batch.py --init -l en -s $SOURCE_PATENTS/US/Xml/ -t data/patents
+Examples:
 
 Population follows the paradigm above, taking elements from the list. With the following
 you add 10 files to the data/patents/en/xml directory.
 
+% setenv SOURCE_PATENTS /home/j/corpuswork/fuse/fuse-patents/500-patents/DATA/Lexis-Nexis
 % python batch.py --populate -l en -n 10 -s $SOURCE_PATENTS/US/Xml/ -t data/patents
 
 Running the document structure parser. From here on, you do not need the source directory
@@ -272,8 +266,8 @@ def run_summary(target_path, language, limit):
         fh_phr_occ.write(codecs.open(phr_occ_file, encoding='utf-8').read())
     update_stages(target_path, language, '--summary', limit)
 
-    
-    
+
+
 
 if __name__ == '__main__':
 
@@ -281,14 +275,15 @@ if __name__ == '__main__':
         sys.argv[1:],
         'l:s:t:n:r:',
         ['populate', 'xml2txt', 'txt2tag', 'tag2chk', 'pf2dfeats', 'summary',
-         'verbose', 'chunk-filter', 'no-chunk-filter'])
+         'verbose', 'config=', 'chunk-filter', 'no-chunk-filter'])
 
     populate = False
     xml_to_txt, txt_to_seg, txt_to_tag = False, False, False
     tag_to_chk, pf_to_dfeats = False, False
-    chunk_filter = True
+    config = None
+    #chunk_filter = True
     #summary = False
-    limit, range = 0, None
+    limit = 0
 
     for opt, val in opts:
 
@@ -296,7 +291,6 @@ if __name__ == '__main__':
         if opt == '-s': source_path = val
         if opt == '-t': target_path = val
         if opt == '-n': limit = int(val)
-        if opt == '-r': range = val
         
         if opt == '--populate': populate = True
         if opt == '--xml2txt': xml_to_txt = True
@@ -306,18 +300,28 @@ if __name__ == '__main__':
         #if opt == '--summary': summary = True
 
         if opt == '--verbose': verbose = True
+        if opt == '--config': pipeline_config = val
         if opt == '--chunk-filter': chunk_filter = True
         if opt == '--no-chunk-filter': chunk_filter = False
 
+
+    print opts, args
+    print open(os.path.join(target_path, language, 'config', 'config-general.txt')).read()
+    
+    sys.exit()
+
+    
+
+        
     if populate:
         run_populate(source_path, target_path, language, limit)
     elif xml_to_txt:
-        run_xml2txt(target_path, language, limit)
+        run_xml2txt(target_path, language, config, limit)
     elif txt_to_tag:
-        run_txt2tag(target_path, language, limit)
+        run_txt2tag(target_path, language, config, limit)
     elif tag_to_chk:
-        run_tag2chk(target_path, language, limit, chunk_filter)
+        run_tag2chk(target_path, language, config, limit, chunk_filter)
     elif pf_to_dfeats:
-        run_pf2dfeats(target_path, language, limit)
+        run_pf2dfeats(target_path, language, config, limit)
     #elif summary:
-    #    run_summary(target_path, language, limit)
+    #    run_summary(target_path, language, config, limit)
