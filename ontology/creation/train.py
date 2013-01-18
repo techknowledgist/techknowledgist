@@ -167,7 +167,7 @@ def _get_training_io(patent_dir, lang, version):
     return (train_fh, doc_feats_fh)
 
 
-def patent_utraining_data(patent_dir, lang, version="1", xval=0, limit=0):
+def patent_utraining_data(patent_dir, lang, version="1", xval=0, limit=0, classifier="MaxEnt"):
     # get dictionary of annotations
     d_phr2label = load_phrase_labels(patent_dir, lang)
     # create .mallet file
@@ -181,7 +181,7 @@ def patent_utraining_data(patent_dir, lang, version="1", xval=0, limit=0):
     # make sure xval is an int (since it can be passed in by command line args)
     xval = int(xval)
     # create the model (utrain.<version>.MaxEnt.model)
-    mtr.mallet_train_classifier("MaxEnt", xval)
+    mtr.mallet_train_classifier(classifier, xval)
 
 
 
@@ -249,12 +249,15 @@ def add_file_to_utraining_test_file(fname, s_test, d_phr2label, stats,
     s_doc_feats_input.close()
     
 
-
-def patent_utraining_test_data(patent_dir, lang, version="1"):
+# When we create test data for evaluation, we may choose to leave out any chunks that were 
+# included in the annotation data.  In this case, use_annotated_chunks_p should be set to False.
+# But to generate actual labeled data for some other use, then set this parameter to True so that
+# labels are generated for all chunks.
+def patent_utraining_test_data(patent_dir, lang, version="1", use_annotated_chunks_p=True):
     # get dictionary of annotations
     d_phr2label = load_phrase_labels(patent_dir, lang)
     # create .mallet file
-    make_utraining_test_file(patent_dir, lang, version, d_phr2label)
+    make_utraining_test_file(patent_dir, lang, version, d_phr2label, use_annotated_chunks_p)
     ###return
     # create an instance of Mallet_test class to do the rest
     # let's do the work in the test directory for now.
@@ -362,3 +365,5 @@ def pipeline_make_utraining_test_file(root, lang, version):
     s_test.close()
     #print "labeled instances: %i, unlabeled: %i" % (labeled_count, unlabeled_count)
     print "[make_utraining_test_file]Created testing data in: %s" % test_file
+
+

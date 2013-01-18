@@ -2,6 +2,9 @@
 # PGA 10/17/2012
 # Classes and functions for language specific sentence chunking and feature creation.
 # Utilized by tag2chunk.py 
+
+# PGA 12/20/12 fixed bug in prev_n that caused ^ to be output as separate feature (because of ws separator)
+
 #
 ### Notes to coders
 # For each language: 
@@ -23,6 +26,9 @@
 #           to be loaded with proper encoding of characters.   Name this file chunk_schema_<lang>.txt
 #    5. Create a test function in tag2chunk.py that processes a sample file in the given lanuage.
 
+import config_data
+import collections
+import os
 import codecs
 from xml.sax.saxutils import escape
 
@@ -37,6 +43,7 @@ d_sent_for_lang = {}
 
 # Store chunk schemas in dict keyed by language
 d_chunkSchema = {}
+
 
 # creates a mallet feature name from a name and a value.
 # If value is "", it returns None
@@ -112,7 +119,6 @@ class Sentence(object):
 
 
     # utility methods
-
 
     # combines a doc section (header) with either 0 (if chunk appears in first
     # sentence of section) or 1 is it appears later.
@@ -190,7 +196,7 @@ class Sentence(object):
                 self.chart[cstart].chunk_end = i + 1
 
                 if self.debug_p:
-                    print "chunk phrase: |%s|, start: %i" % (self.chart[cstart].phrase, cstart)
+                    print "[chunk_chart]chunk phrase: |%s|, start: %i" % (self.chart[cstart].phrase, cstart)
                 if not inChunk_p:
                     # set the label for the first element in the chunk to "tech"
                     self.chart[cstart].label = "tech"
@@ -211,6 +217,8 @@ class Sentence(object):
                 if self.legal_end_p(chunk, chunk_schema):
                     last_legal_end_index = i
                     # update the last legal phrase and chunk tag list to the current token.
+                    if self.debug_p:
+                        print "[chunk_chart]last legal phrase so far: %s" % self.chart[cstart].phrase
                     last_legal_phrase = self.chart[cstart].phrase
                     last_legal_tag_sig = self.chart[cstart].tag_sig
             else:
@@ -219,6 +227,8 @@ class Sentence(object):
                 # We'll throw away any tokens up to the last legal ending of a chunk.
                 if last_legal_end_index > -1:
                     self.chart[cstart].phrase = last_legal_phrase
+                    if self.debug_p:
+                        print "[chunk_chart]****Added |%s| at cstart |%i|" % (last_legal_phrase, cstart)
                     self.chart[cstart].tag_sig = last_legal_tag_sig[1:]
                     # also keep the list of tags as a list
                     # Note that we used the string tag_sig to build the tag list here since
@@ -228,9 +238,14 @@ class Sentence(object):
                     self.chart[cstart].chunk_tags = self.chart[cstart].tag_sig.split("_")
                     self.chart[cstart].chunk_end = last_legal_end_index + 1
                 else:
+                    if self.debug_p:
+                        print "[chunk_chart]****Rejected chunk" 
+
                     # reset the start chunk to remove all (now invalidated) phrasal info
                     self.chart[cstart].label = ""
-                    self.chart[cstart].chunk_end = self.chart[cstart].tok_end + 1
+                    #/// PGA fixed end of non-tech chunk to be tok_end
+                    #self.chart[cstart].chunk_end = self.chart[cstart].tok_end + 1
+                    self.chart[cstart].chunk_end = self.chart[cstart].tok_end
                     self.chart[cstart].phrase = self.chart[cstart].tok
                     self.chart[cstart].tag_sig = ""
 
@@ -261,7 +276,7 @@ class Sentence(object):
                     test_val == False
                 if self.debug_p:
                     print "[legal_end_p](pat[0] == - and chunk.tok.lower() not in pat[1:]): %r" % (test_val)
-            if (pat == []) or (pat[0] == "-" and chunk.tok.lower() not in pat[1:]) or (pat[0] == "+" and chunk.tok.lower() in pat[1:]):
+            if (pat == []) or (pat[0] == "n" and chunk_schema.noise_p(pat[1], chunk.tok.lower()) == False) or (pat[0] == "-" and chunk.tok.lower() not in pat[1:]) or (pat[0] == "+" and chunk.tok.lower() in pat[1:]):
                 if self.debug_p:
                     print "[legal_end_p] matched!"
                 return True
@@ -278,6 +293,7 @@ class Sentence(object):
         # continuing a chunk
         # If the tag is not in our pattern, then return false
         self.debug_p = False
+        #self.debug_p = True
         try:
             if inChunk_p:
                 if self.debug_p:
@@ -293,13 +309,19 @@ class Sentence(object):
                 print "[chunkable_p]pat: %s, inChunk_p: %s, tag: %s" % (pat, inChunk_p, chunk.tag)
             test_val = False
             if pat != []:
+
+                if self.debug_p:
+                    if (pat[0] == "n"):
+                        print "[chunkable_p]pat[0] == 'n', term: %s, value: %s" % (chunk.tok.lower(), chunk_schema.noise_p(pat[1], chunk.tok.lower()))
+
                 if pat[0] == "-" and chunk.tok.lower() not in pat[1:]:
                     test_val == True
                 else:
                     test_val == False
                 if self.debug_p:
                     print "[chunkable_p](pat[0] == - and chunk.tok.lower() not in pat[1:]): %r" % (test_val)
-            if (pat == []) or (pat[0] == "-" and chunk.tok.lower() not in pat[1:]) or (pat[0] == "+" and chunk.tok.lower() in pat[1:]):
+            # added noise_p constraint ("n") PGA
+            if (pat == []) or (pat[0] == "n" and chunk_schema.noise_p(pat[1], chunk.tok.lower()) == False) or (pat[0] == "-" and chunk.tok.lower() not in pat[1:]) or (pat[0] == "+" and chunk.tok.lower() in pat[1:]):
                 if self.debug_p:
                     print "[chunkable_p] matched!"
                 return True
@@ -334,13 +356,16 @@ class Sentence(object):
     def chunk_iter(self):
         chunk = self.chart[0]
         while True:
-            #chunk.__display__()
+            if self.debug_p:
+                chunk.__display__()
             yield(chunk)
             if chunk.chunk_end < self.len:
-                #print "[chunk_iter]chunk_end: %i" % chunk.chunk_end
+                if self.debug_p:
+                    print "[chunk_iter]chunk_end: %i" % chunk.chunk_end
                 chunk = self.chart[chunk.chunk_end]
             else:
-                #print "[chunk_iter before break]chunk_end: %i" % chunk.chunk_end
+                if self.debug_p:
+                    print "[chunk_iter before break]chunk_end: %i" % chunk.chunk_end
                 break
 
 
@@ -365,7 +390,7 @@ class Sentence(object):
         i = start
         while i < index:
             if i < 0:
-                prev_n_string = prev_n_string + " ^"
+                prev_n_string = prev_n_string + sep + "^"
             else:
                 prev_n_string = prev_n_string + sep + self.chart[i].tok
             i += 1
@@ -922,7 +947,7 @@ class Chunk:
             
 
     def __display__(self):
-        print "Chunk type: %s, phrase: %s, %i, %i" % (self.tag, self.phrase, self.chunk_start, self.chunk_end)
+        print "[Chunk]Chunk type: %s, phrase: %s, %i, %i" % (self.tag, self.phrase, self.chunk_start, self.chunk_end)
 
 
 
@@ -931,10 +956,14 @@ class Chunk:
 # conditions for continuing a chunk (tags + token constraints)
 class chunkSchema:
     
-    def __init__(self, start_pat, cont_pat, end_pat):
+    def __init__(self, start_pat, cont_pat, end_pat, noise_files=[]):
         self.d_start = {}
         self.d_cont = {}
         self.d_end = {}
+        # store noise_word lists in a dictionary of dictionaries for use by chunker
+        self.noise_files = noise_files
+        self.d_noise = {}
+
         for pat in start_pat:
             key = pat[0]
             value = pat[1]
@@ -948,10 +977,30 @@ class chunkSchema:
             value = pat[1]
             self.d_end[key] = value
 
+        for key, filename in noise_files:
+            self.add_noise_list(key, filename)
+
+    def add_noise_list(self, name, filename):
+        # file should contain one term per line.
+        # add a list of terms to be indexed under [name][term] as noisewords with value True
+        filepath = os.path.join(config_data.annotation_directory, filename)
+        print "[add_noise_list]Adding chunker noise list in %s" % filepath 
+        s_noise = open(filepath)
+        self.d_noise.setdefault(name, {})
+        for term in s_noise:
+            term = term.strip()
+            self.d_noise[name].setdefault(term, True)
+        s_noise.close()
+
+    def noise_p(self, name, term):
+        # return False if term is not in noise dict for name
+        return self.d_noise[name].get(term, False)
+
 # Chunk schema definitions
 # constraints are indicated by 
 # "-" none of the following strings
 # "+" only the following strings
+# "n" noise terms are in noise dictionary keyed by string after "n"
 # [] no constraints
 # end_pat are the legal POS that can end a chunk
 #def chunk_schema_en():
@@ -959,10 +1008,52 @@ def chunk_schema(lang):
     start_pat = []
     cont_pat = []
     end_pat = []
+    noise_files = []
+    # noise files should be in annotation_directory for now (../patent-classifier/ontology/annotation)
 
 
+
+
+
+
+    # most restrictive schema omits verbs, "of", conjunctions, many adjectival modifiers (via "n" noise list)
     if lang == "en":
-        both_pat =  [ ["NN", []], ["NNP", []], ["NNS", []], ["NNPS", []], ["POS", []],  ["JJ", ["-", "further", "such", "therebetween", "same", "following", "respective", "first", "second", "third", "fourth", "respective", "preceding", "predetermined", "next", "more"] ], ["JJR", ["-", "more"] ], ["JJS", [] ], ["FW", ["-", "e.g.", "i.e"] ], ["VBG", ["-", "describing", "improving", "using", "employing",  "according", "resulting", "having", "following", "including", "containing", "consisting", "disclosing"]  ] ] 
+        both_pat =  [ ["NN", ["-", "fig", "figure"]], ["NNP", ["-", "fig", "figure"] ], ["NNS", []], ["NNPS", []], ["POS", []],  ["JJ", ["n", "noise_av"]] , ["JJR", ["-", "more"] ], ["JJS", ["-", "most"] ], ["FW", ["-", "e.g.", "i.e"] ]  ]
+        #start_pat = [ ["NN", ["-", "method"]] ] 
+        start_pat = []
+        # 11/16/12 PGA removed "of" from cont_pattern, removed "CC"
+        cont_pat = [ ["NN", []]  ]
+        end_pat = [ ["NN", []], ["NNP", []], ["NNS", []], ["NNPS", []] ]
+        start_pat.extend(both_pat)
+        cont_pat.extend(both_pat)
+        noise_files = [["noise_av", "en_jj_vb.noise"]]
+
+    # no verbs but includes "of"
+    if lang == "en_w_of":
+        both_pat =  [ ["NN", ["-", "fig", "figure"]], ["NNP", ["-", "fig", "figure"] ], ["NNS", []], ["NNPS", []], ["POS", []],  ["JJ", ["n", "noise_av"]] , ["JJR", ["-", "more"] ], ["JJS", ["-", "most"] ], ["FW", ["-", "e.g.", "i.e"] ]  ]
+        #start_pat = [ ["NN", ["-", "method"]] ] 
+        start_pat = []
+        # 11/16/12 PGA removed "of" from cont_pattern, removed "CC"
+        cont_pat = [ ["NN", []], ["VBN", []], ["DT",  []], ["RP", []], ["IN", ["+", "of"]] ]
+        end_pat = [ ["NN", []], ["NNP", []], ["NNS", []], ["NNPS", []] ]
+        start_pat.extend(both_pat)
+        cont_pat.extend(both_pat)
+        noise_files = [["noise_av", "en_jj_vb.noise"]]
+
+
+    if lang == "en_w_verbs":
+        both_pat =  [ ["NN", ["-", "fig", "figure"]], ["NNP", ["-", "fig", "figure"] ], ["NNS", []], ["NNPS", []], ["POS", []],  ["JJ", ["n", "noise_av"]] , ["JJR", ["-", "more"] ], ["JJS", ["-", "most"] ], ["FW", ["-", "e.g.", "i.e"] ], ["VBG", ["n", "noise_av"]]  ]
+        #start_pat = [ ["NN", ["-", "method"]] ] 
+        start_pat = []
+        # 11/16/12 PGA removed "of" from cont_pattern, removed "CC"
+        cont_pat = [ ["NN", []], ["VBN", []], ["DT",  []], ["RP", []] ]
+        end_pat = [ ["NN", []], ["NNP", []], ["NNS", []], ["NNPS", []], ["VBG", ["n", "noise_av"]  ] ]
+        start_pat.extend(both_pat)
+        cont_pat.extend(both_pat)
+        noise_files = [["noise_av", "en_jj_vb.noise"]]
+
+    if lang == "en_w_lists":
+        both_pat =  [ ["NN", []], ["NNP", []], ["NNS", []], ["NNPS", []], ["POS", []],  ["JJ", ["-", "further", "such", "therebetween", "same", "following", "respective", "first", "second", "third", "fourth", "respective", "preceding", "predetermined", "next", "more"] ], ["JJR", ["-", "more"] ], ["JJS", ["-", "most"] ], ["FW", ["-", "e.g.", "i.e"] ], ["VBG", ["-", "describing", "improving", "using", "employing",  "according", "resulting", "having", "following", "including", "containing", "consisting", "disclosing"]  ] ] 
         #start_pat = [ ["NN", ["-", "method"]] ] 
         start_pat = []
         # 11/16/12 PGA removed "of" from cont_pattern, removed "CC"
@@ -1006,7 +1097,7 @@ def chunk_schema(lang):
             cont_pat = [ ["NN", []], ["NR", []], ["NT", []], ["JJ", []], ["VA", []], ["DEG", []], ["DEC", []] ]
             end_pat = [ ["NN", []]  ]
     
-    cs = chunkSchema(start_pat, cont_pat, end_pat)
+    cs = chunkSchema(start_pat, cont_pat, end_pat, noise_files)
     return(cs)
 
 # This is needed to deal with proper encoding of Chinese characters within chunk patterns
@@ -1039,12 +1130,10 @@ def get_sentence_for_lang(lang, sent_args):
     sent = sentence_func(*sent_args)
     return(sent)
 
-
 ### map languages to their sentence classes
 d_sent_for_lang["en"] = Sentence_english
 d_sent_for_lang["cn"] = Sentence_chinese
 d_sent_for_lang["de"] = Sentence_german
-
 
 """
 if __name__ == "__main__":

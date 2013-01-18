@@ -216,11 +216,33 @@ def tag2chunk_dir(tag_dir, phr_occ_dir, phr_feats_dir, year, lang, filter_p = Tr
 
         doc = Doc(input, output_phr_occ, output_phr_feats, year, lang, filter_p)
 
+# new3 output after changing chunker on 1/3/13  PGA
 # tag2chunk.test_t2c()
 def test_t2c():
-    input = "/home/j/anick/fuse/data/patents/en_test/tag/US20110052365A1.xml"
-    output_phr_occ = "/home/j/anick/fuse/data/patents/en_test/phr_occ/US20110052365A1.new2.xml"
-    output_phr_feats = "/home/j/anick/fuse/data/patents/en_test/phr_feats/US20110052365A1.new2.xml"
+    #input = "/home/j/anick/fuse/data/patents/en_test/tag/US20110052365A1.xml"
+    #output_phr_occ = "/home/j/anick/fuse/data/patents/en_test/phr_occ/US20110052365A1.new3.xml"
+    #output_phr_feats = "/home/j/anick/fuse/data/patents/en_test/phr_feats/US20110052365A1.new3.xml"
+
+    input = "/home/j/anick/fuse/data/patents/en_test/tag/mini.xml"
+    output_phr_occ = "/home/j/anick/fuse/data/patents/en_test/phr_occ/mini.new3.xml"
+    output_phr_feats = "/home/j/anick/fuse/data/patents/en_test/phr_feats/mini.new3.xml"
+    """ To test output:
+    cat /home/j/anick/fuse/data/patents/en_test/phr_feats/mini.new3.xml | cut -f3 | more
+    devicea
+    deviceb
+    testa
+    testb
+    mechanical testc
+    mechanical testd
+    picking up optical elements
+    suction membera
+    suction memberb
+    suction memberc
+    vacuum pump unit
+    liquid spraying unit
+    end
+    """
+
     #cs = sentence.chunk_schema("en")
     year = "1980"
     lang = "en"

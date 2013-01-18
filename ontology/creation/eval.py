@@ -78,7 +78,8 @@ class PRA:
         #self.precision = 0.0
         #self.recall = 0.0
         #self.accuracy = 0.0
-        self.total = 0
+        self.total = 0   # number terms to be evaluated
+        self.score_count = 0 # number terms for which we have scores
         self.eval_pos = 0
         self.eval_labeled = 0
         
@@ -110,14 +111,20 @@ class PRA:
                 system_score = 0.0
                 none_count += 1
 
+
+            
+            #print "[PRA]threshold: %s, system_score: %s, phrase: %s" % (str(threshold), str(system_score), phrase)
             if system_score > threshold:
                 system_label = "y"
+                self.score_count += 1
+
+            elif system_score > 0.0:
+                system_label = "n"
+                self.score_count += 1
+
             else:
-                if system_score > 0.0:
-                    system_label = "n"
-                else:
-                    # "u" for unknown, meaning the term does not show up in the system data.
-                    system_label = "u"
+                # "u" for unknown, meaning the term does not show up in the system data.
+                system_label = "u"
 
             if gold_label == "y" and system_label == "y":
                 self.true_pos += 1
@@ -131,7 +138,7 @@ class PRA:
                 self.false_pos += 1
 
             # log the gold and system labels for each phrase
-            s_log.write("%s\t|%s|\t%s\t%f\n" % (gold_label, system_label, phrase, system_score))
+            s_log.write("%s\t%s\t%s\t%f\n" % (gold_label, system_label, phrase, system_score))
         print "Counts. total phrases in eval: %i, non-matches: %i" % (i, none_count) 
 
         
@@ -149,7 +156,8 @@ class PRA:
         return(res)
 
     def accuracy(self):
-        res = float(self.correct) / self.total
+        #res = float(self.correct) / self.total
+        res = float(self.correct) / self.score_count
         return(res)
 
 # function used to initialize the label dictionaries to the label "n"
@@ -159,8 +167,8 @@ def default_n():
 # class to take an evaluation (gold standard) file (terms labeled with "y", "n") and the output of the mallet classifier (in the form of 
 # a scores file, and populate dictionaries to hold this information, keyed by term.
 class EvalData:
-    
-    def __init__(self, eval_file, system_file):
+    # optional parameter to use min, max, or average score for thresholding
+    def __init__(self, eval_file, system_file, score_type="average", count_threshold=1):
         
         self.d_eval_phr2label = {}   # map from evaluation phrase to class
         self.d_system_phr2score = {} # map from phrase to score (between 0.0 and 1.0)
@@ -190,36 +198,52 @@ class EvalData:
                     self.d_eval_phr2label[phrase] = label
 
         # output from mallet maxent classifier ("yes" score, averaged over multiple document instances)
-        n = 0
-        x = 0
+        n = 0  # number of lines (terms)
+        c = 0  # number of terms with count >= count_threshold
         for line in s_system:
 
             n += 1
             #print "line %i" % n
             line = line.rstrip()
-            (phrase, score, count, min, max) = line.split("\t")
+            (phrase, average, count, min, max) = line.split("\t")
             
-            #if count == '1': continue
-            x += 1
-            # normalize segmentation by removing all spaces from Chinese words
-            #phrase = phrase.replace(' ','')
+            count = int(count)
 
-            self.d_system_phr2score[phrase] = float(score)
-            """
-            if n < 10:
-                print "[ED]phrase: %s, score: %s" % (phrase, score)
-                if self.d_system_phr2score.has_key(phrase):
-                    print "[ED]Found key in d_system: %s" % phrase
-                else:
-                    print "[ED]key not found in d_system: %s" % phrase
-                if self.d_eval_phr2label.has_key(phrase):
-                    print "[ED]Found key in d_eval: %s" % phrase
-                else:
-                    print "[ED]key not found in d_eval: %s" % phrase
-                print "[EvalData]Storing sys score, phrase: %s, score: %f, actual: %f"  % (phrase, float(score), self.d_system_phr2score.get(phrase))
-            """
+            # only use scorees for terms that appear in at least <count_threshold> docs
+            if count >= count_threshold:
+                # default score is the average score over docs
+                score = average
+                # count is the number of documents the term was found in
+                count = int(count)
 
-        print x
+                # chose which score to use based on score_type parameter
+                if int(count) > 1: 
+                    if score_type == "max":
+                        score = max
+                    elif score_type == "min":
+                        score = min
+
+                #if count == '1': continue
+                c += 1
+                # normalize segmentation by removing all spaces from Chinese words
+                #phrase = phrase.replace(' ','')
+
+                self.d_system_phr2score[phrase] = float(score)
+                """
+                if n < 10:
+                    print "[ED]phrase: %s, score: %s" % (phrase, score)
+                    if self.d_system_phr2score.has_key(phrase):
+                        print "[ED]Found key in d_system: %s" % phrase
+                    else:
+                        print "[ED]key not found in d_system: %s" % phrase
+                    if self.d_eval_phr2label.has_key(phrase):
+                        print "[ED]Found key in d_eval: %s" % phrase
+                    else:
+                        print "[ED]key not found in d_eval: %s" % phrase
+                    print "[EvalData]Storing sys score, phrase: %s, score: %f, actual: %f"  % (phrase, float(score), self.d_system_phr2score.get(phrase))
+                """
+
+        print "Total scores: %i, scores with count >= %i: %i" % (n, count_threshold, c)
         #print system_file
         #print len(self.d_system_phr2score)
         #print self.d_system_phr2score.keys()
@@ -232,7 +256,86 @@ class EvalData:
         #s_training.close()
         s_system.close()
 
+# for a list of terms (eg. annotated terms), compare scores generated in different ways 
+# (e.g. different chunker, filter on/off.)
+
+def compare_scores(term_file, score_file_1, score_file_2, output_file):
+    d_term2label = {}
+    d_term2score1 = {}
+    d_term2score2 = {}
+
+    s_eval = open(term_file)
+    s_score1 = open(score_file_1)
+    s_score2 = open(score_file_2)
+    s_output = open(output_file, "w")
+
+    # gold data: manually annotated file of random phrases
+    for line in s_eval:
+
+        # if line begins with tab, it has not been labeled, since y/n should appear in col 1 before the tab.
+        if line.strip() == '': continue
+        if line.lstrip()[0] == '#': continue
+
+        if line[0] != "\t":
+            # also omit any header lines that don't contain a tab in column two
+            if line[1] == "\t":
+                line = line.strip()
+                (label, phrase) = line.split("\t")
+
+                d_term2label[phrase] = label
         
+    for line in s_score1:
+
+        line = line.rstrip()
+        (phrase, score, count, min, max) = line.split("\t")
+
+        if d_term2label.has_key(phrase):
+            d_term2score1[phrase] = float(score)
+
+    for line in s_score2:
+
+        line = line.rstrip()
+        (phrase, score, count, min, max) = line.split("\t")
+
+        if d_term2label.has_key(phrase):
+            d_term2score2[phrase] = float(score)
+        
+    # do the comparison of scores (and compute average difference in scores)
+    count = 0
+    diff_sum = 0
+    for phrase in d_term2label.keys():
+        label = d_term2label.get(phrase)
+        
+        score1 = d_term2score1.get(phrase)
+        if type(score1) != float:
+            score1 = 0.0
+        score2 = d_term2score2.get(phrase)
+        if type(score2) != float:
+            score2 = 0.0
+
+        #print "[COMP]%s\t%s\t%f\t%f" % (phrase, label, score1, score2)
+        diff = score1 - score2
+        diff_sum = diff + diff_sum
+        s_output.write("%s\t%s\t%f\t%f\t%f\n" % (phrase, label, score1, score2, diff))
+        #print "%s\t%s\t%f\t%f\t%f" % (phrase, label, score1, score2, diff)
+        count += 1
+    avg_diff = diff_sum / count
+    print "\n[COMP]avg_diff: %f" % avg_diff
+    
+    s_eval.close()
+    s_score1.close()
+    s_score2.close()
+    s_output.close()
+
+def tcomp1():
+    eval_dir = "/home/j/anick/patent-classifier/ontology/eval/"
+    eval_test_file = "/home/j/corpuswork/fuse/code/patent-classifier/ontology/annotation/en/phr_occ.eval.lab"
+    score_file_1 = "/home/j/corpuswork/fuse/code/patent-classifier/ontology/creation/data/patents-20121111/en/test/utest.1.MaxEnt.out.s5.scores.sum.nr.000000-000500"
+
+    score_file_2 = "/home/j/anick/patent-classifier/ontology/creation/data/patents/en/test/utest.1.MaxEnt.out.scores.nr.sum.nr"
+    output_file = eval_dir + "tcomp1.log"
+    compare_scores(eval_test_file, score_file_1, score_file_2, output_file)                           
+
 # tests over the 500 doc patent databases for each language
 def tcn(threshold):
     eval_dir = "/home/j/anick/patent-classifier/ontology/eval/"
@@ -264,7 +367,7 @@ def tde(threshold):
     log_file_name = eval_dir + "tde_c1_" + str(threshold) + ".gs.log"
     test(eval_test_file, system_test_file, threshold, log_file_name)
 
-def ten(threshold):
+def ten_c1(threshold, score_type="average", count=1):
     eval_dir = "/home/j/anick/patent-classifier/ontology/eval/"
     eval_dir = "../eval/"
     # data labeled for phrases chunked by the original rules, which included conjunction and "of"
@@ -274,8 +377,50 @@ def ten(threshold):
     #system_test_file = "/home/j/anick/patent-classifier/ontology/creation/data/patents/en/test/utest.1.MaxEnt.out.avg_scores.nr"
     system_test_file = "/home/j/corpuswork/fuse/code/patent-classifier/ontology/creation/data/patents-20121111/en/test/utest.1.MaxEnt.out.s5.scores.sum.nr.000000-000500"
 
-    log_file_name = eval_dir + "ten_c1_" + str(threshold) + ".gs.log"
-    test(eval_test_file, system_test_file, threshold, log_file_name)
+    log_file_name = eval_dir + "ten_c1_"  + score_type + "_" + str(count) + "_" + str(threshold) + ".gs.log"
+    test(eval_test_file, system_test_file, threshold, log_file_name, score_type, count)
+
+# english chunker version 2 using average score
+def ten_c2(threshold, score_type="average", count=1):
+    eval_dir = "/home/j/anick/patent-classifier/ontology/eval/"
+    eval_dir = "../eval/"
+    # data labeled for phrases from original chunker rules"
+    eval_test_file = "/home/j/anick/patent-classifier/ontology/annotation/en/phr_occ.eval.lab"
+    # data labeled for more restrictive chunks"
+    #eval_test_file = "/home/j/anick/patent-classifier/ontology/annotation/en/phr_occ.eval.newchunk.lab"
+    #system_test_file = "/home/j/anick/patent-classifier/ontology/creation/data/patents/en/test/utest.1.MaxEnt.out.avg_scores.nr"
+    system_test_file = "/home/j/anick/patent-classifier/ontology/creation/data/patents/en/test/utest.1.MaxEnt.out.scores.nr.sum.nr"
+
+    log_file_name = eval_dir + "ten_c2_" + score_type + "_" + str(count) + "_"+ str(threshold) + ".gs.log"
+    test(eval_test_file, system_test_file, threshold, log_file_name, score_type, count)
+
+# english chunker version 2, using max score
+def ten_c2_max(threshold):
+    eval_dir = "/home/j/anick/patent-classifier/ontology/eval/"
+    eval_dir = "../eval/"
+    # data labeled for phrases from original chunker rules"
+    eval_test_file = "/home/j/anick/patent-classifier/ontology/annotation/en/phr_occ.eval.lab"
+    # data labeled for more restrictive chunks"
+    #eval_test_file = "/home/j/anick/patent-classifier/ontology/annotation/en/phr_occ.eval.newchunk.lab"
+    #system_test_file = "/home/j/anick/patent-classifier/ontology/creation/data/patents/en/test/utest.1.MaxEnt.out.avg_scores.nr"
+    system_test_file = "/home/j/anick/patent-classifier/ontology/creation/data/patents/en/test/utest.1.MaxEnt.out.scores.nr.sum.nr"
+
+    log_file_name = eval_dir + "ten_c2_max_" + str(threshold) + ".gs.log"
+    test(eval_test_file, system_test_file, threshold, log_file_name, "max")
+
+# english chunker version 2, using max score
+def ten_c2_min(threshold):
+    eval_dir = "/home/j/anick/patent-classifier/ontology/eval/"
+    eval_dir = "../eval/"
+    # data labeled for phrases from original chunker rules"
+    eval_test_file = "/home/j/anick/patent-classifier/ontology/annotation/en/phr_occ.eval.lab"
+    # data labeled for more restrictive chunks"
+    #eval_test_file = "/home/j/anick/patent-classifier/ontology/annotation/en/phr_occ.eval.newchunk.lab"
+    #system_test_file = "/home/j/anick/patent-classifier/ontology/creation/data/patents/en/test/utest.1.MaxEnt.out.avg_scores.nr"
+    system_test_file = "/home/j/anick/patent-classifier/ontology/creation/data/patents/en/test/utest.1.MaxEnt.out.scores.nr.sum.nr"
+
+    log_file_name = eval_dir + "ten_c2_max_" + str(threshold) + ".gs.log"
+    test(eval_test_file, system_test_file, threshold, log_file_name, "min")
 
 
 def t4(threshold):
@@ -313,8 +458,10 @@ def t0(threshold):
     log_file_name = "t0_" + str(threshold) + ".gs.log"
     test(eval_test_file, system_test_file, threshold, log_file_name)
        
-def test(eval_test_file, system_test_file, threshold, log_file_name):
-    edata = EvalData(eval_test_file, system_test_file)
+# optional parameter to use min, max, or average score for thresholding
+# count restricts scores to terms that appear in <count> documents
+def test(eval_test_file, system_test_file, threshold, log_file_name, score_type="average", count=1):
+    edata = EvalData(eval_test_file, system_test_file, score_type, count)
     # open a log file to keep gold and system labels for each phrase
     s_log = codecs.open(log_file_name, "w", 'utf-8')
 
@@ -327,13 +474,14 @@ def test(eval_test_file, system_test_file, threshold, log_file_name):
     accuracy = pra.accuracy()
     print "accuracy: %.2f" % accuracy
     total = pra.total
-    print "total: %i" % total
+    print "total terms in evaluation: %i" % total
+    print "number terms with scores: %i" % pra.score_count
     print "true pos: %i" % pra.true_pos
     print "false pos: %i" % pra.false_pos
     print "false neg: %i" % pra.false_neg
     print "true neg: %i" % pra.true_neg
     print "correct: %i" % pra.correct
-    print "precision: %.2f, recall: %.2f, accuracy: %.2f, threshold: %.2f, total: %i" % (precision, recall, accuracy, threshold, total)
+    print "precision: %.2f, recall: %.2f, accuracy: %.2f, threshold: %.2f, total: %i" % (precision, recall, accuracy, threshold, pra.score_count)
 
     s_log.close()
 
