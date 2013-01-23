@@ -115,7 +115,12 @@ def make_utraining_file(patent_dir, lang, version, d_phr2label, limit=0):
     current_fname = None
     file_count = 0
 
+    printed_line = False
+    
     for line in s_doc_feats_input:
+        if not printed_line:
+            print line
+            printed_line = True
         # extract key, uid, and features
         fields = line.strip("\n").split("\t")
         phrase = fields[0]
@@ -134,7 +139,7 @@ def make_utraining_file(patent_dir, lang, version, d_phr2label, limit=0):
         if d_phr2label.has_key(phrase):
             label = d_phr2label.get(phrase)
             if label == "":
-                print "[make_training_file]Error: found phrase with null label: %s" % phrase
+                print "[make_utraining_file] Error: found phrase with null label: %s" % phrase
                 sys.exit()
             else:
                 mallet_list = [uid, label]
@@ -150,7 +155,69 @@ def make_utraining_file(patent_dir, lang, version, d_phr2label, limit=0):
     s_doc_feats_input.close()
     s_train.close()
     print "labeled instances: %i, unlabeled: %i" % (labeled_count, unlabeled_count)
-    print "[make_training_file]Created training data in: %s" % s_train.name
+    print "[make_training_file] Created training data in: %s" % s_train.name
+    
+
+def make_utraining_file2(patent_dir, lang, version, d_phr2label, fnames):
+
+    """ Create a file with training instances for Mallet. It uses the precomputed summary
+    of all doc_feats for multiple directories in <lang>/ws/doc_feats.all and is a more
+    efficient version of make_utraining_file_by_dir. The limit parameter gives the maximum
+    number of files from the input that should be used for the model, if it is zero, than
+    all files will be taken.
+
+    New version that instead of a number of files takes a list of file/year pairs and is
+    therefore more flexible because it is not restricted to taken the first n files."""
+
+    #s_train, s_doc_feats_input = _get_training_io(patent_dir, lang, version)
+
+    # these are taken from _get_training_io()
+    train_dir = os.path.join(patent_dir, lang, "train")
+    train_file = os.path.join(train_dir, "utrain.%s.mallet" % str(version))
+    s_train = codecs.open(train_file, "w", encoding='utf-8')
+    print "[make_utraining_file2] output written to", s_train
+
+    labeled_count = 0
+    unlabeled_count = 0
+    current_fname = None
+    file_count = 0
+
+    for year, fname in fnames:
+        file_count += 1
+        doc_feats_file = os.path.join(patent_dir, lang, 'doc_feats', year, fname)
+        verbose = True
+        if verbose:
+            print "%05d %s" % (file_count, doc_feats_file)
+        fh = codecs.open(doc_feats_file, encoding='utf-8')
+        for line in fh:
+            # extract key, uid, and features
+            fields = line.strip("\n").split("\t")
+            phrase = fields[0]
+            uid = fields[1]
+            
+            feats = unique_list(fields[2:])
+            # check if the phrase has a known label
+            if d_phr2label.has_key(phrase):
+                label = d_phr2label.get(phrase)
+                if label == "":
+                    print "[make_utraining_file2] Error: found phrase with null label: %s" % phrase
+                    sys.exit()
+                else:
+                    mallet_list = [uid, label]
+                    mallet_list.extend(feats)
+                    # create a whitespace separated line with format
+                    # uid label f1 f2 f3 ...
+                    mallet_line = " ".join(mallet_list) + "\n"
+                    s_train.write(mallet_line)
+                    labeled_count += 1
+            else:
+                unlabeled_count += 1
+        fh.close()
+            
+    #s_doc_feats_input.close()
+    s_train.close()
+    print "[make_training_file2] labeled instances: %i, unlabeled: %i" % (labeled_count, unlabeled_count)
+    print "[make_training_file2] created training data in: %s" % s_train.name
     
 
 def _get_training_io(patent_dir, lang, version):
@@ -172,6 +239,24 @@ def patent_utraining_data(patent_dir, lang, version="1", xval=0, limit=0):
     d_phr2label = load_phrase_labels(patent_dir, lang)
     # create .mallet file
     make_utraining_file(patent_dir, lang, version, d_phr2label, limit)
+    # create an instance of Mallet_training class to do the rest
+    # let's do the work in the train directory for now.
+    train_output_dir = os.path.join(patent_dir, lang, "train")
+    mtr = mallet.Mallet_training("utrain", version , train_output_dir)
+    # create the mallet vectors file from the mallet file
+    mtr.write_train_mallet_vectors_file()
+    # make sure xval is an int (since it can be passed in by command line args)
+    xval = int(xval)
+    # create the model (utrain.<version>.MaxEnt.model)
+    mtr.mallet_train_classifier("MaxEnt", xval)
+
+
+
+def patent_utraining_data2(patent_dir, lang, fnames, version="1", xval=0):
+    # get dictionary of annotations
+    d_phr2label = load_phrase_labels(patent_dir, lang)
+    # create .mallet file
+    make_utraining_file2(patent_dir, lang, version, d_phr2label, fnames)
     # create an instance of Mallet_training class to do the rest
     # let's do the work in the train directory for now.
     train_output_dir = os.path.join(patent_dir, lang, "train")
@@ -228,7 +313,7 @@ def add_file_to_utraining_test_file(fname, s_test, d_phr2label, stats,
 
     """Add document features from fname as vectors to s_test. This was factored out from
     make_utraining_test_file() so that I could call it from batch.py (MV)."""
-    
+
     def incr(x): stats[x] += 1
     s_doc_feats_input = codecs.open(fname, encoding='utf-8')
     for line in s_doc_feats_input:
@@ -250,11 +335,11 @@ def add_file_to_utraining_test_file(fname, s_test, d_phr2label, stats,
     
 
 
-def patent_utraining_test_data(patent_dir, lang, version="1"):
+def patent_utraining_test_data(patent_dir, lang, version="1", use_all_chunks_p=True):
     # get dictionary of annotations
     d_phr2label = load_phrase_labels(patent_dir, lang)
     # create .mallet file
-    make_utraining_test_file(patent_dir, lang, version, d_phr2label)
+    make_utraining_test_file(patent_dir, lang, version, d_phr2label, use_all_chunks_p)
     ###return
     # create an instance of Mallet_test class to do the rest
     # let's do the work in the test directory for now.

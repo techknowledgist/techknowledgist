@@ -236,7 +236,7 @@ def run_tag2chk(target_path, language, limit, chunk_filter):
     print "[--tag2chk] on %s/%s/tag/" % (target_path, language)
 
     filter_setting = "on" if chunk_filter else "off"
-    _save_config(target_path, language, 'chunk-filter', value)
+    _save_config(target_path, language, 'chunk-filter', filter_setting)
     #fh = open(os.path.join(target_path, language, 'config-chunk-filter.txt'), 'w')
     #filter_setting = "on" if chunk_filter else "off"
     #fh.write("chunk-filter %s\n" % filter_setting)
@@ -432,8 +432,8 @@ def _read_phrocc_or_docfeats(fname, get_stuff_fun):
         phr_occ_array[phrase].setdefault(fname, []).append(context)
     return phr_occ_array
 
-                                                   
-def run_utrain(target_path, language, version, xval, limit):
+
+def OLD_run_utrain(target_path, language, version, xval, limit):
     """Creates a mallet training file for labeled data with features as union of all
     phrase instances within a doc. Also creates a model utrain.<version>.MaxEnt.model in
     the train subdirectory. Limit is used to determine the size of the training set, as
@@ -445,7 +445,25 @@ def run_utrain(target_path, language, version, xval, limit):
     train.patent_utraining_data(target_path, language, version, xval, limit)
 
     
-def run_utest(target_path, language, version, limit, classifier='MaxEnt'):
+def run_utrain(target_path, language, version, xval, limit):
+    """Creates a mallet training file for labeled data with features as union of all
+    phrase instances within a doc. Also creates a model utrain.<version>.MaxEnt.model in
+    the train subdirectory. Limit is used to determine the size of the training set, as
+    with run_annotate, it is not used for incrementing values in ALL_STAGES.txt. """
+
+    stages = read_stages(target_path, language)
+    fnames = files_to_process(target_path, language, stages, '--utrain', limit)
+    annot_path = config_data.annotation_directory
+    source_annot_lang_file = os.path.join(annot_path, language, 'phr_occ.lab')
+    target_annot_lang_file = os.path.join(target_path, language, 'ws', 'phr_occ.lab')
+    shutil.copyfile(source_annot_lang_file, target_annot_lang_file)
+    #train.patent_utraining_data(target_path, language, version, xval, limit)
+    train.patent_utraining_data2(target_path, language, fnames, version, xval)
+    update_stages(target_path, language, '--utrain', limit)
+
+    
+def run_utest(target_path, language, version, limit, classifier='MaxEnt',
+              use_all_chunks_p=True):
 
     """Run the classifier on n=limit documents. Batch version of the function
     train.patent_utraining_test_data(). Appends results to test/utest.1.MaxEnt.out and
@@ -472,7 +490,8 @@ def run_utest(target_path, language, version, limit, classifier='MaxEnt'):
         doc_feats_file = os.path.join(target_path, language, 'doc_feats', year, fname)
         if verbose:
             print "%05d %s" % (count, doc_feats_file)
-        train.add_file_to_utraining_test_file(doc_feats_file, fh, d_phr2label, stats)
+        train.add_file_to_utraining_test_file(doc_feats_file, fh, d_phr2label, stats,
+                                              use_all_chunks_p=use_all_chunks_p)
     fh.close()
     
     _run_classifier(train_dir, test_dir, version, classifier, mallet_file, results_file)
@@ -551,12 +570,13 @@ if __name__ == '__main__':
         'l:s:t:n:r:',
         ['init', 'populate', 'xml2txt', 'txt2tag', 'tag2chk', 'pf2dfeats', 'summary',
          'annotate1', 'annotate2', 'utrain', 'utest', 'scores',
-         'verbose', 'chunk-filter', 'no-chunk-filter'])
+         'verbose', 'chunk-filter', 'no-chunk-filter', 'evalmode'])
 
     init, populate = False, False
     xml_to_txt, txt_to_seg, txt_to_tag, tag_to_chk = False, False, False, False
     pf_to_dfeats = False
     chunk_filter = True
+    use_all_chunks = True
     summary, annotate1, annotate2 = False, False, False
     union_train, union_test, tech_scores = False, False, False
     limit, range = 0, None
@@ -586,7 +606,8 @@ if __name__ == '__main__':
         if opt == '--verbose': verbose = True
         if opt == '--chunk-filter': chunk_filter = True
         if opt == '--no-chunk-filter': chunk_filter = False
-
+        if opt == '--evalmode': use_all_chunks = False
+        
     if init:
         run_init(source_path, target_path, language)
     elif populate:
@@ -613,6 +634,6 @@ if __name__ == '__main__':
     elif union_train:
         run_utrain(target_path, language, version, xval, limit)
     elif union_test:
-        run_utest(target_path, language, version, limit)
+        run_utest(target_path, language, version, limit, use_all_chunks_p=use_all_chunks)
     elif tech_scores:
         run_scores(target_path, version, language, range)

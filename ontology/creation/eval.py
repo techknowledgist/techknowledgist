@@ -219,7 +219,8 @@ class EvalData:
                 print "[EvalData]Storing sys score, phrase: %s, score: %f, actual: %f"  % (phrase, float(score), self.d_system_phr2score.get(phrase))
             """
 
-        print x
+        #print x
+        
         #print system_file
         #print len(self.d_system_phr2score)
         #print self.d_system_phr2score.keys()
@@ -378,13 +379,20 @@ def test1():
 ##########################
 
 
-def mten(threshold):
-    eval_dir = "../eval/"
+# MV versions of test routines
+
+def mten_all(test_file):
+    for threshold in (0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9):
+        print "\nTHRESHOLD =", threshold
+        mten(threshold, test_file)
+    
+def mten(threshold, system_test_file):
+    log_dir = "../evaluation/logs/"
     # data labeled for phrases chunked by the original rules, which included conjunction and "of"
     eval_test_file = "../annotation/en/phr_occ.eval.lab"
     # data labeled for more restrictive chunks"
-    system_test_file = "data/patents/en/test/utest.1.MaxEnt.out.s5.scores.sum.nr.000000-000500"
-    log_file_name = eval_dir + "ten_c1_" + str(threshold) + ".gs.log"
+    #system_test_file = "data/patents/filter-off/en/test/utest.1.MaxEnt.out.s5.scores.sum.nr.000000-000009"
+    log_file_name = log_dir + "ten_c1_" + str(threshold) + ".gs.log"
     test(eval_test_file, system_test_file, threshold, log_file_name)
 
 def mtcn(threshold):
@@ -405,6 +413,9 @@ def mtde(threshold):
     log_file_name = eval_dir + "tde_c1_" + str(threshold) + ".gs.log"
     test(eval_test_file, system_test_file, threshold, log_file_name)
 
+
+# NOT USED
+    
 def mo():
     training_file = "../annotation/en/phr_occ.lab"
     fragment_file = "../annotation/en/ontology-evaluation-20121128.lab"
@@ -426,3 +437,20 @@ def get_overlap(training_set, ontology_fragment):
                 terms_in_training_set += 1
     print "Terms in training set: %d/%d (%.0f%%)" % (terms_in_training_set, terms,
                                                      100*(terms_in_training_set/float(terms)))
+
+
+
+if __name__ == '__main__':
+
+    import sys
+
+    test_file = "data/patents/yy/en/test/utest.1.MaxEnt.out.s5.scores.sum.nr.000000-000009"
+
+    if len(sys.argv) == 2:
+        test_file = sys.argv[1]
+        mten_all(test_file)
+    else:
+        threshold = float(sys.argv[1])
+        test_file = sys.argv[2]
+        mten(threshold, test_file)
+    

@@ -98,9 +98,8 @@ shuffled the files in a different way than a previous run and that previous run 
 to create the annotation file for the evaluation set (which used the first nine documents
 of the then current ALL_FILES.txt). This was fixed by manually overwriting ALL_FILES.txt
 with an older version with a different random order (and saving the newly created
-ALL_FILES.txt as ALL_FILES.init.txt).
-
-***** ADD ALL_FILES.txt TO THE REPOSITORY *****
+ALL_FILES.txt as ALL_FILES.init.txt). For reference, the file ALL_FILES.txt that was used
+to overwrite the new version is stored in the directory where this file lives.
 
 Next do all basic processing up to creating the classifier model.
 
@@ -124,6 +123,7 @@ then to overwrite it with a model built from the next 491 documents.
 Now run the classifier and evaluate.
 
 $ python batch.py -l en -t $DATA --utest -n 9 --verbose
+$ python batch.py -l en -t $DATA --scores -r 000000-000009 --verbose
 
 
 
