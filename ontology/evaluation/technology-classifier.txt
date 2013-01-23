@@ -1,0 +1,160 @@
+Evaluating the Technology Classifier
+====================================
+
+Marc Verhagen
+January 2013
+
+
+1. Introduction
+---------------
+
+This file contains specifics on the evaluations of the technology classifier as performed
+for the final FUSE phase 1 report.
+
+All associated data are in ../creation/data/patents/evaluation. The data in there can be
+recreated following the instructions in this file.
+
+
+2. Evaluation Dimensions
+------------------------
+
+There are four dimension along which we can structure the evaluation:
+
+1. Whether the set of documents used for training and evaluation overlap
+
+	a. the sets do not overlap
+	b. the sets overlap (that is training and evaluation data were taken from the same
+	   set of 500 patents)
+
+	The standard and prefered way is to use 1a, but in our case it may be possible to
+	use sets that are disjoint at the instance level instead of the document level.
+	
+2. Whether training instances and evaluation instances overlap.
+
+	a. disjoint set of instances
+	b. overlapping set of instances
+
+	The standard and prefered way is to use 2a, note that 1a implies 2a. In a way this
+	is a more fine-grained way of ensuring disjointness of training and evaluation
+	set, but it is possible that non-local features cause the 1b2a combination to be
+	incorrect. 
+
+3. Use of filters on deriving candidate terms.
+
+	a. use filter to take only terms that also occur in abstract or summary
+	b. do not use a filter
+
+	We use 3b for our standard evaluation. 
+
+4. Restricting the evaluation to unseen terms
+
+	a. include terms that occur in the training set
+	b. do not include terms that are included in the training set
+
+	By default we include all terms (4a), but to see how the system deals with unknown
+	terms we can use the filter. This is controlled with the use_all_chunks_p
+	setting. Incidentally, that same setting can also control whether we use option 2a
+	or 2b.
+
+Subdirectories in this directory contain the data for a particular evaluation setting,
+using the numbers above. So standard-1a2a3b4a has non-overlapping document (1a),
+non-overlapping instances (2a), uses non candidate filter (3b) and does not restrict
+evaluation to unseen terms (4a).
+
+Two main variants are presentend (variant1-1a2a3a4a and variant2-1a2a3b4b) to show the
+impact of using the candidate filter and evaluating on unseen terms only. 
+
+The ML evaluation used a sub-optimal setting (1b2b3a4a) which inflated results. That
+evaluationis not repeated here, but it is refered to in the report (with a short
+explanation on how it was wrong).
+
+We would like to try 1b2a3b4a to test how well disjoint instances work.
+
+
+3. Details on how the evaluation was run
+----------------------------------------
+
+All evaluation are based on commit v0.1-57-g1d594a3 of the git repository.
+
+All evaluations were done on the 500 US sample patents in
+/home/j/corpuswork/fuse/fuse-patent.
+
+
+3.1. Creating the standard evaluation
+-------------------------------------
+
+This section contains the commands to create standard-1a2a3b4a. Run all commands from
+ontology/creation and assume we have a directory data/patents/evaluation with in it the
+subdirectories we need (that is, standard-1a2a3b4a, variant1-1a2a3a4a and
+variant2-1a2a3b4b). First we initialze the evaluation directory.
+
+$ export SOURCE=/home/j/corpuswork/fuse/fuse-patents/500-patents/DATA/Lexis-Nexis/US/Xml
+$ export DATA=data/patents/evaluation/standard-1a2a3b4a
+$ python batch.py -l en -s $SOURCE -t $DATA --init
+$ python batch.py -l en -s $SOURCE -t $DATA --populate -n 500
+
+There turned out to be a problem here, which was that the ALL_FILES.txt that was created
+shuffled the files in a different way than a previous run and that previous run was used
+to create the annotation file for the evaluation set (which used the first nine documents
+of the then current ALL_FILES.txt). This was fixed by manually overwriting ALL_FILES.txt
+with an older version with a different random order (and saving the newly created
+ALL_FILES.txt as ALL_FILES.init.txt).
+
+***** ADD ALL_FILES.txt TO THE REPOSITORY *****
+
+Next do all basic processing up to creating the classifier model.
+
+$ python batch.py -l en -t $DATA --xml2txt -n 500 --verbose
+$ python batch.py -l en -t $DATA --txt2tag -n 500 --verbose
+$ python batch.py -l en -t $DATA --tag2chk -n 500 --no-chunk-filter --verbose
+$ python batch.py -l en -t $DATA --pf2dfeats -n 500 --verbose
+$ python batch.py -l en -t $DATA --summary -n 500 --verbose
+
+Create the classifier model.
+
+$ python batch.py -l en -t $DATA --utrain -n 9 --verbose
+$ python batch.py -l en -t $DATA --utrain -n 491 --verbose
+
+This is a bit tricky. We have English evaluation annotations that were created from the
+first nine files of the randomly ordered list in ALL_FILES.txt. As a result, we want to
+evaluate on those first nine files and train the model on the other 491 files. Due to
+peculiarities of the code, it was easiest to create a model on the first 9 documents and
+then to overwrite it with a model built from the next 491 documents.
+
+Now run the classifier and evaluate.
+
+$ python batch.py -l en -t $DATA --utest -n 9 --verbose
+
+
+
+3.2. Creating the variants
+--------------------------
+
+Commands here are given without further comments.
+
+To create variant1-1a2a3a4a.
+
+$ export DATA=data/patents/evaluation/variant1-1a2a3a4a
+$ cp data/patents/evaluation/standard-1a2a3b4a $DATA
+$ python batch.py -l en -t $DATA --tag2chk -n 500 --chunk-filter --verbose
+$ python batch.py -l en -t $DATA --pf2dfeats -n 500 --verbose
+$ python batch.py -l en -t $DATA --summary -n 500 --verbose
+
+To create variant2-1a2a3b4b:
+
+$ export DATA=data/patents/evaluation/variant2-1a2a3b4b
+$ cp data/patents/evaluation/standard-1a2a3b4a $DATA
+$ python batch.py -l en -t $DATA --tag2chk -n 500 --no-chunk-filter --verbose
+$ python batch.py -l en -t $DATA --pf2dfeats -n 500 --verbose
+$ python batch.py -l en -t $DATA --summary -n 500 --verbose
+
+
+
+4. Results
+----------
+
+4.1. standard-1a2a3b4a
+
+4.2. variant1-1a2a3a4a
+
+4.3. variant2-1a2a3b4b
