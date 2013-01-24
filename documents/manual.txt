@@ -1,0 +1,26 @@
+=== To get a running system
+
+Most work is already done by virtue of having cloned the patent-classifier repository.
+
+But you need to copy two utilities that are not in the repository (I am not quite
+confortable yet using git submodules or git subtree merging).
+
+1. Getting tries
+
+We are assuming that (i) you have the misc repository in Dropbox/code/misc, (ii) the
+patent classifier code is in ~/Desktop/FUSE/code/patent-classifier/utils, and (iii) the
+current commit is f296e3e0acea70176978055ae8a3919987ee944b.
+
+% cd ~/Dropbox/code/misc
+% ./export.sh tries ~/Desktop/FUSE/code/patent-classifier/utils
+% cd ~/Desktop/FUSE/code/patent-classifier/utils
+% tar xfvp tries.f296e3e0acea70176978055ae8a3919987ee944b.tar
+
+
+2. Getting the document structure parser
+
+The utils/import-docstructure.sh does not work on OSX 10.4 if you used the binary
+installer in http://metastatic.org/source/git-osx.html. This is because that git version
+is 1.5.4.3 and the import script relies on a more recent version of git. In that case,
+just copy the docustruture code to the utils directory.
+
