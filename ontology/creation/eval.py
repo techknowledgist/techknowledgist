@@ -55,94 +55,67 @@ import os
 import collections
 import codecs
 
+
 ####################################################################################
 ### Testing static classification 
 ### 
 
-# precision/recall/accuracy calculation
 class PRA:
 
+    """precision/recall/accuracy calculation"""
+    
     def __init__(self, d_eval, d_system, threshold, s_log):
+
+        self.debug_p = False
+        self.debug_c = False
         self.d_eval = d_eval
         self.d_system = d_system
-
         self.true_pos = 0
         self.system_pos = 0
         self.false_pos = 0
         self.false_neg = 0
         self.true_neg = 0
         self.correct = 0
-        self.l_false_pos = []
-        self.l_false_neg = []
-        self.l_true_pos = []
-        #self.precision = 0.0
-        #self.recall = 0.0
-        #self.accuracy = 0.0
         self.total = 0
-        self.eval_pos = 0
-        self.eval_labeled = 0
         
         i = 0
         none_count = 0
         for phrase in self.d_eval.keys():
 
             i += 1
-            #if i < 10:
-            #    print "[PRA]phrase: %s" % phrase
-
             self.total += 1
             gold_label = self.d_eval.get(phrase)
-            """
-            if i < 10:
-                if self.d_system.has_key(phrase):
-                    print "[PRA]Found key: %s" % phrase
-                else:
-                    print "[PRA]key not found: %s" % phrase
-            """
             system_score = self.d_system.get(phrase)
-            #if i < 10:
-            #    print "[PRA]system_score: %s" % system_score
-            #    print "[PRA]%s,%s,%s\n" % (phrase, gold_label, system_score) 
+            self.debug_phrase(i, phrase, gold_label, system_score)
 
-            # Handle the case where the gold phrase doesn't appear in the scored subset (data sample) at all.
-            # Default the score to 0.0
-            if system_score == None:
+            if system_score is None:
+                # the gold phrase doesn't appear in the scored subset (data sample),
+                # default the score to 0.0 and set the system label to 'u' (unknown).
                 system_score = 0.0
                 none_count += 1
-
-            if system_score > threshold:
+                system_label = "u"
+            elif system_score > threshold:
                 system_label = "y"
             else:
-                if system_score > 0.0:
-                    system_label = "n"
-                else:
-                    # "u" for unknown, meaning the term does not show up in the system data.
-                    system_label = "u"
+                system_label = "n"
 
-            if gold_label == "y" and system_label == "y":
-                self.true_pos += 1
-                self.correct += 1
-            elif gold_label == "y" and system_label == "n":
-                self.false_neg += 1
-            elif gold_label == "n" and system_label == "n":
-                self.correct += 1
-                self.true_neg += 1
-            elif gold_label == "n" and system_label == 'y':
-                self.false_pos += 1
-
-            # log the gold and system labels for each phrase
-            s_log.write("%s\t|%s|\t%s\t%f\n" % (gold_label, system_label, phrase, system_score))
-        print "Counts. total phrases in eval: %i, non-matches: %i" % (i, none_count) 
-
+            if gold_label == "y" and system_label == "y": self.true_pos += 1
+            elif gold_label == "y" and system_label == "n": self.false_neg += 1
+            elif gold_label == "n" and system_label == "n": self.true_neg += 1
+            elif gold_label == "n" and system_label == 'y': self.false_pos += 1
+            s_log.write("%s\t|%s|\t%f\t%s\n" % (gold_label, system_label, system_score, phrase))
         
+        self.log_missing_eval_phrases(threshold, s_log)
+        self.correct = self.true_pos + self.true_neg
+        self.debug_counts(d_eval, d_system, i, none_count)
+
+
     def precision(self):
-        total_pos = self.true_pos + self.false_pos
-        if total_pos >0:
-            res = float(self.true_pos) / (self.true_pos + self.false_pos)
-            return(res)
-        else:
-            print "[WARNING: precision]true_pos: %i, false_pos: %i" % (self.true_pos, self.false_pos) 
-            return(-1)
+        try:
+            return float(self.true_pos) / (self.true_pos + self.false_pos)
+        except ZeroDivisionError:
+            print "[WARNING: precision] true_pos: %i, false_pos: %i" % (self.true_pos, self.false_pos) 
+            return -1
 
     def recall(self):
         res = float(self.true_pos) / (self.true_pos + self.false_neg)
@@ -152,87 +125,97 @@ class PRA:
         res = float(self.correct) / self.total
         return(res)
 
-# function used to initialize the label dictionaries to the label "n"
+    def debug_phrase(self, i, phrase, gold_label, system_score):
+        if self.debug_p and i < 10:
+            print "[PRA] '%s'" % phrase
+            found = 'y' if self.d_system.has_key(phrase) else 'n'
+            print "[PRA] gold_label=%s found=%s system_score=%s\n" % (gold_label, found, system_score)
+
+    def debug_counts(self, d_eval, d_system, i, none_count):
+        if self.debug_c:
+            print "Counts"
+            print "   size of d_eval: %d" % len(d_eval)
+            print "   size of d_system: %d" % len(d_system)
+            print "   non-matches (not in d_system): %i" % none_count
+
+    def log_missing_eval_phrases(self, threshold, log):
+        log.write("\nMISSING PHRASES IN D_EVAL\n")
+        for phrase, score in self.d_system.items():
+            gold_label = self.d_eval.get(phrase)
+            system_label = 'y' if score > threshold else 'n'
+            if gold_label is None:
+                log.write("u\t|%s|\t%f\t%s\n" % (system_label, score, phrase))
+                
+
+    
 def default_n():
+    """Initialize the label dictionaries to the label 'n'. """
     return("n")
 
-# class to take an evaluation (gold standard) file (terms labeled with "y", "n") and the output of the mallet classifier (in the form of 
-# a scores file, and populate dictionaries to hold this information, keyed by term.
+
 class EvalData:
+
+    """ Class to take an evaluation (gold standard) file (terms labeled with 'y', 'n') and
+    the output of the mallet classifier (in the form of a scores file), and populate
+    dictionaries to hold this information, keyed by term.  """
     
     def __init__(self, eval_file, system_file):
-        
+
+        self.debug = False
         self.d_eval_phr2label = {}   # map from evaluation phrase to class
         self.d_system_phr2score = {} # map from phrase to score (between 0.0 and 1.0)
         s_eval = codecs.open(eval_file, "r", encoding='utf-8')
         s_system = codecs.open(system_file, "r", encoding='utf-8')
 
-        # populate dictionaries
-
-        # gold data: manually annotated file of random phrases
+        # populate dictionaries, part 1: gold data: manually annotated file of random phrases
         for line in s_eval:
-
-            # if line begins with tab, it has not been labeled, since y/n should appear in col 1 before the tab.
             if line.strip() == '': continue
             if line.lstrip()[0] == '#': continue
-
+            # if line begins with tab, it has not been labeled, since y/n should appear in
+            # col 1 before the tab.
             if line[0] != "\t":
                 # also omit any header lines that don't contain a tab in column two
                 if line[1] == "\t":
                     line = line.strip()
                     (label, phrase) = line.split("\t")
-                    
                     # normalize segmentation by removing all spaces from Chinese words
-                    #phrase = phrase.replace(' ','')
-                    # NOTE how the phrase and label are printed out.  First byte(s) of phrase seems lost or misplaced
-                    #print "[EvalData]storing label/phrase: %s, %s" % (label, phrase)
-
+                    # phrase = phrase.replace(' ','')
                     self.d_eval_phr2label[phrase] = label
+                    # NOTE how the phrase and label are printed out. First byte(s) of
+                    # phrase seems lost or misplaced
+                    # print "[EvalData] storing label/phrase: %s, %s" % (label, phrase)
 
-        # output from mallet maxent classifier ("yes" score, averaged over multiple document instances)
+        # populate dictionaries, part 1: output from mallet maxent classifier ("yes"
+        # score, averaged over multiple document instances)
         n = 0
-        x = 0
         for line in s_system:
-
             n += 1
-            #print "line %i" % n
             line = line.rstrip()
             (phrase, score, count, min, max) = line.split("\t")
-            
-            #if count == '1': continue
-            x += 1
             # normalize segmentation by removing all spaces from Chinese words
-            #phrase = phrase.replace(' ','')
-
+            # phrase = phrase.replace(' ','')
             self.d_system_phr2score[phrase] = float(score)
-            """
-            if n < 10:
-                print "[ED]phrase: %s, score: %s" % (phrase, score)
-                if self.d_system_phr2score.has_key(phrase):
-                    print "[ED]Found key in d_system: %s" % phrase
-                else:
-                    print "[ED]key not found in d_system: %s" % phrase
-                if self.d_eval_phr2label.has_key(phrase):
-                    print "[ED]Found key in d_eval: %s" % phrase
-                else:
-                    print "[ED]key not found in d_eval: %s" % phrase
-                print "[EvalData]Storing sys score, phrase: %s, score: %f, actual: %f"  % (phrase, float(score), self.d_system_phr2score.get(phrase))
-            """
-
-        #print x
-        
-        #print system_file
-        #print len(self.d_system_phr2score)
-        #print self.d_system_phr2score.keys()
-        #for w in [u"camera", u"data", u"database"]:
-        #    print w, self.d_eval_phr2label.get(w), self.d_system_phr2score.get(w)
-
-        #sys.exit()
+            self.debug_phrase(n, phrase, score)
 
         s_eval.close()
-        #s_training.close()
         s_system.close()
 
+        
+    def debug_phrase(self, i, phrase, score):
+        if self.debug and i < 10:
+            print "[ED] phrase: %s, score: %s" % (phrase, score)
+            if self.d_system_phr2score.has_key(phrase):
+                print "[ED] Found key in d_system: %s" % phrase
+            else:
+                print "[ED] key not found in d_system: %s" % phrase
+            if self.d_eval_phr2label.has_key(phrase):
+                print "[ED] Found key in d_eval: %s" % phrase
+            else:
+                print "[ED] key not found in d_eval: %s" % phrase
+            print "[EvalData] Storing sys score, phrase: %s, score: %f, actual: %f\n"  % \
+                  (phrase, float(score), self.d_system_phr2score.get(phrase))
+
+        
         
 # tests over the 500 doc patent databases for each language
 def tcn(threshold):
@@ -313,28 +296,24 @@ def t0(threshold):
     system_test_file = "/home/j/anick/patent-classifier/ontology/creation/data/patents/en/test/t0.scores.sum.nr" 
     log_file_name = "t0_" + str(threshold) + ".gs.log"
     test(eval_test_file, system_test_file, threshold, log_file_name)
-       
+
+    
 def test(eval_test_file, system_test_file, threshold, log_file_name):
+
     edata = EvalData(eval_test_file, system_test_file)
     # open a log file to keep gold and system labels for each phrase
     s_log = codecs.open(log_file_name, "w", 'utf-8')
 
     pra = PRA(edata.d_eval_phr2label, edata.d_system_phr2score, threshold, s_log)
-
     precision = pra.precision()
-    print "precision: %.2f" % precision
     recall = pra.recall()
-    print "recall: %.2f" % recall
     accuracy = pra.accuracy()
-    print "accuracy: %.2f" % accuracy
     total = pra.total
-    print "total: %i" % total
-    print "true pos: %i" % pra.true_pos
-    print "false pos: %i" % pra.false_pos
-    print "false neg: %i" % pra.false_neg
-    print "true neg: %i" % pra.true_neg
-    print "correct: %i" % pra.correct
-    print "precision: %.2f, recall: %.2f, accuracy: %.2f, threshold: %.2f, total: %i" % (precision, recall, accuracy, threshold, total)
+
+    print "total: %d, tp: %s fp: %s, fn: %s, tn: %s" % \
+          (total, pra.true_pos, pra.false_pos, pra.false_neg, pra.true_neg)
+    print "precision: %.2f, recall: %.2f, accuracy: %.2f, threshold: %.2f, total: %i" % \
+          (precision, recall, accuracy, threshold, total)
 
     s_log.close()
 
@@ -379,7 +358,8 @@ def test1():
 ##########################
 
 
-# MV versions of test routines
+# MV versions of test routines, the first two below were used for the evaluations for the
+# final report
 
 def mten_all(test_file):
     for threshold in (0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9):
@@ -387,12 +367,18 @@ def mten_all(test_file):
         mten(threshold, test_file)
     
 def mten(threshold, system_test_file):
+    """Evaluate a system output file using a set of previously labeled terms. For English,
+    these terms were taken from the first nine random files of the 500 US sample patents
+    (see ../evaluation/technology_classifier.txt for details). Note that the system output
+    file could be on a disjoint set of terms. Even if the same nine files were used this
+    could happen. Part of this is because the annotations were most likely done with the
+    abstract/summary filter on. This explains why the set of labeled terms is about 1400
+    and the set of system terms is almost 4400. What is not yet explained is why almost
+    700 elements from the evaluation set do not occur in the system output."""
     log_dir = "../evaluation/logs/"
     # data labeled for phrases chunked by the original rules, which included conjunction and "of"
     eval_test_file = "../annotation/en/phr_occ.eval.lab"
-    # data labeled for more restrictive chunks"
-    #system_test_file = "data/patents/filter-off/en/test/utest.1.MaxEnt.out.s5.scores.sum.nr.000000-000009"
-    log_file_name = log_dir + "ten_c1_" + str(threshold) + ".gs.log"
+    log_file_name = log_dir + "mten_final_" + str(threshold) + ".gs.log"
     test(eval_test_file, system_test_file, threshold, log_file_name)
 
 def mtcn(threshold):
