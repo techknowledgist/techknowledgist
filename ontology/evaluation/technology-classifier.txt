@@ -44,7 +44,8 @@ There are four dimension along which we can structure the evaluation:
 	a. use filter to take only terms that also occur in abstract or summary
 	b. do not use a filter
 
-	We use 3b for our standard evaluation. 
+	We use 3b for our standard evaluation. This filter is sometimes called the
+	abstract/summary filter.
 
 4. Restricting the evaluation to unseen terms
 
@@ -74,24 +75,30 @@ We would like to try 1b2a3b4a to test how well disjoint instances work.
 3. Details on how the evaluation was run
 ----------------------------------------
 
-All evaluation are based on commit v0.1-57-g1d594a3 of the git repository.
+The code base for the evaluation is in commit v0.1-62-g9a09032 of the git repository at
+chalciope.cs.brandeis.edu:/home/j/marc/git/patent-classifier.git.
 
 All evaluations were done on the 500 US sample patents in
-/home/j/corpuswork/fuse/fuse-patent.
+chalciope.cs.brandeis.edu:/home/j/corpuswork/fuse/fuse-patent.
 
 
 3.1. Creating the standard evaluation
 -------------------------------------
 
-This section contains the commands to create standard-1a2a3b4a. Run all commands from
-ontology/creation and assume we have a directory data/patents/evaluation with in it the
-subdirectories we need (that is, standard-1a2a3b4a, variant1-1a2a3a4a and
-variant2-1a2a3b4b). First we initialze the evaluation directory.
+This section contains the commands to create standard-1a2a3b4a. That is, disjoint sets of
+documents and instances, no abstract/summary filter and evaluation on seen as well as
+unseen terms.
+
+To do this, run all commands bellow from ontology/creation and assume we have a directory
+data/patents/evaluation with in it the subdirectories we need (that is, standard-1a2a3b4a,
+variant1-1a2a3a4a and variant2-1a2a3b4b). First we initialze the evaluation directory.
 
 $ export SOURCE=/home/j/corpuswork/fuse/fuse-patents/500-patents/DATA/Lexis-Nexis/US/Xml
 $ export DATA=data/patents/evaluation/standard-1a2a3b4a
 $ python batch.py -l en -s $SOURCE -t $DATA --init
 $ python batch.py -l en -s $SOURCE -t $DATA --populate -n 500
+
+On a c-shell use setenv instead of export.
 
 There turned out to be a problem here, which was that the ALL_FILES.txt that was created
 shuffled the files in a different way than a previous run and that previous run was used
@@ -141,6 +148,8 @@ as mten_final_0.9.gs.log. We can then created the annotation file as follows:
 $ cd ../evaluaution
 $ grep -e "^u" mten_final_0.9.gs.log | cut -f4 | perl -e 'while(<>){ print "\t$_" ; }' > phases_not_in_evaluation_set.unlab
 
+As of this writing, the evaluation has not been updated to allow for this.
+
 
 
 3.2. Creating the variants
@@ -148,84 +157,182 @@ $ grep -e "^u" mten_final_0.9.gs.log | cut -f4 | perl -e 'while(<>){ print "\t$_
 
 Commands here are given without further comments.
 
-To create variant1-1a2a3a4a.
+The first variant, variant1-1a2a3a4a, is identical to the standard version except that it
+has switched on the abstract/summary filter for technology candidates (the --chunk-filter
+option).
 
 $ export DATA=data/patents/evaluation/variant1-1a2a3a4a
 $ cp data/patents/evaluation/standard-1a2a3b4a $DATA
 $ python batch.py -l en -t $DATA --tag2chk -n 500 --chunk-filter --verbose
 $ python batch.py -l en -t $DATA --pf2dfeats -n 500 --verbose
 $ python batch.py -l en -t $DATA --summary -n 500 --verbose
+$ python batch.py -l en -t $DATA --utrain -n 9 --verbose
+$ python batch.py -l en -t $DATA --utrain -n 491 --verbose
+$ python batch.py -l en -t $DATA --utest -n 9 --verbose
+$ python batch.py -l en -t $DATA --scores -r 000000-000009 --verbose
+$ python eval.py $DATA/en/test/utest.1.MaxEnt.out.s5.scores.sum.nr.000000-000009
 
-To create variant2-1a2a3b4b:
+The second variant, variant2-1a2a3b4b, is identical to the standard except that it only
+measures performance on unseen terms (the --eval-on-unseen-terms option).
 
 $ export DATA=data/patents/evaluation/variant2-1a2a3b4b
 $ cp data/patents/evaluation/standard-1a2a3b4a $DATA
 $ python batch.py -l en -t $DATA --tag2chk -n 500 --no-chunk-filter --verbose
 $ python batch.py -l en -t $DATA --pf2dfeats -n 500 --verbose
 $ python batch.py -l en -t $DATA --summary -n 500 --verbose
+$ python batch.py -l en -t $DATA --utrain -n 9 --verbose
+$ python batch.py -l en -t $DATA --utrain -n 491 --verbose
+$ python batch.py -l en -t $DATA --utest -n 9 --verbose --eval-on-unseen-terms
+$ python batch.py -l en -t $DATA --scores -r 000000-000009 --verbose
+$ python eval.py $DATA/en/test/utest.1.MaxEnt.out.s5.scores.sum.nr.000000-000009
 
 
 
 4. Results
 ----------
 
-4.1. standard-1a2a3b4a
-----------------------
+This sections has the results for the command
 
 $ python eval.py $DATA/en/test/utest.1.MaxEnt.out.s5.scores.sum.nr.000000-000009
 
-THRESHOLD = 0.0
-total: 1436, tp: 246 fp: 509, fn: 0, tn: 0
-precision: 0.33, recall: 1.00, accuracy: 0.17, threshold: 0.00, total: 1436
-
-THRESHOLD = 0.1
-total: 1436, tp: 228 fp: 326, fn: 18, tn: 183
-precision: 0.41, recall: 0.93, accuracy: 0.29, threshold: 0.10, total: 1436
-
-THRESHOLD = 0.2
-total: 1436, tp: 183 fp: 233, fn: 63, tn: 276
-precision: 0.44, recall: 0.74, accuracy: 0.32, threshold: 0.20, total: 1436
-
-THRESHOLD = 0.3
-total: 1436, tp: 146 fp: 149, fn: 100, tn: 360
-precision: 0.49, recall: 0.59, accuracy: 0.35, threshold: 0.30, total: 1436
-
-THRESHOLD = 0.4
-total: 1436, tp: 116 fp: 103, fn: 130, tn: 406
-precision: 0.53, recall: 0.47, accuracy: 0.36, threshold: 0.40, total: 1436
-
-THRESHOLD = 0.5
-total: 1436, tp: 105 fp: 72, fn: 141, tn: 437
-precision: 0.59, recall: 0.43, accuracy: 0.38, threshold: 0.50, total: 1436
-
-THRESHOLD = 0.6
-total: 1436, tp: 78 fp: 47, fn: 168, tn: 462
-precision: 0.62, recall: 0.32, accuracy: 0.38, threshold: 0.60, total: 1436
-
-THRESHOLD = 0.7
-total: 1436, tp: 54 fp: 30, fn: 192, tn: 479
-precision: 0.64, recall: 0.22, accuracy: 0.37, threshold: 0.70, total: 1436
-
-THRESHOLD = 0.8
-total: 1436, tp: 39 fp: 19, fn: 207, tn: 490
-precision: 0.67, recall: 0.16, accuracy: 0.37, threshold: 0.80, total: 1436
-
-THRESHOLD = 0.9
-total: 1436, tp: 26 fp: 11, fn: 220, tn: 498
-precision: 0.70, recall: 0.11, accuracy: 0.36, threshold: 0.90, total: 1436
+First the summaries, then the full output.
 
 
-SUMMARY:
+4.1. Summary
+------------
+
+standard-1a2a3b4a
 
 	threshold   0.0  0.1  0.2  0.3  0.4  0.5  0.6  0.7  0.8  0.9
 	precision   0.33 0.41 0.44 0.49 0.53 0.59 0.62 0.64 0.67 0.70 
 	recall      1.00 0.93 0.74 0.59 0.47 0.43 0.32 0.22 0.16 0.11
 
+variant1-1a2a3a4a
+
+	threshold   0.0  0.1  0.2  0.3  0.4  0.5  0.6  0.7  0.8  0.9
+	precision   0.32 0.38 0.42 0.46 0.54 0.61 0.69 0.74 0.75 0.90 
+	recall      1.00 0.94 0.83 0.67 0.52 0.38 0.29 0.20 0.15 0.08
+
+variant2-1a2a3b4b
+
+	threshold   0.0  0.1  0.2  0.3  0.4  0.5  0.6  0.7  0.8  0.9
+	precision   0.34 0.41 0.43 0.49 0.53 0.59 0.61 0.64 0.66 0.71 
+	recall      1.00 0.92 0.73 0.57 0.45 0.40 0.30 0.20 0.14 0.10
+
+Comparing precision
+
+	threshold          0.0  0.1  0.2  0.3  0.4  0.5  0.6  0.7  0.8  0.9
+	standard-1a2a3b4a  0.33 0.41 0.44 0.49 0.53 0.59 0.62 0.64 0.67 0.70 
+	variant1-1a2a3a4a  0.32 0.38 0.42 0.46 0.54 0.61 0.69 0.74 0.75 0.90 
+	variant2-1a2a3b4b  0.34 0.41 0.43 0.49 0.53 0.59 0.61 0.64 0.66 0.71 
+
+Comparing recal
+
+	threshold          0.0  0.1  0.2  0.3  0.4  0.5  0.6  0.7  0.8  0.9
+	standard-1a2a3b4a  1.00 0.93 0.74 0.59 0.47 0.43 0.32 0.22 0.16 0.11
+	variant1-1a2a3a4a  1.00 0.94 0.83 0.67 0.52 0.38 0.29 0.20 0.15 0.08
+	variant2-1a2a3b4b  1.00 0.92 0.73 0.57 0.45 0.40 0.30 0.20 0.14 0.10
+
+
+
+4.1. standard-1a2a3b4a
+----------------------
+
+total: 1436, tp: 246 fp: 509, fn: 0, tn: 0
+precision: 0.33, recall: 1.00, accuracy: 0.17, threshold: 0.00, total: 1436
+
+total: 1436, tp: 228 fp: 326, fn: 18, tn: 183
+precision: 0.41, recall: 0.93, accuracy: 0.29, threshold: 0.10, total: 1436
+
+total: 1436, tp: 183 fp: 233, fn: 63, tn: 276
+precision: 0.44, recall: 0.74, accuracy: 0.32, threshold: 0.20, total: 1436
+
+total: 1436, tp: 146 fp: 149, fn: 100, tn: 360
+precision: 0.49, recall: 0.59, accuracy: 0.35, threshold: 0.30, total: 1436
+
+total: 1436, tp: 116 fp: 103, fn: 130, tn: 406
+precision: 0.53, recall: 0.47, accuracy: 0.36, threshold: 0.40, total: 1436
+
+total: 1436, tp: 105 fp: 72, fn: 141, tn: 437
+precision: 0.59, recall: 0.43, accuracy: 0.38, threshold: 0.50, total: 1436
+
+total: 1436, tp: 78 fp: 47, fn: 168, tn: 462
+precision: 0.62, recall: 0.32, accuracy: 0.38, threshold: 0.60, total: 1436
+
+total: 1436, tp: 54 fp: 30, fn: 192, tn: 479
+precision: 0.64, recall: 0.22, accuracy: 0.37, threshold: 0.70, total: 1436
+
+total: 1436, tp: 39 fp: 19, fn: 207, tn: 490
+precision: 0.67, recall: 0.16, accuracy: 0.37, threshold: 0.80, total: 1436
+
+total: 1436, tp: 26 fp: 11, fn: 220, tn: 498
+precision: 0.70, recall: 0.11, accuracy: 0.36, threshold: 0.90, total: 1436
 
 
 4.2. variant1-1a2a3a4a
 ----------------------
 
+total: 1436, tp: 246 fp: 511, fn: 0, tn: 0
+precision: 0.32, recall: 1.00, accuracy: 0.17, threshold: 0.00, total: 1436
+
+total: 1436, tp: 232 fp: 377, fn: 14, tn: 134
+precision: 0.38, recall: 0.94, accuracy: 0.25, threshold: 0.10, total: 1436
+
+total: 1436, tp: 203 fp: 275, fn: 43, tn: 236
+precision: 0.42, recall: 0.83, accuracy: 0.31, threshold: 0.20, total: 1436
+
+total: 1436, tp: 165 fp: 191, fn: 81, tn: 320
+precision: 0.46, recall: 0.67, accuracy: 0.34, threshold: 0.30, total: 1436
+
+total: 1436, tp: 129 fp: 109, fn: 117, tn: 402
+precision: 0.54, recall: 0.52, accuracy: 0.37, threshold: 0.40, total: 1436
+
+total: 1436, tp: 94 fp: 60, fn: 152, tn: 451
+precision: 0.61, recall: 0.38, accuracy: 0.38, threshold: 0.50, total: 1436
+
+total: 1436, tp: 71 fp: 32, fn: 175, tn: 479
+precision: 0.69, recall: 0.29, accuracy: 0.38, threshold: 0.60, total: 1436
+
+total: 1436, tp: 50 fp: 18, fn: 196, tn: 493
+precision: 0.74, recall: 0.20, accuracy: 0.38, threshold: 0.70, total: 1436
+
+total: 1436, tp: 36 fp: 12, fn: 210, tn: 499
+precision: 0.75, recall: 0.15, accuracy: 0.37, threshold: 0.80, total: 1436
+
+total: 1436, tp: 19 fp: 2, fn: 227, tn: 509
+precision: 0.90, recall: 0.08, accuracy: 0.37, threshold: 0.90, total: 1436
+
 
 4.3. variant2-1a2a3b4b
 ----------------------
+
+total: 1436, tp: 222 fp: 422, fn: 0, tn: 0
+precision: 0.34, recall: 1.00, accuracy: 0.15, threshold: 0.00, total: 1436
+
+total: 1436, tp: 205 fp: 301, fn: 17, tn: 121
+precision: 0.41, recall: 0.92, accuracy: 0.23, threshold: 0.10, total: 1436
+
+total: 1436, tp: 162 fp: 216, fn: 60, tn: 206
+precision: 0.43, recall: 0.73, accuracy: 0.26, threshold: 0.20, total: 1436
+
+total: 1436, tp: 127 fp: 132, fn: 95, tn: 290
+precision: 0.49, recall: 0.57, accuracy: 0.29, threshold: 0.30, total: 1436
+
+total: 1436, tp: 100 fp: 89, fn: 122, tn: 333
+precision: 0.53, recall: 0.45, accuracy: 0.30, threshold: 0.40, total: 1436
+
+total: 1436, tp: 88 fp: 62, fn: 134, tn: 360
+precision: 0.59, recall: 0.40, accuracy: 0.31, threshold: 0.50, total: 1436
+
+total: 1436, tp: 66 fp: 42, fn: 156, tn: 380
+precision: 0.61, recall: 0.30, accuracy: 0.31, threshold: 0.60, total: 1436
+
+total: 1436, tp: 44 fp: 25, fn: 178, tn: 397
+precision: 0.64, recall: 0.20, accuracy: 0.31, threshold: 0.70, total: 1436
+
+total: 1436, tp: 31 fp: 16, fn: 191, tn: 406
+precision: 0.66, recall: 0.14, accuracy: 0.30, threshold: 0.80, total: 1436
+
+total: 1436, tp: 22 fp: 9, fn: 200, tn: 413
+precision: 0.71, recall: 0.10, accuracy: 0.30, threshold: 0.90, total: 1436
+

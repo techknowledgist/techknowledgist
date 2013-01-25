@@ -67,7 +67,7 @@ class PRA:
     def __init__(self, d_eval, d_system, threshold, s_log):
 
         self.debug_p = False
-        self.debug_c = False
+        self.debug_c = True
         self.d_eval = d_eval
         self.d_system = d_system
         self.true_pos = 0
@@ -102,7 +102,7 @@ class PRA:
             if gold_label == "y" and system_label == "y": self.true_pos += 1
             elif gold_label == "y" and system_label == "n": self.false_neg += 1
             elif gold_label == "n" and system_label == "n": self.true_neg += 1
-            elif gold_label == "n" and system_label == 'y': self.false_pos += 1
+            elif gold_label == "n" and system_label == "y": self.false_pos += 1
             s_log.write("%s\t|%s|\t%f\t%s\n" % (gold_label, system_label, system_score, phrase))
         
         self.log_missing_eval_phrases(threshold, s_log)
@@ -363,7 +363,7 @@ def test1():
 
 def mten_all(test_file):
     for threshold in (0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9):
-        print "\nTHRESHOLD =", threshold
+        print
         mten(threshold, test_file)
     
 def mten(threshold, system_test_file):

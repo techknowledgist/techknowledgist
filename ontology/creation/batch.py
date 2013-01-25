@@ -570,7 +570,7 @@ if __name__ == '__main__':
         'l:s:t:n:r:',
         ['init', 'populate', 'xml2txt', 'txt2tag', 'tag2chk', 'pf2dfeats', 'summary',
          'annotate1', 'annotate2', 'utrain', 'utest', 'scores',
-         'verbose', 'chunk-filter', 'no-chunk-filter', 'evalmode'])
+         'verbose', 'chunk-filter', 'no-chunk-filter', 'eval-on-unseen-terms'])
 
     init, populate = False, False
     xml_to_txt, txt_to_seg, txt_to_tag, tag_to_chk = False, False, False, False
@@ -606,7 +606,7 @@ if __name__ == '__main__':
         if opt == '--verbose': verbose = True
         if opt == '--chunk-filter': chunk_filter = True
         if opt == '--no-chunk-filter': chunk_filter = False
-        if opt == '--evalmode': use_all_chunks = False
+        if opt == '--eval-on-unseen-terms': use_all_chunks = False
         
     if init:
         run_init(source_path, target_path, language)
