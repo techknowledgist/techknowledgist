@@ -75,8 +75,8 @@ We would like to try 1b2a3b4a to test how well disjoint instances work.
 3. Details on how the evaluation was run
 ----------------------------------------
 
-The code base for the evaluation is in commit v0.1-62-g9a09032 of the git repository at
-chalciope.cs.brandeis.edu:/home/j/marc/git/patent-classifier.git.
+The code base for the evaluation is in the commit tagged with v0.2 of the git repository
+at chalciope.cs.brandeis.edu:/home/j/marc/git/patent-classifier.git.
 
 All evaluations were done on the 500 US sample patents in
 chalciope.cs.brandeis.edu:/home/j/corpuswork/fuse/fuse-patent.
@@ -89,7 +89,7 @@ This section contains the commands to create standard-1a2a3b4a. That is, disjoin
 documents and instances, no abstract/summary filter and evaluation on seen as well as
 unseen terms.
 
-To do this, run all commands bellow from ontology/creation and assume we have a directory
+To do this, run all commands below from ontology/creation and assume we have a directory
 data/patents/evaluation with in it the subdirectories we need (that is, standard-1a2a3b4a,
 variant1-1a2a3a4a and variant2-1a2a3b4b). First we initialze the evaluation directory.
 

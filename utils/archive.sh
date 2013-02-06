@@ -3,7 +3,7 @@
 # Shell script to export a directory to a given destination. Running it from its parent
 # directory will create an archive of the git repository with the following name 
 #
-#     patent-classifier-DATE:TIME-SHA1.tar
+#     patent-classifier-DATE-TIME-SHA1.tar
 #
 # where SHA1 has the first seven digits of the SHA-1 hash of the current head. This
 # assumes (I think) that we are currently on the master branch since what is archived is
@@ -15,7 +15,7 @@
 # git status on the working directory.
 
 
-set date = `date +"%Y%m%d:%H%M"`
+set date = `date +"%Y%m%d-%H%M%S"`
 set head = `git rev-parse --short HEAD`
 set archive = "patent-classifier-$date-$head.tar"
 
