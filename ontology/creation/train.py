@@ -101,20 +101,29 @@ def make_utraining_file_by_dir(patent_dir, lang, version, d_phr2label):
     print "[make_training_file]Created training data in: %s" % train_file
 
 
+
+
 def make_utraining_file(patent_dir, lang, version, d_phr2label, limit=0):
 
     """ Create a file with training instances for Mallet. It uses the precomputed summary
     of all doc_feats for multiple directories in <lang>/ws/doc_feats.all and is a more
     efficient version of make_utraining_file_by_dir. The limit parameter gives the maximum
     number of files from the input that should be used for the model, if it is zero, than
-    all files will be taken."""
+    all files will be taken.
 
+    PGA: This function should be folded into the Mallet_training class in mallet.py so we don't have
+    the hack that creates a MalletTraining instance just to do feature filtering.
+    """
+
+    # create a MalletTraining instance to handle feature filtering
+    train_output_dir = os.path.join(patent_dir, lang, "train")
+    mtr = mallet.Mallet_training("utrain", version , train_output_dir)
+    
     s_train, s_doc_feats_input = _get_training_io(patent_dir, lang, version)
     labeled_count = 0
     unlabeled_count = 0
     current_fname = None
     file_count = 0
-
     printed_line = False
     
     for line in s_doc_feats_input:
@@ -135,6 +144,11 @@ def make_utraining_file(patent_dir, lang, version, d_phr2label, limit=0):
             if file_count == limit:
                 break
         feats = unique_list(fields[2:])
+
+        # PGA note: depending on the version value, we may filter these feats below before
+        # writing a line out to the .mallet file 
+        feats = mtr.remove_filtered_feats(feats)
+
         # check if the phrase has a known label
         if d_phr2label.has_key(phrase):
             label = d_phr2label.get(phrase)
@@ -234,7 +248,7 @@ def _get_training_io(patent_dir, lang, version):
     return (train_fh, doc_feats_fh)
 
 
-def patent_utraining_data(patent_dir, lang, version="1", xval=0, limit=0):
+def patent_utraining_data(patent_dir, lang, version="1", xval=0, limit=0, classifier="MaxEnt"):
     # get dictionary of annotations
     d_phr2label = load_phrase_labels(patent_dir, lang)
     # create .mallet file
@@ -248,7 +262,7 @@ def patent_utraining_data(patent_dir, lang, version="1", xval=0, limit=0):
     # make sure xval is an int (since it can be passed in by command line args)
     xval = int(xval)
     # create the model (utrain.<version>.MaxEnt.model)
-    mtr.mallet_train_classifier("MaxEnt", xval)
+    mtr.mallet_train_classifier(classifier, xval)
 
 
 
@@ -334,13 +348,15 @@ def add_file_to_utraining_test_file(fname, s_test, d_phr2label, stats,
     s_doc_feats_input.close()
     
 
-
-def patent_utraining_test_data(patent_dir, lang, version="1", use_all_chunks_p=True):
+# When we create test data for evaluation, we may choose to leave out any chunks that were 
+# included in the annotation data.  In this case, use_annotated_chunks_p should be set to False.
+# But to generate actual labeled data for some other use, then set this parameter to True so that
+# labels are generated for all chunks.
+def patent_utraining_test_data(patent_dir, lang, version="1", use_annotated_chunks_p=True):
     # get dictionary of annotations
     d_phr2label = load_phrase_labels(patent_dir, lang)
     # create .mallet file
-    make_utraining_test_file(patent_dir, lang, version, d_phr2label, use_all_chunks_p)
-    ###return
+    make_utraining_test_file(patent_dir, lang, version, d_phr2label, use_annotated_chunks_p)
     # create an instance of Mallet_test class to do the rest
     # let's do the work in the test directory for now.
     test_output_dir = os.path.join(patent_dir, lang, "test")
@@ -447,3 +463,5 @@ def pipeline_make_utraining_test_file(root, lang, version):
     s_test.close()
     #print "labeled instances: %i, unlabeled: %i" % (labeled_count, unlabeled_count)
     print "[make_utraining_test_file]Created testing data in: %s" % test_file
+
+
