@@ -472,11 +472,52 @@ class Sentence(object):
         last_index = self.chart[index].chunk_end - 1
         res = self.chart[last_index].lc_tok
         return(fname("last_word", res))
-        
+
+    # suffix n-grams (3-5)
+    def suffix3(self, index):
+        last_index = self.chart[index].chunk_end - 1
+        last_word = self.chart[last_index].lc_tok
+        res = ""
+        if len(res) >= 6:
+            res = last_word[-3:]
+        return(fname("suffix3", res))
+
+    def suffix4(self, index):
+        last_index = self.chart[index].chunk_end - 1
+        last_word = self.chart[last_index].lc_tok
+        res = ""
+        if len(res) >= 7:
+            res = last_word[-4:]
+        return(fname("suffix4", res))
+
+    def suffix5(self, index):
+        last_index = self.chart[index].chunk_end - 1
+        last_word = self.chart[last_index].lc_tok
+        res = ""
+        if len(res) >= 8:
+            res = last_word[-3:]
+        return(fname("suffix5", res))
+
+
+    @feature_method
+    def first_word(self, index):
+        last_index = self.chart[index].chunk_end - 1
+        res = ""
+        if index != last_index:
+            res = self.chart[index].lc_tok
+        # note, returns "" if length of phrase is 1
+        return(fname("first_word", res))
+
+   
     @feature_method
     # tag signature (sequence of tags as a string)
     def tag_list(self, index):
         res = self.chart[index].tag_sig
+        # PGA /// hack to fix bug wherein some tag_sigs start with _
+        # e.g. _JJ_NNS
+        # This should be fixed at the source
+        if res[0] == "_":
+            res = res[1:]
         return(fname("tag_sig", res))
 
 ### language specific Sentence subclass definitions
@@ -537,6 +578,7 @@ class Sentence_english(Sentence):
         res = noun.lower()
         return(fname("prev_N", res))
 
+    
     # initial adj in chunk, if there is one
     @feature_method
     def chunk_lead_J(self, index):

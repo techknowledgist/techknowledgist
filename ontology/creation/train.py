@@ -101,20 +101,30 @@ def make_utraining_file_by_dir(patent_dir, lang, version, d_phr2label):
     print "[make_training_file]Created training data in: %s" % train_file
 
 
+
+
 def make_utraining_file(patent_dir, lang, version, d_phr2label, limit=0):
 
     """ Create a file with training instances for Mallet. It uses the precomputed summary
     of all doc_feats for multiple directories in <lang>/ws/doc_feats.all and is a more
     efficient version of make_utraining_file_by_dir. The limit parameter gives the maximum
     number of files from the input that should be used for the model, if it is zero, than
-    all files will be taken."""
+    all files will be taken.
 
+    PGA: This function should be folded into the Mallet_training class in mallet.py so we don't have
+    the hack that creates a MalletTraining instance just to do feature filtering.
+    """
+
+    # create a MalletTraining instance to handle feature filtering
+    train_output_dir = os.path.join(patent_dir, lang, "train")
+    mtr = mallet.Mallet_training("utrain", version , train_output_dir)
+    
     s_train, s_doc_feats_input = _get_training_io(patent_dir, lang, version)
     labeled_count = 0
     unlabeled_count = 0
     current_fname = None
     file_count = 0
-
+    
     for line in s_doc_feats_input:
         # extract key, uid, and features
         fields = line.strip("\n").split("\t")
@@ -130,6 +140,11 @@ def make_utraining_file(patent_dir, lang, version, d_phr2label, limit=0):
             if file_count == limit:
                 break
         feats = unique_list(fields[2:])
+
+        # PGA note: depending on the version value, we may filter these feats below before
+        # writing a line out to the .mallet file 
+        feats = mtr.remove_filtered_feats(feats)
+
         # check if the phrase has a known label
         if d_phr2label.has_key(phrase):
             label = d_phr2label.get(phrase)
