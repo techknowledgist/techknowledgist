@@ -187,6 +187,7 @@ def run_xml2txt(target_path, language, limit):
     mappings = {'en': 'ENGLISH', 'de': "GERMAN", 'cn': "CHINESE" }
     xml_parser.language = mappings[language]
     fnames = files_to_process(target_path, language, stages, '--xml2txt', limit)
+    workspace = os.path.join(target_path, language, 'ws')
     count = 0
     for year, fname in fnames:
         count += 1
@@ -195,12 +196,12 @@ def run_xml2txt(target_path, language, limit):
         if verbose:
             print "[--xml2txt] %04d creating %s" % (count, target_file)
         try:
-            xml2txt.xml2txt(xml_parser, source_file, target_file)
+            xml2txt.xml2txt(xml_parser, source_file, target_file, workspace)
         except Exception:
             fh = codecs.open(target_file, 'w')
             fh.close()
             print "[--xml2txt]      WARNING: error on", source_file
-    update_stages(target_path, language, '--xml2txt', limit)
+    #update_stages(target_path, language, '--xml2txt', limit)
 
 def run_txt2tag(target_path, language, limit):
     """Takes txt files and runs the tagger (and segmenter for Chinese) on them. Adds files to

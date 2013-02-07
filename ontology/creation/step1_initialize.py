@@ -7,65 +7,15 @@ define the set of training and test files, (4) create a file config/config-pipel
 with default settings for the pipeline, and (5) create a file config/config-general.txt
 with settings used by this script.
 
-NOTES:
-- In addition, the script also initializes a config/stages.txt file that keeps track of
-  how many files have been processed by each processing stage. This will probably soon be
-  removed though.
-- Paths in config-general.txt are relative to this file. Initially, all settings are from
-  this initialization script, but other configuration settings could be added later.
-- The config-pipeline.txt file is tricky. It contains all default settings for arguments
-  handed over to individual components (tagger, chunker, maxent model trainer
-  etcetera). If more arguments are added, then this file should be updated manually and it
-  should then also be used to fill in default values for past processing jobs (assuming
-  that there is a default that makes sense).
-
-The default for the training and test set is to use the first 500 files in FILES.txt. This
-was done because it made sense for the 500 sample patents that were often used. Normally,
-having identical files for test and training sets is a no no, but due to the particular
-nature of how we train and test it was okay.
-
-The directory tree created inside the language directory is as follows:
-
-    |-- config
-    |   |-- config-general.txt
-    |   |-- config-pipeline.txt
-    |   |-- files.txt
-    |   |-- stages.txt
-    |   |-- testing-files-000000-000500.txt
-    |   `-- training-files-000000-000500.txt
-    `-- data
-        |-- annotate       'input for annotation effort'
-        |-- classify       'classification results'
-        |-- doc_feats      'results from merging phrase features intro doc features'
-        |-- ds_fact        'intermediate results from document structure parser'
-        |-- ds_sect        'intermediate results from document structure parser'
-        |-- ds_tags        'intermediate results from document structure parser'
-        |-- ds_text        'intermediate results from document structure parser'
-        |-- idx            'term indexes'
-        |-- phr_feats      'results from candidate selection'
-        |-- phr_occ        'results from candidate selection'
-        |-- seg            'segmenter results'
-        |-- selector       'results of the selector'
-        |-- tag            'tagger results '
-        |-- test           'test and evlauation area'
-        |-- train          'vectors for the classifier and classifier models'
-        |-- txt            'results of document structure parser'
-        |-- ws             'work space to save data that crosses years'
-        `-- xml            'import of XML data'
-   
-No existing files or directories will be overwritten, except for the files in the config
-directory that are listed above (config-general.txt, files.txt, config-pipeline.txt,
-stages.txt, testing-files-000000-000500.txt, and training-files-000000-000500.txt).
-
 USAGE
    % python step1_initialize.py OPTIONS
 
 OPTIONS
    -l en|de|cn   --  language
-   -f FILE       --  input: use external FILE and copy it to ALL_FILES.txt
-   -s DIRECTORY  --  input: generate ALL_FILES.txt from DIRECTORY
+   -f FILE       --  input: use external FILE and copy it to config/files.txt
+   -s DIRECTORY  --  input: generate config/files.txt from DIRECTORY
    -t DIRECTORY  --  output: target directory where the language directory is put
-   --shuffle     --  performs a random sort of FILES.txt, used with the -s option
+   --shuffle     --  performs a random sort of config/files.txt, used with the -s option
 
 Typical invocations:
     % python step1_initialize.py -l en -t data/patents -f filelist.txt
@@ -77,6 +27,60 @@ Typical invocations:
     directory ../external/US/Xml/, takes all file paths, randomly shuffles them, and then
     saves the result to en/config/files.txt.
 
+
+NOTES
+
+Paths in config/config-general.txt can be either relative or absolute. Initially, all
+settings are from this initialization script, but other configuration settings could be
+added later.
+
+The config-pipeline.txt file is tricky. It contains all default settings for arguments
+handed over to individual components (tagger, chunker, maxent model trainer etcetera). If
+more arguments are added, then this file should be updated manually and it should then
+also be used to fill in default values for past processing jobs (assuming that there is a
+default that makes sense).
+
+The default for creating the training set and test set is to use the first 500 files in
+config/files.txt. This was done because it made sense for the 500 sample patents that were
+often used. Normally, having identical files for test and training sets is a no no, but
+due to the particular nature of how we train and test it was okay. In general though,
+non-default versionsof these files will be created.
+
+The directory tree created inside the language directory is as follows:
+
+    |-- config
+    |   |-- config-general.txt
+    |   |-- config-pipeline.txt
+    |   |-- files.txt
+    |   |-- testing-files-000000-000500.txt
+    |   `-- training-files-000000-000500.txt
+    `-- data
+        |-- d0_xml            'import of XML data'
+        |-- d1_txt            'results of document structure parser'
+        |-- d2_seg            'segmenter results'
+        |-- d2_tag            'tagger results '
+        |-- d3_phr_feats      'results from candidate selection'
+        |-- d3_phr_occ        'results from candidate selection'
+        |-- d4_doc_feats      'results from merging phrase features intro doc features'
+        |-- o1_index          'term indexes'
+        |-- o2_matcher        'results of the pattern matcher'
+        |-- o3_selector       'results of the selector'
+        |-- t0_annotate       'input for annotation effort'
+        |-- t1_train          'vectors for the classifier and classifier models'
+        |-- t2_classify       'classification results'
+        |-- t3_test           'test and evaluation area'
+        `-- workspace         'work space area'
+
+Note that the processing stages are grouped using prefixes, where the features carry some meaning:
+
+   d -- document level processing
+   t -- processing for the technology classifier
+   o -- processing for the ontology creator (this is used by a downstream script)
+
+No existing files or directories will be overwritten, except for the files in the config
+directory that are listed above (config-general.txt, files.txt, config-pipeline.txt,
+stages.txt, testing-files-000000-000500.txt, and training-files-000000-000500.txt).
+
 """
 
 
@@ -84,7 +88,7 @@ import os, sys, shutil, getopt, errno, random, time
 import config_data
 
 
-default_pipeline_config = """
+DEFAULT_PIPELINE = """
 # This file contains the default pipeline configuration settings. Settings in here can be
 # overruled by handing the step2_document_processing script the path to another
 # configuration file.
@@ -94,6 +98,12 @@ txt2tag
 tag2chk chunk_filter=off
 pf2dfeats
 """
+
+PROCESSING_AREAS = \
+    ['d0_xml', 'd1_txt', 'd2_tag', 'd2_seg', 'd3_phr_occ', 'd3_phr_feats', 'd4_doc_feats',
+     't0_annotate', 't1_train', 't2_classify', 't3_test',
+     'o1_index', 'o2_matcher', 'o3_selector',
+     'workspace' ]
 
 
 def init(language, source_file, source_path, target_path, pipeline_config, shuffle_file):
@@ -128,7 +138,7 @@ def init(language, source_file, source_path, target_path, pipeline_config, shuff
 
     create_default_pipeline_config_file(pipeline_config, conf_path)
     create_filelist(source_file, source_path, conf_path, shuffle_file)
-    create_stages_file(conf_path)
+    #create_stages_file(conf_path)
     create_default_train_and_test_file_selections(conf_path)
     print ""
     
@@ -145,11 +155,8 @@ def ensure_path(path, verbose=False):
         
 
 def create_data_directories(target_path):
-    """Create subdirectories in target_path for all processing stages."""
-    l_subdir = ["xml", "txt", "tag", "seg", "ds_text", "ds_tags", "ds_sect", "ds_fact",
-                "phr_occ", "phr_feats", "doc_feats", 'ws', 'annotate', 'idx', 'train',
-                'test', 'classify', 'selector' ]
-    for subdir in l_subdir:
+    """Create subdirectories in target_path for all processing areas."""
+    for subdir in PROCESSING_AREAS:
         subdir_path = target_path + os.sep + subdir
         ensure_path(subdir_path)
 
@@ -231,7 +238,7 @@ if __name__ == '__main__':
     source_path = None
     target_path = config_data.working_patent_path
     language = config_data.language
-    pipeline_config = default_pipeline_config
+    pipeline_config = DEFAULT_PIPELINE
     shuffle_file = False
     
     for opt, val in opts:

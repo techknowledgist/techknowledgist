@@ -19,20 +19,18 @@ sys.path.append("/home/j/corpuswork/fuse/code/patent-classifier")
 from utils.docstructure.main import Parser
 
 
-def xml2txt(xml_parser, source_file, target_file):
-    """Create a target_file in the txt directory from asource_file in the xml directory, using
-    a Parser() object. This method is called from batch.py and does not depend on the
-    hard-coded path above."""
-    (dir1, basename) = os.path.split(target_file)
-    (dir2, year) = os.path.split(dir1)
-    (dir3, mode) = os.path.split(dir2)
-    ds_text_file = os.path.join(dir3, "ds_text", year, basename)
-    ds_tags_file = os.path.join(dir3, "ds_tags", year, basename)
-    ds_fact_file = os.path.join(dir3, "ds_fact", year, basename)
-    ds_sect_file = os.path.join(dir3, "ds_sect", year, basename)
+def xml2txt(xml_parser, source_file, target_file, workspace):
+    """Create a target_file in the txt directory from a source_file in the xml directory,
+    using a Parser() object. This method is called from batch.py and does not depend on
+    the hard-coded path above."""
+    basename = os.path.basename(target_file)
+    ds_text_file = os.path.join(workspace, "%s.text" % basename)
+    ds_tags_file = os.path.join(workspace, "%s.tags" % basename)
+    ds_fact_file = os.path.join(workspace, "%s.fact" % basename)
+    ds_sect_file = os.path.join(workspace, "%s.sect" % basename)
     xml_parser.create_ontology_creation_input(source_file, ds_text_file, ds_tags_file,
                                               ds_fact_file, ds_sect_file, target_file)
-    
+
 
 def xml2txt_dir(xml_parser, source_path, target_path,
                 ds_text_path, ds_tags_path , ds_fact_path, ds_sect_path):
