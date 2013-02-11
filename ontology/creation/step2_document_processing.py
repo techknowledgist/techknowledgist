@@ -1,12 +1,39 @@
 """
 
-Run al processing in batch. Very similar to patent_analyzer.py, but approaches the task
-from a different angle
+
+USAGE:
+    % python patent_analyzer.py [OPTIONS]
+
+OPTIONS:
+    --populate   --  import external files
+    --xml2txt    --  document structure parsing
+    --txt2tag    --  tagging
+    --tag2chk    --  creating chunks in context
+    --pf2dfeats  --  go from phrase features to document features
+
+    -l LANGUAGE     --  provides the language, one of ('en, 'de', 'cn'), default is 'en'
+    -t TARGET_PATH  --  target directory
+    -n INTEGER      --  number of documents to process
+    --verbose       --  print name of each processed file to stdout
+    
+    --config FILE         --  optional configuration file to overrule the default config
+                              this is just the basename not path
+                              
+    --section-filter-on   --  use a filter when proposing technology chunks
+    --section-filter-off  --  do not use the filter (this is the default)
+    
+The final results of these steps are in:
+
+    TARGET_PATH/LANGUAGE/data/d3_phr_occ
+    TARGET_PATH/LANGUAGE/data/d3_phr_feat
 
 The script starts with lists of files pointing to all single files in the external
 directory, with a list for each language. these lists have all files for a lnaguage in a
 random order
-   
+
+
+NOTES
+
 Maintains a file for each lannguage which stores what what was done for each processing
 stage. Lines in that file look as follows:
 
@@ -33,68 +60,10 @@ Unlike patent_analyzer.opy, this script does not call directory level methods li
 xml2txt.patents_xml2txt(...), but instead calls methods that process one file only, doing
 all the housekeeping itself.
 
-
-Usage:
-    
-    % python patent_analyzer.py [OPTIONS]
-
-    -l LANG      --  provides the language, one of ('en, 'de', 'cn'), default is 'en'
-    -s PATH      --  external source directory with XML files, see below for the default
-    -t PATH      --  target directory, default is data/patents
-    -n INTEGER   --  number of documents to process
-    -r STRING    --  range of documents to take, that is, the postfix of classifier output
-     
-    --populate   --  populate directory in target path with files from source path
-    --xml2txt    --  document structure parsing
-    --txt2tag    --  tagging
-    --tag2chk    --  creating chunks in context
-    --pf2dfeats  --  go from phrase features to document features
-    #--summary    --  create summary lists
-
-    All the above long options require a target path and a language (via the -l and -t
-    options or their defaults). The long options --init and --populate also require a
-    source path (via -s or its default). The -n option is ignored if --init is used.
-
-    --verbose   --  print name of each processed file to stdout
-
-    --config FILE      --  optional configuration file to overrule the default configuration
-    --chunk-filter     --  use a filter when proposing technology chunks (the default)
-    --no-chunk-filter  --  do not use a filter when proposing technology chunks
-    
-    
-The final results of these steps are in:
-
-    TARGET_PATH/LANGUAGE/phr_occ
-    TARGET_PATH/LANGUAGE/phr_feat
-    TARGET_PATH/LANGUAGE/ws
-
-    
-Examples:
-
-Population follows the paradigm above, taking elements from the list. With the following
-you add 10 files to the data/patents/en/xml directory.
-
-% setenv SOURCE_PATENTS /home/j/corpuswork/fuse/fuse-patents/500-patents/DATA/Lexis-Nexis
-% python batch.py --populate -l en -n 10 -s $SOURCE_PATENTS/US/Xml/ -t data/patents
-
-Running the document structure parser. From here on, you do not need the source directory
-anymore. Just say what you want to do and how many files you want to do. Assumes that
-previous processing stages on those files have been done.
-
-% python batch.py --xml2txt -l en -n 10 -t data/patents
-% python batch.py --txt2tag -l de -n 10 -t data/patents/
-
-Note that the tagger may only work on machines like pasiphae. The invocation there is
-slightly different:
-
-% python2.6 batch.py --txt2tag -l de -n 10 -t data/patents/
-
 """
 
 import os, sys, time, shutil, getopt, subprocess, codecs, textwrap
-from random import shuffle
 
-import config_data
 import putils
 import xml2txt
 import txt2tag
@@ -103,10 +72,6 @@ import tag2chunk
 import cn_txt2seg
 import cn_seg2tag
 import pf2dfeats
-import train
-import mallet
-import find_mallet_field_value_column
-import sum_scores
 
 script_path = os.path.abspath(sys.argv[0])
 script_dir = os.path.dirname(script_path)
@@ -117,36 +82,161 @@ os.chdir(script_dir)
 
 from utils.docstructure.main import Parser
 from ontology.utils.batch import read_stages, update_stages, write_stages
-from ontology.utils.batch import files_to_process
+from ontology.utils.batch import files_to_process, GlobalConfig, read_pipeline_config
+from ontology.utils.file import ensure_path, get_lines, create_file
+from ontology.utils.git import get_git_commit
+from step1_initialize import DOCUMENT_PROCESSING_IO
 
-# defaults that can be overwritten by command line options
-source_path = config_data.external_patent_path
-target_path = config_data.working_patent_path
-language = config_data.language
-verbose = False
+
+class DataSet(object):
+
+    """
+    Instance variables:
+       stage_name - name of the stage creating files in the data set
+       output_name - name of the directory where
+       version_id - subdir in the output, None for the --populate stage
+    """
+
+    @classmethod
+    def pipeline_component_as_string(cls, trace):
+        elements = []
+        for element in trace:
+            elements.append(element[0] + " " +
+                            " ".join(["%s=%s" % (k,v) for k,v in element[1].items()]))
+        return "\n".join(elements).strip() + "\n"
+    
+    
+    def __init__(self, stage_name, output_names, config, id='01'):
+        self.stage_name = stage_name
+        self.output_name1 = output_names[0]
+        self.output_name2 = output_names[1] if len(output_names) > 1 else None
+        self.version_id = id
+        self.files_processed = 0
+        self.global_config = config
+        self.local_config = None
+        self.pipeline_head = None
+        self.pipeline_trace = None
+        self.base_path = os.path.join(config.target_path, config.language, 'data')
+        self.path1 = os.path.join(self.base_path, self.output_name1, self.version_id)
+        self.path2 = None
+        if self.output_name2 is not None:
+            self.path2 = os.path.join(self.base_path, self.output_name2, self.version_id)
+
+
+    def __str__(self):
+        return "<DataSet on '%s' exists=%s processed=%d>" % (self.path1, self.exists(),
+                                                             self.files_processed)
+    
+    def initialize_on_disk(self):
+        """All that is guaranteed to exist is a directory like data/patents/en/d1_txt, but sub
+        structures is not there. Create the substructure and initial versions of all
+        needed files in configuration and state directories."""
+        for subdir in ('config', 'state', 'files'):
+            ensure_path(os.path.join(self.path1, subdir))
+        if self.path2 is not None:
+            for subdir in ('config', 'state', 'files'):
+                ensure_path(os.path.join(self.path2, subdir))
+        create_file(os.path.join(self.path1, 'state', 'processed.txt'), "0\n")
+        create_file(os.path.join(self.path1, 'state', 'processing-history.txt'))
+        trace, head = self.split_pipeline()
+        trace_str = DataSet.pipeline_component_as_string(trace)
+        head_str = DataSet.pipeline_component_as_string([head])
+        create_file(os.path.join(self.path1, 'config', 'pipeline-head.txt'), head_str)
+        create_file(os.path.join(self.path1, 'config', 'pipeline-trace.txt'), trace_str)
+        self.files_processed = 0
+        
+    def split_pipeline(self):
+        """Return a pair of pipeline trace and pipeline head from the config.pipeline given the
+        current processing step in self.stage_name."""
+        trace = []
+        for step in self.global_config.pipeline:
+            if step[0] == self.stage_name:
+                return trace, step
+            else:
+                trace.append(step)
+        print "WARNING: did not find processing step in pipeline"
+        return None
+        
+    def load_from_disk(self):
+        """Get the state and the local configuration from the disk. Does not need to get the
+        processing history since all we need to do to it is to append that information
+        from the latest processing step."""
+        fname1 = os.path.join(self.path1, 'state', 'processed.txt')
+        fname2 = os.path.join(self.path1, 'config', 'pipeline-head.txt')
+        fname3 = os.path.join(self.path1, 'config', 'pipeline-trace.txt')
+        self.pipeline_head = read_pipeline_config(fname2)[0]
+        self.pipeline_trace = read_pipeline_config(fname3)
+        self.files_processed = int(open(fname1).read().strip())
+    
+    def exists(self):
+        """Return True is the data set exists on disk, False otherwise."""
+        return os.path.exists(self.path1)
+
+    def update_state(self, limit, t1):
+        """Update the content of state/processed.txt and state/processing-history.txt."""
+        time_elapsed =  time.time() - t1
+        processed = "%d\n" % self.files_processed
+        create_file(os.path.join(self.path1, 'state', 'processed.txt'), processed)
+        history_file = os.path.join(self.path1, 'state', 'processing-history.txt')
+        fh = open(history_file, 'a')
+        fh.write("%d\t%s\t%s\t%s\n" % (limit, time.strftime("%Y:%m:%d-%H:%M:%S"),
+                                       get_git_commit(), time_elapsed))
+        
+    def pp(self):
+        """Simplistic pretty print."""
+        print "DataSet"
+        print "    %s" % self.path1
+        if self.path2 is not None:
+            print "    %s" % self.path2
 
     
-def run_populate(source_path, target_path, language, limit):
+    
+def run_populate(config, limit, verbose=False):
     """Populate xml directory in the target directory with limit files from the source path."""
+
+    t1 = time.time()
+    target_path = config.target_path
+    language = config.language
+    source = config.source()
+    output_names = DOCUMENT_PROCESSING_IO['--populate']['out']
+    dataset = DataSet('--populate', output_names, config)
+
     print "[--populate] populating %s/%s/xml" % (target_path, language)
-    print "[--populate] using %d files from %s" % (limit, source_path)
-    stages = read_stages(target_path, language)
-    fnames = files_to_process(target_path, language, stages, '--populate', limit)
+    print "[--populate] using %d files from %s" % (limit, source)
+
+    # initialize data set if it does not exist, this is not contingent on anything because
+    # --populate is the first step
+    if not dataset.exists():
+        dataset.initialize_on_disk()
+    dataset.load_from_disk()
+
     count = 0
-    for (year, fname) in fnames:
+    filenames = get_lines(config.filenames, dataset.files_processed, limit)
+    for filename in filenames:
         count += 1
-        source_file = os.path.join(source_path, year, fname)
-        target_file = os.path.join(target_path, language, 'xml', year, fname)
+        # strip a leading separator to make path relative so it can be glued to the target
+        # directory
+        src_file = filename[1:] if filename.startswith(os.sep) else filename
+        dst_file = os.path.join(target_path, language, 'data',
+                                output_names[0], dataset.version_id, src_file)
         if verbose:
-            print "[--populate] %04d adding %s" % (count, target_file)
-        shutil.copyfile(source_file, target_file)
-    update_stages(target_path, language, '--populate', limit)
+            print "%04d %s" % (count, filename)
+        ensure_path(os.path.dirname(dst_file))
+        shutil.copyfile(filename, dst_file)
+    dataset.files_processed += limit
+    dataset.update_state(limit, t1)
+
+
 
 def run_xml2txt(target_path, language, limit):
     """Takes xml files and runs the document structure parser in onto mode. Adds files
     to the language/txt directory and ds_* directories with intermediate document
     structure parser results."""
     print "[--xml2txt] on %s/%s/xml/" % (target_path, language)
+
+    config.pp()
+    print dataset
+    
     stages = read_stages(target_path, language)
     xml_parser = Parser()
     xml_parser.onto_mode = True
@@ -243,29 +333,6 @@ def run_pf2dfeats(target_path, language, limit):
         pf2dfeats.make_doc_feats(phr_file, doc_file, doc_id, year)
     update_stages(target_path, language, '--pf2dfeats', limit)
 
-def run_summary(target_path, language, limit):
-    """Collect data from directories into workspace area: ws/doc_feats.all,
-    ws/phr_feats.all and ws/phr_occ.all. All downstream processing should rely on these
-    data and nothing else."""
-    print "[--summary] appending to files in ws"
-    #subprocess.call("sh ./cat_phr.sh %s %s" % (target_path, language), shell=True)
-    stages = read_stages(target_path, language)
-    fnames = files_to_process(target_path, language, stages, '--summary', limit)
-    doc_feats_file = os.path.join(target_path, language, 'ws', 'doc_feats.all')
-    phr_feats_file = os.path.join(target_path, language, 'ws', 'phr_feats.all')
-    phr_occ_file = os.path.join(target_path, language, 'ws', 'phr_occ.all')
-    fh_doc_feats = codecs.open(doc_feats_file, 'a', encoding='utf-8')
-    fh_phr_feats = codecs.open(phr_feats_file, 'a', encoding='utf-8')
-    fh_phr_occ = codecs.open(phr_occ_file, 'a', encoding='utf-8')
-    for (year, fname) in fnames:
-        doc_feats_file = os.path.join(target_path, language, 'doc_feats', year, fname)
-        phr_feats_file = os.path.join(target_path, language, 'phr_feats', year, fname)
-        phr_occ_file = os.path.join(target_path, language, 'phr_occ', year, fname)
-        fh_doc_feats.write(codecs.open(doc_feats_file, encoding='utf-8').read())
-        fh_phr_feats.write(codecs.open(phr_feats_file, encoding='utf-8').read())
-        fh_phr_occ.write(codecs.open(phr_occ_file, encoding='utf-8').read())
-    update_stages(target_path, language, '--summary', limit)
-
 
 
 
@@ -273,22 +340,24 @@ if __name__ == '__main__':
 
     (opts, args) = getopt.getopt(
         sys.argv[1:],
-        'l:s:t:n:r:',
-        ['populate', 'xml2txt', 'txt2tag', 'tag2chk', 'pf2dfeats', 'summary',
-         'verbose', 'config=', 'chunk-filter', 'no-chunk-filter'])
+        'l:t:n:',
+        ['populate', 'xml2txt', 'txt2tag', 'tag2chk', 'pf2dfeats', 
+         'verbose', 'config=', 'section-filter-on', 'section-filter-off'])
 
+    # default values of options
+    language = 'en'
+    target_path = 'data/patents'
+    pipeline_config = 'pipeline-default.txt'
+    verbose = False
     populate = False
-    xml_to_txt, txt_to_seg, txt_to_tag = False, False, False
+    xml_to_txt, txt_to_tag = False, False
     tag_to_chk, pf_to_dfeats = False, False
-    config = None
-    #chunk_filter = True
-    #summary = False
+    section_filter_p = False
     limit = 0
-
+    
     for opt, val in opts:
 
         if opt == '-l': language = val
-        if opt == '-s': source_path = val
         if opt == '-t': target_path = val
         if opt == '-n': limit = int(val)
         
@@ -297,31 +366,22 @@ if __name__ == '__main__':
         if opt == '--txt2tag': txt_to_tag = True
         if opt == '--tag2chk': tag_to_chk = True
         if opt == '--pf2dfeats': pf_to_dfeats = True
-        #if opt == '--summary': summary = True
 
         if opt == '--verbose': verbose = True
         if opt == '--config': pipeline_config = val
-        if opt == '--chunk-filter': chunk_filter = True
-        if opt == '--no-chunk-filter': chunk_filter = False
+        if opt == '--section-filter-on': section_filter_p = True
+        if opt == '--section-filter-off': section_filter_p = False
 
 
-    print opts, args
-    print open(os.path.join(target_path, language, 'config', 'config-general.txt')).read()
+    config = GlobalConfig(target_path, language, pipeline_config)
     
-    sys.exit()
-
-    
-
-        
     if populate:
-        run_populate(source_path, target_path, language, limit)
+        run_populate(config, limit, verbose)
     elif xml_to_txt:
-        run_xml2txt(target_path, language, config, limit)
+        run_xml2txt(config, limit)
     elif txt_to_tag:
-        run_txt2tag(target_path, language, config, limit)
+        run_txt2tag(config, limit)
     elif tag_to_chk:
-        run_tag2chk(target_path, language, config, limit, chunk_filter)
+        run_tag2chk(config, limit, chunk_filter_p)
     elif pf_to_dfeats:
-        run_pf2dfeats(target_path, language, config, limit)
-    #elif summary:
-    #    run_summary(target_path, language, config, limit)
+        run_pf2dfeats(config, limit)

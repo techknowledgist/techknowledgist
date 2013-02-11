@@ -46,7 +46,7 @@ else:
     tools_path = os.path.abspath(tools_path)
     stag_dir = os.path.join(tools_path, "stanford-postagger-full-2012-07-09" )
     seg_dir = os.path.join(tools_path, "stanford-segmenter-2012-07-09")
-    print '>>', tools_path
+    #print '>>', tools_path
 
 mx = "3000m"
 
