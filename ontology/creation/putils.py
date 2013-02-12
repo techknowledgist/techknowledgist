@@ -167,3 +167,9 @@ def file_strip_control_characters(input, output):
 def removeDir(path):
     if os.path.isdir(path):
         shutil.rmtree(path)
+
+def make_year_dirs(path):
+    for year in range(1980, 2013):
+        
+        year_path = path + os.sep + str(year)
+        make_sure_path_exists(year_path)
