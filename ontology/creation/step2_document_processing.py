@@ -82,119 +82,30 @@ os.chdir(script_dir)
 
 from utils.docstructure.main import Parser
 from ontology.utils.batch import read_stages, update_stages, write_stages
-from ontology.utils.batch import files_to_process, GlobalConfig, read_pipeline_config
+from ontology.utils.batch import files_to_process, GlobalConfig, DataSet
 from ontology.utils.file import ensure_path, get_lines, create_file
-from ontology.utils.git import get_git_commit
 from step1_initialize import DOCUMENT_PROCESSING_IO
 
 
-class DataSet(object):
-
-    """
-    Instance variables:
-       stage_name - name of the stage creating files in the data set
-       output_name - name of the directory where
-       version_id - subdir in the output, None for the --populate stage
-    """
-
-    @classmethod
-    def pipeline_component_as_string(cls, trace):
-        elements = []
-        for element in trace:
-            elements.append(element[0] + " " +
-                            " ".join(["%s=%s" % (k,v) for k,v in element[1].items()]))
-        return "\n".join(elements).strip() + "\n"
+def update_state(fun):
+    """To be used as a decorator around funcitons that run one of the processing steps."""
     
-    
-    def __init__(self, stage_name, output_names, config, id='01'):
-        self.stage_name = stage_name
-        self.output_name1 = output_names[0]
-        self.output_name2 = output_names[1] if len(output_names) > 1 else None
-        self.version_id = id
-        self.files_processed = 0
-        self.global_config = config
-        self.local_config = None
-        self.pipeline_head = None
-        self.pipeline_trace = None
-        self.base_path = os.path.join(config.target_path, config.language, 'data')
-        self.path1 = os.path.join(self.base_path, self.output_name1, self.version_id)
-        self.path2 = None
-        if self.output_name2 is not None:
-            self.path2 = os.path.join(self.base_path, self.output_name2, self.version_id)
+    def wrapper(*args):
+        t1 = time.time()
+        datasets = fun(*args)
+        limit = args[1]
+        for dataset in datasets:
+            dataset.files_processed += limit
+            dataset.update_state(limit, t1)
 
-
-    def __str__(self):
-        return "<DataSet on '%s' exists=%s processed=%d>" % (self.path1, self.exists(),
-                                                             self.files_processed)
-    
-    def initialize_on_disk(self):
-        """All that is guaranteed to exist is a directory like data/patents/en/d1_txt, but sub
-        structures is not there. Create the substructure and initial versions of all
-        needed files in configuration and state directories."""
-        for subdir in ('config', 'state', 'files'):
-            ensure_path(os.path.join(self.path1, subdir))
-        if self.path2 is not None:
-            for subdir in ('config', 'state', 'files'):
-                ensure_path(os.path.join(self.path2, subdir))
-        create_file(os.path.join(self.path1, 'state', 'processed.txt'), "0\n")
-        create_file(os.path.join(self.path1, 'state', 'processing-history.txt'))
-        trace, head = self.split_pipeline()
-        trace_str = DataSet.pipeline_component_as_string(trace)
-        head_str = DataSet.pipeline_component_as_string([head])
-        create_file(os.path.join(self.path1, 'config', 'pipeline-head.txt'), head_str)
-        create_file(os.path.join(self.path1, 'config', 'pipeline-trace.txt'), trace_str)
-        self.files_processed = 0
-        
-    def split_pipeline(self):
-        """Return a pair of pipeline trace and pipeline head from the config.pipeline given the
-        current processing step in self.stage_name."""
-        trace = []
-        for step in self.global_config.pipeline:
-            if step[0] == self.stage_name:
-                return trace, step
-            else:
-                trace.append(step)
-        print "WARNING: did not find processing step in pipeline"
-        return None
-        
-    def load_from_disk(self):
-        """Get the state and the local configuration from the disk. Does not need to get the
-        processing history since all we need to do to it is to append that information
-        from the latest processing step."""
-        fname1 = os.path.join(self.path1, 'state', 'processed.txt')
-        fname2 = os.path.join(self.path1, 'config', 'pipeline-head.txt')
-        fname3 = os.path.join(self.path1, 'config', 'pipeline-trace.txt')
-        self.pipeline_head = read_pipeline_config(fname2)[0]
-        self.pipeline_trace = read_pipeline_config(fname3)
-        self.files_processed = int(open(fname1).read().strip())
-    
-    def exists(self):
-        """Return True is the data set exists on disk, False otherwise."""
-        return os.path.exists(self.path1)
-
-    def update_state(self, limit, t1):
-        """Update the content of state/processed.txt and state/processing-history.txt."""
-        time_elapsed =  time.time() - t1
-        processed = "%d\n" % self.files_processed
-        create_file(os.path.join(self.path1, 'state', 'processed.txt'), processed)
-        history_file = os.path.join(self.path1, 'state', 'processing-history.txt')
-        fh = open(history_file, 'a')
-        fh.write("%d\t%s\t%s\t%s\n" % (limit, time.strftime("%Y:%m:%d-%H:%M:%S"),
-                                       get_git_commit(), time_elapsed))
-        
-    def pp(self):
-        """Simplistic pretty print."""
-        print "DataSet"
-        print "    %s" % self.path1
-        if self.path2 is not None:
-            print "    %s" % self.path2
+    return wrapper
 
     
-    
+
+@update_state
 def run_populate(config, limit, verbose=False):
     """Populate xml directory in the target directory with limit files from the source path."""
 
-    t1 = time.time()
     target_path = config.target_path
     language = config.language
     source = config.source()
@@ -208,7 +119,7 @@ def run_populate(config, limit, verbose=False):
     # --populate is the first step
     if not dataset.exists():
         dataset.initialize_on_disk()
-    dataset.load_from_disk()
+        dataset.load_from_disk()
 
     count = 0
     filenames = get_lines(config.filenames, dataset.files_processed, limit)
@@ -218,88 +129,103 @@ def run_populate(config, limit, verbose=False):
         # directory
         src_file = filename[1:] if filename.startswith(os.sep) else filename
         dst_file = os.path.join(target_path, language, 'data',
-                                output_names[0], dataset.version_id, src_file)
+                                output_names[0], dataset.version_id, 'files', src_file)
         if verbose:
-            print "%04d %s" % (count, filename)
+            print "[--populate] %04d %s" % (count, filename)
         ensure_path(os.path.dirname(dst_file))
         shutil.copyfile(filename, dst_file)
-    dataset.files_processed += limit
-    dataset.update_state(limit, t1)
+
+    return [dataset]
 
 
+@update_state
+def run_xml2txt(config, limit, options, verbose=False):
 
-def run_xml2txt(target_path, language, limit):
-    """Takes xml files and runs the document structure parser in onto mode. Adds files
-    to the language/txt directory and ds_* directories with intermediate document
-    structure parser results."""
-    print "[--xml2txt] on %s/%s/xml/" % (target_path, language)
+    """Run the document structure parser in onto mode."""
 
-    config.pp()
-    print dataset
-    
-    stages = read_stages(target_path, language)
-    xml_parser = Parser()
-    xml_parser.onto_mode = True
-    mappings = {'en': 'ENGLISH', 'de': "GERMAN", 'cn': "CHINESE" }
-    xml_parser.language = mappings[language]
-    fnames = files_to_process(target_path, language, stages, '--xml2txt', limit)
+    input_dataset = find_input_dataset('--xml2txt', config)
+    output_datasets = find_output_datasets('--xml2txt', config)
+    output_dataset = output_datasets[0]
+    print_datasets('--xml2txt', input_dataset, output_datasets)
+    check_file_counts(input_dataset, output_dataset, limit)
+
     count = 0
-    for year, fname in fnames:
+    doc_parser = make_parser(config.language)
+    workspace = os.path.join(config.target_path, config.language, 'data', 'workspace')
+    filenames = get_lines(config.filenames, output_dataset.files_processed, limit)
+    for filename in filenames:
         count += 1
-        source_file = os.path.join(target_path, language, 'xml', year, fname)
-        target_file = os.path.join(target_path, language, 'txt', year, fname)
-        if verbose:
-            print "[--xml2txt] %04d creating %s" % (count, target_file)
+        print_file_progress('--xml2txt', count, filename, verbose)
+        file_in, file_out = prepare_io(filename, input_dataset, output_dataset)
         try:
-            xml2txt.xml2txt(xml_parser, source_file, target_file)
+            xml2txt.xml2txt(doc_parser, file_in, file_out, workspace)
         except Exception:
-            fh = codecs.open(target_file, 'w')
+            fh = codecs.open(file_out, 'w')
             fh.close()
-            print "[--xml2txt]      WARNING: error on", source_file
-    update_stages(target_path, language, '--xml2txt', limit)
+            print "[--xml2txt] WARNING: error on", file_in
 
-def run_txt2tag(target_path, language, limit):
+    return [output_dataset]
+
+
+#@update_state
+def run_txt2tag(config, limit, options, verbose):
     """Takes txt files and runs the tagger (and segmenter for Chinese) on them. Adds files to
     the language/tag and language/seg directories. Works on pasiphae but not on chalciope."""
-    print "[--txt2tag] on %s/%s/txt/" % (target_path, language)
-    stages = read_stages(target_path, language)
+
+    input_dataset = find_input_dataset('--txt2tag', config)
+    output_datasets = find_output_datasets('--txt2tag', config)
+    output_dataset = output_datasets[0]
+    print_datasets('--txt2tag', input_dataset, output_datasets)
+    check_file_counts(input_dataset, output_dataset, limit)
+
+    count = 0
     tagger = txt2tag.get_tagger(language)
     segmenter = sdp.Segmenter()
-    fnames = files_to_process(target_path, language, stages, '--txt2tag', limit)
-    count = 0
-    for year, fname in fnames:
+    filenames = get_lines(config.filenames, output_dataset.files_processed, limit)
+    for filename in filenames:
         count += 1
-        txt_file = os.path.join(target_path, language, 'txt', year, fname)
-        seg_file = os.path.join(target_path, language, 'seg', year, fname)
-        tag_file = os.path.join(target_path, language, 'tag', year, fname)
-        if language == 'cn':
-            if verbose:
-                print "[--txt2tag] %04d creating %s" % (count, seg_file)
-            cn_txt2seg.seg(txt_file, seg_file, segmenter)
-            if verbose:
-                print "[--txt2tag] %04d creating %s" % (count, tag_file)
-            cn_seg2tag.tag(seg_file, tag_file, tagger)
-        else:
-            if verbose:
-                print "[--txt2tag] %04d creating %s" % (count, tag_file)
-            txt2tag.tag(txt_file, tag_file, tagger)
-    update_stages(target_path, language, '--txt2tag', limit)
+        print_file_progress('--txt2tag', count, filename, verbose)
+        file_in, file_out = prepare_io(filename, input_dataset, output_dataset)
+        #txt2tag.tag(file_in, file_out, tagger)
 
-def run_tag2chk(target_path, language, limit, chunk_filter):
+    return [output_dataset]
+
+    # if language == 'cn':
+    #     cn_txt2seg.seg(txt_file, seg_file, segmenter)
+    #     cn_seg2tag.tag(seg_file, tag_file, tagger)
+
+
+#@update_state
+def run_tag2chk(config, limit, options, verbose):
     """Runs the np-in-context code on tagged input. Populates language/phr_occ and
     language/phr_feat. Sets the contents of config-chunk-filter.txt given the value of
     chunk_filter."""
-    print "[--tag2chk] on %s/%s/tag/" % (target_path, language)
 
-    filter_setting = "on" if chunk_filter else "off"
-    _save_config(target_path, language, 'chunk-filter', value)
-    #fh = open(os.path.join(target_path, language, 'config-chunk-filter.txt'), 'w')
-    #filter_setting = "on" if chunk_filter else "off"
-    #fh.write("chunk-filter %s\n" % filter_setting)
-    #fh.close()
+    section_filter_p = None
+    if options.has_key('--section-filter-on'):
+        section_filter_p = True
+    if options.has_key('--section-filter-off'):
+        section_filter_p = False
 
-    stages = read_stages(target_path, language)
-    fnames = files_to_process(target_path, language, stages, '--tag2chk', limit)
+    input_dataset = find_input_dataset('--tag2chk', config)
+    output_datasets = find_output_datasets('--tag2chk', config)
+    output_dataset1 = output_datasets[0]
+    output_dataset2 = output_datasets[1]
+    print_datasets('--txt2tag', input_dataset, output_datasets)
+    check_file_counts(input_dataset, output_dataset1, limit)
+    check_file_counts(input_dataset, output_dataset2, limit)
+
+    count = 0
+    filenames = get_lines(config.filenames, output_dataset1.files_processed, limit)
+    for filename in filenames:
+        count += 1
+        print_file_progress('--tag2chk', count, filename, verbose)
+        file_in, file_out1 = prepare_io(filename, input_dataset, output_dataset1)
+        file_in, file_out2 = prepare_io(filename, input_dataset, output_dataset2)
+        #tag2chunk.Doc(file_in, file_out2, file_out1, year, config.language, filter_p=section_filter_p)
+
+    return output_datasets
+
     count = 0
     for (year, fname) in fnames:
         count += 1
@@ -308,14 +234,9 @@ def run_tag2chk(target_path, language, limit, chunk_filter):
         fea_file = os.path.join(target_path, language, 'phr_feats', year, fname)
         if verbose:
             print "[--tag2chk] %04d adding %s" % (count, occ_file)
-        tag2chunk.Doc(tag_file, occ_file, fea_file, year, language, filter_p=chunk_filter)
+        tag2chunk.Doc(tag_file, occ_file, fea_file, year, language, filter_p=section_filter_p)
     update_stages(target_path, language, '--tag2chk', limit)
 
-def _save_config(target_path, language, variable, value):
-    """Save value of variable in a config file."""
-    fh = open(os.path.join(target_path, language, "config-%s.txt" % variable), 'w')
-    fh.write("%s %s\n" % (variable, value))
-    fh.close()
 
 def run_pf2dfeats(target_path, language, limit):
     """Creates a union of the features for each chunk in a doc (for training)."""
@@ -335,6 +256,104 @@ def run_pf2dfeats(target_path, language, limit):
 
 
 
+## AUXILIARY METHODS
+    
+def find_input_dataset(stage, config):
+    """Find the input data set and return it. Print a warning and exit if no dataset or more
+    than one dataset was found."""
+
+    # Use the stage-to-data mapping to find the input name
+    input_name = DOCUMENT_PROCESSING_IO[stage]['in']
+    # Get all data sets D for input name
+    dirname = os.path.join(target_path, language, 'data', input_name)
+    datasets1 = [ds for ds in os.listdir(dirname) if ds.isdigit()]
+    datasets2 = [DataSet(stage, [input_name], config, ds) for ds in datasets1]
+    # Filer the datasets making sure that d.trace + d.head matches
+    # config.pipeline(txt).trace
+    datasets3 = [ds for ds in datasets2 if ds.input_matches_global_config()]
+    # If there is one result, return it, otherwise write a warning and exit
+    if len(datasets3) == 1:
+        return datasets3[0]
+    elif len(datasets3) > 1:
+        print "WARNING, more than one approriate training set:"
+        for ds in datasets3:
+            print '  ', ds
+        sys.exit("Exiting...")
+    elif len(datasets3) == 0:
+        print "WARNING: no datasets available to meet input requirements"
+        sys.exit("Exiting...")
+
+    
+def find_output_datasets(stage, config):
+    """Find the output data set and return it. Print a warning and exit if no dataset or more
+    than one dataset was found."""
+
+    # Use the stage-to-data mapping to find the output names
+    output_names = DOCUMENT_PROCESSING_IO[stage]['out']
+    output_datasets = []
+    for output_name in output_names:
+        # Get all data sets D for input name
+        dirname = os.path.join(target_path, language, 'data', output_name)
+        datasets1 = [ds for ds in os.listdir(dirname) if ds.isdigit()]
+        datasets2 = [DataSet(stage, [output_name], config, ds) for ds in datasets1]
+        # Filer the datasets making sure that d.trace + d.head matches
+        # config.pipeline(txt).trace
+        datasets3 = [ds for ds in datasets2 if ds.output_matches_global_config()]
+        #print output_name, dirname, datasets1, datasets3
+        # If there is one result, return it, otherwise write a warniong and exit
+        if len(datasets3) == 1:
+            output_datasets.append( datasets3[0])
+        elif len(datasets3) > 1:
+            print "WARNING, more than one approriate training set found:"
+            for ds in datasets3:
+                print '  ', ds
+            sys.exit("Exiting...")
+        elif len(datasets3) == 0:
+            highest_id = max([0] + [int(ds) for ds in datasets1])
+            new_id = "%02d" % (highest_id + 1)
+            dataset = DataSet(stage, output_names, config, new_id)
+            if not dataset.exists():
+                dataset.initialize_on_disk()
+                dataset.load_from_disk()
+            print "[%s] created %s" % (stage, dataset)
+            output_datasets.append(dataset)
+    return output_datasets
+    
+
+def print_datasets(stage, input_dataset, output_datasets):
+    print "[%s] input %s" % (stage, input_dataset)
+    for output_dataset in output_datasets:
+        print "[%s] output %s" % (stage, output_dataset)
+
+def print_file_progress(stage, count, filename, verbose):
+    if verbose:
+        print "[%s] %04d %s" % (stage, count, filename)
+
+def check_file_counts(input_dataset, output_dataset, limit):
+    if input_dataset.files_processed < output_dataset.files_processed + limit:
+        print "WARNING: input dataset does not have enough processed files"
+        print "        ", input_dataset
+        print "        ", output_dataset
+        sys.exit("Exiting...")
+
+def prepare_io(filename, input_dataset, output_dataset):
+    """Generate the file paths for the datasets and make sure the path to the file exists for
+    the output dataset. May need to add a version that deals with multiple output datasets."""
+    file_id = filename[1:] if filename.startswith(os.sep) else filename
+    file_in = os.path.join(input_dataset.path1, 'files', file_id)
+    file_out = os.path.join(output_dataset.path1, 'files', file_id)
+    ensure_path(os.path.dirname(file_out))
+    return file_in, file_out
+
+def make_parser(language):
+    """Return a document structure parser for language."""
+    parser = Parser()
+    parser.onto_mode = True
+    mappings = {'en': 'ENGLISH', 'de': "GERMAN", 'cn': "CHINESE" }
+    parser.language = mappings[language]
+    return parser
+
+
 
 if __name__ == '__main__':
 
@@ -342,46 +361,39 @@ if __name__ == '__main__':
         sys.argv[1:],
         'l:t:n:',
         ['populate', 'xml2txt', 'txt2tag', 'tag2chk', 'pf2dfeats', 
-         'verbose', 'config=', 'section-filter-on', 'section-filter-off'])
+         'verbose', 'config='])
 
     # default values of options
     language = 'en'
     target_path = 'data/patents'
     pipeline_config = 'pipeline-default.txt'
     verbose = False
-    populate = False
-    xml_to_txt, txt_to_tag = False, False
-    tag_to_chk, pf_to_dfeats = False, False
-    section_filter_p = False
     limit = 0
+    stage = None
     
     for opt, val in opts:
-
         if opt == '-l': language = val
         if opt == '-t': target_path = val
         if opt == '-n': limit = int(val)
-        
-        if opt == '--populate': populate = True
-        if opt == '--xml2txt': xml_to_txt = True
-        if opt == '--txt2tag': txt_to_tag = True
-        if opt == '--tag2chk': tag_to_chk = True
-        if opt == '--pf2dfeats': pf_to_dfeats = True
-
         if opt == '--verbose': verbose = True
         if opt == '--config': pipeline_config = val
-        if opt == '--section-filter-on': section_filter_p = True
-        if opt == '--section-filter-off': section_filter_p = False
+        if opt in ['--populate', '--xml2txt', '--txt2tag', '--tag2chk', '--pf2dfeats']:
+            stage = opt
 
+        #if opt == '--section-filter-on': section_filter_p = True
+        #if opt == '--section-filter-off': section_filter_p = False
 
     config = GlobalConfig(target_path, language, pipeline_config)
+    options = config.get_options(stage)
+    config.pp()
     
-    if populate:
+    if stage == '--populate':
         run_populate(config, limit, verbose)
-    elif xml_to_txt:
-        run_xml2txt(config, limit)
-    elif txt_to_tag:
-        run_txt2tag(config, limit)
-    elif tag_to_chk:
-        run_tag2chk(config, limit, chunk_filter_p)
-    elif pf_to_dfeats:
-        run_pf2dfeats(config, limit)
+    elif stage == '--xml2txt':
+        run_xml2txt(config, limit, options, verbose)
+    elif stage == '--txt2tag':
+        run_txt2tag(config, limit, options, verbose)
+    elif stage == '--tag2chk':
+        run_tag2chk(config, limit, options, verbose)
+    elif stage == '--pf2dfeats':
+        run_pf2dfeats(config, limit, options, verbose)

@@ -113,7 +113,7 @@ DEFAULT_PIPELINE = """
 --populate
 --xml2txt
 --txt2tag
---tag2chk chunk_filter=off
+--tag2chk --section-filter-off
 --pf2dfeats
 """
 
