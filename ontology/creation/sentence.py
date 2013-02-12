@@ -1054,10 +1054,6 @@ def chunk_schema(lang):
     # noise files should be in annotation_directory for now (../patent-classifier/ontology/annotation)
 
 
-
-
-
-
     # most restrictive schema omits verbs, "of", conjunctions, many adjectival modifiers (via "n" noise list)
     if lang == "en":
         both_pat =  [ ["NN", ["-", "fig", "figure"]], ["NNP", ["-", "fig", "figure"] ], ["NNS", []], ["NNPS", []], ["POS", []],  ["JJ", ["n", "noise_av"]] , ["JJR", ["-", "more"] ], ["JJS", ["-", "most"] ], ["FW", ["-", "e.g.", "i.e"] ]  ]
@@ -1104,7 +1100,8 @@ def chunk_schema(lang):
         start_pat.extend(both_pat)
         cont_pat.extend(both_pat)
 
-    
+    # NOTE: this was the first set created, it was used for the T&E evaluation, it was
+    # also used when we first created candidates for annotation
     if lang == "en_w_of":
         both_pat =  [ ["NN", []], ["NNP", []], ["NNS", []], ["NNPS", []], ["POS", []],  ["JJ", ["-", "further", "such", "therebetween", "same", "following", "respective", "first", "second", "third", "fourth", "respective", "preceding", "predetermined", "next", "more"] ], ["JJR", ["-", "more"] ], ["JJS", [] ], ["FW", ["-", "e.g.", "i.e"] ], ["VBG", ["-", "describing", "improving", "using", "employing",  "according", "resulting", "having", "following", "including", "containing", "consisting", "disclosing"]  ] ] 
         #start_pat = [ ["NN", ["-", "method"]] ] 

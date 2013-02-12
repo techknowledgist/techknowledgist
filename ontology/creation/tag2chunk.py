@@ -33,14 +33,19 @@ def mallet_feature(name, value):
 
 class Doc:
 
-    def __init__(self, input,  output_phr_occ, output_phr_feats, year, lang, filter_p=True):
+    def __init__(self, input,  output_phr_occ, output_phr_feats, year, lang,
+                 filter_p=True, chunker_rules='en'):
+        
         self.input = input
         # PGA made year a parameter so not dependent on path structure 10/9/12
         #self.year = input.split(os.sep)[-2]
         self.year = year
         self.output_phr_occ = output_phr_occ
         self.output_phr_feats = output_phr_feats
-        self.chunk_schema = sentence.d_chunkSchema.get(lang)
+        #self.chunk_schema = sentence.d_chunkSchema.get(chunker_rules)
+        self.chunk_schema = sentence.chunk_schema(chunker_rules)
+        #self.chunk_schema = sentence.chunk_schema('en_w_verbs')
+        #print self.chunk_schema.d_start
         self.lang = lang
         # field_name to list of sent instances
         # field name is header string without FH_ or : affixes
@@ -57,16 +62,17 @@ class Doc:
         self.l_lc_title_noun = []
 
         # create the chunks
-        self.process_doc(filter_p)
+        self.process_doc(filter_p, chunker_rules)
         
 
     # process the doc, creating all potential technology chunks
-    def process_doc(self, filter_p = True):
+    def process_doc(self, filter_p=True, chunker_rules='en'):
+
         debug_p = False
         #debug_p = True
         if debug_p:
-        
             print "[process_doc]filter_p: %s, writing to %s" % (filter_p, self.output_phr_feats)
+            
         s_input = codecs.open(self.input, encoding='utf-8')
         s_output_phr_occ = open(self.output_phr_occ, "w")
         s_output_phr_feats = open(self.output_phr_feats, "w")

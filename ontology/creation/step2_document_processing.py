@@ -19,8 +19,8 @@ OPTIONS:
     --config FILE         --  optional configuration file to overrule the default config
                               this is just the basename not path
                               
-    --section-filter-on   --  use a filter when proposing technology chunks
-    --section-filter-off  --  do not use the filter (this is the default)
+    #--section-filter-on   --  use a filter when proposing technology chunks
+    #--section-filter-off  --  do not use the filter (this is the default)
     
 The final results of these steps are in:
 
@@ -167,7 +167,7 @@ def run_xml2txt(config, limit, options, verbose=False):
     return [output_dataset]
 
 
-#@update_state
+@update_state
 def run_txt2tag(config, limit, options, verbose):
     """Takes txt files and runs the tagger (and segmenter for Chinese) on them. Adds files to
     the language/tag and language/seg directories. Works on pasiphae but not on chalciope."""
@@ -186,7 +186,7 @@ def run_txt2tag(config, limit, options, verbose):
         count += 1
         print_file_progress('--txt2tag', count, filename, verbose)
         file_in, file_out = prepare_io(filename, input_dataset, output_dataset)
-        #txt2tag.tag(file_in, file_out, tagger)
+        txt2tag.tag(file_in, file_out, tagger)
 
     return [output_dataset]
 
@@ -195,23 +195,27 @@ def run_txt2tag(config, limit, options, verbose):
     #     cn_seg2tag.tag(seg_file, tag_file, tagger)
 
 
-#@update_state
+@update_state
 def run_tag2chk(config, limit, options, verbose):
     """Runs the np-in-context code on tagged input. Populates language/phr_occ and
     language/phr_feat. Sets the contents of config-chunk-filter.txt given the value of
     chunk_filter."""
 
     section_filter_p = None
-    if options.has_key('--section-filter-on'):
-        section_filter_p = True
-    if options.has_key('--section-filter-off'):
-        section_filter_p = False
+    
+    candidate_filter = options.get('--candidate-filter', 'off')
+    chunker_rules = options.get('--chunker-rules', 'en')
 
+    # TODO: another hack that maps the official name (candidate_filter) to the old name
+    # (filter_p)
+    filter_p = True if candidate_filter == 'on' else False
+    
     input_dataset = find_input_dataset('--tag2chk', config)
     output_datasets = find_output_datasets('--tag2chk', config)
     output_dataset1 = output_datasets[0]
     output_dataset2 = output_datasets[1]
     print_datasets('--txt2tag', input_dataset, output_datasets)
+    print "[--tag2chk] using '%s' chunker rules" % chunker_rules
     check_file_counts(input_dataset, output_dataset1, limit)
     check_file_counts(input_dataset, output_dataset2, limit)
 
@@ -222,24 +226,37 @@ def run_tag2chk(config, limit, options, verbose):
         print_file_progress('--tag2chk', count, filename, verbose)
         file_in, file_out1 = prepare_io(filename, input_dataset, output_dataset1)
         file_in, file_out2 = prepare_io(filename, input_dataset, output_dataset2)
-        #tag2chunk.Doc(file_in, file_out2, file_out1, year, config.language, filter_p=section_filter_p)
+        # TODO: handle the year stuff differently (this is a hack)
+        year = os.path.basename(os.path.dirname(filename))
+        tag2chunk.Doc(file_in, file_out2, file_out1, year, config.language,
+                      filter_p=section_filter_p, chunker_rules=chunker_rules)
 
     return output_datasets
 
-    count = 0
-    for (year, fname) in fnames:
-        count += 1
-        tag_file = os.path.join(target_path, language, 'tag', year, fname)
-        occ_file = os.path.join(target_path, language, 'phr_occ', year, fname)
-        fea_file = os.path.join(target_path, language, 'phr_feats', year, fname)
-        if verbose:
-            print "[--tag2chk] %04d adding %s" % (count, occ_file)
-        tag2chunk.Doc(tag_file, occ_file, fea_file, year, language, filter_p=section_filter_p)
-    update_stages(target_path, language, '--tag2chk', limit)
 
-
-def run_pf2dfeats(target_path, language, limit):
+@update_state
+def run_pf2dfeats(config, limit, options, verbose):
     """Creates a union of the features for each chunk in a doc (for training)."""
+
+    input_dataset = find_input_dataset('--pf2dfeats', config)
+    output_datasets = find_output_datasets('--pf2dfeats', config)
+    output_dataset = output_datasets[0]
+    print_datasets('--pf2dfeats', input_dataset, output_datasets)
+    check_file_counts(input_dataset, output_dataset, limit)
+
+    count = 0
+    filenames = get_lines(config.filenames, output_dataset.files_processed, limit)
+    for filename in filenames:
+        count += 1
+        print_file_progress('--txt2tag', count, filename, verbose)
+        file_in, file_out = prepare_io(filename, input_dataset, output_dataset)
+        year = os.path.basename(os.path.dirname(filename))
+        doc_id = os.path.basename(filename)
+        pf2dfeats.make_doc_feats(file_in, file_out, doc_id, year)
+
+    return [output_dataset]
+
+
     print "[--pf2dfeats] on %s/%s/phr_feats/" % (target_path, language)
     stages = read_stages(target_path, language)
     fnames = files_to_process(target_path, language, stages, '--pf2dfeats', limit)
@@ -379,9 +396,6 @@ if __name__ == '__main__':
         if opt == '--config': pipeline_config = val
         if opt in ['--populate', '--xml2txt', '--txt2tag', '--tag2chk', '--pf2dfeats']:
             stage = opt
-
-        #if opt == '--section-filter-on': section_filter_p = True
-        #if opt == '--section-filter-off': section_filter_p = False
 
     config = GlobalConfig(target_path, language, pipeline_config)
     options = config.get_options(stage)
