@@ -22,6 +22,9 @@ import config_mallet
 
 ts1_path = "/home/j/anick/patent-classifier/ontology/creation/data/patents/ts1"
 ts2_path = "/home/j/anick/patent-classifier/ontology/creation/data/patents/ts2"
+ts490_path = "/home/j/anick/patent-classifier/ontology/creation/data/patents/ts490"
+
+
 language = "en"
 chunk_filter_p = False
 
@@ -77,6 +80,19 @@ def features_ts2():
     command = "sh ./cat_phr.sh %s %s" % (ts2_path, language)
     subprocess.call(command, shell=True)
 
+# create features for the 490-10 split
+# train model
+# experiments.features_ts490()
+def features_ts490():
+    
+    # create chunks from tag files
+    tag2chunk.patent_tag2chunk_dir(ts490_path, language, chunk_filter_p)
+    pf2dfeats.patent_pf2dfeats_dir(ts490_path, language)
+    # create a summary file with all training data (across all docs)
+    command = "sh ./cat_phr.sh %s %s" % (ts490_path, language)
+    subprocess.call(command, shell=True)
+
+
 # copy the annotations into each directory
 #bash-3.2$ cat phr_occ.lab | egrep '^[yn]' > /home/j/anick/patent-classifier/ontology/creation/data/patents/ts1/en/ws/phr_occ.lab
 #bash-3.2$ cat phr_occ.lab | egrep '^[yn]' > /home/j/anick/patent-classifier/ontology/creation/data/patents/ts2/en/ws/phr_occ.lab
@@ -98,6 +114,13 @@ def test_data_ts2(version):
     d_phr2label = train.load_phrase_labels(ts1_path, language)
     train.make_utraining_test_file(ts2_path, language, version, d_phr2label, use_all_chunks_p=True)
 
+#---
+# experiments.train_data_ts490("ext")
+def train_data_ts490(version):
+    # create .mallet file
+    #train.patent_utraining_data(ts1_path, language, version="1", xval=0, limit=0, classifier="MaxEnt")
+    d_phr2label = train.load_phrase_labels(ts490_path, language)
+    train.make_utraining_file(ts1_path, language, version, d_phr2label, limit=0)
 
     
 
@@ -137,6 +160,45 @@ def mc_ts2(version):
 
     return(mallet_config)
 
+
+#-----
+def mc_ts10(version):
+    mallet_dir = config_mallet.mallet_dir
+    train_file_prefix = "utrain"
+    test_file_prefix = "utest"
+    #version = "1"
+    # model and training vectors are in train_dir
+    train_dir = "/home/j/anick/patent-classifier/ontology/creation/data/patents/ts10/en/train"
+    # new mallet data for testing/classification is in test_dir
+    test_dir ="/home/j/anick/patent-classifier/ontology/creation/data/patents/ts10/en/test"
+    classifier_type = "MaxEnt"
+    number_xval = 0 
+    training_portion = 0
+
+    mallet_config = mallet2.MalletConfig(mallet_dir, train_file_prefix, test_file_prefix, version, train_dir, test_dir, classifier_type="MaxEnt", number_xval=0, training_portion=0, prune_p=False)
+
+    return(mallet_config)
+
+def mc_ts490(version):
+    mallet_dir = config_mallet.mallet_dir
+    train_file_prefix = "utrain"
+    test_file_prefix = "utest"
+    #version = "1"
+    # model and training vectors are in train_dir
+    train_dir = "/home/j/anick/patent-classifier/ontology/creation/data/patents/ts490/en/train"
+    # new mallet data for testing/classification is in test_dir
+    test_dir ="/home/j/anick/patent-classifier/ontology/creation/data/patents/ts490/en/test"
+    classifier_type = "MaxEnt"
+    number_xval = 0 
+    training_portion = 0
+
+    mallet_config = mallet2.MalletConfig(mallet_dir, train_file_prefix, test_file_prefix, version, train_dir, test_dir, classifier_type="MaxEnt", number_xval=0, training_portion=0, prune_p=False)
+
+    return(mallet_config)
+
+
+
+
 # train classifier for ts1 data
 # experiments.train_ts1("ext")
 def train_ts1(version):
@@ -164,4 +226,51 @@ def test_ts2_class(version):
     print "[test_ts2]After applying classifier"
     return(mallet_config)
 
+#---
+# experiments.train_ts490("ext")
+def train_ts490(version):
+    mallet_config = mc_ts490(version)
+    mallet_training = mallet2.MalletTraining(mallet_config)
+    mallet_training.mallet_train_classifier()
+    print "[train ts490]After training classifier"
+    return(mallet_config)
 
+# experiments.test_ts10_class("ext")
+def test_ts10_class(version):
+    mallet_config = mc_ts10(version)
+    #mallet_training = mallet2.MalletTraining(mallet_config)
+    mallet_classifier = mallet2.MalletClassifier(mallet_config)
+    #mallet_classifier.write_mallet_vectors_file()
+    mallet_classifier.mallet_test_classifier()
+    print "[test_ts10]After applying classifier"
+    return(mallet_config)
+
+
+
+#------------------------------------------------------------------------------------
+
+# experiments on 490/10 split
+ts490_path = "/home/j/anick/patent-classifier/ontology/creation/data/patents/ts490"
+ts10_path = "/home/j/anick/patent-classifier/ontology/creation/data/patents/ts10"
+
+# create feature sets for 490/10 split with ts490 as training and ts10 as testing data
+# train model
+def features_ts490():
+    
+    # create chunks from tag files
+    tag2chunk.patent_tag2chunk_dir(ts490_path, language, chunk_filter_p)
+    pf2dfeats.patent_pf2dfeats_dir(ts490_path, language)
+    # create a summary file with all training data (across all docs)
+    command = "sh ./cat_phr.sh %s %s" % (ts490_path, language)
+    subprocess.call(command, shell=True)
+    
+# experiment.features_ts10()
+def features_ts10():    
+    # now process the test data
+    
+    # create chunks from tag files
+    tag2chunk.patent_tag2chunk_dir(ts10_path, language, chunk_filter_p)
+    pf2dfeats.patent_pf2dfeats_dir(ts10_path, language)
+    # create a summary file with all training data (across all docs)
+    command = "sh ./cat_phr.sh %s %s" % (ts10_path, language)
+    subprocess.call(command, shell=True)
