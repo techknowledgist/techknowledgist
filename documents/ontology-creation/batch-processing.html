@@ -4,60 +4,8 @@
 
 <title>Batch Processing</title>
 
-<style>
-
-body {
-   counter-reset: section;
-   counter-reset: subsection;
-   width: 800px;
-   margin-left: 0.5em;
-   font-size: 12pt; }
-
-h2 {
-   counter-reset: subsection;
-   counter-increment: section; }
-
-h3 {
-   counter-increment: subsection; }
-
-h2:before {
-   counter(section) ". "; }
-
-h3:before {
-   counter(section) "." counter(subsection) ". "; }
-
-p, li {
-   font-size: 100%; }
-
-.navigation {
-   font-size: 120%; }
-
-.pre {
-   font-family: "courier new", monospace; }
-
-p.pre { 
-   margin-left: 2em;
-   white-space: pre; }
-
-span.pre {
-   white-space: normal; }
-
-.indent {
-   margin-left: 2em; }
-
-.outdent {
-   margin-left: -1.3em; }
-
-.move-up {
-   margin-top: -1em; }
-
-.move-up-a-bit {
-   margin-top: -0.5em; }
-
-.move-down-a-bit {
-   margin-top: 0.5em; }
-
-</style>
+<link rel="stylesheet" href="main.css" type="text/css" />
+<link rel="stylesheet" href="batch-processing.css" type="text/css" />
 
 </head>
 
@@ -331,7 +279,7 @@ would be solved with properly setting up the document structure parser as a subm
 <p>Could probably deal with the segmentation for Chinese by adding d2_seg as an output for
 txt2tag and dealing with the extra data set for Chinese,</p>
 
-<p></p>
+<p>Need to implement the versioning requirements.</p>
 
 <p></p>
 

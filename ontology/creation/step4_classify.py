@@ -23,21 +23,6 @@ OPTIONS
 """
 
 import os, sys, time, shutil, getopt, subprocess, codecs, textwrap
-from random import shuffle
-
-import config_data
-import putils
-import xml2txt
-import txt2tag
-import sdp
-import tag2chunk
-import cn_txt2seg
-import cn_seg2tag
-import pf2dfeats
-import train
-import mallet
-import find_mallet_field_value_column
-import sum_scores
 
 script_path = os.path.abspath(sys.argv[0])
 script_dir = os.path.dirname(script_path)
@@ -47,14 +32,22 @@ sys.path.insert(0, os.getcwd())
 os.chdir(script_dir)
 
 from utils.docstructure.main import Parser
+from ontology.utils.batch import GlobalConfig, DataSet
+from ontology.utils.file import ensure_path, get_lines, create_file
+from step1_initialize import DOCUMENT_PROCESSING_IO
+from step2_document_processing import show_datasets, show_pipelines, find_input_dataset
+
+import train
+import mallet
+import find_mallet_field_value_column
+import sum_scores
+
 from ontology.utils.batch import read_stages, update_stages, write_stages
 from ontology.utils.batch import files_to_process
+from ontology.utils.git import get_git_commit
 
-# defaults that can be overwritten by command line options
-source_path = config_data.external_patent_path
-target_path = config_data.working_patent_path
-language = config_data.language
-verbose = False
+
+ALL_STAGES = ['--summary', '--utrain', '--utest', '--scores']
 
 
 def run_summary(target_path, language, limit):
@@ -82,13 +75,87 @@ def run_summary(target_path, language, limit):
 
     
     
-def run_utrain(target_path, language, version, xval, limit):
+def run_utrain(config, file_list, annotation_file, annotation_count, version, xval):
     """Creates a mallet training file for labeled data with features as union of all
     phrase instances within a doc. Also creates a model utrain.<version>.MaxEnt.model in
     the train subdirectory. Limit is used to determine the size of the training set, as
     with run_annotate, it is not used for incrementing values in ALL_STAGES.txt. """
 
-    stages = read_stages(target_path, language)
+    train_dir = os.path.join(config.target_path, config.language, 'data', 't1_train')
+    config_dir = os.path.join(config.target_path, config.language, 'config')
+    train_id = "%s.%s" % (version, xval)
+    info_file_general = os.path.join(train_dir, "utrain-%s-info-general.txt" % train_id)
+    info_file_annotation = os.path.join(train_dir, "utrain-%s-info-annotation.txt" % train_id)
+    info_file_config = os.path.join(train_dir, "utrain-%s-info-config.txt" % train_id)
+    info_file_filelist = os.path.join(train_dir, "utrain-%s-info-filelist.txt" % train_id)
+    
+    #if os.path.exists(info_file_general):
+    #    sys.exit("WARNING: model for setting utrain-%s already exists" % train_id)
+
+    with open(info_file_general, 'w') as fh:
+        fh.write("version \t %s\n" % version)
+        fh.write("xval \t %s\n" % xval)
+        fh.write("file_list \t %s\n" % file_list)
+        fh.write("annotation_file \t %s\n" % annotation_file)
+        fh.write("annotation_count \t %s\n" % annotation_count)
+        fh.write("config_file \t %s\n" % os.path.basename(config.pipeline_config_file))
+        fh.write("git_commit \t %s" % get_git_commit())
+
+    with codecs.open(annotation_file) as fh1:
+        with codecs.open(info_file_annotation, 'w') as fh2:
+            count = 0
+            for line in fh1:
+                count += 1
+                if count > annotation_count:
+                    break
+                fh2.write(line)
+    
+    shutil.copyfile(config.pipeline_config_file, info_file_config)
+    shutil.copyfile(os.path.join(config_dir, file_list), info_file_filelist)
+
+
+    ## select data set
+
+    #should really use the function below and merge in the stuff needed
+    #print find_input_dataset('--utrain', config)
+    
+    # Use the stage-to-data mapping to find the input name
+    input_name = DOCUMENT_PROCESSING_IO['--utrain']['in']
+    # Get all data sets D for input name
+    dirname = os.path.join(config.target_path, config.language, 'data', input_name)
+    datasets1 = [ds for ds in os.listdir(dirname) if ds.isdigit()]
+    datasets2 = [DataSet(stage, input_name, config, ds) for ds in datasets1]
+    for ds in datasets2:
+        ds.pp()
+    # Filer the datasets making sure that d.trace + d.head matches
+    # config.pipeline(txt).trace
+
+    """
+    datasets3 = [ds for ds in datasets2 if ds.input_matches_global_config()]
+    config.pp()
+    print datasets2
+    print datasets3
+    # If there is one result, return it, otherwise write a warning and exit
+    if len(datasets3) == 1:
+        return datasets3[0]
+    elif len(datasets3) > 1:
+        print "WARNING, more than one approriate training set:"
+        for ds in datasets3:
+            print '  ', ds
+        sys.exit("Exiting...")
+    elif len(datasets3) == 0:
+        print "WARNING: no datasets available to meet input requirements"
+        sys.exit("Exiting...")
+    """
+
+    ## gather all data into summary files
+
+    ## build the model (adjust train.patent_utraining_data2 so that it takes full
+    ## pathnames)
+
+    
+    
+    """
     fnames = files_to_process(target_path, language, stages, '--utrain', limit)
     annot_path = config_data.annotation_directory
     source_annot_lang_file = os.path.join(annot_path, language, 'phr_occ.lab')
@@ -96,8 +163,8 @@ def run_utrain(target_path, language, version, xval, limit):
     shutil.copyfile(source_annot_lang_file, target_annot_lang_file)
     #train.patent_utraining_data(target_path, language, version, xval, limit)
     train.patent_utraining_data2(target_path, language, fnames, version, xval)
-    update_stages(target_path, language, '--utrain', limit)
-
+    """
+    
     
 def run_utest(target_path, language, version, limit, classifier='MaxEnt',
               use_all_chunks_p=True):
@@ -198,55 +265,65 @@ def run_scores(target_path, version, language, range, classifier='MaxEnt'):
     print "[--scores] sort on average scores"
     command = "cat %s | sort -k2,2 -nr -t\"\t\" > %s" % (fout4, fout5)
     run_command(command)
-    
 
+
+
+def read_opts():
+    longopts = ['config=', 'files=', 'annotation-file=', 'annotation-count=', 
+                'summary', 'utrain', 'utest', 'scores',
+                'version=', 'xval=',
+                'verbose', 'show-data', 'show-pipelines', 'eval-on-unseen-terms']
+    try:
+        return getopt.getopt(sys.argv[1:], 'l:t:n:', longopts)
+    except getopt.GetoptError as e:
+        sys.exit("ERROR: " + str(e))
+
+        
+        
 if __name__ == '__main__':
 
-    (opts, args) = getopt.getopt(
-        sys.argv[1:],
-        'l:s:t:n:r:',
-        ['summary', 'annotate1', 'annotate2', 'utrain', 'utest', 'scores',
-         'verbose', 'eval-on-unseen-terms'])
-
-    use_all_chunks = True
-    summary, annotate1, annotate2 = False, False, False
-    union_train, union_test, tech_scores = False, False, False
-    limit, range = 0, None
-    version, xval = "1", "0"
-
     # default values of options
-    language = 'en'
-    target_path = 'data/patents'
+    target_path, language, stage = 'data/patents', 'en', None
     pipeline_config = 'pipeline-default.txt'
-    verbose = False
-    limit = 1
-    stage = None
+    verbose, show_data_p, show_pipelines_p = False, False, False
+    annotation_count = 9999999999999
+    version, xval = "1", "0"
+    use_all_chunks = True
     
-    for opt, val in opts:
+    (opts, args) = read_opts()
 
+    for opt, val in opts:
         if opt == '-l': language = val
         if opt == '-t': target_path = val
         if opt == '-n': limit = int(val)
-        if opt == '-r': range = val
-        
-        if opt == '--summary': summary = True
-        if opt == '--annotate1': annotate1 = True
-        if opt == '--annotate2': annotate2 = True
-        if opt == '--utrain': union_train = True
-        if opt == '--utest': union_test = True
-        if opt == '--scores': tech_scores = True
-
+        if opt == '--version': version = val
+        if opt == '--xval': xval = val
+        if opt == '--files': file_list = val
+        if opt == '--annotation-file': annotation_file = val
+        if opt == '--annotation-count': annotation_count = int(val)
+        if opt == '--verbose': verbose = True
+        if opt == '--config': pipeline_config = val
+        if opt == '--show-data': show_data_p = True
+        if opt == '--show-pipelines': show_pipelines_p = True
+        if opt in ALL_STAGES:
+            stage = opt
         if opt == '--verbose': verbose = True
         if opt == '--eval-on-unseen-terms': use_all_chunks = False
 
         
     config = GlobalConfig(target_path, language, pipeline_config)
-        
-    if summary:
+    config.pp()
+
+    if show_data_p:
+        show_datasets(target_path, language, config)
+    elif show_pipelines_p:
+        show_pipelines(target_path, language)
+
+    elif stage == '--summary':
         run_summary(target_path, language, limit)
-    elif union_train:
-        run_utrain(target_path, language, version, xval, limit)
-    elif union_test:
+    elif stage == '--utrain':
+        run_utrain(config, file_list, annotation_file, annotation_count, version, xval)
+    elif stage == '--utest':
         run_utest(target_path, language, version, limit, use_all_chunks_p=use_all_chunks)
-    elif tech_scores:
+    elif stage == '--scores':
         run_scores(target_path, version, language, range)

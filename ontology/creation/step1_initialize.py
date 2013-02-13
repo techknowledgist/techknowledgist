@@ -132,7 +132,8 @@ DOCUMENT_PROCESSING_IO = \
       '--seg2tag': { 'in': 'd2_seg', 'out': ('d2_tag',) },
       '--txt2tag': { 'in': 'd1_txt', 'out': ('d2_tag',) },
       '--tag2chk': { 'in': 'd2_tag', 'out': ('d3_phr_feats', 'd3_phr_occ') },
-      '--pf2dfeats': { 'in': 'd3_phr_feats', 'out': ('d4_doc_feats',) } }
+      '--pf2dfeats': { 'in': 'd3_phr_feats', 'out': ('d4_doc_feats',) },
+      '--utrain': { 'in': 'd4_doc_feats', 'out': ('t1_train',) } }
 
 
 def init(language, source_file, source_path, target_path, pipeline_config, shuffle_file):

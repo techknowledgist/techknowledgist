@@ -68,7 +68,8 @@ ALL_STAGES = ['--populate', '--xml2txt', '--txt2tag', '--tag2chk', '--pf2dfeats'
 
 
 def update_state(fun):
-    """To be used as a decorator around functions that run one of the processing steps."""
+    """To be used as a decorator around functions that run one of the
+    processing steps."""
     
     def wrapper(*args):
         t1 = time.time()
@@ -84,7 +85,8 @@ def update_state(fun):
 
 @update_state
 def run_populate(config, limit, verbose=False):
-    """Populate xml directory in the target directory with limit files from the source path."""
+    """Populate xml directory in the target directory with limit files from the source
+    path."""
 
     target_path = config.target_path
     language = config.language
@@ -274,7 +276,7 @@ def find_input_dataset(stage, config):
     # Use the stage-to-data mapping to find the input name
     input_name = DOCUMENT_PROCESSING_IO[stage]['in']
     # Get all data sets D for input name
-    dirname = os.path.join(target_path, language, 'data', input_name)
+    dirname = os.path.join(config.target_path, config.language, 'data', input_name)
     datasets1 = [ds for ds in os.listdir(dirname) if ds.isdigit()]
     datasets2 = [DataSet(stage, input_name, config, ds) for ds in datasets1]
     # Filer the datasets making sure that d.trace + d.head matches
