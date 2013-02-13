@@ -1,64 +1,42 @@
 """
 
+Script that manages the part of the processing chain that deals with individual documents,
+that is document parsing, segmentation, tagging, chunking and creation of phrase-level and
+document-level feature vectors.
 
 USAGE:
-    % python patent_analyzer.py [OPTIONS]
+   % python step2_document_processing.py [OPTIONS]
 
 OPTIONS:
-    --populate   --  import external files
-    --xml2txt    --  document structure parsing
-    --txt2tag    --  tagging
-    --tag2chk    --  creating chunks in context
-    --pf2dfeats  --  go from phrase features to document features
+   --populate   --  import external files
+   --xml2txt    --  document structure parsing
+   --txt2tag    --  tagging
+   --tag2chk    --  creating chunks in context
+   --pf2dfeats  --  go from phrase features to document features
 
-    -l LANGUAGE     --  provides the language, one of ('en, 'de', 'cn'), default is 'en'
-    -t TARGET_PATH  --  target directory
-    -n INTEGER      --  number of documents to process
-    --verbose       --  print name of each processed file to stdout
-    
-    --config FILE         --  optional configuration file to overrule the default config
-                              this is just the basename not path
-                              
-    #--section-filter-on   --  use a filter when proposing technology chunks
-    #--section-filter-off  --  do not use the filter (this is the default)
-    
-The final results of these steps are in:
+   -l LANGUAGE     --  provides the language, one of ('en, 'de', 'cn'), default is 'en'
+   -t TARGET_PATH  --  target directory, default is 'data/patents'
+   -n INTEGER      --  number of documents to process, default is 1
 
-    TARGET_PATH/LANGUAGE/data/d3_phr_occ
-    TARGET_PATH/LANGUAGE/data/d3_phr_feat
-
-The script starts with lists of files pointing to all single files in the external
-directory, with a list for each language. these lists have all files for a lnaguage in a
-random order
-
-
-NOTES
-
-Maintains a file for each lannguage which stores what what was done for each processing
-stage. Lines in that file look as follows:
-
-   --xml2txt 500
-   --txt2tag 200
-   --tag2chk 100
-
-These lines indicate that the first 500 lines of the input have gone through the xml2txt
-stage, 200 through the txt2tag stage and 100 through the tag2chk phase. Initially this
-file is empty but when a value is first retrieved it is initialized to 0.
+   --verbose        --  print name of each processed file to stdout
+   --show-data      --  print all datasets, then exits, requires -t and -l options
+   --show-pipeline  --  print all pipelines, then exits, requires -t and -l options,
+                          also requires that all pipeline files match 'pipeline-*.txt'
    
-The input to the scipt is a stage and a number of documents to process. For example:
+   --config FILE -- optional configuration file to overrule the default config this is
+                    just the basename not path, so with '--config conf.txt', the config
+                    file loaded is TARGET_PATH/LANGUAGE/config/conf.txt
+                              
+The script assumes an initialzed directory (created with step1_initialize.py) with a set
+of external files defined in TARGET_PATH/LANGUAGE/config/files.txt. Default pipeline
+configuration settings are in TARGET_PATH/LANGUAGE/config/pipeline-default.txt.
 
-   % python batch.py --xml2txt -n 100
-
-This sends 100 documents through the xml2txt phase (using a default data directory), after
-which the lines in the progress file are updated to
-
-   --xml2txt 600
-   --txt2tag 200
-   --tag2chk 100
-
-Unlike patent_analyzer.opy, this script does not call directory level methods like
-xml2txt.patents_xml2txt(...), but instead calls methods that process one file only, doing
-all the housekeeping itself.
+Examples:
+   %  python step2_document_processing.py -l en -t data/patents --populate -n 5
+   %  python step2_document_processing.py -l en -t data/patents --xml2txt -n 5
+   %  python step2_document_processing.py -l en -t data/patents --txt2tag -n 5
+   %  python step2_document_processing.py -l en -t data/patents --tag2chk -n 5
+   %  python step2_document_processing.py -l en -t data/patents --df2dfeats -n 5
 
 """
 
@@ -81,14 +59,16 @@ sys.path.insert(0, os.getcwd())
 os.chdir(script_dir)
 
 from utils.docstructure.main import Parser
-from ontology.utils.batch import read_stages, update_stages, write_stages
-from ontology.utils.batch import files_to_process, GlobalConfig, DataSet
+from ontology.utils.batch import GlobalConfig, DataSet
 from ontology.utils.file import ensure_path, get_lines, create_file
 from step1_initialize import DOCUMENT_PROCESSING_IO
 
 
+ALL_STAGES = ['--populate', '--xml2txt', '--txt2tag', '--tag2chk', '--pf2dfeats']
+
+
 def update_state(fun):
-    """To be used as a decorator around funcitons that run one of the processing steps."""
+    """To be used as a decorator around functions that run one of the processing steps."""
     
     def wrapper(*args):
         t1 = time.time()
@@ -110,9 +90,9 @@ def run_populate(config, limit, verbose=False):
     language = config.language
     source = config.source()
     output_names = DOCUMENT_PROCESSING_IO['--populate']['out']
-    dataset = DataSet('--populate', output_names, config)
+    dataset = DataSet('--populate', output_names[0], config)
 
-    print "[--populate] populating %s/%s/xml" % (target_path, language)
+    print "[--populate] populating %s" % (dataset)
     print "[--populate] using %d files from %s" % (limit, source)
 
     # initialize data set if it does not exist, this is not contingent on anything because
@@ -180,7 +160,6 @@ def run_txt2tag(config, limit, options, verbose):
 
     count = 0
     tagger = txt2tag.get_tagger(language)
-    segmenter = sdp.Segmenter()
     filenames = get_lines(config.filenames, output_dataset.files_processed, limit)
     for filename in filenames:
         count += 1
@@ -190,6 +169,7 @@ def run_txt2tag(config, limit, options, verbose):
 
     return [output_dataset]
 
+    # segmenter = sdp.Segmenter()
     # if language == 'cn':
     #     cn_txt2seg.seg(txt_file, seg_file, segmenter)
     #     cn_seg2tag.tag(seg_file, tag_file, tagger)
@@ -201,13 +181,10 @@ def run_tag2chk(config, limit, options, verbose):
     language/phr_feat. Sets the contents of config-chunk-filter.txt given the value of
     chunk_filter."""
 
-    section_filter_p = None
-    
     candidate_filter = options.get('--candidate-filter', 'off')
     chunker_rules = options.get('--chunker-rules', 'en')
 
-    # TODO: another hack that maps the official name (candidate_filter) to the old name
-    # (filter_p)
+    # TODO: a hack that maps the official name (candidate_filter) to the old name
     filter_p = True if candidate_filter == 'on' else False
     
     input_dataset = find_input_dataset('--tag2chk', config)
@@ -226,10 +203,10 @@ def run_tag2chk(config, limit, options, verbose):
         print_file_progress('--tag2chk', count, filename, verbose)
         file_in, file_out1 = prepare_io(filename, input_dataset, output_dataset1)
         file_in, file_out2 = prepare_io(filename, input_dataset, output_dataset2)
-        # TODO: handle the year stuff differently (this is a hack)
+        # TODO: handle the year stuff differently (this is a bit of a hack)
         year = os.path.basename(os.path.dirname(filename))
         tag2chunk.Doc(file_in, file_out2, file_out1, year, config.language,
-                      filter_p=section_filter_p, chunker_rules=chunker_rules)
+                      filter_p=filter_p, chunker_rules=chunker_rules)
 
     return output_datasets
 
@@ -257,22 +234,37 @@ def run_pf2dfeats(config, limit, options, verbose):
     return [output_dataset]
 
 
-    print "[--pf2dfeats] on %s/%s/phr_feats/" % (target_path, language)
-    stages = read_stages(target_path, language)
-    fnames = files_to_process(target_path, language, stages, '--pf2dfeats', limit)
-    count = 0
-    for (year, fname) in fnames:
-        count += 1
-        doc_id = os.path.splitext(os.path.basename(fname))[0]
-        phr_file = os.path.join(target_path, language, 'phr_feats', year, fname)
-        doc_file = os.path.join(target_path, language, 'doc_feats', year, fname)
-        if verbose:
-            print "[--pf2dfeats] %04d adding %s" % (count, doc_file)
-        pf2dfeats.make_doc_feats(phr_file, doc_file, doc_id, year)
-    update_stages(target_path, language, '--pf2dfeats', limit)
+def show_datasets(target_path, language, config):
+    """Print all datasets in the data directory."""
+    for stage in ALL_STAGES:
+        dataset_types = DOCUMENT_PROCESSING_IO[stage]['out']
+        for dataset_type in dataset_types:
+            print "\n===", dataset_type, "===\n"
+            path = os.path.join(target_path, language, 'data', dataset_type)
+            datasets1 = [ds for ds in os.listdir(path) if ds.isdigit()]
+            datasets2 = [DataSet(stage, dataset_type, config, ds) for ds in datasets1]
+            for ds in datasets2:
+                print ds
+                for e in ds.pipeline_trace:
+                    print "   ", e[0], e[1]
+                print "   ", ds.pipeline_head[0], ds.pipeline_head[1]
+
+def show_pipelines(target_path, language):
+    path = os.path.join(target_path, language, 'config')
+    pipeline_files = [f for f in os.listdir(path) if f.startswith('pipeline')]
+    for pipeline_file in sorted(pipeline_files):
+        if pipeline_file[-1] == '~':
+            continue
+        print "\n[%s]" % pipeline_file
+        for line in open(os.path.join(path, pipeline_file)).readlines():
+            line = line.strip()
+            if not line or line[0] == '#':
+                continue
+            print '  ', line
+    print
 
 
-
+    
 ## AUXILIARY METHODS
     
 def find_input_dataset(stage, config):
@@ -284,7 +276,7 @@ def find_input_dataset(stage, config):
     # Get all data sets D for input name
     dirname = os.path.join(target_path, language, 'data', input_name)
     datasets1 = [ds for ds in os.listdir(dirname) if ds.isdigit()]
-    datasets2 = [DataSet(stage, [input_name], config, ds) for ds in datasets1]
+    datasets2 = [DataSet(stage, input_name, config, ds) for ds in datasets1]
     # Filer the datasets making sure that d.trace + d.head matches
     # config.pipeline(txt).trace
     datasets3 = [ds for ds in datasets2 if ds.input_matches_global_config()]
@@ -312,7 +304,7 @@ def find_output_datasets(stage, config):
         # Get all data sets D for input name
         dirname = os.path.join(target_path, language, 'data', output_name)
         datasets1 = [ds for ds in os.listdir(dirname) if ds.isdigit()]
-        datasets2 = [DataSet(stage, [output_name], config, ds) for ds in datasets1]
+        datasets2 = [DataSet(stage, output_name, config, ds) for ds in datasets1]
         # Filer the datasets making sure that d.trace + d.head matches
         # config.pipeline(txt).trace
         datasets3 = [ds for ds in datasets2 if ds.output_matches_global_config()]
@@ -328,7 +320,7 @@ def find_output_datasets(stage, config):
         elif len(datasets3) == 0:
             highest_id = max([0] + [int(ds) for ds in datasets1])
             new_id = "%02d" % (highest_id + 1)
-            dataset = DataSet(stage, output_names, config, new_id)
+            dataset = DataSet(stage, output_name, config, new_id)
             if not dataset.exists():
                 dataset.initialize_on_disk()
                 dataset.load_from_disk()
@@ -357,8 +349,8 @@ def prepare_io(filename, input_dataset, output_dataset):
     """Generate the file paths for the datasets and make sure the path to the file exists for
     the output dataset. May need to add a version that deals with multiple output datasets."""
     file_id = filename[1:] if filename.startswith(os.sep) else filename
-    file_in = os.path.join(input_dataset.path1, 'files', file_id)
-    file_out = os.path.join(output_dataset.path1, 'files', file_id)
+    file_in = os.path.join(input_dataset.path, 'files', file_id)
+    file_out = os.path.join(output_dataset.path, 'files', file_id)
     ensure_path(os.path.dirname(file_out))
     return file_in, file_out
 
@@ -370,38 +362,45 @@ def make_parser(language):
     parser.language = mappings[language]
     return parser
 
+def read_opts():
+    longopts = ['populate', 'xml2txt', 'txt2tag', 'tag2chk', 'pf2dfeats', 
+                'verbose', 'config=', 'show-data', 'show-pipelines']
+    try:
+        return getopt.getopt(sys.argv[1:], 'l:t:n:', longopts)
+    except getopt.GetoptError as e:
+        sys.exit("ERROR: " + str(e))
 
-
+        
 if __name__ == '__main__':
 
-    (opts, args) = getopt.getopt(
-        sys.argv[1:],
-        'l:t:n:',
-        ['populate', 'xml2txt', 'txt2tag', 'tag2chk', 'pf2dfeats', 
-         'verbose', 'config='])
-
     # default values of options
-    language = 'en'
-    target_path = 'data/patents'
+    target_path, language, stage = 'data/patents', 'en', None
     pipeline_config = 'pipeline-default.txt'
-    verbose = False
-    limit = 0
-    stage = None
+    verbose, show_data_p, show_pipelines_p = False, False, False
+    limit = 1
     
+    (opts, args) = read_opts()
     for opt, val in opts:
         if opt == '-l': language = val
         if opt == '-t': target_path = val
         if opt == '-n': limit = int(val)
         if opt == '--verbose': verbose = True
         if opt == '--config': pipeline_config = val
-        if opt in ['--populate', '--xml2txt', '--txt2tag', '--tag2chk', '--pf2dfeats']:
+        if opt == '--show-data': show_data_p = True
+        if opt == '--show-pipelines': show_pipelines_p = True
+        if opt in ALL_STAGES:
             stage = opt
 
     config = GlobalConfig(target_path, language, pipeline_config)
     options = config.get_options(stage)
-    config.pp()
-    
-    if stage == '--populate':
+    #config.pp()
+
+    if show_data_p:
+        show_datasets(target_path, language, config)
+    elif show_pipelines_p:
+        show_pipelines(target_path, language)
+
+    elif stage == '--populate':
         run_populate(config, limit, verbose)
     elif stage == '--xml2txt':
         run_xml2txt(config, limit, options, verbose)

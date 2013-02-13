@@ -1026,7 +1026,7 @@ class chunkSchema:
         # file should contain one term per line.
         # add a list of terms to be indexed under [name][term] as noisewords with value True
         filepath = os.path.join(config_data.annotation_directory, filename)
-        print "[add_noise_list]Adding chunker noise list in %s" % filepath 
+        #print "[add_noise_list]Adding chunker noise list in %s" % filepath 
         s_noise = open(filepath)
         self.d_noise.setdefault(name, {})
         for term in s_noise:
@@ -1078,7 +1078,6 @@ def chunk_schema(lang):
         cont_pat.extend(both_pat)
         noise_files = [["noise_av", "en_jj_vb.noise"]]
 
-
     if lang == "en_w_verbs":
         both_pat =  [ ["NN", ["-", "fig", "figure"]], ["NNP", ["-", "fig", "figure"] ], ["NNS", []], ["NNPS", []], ["POS", []],  ["JJ", ["n", "noise_av"]] , ["JJR", ["-", "more"] ], ["JJS", ["-", "most"] ], ["FW", ["-", "e.g.", "i.e"] ], ["VBG", ["n", "noise_av"]]  ]
         #start_pat = [ ["NN", ["-", "method"]] ] 
@@ -1102,7 +1101,7 @@ def chunk_schema(lang):
 
     # NOTE: this was the first set created, it was used for the T&E evaluation, it was
     # also used when we first created candidates for annotation
-    if lang == "en_w_of":
+    if lang == "en_w_of_org":
         both_pat =  [ ["NN", []], ["NNP", []], ["NNS", []], ["NNPS", []], ["POS", []],  ["JJ", ["-", "further", "such", "therebetween", "same", "following", "respective", "first", "second", "third", "fourth", "respective", "preceding", "predetermined", "next", "more"] ], ["JJR", ["-", "more"] ], ["JJS", [] ], ["FW", ["-", "e.g.", "i.e"] ], ["VBG", ["-", "describing", "improving", "using", "employing",  "according", "resulting", "having", "following", "including", "containing", "consisting", "disclosing"]  ] ] 
         #start_pat = [ ["NN", ["-", "method"]] ] 
         start_pat = []

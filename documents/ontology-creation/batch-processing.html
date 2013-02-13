@@ -179,7 +179,7 @@ configuration and state and implements the output of a processing stage for a pa
 pipeline configuration. This saves space since different pipelines may share components,
 as illustrated below.</p>
 
-<img class="indent" src="dataset-tree.pdf"/>
+<img class="indent" src="dataset-tree.jpg"/>
 
 <p>In a way, these identifiers implement a tree where each path to the leaves corresponds
 with a pipeline configuration, in the example above we use a simple partial pipeline with
@@ -206,7 +206,7 @@ change over time.</p>
     created by the current processing step. For example, for --txt2tag above it is the
     list [--txt2tag tagger-version=x|y]. The image below illustrates how the pipeline file
     point to parts of a full pipeline configuration.
-    <img class="xindent" src="head-trace.pdf"/></dd>
+    <img src="head-trace.jpg"/></dd>
 
   <dt class="pre move-down-a-bit">state/processed.txt</dt>
   <dd>Contains the number of files processed by the processing step, refering to the first
@@ -328,7 +328,8 @@ would be solved with properly setting up the document structure parser as a subm
 
 <p>The existence of a data set is no guarantee that the ... (or is it?)</p>
 
-<p></p>
+<p>Could probably deal with the segmentation for Chinese by adding d2_seg as an output for
+txt2tag and dealing with the extra data set for Chinese,</p>
 
 <p></p>
 
