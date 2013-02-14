@@ -474,28 +474,35 @@ class Sentence(object):
         return(fname("last_word", res))
 
     # suffix n-grams (3-5)
+
+    @feature_method
     def suffix3(self, index):
+
         last_index = self.chart[index].chunk_end - 1
         last_word = self.chart[last_index].lc_tok
+        #print "3 last word: %s" % last_word
         res = ""
-        if len(res) >= 6:
+        if len(last_word) >= 6:
             res = last_word[-3:]
         return(fname("suffix3", res))
 
+    @feature_method
     def suffix4(self, index):
         last_index = self.chart[index].chunk_end - 1
         last_word = self.chart[last_index].lc_tok
+        #print "5 last word: %s" % last_word
         res = ""
-        if len(res) >= 7:
+        if len(last_word) >= 7:
             res = last_word[-4:]
         return(fname("suffix4", res))
 
+    @feature_method
     def suffix5(self, index):
         last_index = self.chart[index].chunk_end - 1
         last_word = self.chart[last_index].lc_tok
         res = ""
-        if len(res) >= 8:
-            res = last_word[-3:]
+        if len(last_word) >= 8:
+            res = last_word[-5:]
         return(fname("suffix5", res))
 
 

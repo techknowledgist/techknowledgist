@@ -75,18 +75,38 @@ class Mallet_training:
         self.train_out_file = ""
         self.train_meta_file = ""
         self.l_instance = []
+
         # table of instances indexed by predicted and actual labels
         self.d_labels2uid = defaultdict(list)
         self.d_uid2labels = {}
 
+        # table of feature (prefixes) to filter from .mallet file  lines
+        self.d_filter_feat = {}
+        try:
+            # construct features filter file name using version + .features
+            # in features subdirectory
+            filter_filename = "features/" + version + ".features"
+            with open(filter_filename) as s_filter:
+                print "[MalletTraining]Using filter file: %s" % filter_filename
+                for line in s_filter:
+                    feature_prefix = line.strip()
+                    self.d_filter_feat[feature_prefix] = True
+                s_filter.close()
+        except IOError as e:
+            # no features to filter
+            print "[MalletTraining]No filter file found: %s" % filter_filename
+            pass
+    
         
     # NOTE: The next two functions are used to build a .mallet file.  If this is built
     # externally, they can be ignored.  However, the mallet file must consist of 
     # "<uid> <label> <f1> <f2> ...." and be named <file_prefix>.mallet
 
+    # add an instance object to the list of instances in the Mallet_training object
+    # PGA: /// Because this is now done externally (in train.make_utraining_file), 
+    # I have not incorporated the feature 
+    # filtering in this function.  If we decide to use this, it should be added.
     def add_instance(self, mallet_instance):
-        """add an instance object to the list of instances in the Mallet_training object"""
-        
         # each mallet instance contains <id> <label> <feature>+
         # check if id is needed
         # if id parameter is "", we will default to ordered integer ids
@@ -95,9 +115,8 @@ class Mallet_training:
             self.next_instance_id += 1
         self.l_instance.append(mallet_instance)
 
+    # write out training instances file to file $file_prefix.mallet
     def write_train_mallet_file(self):
-        """write out training instances file to file $file_prefix.mallet"""
-
         mallet_stream = open(self.train_mallet_file, "w")
         print "writing to: %s (with feature uniqueness enforced)" %  self.train_mallet_file
         for instance in self.l_instance:
@@ -110,7 +129,21 @@ class Mallet_training:
             mallet_stream.write("\n")
         mallet_stream.close()
 
-        
+
+    # given a list of features, return a line with all non-filtered features removed
+    # We filter on the prefix of the feature (the part before the "=")
+    def remove_filtered_feats(self, feats):
+        good_features = []
+        for feature in feats:
+            if self.d_filter_feat.has_key(feature.split("=")[0]):
+                good_features.append(feature)
+                #print "[remove_filtered_feats]Appending: %s" % feature
+            else:
+                #print "[remove_filtered_feats]Removing: %s" % feature
+                pass
+        return(good_features)
+
+
     # convert mallet instance file to mallet vectors format in file $file_prefix.vectors
     # This is required to run the classifier on the data.
     # command format: sh $mallet_dir/csv2vectors --input $train_dir/features.mallet --output $train_dir/features.vectors --print-output TRUE > $train_dir/features.vectors.out

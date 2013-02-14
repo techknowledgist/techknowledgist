@@ -25,7 +25,7 @@ def find_column(mallet_all_scores_file, field_value):
     except Exception: 
         print "[Error in find_mallet_field_value_column.py] " + \
               "The desired field value [%s] was not found in the mallet out file: %s" \
-              % (field_value, mallet_out_file)
+              % (field_value, mallet_all_scores_file)
     s_lines.close()
     return str(field_column)
 

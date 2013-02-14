@@ -67,7 +67,7 @@ echo "[cat_phr.sh]Created $output_dir/phr_occ.uct"
 
 # Create a sorted list of possible technology phrases suitable for labeling (by y or n character in first position of each line)
 cat $output_dir/phr_occ.uct | sed -e 's/^[0-9]*	/	/' > $output_dir/phr_occ.unlab
-echo "[cat_phr.sh]Created $output_dir/phr_occ.lab" for labeling
+echo "[cat_phr.sh]Created $output_dir/phr_occ.unlab" for labeling
 echo "NOTE: You must place a (manually) labeled file phr_occ.lab into the workspace directory before proceeding to the next automated step (machine learning)!!"
 
 # After labeling a subset of the lines in phr_occ.unlab, manually insert this file into the workspace subdirectory with the name phr_occ.lab
