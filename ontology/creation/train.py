@@ -40,7 +40,9 @@ def load_phrase_labels(patent_dir, lang):
         line = line.strip("\n")
         (label, phrase) = line.split("\t")
         # store the label if the line has one and is not "?"
-        if label != "" and label != "?":
+        #if label != "" and label != "?":
+        # only permissable labels are n,y,?.  We ignore any labels other than n,y.
+        if label == "n" or label == "y":
             d_phr2label[phrase] = label
 
     s_label_file.close()

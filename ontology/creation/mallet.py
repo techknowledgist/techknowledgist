@@ -81,6 +81,24 @@ class Mallet_training:
         # table of instances indexed by predicted and actual labels
         self.d_labels2uid = defaultdict(list)
         self.d_uid2labels = {}
+
+        # table of feature (prefixes) to filter from .mallet file  lines
+        self.d_filter_feat = {}
+        try:
+            # construct features filter file name using version + .features
+            # in features subdirectory
+            filter_filename = "features/" + version + ".features"
+            with open(filter_filename) as s_filter:
+                print "[MalletTraining]Using filter file: %s" % filter_filename
+                for line in s_filter:
+                    feature_prefix = line.strip()
+                    self.d_filter_feat[feature_prefix] = True
+                s_filter.close()
+        except IOError as e:
+            # no features to filter
+            print "[MalletTraining]No filter file found: %s" % filter_filename
+            pass
+    
         
     # NOTE: The next two functions are used to build a .mallet file.  If this is built
     # externally, they can be ignored.  However, the mallet file must consist of 
@@ -88,6 +106,9 @@ class Mallet_training:
     # and be named <file_prefix>.mallet
 
     # add an instance object to the list of instances in the Mallet_training object
+    # PGA: /// Because this is now done externally (in train.make_utraining_file), 
+    # I have not incorporated the feature 
+    # filtering in this function.  If we decide to use this, it should be added.
     def add_instance(self, mallet_instance):
         # each mallet instance contains <id> <label> <feature>+
         # check if id is needed
@@ -111,6 +132,20 @@ class Mallet_training:
             mallet_stream.write(" ".join(list(set(instance.l_feat))))
             mallet_stream.write("\n")
         mallet_stream.close()
+
+    # given a list of features, return a line with all non-filtered features removed
+    # We filter on the prefix of the feature (the part before the "=")
+    def remove_filtered_feats(self, feats):
+        good_features = []
+        for feature in feats:
+            if self.d_filter_feat.has_key(feature.split("=")[0]):
+                good_features.append(feature)
+                #print "[remove_filtered_feats]Appending: %s" % feature
+            else:
+                #print "[remove_filtered_feats]Removing: %s" % feature
+                pass
+        return(good_features)
+
 
     # convert mallet instance file to mallet vectors format in file $file_prefix.vectors
     # This is required to run the classifier on the data.

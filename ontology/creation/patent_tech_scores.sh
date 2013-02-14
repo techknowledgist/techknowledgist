@@ -9,15 +9,21 @@
 patent_path=$1
 version=$2
 language=$3
+classifier=$4
+
+# for backwards compatibility.  However, this should be removed and classifier always passed in
+classifier=MaxEnt
 
 test_path=$patent_path/$language/test
-mallet_out_file=$test_path/utest.$version.MaxEnt.out
-all_doc_scores_file=$test_path/utest.$version.MaxEnt.out.doc_scores
+mallet_out_file=$test_path/utest.$version.$classifier.out
+echo "using mallet_out_file: $mallet_out_file"
+
+all_doc_scores_file=$test_path/utest.$version.$classifier.out.doc_scores
 # Next file no longer created (11/19/12 PGA)
-scores_nr_file=$test_path/utest.$version.MaxEnt.out.y.nr
+scores_nr_file=$test_path/utest.$version.$classifier.out.y.nr
 # Name of next file changed (added .nr 11/19/12 PGA)
-doc_scores_nr=$test_path/utest.$version.MaxEnt.out.doc_scores.nr
-avg_scores=$test_path/utest.$version.MaxEnt.out.avg_scores
+doc_scores_nr=$test_path/utest.$version.$classifier.out.doc_scores.nr
+avg_scores=$test_path/utest.$version.$classifier.out.avg_scores
 
 cat $mallet_out_file | egrep '^[0-9]'  > $all_doc_scores_file
 
@@ -43,6 +49,7 @@ echo "[tech_scores]Created $scores_nr_noexp_file"
 # NOTE: version of python is system dependent!
 # For pasiphae we have to specify python26.  But it is the default on fusenet.
 # This allows us to use defaultdict in the python script.
+echo "in pat tech scores"
 if [[ $(hostname) = 'pasiphae' ]]
 then 
     echo "[patent_tech_scores.sh]Running python26 for sum_score.py"

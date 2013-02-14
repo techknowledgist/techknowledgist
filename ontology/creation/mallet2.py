@@ -37,6 +37,8 @@ def cattrs(inst):
 ############################################################################
 class MalletConfig:
     
+    # TODO: add self.classifier_type to all the file names!  So far, only added it to the test output files.///
+
     def __init__(self, mallet_dir, train_file_prefix, test_file_prefix, version, train_dir, test_dir, classifier_type="MaxEnt", number_xval=0, training_portion=0, prune_p=False, infogain_pruning="5000", count_pruning="3"):
 
         # TBD: Add test to constrain number_xval or training_portion to 0.
@@ -58,6 +60,9 @@ class MalletConfig:
         self.train_vectors_file = os.path.join(train_dir, train_file_prefix + "." + version + ".vectors")
         self.train_vectors_out_file = os.path.join(train_dir, train_file_prefix + "." + version + ".vectors.out")
 
+
+        # Currently, pruning is not working, due to an error in the mallet code itself, which doesn't set up 
+        # the pipes correctly.
         # train_prune_file will only exist if the prune command is run.  If it's value is "", we will assume it was not run
         # and the train_vectors file should be used as input to the classifier.  If its value is not "", it will be used as 
         # the train_vectors file for training the classifier.
@@ -80,8 +85,10 @@ class MalletConfig:
         self.cinfo_sorted_file = os.path.join(train_dir, train_file_prefix + "." + version + ".cinfo.sorted")
         
         # classifier output
-        self.classifier_out_file =  os.path.join(test_dir, test_file_prefix + "." + version + ".out")
-        self.classifier_stderr_file =  os.path.join(test_dir, test_file_prefix + "." + version + ".stderr")
+        self.classifier_out_file =  os.path.join(test_dir, test_file_prefix + "." + version + "." + self.classifier_type + ".out")
+        self.classifier_stderr_file =  os.path.join(test_dir, test_file_prefix + "." + version + "." + self.classifier_type + ".stderr")
+
+        print "***********[mallet2]classifier output: %s" % self.classifier_out_file
 
         # mallet shell commands
         # vectors
@@ -528,7 +535,7 @@ def string_contains(string, l_parts):
             return(True)
     return(False)
 
-# returns a sting version of a sequence of tokens (separated by "_")
+# returns a string version of a sequence of tokens (separated by "_")
 def l_tok2string(l_tok):
     l_tok_str = []
     joined_string = ""
