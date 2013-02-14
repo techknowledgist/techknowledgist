@@ -1,28 +1,35 @@
 """
 
+Scripts that lets you run the trainer and classifier on specified datasets.
+
 OPTIONS
 
     -l LANG      --  provides the language, one of ('en, 'de', 'cn'), default is 'en'
     -t PATH      --  target directory, default is data/patents
-    -n INTEGER   --  number of documents to process
-    -r STRING    --  range of documents to take, that is, the postfix of classifier output
      
-    --summary    --  create summary lists
-    --annotate1  --  prepare files for annotation of the prior
-    --annotate2  --  prepare files for annotation for evaluation
     --utrain     --  create model for classifier
     --utest      --  run classifier
-    --scores     --  generate scores from classifier results
+    --scores     --  generate scores from classifier results, bundle with the previous
 
-    All the above long options require a target path and a language (via the -l and -t
-    options or their defaults). The long options --init and --populate also require a
-    source path (via -s or its default). The -n option is ignored if --init is used.
+    --version STRING  -- identifier for the model
+    --xval INTEGER    -- cross-validation setting for classifier (--utrain only), default is 0
 
-    --verbose   --  print name of each processed file to stdout
+    --config FILENAME           --  file with pipeline configuration
+    --files FILENAME            --  contains files to process, either for training or testing
+    --annotation-file FILENAME  --  specify file with labeled terms (--utrain only)
+    --annotation-count INTEGER  --  number of lines to take (--utrain only)
+
+    --verbose         --  set verbose printing to stdout
+    --show-data       --  print available datasets, then exits
+    --show-pipelines  --  print defined pipelines, then exits
+
+Example for --utrain:
+
+$ python step4_classify.py --utrain -t data/patents -l en --config pipeline-default.txt --file training-files-v1.txt --annotation-file ../annotation/en/phr_occ.lab --annotation-count 2000 --version standard --xval 0
 
 """
 
-import os, sys, time, shutil, getopt, subprocess, codecs, textwrap
+import os, sys, time, shutil, getopt, subprocess, codecs
 
 script_path = os.path.abspath(sys.argv[0])
 script_dir = os.path.dirname(script_path)
@@ -44,53 +51,50 @@ import sum_scores
 
 from ontology.utils.batch import read_stages, update_stages, write_stages
 from ontology.utils.batch import files_to_process
+from ontology.utils.file import filename_generator
 from ontology.utils.git import get_git_commit
 
 
-ALL_STAGES = ['--summary', '--utrain', '--utest', '--scores']
+ALL_STAGES = ['--utrain', '--utest', '--scores']
 
 
-def run_summary(target_path, language, limit):
-    """Collect data from directories into workspace area: ws/doc_feats.all,
-    ws/phr_feats.all and ws/phr_occ.all. All downstream processing should rely on these
-    data and nothing else."""
-    print "[--summary] appending to files in ws"
-    #subprocess.call("sh ./cat_phr.sh %s %s" % (target_path, language), shell=True)
-    stages = read_stages(target_path, language)
-    fnames = files_to_process(target_path, language, stages, '--summary', limit)
-    doc_feats_file = os.path.join(target_path, language, 'ws', 'doc_feats.all')
-    phr_feats_file = os.path.join(target_path, language, 'ws', 'phr_feats.all')
-    phr_occ_file = os.path.join(target_path, language, 'ws', 'phr_occ.all')
-    fh_doc_feats = codecs.open(doc_feats_file, 'a', encoding='utf-8')
-    fh_phr_feats = codecs.open(phr_feats_file, 'a', encoding='utf-8')
-    fh_phr_occ = codecs.open(phr_occ_file, 'a', encoding='utf-8')
-    for (year, fname) in fnames:
-        doc_feats_file = os.path.join(target_path, language, 'doc_feats', year, fname)
-        phr_feats_file = os.path.join(target_path, language, 'phr_feats', year, fname)
-        phr_occ_file = os.path.join(target_path, language, 'phr_occ', year, fname)
-        fh_doc_feats.write(codecs.open(doc_feats_file, encoding='utf-8').read())
-        fh_phr_feats.write(codecs.open(phr_feats_file, encoding='utf-8').read())
-        fh_phr_occ.write(codecs.open(phr_occ_file, encoding='utf-8').read())
-    update_stages(target_path, language, '--summary', limit)
-
-    
-    
 def run_utrain(config, file_list, annotation_file, annotation_count, version, xval):
-    """Creates a mallet training file for labeled data with features as union of all
-    phrase instances within a doc. Also creates a model utrain.<version>.MaxEnt.model in
-    the train subdirectory. Limit is used to determine the size of the training set, as
-    with run_annotate, it is not used for incrementing values in ALL_STAGES.txt. """
+
+    """Creates a MaxEnt statistical model for the classifier as well as a series of
+    intermediate files and files that log the state of the system at processing time. Uses
+    labeled data with features as union of all phrase instances within a doc."""
 
     train_dir = os.path.join(config.target_path, config.language, 'data', 't1_train')
-    config_dir = os.path.join(config.target_path, config.language, 'config')
-    train_id = "%s.%s" % (version, xval)
-    info_file_general = os.path.join(train_dir, "utrain-%s-info-general.txt" % train_id)
-    info_file_annotation = os.path.join(train_dir, "utrain-%s-info-annotation.txt" % train_id)
-    info_file_config = os.path.join(train_dir, "utrain-%s-info-config.txt" % train_id)
-    info_file_filelist = os.path.join(train_dir, "utrain-%s-info-filelist.txt" % train_id)
+    intitialize_utrain(config, file_list, annotation_file, annotation_count,
+                       train_dir, version, xval)
+
+    # select data sets and check whether all files are available
+    file_list = os.path.join(config.config_dir, file_list)
+    input_dataset1 = find_utrain_input_dataset1(config)
+    input_dataset2 = find_utrain_input_dataset2(config)
+    check_file_availability(input_dataset1, file_list)
+    check_file_availability(input_dataset2, file_list)
+
+    # this step is not needed for model building but can be consumed by later stages
+    create_summary_files(input_dataset1, input_dataset2, file_list, train_dir, version)
     
-    #if os.path.exists(info_file_general):
-    #    sys.exit("WARNING: model for setting utrain-%s already exists" % train_id)
+    ## build the model using the doc features dataset
+    fnames = filename_generator(input_dataset2.path, file_list)
+    mallet_file = os.path.join(train_dir, "utrain-%s.mallet" % version)
+    train.patent_utraining_data3(mallet_file, annotation_file, annotation_count, 
+                                 fnames, version, xval)
+
+
+def intitialize_utrain(config, file_list, annotation_file, annotation_count,
+                       train_dir, version, xval):
+
+    info_file_general = os.path.join(train_dir, "utrain-%s-info-general.txt" % version)
+    info_file_annotation = os.path.join(train_dir, "utrain-%s-info-annotation.txt" % version)
+    info_file_config = os.path.join(train_dir, "utrain-%s-info-config.txt" % version)
+    info_file_filelist = os.path.join(train_dir, "utrain-%s-info-filelist.txt" % version)
+    
+    if os.path.exists(info_file_general):
+        sys.exit("WARNING: model for setting utrain-%s already exists" % version)
 
     with open(info_file_general, 'w') as fh:
         fh.write("version \t %s\n" % version)
@@ -111,60 +115,87 @@ def run_utrain(config, file_list, annotation_file, annotation_count, version, xv
                 fh2.write(line)
     
     shutil.copyfile(config.pipeline_config_file, info_file_config)
-    shutil.copyfile(os.path.join(config_dir, file_list), info_file_filelist)
+    shutil.copyfile(os.path.join(config.config_dir, file_list), info_file_filelist)
 
-
-    ## select data set
-
-    #should really use the function below and merge in the stuff needed
-    #print find_input_dataset('--utrain', config)
     
-    # Use the stage-to-data mapping to find the input name
-    input_name = DOCUMENT_PROCESSING_IO['--utrain']['in']
-    # Get all data sets D for input name
+def create_summary_files(input_dataset1, input_dataset2, file_list, train_dir, version):
+    """Concatenate files from the datasets that occur in file_list. For now only does the
+    doc_feats and phr_feats files, not the phr_occ files."""
+    
+    file_generator1 = filename_generator(input_dataset1.path, file_list)
+    file_generator2 = filename_generator(input_dataset2.path, file_list)
+    doc_feats_file = os.path.join(train_dir, "utrain-%s-features-doc_feats.txt" % version)
+    phr_feats_file = os.path.join(train_dir, "utrain-%s-features-phr_feats.txt" % version)
+    fh_doc_feats = codecs.open(doc_feats_file, 'w', encoding='utf-8')
+    fh_phr_feats = codecs.open(phr_feats_file, 'w', encoding='utf-8')
+    for fname1 in file_generator1:
+        fh_phr_feats.write(codecs.open(fname1, encoding='utf-8').read())
+    for fname2 in file_generator2:
+        fh_doc_feats.write(codecs.open(fname2, encoding='utf-8').read())
+
+        
+def find_utrain_input_dataset1(config):
+    # TODO: unlike, step2_document_processing.find_input_dataset(), this one has the input
+    # hard-coded rather than referring to DOCUMENT_PROCESSING_IO
+    input_name = 'd3_phr_feats'
     dirname = os.path.join(config.target_path, config.language, 'data', input_name)
     datasets1 = [ds for ds in os.listdir(dirname) if ds.isdigit()]
     datasets2 = [DataSet(stage, input_name, config, ds) for ds in datasets1]
+    datasets3 = []
     for ds in datasets2:
-        ds.pp()
-    # Filer the datasets making sure that d.trace + d.head matches
-    # config.pipeline(txt).trace
+        full_config = ds.pipeline_trace
+        full_config.append(ds.pipeline_head)
+        if full_config == config.pipeline[:-1]:
+            datasets3.append(ds)
+    return check_result(datasets3)
 
-    """
-    datasets3 = [ds for ds in datasets2 if ds.input_matches_global_config()]
-    config.pp()
-    print datasets2
-    print datasets3
-    # If there is one result, return it, otherwise write a warning and exit
-    if len(datasets3) == 1:
-        return datasets3[0]
-    elif len(datasets3) > 1:
+
+def find_utrain_input_dataset2(config):
+    # TODO: unlike, step2_document_processing.find_input_dataset(), this one has the input
+    # hard-coded rather than referring to DOCUMENT_PROCESSING_IO
+    input_name = 'd4_doc_feats'
+    dirname = os.path.join(config.target_path, config.language, 'data', input_name)
+    datasets1 = [ds for ds in os.listdir(dirname) if ds.isdigit()]
+    datasets2 = [DataSet(stage, input_name, config, ds) for ds in datasets1]
+    datasets3 = []
+    for ds in datasets2:
+        full_config = ds.pipeline_trace
+        full_config.append(ds.pipeline_head)
+        if full_config == config.pipeline:
+            datasets3.append(ds)
+    return check_result(datasets3)
+
+
+def check_result(datasets):
+    """Return the dataset if there is only one in the list, otherwise write a warning and
+    exit."""
+    if len(datasets) == 1:
+        return datasets[0]
+    elif len(datasets) > 1:
         print "WARNING, more than one approriate training set:"
-        for ds in datasets3:
+        for ds in datasets:
             print '  ', ds
         sys.exit("Exiting...")
-    elif len(datasets3) == 0:
+    elif len(datasets) == 0:
         print "WARNING: no datasets available to meet input requirements"
         sys.exit("Exiting...")
-    """
 
-    ## gather all data into summary files
 
-    ## build the model (adjust train.patent_utraining_data2 so that it takes full
-    ## pathnames)
+def check_file_availability(dataset, filelist):
+    """Check whether all files in filelist have been processed and are available in
+    dataset. If not, print a warning and exit."""
+    file_generator = filename_generator(dataset.path, filelist)
+    total = 0
+    not_in_dataset = 0
+    for fname in file_generator:
+        total += 1
+        if not os.path.exists(fname):
+            not_in_dataset += 1
+    if not_in_dataset > 0:
+        sys.exit("WARNING: %d out %d files in %s have not been processed yet\n         %s" % 
+                 (not_in_dataset, total, os.path.basename(filelist), dataset))
 
-    
-    
-    """
-    fnames = files_to_process(target_path, language, stages, '--utrain', limit)
-    annot_path = config_data.annotation_directory
-    source_annot_lang_file = os.path.join(annot_path, language, 'phr_occ.lab')
-    target_annot_lang_file = os.path.join(target_path, language, 'ws', 'phr_occ.lab')
-    shutil.copyfile(source_annot_lang_file, target_annot_lang_file)
-    #train.patent_utraining_data(target_path, language, version, xval, limit)
-    train.patent_utraining_data2(target_path, language, fnames, version, xval)
-    """
-    
+        
     
 def run_utest(target_path, language, version, limit, classifier='MaxEnt',
               use_all_chunks_p=True):
@@ -278,12 +309,13 @@ def read_opts():
     except getopt.GetoptError as e:
         sys.exit("ERROR: " + str(e))
 
-        
-        
+
+
 if __name__ == '__main__':
 
     # default values of options
     target_path, language, stage = 'data/patents', 'en', None
+    file_list = 'training-files-000000-000500.txt'
     pipeline_config = 'pipeline-default.txt'
     verbose, show_data_p, show_pipelines_p = False, False, False
     annotation_count = 9999999999999
@@ -310,17 +342,15 @@ if __name__ == '__main__':
         if opt == '--verbose': verbose = True
         if opt == '--eval-on-unseen-terms': use_all_chunks = False
 
-        
     config = GlobalConfig(target_path, language, pipeline_config)
-    config.pp()
+    if verbose:
+        config.pp()
 
     if show_data_p:
         show_datasets(target_path, language, config)
     elif show_pipelines_p:
         show_pipelines(target_path, language)
 
-    elif stage == '--summary':
-        run_summary(target_path, language, limit)
     elif stage == '--utrain':
         run_utrain(config, file_list, annotation_file, annotation_count, version, xval)
     elif stage == '--utest':

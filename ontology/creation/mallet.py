@@ -68,27 +68,25 @@ class Mallet_training:
         # id's are 0 based
         self.next_instance_id = 0
         path_wo_version = os.path.join(train_output_dir, file_prefix)
-        self.train_path_prefix = path_wo_version + "." + version
-
+        self.train_path_prefix = path_wo_version + "-" + version
         self.train_mallet_file = self.train_path_prefix + ".mallet"
         self.train_vectors_file = ""
         self.train_vectors_out_file = ""
         self.train_out_file = ""
         self.train_meta_file = ""
-
         self.l_instance = []
-
         # table of instances indexed by predicted and actual labels
         self.d_labels2uid = defaultdict(list)
         self.d_uid2labels = {}
+
         
     # NOTE: The next two functions are used to build a .mallet file.  If this is built
     # externally, they can be ignored.  However, the mallet file must consist of 
-    # <uid> <label> <f1> <f2> ....
-    # and be named <file_prefix>.mallet
+    # "<uid> <label> <f1> <f2> ...." and be named <file_prefix>.mallet
 
-    # add an instance object to the list of instances in the Mallet_training object
     def add_instance(self, mallet_instance):
+        """add an instance object to the list of instances in the Mallet_training object"""
+        
         # each mallet instance contains <id> <label> <feature>+
         # check if id is needed
         # if id parameter is "", we will default to ordered integer ids
@@ -97,8 +95,8 @@ class Mallet_training:
             self.next_instance_id += 1
         self.l_instance.append(mallet_instance)
 
-    # write out training instances file to file $file_prefix.mallet
     def write_train_mallet_file(self):
+        """write out training instances file to file $file_prefix.mallet"""
 
         mallet_stream = open(self.train_mallet_file, "w")
         print "writing to: %s (with feature uniqueness enforced)" %  self.train_mallet_file
@@ -112,6 +110,7 @@ class Mallet_training:
             mallet_stream.write("\n")
         mallet_stream.close()
 
+        
     # convert mallet instance file to mallet vectors format in file $file_prefix.vectors
     # This is required to run the classifier on the data.
     # command format: sh $mallet_dir/csv2vectors --input $train_dir/features.mallet --output $train_dir/features.vectors --print-output TRUE > $train_dir/features.vectors.out
@@ -148,23 +147,22 @@ class Mallet_training:
 
         # --report test:raw option provides <id> <actual> <predicted> labels, e.g.
         # 2 OUT OUT:0.6415563874015857 IN:0.3584436125984143 
-        
 
         # using training-portion
         if training_portion > 0.0:
-            print "[mallet_train_classifier]Using mallet command with portions"
+            print "[mallet_train_classifier] using mallet command with portions"
             cmd = "sh " + mallet_dir + "/mallet train-classifier --input " + self.train_vectors_file + " --trainer " + trainer + " --output-classifier " + self.classifier_file + " --training-portion " + str(training_portion) + " --report test:accuracy test:confusion train:raw > " + self.classifier_out_file + " 2> " + self.classifier_stderr_file
 
         elif number_cross_val < 2: 
-            print "[mallet_train_classifier]Using mallet command without cross validation or portions"
+            print "[mallet_train_classifier] using mallet command without cross validation or portions"
             cmd = "sh " + mallet_dir + "/mallet train-classifier --input " + self.train_vectors_file + " --trainer " + trainer + " --output-classifier " + self.classifier_file + " --report test:accuracy test:confusion test:raw > " + self.classifier_out_file + " 2> " + self.classifier_stderr_file
 
         else:
             # using cross-validation
-            print "[mallet_train_classifier]Using mallet command with cross validation"
+            print "[mallet_train_classifier] using mallet command with cross validation"
             cmd = "sh " + mallet_dir + "/mallet train-classifier --input " + self.train_vectors_file + " --trainer " + trainer + " --output-classifier " + self.classifier_file + " --cross-validation " + str(number_cross_val) + " --report test:accuracy test:confusion test:raw > " + self.classifier_out_file + " 2> " + self.classifier_stderr_file
 
-        print "[mallet_train_classifier]cmd: %s" % cmd
+        print "[mallet_train_classifier] %s" % cmd
         os.system(cmd)
 
 ##################

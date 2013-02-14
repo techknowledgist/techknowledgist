@@ -31,10 +31,12 @@
 <p>Input to the training (model building) phase is the following:</p>
 
 <ol>
+<li>a target directory and a language</li>
 <li>a file with annotations, with optionally a number of lines to take</li>
-<li>a file list that has all the files that the model is trained on</li>
+<li>a file list that has all the files that the model is to be trained on</li>
 <li>a configuration file with the pipeline configuration</li>
-<li>major and minor versions (based on your version and xval variables)</li>
+<li>a version identifier</li>
+<li>a cross-validation setting (the xval variable)</li>
 </ol>
 
 <p>With this I create a bunch of files in the train directory. Let's say I use the
@@ -45,7 +47,7 @@ following invocation:</p>
      --utrain -t data/patents -l en 
      --config pipeline-default.txt --file training-files-v1.txt 
      --annotation-file ../annotation/en/phr_occ.lab --annotation-count 2000
-     --version standard --xval 1
+     --version standard --xval 0
 </p>
 
 <p>(many of these options have defaults, but I spelled them all out)</p>
@@ -56,14 +58,18 @@ following invocation:</p>
 <p>The --train processing step creates the following files in data/t1_train:</p>
 
 
-<p><u>utrain-standard.1-info-general.txt</u></p>
+<p><u>utrain-standard-info-general.txt</u></p>
 
-<p class="indent">This file contains all setting needed to replicate creating the model, for the above
-command, the contents of the file are as follows:</p>
+<p class="indent">This file contains all setting needed to replicate creating the
+model. Note that "standard" the value of the --version option and that it serves as an
+identifier. It can be any string and it is up to the user to make it suffieciently
+descriptive to uniquely identify the character of the trained model. This same identifier
+should be used for the testing phase. For the above command, the contents of the file are
+as follows:</p>
 
 <p class="pre move-up">
    version           standard
-   xval              1
+   xval              0
    file_list         training-files-v1.txt
    annotation_file   ../annotation/en/phr_occ.lab
    annotation_count  2000
@@ -72,38 +78,41 @@ command, the contents of the file are as follows:</p>
 </p>
 
 
-<p><u>utrain-standard.1-info-filelist.txt</u></p>
+<p><u>utrain-standard-info-filelist.txt</u></p>
 
 <p class="indent">This contains a local copy of the file list with all training files.</p>
 
 
-<p><u>utrain-standard.1-info-config.txt</u></p>
+<p><u>utrain-standard-info-config.txt</u></p>
 
 <p class="indent">This contains a local copy of the pipeline configuration. Notice that
 this is the file used to select a dataset.</p>
 
 
-<p><u>utrain-standard.1-info-annotations.txt</u></p>
+<p><u>utrain-standard-info-annotations.txt</u></p>
 
 <p class="indent">Contains a local copy of the annotations file. Only takes the first n
 lines, where n is the value of the --annotation-count option.</p>
 
 
-<p><u>utrain-standard.1-summary-docfeats.txt</u><br/>
-   <u>utrain-standard.1-phrfeats.txt</u>
+<p><u>utrain-standard-features-doc_feats.txt</u><br/>
+   <u>utrain-standard-features-phr_feats.txt</u>
 </p>
 
 <p class="indent">Created from the dataset selected with the config file, using just those
-files in the file list. These two perform the same function as the old --summary setting,
-gathering all data and putting them in a single file (the difference is that file naming
-is now more flexible and that the file is added to the train directory rather than the old
-ws directory.</p>
+files in the file list. These two perform the same function as the files created with the
+old --summary setting, gathering all data and putting them in a single file (the
+difference is that file naming is now more flexible and that the file is added to the
+train directory rather than the old ws directory). These files are not used when building
+a model, but could be used downstream. If downstream processing uses the same approach as
+the model builder, then these files do not need to be created unless we want t keep them
+for housekeeping reasons.</p>
 
 
-<p><u>utrain-standard.1-mallet</u><br/>
-   <u>utrain-standard.1-MaxEnt.model</u><br/>
-   <u>utrain-standard.1-MaxEnt.out</u><br/>
-   <u>utrain-standard.1-MaxEnt.stderr</u>
+<p><u>utrain-standard-mallet</u><br/>
+   <u>utrain-standard-MaxEnt.model</u><br/>
+   <u>utrain-standard-MaxEnt.out</u><br/>
+   <u>utrain-standard-MaxEnt.stderr</u>
 </p>
 
 <p class="indent">These are the same as before.</p>
