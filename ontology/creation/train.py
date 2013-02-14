@@ -19,32 +19,27 @@ import mallet
 import putils
 import codecs
 
+
 # return a list in which each element only appears once.
 # NOTE: The order of the list may change.
 def unique_list(non_unique_list):
-    #print "calling unique_list"
     return (list(set(non_unique_list)))
 
-def load_phrase_labels(patent_dir, lang):
 
+def load_phrase_labels(patent_dir, lang):
     """Populate dictionary of labeled phrases with their labels assume label file is in
     the workspace (ws) directory We will treat the "?" as a special label which for the
     purposes of this function is equivalent to no label."""
 
     d_phr2label = {}
     label_file = os.path.join(patent_dir, lang, "ws", "phr_occ.lab")
-
     s_label_file = codecs.open(label_file, encoding='utf-8')
-    #s_label_file = open(label_file)
     for line in s_label_file:
         line = line.strip("\n")
         (label, phrase) = line.split("\t")
-        # store the label if the line has one and is not "?"
-        #if label != "" and label != "?":
         # only permissable labels are n,y,?.  We ignore any labels other than n,y.
         if label == "n" or label == "y":
             d_phr2label[phrase] = label
-
     s_label_file.close()
     return(d_phr2label)
 
@@ -62,8 +57,8 @@ def load_phrase_labels3(label_file, annotation_count):
             if count > annotation_count:
                 break
             (label, phrase) = line.strip("\n").split("\t")
-            # store the label if the line has one and is not "?"
-            if label != "" and label != "?":
+            # only useful labels are y and n
+            if label == "n" or label == "y":
                 d_phr2label[phrase] = label
     return d_phr2label
 
@@ -78,7 +73,7 @@ def make_utraining_file_by_dir(patent_dir, lang, version, d_phr2label):
     train_file_prefix = "utrain." + str(version)
     train_file_name = train_file_prefix + ".mallet"
     train_file = os.path.join(train_dir, train_file_name)
-    #print "[make_training_file]doc_feats_dir: %s, train_file: %s" \
+    #print "[make_training_file] doc_feats_dir: %s, train_file: %s" \
     #      % (doc_feats_dir, train_file)
 
     s_train = open(train_file, "w")
@@ -288,6 +283,7 @@ def make_utraining_file3(mallet_file, fnames, d_phr2label, verbose=False):
     print "[make_utraining_file3] labeled instances: %i, unlabeled: %i" \
         % (labeled_count, unlabeled_count)
 
+
 def parse_doc_feats_line(line):
     """Parse a doc_feats line and return phrase, identifier and feature list."""
     fields = line.strip("\n").split("\t")
@@ -361,7 +357,6 @@ def patent_utraining_data3(mallet_file, annotation_file, annotation_count, fname
     # make sure xval is an int (since it can be passed in by command line args)
     # create the model (utrain-<train_id>.MaxEnt.model)
     mtr.mallet_train_classifier("MaxEnt", int(xval))
-
 
 
 def make_utraining_test_file(patent_dir, lang, version, d_phr2label, use_all_chunks_p=True):
@@ -480,6 +475,7 @@ def make_unlabeled_mallet_file(doc_feats_path, mallet_subdir, file_name, featnam
     s_mallet_output.close()
     print "[make_unlabeled_mallet_file]Created %s, lines: %i" % (mallet_file, count)
 
+
 # create mallet classifications for each doc
 # use a model in patents/<lan>/train/utrain.<version>.MaxEnt.model
 # The mallet file must be created using the same mallet features (train_vectors_file version)
@@ -543,5 +539,3 @@ def pipeline_make_utraining_test_file(root, lang, version):
     s_test.close()
     #print "labeled instances: %i, unlabeled: %i" % (labeled_count, unlabeled_count)
     print "[make_utraining_test_file]Created testing data in: %s" % test_file
-
-

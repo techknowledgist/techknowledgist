@@ -39,13 +39,13 @@
 <li>a cross-validation setting (the xval variable)</li>
 </ol>
 
-<p>With this I create a bunch of files in the train directory. Let's say I use the
-following invocation:</p>
+<p>The training stages creates a bunch of files in the t1_train directory. Let's say I use
+the following invocation:</p>
 
 <p class="pre move-up">
 % python step4_classify.py 
      --utrain -t data/patents -l en 
-     --config pipeline-default.txt --file training-files-v1.txt 
+     --config pipeline-default.txt --filelist training-files-v1.txt
      --annotation-file ../annotation/en/phr_occ.lab --annotation-count 2000
      --version standard --xval 0
 </p>
@@ -118,9 +118,75 @@ for housekeeping reasons.</p>
 <p class="indent">These are the same as before.</p>
 
 
+<h3>Classifying -- input arguments and invocation</h3>
+
+<p>Input to the classification phase is the following:</p>
+
+<ol>
+<li>a target directory and a language</li>
+<li>a file list that has all the files that the classifier needs to run on</li>
+<li>a configuration file with the pipeline configuration</li>
+<li>a version identifier</li>
+<li>a version identifier for the trained model to be used</li>
+</ol>
+
+<p>Here is an example invocation:</p>
+
+<p class="pre move-up">
+python step4_classify.py
+    --classify -t data/patents -l en
+    --config pipeline-default.txt --filelist testing-files-v1.txt
+    --model standard --version standard.batch1
+</p>
+
+<p>The version id of the classification run is defined by the user and identifies a single
+run on a set of files. It is possible to have two runs, with different version ids, that
+are equal with respect to target directory, language, configuration and model
+identifier. You would do this when running the classifier on the first 5000 files, then on
+the second 5000. It is advisable to have this reflected in the version id or in the
+name of the file list, or in both. For example:
+
+<p class="pre move-up">
+--version standard.batch1 --filelist files-00000-05000.txt
+--version standard.batch2 --filelist files-05000-10000.txt
+</p>
+
+<p>The system does not enforce that the configuration file used for classifying is the
+same as the configuration file used by the model specified in the --model option. This is
+as it should be because we may want to explore whether models built with a certain
+configuration performs well when the configuration changes.</p>
+
+
+
 <h3>Testing -- input arguments and invocation</h3>
 
+<p>Input to the classification phase is the following:</p>
 
+<ol>
+<li>a target directory and a language (-t and -l options)</li>
+<li>a version identifier of the classification run (--results option)</li>
+<li>a file with labeled instances (--gold-standard option)
+</ol>
+
+<p>Here is an example invocation:</p>
+
+<p class="pre move-up">
+python step4_classify.py
+    --test -t data/patents -l en
+    --results standard.batch1 --gold-standard
+</p>
+
+<p>The main idea here is that all this phase does is take the results from a
+classification run and compare it to a gold standard. It will take the gold standard
+annotations ...</p>
+
+<p>NO, STOP IT RIGHT THERE!</p>
+
+<p>This may cause problems because it utterly decouples the annotation from the files the
+unlabeled instances were taken from. My goal was to make this lightweight, but it is
+better to having --test also do all that --classify does. There still will not be strict
+coupling, but at least we would define a filelist which could be input to both annotation
+and testing.</p>
 
 </body>
 </html>
