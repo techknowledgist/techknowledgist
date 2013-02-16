@@ -44,10 +44,10 @@ def load_phrase_labels(patent_dir, lang):
     return(d_phr2label)
 
 
-def load_phrase_labels3(label_file, annotation_count):
-    """Populate dictionary of labeled phrases with their labels assume label file is in
-    the workspace (ws) directory We will treat the "?" as a special label which for the
-    purposes of this function is equivalent to no label."""
+def load_phrase_labels3(label_file, annotation_count=999999):
+    """Use the label-term pairs in label_file to populate a dictionary of labeled phrases
+    with their labels. Only labels used are 'y' and 'n', all others, including '?' are
+    ignored."""
 
     d_phr2label = {}
     with codecs.open(label_file, encoding='utf-8') as s_label_file:
@@ -127,8 +127,12 @@ def make_utraining_file(patent_dir, lang, version, d_phr2label, limit=0):
     number of files from the input that should be used for the model, if it is zero, than
     all files will be taken.
 
-    PGA: This function should be folded into the Mallet_training class in mallet.py so we don't have
-    the hack that creates a MalletTraining instance just to do feature filtering.
+    PGA: This function should be folded into the Mallet_training class in mallet.py so we
+    don't have the hack that creates a MalletTraining instance just to do feature
+    filtering.
+
+    MV: there is also a problem in that it relies on a hard-coded file 'ws/doc_feats.all'
+    file.
     """
 
     # create a MalletTraining instance to handle feature filtering
@@ -299,7 +303,7 @@ def _get_training_io(patent_dir, lang, version):
     doc_feats_fh = codecs.open(doc_feats_file, encoding='utf-8')
     # doc_feats_fh = open(doc_feats_file)
     train_dir = os.path.join(patent_dir, lang, "train")
-    train_file = os.path.join(train_dir, "utrain.%s.mallet" % str(version))
+    train_file = os.path.join(train_dir, "train.%s.mallet" % str(version))
     train_fh = codecs.open(train_file, "w", encoding='utf-8')
     # train_fh = open(train_file, "w")
     print "[_get_training_io] input taken from", doc_feats_fh
@@ -351,11 +355,11 @@ def patent_utraining_data3(mallet_file, annotation_file, annotation_count, fname
     make_utraining_file3(mallet_file, fnames, d_phr2label)
     # create an instance of Mallet_training class to do the rest
     train_output_dir = os.path.dirname(mallet_file)
-    mtr = mallet.Mallet_training("utrain", version, train_output_dir)
-    # create the mallet vectors file  (utrain-<train_id>.vectors)from the mallet file
+    mtr = mallet.Mallet_training("train", version, train_output_dir)
+    # create the mallet vectors file  (train.<train_id>.vectors)from the mallet file
     mtr.write_train_mallet_vectors_file()
     # make sure xval is an int (since it can be passed in by command line args)
-    # create the model (utrain-<train_id>.MaxEnt.model)
+    # create the model (train.<train_id>.MaxEnt.model)
     mtr.mallet_train_classifier("MaxEnt", int(xval))
 
 

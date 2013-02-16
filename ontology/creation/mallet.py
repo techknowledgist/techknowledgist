@@ -68,7 +68,7 @@ class Mallet_training:
         # id's are 0 based
         self.next_instance_id = 0
         path_wo_version = os.path.join(train_output_dir, file_prefix)
-        self.train_path_prefix = path_wo_version + "-" + version
+        self.train_path_prefix = path_wo_version + "." + version
         self.train_mallet_file = self.train_path_prefix + ".mallet"
         self.train_vectors_file = ""
         self.train_vectors_out_file = ""
@@ -281,7 +281,7 @@ class Mallet_test:
     # Note also that training with xvalidation on will create multiple models, one per trial.
     # You need to train with no xvalidation to generate a model file name that will work with the tester here.
     
-    def mallet_test_classifier(self, trainer, mallet_file=None, results_file=None):
+    def mallet_test_classifier(self, trainer, mallet_file=None, results_file=None, stderr_file=None):
 
         print "[mallet_test_classifier] trainer is %s" % trainer
         self.classifier_file = self.train_path_prefix + "." + trainer + ".model"
@@ -292,6 +292,8 @@ class Mallet_test:
             self.test_mallet_file = mallet_file
         if results_file is not None:
             self.classifier_out_file = results_file
+        if stderr_file is not None:
+            self.classifier_stderr_file = stderr_file
 
         #sh /home/j/anick/mallet/mallet-2.0.7/bin/mallet classify-file --input $test_dir/$type.$version.features.vectors  --classifier $train_dir/$type.$version.classifier.mallet  --output -  >  $test_dir/$type.$version.res.stdout
 
@@ -302,7 +304,7 @@ class Mallet_test:
               self.test_mallet_file + " --classifier " + self.classifier_file + \
               " --output -  > " + self.classifier_out_file + " 2> " + self.classifier_stderr_file
 
-        print "[mallet_test_classifier]cmd: %s" % cmd
+        print "[mallet_test_classifier] cmd: %s" % cmd
         os.system(cmd)
 
         
