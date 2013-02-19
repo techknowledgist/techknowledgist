@@ -347,7 +347,7 @@ def patent_utraining_data2(patent_dir, lang, fnames, version="1", xval=0):
 
 
 def patent_utraining_data3(mallet_file, annotation_file, annotation_count, fnames,
-                           version="1", xval=0):
+                           version="1", xval=0, verbose=False):
 
     # get dictionary of annotations
     d_phr2label = load_phrase_labels3(annotation_file, annotation_count)
@@ -360,7 +360,7 @@ def patent_utraining_data3(mallet_file, annotation_file, annotation_count, fname
     mtr.write_train_mallet_vectors_file()
     # make sure xval is an int (since it can be passed in by command line args)
     # create the model (train.<train_id>.MaxEnt.model)
-    mtr.mallet_train_classifier("MaxEnt", int(xval))
+    mtr.mallet_train_classifier("MaxEnt", int(xval), verbose=verbose)
 
 
 def make_utraining_test_file(patent_dir, lang, version, d_phr2label, use_all_chunks_p=True):

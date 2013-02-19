@@ -6,12 +6,12 @@ OPTIONS
 
     -l LANG     --  provides the language, one of ('en, 'de', 'cn'), default is 'en'
     -t PATH     --  target directory, default is data/patents
-     
+    
     --gold-standard
     --system-file
     --logfile
     --threshold
-    
+
     --verbose         --  set verbose printing to stdout
     --show-data       --  print available datasets, then exits
     --show-pipelines  --  print defined pipelines, then exits
@@ -34,9 +34,7 @@ import evaluation
 
 
 def run_test(system_file, gold_standard, threshold, log_file):
-     print (system_file, gold_standard, threshold, log_file)
-     evaluation.test(gold_standard, system_file, threshold, log_file)
-
+    evaluation.test(gold_standard, system_file, threshold, log_file)
 
 def read_opts():
     longopts = ['system-file=', 'gold-standard=', 'threshold=', 'logfile=']
@@ -44,7 +42,6 @@ def read_opts():
         return getopt.getopt(sys.argv[1:], 'l:t:', longopts)
     except getopt.GetoptError as e:
         sys.exit("ERROR: " + str(e))
-
 
 
 if __name__ == '__main__':
@@ -57,7 +54,6 @@ if __name__ == '__main__':
     logfile = None
     
     (opts, args) = read_opts()
-
     for opt, val in opts:
         if opt == '-l': language = val
         if opt == '-t': target_path = val

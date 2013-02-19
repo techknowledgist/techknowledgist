@@ -68,7 +68,8 @@ class Mallet_training:
         # id's are 0 based
         self.next_instance_id = 0
         path_wo_version = os.path.join(train_output_dir, file_prefix)
-        self.train_path_prefix = path_wo_version + "." + version
+        #self.train_path_prefix = path_wo_version + "." + version
+        self.train_path_prefix = path_wo_version
         self.train_mallet_file = self.train_path_prefix + ".mallet"
         self.train_vectors_file = ""
         self.train_vectors_out_file = ""
@@ -87,14 +88,14 @@ class Mallet_training:
             # in features subdirectory
             filter_filename = "features/" + version + ".features"
             with open(filter_filename) as s_filter:
-                print "[MalletTraining]Using filter file: %s" % filter_filename
+                print "[MalletTraining] Using filter file: %s" % filter_filename
                 for line in s_filter:
                     feature_prefix = line.strip()
                     self.d_filter_feat[feature_prefix] = True
                 s_filter.close()
         except IOError as e:
             # no features to filter
-            print "[MalletTraining]No filter file found: %s" % filter_filename
+            print "[MalletTraining] No filter file found: %s" % filter_filename
             pass
     
         
@@ -147,12 +148,13 @@ class Mallet_training:
     # convert mallet instance file to mallet vectors format in file $file_prefix.vectors
     # This is required to run the classifier on the data.
     # command format: sh $mallet_dir/csv2vectors --input $train_dir/features.mallet --output $train_dir/features.vectors --print-output TRUE > $train_dir/features.vectors.out
-    def write_train_mallet_vectors_file(self):
+    def write_train_mallet_vectors_file(self, verbose=False):
 
         self.train_vectors_file = self.train_path_prefix + ".vectors"
         self.train_vectors_out_file = self.train_vectors_file + ".out" 
         cmd = "sh " + mallet_dir + "/csv2vectors --token-regex '[^ ]+' --input " + self.train_mallet_file + " --output " + self.train_vectors_file + " --print-output TRUE > " + self.train_vectors_out_file
-        print "[write_train_mallet_vectors_file]cmd: %s" % cmd
+        if verbose:
+            print "[write_train_mallet_vectors_file] cmd: %s" % cmd
         os.system(cmd)
 
     # set vectors file name attribute directly (useful if testing on vectors data created elsewhere)
@@ -170,7 +172,7 @@ class Mallet_training:
     # Model will be in $train_path_prefix.<trainer>.model
     # Output (accuracy, confusion matrix, label predicted/actual) is in $train_path_prefix.<trainer>.out
     # Command line format: vectors2train --training-file train.vectors --trainer  MaxEnt --output-classifier foo_model --report train:accuracy train:confusion> foo.stdout 2>foo.stderr
-    def mallet_train_classifier(self, trainer, number_cross_val = 0, training_portion = 0):
+    def mallet_train_classifier(self, trainer, number_cross_val = 0, training_portion = 0, verbose=False):
         print "[mallet_train_classifier] number_cross_val(string) is: %s" % number_cross_val
         print "[mallet_train_classifier] number_cross_val is: %i" % number_cross_val
         print "[mallet_train_classifier] trainer is %s" % trainer
@@ -195,7 +197,8 @@ class Mallet_training:
             print "[mallet_train_classifier] using mallet command with cross validation"
             cmd = "sh " + mallet_dir + "/mallet train-classifier --input " + self.train_vectors_file + " --trainer " + trainer + " --output-classifier " + self.classifier_file + " --cross-validation " + str(number_cross_val) + " --report test:accuracy test:confusion test:raw > " + self.classifier_out_file + " 2> " + self.classifier_stderr_file
 
-        print "[mallet_train_classifier] %s" % cmd
+        if verbose:
+            print "[mallet_train_classifier] %s" % cmd
         os.system(cmd)
 
 ##################
@@ -215,7 +218,8 @@ class Mallet_test:
         self.next_instance_id = 0
         train_path_wo_version = os.path.join(train_output_dir, train_file_prefix)
         test_path_wo_version = os.path.join(test_dir, test_file_prefix)
-        self.train_path_prefix = train_path_wo_version + "." + version
+        #self.train_path_prefix = train_path_wo_version + "." + version
+        self.train_path_prefix = train_path_wo_version
         self.train_vectors_file = self.train_path_prefix + ".vectors"
         # check on path ///
         self.test_path_prefix =  test_path_wo_version + "." + version
@@ -281,7 +285,8 @@ class Mallet_test:
     # Note also that training with xvalidation on will create multiple models, one per trial.
     # You need to train with no xvalidation to generate a model file name that will work with the tester here.
     
-    def mallet_test_classifier(self, trainer, mallet_file=None, results_file=None, stderr_file=None):
+    def mallet_test_classifier(self, trainer, mallet_file=None, results_file=None,
+                               stderr_file=None, verbose=False):
 
         print "[mallet_test_classifier] trainer is %s" % trainer
         self.classifier_file = self.train_path_prefix + "." + trainer + ".model"
@@ -304,7 +309,8 @@ class Mallet_test:
               self.test_mallet_file + " --classifier " + self.classifier_file + \
               " --output -  > " + self.classifier_out_file + " 2> " + self.classifier_stderr_file
 
-        print "[mallet_test_classifier] cmd: %s" % cmd
+        if verbose:
+            print "[mallet_test_classifier] cmd: %s" % cmd
         os.system(cmd)
 
         

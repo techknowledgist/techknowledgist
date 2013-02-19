@@ -10,7 +10,9 @@ USAGE:
 OPTIONS:
    --populate   --  import external files
    --xml2txt    --  document structure parsing
-   --txt2tag    --  tagging
+   --txt2tag    --  tagging (English and German)
+   --txt2seg    --  segmenting (Chinese only)
+   --seg2tag    --  tagging segemented text (Chinese only)
    --tag2chk    --  creating chunks in context
    --pf2dfeats  --  go from phrase features to document features
 
@@ -36,7 +38,7 @@ Examples:
    %  python step2_document_processing.py -l en -t data/patents --xml2txt -n 5
    %  python step2_document_processing.py -l en -t data/patents --txt2tag -n 5
    %  python step2_document_processing.py -l en -t data/patents --tag2chk -n 5
-   %  python step2_document_processing.py -l en -t data/patents --df2dfeats -n 5
+   %  python step2_document_processing.py -l en -t data/patents --pf2dfeats -n 5
 
 """
 
@@ -64,7 +66,8 @@ from ontology.utils.file import ensure_path, get_lines, create_file
 from step1_initialize import DOCUMENT_PROCESSING_IO
 
 
-ALL_STAGES = ['--populate', '--xml2txt', '--txt2tag', '--tag2chk', '--pf2dfeats']
+ALL_STAGES = ['--populate', '--xml2txt', '--txt2tag', '--txt2seg', '--seg2tag',
+              '--tag2chk', '--pf2dfeats']
 
 
 def update_state(fun):
@@ -151,8 +154,7 @@ def run_xml2txt(config, limit, options, verbose=False):
 
 @update_state
 def run_txt2tag(config, limit, options, verbose):
-    """Takes txt files and runs the tagger (and segmenter for Chinese) on them. Adds files to
-    the language/tag and language/seg directories. Works on pasiphae but not on chalciope."""
+    """Takes txt files and runs the tagger on them."""
 
     input_dataset = find_input_dataset('--txt2tag', config)
     output_datasets = find_output_datasets('--txt2tag', config)
@@ -168,6 +170,49 @@ def run_txt2tag(config, limit, options, verbose):
         print_file_progress('--txt2tag', count, filename, verbose)
         file_in, file_out = prepare_io(filename, input_dataset, output_dataset)
         txt2tag.tag(file_in, file_out, tagger)
+
+    return [output_dataset]
+
+
+@update_state
+def run_txt2seg(config, limit, options, verbose):
+    """Takes txt files and runs the Chinese segmenter on them."""
+
+    input_dataset = find_input_dataset('--txt2seg', config)
+    output_datasets = find_output_datasets('--txt2seg', config)
+    output_dataset = output_datasets[0]
+    print_datasets('--txt2seg', input_dataset, output_datasets)
+    check_file_counts(input_dataset, output_dataset, limit)
+
+    count = 0
+    segmenter = sdp.Segmenter()
+    filenames = get_lines(config.filenames, output_dataset.files_processed, limit)
+    for filename in filenames:
+        count += 1
+        print_file_progress('--txt2seg', count, filename, verbose)
+        file_in, file_out = prepare_io(filename, input_dataset, output_dataset)
+        cn_txt2seg.seg(file_in, file_out, segmenter)
+    return [output_dataset]
+
+
+@update_state
+def run_seg2tag(config, limit, options, verbose):
+    """Takes seg files and runs the Chinese tagger on them."""
+
+    input_dataset = find_input_dataset('--seg2tag', config)
+    output_datasets = find_output_datasets('--seg2tag', config)
+    output_dataset = output_datasets[0]
+    print_datasets('--seg2tag', input_dataset, output_datasets)
+    check_file_counts(input_dataset, output_dataset, limit)
+
+    count = 0
+    tagger = txt2tag.get_tagger(language)
+    filenames = get_lines(config.filenames, output_dataset.files_processed, limit)
+    for filename in filenames:
+        count += 1
+        print_file_progress('--seg2tag', count, filename, verbose)
+        file_in, file_out = prepare_io(filename, input_dataset, output_dataset)
+        cn_seg2tag.tag(file_in, file_out, tagger)
 
     return [output_dataset]
 
@@ -365,7 +410,8 @@ def make_parser(language):
     return parser
 
 def read_opts():
-    longopts = ['populate', 'xml2txt', 'txt2tag', 'tag2chk', 'pf2dfeats', 
+    longopts = ['populate', 'xml2txt', 'txt2tag', 'txt2seg', 'seg2tag',
+                'tag2chk', 'pf2dfeats',
                 'verbose', 'config=', 'show-data', 'show-pipelines']
     try:
         return getopt.getopt(sys.argv[1:], 'l:t:n:', longopts)
@@ -395,7 +441,7 @@ if __name__ == '__main__':
 
     config = GlobalConfig(target_path, language, pipeline_config)
     options = config.get_options(stage)
-    #config.pp()
+    config.pp()
 
     if show_data_p:
         show_datasets(target_path, language, config)
@@ -408,6 +454,10 @@ if __name__ == '__main__':
         run_xml2txt(config, limit, options, verbose)
     elif stage == '--txt2tag':
         run_txt2tag(config, limit, options, verbose)
+    elif stage == '--txt2seg':
+        run_txt2seg(config, limit, options, verbose)
+    elif stage == '--seg2tag':
+        run_seg2tag(config, limit, options, verbose)
     elif stage == '--tag2chk':
         run_tag2chk(config, limit, options, verbose)
     elif stage == '--pf2dfeats':
