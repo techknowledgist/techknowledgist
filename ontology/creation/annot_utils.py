@@ -169,3 +169,15 @@ def diff_training_set():
     exclude = "/home/j/anick/patent-classifier/ontology/creation/data/patents/ts10/en/ws/phr_occ.nc.eval.lab.labeled_only"
     diff = "/home/j/anick/patent-classifier/ontology/creation/data/patents/ts1/en/ws/all.oldc_newc.20130209.no_testing.lab"
     diff_labs(source, exclude, diff)
+
+
+
+if __name__ == '__main__':
+
+    if sys.argv[1] == 'diff':
+        (source, exclude, diff) = sys.argv[2:5]
+        diff_labs(source, exclude, diff)
+
+    elif sys.argv[1] == 'merge':
+        (source, target, merge, conflicts) = sys.argv[2:6]
+        merge_labs(source, target, merge, conflicts)

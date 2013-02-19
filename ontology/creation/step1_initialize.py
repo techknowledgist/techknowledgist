@@ -103,7 +103,8 @@ import config_data
 from ontology.utils.file import ensure_path, get_lines, get_file_paths
 
 
-# definition of the default pipeline configuration
+# definition of the default pipeline configurations
+
 DEFAULT_PIPELINE = """
 # This file contains the default pipeline configuration settings. Settings in here can be
 # overruled by handing the step2_document_processing script the identifier for another
@@ -113,6 +114,20 @@ DEFAULT_PIPELINE = """
 --populate
 --xml2txt
 --txt2tag
+--tag2chk --candidate-filter=off --chunker-rules=en
+--pf2dfeats
+"""
+
+DEFAULT_PIPELINE_CN = """
+# This file contains the default pipeline configuration settings for Chinese. Settings in
+# here can be overruled by handing the step2_document_processing script the identifier for
+# another configuration file. All pipeline configuration files live inside of the config
+# directory configuration file.
+
+--populate
+--xml2txt
+--txt2seg
+--seg2tag
 --tag2chk --candidate-filter=off --chunker-rules=en
 --pf2dfeats
 """
@@ -221,8 +236,8 @@ if __name__ == '__main__':
     source_path = None
     target_path = config_data.working_patent_path
     language = config_data.language
-    pipeline_config = DEFAULT_PIPELINE
     shuffle_file = False
+    pipeline_config = DEFAULT_PIPELINE
     
     for opt, val in opts:
         if opt == '-l': language = val
@@ -230,5 +245,8 @@ if __name__ == '__main__':
         if opt == '-s': source_path = val
         if opt == '-t': target_path = val
         if opt == '--shuffle': shuffle_file = True
-        
+
+    if language == 'cn':
+            pipeline_config = DEFAULT_PIPELINE_CN
+
     init(language, source_file, source_path, target_path, pipeline_config, shuffle_file)
