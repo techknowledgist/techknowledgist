@@ -64,10 +64,10 @@ class PRA:
 
     """precision/recall/accuracy calculation"""
     
-    def __init__(self, d_eval, d_system, threshold, s_log):
+    def __init__(self, d_eval, d_system, threshold, s_log, debug_c=True):
 
         self.debug_p = False
-        self.debug_c = True
+        self.debug_c = debug_c
         self.d_eval = d_eval
         self.d_system = d_system
         self.true_pos = 0
@@ -116,7 +116,7 @@ class PRA:
         
         self.log_missing_eval_phrases(threshold, s_log)
         self.correct = self.true_pos + self.true_neg
-        self.debug_counts(d_eval, d_system, i, none_count)
+        self.debug_counts(d_eval, d_system, i, none_count, s_log)
 
 
     def precision(self):
@@ -141,15 +141,17 @@ class PRA:
             found = 'y' if self.d_system.has_key(phrase) else 'n'
             print "[PRA] gold_label=%s found=%s system_score=%s\n" % (gold_label, found, system_score)
 
-    def debug_counts(self, d_eval, d_system, i, none_count):
+    def debug_counts(self, d_eval, d_system, i, none_count, logfile):
+        counts_string = "\nCounts\n" + \
+                        "   size of d_eval: %d\n" % len(d_eval) + \
+                      "   size of d_system: %d\n" % len(d_system) + \
+                      "   non-matches (not in d_system): %i\n" % none_count
+        logfile.write(counts_string)
         if self.debug_c:
-            print "Counts"
-            print "   size of d_eval: %d" % len(d_eval)
-            print "   size of d_system: %d" % len(d_system)
-            print "   non-matches (not in d_system): %i" % none_count
+            print counts_string
 
     def log_missing_eval_phrases(self, threshold, log):
-        log.write("\nMISSING PHRASES IN D_EVAL\n")
+        log.write("\nPHRASES NOT IN D_EVAL\n")
         for phrase, score in self.d_system.items():
             gold_label = self.d_eval.get(phrase)
             system_label = 'y' if score > threshold else 'n'
@@ -235,8 +237,8 @@ class EvalData:
                 #phrase = phrase.replace(' ','')
 
                 self.d_system_phr2score[phrase] = float(score)
-                """
-                if n < 10:
+
+                if self.debug and n < 10:
                     print "[ED]phrase: %s, score: %s" % (phrase, score)
                     if self.d_system_phr2score.has_key(phrase):
                         print "[ED]Found key in d_system: %s" % phrase
@@ -246,11 +248,11 @@ class EvalData:
                         print "[ED]Found key in d_eval: %s" % phrase
                     else:
                         print "[ED]key not found in d_eval: %s" % phrase
-                    print "[EvalData]Storing sys score, phrase: %s, score: %f, actual: %f"  % (phrase, float(score), self.d_system_phr2score.get(phrase))
-                """
+                    print "[EvalData]Storing sys score, phrase: %s, score: %f, actual: %f" \
+                          % (phrase, float(score), self.d_system_phr2score.get(phrase))
 
-        print "Total scores: %i, scores with count >= %i: %i" % (n, count_threshold, c)
-
+        if self.debug:
+            print "Total scores: %i, scores with count >= %i: %i" % (n, count_threshold, c)
         s_eval.close()
         s_system.close()
 
@@ -460,21 +462,27 @@ def t0(threshold):
        
 # optional parameter to use min, max, or average score for thresholding
 # count restricts scores to terms that appear in <count> documents
-def test(eval_test_file, system_test_file, threshold, log_file_name, score_type="average", count=1):
+def test(eval_test_file, system_test_file, threshold, log_file_name,
+         score_type="average", count=1, debug_c=True, command=None):
     edata = EvalData(eval_test_file, system_test_file, score_type, count)
     # open a log file to keep gold and system labels for each phrase
     s_log = codecs.open(log_file_name, "w", 'utf-8')
+    if command is not None:
+        s_log.write(command + "\n\n")
 
-    pra = PRA(edata.d_eval_phr2label, edata.d_system_phr2score, threshold, s_log)
+    pra = PRA(edata.d_eval_phr2label, edata.d_system_phr2score, threshold, s_log, debug_c)
     precision = pra.precision()
     recall = pra.recall()
     accuracy = pra.accuracy()
     total = pra.total
 
-    print "total: %d, tp: %s fp: %s, fn: %s, tn: %s" % \
-          (total, pra.true_pos, pra.false_pos, pra.false_neg, pra.true_neg)
-    print "precision: %.2f, recall: %.2f, accuracy: %.2f, threshold: %.2f, total: %i" % \
-          (precision, recall, accuracy, threshold, total)
+    results_string = "total:%d tp:%s fp:%s fn:%s tn:%s -- " % \
+                     (total, pra.true_pos, pra.false_pos, pra.false_neg, pra.true_neg) + \
+                     "precision: %.2f, recall: %.2f, accuracy: %.2f, threshold: %.2f" % \
+                     (precision, recall, accuracy, threshold)
+
+    print results_string
+    s_log.write("\n" + results_string + "\n")
 
     #print "total terms in evaluation: %i" % total
     #print "number terms with scores: %i" % pra.score_count
