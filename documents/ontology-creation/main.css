@@ -7,7 +7,6 @@ body {
    font-size: 12pt; }
 
 h2 {
-   xcounter-increment: section;
    counter-reset: subsection; }
 
 h3 {
@@ -25,6 +24,9 @@ p, li {
    font-size: 100%; }
 
 .navigation {
+   font-size: 120%; }
+
+.author {
    font-size: 120%; }
 
 .pre {

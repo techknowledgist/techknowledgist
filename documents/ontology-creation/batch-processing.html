@@ -18,36 +18,49 @@
 ] </p>
 
 
+<h1>Batch Processing Design</h1>
+
+<p class="author">Marc Verhagen, last updated February 21, 2013</p>
+
+<p>This documents descirbes the general design of the batch processing scripts that start
+with "step".</p>
+
+
 <a name="pipeline" />
 
 <h2>Configuration file (config/pipeline-ID.txt)</h2>
 
 <p>This file contains the specifications for the pipeline. There is a default version in
 config/pipeline-default.txt, but another version can be handed into
-step2_document_processing.py with the "--pipeline ID" option, where the default
-is 'default'. The pipeline config file is a list of the four processing stages where each
+step2_document_processing.py with the "--pipeline ID" option, where the default is
+'default'. Alternative pipeline scripts are expected to be in the <span class="pre">config</span>
+directory. The pipeline config file is a list of the four processing stages where each
 stage is associated with a couple of options. Here is an example:</p>
 
 <p class="pre move-up">
 --xml2txt 
 --txt2tag
 --tag2chk section-filter=off
---df2dfeats version=v0.2
+--pf2dfeats version=v0.2
 </p>
 
 <p>In general, each processing step is followed by a list of feature-value pairs,
-separated by whitespace. Many command line option for step2_document_processing will be
+separated by whitespace. Many command line options for step2_document_processing will be
 feature-value pairs in this config file. Many more options can/should be added like
-chunk-rules, tagger-version, etcetera. Version requirements are coarse-grained and are
-only enforced at the tag level (not at the git commit level).</p>
+chunk-rules, tagger-version, etcetera. the version option tells hands requirements on the
+git commit to the processing scripts. Version requirements are coarse-grained and are only
+enforced at the tag level not at the git commit level. With the expample above, the system
+will not require that the commit is exactly the commit with tag=v0.2, rather, it specifies
+that the result of git-describe should start with 'v0.2'.</p>
 
-<p>The feature logic is as follows. If a feature like section-filter=off or
-section-filter-off is specified, then there has to be an excat match of the configuration
-element with the data set. For example, the dataset created by the --tag2chk processing
-step would have to exactly match section-filter=off (see section XXX for a description
-of how this matching occurs). The one exception is the version feature, which can have a
-list a versions (version=v0.1,v0.2); the dataset is allowed to have just one of the list
-members.</p>
+<p>The configuration file specifies a processing chain. A processing chain is associated
+with a set of datasets, where each data set corresponds to the output of a processing
+step. The pipeline configuration uniquely identifers input and output datasets for each
+processing step. The feature logic is as follows. If a feature like section-filter=off or
+section-filter-off is specified, then there has to be an exact match of the configuration
+element with the data set. If no features are specified, the dataset cannot have a feature
+specified. For example, with the config file above, the dataset created by the --tag2chk
+processing step would have to exactly match section-filter=off.</p>
 
 
 <p>Open issues:</p>
@@ -60,14 +73,14 @@ section_filter_p=True) or the same as the command line options as given to the s
 example, section-filter-on). In the latter case, we need to allow features that have no
 value. The second choice is probably the best.</li>
 
-<li></li>
+<li>Enforcing the processing steps to be limited to the version specified is not yet
+implemented.</li>
 
-<li></li>
-
-<li></li>
+<li>The one exception on the exact matching for datasets is the version feature, which can
+have a list of versions (version=v0.1,v0.2); the dataset is allowed to have just one of the
+list members. This is not implemented yet either.</li>
 
 </ol>
-
 
 
 <a name="directories" />
@@ -86,14 +99,15 @@ en/config/testing-files-0000000-0005000.txt
 en/config/training-files-0000000-0005000.txt
 </p>
 
-<p>The first contains a list of path pointing to external files, the second has general
+<p>The first contains a list of paths pointing to external files, the second has general
 configuration settings (sources, target directory, initialization timestamp, etcetera),
 the third has the default pipeline, and the fourth and fifth default file sets for
 training and testing (these are initialized to the first 500 paths in files.txt). In
-'en/data' we have subdirectories that store data created by processing steps (these are
-what we call data sets). They are grouped thematically and numbered using prefixes (here
-only the ones relevant to document-level processing are listed, there are also directories
-with prefix 't' and 'o' for technology tagging and ontology building):</p>
+<span class="pre">en/data</span> we have subdirectories that store data created by
+processing steps (the datasets). They are grouped thematically and
+numbered using prefixes (here only the ones relevant to document-level processing are
+listed, there are also directories with prefix 't' and 'o' for technology tagging and
+ontology building):</p>
 
 <p class="pre move-up">
 en/data/d0_xml
@@ -106,8 +120,13 @@ en/data/d4_doc_feats
 en/data/workspace
 </p>
 
-<p>Each of these subdirectories, except for 'workspace', has a further substructure that
-is the same for all. Here is the example for the 01 dataset in 'd2_tag':</p>
+<p>For the document processing phase, there is subdirectory for each data type, with data
+types for the xml source, document structure representaiton, segmented data (Chinese
+only), tagged data, and chunked data with various feature sets. All the subdirectories
+listed above, except for <span class="pre">workspace</span>, contains datasets where each
+dataset is in a numbered directory that reflects the dataset identifier (which is unique
+for each data type, not unique accross datatypes. These have a substructure that is the
+same for all. Here is the example for the <span class="pre">d2_tag/01</span>:</p>
 
 <p class="pre move-up">
 en/data/d2_tag
@@ -121,17 +140,18 @@ en/data/d2_tag/01/state/processed.txt
 en/data/d2_tag/01/state/processing-history.txt
 </p>
 
-<p>Subdirectories are numbered 01, 02, 03 etcetera, and each number is the identifier of a
-dataset, where a dataset consistes of a trace and a head. A data set is defined by a
-configuration and state and implements the output of a processing stage for a particular
-pipeline configuration. This saves space since different pipelines may share components,
-as illustrated below.</p>
+<p>A data set is defined by a configuration and state and implements the output of a
+processing stage for a particular pipeline configuration. A dataset configuration consists
+of a trace and a head, where the head contains the options for the processing step
+creating the current data type (the datatype of the dataset) and the trace the options for
+all previous stages. This design saves space since different pipelines may share
+components, as illustrated below. </p>
 
 <img class="indent" src="dataset-tree.jpg"/>
 
 <p>In a way, these identifiers implement a tree where each path to the leaves corresponds
 with a pipeline configuration, in the example above we use a simple partial pipeline with
-one two-valued options for each processing step. Some steps inherently do not have any
+one two-valued option for each processing step. Some steps inherently do not have any
 options (most notable the --populate step which simply copies an external file into the
 data area). As mentioned above, config and state define a dataset, we now describe the the
 relevant files in the config and state directories. In general, the config director
@@ -144,13 +164,11 @@ change over time.</p>
   <dd>This is the part of the pipeline
     in <span class="pre">en/config/pipeline-X.txt</span> up to, but not including, the
     data set that is created by the current processing step. For example, for --txt2tag
-    above it is the list [--populate, --xml2txt shallow=yes|no]. In addition, it will has
-    as its first line the path to the pipeline configuration file that this was based
-    on</dd>
+    above it is the list [--populate, --xml2txt shallow=yes|no].</dd>
 
   <dt class="pre move-down-a-bit">config/pipeline-head.txt</dt>
   <dd>This is the part of the pipeline
-    in <span class="pre">en/config/pipeline-X.txt</span> that is the data set that is
+    in <span class="pre">en/config/pipeline-X.txt</span> that is the data type that is
     created by the current processing step. For example, for --txt2tag above it is the
     list [--txt2tag tagger-version=x|y]. The image below illustrates how the pipeline file
     point to parts of a full pipeline configuration.
@@ -162,23 +180,24 @@ change over time.</p>
 
   <dt class="pre move-down-a-bit">state/processing-history.txt</dt>
   <dd>List of records, each record has four fields: files-processed, date/timestamp,
-    git-version, and processing time.</dd>
+    git-version, and processing time.<br/>
+    TODO: add number of first file processed.</dd>
   
 </dl>
  
 <p>It is not possible to simply use the <span class="pre">config/pipeline-X.txt</span> to
-define the configuraiton of a data set since a data set can match more that one pipeline
+define the configuration of a data set since a data set can match more that one pipeline
 configuration (pipelines with the same trace and head but with difference after the
 head). Also note that for <span class="pre">--xml2txt</span> the trace is always
 empty.</p>
 
-<p>The <span class="pre">en/data/d2_tag/01/files</span> directory will have be empty at
+<p>The <span class="pre">en/data/d2_tag/01/files</span> directory will be empty at
 initialization but will be filled at processing time with arbitrarily deep sub paths. 
 
 <p>The data set <span class="pre">d0_xml</span> is special in the sence that it contains
 copies copies of external files (keeping track of many it has) and that versioning makes
   no sense. So, in all cases, there is only one subdirectory
-in <span class="pre">en/data/d0_xml</span>
+in <span class="pre">en/data/d0_xml</span>.
 
 
 <a name="procedure"/>
