@@ -402,12 +402,9 @@ class Sentence(object):
         next_n_string = ""
         end = self.chart[index].chunk_end + count
         sent_end = self.len - 1
-        
-
         ##print "\n\n[next_n]chunk_end: %i, end: %i, sent_end: %i" % (self.chart[index].chunk_end, end, sent_end)
         ##print "[next_n]self.len: %i, tag_string: |%s|" % (self.len, self.tag_string)
         ##print "[next_n]current_chunk: %s" % self.chart[index].phrase
-
         # start just after chunk ends
         i = self.chart[index].chunk_end
         while i < end:
@@ -424,7 +421,6 @@ class Sentence(object):
         sent_end = self.len - 1
         if sent_end < end:
             end = sent_end
-
         # start just after chunk ends
         i = self.chart[index].chunk_end
         while i <= end:
@@ -433,6 +429,18 @@ class Sentence(object):
         return(next_n_string[1:])
 
     # The following are generic feature methods that are language independent
+
+    @feature_method
+    def document_loc(self, index):
+        res = "sent%d" % (self.sid)
+        return fname("doc_loc", res)
+
+    @feature_method
+    def sentence_loc(self, index):
+        chunk = self.chart[index]
+        res = "%d-%d" % (chunk.chunk_start, chunk.chunk_end)
+        return fname("sent_loc", res)
+
     @feature_method
     def section_loc(self, index):
         res = self.make_section_loc(self.field, self.num)
@@ -477,7 +485,6 @@ class Sentence(object):
 
     @feature_method
     def suffix3(self, index):
-
         last_index = self.chart[index].chunk_end - 1
         last_word = self.chart[last_index].lc_tok
         #print "3 last word: %s" % last_word
@@ -505,7 +512,6 @@ class Sentence(object):
             res = last_word[-5:]
         return(fname("suffix5", res))
 
-
     @feature_method
     def first_word(self, index):
         last_index = self.chart[index].chunk_end - 1
@@ -514,7 +520,6 @@ class Sentence(object):
             res = self.chart[index].lc_tok
         # note, returns "" if length of phrase is 1
         return(fname("first_word", res))
-
    
     @feature_method
     # tag signature (sequence of tags as a string)
@@ -585,7 +590,6 @@ class Sentence_english(Sentence):
         res = noun.lower()
         return(fname("prev_N", res))
 
-    
     # initial adj in chunk, if there is one
     @feature_method
     def chunk_lead_J(self, index):
@@ -593,7 +597,6 @@ class Sentence_english(Sentence):
         if self.chart[index].tag[0] == "J":
             res = self.chart[index].lc_tok
         return(fname("chunk_lead_J", res))
-
 
     # initial V-ing verb in chunk, if there is one
     @feature_method
@@ -654,6 +657,7 @@ class Sentence_english(Sentence):
                 res = self.chart[following_index].lc_tok
         return(fname("following_prep", res))        
 
+
 class Sentence_german(Sentence):
     """Class that contains the German feature methods. These feature methods are often
     very similar to the English ones. You could almost imagine having some non feature
@@ -695,7 +699,6 @@ class Sentence_german(Sentence):
             else:
                 # keep looking 
                 i = i - 1
-
             distance_limit = distance_limit - 1
         res = noun.lower()
         return(fname("prev_N", res))
@@ -770,7 +773,6 @@ class Sentence_german(Sentence):
                 res = self.chart[following_index].lc_tok
         return(fname("following_prep", res))
 
-
     # find index of the first prep in the chunk
     # Used to identify location of a PP
     # returns -1 if no prep
@@ -807,9 +809,7 @@ class Sentence_chinese(Sentence):
             else:
                 # keep looking 
                 i = i - 1
-
             distance_limit = distance_limit - 1
-        
         return(fname("prev_N", noun))
     
     @feature_method
@@ -853,13 +853,11 @@ class Sentence_chinese(Sentence):
     def first_Adj(self, index):
         res = ""
         i = index 
-
         while i < self.chart[index].chunk_end:
             if self.chart[i].tag == "JJ" or self.chart[i].tag == "VA":
                 res = self.chart[i].lc_tok
                 break
             i = i + 1
-            
         return(fname("first_Adj", res))
 
     # Chunk-final JJ or VA
@@ -867,7 +865,6 @@ class Sentence_chinese(Sentence):
     def final_Adj(self, index):
         res = ""
         i = self.chart[index].chunk_end - 1
-
         while i>=index:
             if self.chart[i].tag == "JJ" or self.chart[i].tag == "VA":
                 res = self.chart[i].lc_tok
@@ -889,9 +886,7 @@ class Sentence_chinese(Sentence):
                     measure = measure + ' ' + self.chart[i-1].lc_tok
                 break
             i = i - 1
-            
         return(fname("prev_CD_M", measure))
-
 
     #previous DT within 3 words
     @feature_method
@@ -947,20 +942,21 @@ class Chunk:
         # string of tags for words in the chunk, separated by _
         self.tag_sig = ""
 
+    def __str__(self):
+        return "<Chunk %d %d:%d '%s'>" % (self.sid, self.chunk_start, self.chunk_end, self.phrase)
+
     # return the token loc in sentence for head of the chunk
     def head_idx(self):
         idx = self.tok_start
         head_idx = idx
         l_tags = self.chunk_tags
         for tag in l_tags:
-
             # check for termination conditions
             if tag in ["IN", "DT", "CC"]:
                 break
             else:
                 head_idx = idx    
             idx += 1
-
         # for debugging, print the idx within the phrase, rather than within the sentence
         rel_idx = head_idx - self.tok_start
         #print "[head_idex]rel_idx: %i" % rel_idx

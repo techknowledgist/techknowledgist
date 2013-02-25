@@ -181,8 +181,7 @@ def check_file_availability(dataset, filelist):
         sys.exit("WARNING: %d/%d files in %s have not been processed yet\n         %s" %
                  (not_in_dataset, total, os.path.basename(filelist), dataset))
 
-        
-    
+
 def run_classify(config, file_list, model, version,
                  classifier='MaxEnt', use_all_chunks_p=True):
 

@@ -19,7 +19,9 @@ tar rfp $target patent-classifier/ontology/*py
 tar rfp $target patent-classifier/ontology/creation/*py
 tar rfp $target patent-classifier/ontology/creation/*sh
 tar rfp $target patent-classifier/ontology/creation/*txt
-tar rfp $target patent-classifier/ontology/annotation/??/phr_occ.lab
+tar rfp $target patent-classifier/ontology/annotation/??/*.lab
+tar rfp $target patent-classifier/ontology/annotation/??/*.relab
+tar rfp $target patent-classifier/ontology/annotation/*.noise
 tar rfp $target patent-classifier/ontology/selector/*.py
 tar rfp $target patent-classifier/ontology/selector/*.txt
 tar rfp $target patent-classifier/ontology/utils/*py

@@ -63,11 +63,22 @@ os.chdir(script_dir)
 from utils.docstructure.main import Parser
 from ontology.utils.batch import GlobalConfig, DataSet
 from ontology.utils.file import ensure_path, get_lines, create_file
-from step1_initialize import DOCUMENT_PROCESSING_IO
+from step1_initialize import DOCUMENT_PROCESSING_IO, DATA_TYPES
 
 
 ALL_STAGES = ['--populate', '--xml2txt', '--txt2tag', '--txt2seg', '--seg2tag',
               '--tag2chk', '--pf2dfeats']
+
+# definition of mappings from document processing stage to input and output data
+# directories (named processing areas above)
+DOCUMENT_PROCESSING_IO = \
+    { '--populate': { 'in': 'external', 'out': ('d0_xml',) },
+      '--xml2txt': { 'in': 'd0_xml', 'out': ('d1_txt',) },
+      '--txt2seg': { 'in': 'd1_txt', 'out': ('d2_seg',) },
+      '--seg2tag': { 'in': 'd2_seg', 'out': ('d2_tag',) },
+      '--txt2tag': { 'in': 'd1_txt', 'out': ('d2_tag',) },
+      '--tag2chk': { 'in': 'd2_tag', 'out': ('d3_phr_feats', 'd3_phr_occ') },
+      '--pf2dfeats': { 'in': 'd3_phr_feats', 'out': ('d4_doc_feats',) }}
 
 
 def update_state(fun):
@@ -107,6 +118,8 @@ def run_populate(config, limit, verbose=False):
         dataset.load_from_disk()
 
     count = 0
+    # TODO: get_lines() should also return a range from the file, actually, this is
+    # available right here with the dataset.files_processed and limit variables
     filenames = get_lines(config.filenames, dataset.files_processed, limit)
     for filename in filenames:
         count += 1
@@ -283,18 +296,16 @@ def run_pf2dfeats(config, limit, options, verbose):
 
 def show_datasets(target_path, language, config):
     """Print all datasets in the data directory."""
-    for stage in ALL_STAGES:
-        dataset_types = DOCUMENT_PROCESSING_IO[stage]['out']
-        for dataset_type in dataset_types:
-            print "\n===", dataset_type, "===\n"
-            path = os.path.join(target_path, language, 'data', dataset_type)
-            datasets1 = [ds for ds in os.listdir(path) if ds.isdigit()]
-            datasets2 = [DataSet(stage, dataset_type, config, ds) for ds in datasets1]
-            for ds in datasets2:
-                print ds
-                for e in ds.pipeline_trace:
-                    print "   ", e[0], e[1]
-                print "   ", ds.pipeline_head[0], ds.pipeline_head[1]
+    for dataset_type in DATA_TYPES:
+        print "\n===", dataset_type, "===\n"
+        path = os.path.join(target_path, language, 'data', dataset_type)
+        datasets1 = [ds for ds in os.listdir(path) if ds.isdigit()]
+        datasets2 = [DataSet(stage, dataset_type, config, ds) for ds in datasets1]
+        for ds in datasets2:
+            print ds
+            for e in ds.pipeline_trace:
+                print "   ", e[0], e[1]
+            print "   ", ds.pipeline_head[0], ds.pipeline_head[1]
 
 def show_pipelines(target_path, language):
     path = os.path.join(target_path, language, 'config')

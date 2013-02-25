@@ -133,22 +133,11 @@ DEFAULT_PIPELINE_CN = """
 """
 
 # definition of sub directory names for processing stages
+DATA_TYPES = \
+    ['d0_xml', 'd1_txt', 'd2_tag', 'd2_seg', 'd3_phr_occ', 'd3_phr_feats', 'd4_doc_feats']
 PROCESSING_AREAS = \
-    ['d0_xml', 'd1_txt', 'd2_tag', 'd2_seg', 'd3_phr_occ', 'd3_phr_feats', 'd4_doc_feats',
-     't0_annotate', 't1_train', 't2_classify', 't3_test',
-     'o1_index', 'o2_matcher', 'o3_selector', 'workspace' ]
-
-# definition of mappings from document processing stage to input and output data
-# directories (named processing areas above)
-DOCUMENT_PROCESSING_IO = \
-    { '--populate': { 'in': 'external', 'out': ('d0_xml',) },
-      '--xml2txt': { 'in': 'd0_xml', 'out': ('d1_txt',) },
-      '--txt2seg': { 'in': 'd1_txt', 'out': ('d2_seg',) },
-      '--seg2tag': { 'in': 'd2_seg', 'out': ('d2_tag',) },
-      '--txt2tag': { 'in': 'd1_txt', 'out': ('d2_tag',) },
-      '--tag2chk': { 'in': 'd2_tag', 'out': ('d3_phr_feats', 'd3_phr_occ') },
-      '--pf2dfeats': { 'in': 'd3_phr_feats', 'out': ('d4_doc_feats',) },
-      '--utrain': { 'in': 'd4_doc_feats', 'out': ('t1_train',) } }
+    DATA_TYPES + ['t0_annotate', 't1_train', 't2_classify', 't3_test',
+                  'o1_index', 'o2_matcher', 'o3_selector', 'workspace' ]
 
 
 def init(language, source_file, source_path, target_path, pipeline_config, shuffle_file):

@@ -483,16 +483,6 @@ def test(eval_test_file, system_test_file, threshold, log_file_name,
 
     print results_string
     s_log.write("\n" + results_string + "\n")
-
-    #print "total terms in evaluation: %i" % total
-    #print "number terms with scores: %i" % pra.score_count
-    #print "true pos: %i" % pra.true_pos
-    #print "false pos: %i" % pra.false_pos
-    #print "false neg: %i" % pra.false_neg
-    #print "true neg: %i" % pra.true_neg
-    #print "correct: %i" % pra.correct
-    #print "precision: %.2f, recall: %.2f, accuracy: %.2f, threshold: %.2f, total: %i" % (precision, recall, accuracy, threshold, pra.score_count)
-
     s_log.close()
 
 

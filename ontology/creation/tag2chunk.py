@@ -42,10 +42,7 @@ class Doc:
         self.year = year
         self.output_phr_occ = output_phr_occ
         self.output_phr_feats = output_phr_feats
-        #self.chunk_schema = sentence.d_chunkSchema.get(chunker_rules)
         self.chunk_schema = sentence.chunk_schema(chunker_rules)
-        #self.chunk_schema = sentence.chunk_schema('en_w_verbs')
-        #print self.chunk_schema.d_start
         self.lang = lang
         # field_name to list of sent instances
         # field name is header string without FH_ or : affixes
@@ -69,133 +66,57 @@ class Doc:
     def process_doc(self, filter_p=True, chunker_rules='en'):
 
         debug_p = False
-        #debug_p = True
         if debug_p:
-            print "[process_doc]filter_p: %s, writing to %s" % (filter_p, self.output_phr_feats)
-            
+            print "[process_doc] filter_p: %s, writing to %s" % (filter_p, self.output_phr_feats)
         s_input = codecs.open(self.input, encoding='utf-8')
-        s_output_phr_occ = open(self.output_phr_occ, "w")
-        s_output_phr_feats = open(self.output_phr_feats, "w")
-        #s_output_chunk = open(self.output_chunk, "w")
-
+        s_output_phr_occ = codecs.open(self.output_phr_occ, "w", encoding='utf-8')
+        s_output_phr_feats = codecs.open(self.output_phr_feats, "w", encoding='utf-8')
         section = "FH_NONE"   # default section if document has no section header lines
         self.d_field[section] = []
 
         sent_no_in_section = 0
         for line in s_input:
             line = line.strip("\n")
+            if debug_p:
+                print "[process_doc] line: %s" % line
 
             if line[0:3] == "FH_":
-                # we are at a section header
-                # note we have to strip off both final : and ws, since in some cases
-                # eg. Chinese segmentation, the colon will be separated from the header term 
-                # by a blank.
+                # we are at a section header; note we have to strip off both final ':' and
+                # whitespace, since in some cases eg. Chinese segmentation, the colon will
+                # be separated from the header term by a blank.
                 section = line.split("_")[1].rstrip(": ")
                 self.d_field[section] = []
-                # reset the line count
                 sent_no_in_section = 0
             else:
-                if debug_p:
-                    print "[chunk]line: %s" % line
-                # process the sentences in the section
-                # The line is actually a tag_string
-                tag_string = line
-
-                if debug_p:
-                    print "[chunk]tag_string: %s" % tag_string
-                #print "ncontext:"
-                #s1.ncontext()
+                # process the sentence, the line is a list of token_tag pairs
                 if section == "TITLE" or section == "ABSTRACT":
-                    #print "[process_doc] found title or abstract"
-                    self.l_lc_title_noun.extend(lc_nouns(tag_string))
+                    #print "[process_doc] found line in title or abstract"
+                    self.l_lc_title_noun.extend(lc_nouns(line))
 
                 # call the appropriate Sentence subclass based on the language (get_sentence_for_lang)
-                sent_args = [self.next_sent_id, section, sent_no_in_section, tag_string, self.chunk_schema]
+                sent_args = [self.next_sent_id, section, sent_no_in_section, line, self.chunk_schema]
                 sent = sentence.get_sentence_for_lang(self.lang, sent_args)
-                ###print "[process_doc]sent: %s" % sent
 
                 # get context info
                 i = 0
                 for chunk in sent.chunk_iter():
+
                     if chunk.label == "tech":
                         # index of chunk start in sentence => ci
                         ci = chunk.chunk_start
-
-                        # generate features
-
-                        m_chunk = mallet_feature("", chunk.phrase.lower())
-                        # remove the __ separator at the beginning of the chunk, since we don't
-                        # really need it
-                        m_chunk = m_chunk[1:]
                         hsent = sent.highlight_chunk(i)
-
-                        """
-                        field in chunk (features) output line
-                        6 prev_n
-                        7 next_n
-                        8 prev_V
-                        9 prev_N
-                        10 initial_J
-                        11 initial_V
-                        12 following_prep
-                        13 of_head
-                        14 last_word
-                        15 tag_sig
-                        16 hsent
-                        """
-                        # call all feature_methods for the current sentence and create a list of their 
-                        # results, which should be expressed as mallet features (name=value) or None
-                        mallet_feature_list = []
-                        for method in sent.feature_methods:
-                            result = method(sent, ci) # unbound methods, so must supply instance
-                            if result != None:
-                                mallet_feature_list.append(result)
-
+                        mallet_feature_list = get_features(sent, ci)
+                        mallet_feature_list.sort()
                         uid = os.path.basename(self.input) + "_" + str(self.next_chunk_id)
-
-                        year = self.year
-
-                        # meta data to go at beginning of phr_feats output lines
-                        metadata_list = [uid, year, chunk.phrase.lower()]
-
-                        # remove empty features from the list                                                                                         
+                        metadata_list = [uid, self.year, chunk.phrase.lower()]
                         if debug_p:
                             print "index: %i, start: %i, end: %i, sentence: %s" % \
                                 (i, chunk.chunk_start, chunk.chunk_end, sent.sentence)
-
-                        # FILTERING technology terms to output (if filter_p is True)
-                        # Here we only output terms that are in the title or share a term with a title term
-                        # Note that our "title terms" can actually come from title or abstract.   Many German
-                        # patent titles are only one word long!
-                        # This filter may need adjustment (e.g. for German compound terms, which may not match exactly,
-                        # fitering ought to be based on component terms, not the compound as a whole).
-                        # Filtering is not applied if filter_p parameter is False.
-                        if debug_p:
-                            print "[process_doc] filter_p: %s" % filter_p
-                        if not filter_p or (section == "TITLE" or share_term_p(self.l_lc_title_noun, chunk.lc_tokens)):
-                            # write out the phrase occurrence data (phr_occ)
-                            # For each phrase occurrence, include uid, year, phrase and full sentence (with highlighted chunk)
-                            #print "matched term for %s and %s" %  (self.l_lc_title_noun, chunk.lc_tokens)
-                            unlabeled_out = "\t".join([uid, self.year, chunk.phrase.lower(), hsent + '\n'])
-
-                            unlabeled_out = unlabeled_out.encode('utf-8')
-                            s_output_phr_occ.write(unlabeled_out)
-                            
-                            # create a tab separated string of features to be written out to phr_feats
-                            # The full line includes metadata followed by features
-                            metadata_list.extend(mallet_feature_list)
-                            full_list = metadata_list
-                            mallet_feature_string = "\t".join(full_list) + '\n'
-                            mallet_feature_string = mallet_feature_string.encode('utf-8')
-
-                            s_output_phr_feats.write(mallet_feature_string)
-                            ###print "mallet_feature string: %s" % mallet_feature_string
-                            
-                        if debug_p:
-                            print ""
-
+                        if add_chunk_data(self, chunk, section, filter_p):
+                            add_line_to_phr_occ(uid, self, chunk, hsent, s_output_phr_occ)
+                            add_line_to_phr_feats(metadata_list, mallet_feature_list, s_output_phr_feats)
                         chunk.sid = self.next_sent_id
-
+                        #print chunk.sid
                         self.d_chunk[self.next_chunk_id] = chunk
                         sent.chunks.append(chunk)
                         self.next_chunk_id += 1
@@ -204,22 +125,57 @@ class Doc:
                     
                 # keep track of the location of this sentence within the section
                 sent_no_in_section += 1
-                #print "[process_doc]section: |%s|" % section
+                #print "[process_doc] section: |%s|" % section
                 self.d_field[section].append(sent)
                 self.d_sent[self.next_sent_id] = sent
                 self.next_sent_id += 1
-                
+
         s_input.close()
         s_output_phr_occ.close()
         s_output_phr_feats.close()
 
+
+def get_features(sent, ci):
+    """Call all feature_methods for the current sentence and create a list of their
+    results, these are unbound methods, so must supply instance."""
+    mallet_feature_list = [method(sent, ci) for method in sent.feature_methods]
+    mallet_feature_list = [feat for feat in mallet_feature_list if feat is not None]
+    return mallet_feature_list
+
+def add_chunk_data(doc, chunk, section, filter_p):
+    """FILTERING technology terms to output (if filter_p is True). We only output terms
+     that are in the title or share a term with a title term.  Note that our "title terms"
+     can actually come from title or abstract. Many German patent titles are only one
+     word long! This filter may need adjustment (e.g. for German compound terms, which
+     may not match exactly, fitering ought to be based on component terms, not the
+     compound as a whole).  Filtering is not applied if filter_p parameter is False. """
+    return not filter_p or (section == "TITLE" or share_term_p(doc.l_lc_title_noun, chunk.lc_tokens))
+
+def add_line_to_phr_occ(uid, doc, chunk, hsent, s_output_phr_occ):
+    """Write out the phrase occurrence data (phr_occ).  For each phrase occurrence,
+    include uid, year, phrase and full sentence (with highlighted chunk)."""
+    #print "matched term for %s and %s" %  (self.l_lc_title_noun, chunk.lc_tokens)
+    unlabeled_out = "\t".join([uid, doc.year, chunk.phrase.lower(), hsent + '\n'])
+    unlabeled_out = unlabeled_out.encode('utf-8')
+    s_output_phr_occ.write(unlabeled_out)
+
+def add_line_to_phr_feats(metadata_list, mallet_feature_list, s_output_phr_feats):
+    """Create a tab separated string of features to be written out to phr_feats The full
+     line includes metadata followed by features."""
+    # meta data to go at beginning of phr_feats output lines
+    metadata_list.extend(mallet_feature_list)
+    full_list = metadata_list
+    mallet_feature_string = "\t".join(full_list) + '\n'
+    mallet_feature_string = mallet_feature_string.encode('utf-8')
+    #print "mallet_feature string: %s" % mallet_feature_string
+    s_output_phr_feats.write(mallet_feature_string)
+
+
 def tag2chunk_dir(tag_dir, phr_occ_dir, phr_feats_dir, year, lang, filter_p = True):
-    #output_chunk = "/home/j/anick/fuse/data/patents/en_test/chunk/US20110052365A1.xml"
     for file in os.listdir(tag_dir):
         input = tag_dir + "/" + file
         output_phr_occ = phr_occ_dir + "/" + file
         output_phr_feats = phr_feats_dir + "/" + file
-
         doc = Doc(input, output_phr_occ, output_phr_feats, year, lang, filter_p)
 
 # new3 output after changing chunker on 1/3/13  PGA
@@ -367,3 +323,10 @@ def pipeline_tag2chunk_dir(root, language, filter_p = True):
 def chunk_lang(lang, filter_p = True):
     patent_path = "/home/j/anick/fuse/data/patents"
     patent_tag2chunk_dir("/home/j/anick/fuse/data/patents", lang, filter_p)
+
+
+if __name__ == '__main__':
+    import sys
+    tag_file, phr_occ_file, phr_feats_file = sys.argv[1:4]
+    doc = Doc(tag_file, phr_occ_file, phr_feats_file, '1999', 'en',
+              filter_p=True, chunker_rules='en')
