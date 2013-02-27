@@ -58,7 +58,7 @@ def create_index(source_dir, target_dir, maxfiles):
             #INDEX[np] = val
     #INDEX.close()
 
-    
+
 def collect_counts(fname, target_dir, year, maxfiles, sizes_fh):
 
     YEAR_INDEX = {}

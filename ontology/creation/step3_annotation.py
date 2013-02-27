@@ -27,9 +27,6 @@ os.chdir('../..')
 sys.path.insert(0, os.getcwd())
 os.chdir(script_dir)
 
-from ontology.utils.batch import read_stages, update_stages, write_stages
-from ontology.utils.batch import files_to_process
-
 # defaults that can be overwritten by command line options
 source_path = config_data.external_patent_path
 target_path = config_data.working_patent_path

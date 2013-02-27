@@ -82,9 +82,7 @@ DOCUMENT_PROCESSING_IO = \
 
 
 def update_state(fun):
-    """To be used as a decorator around functions that run one of the
-    processing steps."""
-    
+    """To be used as a decorator around functions that run one of the processing steps."""
     def wrapper(*args):
         t1 = time.time()
         datasets = fun(*args)
@@ -92,9 +90,7 @@ def update_state(fun):
         for dataset in datasets:
             dataset.files_processed += limit
             dataset.update_state(limit, t1)
-
     return wrapper
-
     
 
 @update_state
@@ -138,7 +134,6 @@ def run_populate(config, limit, verbose=False):
 
 @update_state
 def run_xml2txt(config, limit, options, verbose=False):
-
     """Run the document structure parser in onto mode."""
 
     input_dataset = find_input_dataset('--xml2txt', config)
@@ -228,11 +223,6 @@ def run_seg2tag(config, limit, options, verbose):
         cn_seg2tag.tag(file_in, file_out, tagger)
 
     return [output_dataset]
-
-    # segmenter = sdp.Segmenter()
-    # if language == 'cn':
-    #     cn_txt2seg.seg(txt_file, seg_file, segmenter)
-    #     cn_seg2tag.tag(seg_file, tag_file, tagger)
 
 
 @update_state
