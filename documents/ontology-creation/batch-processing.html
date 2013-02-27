@@ -147,7 +147,7 @@ creating the current data type (the datatype of the dataset) and the trace the o
 all previous stages. This design saves space since different pipelines may share
 components, as illustrated below. </p>
 
-<img class="indent" src="dataset-tree.jpg"/>
+<img class="indent" src="dataset-tree.jpg" width="700"/>
 
 <p>In a way, these identifiers implement a tree where each path to the leaves corresponds
 with a pipeline configuration, in the example above we use a simple partial pipeline with
@@ -172,7 +172,7 @@ change over time.</p>
     created by the current processing step. For example, for --txt2tag above it is the
     list [--txt2tag tagger-version=x|y]. The image below illustrates how the pipeline file
     point to parts of a full pipeline configuration.
-    <img src="head-trace.jpg"/></dd>
+    <img src="head-trace.jpg" width="450"/></dd>
 
   <dt class="pre move-down-a-bit">state/processed.txt</dt>
   <dd>Contains the number of files processed by the processing step, refering to the first
@@ -187,7 +187,7 @@ change over time.</p>
  
 <p>It is not possible to simply use the <span class="pre">config/pipeline-X.txt</span> to
 define the configuration of a data set since a data set can match more that one pipeline
-configuration (pipelines with the same trace and head but with difference after the
+configuration (pipelines with the same trace and head, but with differences after the
 head). Also note that for <span class="pre">--xml2txt</span> the trace is always
 empty.</p>
 
@@ -195,14 +195,16 @@ empty.</p>
 initialization but will be filled at processing time with arbitrarily deep sub paths. 
 
 <p>The data set <span class="pre">d0_xml</span> is special in the sence that it contains
-copies copies of external files (keeping track of many it has) and that versioning makes
-  no sense. So, in all cases, there is only one subdirectory
+copies of external files (keeping track of many it has) and that versioning makes no
+sense. So, in all cases, there is only one subdirectory
 in <span class="pre">en/data/d0_xml</span>.
 
 
 <a name="procedure"/>
 
 <h2>Procedure</h2>
+
+<p>NOTE: this section is out-of-date.</p>
 
 
 <h3>Procedure for importing (--populate)</h3>
@@ -281,7 +283,7 @@ in <span class="pre">en/data/d0_xml</span>.
 <p>The third step is to check whether the input data set has enough processed documents to
 meet the limit requirement given the processing state on the output data set.</p>
 
-<p class="pre move-up1">
+<p class="pre move-up">
 input.processed > output.processed + limit
 </p>
 
