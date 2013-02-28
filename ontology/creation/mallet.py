@@ -18,11 +18,25 @@
 import os
 import re
 import pickle
+import codecs
 from collections import defaultdict
 
 
 # mallet_dir may be different depending on machine
 from config_mallet import *
+
+
+
+def parse_doc_feats_line(line):
+    """Parse a doc_feats line and return phrase, identifier and feature list."""
+    fields = line.strip("\n").split("\t")
+    phrase, uid = fields[0], fields[1]
+    feats = unique_list(fields[2:])
+    return (phrase, uid, feats)
+
+def unique_list(non_unique_list):
+    # TODO: copied from train.py, move this to a utilities file or directory
+    return (list(set(non_unique_list)))
 
 
 ############################################################################
@@ -54,6 +68,7 @@ class Mallet_instance:
         feat = fname + "=" + str_value
         self.l_feat.append(feat)
 
+
 ###################################################################
 # Mallet_training class encapsulates data and methods for adding instances and running mallet.
 # Note: Need to allow an instance list to be reused with a filter for ablation testing
@@ -61,7 +76,7 @@ class Mallet_instance:
 
 class Mallet_training:
 
-    def __init__(self, file_prefix, version, train_output_dir):
+    def __init__(self, file_prefix, version, train_output_dir, features=None):
 
         self.train_output_dir = train_output_dir
         self.file_prefix = file_prefix
@@ -81,24 +96,80 @@ class Mallet_training:
         self.d_labels2uid = defaultdict(list)
         self.d_uid2labels = {}
 
-        # table of feature (prefixes) to filter from .mallet file  lines
+        # create self.d_filter_feats, a table of feature (prefixes) to use from .mallet
+        # file lines
         self.d_filter_feat = {}
+        if features is not None:
+            self.populate_feature_dictionary(features)
+
+
+    def populate_feature_dictionary(self, features):
+
+        """Populate the d_filter_feat dictionary with all the features used for the
+        model. If no features are added, the dictionary will remain empty, which
+        downstream will be taken to mean that all features will be used. The argument can
+        either be a filename or an identifier that points to a file in the features
+        directory."""
+
         try:
-            # construct features filter file name using version + .features
-            # in features subdirectory
-            filter_filename = "features/" + version + ".features"
+            if os.path.isfile(features):
+                filter_filename = features
+            else:
+                filter_filename = os.path.join("features", features + ".features")
             with open(filter_filename) as s_filter:
-                print "[MalletTraining] Using filter file: %s" % filter_filename
+                print "[MalletTraining] Using features file: %s" % filter_filename
                 for line in s_filter:
                     feature_prefix = line.strip()
                     self.d_filter_feat[feature_prefix] = True
-                s_filter.close()
         except IOError as e:
-            # no features to filter
-            print "[MalletTraining] No filter file found: %s" % filter_filename
-            pass
-    
+            print "[MalletTraining] No features file found: %s" % filter_filename
+
+
+
+    def make_utraining_file3(self, mallet_file, fnames, version, d_phr2label,
+                             verbose=False, features=None):
+
+        """ Create a file with training instances for Mallet. The list of doc_feats files
+        to use is given in fnames and the annotated terms in d_phr2label.
+
+        This method is based on a similarly named function in train.py. It was moved here
+        for consistency. This version should eventually make train.make_utraining_file()
+        obsolete."""
+
+        print "[make_utraining_file3] writing to", mallet_file
+        s_train = codecs.open(mallet_file, "w", encoding='utf-8')
+        self.stats_labeled_count = 0
+        self.stats_unlabeled_count = 0
+        file_count = 0
+        for doc_feats_file in fnames:
+            if verbose:
+                print "%05d %s" % (file_count, doc_feats_file)
+            fh = codecs.open(doc_feats_file, encoding='utf-8')
+            for line in fh:
+                (phrase, uid, feats) = parse_doc_feats_line(line)
+                feats = self.remove_filtered_feats(feats)
+                # check if the phrase has a known label
+                if d_phr2label.has_key(phrase):
+                    label = d_phr2label.get(phrase)
+                    if label == "":
+                        print "[make_utraining_file3] " + \
+                              "WARNING: phrase with null label: %s" % phrase
+                    else:
+                        # create a line with with format "uid label f1 f2 f3 ..."
+                        mallet_list = [uid, label] + feats
+                        mallet_line = " ".join(mallet_list)
+                        s_train.write(mallet_line + "\n")
+                        self.stats_labeled_count += 1
+                else:
+                   self.stats_unlabeled_count += 1
+            fh.close()
+        s_train.close()
         
+        print "[make_utraining_file3] labeled instances: %i, unlabeled: %i" \
+              % (self.stats_labeled_count, self.stats_unlabeled_count)
+
+
+
     # NOTE: The next two functions are used to build a .mallet file.  If this is built
     # externally, they can be ignored.  However, the mallet file must consist of 
     # "<uid> <label> <f1> <f2> ...." and be named <file_prefix>.mallet
@@ -131,18 +202,13 @@ class Mallet_training:
         mallet_stream.close()
 
 
-    # given a list of features, return a line with all non-filtered features removed
-    # We filter on the prefix of the feature (the part before the "=")
     def remove_filtered_feats(self, feats):
-        good_features = []
-        for feature in feats:
-            if self.d_filter_feat.has_key(feature.split("=")[0]):
-                good_features.append(feature)
-                #print "[remove_filtered_feats]Appending: %s" % feature
-            else:
-                #print "[remove_filtered_feats]Removing: %s" % feature
-                pass
-        return(good_features)
+        """Given a list of features, return a line with all non-filtered features removed
+        We filter on the prefix of the feature (the part before the '='). Return the
+        original line if the features dictionary is empty."""
+        if not self.d_filter_feat:
+            return feats
+        return [f for f in feats if self.d_filter_feat.has_key(f.split("=")[0])]
 
 
     # convert mallet instance file to mallet vectors format in file $file_prefix.vectors
@@ -173,7 +239,6 @@ class Mallet_training:
     # Output (accuracy, confusion matrix, label predicted/actual) is in $train_path_prefix.<trainer>.out
     # Command line format: vectors2train --training-file train.vectors --trainer  MaxEnt --output-classifier foo_model --report train:accuracy train:confusion> foo.stdout 2>foo.stderr
     def mallet_train_classifier(self, trainer, number_cross_val = 0, training_portion = 0, verbose=False):
-        print "[mallet_train_classifier] number_cross_val(string) is: %s" % number_cross_val
         print "[mallet_train_classifier] number_cross_val is: %i" % number_cross_val
         print "[mallet_train_classifier] trainer is %s" % trainer
         self.classifier_file = self.train_path_prefix + "." + trainer + ".model"
@@ -440,7 +505,6 @@ def startswith_one(str, l_prefix):
         #print "matching %s with %s" % (p, str)
         if str.startswith(p):
             return True
-        
     return False
 
 def verb_p(dep_node):

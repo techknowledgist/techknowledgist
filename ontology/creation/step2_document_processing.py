@@ -63,7 +63,7 @@ os.chdir(script_dir)
 from utils.docstructure.main import Parser
 from ontology.utils.batch import GlobalConfig, DataSet
 from ontology.utils.file import ensure_path, get_lines, create_file
-from step1_initialize import DOCUMENT_PROCESSING_IO, DATA_TYPES
+from step1_initialize import DATA_TYPES
 
 
 ALL_STAGES = ['--populate', '--xml2txt', '--txt2tag', '--txt2seg', '--seg2tag',
