@@ -290,7 +290,7 @@ def show_datasets(target_path, language, config):
         print "\n===", dataset_type, "===\n"
         path = os.path.join(target_path, language, 'data', dataset_type)
         datasets1 = [ds for ds in os.listdir(path) if ds.isdigit()]
-        datasets2 = [DataSet(stage, dataset_type, config, ds) for ds in datasets1]
+        datasets2 = [DataSet(None, dataset_type, config, ds) for ds in datasets1]
         for ds in datasets2:
             print ds
             for e in ds.pipeline_trace:

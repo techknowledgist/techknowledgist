@@ -72,14 +72,16 @@ def np_db_insert_np(c, np, docid, date):
         c.execute("INSERT INTO NP VALUES(?, ?, ?)", (np, docid, date))
     except sqlite3.IntegrityError:
         # This is ok - preventing duplicate np/doc_id entries from being inserted.
-        print "[np_db_insert_np] WARNING: not adding duplicate NP (%s, %s, %s)" % (np, docid, date)
+        print "[np_db_insert_np] WARNING: not adding duplicate NP (%s, %s, %s)" \
+              % (np, docid, date)
     except:
         print "[np_db_insert_np] WARNING: could not add (%s, %s, %s)" % (np, docid, date)
         print "[np_db_insert_np] WARNING: %s" % str(sys.exc_info())
 
 
 def np_db_open(db_file):
-    # open db and create a cursor
+    """Open the db_file database, create a cursor and return the conenction and cursor
+    objects."""
     try:
         conn = sqlite3.connect(db_file)
         cursor = conn.cursor()
@@ -87,7 +89,8 @@ def np_db_open(db_file):
         return (conn, cursor)
     except:
         e = sys.exc_info()
-        sys.exit("[np_db.open_db] ERROR: Failed to open database in %s, Error: %s" %  (db_file, e))
+        sys.exit("[np_db.open_db] ERROR: Failed to open database in %s, Error: %s" \
+                 % (db_file, e))
 
 
 def np_db_commit_and_close(conn, cursor):
