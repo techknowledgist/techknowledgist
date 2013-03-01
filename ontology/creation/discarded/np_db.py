@@ -1,81 +1,89 @@
+### This is a copy of ../np_db.py as of 2/28 2013. It was put here because it has
+### non-ascii characters in a comment, which caused the script to fail. I removed those
+### characters from the original file but kept them here for reference (MV).
+
+
 # np_db.py
 
-# PGA 10/25/12 
+# PGA 10/25/12
 # Functions for managing an sqlite3 database of noun phrase information
 # with fields:
 # np (noun phrase)
 # docid (filename w/o qualifier)
 # date (year of document in whih np occurs)
-# We use two keys: 
+# We use two keys:
 # np (to give fast lookup by phrase)
 # np_docid (to enforce uniqueness for np/docid combinations)
 
-# MV 2/28/2013
-# This is nice, but I am not sure whether it will scale nicely to the number of documents
-# we need to run this over. Running this on 10 patents created a database with 4000+
-# records. Since the number of records will scale linearly with increased number of
-# documents, running this on 500,000 patents will result in 200,000,000+ records. And a
-# query to extract the number of documents a term occurs in may be slowish for frequent
-# terms. It might be better to have a database as follows:
-#    CREATE TABLE NP(np TEXT, year INT, doc_count INT, instance_count INT)
-#    CREATE INDEX idx_np ON NP(np)
-#    CREATE UNIQUE INDEX idx_np_year ON NP(np, year)
 
-
+import sqlite3
 import os
 import sys
-import sqlite3
 
 # create a database in location <path>
-# There should be one database for each language.
+# There should be one database (named np.db) for each language.
 # Suggested path is the workspace directory:
-# e.g. .../patent-classifier/ontology/creation/data/patents/en/ws/np.db
-def np_db_create(db_file):
+# e.g. .../patent-classifier/ontology/creation/data/patents/en/ws
+def np_db_create(path):
     try:
+        db_file = os.path.join(path, "np.db")
         conn = sqlite3.connect(db_file)
-        cursor = conn.cursor()
-        cursor.execute("CREATE TABLE NP(np TEXT, docid TEXT, date INT)")
-        cursor.execute("CREATE INDEX idx_np ON NP(np)")
-        cursor.execute("CREATE UNIQUE INDEX idx_np_docid ON NP(np, docid)")
-        np_db_commit_and_close(conn, cursor)
+        c = conn.cursor()
+        c.execute("CREATE TABLE NP(np TEXT, docid TEXT, date INT)")
+        c.execute("CREATE INDEX idx_np ON NP(np)")
+        c.execute("CREATE UNIQUE INDEX idx_np_docid ON NP(np, docid)")
+        conn.commit()
+        c.close()
+        conn.close()
         print "[np_db_create] Created database in %s" % db_file
     except:
-        print "[np_db_create] ERROR: Failed to create database %s" % db_file
-        print "[np_db_create] ERROR: Error: %s" % str(sys.exc_info())
-        sys.exit()
-
+        e = sys.exc_info()
+        print "[np_db_create]ERROR: Failed to create database in %s\nError: %s" % (db_file, e)
 
 # format of doc_feats.all is
-# position of this element        1980|US4236596A|position_of_this_element ...  
+# position of this element        1980|US4236596A|position_of_this_element ...
 
 
 # np_db.np_db_insert_doc_feats("/home/j/anick/patent-classifier/ontology/creation/data/patents/en/ws", "/home/j/anick/patent-classifier/ontology/creation/data/patents/en/ws/doc_feats.all")
 
 def np_db_insert_doc_feats(db_path, doc_feats_file):
-    (conn, cursor) = np_db_open(db_file)
+
+    # get a connection and a cursor
+    db_file = os.path.join(db_path, "np.db")
+    (conn, c) = np_db_open(db_file)
+
     # insert entries into db
-    with open(doc_feats_file) as s_df:
-        lines = 0
+    s_df = open(doc_feats_file)
+    try:
+        i = 0
         for line in s_df:
-            # extract np, date, docid
+            #extract np, date, docid
             fields = line.split("\t")
             np = fields[0]
             (date, docid, symbol) = fields[1].split("|")
-            np_db_insert_np(cursor, np, docid, date)
-            lines += 1
-        print "[np_db_insert_doc_feats] Added %i NP's to database in %s" % (lines, db_file)
-    np_db_commit_and_close(conn, cursor)
 
-
-def np_db_insert_np(c, np, docid, date):
-    try:
-        c.execute("INSERT INTO NP VALUES(?, ?, ?)", (np, docid, date))
+            #print "[insert_doc_feats_into_np_db]np: %s, docid: %s, date: %i" % (np, docid, date)
+            # use double quotes in the sql command since single quote (apostrophe) can appear in the np.
+            # Date field is unquoted so it will be interpreted as an integer.
+            # This is useful in case we want to do range queries on dates in sql.
+            sql = 'INSERT INTO NP VALUES("' + np + '", "' + docid + '", ' + date + ')'
+            print "sql is: %s" % sql
+            c.execute(sql)
+            i += 1
     except sqlite3.IntegrityError:
         # This is ok - preventing duplicate np/doc_id entries from being inserted.
-        print "[np_db_insert_np] WARNING: not adding duplicate NP (%s, %s, %s)" % (np, docid, date)
-    except:
-        print "[np_db_insert_np] WARNING: could not add (%s, %s, %s)" % (np, docid, date)
-        print "[np_db_insert_np] WARNING: %s" % str(sys.exc_info())
+        pass
+    else:
+        e = sys.exc_info()
+        print "[np_db_insert_doc_feats]ERROR: Failed to update database in %s, Error: %s" % (db_file, e)
+        sys.exit()
+
+    print "[np_db_insert_doc_feats] Added %i NP's to database in %s" % (i, db_file)
+
+    conn.commit()
+    c.close()
+    conn.close()
+    s_df.close()
 
 
 def np_db_open(db_file):
@@ -90,20 +98,15 @@ def np_db_open(db_file):
         sys.exit("[np_db.open_db] ERROR: Failed to open database in %s, Error: %s" %  (db_file, e))
 
 
-def np_db_commit_and_close(conn, cursor):
-    conn.commit()
-    cursor.close()
-    conn.close()
-
 
 # Example of creating an np_db.  Needs to be done only once per language
 # np_db.test_create()
 def np_db_test_create():
-    lang_path = "/home/j/anick/patent-classifier/ontology/creation/data/patents/en/ws"    
+    lang_path = "/home/j/anick/patent-classifier/ontology/creation/data/patents/en/ws"
     np_db_create(lang_path)
 
 def np_db_test_create_cn():
-    lang_path = "/home/j/anick/patent-classifier/ontology/creation/data/patents/cn/ws"    
+    lang_path = "/home/j/anick/patent-classifier/ontology/creation/data/patents/cn/ws"
     np_db_create(lang_path)
 
 # Example of inserting a file of doc_feats records into the np_db
@@ -125,7 +128,7 @@ def np_db_test_insert_cn():
 
 
 # Example of getting a (readonly) connection for doing database queries
-# Readonly mode isn't actually supported but you should be allowed to have 
+# Readonly mode isn't actually supported but you should be allowed to have
 # concurrent readers provided no one is doing a write transaction.
 def np_db_conn(db_filename):
     try:
@@ -138,7 +141,7 @@ def np_db_conn(db_filename):
 def np_db_close(conn):
     conn.close()
 
-# select the counts for a given np for each date in a list of dates and 
+# select the counts for a given np for each date in a list of dates and
 # return a list of the form [[date, count], [date, count], ...]
 def np_db_counts(conn, np, date_list):
     count_list = []
@@ -164,8 +167,6 @@ def np_db_counts_test():
 
 
 def np_db_counts_test_cn():
-    # NOTE: a comment following this method reported on an error on CHinese processing, it
-    # was removed because it broke the script, see discarded/np_db.py for the comment
     db_filename = "/home/j/anick/patent-classifier/ontology/creation/data/patents/cn/ws/np.db"
     conn = np_db_conn(db_filename)
     res = np_db_counts(conn, "link", [2008, 2009, 2010, 2011])
@@ -174,12 +175,23 @@ def np_db_counts_test_cn():
     print "Counts for phrase invention: %s" % res
     np_db_close(conn)
 
+"""
+Running the Chinese counts_test_cn gives the following error part way through:
+sql is: INSERT INTO NP VALUES("滤波 的 方法", "CN101216894A", 2008)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "np_db.py", line 124, in np_db_test_insert_cn
+    np_db_insert_doc_feats(ws_path, doc_feats_file)
+  File "np_db.py", line 68, in np_db_insert_doc_feats
+    (date, docid, symbol) = fields[1].split("|")
+ValueError: too many values to unpack
+"""
 
 
 if __name__ == '__main__':
 
     import sys
     db_file = sys.argv[1]
-    doc_feats_file = sys.argv[2]
+    docfeats_file = sys.argv[2]
     np_db_create(db_file)
-    np_db_insert_doc_feats(db_file, doc_feats_file)
+    np_db_insert_doc_feats(db_path, doc_feats_file)
