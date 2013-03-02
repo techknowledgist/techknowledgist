@@ -395,5 +395,5 @@ if __name__ == '__main__':
         run_train(config, file_list, features,
                   annotation_file, annotation_count, version, xval, create_summary)
     elif stage == '--classify':
-        run_classify(config, file_list, model, version, create_summary,
-                     use_all_chunks_p=use_all_chunks)
+        run_classify(config, file_list, model, version,
+                     create_summary=create_summary, use_all_chunks_p=use_all_chunks)
