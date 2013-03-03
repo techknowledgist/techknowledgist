@@ -290,7 +290,7 @@ def show_datasets(target_path, language, config):
         print "\n===", dataset_type, "===\n"
         path = os.path.join(target_path, language, 'data', dataset_type)
         datasets1 = [ds for ds in os.listdir(path) if ds.isdigit()]
-        datasets2 = [DataSet(stage, dataset_type, config, ds) for ds in datasets1]
+        datasets2 = [DataSet(None, dataset_type, config, ds) for ds in datasets1]
         for ds in datasets2:
             print ds
             for e in ds.pipeline_trace:
@@ -315,16 +315,18 @@ def show_pipelines(target_path, language):
     
 ## AUXILIARY METHODS
     
-def find_input_dataset(stage, config):
-    """Find the input data set and return it. Print a warning and exit if no dataset or more
-    than one dataset was found."""
+def find_input_dataset(stage, config, data_type=None):
+    """Find the input data set for a processing stage for a given configuration and return
+    it. Print a warning and exit if no dataset or more than one dataset was found. If a
+    data type is passed in, the dat type lookup for the stage is bypassed."""
 
-    # Use the stage-to-data mapping to find the input name
-    input_name = DOCUMENT_PROCESSING_IO[stage]['in']
+    # Use the stage-to-data mapping to find the data_type if none was handed in
+    if data_type is None:
+        data_type = DOCUMENT_PROCESSING_IO[stage]['in']
     # Get all data sets D for input name
-    dirname = os.path.join(config.target_path, config.language, 'data', input_name)
+    dirname = os.path.join(config.target_path, config.language, 'data', data_type)
     datasets1 = [ds for ds in os.listdir(dirname) if ds.isdigit()]
-    datasets2 = [DataSet(stage, input_name, config, ds) for ds in datasets1]
+    datasets2 = [DataSet(stage, data_type, config, ds) for ds in datasets1]
     # Filer the datasets making sure that d.trace + d.head matches
     # config.pipeline(txt).trace
     datasets3 = [ds for ds in datasets2 if ds.input_matches_global_config()]
@@ -341,14 +343,17 @@ def find_input_dataset(stage, config):
         sys.exit("Exiting...")
 
     
-def find_output_datasets(stage, config):
-    """Find the output data set and return it. Print a warning and exit if no dataset or more
-    than one dataset was found."""
+def find_output_datasets(stage, config, data_type=None):
+    """Find the output data set of a stage for a given configuration and return it. Print
+    a warning and exit if no dataset or more than one dataset was found."""
 
     # Use the stage-to-data mapping to find the output names
-    output_names = DOCUMENT_PROCESSING_IO[stage]['out']
+    if data_type is not None:
+        data_types = [data_type]
+    else:
+        data_types = DOCUMENT_PROCESSING_IO[stage]['out']
     output_datasets = []
-    for output_name in output_names:
+    for output_name in data_types:
         # Get all data sets D for input name
         dirname = os.path.join(target_path, language, 'data', output_name)
         datasets1 = [ds for ds in os.listdir(dirname) if ds.isdigit()]
@@ -388,9 +393,8 @@ def print_file_progress(stage, count, filename, verbose):
 
 def check_file_counts(input_dataset, output_dataset, limit):
     if input_dataset.files_processed < output_dataset.files_processed + limit:
-        print "WARNING: input dataset does not have enough processed files"
-        print "        ", input_dataset
-        print "        ", output_dataset
+        print "[check_file_counts] " + \
+              "WARNING: input dataset does not have enough processed files"
         sys.exit("Exiting...")
 
 def prepare_io(filename, input_dataset, output_dataset):

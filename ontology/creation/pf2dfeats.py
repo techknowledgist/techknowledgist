@@ -8,7 +8,6 @@ import codecs
 def make_doc_feats(phr_feats, doc_feats, doc_id, year):
     s_phr_feats = codecs.open(phr_feats)
     s_doc_feats = codecs.open(doc_feats, "w")
-    
     # map phrase to features
     d_p2f = {}
     for line in s_phr_feats:
@@ -27,19 +26,18 @@ def make_doc_feats(phr_feats, doc_feats, doc_id, year):
             # merge the new feats
             for feat in feats:
                 #print "[2]feat: %s, l_current_feat: %s" % (feat, l_current_feat)
-
-                
                 if feat not in l_current_feat:
                     l_new_feat.append(feat)
+                #else:
+                #    print feat
             #extension = l_current_feat.extend(l_new_feat)
             # extend the key value in place (note that extend doesn't return a value, it modifies the list directly)
             d_p2f[key].extend(l_new_feat)
-            #print "Extended |%s| with |%s|" % (l_current_feat, l_new_feat)
+            #print "Extended |%s| with |%s|\n" % (l_current_feat, l_new_feat)
             #print "key: %s, value: |%s|" % (key, extension)
         else:
-            #print "***********[make_doc_feats]New key: %s, feats: |%s|" % (key, feats)
+            #print "[make_doc_feats] New key: %s, feats: |%s|\n" % (key, feats)
             d_p2f[key] = feats
-
 
     for key in d_p2f.keys():
         # remember that key is the phrase (i.e., chunk)
@@ -50,6 +48,7 @@ def make_doc_feats(phr_feats, doc_feats, doc_id, year):
 
     s_phr_feats.close()
     s_doc_feats.close()
+
 
 def pf2dfeats_dir(phr_feats_year_dir, doc_feats_year_dir, year):
     for file in os.listdir(phr_feats_year_dir):
@@ -70,25 +69,18 @@ def patent_pf2dfeats_dir(patent_path, language):
         pf2dfeats_dir(phr_feats_year_dir, doc_feats_year_dir, year)
     print "[patent_pf2dfeats_dir]finished creating doc_feats in: %s" % (doc_feats_path)
 
-
 def pipeline_pf2dfeats_dir(root, language):
-
     phr_feats_path = root + "/phr_feats"
     doc_feats_path = root + "/doc_feats"
     # The only way to determine the year for a file is to look in file_list.txt
     file_list_file = os.path.join(root, "file_list.txt")
     s_list = open(file_list_file)
-    year = ""
-    file_path = ""
     for line in s_list:
-        (id, year, path) = line.split(" ")
-        # create the file name from id + .xml
-        file_name = id + ".xml"
-
+        (identifier, year, path) = line.split(" ")
+        file_name = identifier + ".xml"
         phr_feats_file = os.path.join(phr_feats_path, file_name)
         doc_feats_file = os.path.join(doc_feats_path, file_name)
-
-        make_doc_feats(phr_feats_file, doc_feats_file, id, year)
+        make_doc_feats(phr_feats_file, doc_feats_file, identifier, year)
     s_list.close()
 
 # pf2dfeats.test_p2d()
@@ -98,3 +90,18 @@ def test_p2d():
     year = "1980"
     (doc_id, extension) = input_phr_feats.split(".")
     make_doc_feats(input_phr_feats, output_doc_feats, doc_id, year)
+
+
+if __name__ == '__main__':
+    import sys
+    (phr_feats, doc_feats, doc_id, year) = sys.argv[1:]
+    make_doc_feats(phr_feats, doc_feats, doc_id, year)
+
+
+"""
+
+python pf2dfeats.py data/patents/en/data/d3_phr_feats/01/files/home/j/corpuswork/fuse/fuse-patents/500-patents/DATA/Lexis-Nexis/US/Xml/2009/US20090032458A1.xml data/tmp.US20090032458A1.doc_feats.txt US20090032458A1.xml 2009
+
+diff data/patents/en/data/d4_doc_feats/01/files/home/j/corpuswork/fuse/fuse-patents/500-patents/DATA/Lexis-Nexis/US/Xml/2009/US20090032458A1.xml data/tmp.US20090032458A1.doc_feats.txt
+
+"""

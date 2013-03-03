@@ -224,7 +224,7 @@ def run_classify(config, file_list, model, version,
 
     
 def set_classifier_paths(config, model, version, classifier):
-    data_dir = os.path.join(config.target_path, config.language, data)
+    data_dir = os.path.join(config.target_path, config.language, 'data')
     train_dir = os.path.join(data_dir, 't1_train', model)
     classify_dir = os.path.join(data_dir, 't2_classify', version)
     label_file = os.path.join(train_dir, "train.info.annotation.txt")
