@@ -93,10 +93,11 @@ class Doc:
                     #print "[process_doc] found line in title or abstract"
                     self.l_lc_title_noun.extend(lc_nouns(line))
 
-                # call the appropriate Sentence subclass based on the language (get_sentence_for_lang)
-                sent_args = [self.next_sent_id, section, sent_no_in_section, line, self.chunk_schema]
+                # call the appropriate Sentence subclass based on the language
+                # (get_sentence_for_lang)
+                sent_args = [self.next_sent_id, section, sent_no_in_section, line,
+                             self.chunk_schema]
                 sent = sentence.get_sentence_for_lang(self.lang, sent_args)
-
                 # get context info
                 i = 0
                 for chunk in sent.chunk_iter():
@@ -144,29 +145,28 @@ def get_features(sent, ci):
 
 def add_chunk_data(doc, chunk, section, filter_p):
     """FILTERING technology terms to output (if filter_p is True). We only output terms
-     that are in the title or share a term with a title term.  Note that our "title terms"
-     can actually come from title or abstract. Many German patent titles are only one
-     word long! This filter may need adjustment (e.g. for German compound terms, which
-     may not match exactly, fitering ought to be based on component terms, not the
-     compound as a whole).  Filtering is not applied if filter_p parameter is False. """
-    return not filter_p or (section == "TITLE" or share_term_p(doc.l_lc_title_noun, chunk.lc_tokens))
+    that are in the title or share a term with a title term.  Note that our 'title terms'
+    can actually come from title or abstract. Many German patent titles are only one word
+    long! This filter may need adjustment (e.g. for German compound terms, which may not
+    match exactly, fitering ought to be based on component terms, not the compound as a
+    whole).  Filtering is not applied if filter_p parameter is False. """
+    return not filter_p \
+           or (section == "TITLE" or share_term_p(doc.l_lc_title_noun, chunk.lc_tokens))
 
 def add_line_to_phr_occ(uid, doc, chunk, hsent, s_output_phr_occ):
-    """Write out the phrase occurrence data (phr_occ).  For each phrase occurrence,
+    """Write out the phrase occurrence data to phr_occ. For each phrase occurrence,
     include uid, year, phrase and full sentence (with highlighted chunk)."""
-    #print "matched term for %s and %s" %  (self.l_lc_title_noun, chunk.lc_tokens)
-    unlabeled_out = "\t".join([uid, doc.year, chunk.phrase.lower(), hsent + '\n'])
-    unlabeled_out = unlabeled_out.encode('utf-8')
+    #print "matched term for %s and %s" % (self.l_lc_title_noun, chunk.lc_tokens)
+    unlabeled_out = u"\t".join([uid, doc.year, chunk.phrase.lower(), hsent + '\n'])
     s_output_phr_occ.write(unlabeled_out)
 
 def add_line_to_phr_feats(metadata_list, mallet_feature_list, s_output_phr_feats):
-    """Create a tab separated string of features to be written out to phr_feats The full
+    """Create a tab separated string of features to be written out to phr_feats. The full
      line includes metadata followed by features."""
     # meta data to go at beginning of phr_feats output lines
     metadata_list.extend(mallet_feature_list)
     full_list = metadata_list
-    mallet_feature_string = "\t".join(full_list) + '\n'
-    mallet_feature_string = mallet_feature_string.encode('utf-8')
+    mallet_feature_string = u"\t".join(full_list) + '\n'
     #print "mallet_feature string: %s" % mallet_feature_string
     s_output_phr_feats.write(mallet_feature_string)
 
