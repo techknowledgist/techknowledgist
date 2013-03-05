@@ -18,7 +18,7 @@ OPTIONS
     --model STRING       --  the identifier of a model (--classify only)
 
     --config FILENAME           --  file with pipeline configuration
-    --files FILENAME            --  contains files to process, either for training or testing
+    --files FILENAME            --  contains files to process
     --annotation-file FILENAME  --  specify file with labeled terms (--train only)
     --annotation-count INTEGER  --  number of lines to take (--train only)
 
@@ -27,11 +27,24 @@ OPTIONS
     --show-data       --  print available datasets, then exits
     --show-pipelines  --  print defined pipelines, then exits
 
-Example for --train:
+For training, you typically want to pick the best setting or settings as it
+became apparent from all the testing and create a model for a sufficiently large
+training set. There is typically no need to create the summary files.
+
 $ python step4_classify.py --train -t data/patents -l en --config pipeline-default.txt --filelist training-files-v1.txt --annotation-file ../annotation/en/phr_occ.lab --annotation-count 2000 --version standard --features extint --xval 0
 
-Example for --classify:
-$ python step4_classify.py --classify -t data/patents -l en --config pipeline-default.txt --filelist testing-files-v1.txt --model standard --version standard.batch1
+For running the classfier, you just pick your model (which is the version
+identifier of a trained model) and run it on a set of files. It is a good idea
+to have the name of the model as part of the version identifier of the
+classifier run. You have have to run the classifier many times when you have
+alarge dataset. It is a good idea to reflect this in the names. For example, if
+you use the standard model and you run three batches, you should name them
+(using --version) something like standard-batch1, standard-batch2,
+standard-batch3 and standard-batch4. You should also use the --create-summary
+session in case you want to do some indexing, which happens on the summary files
+(this may be changed later so we never need the summaries).
+
+$ python step4_classify.py --classify -t data/patents -l en --config pipeline-default.txt --filelist testing-files-v1.txt --model standard --version standard.batch1 --create-summary
 
 """
 
@@ -65,7 +78,8 @@ def run_train(config, file_list, features,
     intermediate files and files that log the state of the system at processing time. Uses
     labeled data with features as union of all phrase instances within a doc."""
 
-    train_dir = os.path.join(config.target_path, config.language, 'data', 't1_train', version)
+    data_dir = os.path.join(config.target_path, config.language, 'data')
+    train_dir = os.path.join(data_dir, 't1_train', version)
     initialize_train(config, file_list, features, annotation_file, annotation_count,
                      train_dir, version, xval)
 
@@ -78,7 +92,8 @@ def run_train(config, file_list, features,
 
     # this step is not needed for model building but can be consumed by later stages
     if create_summary:
-        create_summary_files(input_dataset1, input_dataset2, file_list, train_dir, version)
+        create_summary_files(input_dataset1, input_dataset2, file_list,
+                             train_dir, version)
     
     ## build the model using the doc features dataset
     fnames = filename_generator(input_dataset2.path, file_list)
@@ -103,26 +118,28 @@ def initialize_train(config, file_list, features, annotation_file, annotation_co
 
     with open(info_file_general, 'w') as fh:
         fh.write("$ python %s\n\n" % ' '.join(sys.argv))
-        fh.write("version=%s\n" % version)
-        fh.write("xval=%s\n" % xval)
-        fh.write("file_list=%s\n" % file_list)
-        fh.write("annotation_file=%s\n" % annotation_file)
-        fh.write("annotation_count=%s\n" % annotation_count)
-        fh.write("config_file=%s\n" % os.path.basename(config.pipeline_config_file))
-        fh.write("features=%s\n" % features)
-        fh.write("git_commit=%s" % get_git_commit())
+        fh.write("version           =  %s\n" % version)
+        fh.write("xval              =  %s\n" % xval)
+        fh.write("file_list         =  %s\n" % file_list)
+        fh.write("annotation_file   =  %s\n" % annotation_file)
+        fh.write("annotation_count  =  %s\n" % annotation_count)
+        fh.write("config_file       =  %s\n" % os.path.basename(config.pipeline_config_file))
+        fh.write("features          =  %s\n" % features)
+        fh.write("git_commit        =  %s" % get_git_commit())
 
     with codecs.open(annotation_file) as fh1:
         with codecs.open(info_file_annotation, 'w') as fh2:
-            count = 0
-            for line in fh1:
-                count += 1
-                if count > annotation_count:
-                    break
-                fh2.write(line)
+            fh2.writelines(fh1.readlines()[:annotation_count])
 
-    if features is not None and os.path.isfile(features):
-        shutil.copyfile(features, info_file_features)
+    if features is not None:
+        if os.path.isfile(features):
+            shutil.copyfile(features, info_file_features)
+        else:
+            features_file = os.path.join('features', features + '.features')
+            if os.path.isfile(features_file):
+                shutil.copyfile(features_file, info_file_features)
+            else:
+                print "[initialize_train] WARNING: no file", features_file
     shutil.copyfile(config.pipeline_config_file, info_file_config)
     shutil.copyfile(os.path.join(config.config_dir, file_list), info_file_filelist)
 
@@ -244,11 +261,11 @@ def intitialize_classify(config, file_list, classify_dir, model, version):
     ensure_path(classify_dir)
     with open(info_file_general, 'w') as fh:
         fh.write("$ python %s\n\n" % ' '.join(sys.argv))
-        fh.write("version=%s\n" % version)
-        fh.write("file_list=%s\n" % file_list)
-        fh.write("model=%s\n" % model)
-        fh.write("config_file=%s\n" % os.path.basename(config.pipeline_config_file))
-        fh.write("git_commit=%s" % get_git_commit())
+        fh.write("version      =  %s\n" % version)
+        fh.write("file_list    =  %s\n" % file_list)
+        fh.write("model        =  %s\n" % model)
+        fh.write("config_file  =  %s\n" % os.path.basename(config.pipeline_config_file))
+        fh.write("git_commit   =  %s" % get_git_commit())
     shutil.copyfile(config.pipeline_config_file, info_file_config)
     shutil.copyfile(os.path.join(config.config_dir, file_list), info_file_filelist)
 

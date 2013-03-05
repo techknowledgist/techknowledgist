@@ -2,42 +2,63 @@
 
 Script to build an index over files with document features.
 
-Indexing is done on top of the results of the classifier. It does this by using the
---dataset option, which points to a dataset created by the classifier. For convenience, it
-also relies on access to the classifier's phr_feats summary files.
+Indexing is done on top of the results of the classifier. It does this by using
+the --dataset option, which points to a dataset created by the classifier. For
+convenience, it also relies on access to the classifier's phr_feats summary
+files.
 
-Much of the work on the batches involves building a large in-memory datastructure to
-collect summary counts, therefore the batches are going to be limited to a certain
-yet-to-be-determined size.
+Much of the work on the batches involves building a large in-memory
+datastructure to collect summary counts, therefore the batches are going to be
+limited to a certain yet-to-be-determined size.
 
 OPTIONS
 
-    -l LANG     --  provides the language, one of ('en, 'de', 'cn'), default is 'en'
-    -t PATH     --  target directory, default is data/patents
-    -n INTEGER  --  number of documents to process
+   -l LANG     provides the language, one of ('en, 'de', 'cn'), default is 'en'.
+   -t PATH     target directory, default is data/patents.
+   -n INTEGER  number of documents to process.
 
-    --collect-data  --  run in batch mode to collect data from a set of documents
-    --build-index   --  combine the results from available batches
+   --collect-data
+         run in batch mode to collect data from a set of documents.
 
-    --dataset STRING   --  dataset to collect data from, taken from a t2_classify dataset
-    --config FILENAME  --  file with pipeline configuration
-    --files FILENAME   --  contains files to process, either for training or testing
+   --build-index:
+       Combine the results from available batches.
 
-    --verbose          --  set verbose printing to stdout
-    --track-memory     --  use this to track memory usage
-    --show-data        --  print available datasets, then exits
-    --show-pipelines   --  print defined pipelines, then exits
+   --config FILENAME:
+       File with pipeline configuration.
+
+   --index-name STRING:
+       Name of index directory being created (--build-index only).
+
+   --dataset STRING:
+       Classifier dataset to collect data from or indexer datasets that are to
+       be combined into the index, in the letter case the value can be a unix
+       filename pattern with '*', '?' and '[]'. Note that if you use wildcards
+       in the string you need to surround them in quotes.
+
+   --balance INTEGER:
+       If this options is used with the --build-index option, the number of
+       documents used per year is balanced by taking INTEGER to be the mazimum
+       number of documents that can be used for a given year. Note that this
+       does not necesarily mean that we have a good balnace since we do not
+       adjust for the size of documents and we could have a number smaller than
+       INTEGER if the year simply only has a few documents.
+
+   --verbose          set verbose printing to stdout
+   --track-memory     use this to track memory usage
+   --show-data        print available datasets, then exits
+   --show-pipelines   print defined pipelines, then exits
 
 
-Example for --batch:
-$ python step6_index.py -t data/patents -l en --collect-data --dataset standard.batch-001-030 --verbose
+Example for --collect-data:
+$ python step6_index.py -t data/patents -l en --collect-data --dataset standard.001-020
+$ python step6_index.py -t data/patents -l en --collect-data --dataset standard.021-040
 
-Example for --build:
-$
+Example for --build-index:
+$ python step6_index.py -t data/patents -l en --build-index --index-name standard.idx --dataset 'standard.???-???' 
 
 """
 
-import os, sys, shutil, getopt, codecs, resource
+import os, sys, time, shutil, getopt, codecs, resource, glob
 
 script_path = os.path.abspath(sys.argv[0])
 script_dir = os.path.dirname(script_path)
@@ -50,6 +71,11 @@ from ontology.utils.batch import GlobalConfig
 from ontology.utils.file import ensure_path
 from ontology.utils.git import get_git_commit
 from step2_document_processing import show_datasets, show_pipelines
+from np_db import YearsDatabase, SummaryDatabase
+
+
+VERBOSE = False
+TRACK_MEMORY = False
 
 
 def measure_memory_use(fun):
@@ -58,10 +84,13 @@ def measure_memory_use(fun):
         m1 = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
         result = fun(*args)
         m2 = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
-        if track_memory:
+        if TRACK_MEMORY:
             print "[%s] increase in memory use: %d" % (fun.__name__, m2 - m1)
         return result
     return wrapper
+
+
+#### OPTION --collect-data
 
 def run_collect_data(config, dataset):
     """Data collections proceeds off of a classify dataset, using the
@@ -70,36 +99,40 @@ def run_collect_data(config, dataset):
     data_dir = os.path.join(config.target_path, config.language, 'data')
     classify_dir = os.path.join(data_dir, 't2_classify', dataset)
     index_dir = os.path.join(data_dir, 'o1_index', dataset)
-    generate_info_files(config, dataset, index_dir, classify_dir)
-    collect_statistics(classify_dir, index_dir)
+    generate_collect_info_files(config, dataset, index_dir, classify_dir)
+    m1 = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
+    t1 = time.time()
+    collect_counts(classify_dir, index_dir)
+    print_processing_statistics(index_dir, m1, t1)
 
-def generate_info_files(config, dataset, index_dir, classify_dir):
-    """Copy statistics from t2_classify to o1_index data sets. In some cases the
+def generate_collect_info_files(config, dataset, index_dir, classify_dir):
+    """Copy information from t2_classify to o1_index data sets. In some cases the
     statistics can be different, overwrite the classifier values with the indexer values
     (for example for the git commit)."""
     ensure_path(index_dir)
     fh = open(os.path.join(index_dir, 'index.info.general.txt'), 'w')
     fh.write("$ python %s\n\n" % ' '.join(sys.argv))
-    fh.write("dataset=%s\n" % dataset)
-    fh.write("config_file=%s\n" % os.path.basename(config.pipeline_config_file))
-    fh.write("git_commit=%s" % get_git_commit())
+    fh.write("dataset      =  %s\n" % dataset)
+    fh.write("config_file  =  %s\n" % os.path.basename(config.pipeline_config_file))
+    fh.write("git_commit   =  %s" % get_git_commit())
     for info_file in ('info.config.txt', 'info.filelist.txt'):
         shutil.copyfile(os.path.join(classify_dir, 'classify.' + info_file),
                         os.path.join(index_dir, 'index.' + info_file))
 
-def collect_statistics(classify_dir, index_dir):
+def collect_counts(classify_dir, index_dir):
     """Collect statistics from the phr_feats file(s) and the scores file and write them to
     files in the index directory."""
-    statistics = {}
+    term_statistics = {}
     feats_fh = codecs.open(os.path.join(classify_dir, 'classify.features.phr_feats.txt'))
     scores_fh = codecs.open(os.path.join(classify_dir, 'classify.MaxEnt.out.s2.y.nr'))
     summary_fh = codecs.open(os.path.join(index_dir, 'index.count.summary.txt'), 'w')
+    years_fh = codecs.open(os.path.join(index_dir, 'index.count.years.txt'), 'w')
     expanded_fh = codecs.open(os.path.join(index_dir, 'index.count.expanded.txt'), 'w')
     print "[collect_statistics] reading scores"
     scores = load_scores(scores_fh)
     print "[collect_statistics] reading phr_feats"
-    process_phr_feats(statistics, scores, feats_fh, expanded_fh)
-    print_summary_statistics(statistics, scores, summary_fh)
+    process_phr_feats(term_statistics, scores, feats_fh, expanded_fh, years_fh)
+    print_summary_statistics(term_statistics, scores, summary_fh)
 
 @measure_memory_use
 def load_scores(scores_fh):
@@ -107,17 +140,20 @@ def load_scores(scores_fh):
     return Scores(scores_fh)
 
 @measure_memory_use
-def process_phr_feats(statistics, scores, feats_fh, expanded_fh):
+def process_phr_feats(statistics, scores, feats_fh, expanded_fh, years_fh):
     """Repeatedly take the next document from the phr_feats summary file (where a document
     is a list of lines) and process the lines for each document."""
     fr = FeatureReader(feats_fh)
+    years = {}
     while True:
         next_doc = fr.next_document()
         if not next_doc:
             break
-        process_phr_feats_doc(statistics, scores, next_doc, expanded_fh)
+        process_phr_feats_doc(statistics, years, scores, next_doc, expanded_fh)
+    for year in sorted(years.keys()):
+        years_fh.write("%s\t%d\n" % (year, years[year]))
 
-def process_phr_feats_doc(statistics, scores, lines, expanded_fh):
+def process_phr_feats_doc(statistics, years, scores, lines, expanded_fh):
     """Process the phr_feats lines for a document and write a counts line for each
     docid-year-term triple, including the score and the list of occurrences."""
     doc = {}
@@ -127,6 +163,8 @@ def process_phr_feats_doc(statistics, scores, lines, expanded_fh):
         doc.setdefault(term,{})
         doc[term].setdefault(loc_feat, 0)
         doc[term][loc_feat] += 1
+    years.setdefault(year,0)
+    years[year] += 1
     for term in sorted(doc.keys()):
         locs = "\t".join(["%s %d" % (loc, count) for loc, count in doc[term].items()])
         score = scores.get_score(term, year, docid)
@@ -134,7 +172,8 @@ def process_phr_feats_doc(statistics, scores, lines, expanded_fh):
 
 def update_summary_statistics(statistics, docid, year, term, loc_feat):
     statistics.setdefault(term,{})
-    statistics[term].setdefault(year,{'scores': [], 'documents': {}, 'instances': 0, 'section_counts': {}})
+    statistics[term].setdefault(year,{'scores': [], 'documents': {}, 'instances': 0,
+                                      'section_counts': {}})
     statistics[term][year]['documents'][docid] = True
     statistics[term][year]['instances'] += 1
     statistics[term][year]['section_counts'].setdefault(loc_feat, 0)
@@ -163,14 +202,14 @@ class Scores(object):
             self.scores.setdefault(term, {})
             self.scores[term].setdefault(year, {})
             if self.scores[term][year].has_key(docid):
-                print "[Scores.__init__] WARNING: duplicate score for '%s' in year %s for document %s" \
-                    % (term, year, docid)
+                print "[Scores.__init__] WARNING: duplicate score for '%s'" % term,
+                print "in year %s for document %s" % (year, docid)
             self.scores[term][year][docid] = score
 
     def get_score(self, term, year, docid):
         try:
             score = self.scores[term][year][docid]
-            return "%.4f" % float(score)
+            return float(score)
         except KeyError:
             return 'None'
 
@@ -178,7 +217,6 @@ class Scores(object):
         try:
             term_scores = self.scores[term][year].values()
             average_score = sum([float(s) for s in term_scores]) / len(term_scores)
-            average_score = "%.4f" % average_score
         except KeyError:
             average_score = 'None'
         except ZeroDivisionError:
@@ -259,57 +297,150 @@ def get_docid_from_phr_feats_line(line):
 
 
 
-def build_index(config, dataset):
+#### OPTION --build-index
+
+def run_build_index(config, index_name, dataset_exp, balance):
     """In this case, dataset is actually a regular expression that can match many
-    datasets, or a comma-separated list of regular expressions"""
+    datasets. """
+    index_dir = os.path.join(config.target_path, config.language, 'data', 'o1_index')
+    build_dir = os.path.join(index_dir, index_name)
+    datasets = glob.glob(os.path.join(index_dir, dataset_exp))
+    generate_build_info_files(config, index_name, datasets, balance, build_dir)
+    build_years_index(build_dir, datasets)
+    build_summary_index(build_dir, datasets)
+    #build_expanded_index(build_dir, datasets)
+
+
+def generate_build_info_files(config, index_name, datasets, balance, build_dir):
+    """Write files with information on the build."""
+    ensure_path(build_dir)
+    fh = open(os.path.join(build_dir, 'index.info.general.txt'), 'w')
+    fh.write("$ python %s\n\n" % ' '.join(sys.argv))
+    fh.write("config_file=%s\n" % os.path.basename(config.pipeline_config_file))
+    fh.write("index_name=%s\n" % index_name)
+    for ds in datasets:
+        fh.write("dataset=%s\n" % ds)
+    fh.write("balance=%d\n" % balance)
+    fh.write("git_commit=%s" % get_git_commit())
+
+
+def build_years_index(build_dir, datasets):
+    """Add years to the database, not just the count but also a ratio (for
+    example ,if 1990 has 20 document sut of a total of 100, then it gets the 0.2
+    ratio (do this in read_years, replacing the count with a <count, ratio>
+    pair."""
+    db_file = os.path.join(build_dir, 'db-years.sqlite')
+    stats_file = os.path.join(build_dir, 'index.stats.years.txt')
+    years, document_count = read_years(datasets)
+    print_years(years, document_count, stats_file)
+    db = YearsDatabase(db_file)
+    for year in years.keys():
+        count, ratio = years[year]
+        db.add(year, count, ratio)
+    db.commit_and_close()
+
+
+def read_years(datasets):
+    """This is just to let the user see how many documents are involved and what the
+    distributionover the years is."""
+    years = {}
+    total_count = 0
+    for ds in datasets:
+        for line in open(os.path.join(ds, 'index.count.years.txt')):
+            year, count = line.strip().split("\t")
+            count = int(count)
+            years[year] = years.setdefault(year,0) + count
+            total_count += count
+    for year, count in years.items():
+        years[year] = (count, float(count)/total_count)
+    return years, total_count
+
+def print_years(years, document_count, stats_file):
+    with open(stats_file, 'w') as fh:
+        fh.write("\nSize of combined datasets (in documents)\n\n")
+        for y in sorted(years.keys()):
+            fh.write("   %s  %6d  %.4f\n" % (y, years[y][0], years[y][1]))
+        fh.write("\n   TOTAL %6d  %.4f\n\n" % (document_count, 1))
+
+
+def build_summary_index(build_dir, datasets):
+
+    # first open a database and create the table
+    # find out how many different section types there are
+    db = SummaryDatabase(os.path.join(build_dir, 'db-summary.sqlite'))
+    
+    for ds in datasets:
+        t1 = time.time()
+        fh = codecs.open(os.path.join(ds, 'index.count.summary.txt'), encoding='utf-8')
+        for line in fh:
+            fields = line.strip().split(u"\t")
+            (term, year, score, doc_count, instance_count) = fields[:5]
+            section_counts = fields[5:]
+            if score == 'None':
+                continue
+            db.add_to_summary(term, year, float(score), int(doc_count), int(instance_count))
+            db.add_to_sections(term, year, section_counts)
+        print "[build_summary_index] added %s (%.2fs)" % (ds, time.time() - t1)
+    db.commit_and_close()
+
+
+def build_expanded_index(build_dir, datasets):
     pass
 
 
 
+#### UTILITIES
+
+def print_processing_statistics(index_dir, m1, t1):
+    m2 = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
+    t2 = time.time()
+    fh = open(os.path.join(index_dir, 'index.info.stats.txt'), 'w')
+    fh.write("processing_time = %d\n" % (t2 - t1))
+    fh.write("memory before = %dMB\n" % (m1 / 1000))
+    fh.write("memory after = %dMB\n" % (m2 / 1000))
+
+
 def read_opts():
-    longopts = ['config=', 'collect-data', 'build-index', 'version=', 'dataset=', 
-                'track-memory', 'verbose', 'show-data', 'show-pipelines']
+    longopts = ['config=', 'collect-data', 'build-index', 'index-name=', 'dataset=', 
+                'balance=', 'track-memory', 'verbose', 'show-data', 'show-pipelines']
     try:
         return getopt.getopt(sys.argv[1:], 'l:t:n:', longopts)
     except getopt.GetoptError as e:
         sys.exit("ERROR: " + str(e))
 
 
-
 if __name__ == '__main__':
 
     # default values of options
     target_path, language = 'data/patents', 'en'
-    dataset = None
-    collect_data = False
-    build_index = False
+    collect_data, build_index = False, False
+    index_name, dataset, balance = None, None, 9999999
     pipeline_config = 'pipeline-default.txt'
-    verbose, track_memory = False, False
     show_data_p, show_pipelines_p = False, False
 
     (opts, args) = read_opts()
     for opt, val in opts:
         if opt == '-l': language = val
         if opt == '-t': target_path = val
-        if opt == '--dataset': dataset = val
         if opt == '--collect-data': collect_data = True
         if opt == '--build-index': build_index = True
+        if opt == '--index-name': index_name = val
+        if opt == '--dataset': dataset = val
+        if opt == '--balance': balance = int(val)
         if opt == '--show-data': show_data_p = True
         if opt == '--show-pipelines': show_pipelines_p = True
-        if opt == '--verbose': verbose = True
-        if opt == '--track-memory': track_memory = True
+        if opt == '--verbose': VERBOSE = True
+        if opt == '--track-memory': TRACK_MEMORY = True
 
     config = GlobalConfig(target_path, language, pipeline_config)
-    if verbose:
+    if VERBOSE:
         config.pp()
 
     if show_data_p:
         show_datasets(target_path, language, config)
     elif show_pipelines_p:
         show_pipelines(target_path, language)
-
     elif collect_data:
         run_collect_data(config, dataset)
-
     elif build_index:
-        run_build_index(config, dataset)
+        run_build_index(config, index_name, dataset, balance)

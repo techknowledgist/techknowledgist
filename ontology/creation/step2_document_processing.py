@@ -313,7 +313,7 @@ def show_pipelines(target_path, language):
 
 
     
-## AUXILIARY METHODS
+## UTILITY METHODS
     
 def find_input_dataset(stage, config, data_type=None):
     """Find the input data set for a processing stage for a given configuration and return
