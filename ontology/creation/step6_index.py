@@ -37,11 +37,11 @@ OPTIONS
 
    --balance INTEGER:
        If this options is used with the --build-index option, the number of
-       documents used per year is balanced by taking INTEGER to be the mazimum
+       documents used per year is balanced by taking INTEGER to be the maximum
        number of documents that can be used for a given year. Note that this
-       does not necesarily mean that we have a good balnace since we do not
-       adjust for the size of documents and we could have a number smaller than
-       INTEGER if the year simply only has a few documents.
+       does not necesarily mean that we have a good balance since (i) we do not
+       adjust for the size of documents and (ii) we could have a number smaller
+       than INTEGER if the year simply only has a few documents.
 
    --verbose          set verbose printing to stdout
    --track-memory     use this to track memory usage
@@ -300,8 +300,9 @@ def get_docid_from_phr_feats_line(line):
 #### OPTION --build-index
 
 def run_build_index(config, index_name, dataset_exp, balance):
-    """In this case, dataset is actually a regular expression that can match many
-    datasets. """
+    """Build the index databases from a set of datasets, descirbed by the dataset_ep
+    regular expression. Balance is not implemented yet, but could be used to limit the
+    number of documents used for each year."""
     index_dir = os.path.join(config.target_path, config.language, 'data', 'o1_index')
     build_dir = os.path.join(index_dir, index_name)
     datasets = glob.glob(os.path.join(index_dir, dataset_exp))
@@ -309,7 +310,6 @@ def run_build_index(config, index_name, dataset_exp, balance):
     build_years_index(build_dir, datasets)
     build_summary_index(build_dir, datasets)
     build_expanded_index(build_dir, datasets)
-
 
 def generate_build_info_files(config, index_name, datasets, balance, build_dir):
     """Write files with information on the build."""
@@ -364,6 +364,7 @@ def print_years(years, document_count, stats_file):
 def build_summary_index(build_dir, datasets):
 
     db = SummaryDatabase(os.path.join(build_dir, 'db-summary.sqlite'))
+    log = open(os.path.join(build_dir, 'index.stats.processing.txt'), 'w')
     for ds in datasets:
         t1 = time.time()
         fh = codecs.open(os.path.join(ds, 'index.count.summary.txt'), encoding='utf-8')
@@ -376,23 +377,26 @@ def build_summary_index(build_dir, datasets):
             db.add_to_summary(term, year, float(score), int(doc_count), int(instance_count))
             db.add_to_sections(term, year, section_counts)
         print "[build_summary_index] added %s (%.2fs)" % (ds, time.time() - t1)
+        log.write("Time used to add %s to summary:  %.2fs\n" % (ds, time.time() - t1))
     db.commit_and_close()
 
 
 @measure_memory_use
 def build_expanded_index(build_dir, datasets):
-    """Add the individual scores to the histogram stored in the datase. Note that this
-    actually updates the summary database so the name of this method is wrong. There are a
-    few other things that this method could do, but many of them do not seem useful right
-    now. One that is still in play is to simply get a table that stored all the documents
-    in which a term exists. The approach below uses a dictionary to gather results before
-    putting them into the database. Could choose to empty the thing every 1000 lines or so
-    or after each dataset, but memory use should level of and is bound by the number of
-    terms."""
+    """Add the individual scores to the histogram stored in the datase. Note
+    that this actually updates the summary database so the name of this method
+    is wrong. There are a few other things that this method could do, but many
+    of them do not seem useful right now. One that is still in play is to simply
+    get a table that stored all the documents in which a term exists. The
+    approach below uses a dictionary to gather results before putting them into
+    the database. Could choose to empty the thing every 1000 lines or so or
+    after each dataset, but memory use should level of and is bound by the
+    number of terms."""
 
     def update_score(terms, term, year, score):
-        """Increment the term score. TODO: may want to use the array module here and
-        initilize a 10-element integer array, check whether this is better memor-wise."""
+        """Increment the term score. TODO: may want to use the array module here
+        and initilize a 10-element integer array, check whether this is better
+        memor-wise."""
         score = "%.2f" % float(score)
         score_range = score[-2]
         terms.setdefault((term, year), {})
