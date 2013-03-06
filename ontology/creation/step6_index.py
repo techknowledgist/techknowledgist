@@ -11,6 +11,7 @@ Much of the work on the batches involves building a large in-memory
 datastructure to collect summary counts, therefore the batches are going to be
 limited to a certain yet-to-be-determined size.
 
+
 OPTIONS
 
    -l LANG     provides the language, one of ('en, 'de', 'cn'), default is 'en'.
@@ -22,6 +23,9 @@ OPTIONS
 
    --build-index:
        Combine the results from available batches.
+
+   --analyze-index:
+       Analyze the contents of the index in various ways.
 
    --config FILENAME:
        File with pipeline configuration.
@@ -136,7 +140,7 @@ def collect_counts(classify_dir, index_dir):
 
 @measure_memory_use
 def load_scores(scores_fh):
-    """Return a scores object with the scores i scores_fh"""
+    """Return a scores object with the scores in scores_fh"""
     return Scores(scores_fh)
 
 @measure_memory_use
@@ -192,6 +196,9 @@ def print_summary_statistics(statistics, scores, fh):
 
 
 class Scores(object):
+
+    """Interface to scores for terms in each year. Loads a file with basename
+    classify.MaxEnt.out.s2.y.nr and provides access to the scores therein."""
 
     def __init__(self, scores_fh):
         self.scores = {}
@@ -316,12 +323,12 @@ def generate_build_info_files(config, index_name, datasets, balance, build_dir):
     ensure_path(build_dir)
     fh = open(os.path.join(build_dir, 'index.info.general.txt'), 'w')
     fh.write("$ python %s\n\n" % ' '.join(sys.argv))
-    fh.write("config_file=%s\n" % os.path.basename(config.pipeline_config_file))
-    fh.write("index_name=%s\n" % index_name)
+    fh.write("config_file  =  %s\n" % os.path.basename(config.pipeline_config_file))
+    fh.write("index_name   =  %s\n" % index_name)
     for ds in datasets:
-        fh.write("dataset=%s\n" % ds)
-    fh.write("balance=%d\n" % balance)
-    fh.write("git_commit=%s" % get_git_commit())
+        fh.write("dataset  =  %s\n" % ds)
+    fh.write("balance      =  %d\n" % balance)
+    fh.write("git_commit   =  %s" % get_git_commit())
 
 def build_years_index(build_dir, datasets):
     """Add years to the database, not just the count but also a ratio (for
@@ -360,9 +367,8 @@ def print_years(years, document_count, stats_file):
             fh.write("   %s  %6d  %.4f\n" % (y, years[y][0], years[y][1]))
         fh.write("\n   TOTAL %6d  %.4f\n\n" % (document_count, 1))
 
-
 def build_summary_index(build_dir, datasets):
-
+    """Add sumary information on term-year pairs to index summary database."""
     db = SummaryDatabase(os.path.join(build_dir, 'db-summary.sqlite'))
     log = open(os.path.join(build_dir, 'index.stats.processing.txt'), 'w')
     for ds in datasets:
@@ -378,6 +384,8 @@ def build_summary_index(build_dir, datasets):
             db.add_to_sections(term, year, section_counts)
         print "[build_summary_index] added %s (%.2fs)" % (ds, time.time() - t1)
         log.write("Time used to add %s to summary:  %.2fs\n" % (ds, time.time() - t1))
+        fh.close()
+    log.close()
     db.commit_and_close()
 
 
@@ -395,8 +403,8 @@ def build_expanded_index(build_dir, datasets):
 
     def update_score(terms, term, year, score):
         """Increment the term score. TODO: may want to use the array module here
-        and initilize a 10-element integer array, check whether this is better
-        memor-wise."""
+        and initialize a 10-element integer array, check whether this is better
+        memory-wise."""
         score = "%.2f" % float(score)
         score_range = score[-2]
         terms.setdefault((term, year), {})
@@ -407,7 +415,8 @@ def build_expanded_index(build_dir, datasets):
     db = SummaryDatabase(os.path.join(build_dir, 'db-summary.sqlite'))
     for ds in datasets:
         t1 = time.time()
-        fh = codecs.open(os.path.join(ds, 'index.count.expanded.txt'), encoding='utf-8')
+        fh = codecs.open(os.path.join(ds, 'index.count.expanded.txt'),
+                         encoding='utf-8')
         for line in fh:
             fields = line.strip().split(u"\t")
             (docid, year, score, term) = fields[:4]
@@ -419,20 +428,183 @@ def build_expanded_index(build_dir, datasets):
     db.commit_and_close()
 
 
+#### OPTION --analyze-index
+
+def run_analyze_index(config, index_name):
+    index_dir = os.path.join(config.target_path, config.language, 'data', 'o1_index')
+    db_file = os.path.join(index_dir, index_name, 'db-summary.sqlite')
+    analyzer = IndexAnalyzer(db_file)
+    analyzer.analyze_terms()
+    analyzer.close_db()
+
+
+class IndexAnalyzer(object):
+
+    def __init__(self, db_file):
+        self.db = SummaryDatabase(db_file)
+        self.db_file = db_file
+        self.directory = os.path.dirname(db_file)
+        print "[run_analyze_index] opened", self.db_file
+
+    def close_db(self):
+        self.db.close()
+
+    def analyze_terms(self):
+        html_dir = os.path.join(self.directory, 'html')
+        ensure_path(html_dir)
+        index_file = os.path.join(html_dir, 'index.html')
+        term_file = os.path.join(self.directory, 'term_list.txt')
+        index_fh = codecs.open(index_file, 'w', encoding='utf-8')
+        term_fh = codecs.open(term_file, encoding='utf-8')
+        terms = ['apparatus', 'computer', 'device']
+        terms = [t.strip() for t in term_fh.readlines()]
+        term_id = 0
+        for term in terms:
+            term_id += 1
+            term_id_str = "%05d" % term_id
+            index_fh.write("<a href=%s.html>%s</a><br/>\n" % (term_id_str, term))
+            index_fh.write("\n")
+            index_fh.write("\n")
+            term_file = codecs.open(os.path.join(html_dir, term_id_str + '.html'),
+                                 'w', encoding='utf-8')
+            raw_data = self.db.get_term_data(term)
+            ta = TermAnalyzer(term, raw_data, self.directory)
+            ta.analyze()
+            #ta.pp()
+            ta.generate_html(fh=term_file)
+
+
+class TermAnalyzer(object):
+
+    def __init__(self, term, raw_data, directory):
+        """All the instance variables are overwritten when you start a new
+        term. It may be better to use a TermAnalyzer class to do all this
+        work."""
+        self.term = term
+        self.raw_data = raw_data
+        self.directory = directory
+
+    def analyze(self):
+        self.total_document_count = sum([r[3] for r in self.raw_data])
+        self.total_instance_count = sum([r[4] for r in self.raw_data])
+        self.year_scores = {}
+        self.total_scores = {}
+        self._collect_scores()
+        self._normalize_scores()
+
+    def draw_graphs(self, fh=sys.stdout):
+        for year in sorted(self.year_scores.keys()):
+            fh.write("\n%s - %s\n\n" % (year, self.term))
+            doc_count, term_count, scores = self.year_scores[year]
+            graph = Graph(self.term, year, scores).draw(fh=fh, indent='   ')
+        fh.write("\n%s - %s\n\n" % ('TOTAL', self.term))
+        Graph(self.term, 'TOTAL', self.total_scores[2]).draw(fh=fh, indent='   ')
+
+    def generate_html(self, fh=sys.stdout):
+        fh.write("\n")
+        fh.write("\n")
+        fh.write("<h2>%s</h2>\n" % self.term)
+        fh.write("<p>Document count: %s<br/>\n" % self.total_document_count)
+        fh.write("Instance count: %s</p>\n" % self.total_instance_count)
+        fh.write("\n<p>Distribution of technology scores</p>\n")
+        fh.write("<pre class=graph>\n")
+        Graph(self.term, 'TOTAL', self.total_scores[2]).draw(fh=fh)
+        fh.write("</pre>\n")
+        for year in sorted(self.year_scores.keys()):
+            doc_count, term_count, scores = self.year_scores[year]
+            fh.write("\n<p>Distribution for %s (%d documents, %d instances)</p>\n\n" % \
+                     (year, doc_count, term_count))
+            fh.write("<pre class=graph>\n")
+            graph = Graph(self.term, year, scores).draw(fh=fh)
+            fh.write("</pre>\n")
+
+    def _collect_scores(self):
+        """Get the scores from the raw data."""
+        for row in self.raw_data:
+            year = row[1]
+            # keep the number of documents, the number of instances and the raw
+            # distribution data
+            self.year_scores[year] = [row[3], row[4], row[5:]]
+        self.total_scores = [self.total_document_count,
+                             self.total_instance_count,
+                             [0] * 10]
+        for year_data in self.raw_data:
+            year_scores = year_data[5:]
+            for i in range(10):
+                self.total_scores[2][i] += year_scores[i]
+
+    def _normalize_scores(self):
+        """Normalize distribution of total scores and year scores."""
+        for i in range(10):
+            self.total_scores[2][i] = (self.total_scores[2][i] /
+                                       float(self.total_document_count))
+        for year, scores in self.year_scores.items():
+            total = scores[0]
+            distribution = list(scores[2])
+            for i in range(len(distribution)):
+                distribution[i] = (distribution[i] / float(total))
+            self.year_scores[year][2] = distribution
+
+    def pp(self):
+        print "\n<<<%s>>>\n" % self.term
+        print "Total documents: %4d" % self.total_document_count
+        print "Total instances: %4d" % self.total_instance_count
+        print "\nDistribution:\n"
+        for year in sorted(self.year_scores.keys()):
+            doc_count, term_count, scores = self.year_scores[year]
+            print "   %s   %6d %5d   [%s]" % \
+                  (year, term_count, doc_count,
+                   ' '.join(["%.2f" % score for score in scores]))
+        print "\n   TOTAL  %6d %5d   [%s]\n" % \
+              (self.total_instance_count,
+               self.total_document_count,
+               ' '.join(["%.2f" % score for score in self.total_scores[2]]))
+
+
+
+class Graph(object):
+
+    """A Graph is initialized with a set of values. it's only task is to write
+    these in a graph format to an output stream."""
+
+    def __init__(self, term, year, term_data):
+        self.term = term
+        self.year = year
+        self.data = term_data
+
+    def draw(self, graph_height=10, fh=sys.stdout, indent=""):
+        graph_data = [int(round(i * graph_height)) for i in self.data]
+        for i in reversed(range(graph_height)):
+            y_value = i + 1
+            fh.write("%s%.2f | " % (indent, y_value / float(graph_height)))
+            for value in graph_data:
+                if value >= y_value:
+                    fh.write(' *** ')
+                else:
+                    fh.write('     ')
+            fh.write("\n")
+        fh.write("%s     +%s\n%s       " % (indent, '-' * 51, indent))
+        for i in (0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9):
+            fh.write(" %.1f " % i)
+        fh.write("\n")
+
+
+
+
 #### UTILITIES
 
 def print_processing_statistics(index_dir, m1, t1):
     m2 = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
     t2 = time.time()
     fh = open(os.path.join(index_dir, 'index.info.stats.txt'), 'w')
-    fh.write("processing_time = %d\n" % (t2 - t1))
-    fh.write("memory before = %dMB\n" % (m1 / 1000))
-    fh.write("memory after = %dMB\n" % (m2 / 1000))
-
+    fh.write("processing_time  =  %d\n" % (t2 - t1))
+    fh.write("memory before    =  %dMB\n" % (m1 / 1000))
+    fh.write("memory after     =  %dMB\n" % (m2 / 1000))
 
 def read_opts():
-    longopts = ['config=', 'collect-data', 'build-index', 'index-name=', 'dataset=', 
-                'balance=', 'track-memory', 'verbose', 'show-data', 'show-pipelines']
+    longopts = ['config=', 'collect-data', 'build-index', 'analyze-index',
+                'index-name=', 'dataset=', 'balance=',
+                'track-memory', 'verbose', 'show-data', 'show-pipelines']
     try:
         return getopt.getopt(sys.argv[1:], 'l:t:n:', longopts)
     except getopt.GetoptError as e:
@@ -443,7 +615,7 @@ if __name__ == '__main__':
 
     # default values of options
     target_path, language = 'data/patents', 'en'
-    collect_data, build_index = False, False
+    collect_data, build_index, analyze_index = False, False, False
     index_name, dataset, balance = None, None, 9999999
     pipeline_config = 'pipeline-default.txt'
     show_data_p, show_pipelines_p = False, False
@@ -454,6 +626,7 @@ if __name__ == '__main__':
         if opt == '-t': target_path = val
         if opt == '--collect-data': collect_data = True
         if opt == '--build-index': build_index = True
+        if opt == '--analyze-index': analyze_index = True
         if opt == '--index-name': index_name = val
         if opt == '--dataset': dataset = val
         if opt == '--balance': balance = int(val)
@@ -474,3 +647,5 @@ if __name__ == '__main__':
         run_collect_data(config, dataset)
     elif build_index:
         run_build_index(config, index_name, dataset, balance)
+    elif analyze_index:
+        run_analyze_index(config, index_name)

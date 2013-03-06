@@ -136,9 +136,14 @@ class SummaryDatabase(Database):
 
     def get_summary_row(self, term, year):
         query = "SELECT * FROM summary WHERE term=? and year=?"
-        self.execute('YearsDatabase', query, (term, year))
+        self.execute('SummaryDatabase.get_summary_row', query, (term, year))
         return self.cursor.fetchone()
 
+    def get_term_data(self, term):
+        query = "SELECT * from summary where term=?"
+        #print term
+        self.execute('SummaryDatabase.get_term_data', query, (term,))
+        return self.cursor.fetchall()
 
 
 def test_years(db_file):
