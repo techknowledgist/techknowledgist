@@ -140,7 +140,7 @@ class SummaryDatabase(Database):
                       0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
             self.execute('SummaryDatabase', query, values)
         else:
-            (old_score, old_doc_count, old_instance_count) = result[2:]
+            (old_score, old_doc_count, old_instance_count) = result[2:5]
             new_doc_count = old_doc_count + doc_count
             new_instance_count = old_instance_count + instance_count
             new_score = ((old_score * old_doc_count) + (score * doc_count)) / new_doc_count
