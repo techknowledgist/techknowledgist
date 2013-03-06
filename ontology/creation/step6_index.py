@@ -85,7 +85,7 @@ def measure_memory_use(fun):
         result = fun(*args)
         m2 = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
         if TRACK_MEMORY:
-            print "[%s] increase in memory use: %d" % (fun.__name__, m2 - m1)
+            print "[%s] increase in memory use: %dMB" % (fun.__name__, (m2 - m1) / 1000)
         return result
     return wrapper
 
@@ -308,7 +308,7 @@ def run_build_index(config, index_name, dataset_exp, balance):
     generate_build_info_files(config, index_name, datasets, balance, build_dir)
     build_years_index(build_dir, datasets)
     build_summary_index(build_dir, datasets)
-    #build_expanded_index(build_dir, datasets)
+    build_expanded_index(build_dir, datasets)
 
 
 def generate_build_info_files(config, index_name, datasets, balance, build_dir):
@@ -323,12 +323,11 @@ def generate_build_info_files(config, index_name, datasets, balance, build_dir):
     fh.write("balance=%d\n" % balance)
     fh.write("git_commit=%s" % get_git_commit())
 
-
 def build_years_index(build_dir, datasets):
     """Add years to the database, not just the count but also a ratio (for
     example ,if 1990 has 20 document sut of a total of 100, then it gets the 0.2
-    ratio (do this in read_years, replacing the count with a <count, ratio>
-    pair."""
+    ratio (this is done in read_years, replacing the count with a <count, ratio>
+    pair)."""
     db_file = os.path.join(build_dir, 'db-years.sqlite')
     stats_file = os.path.join(build_dir, 'index.stats.years.txt')
     years, document_count = read_years(datasets)
@@ -338,7 +337,6 @@ def build_years_index(build_dir, datasets):
         count, ratio = years[year]
         db.add(year, count, ratio)
     db.commit_and_close()
-
 
 def read_years(datasets):
     """This is just to let the user see how many documents are involved and what the
@@ -365,10 +363,7 @@ def print_years(years, document_count, stats_file):
 
 def build_summary_index(build_dir, datasets):
 
-    # first open a database and create the table
-    # find out how many different section types there are
     db = SummaryDatabase(os.path.join(build_dir, 'db-summary.sqlite'))
-    
     for ds in datasets:
         t1 = time.time()
         fh = codecs.open(os.path.join(ds, 'index.count.summary.txt'), encoding='utf-8')
@@ -384,9 +379,40 @@ def build_summary_index(build_dir, datasets):
     db.commit_and_close()
 
 
+@measure_memory_use
 def build_expanded_index(build_dir, datasets):
-    pass
+    """Add the individual scores to the histogram stored in the datase. Note that this
+    actually updates the summary database so the name of this method is wrong. There are a
+    few other things that this method could do, but many of them do not seem useful right
+    now. One that is still in play is to simply get a table that stored all the documents
+    in which a term exists. The approach below uses a dictionary to gather results before
+    putting them into the database. Could choose to empty the thing every 1000 lines or so
+    or after each dataset, but memory use should level of and is bound by the number of
+    terms."""
 
+    def update_score(terms, term, year, score):
+        """Increment the term score. TODO: may want to use the array module here and
+        initilize a 10-element integer array, check whether this is better memor-wise."""
+        score = "%.2f" % float(score)
+        score_range = score[-2]
+        terms.setdefault((term, year), {})
+        terms[(term, year)].setdefault(score_range, 0)
+        terms[(term, year)][score_range] += 1
+
+    terms = {}
+    db = SummaryDatabase(os.path.join(build_dir, 'db-summary.sqlite'))
+    for ds in datasets:
+        t1 = time.time()
+        fh = codecs.open(os.path.join(ds, 'index.count.expanded.txt'), encoding='utf-8')
+        for line in fh:
+            fields = line.strip().split(u"\t")
+            (docid, year, score, term) = fields[:4]
+            if score != 'None':
+                update_score(terms, term, year, score)
+    for (term, year) in terms.keys():
+        scores = terms[(term, year)]
+        db.add_scores(term, year, scores)
+    db.commit_and_close()
 
 
 #### UTILITIES

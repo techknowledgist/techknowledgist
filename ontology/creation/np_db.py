@@ -67,7 +67,7 @@ class Database(object):
         except sqlite3.IntegrityError:
             print "[%s] WARNING: ignored duplicate value: %s" % (caller, values)
         except sqlite3.ProgrammingError:
-            print type(values[0]), values[0]
+            print "[%s] WARNING: %s" % (caller, sys.exc_value)
 
     def commit_and_close(self):
         self.commit()
@@ -117,7 +117,9 @@ class SummaryDatabase(Database):
         self.connect()
         if not db_existed:
             fields1 = ['term TEXT', 'year TEXT', 'score FLOAT',
-                       'doc_count INT', 'term_count INT']
+                       'doc_count INT', 'term_count INT',
+                       'v0 INT', 'v1 INT', 'v2 INT', 'v3 INT', 'v4 INT',
+                       'v5 INT', 'v6 INT', 'v7 INT', 'v8 INT', 'v9 INT' ]
             fields2 = ['term TEXT', 'year TEXT', 'section TEXT', 'count INT']
             queries = [
                 "CREATE TABLE summary(%s)" % ', '.join(fields1),
@@ -125,15 +127,17 @@ class SummaryDatabase(Database):
                 "CREATE UNIQUE INDEX idx_summary ON summary(term, year)",
                 "CREATE UNIQUE INDEX idx_sections ON sections(term, year)" ]
             for query in queries:
+                print query
                 self.cursor.execute(query)
-        print "[YearsDatabase] Opened database in %s" % self.db_file
+        print "[SummaryDatabase] Opened database in %s" % self.db_file
 
 
     def add_to_summary(self, term, year, score, doc_count, instance_count):
-        result = self.get_row(term, year)
+        result = self.get_summary_row(term, year)
         if result is None:
-            query = "INSERT INTO summary VALUES(?,?,?,?,?)"
-            values = (term, year, score, doc_count, instance_count)
+            query = "INSERT INTO summary VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+            values = (term, year, score, doc_count, instance_count,
+                      0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
             self.execute('SummaryDatabase', query, values)
         else:
             (old_score, old_doc_count, old_instance_count) = result[2:]
@@ -147,9 +151,25 @@ class SummaryDatabase(Database):
 
 
     def add_to_sections(self, term, year, section_counts):
+        # TODO: add/update rows in the sections table
         pass
 
-    def get_row(self, term, year):
+    def add_scores(self, term, year, scores):
+        result = self.get_summary_row(term, year)
+        if result is None:
+            print "[add_scores] WARNING: cannot add scores to", (year, term)
+        else:
+            current_scores = list(result[5:])
+            for score_range, value in scores.items():
+                score_range = int(score_range)
+                current_scores[score_range] += value
+            query = \
+                "UPDATE summary " + \
+                "SET v0=?, v1=?, v2=?, v3=?, v4=?, v5=?, v6=?, v7=?, v8=?, v9=? " + \
+                "WHERE term=? and year=?"
+            self.execute('SummaryDatabase.add_scores', query, current_scores + [term, year])
+
+    def get_summary_row(self, term, year):
         query = "SELECT * FROM summary WHERE term=? and year=?"
         self.execute('YearsDatabase', query, (term, year))
         return self.cursor.fetchone()
@@ -304,7 +324,5 @@ def test_years(db_file):
 
 
 if __name__ == '__main__':
-
     import sys
-    db_file = sys.argv[1]
-    test_years(db_file)
+    test_years(sys.argv[1])
