@@ -69,14 +69,58 @@ class YearsDatabase(Database):
         self.execute('YearsDatabase', query, (year, count, ratio))
 
 
+class TermsDatabase(Database):
+
+    """Wrapper around the terms database."""
+
+    def __init__(self, db_file):
+        """Open the db_file database and create connection and cursor objects. Create the
+        years table if db_file did not exist."""
+        db_existed = os.path.exists(db_file)
+        self.db_file = db_file
+        self.connect()
+        if not db_existed:
+            q1 = "CREATE TABLE terms(term TEXT, score FLOAT, doc_count INT, term_count INT)"
+            q2 = "CREATE UNIQUE INDEX idx_term ON terms(term)"
+            self.cursor.execute(q1)
+            self.cursor.execute(q2)
+        print "[TermsDatabase] Opened database in %s" % self.db_file
+
+    def add(self, term, score, doc_count, instance_count):
+        result = self.get_term(term)
+        if result is None:
+            query = "INSERT INTO terms VALUES(?,?,?,?)"
+            values = (term, score, doc_count, instance_count)
+            self.execute('TermsDatabase', query, values)
+        else:
+            (old_score, old_doc_count, old_instance_count) = result[1:4]
+            new_doc_count = old_doc_count + doc_count
+            new_instance_count = old_instance_count + instance_count
+            new_score = ((old_score * old_doc_count) + (score * doc_count)) / new_doc_count
+            query = "UPDATE terms SET score=?, doc_count=?, term_count=? " + \
+                    "WHERE term=?"
+            values = (new_score, new_doc_count, new_instance_count, term)
+            self.execute('TermsDatabase', query, values)
+
+    def get_term(self, term):
+        query = "SELECT * FROM terms WHERE term=?"
+        self.execute('TermsDatabase.get_term', query, (term,))
+        return self.cursor.fetchone()
+
+    def select_terms(self, doc_count, score):
+        query = "SELECT * FROM terms WHERE doc_count > ? AND score > ?"
+        self.execute('TermsDatabase.select_terms', query, (doc_count, score))
+        return self.cursor.fetchall()
+
+
+
 class SummaryDatabase(Database):
 
     """Wrapper around the summary and years databases."""
 
     def __init__(self, db_file):
-        """Open the db_file database and create connection and cursor
-        objects. Create the summary table if db_file did not exist."""
-
+        """Open the db_file database and create connection and cursor objects. Create the
+        summary table if db_file did not exist."""
         db_existed = os.path.exists(db_file)
         self.db_file = db_file
         self.connect()
@@ -92,10 +136,9 @@ class SummaryDatabase(Database):
                 "CREATE UNIQUE INDEX idx_summary ON summary(term, year)",
                 "CREATE UNIQUE INDEX idx_sections ON sections(term, year)" ]
             for query in queries:
-                print query
+                print "[SummaryDatabase]", query
                 self.cursor.execute(query)
         print "[SummaryDatabase] Opened database in %s" % self.db_file
-
 
     def add_to_summary(self, term, year, score, doc_count, instance_count):
         result = self.get_summary_row(term, year)
@@ -113,7 +156,6 @@ class SummaryDatabase(Database):
                     "WHERE term=? and year=?"
             values = (new_score, new_doc_count, new_instance_count, term, year)
             self.execute('SummaryDatabase', query, values)
-
 
     def add_to_sections(self, term, year, section_counts):
         # TODO: add/update rows in the sections table
