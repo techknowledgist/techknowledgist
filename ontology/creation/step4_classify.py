@@ -23,9 +23,9 @@ OPTIONS
     --annotation-count INTEGER  --  number of lines to take (--train only)
 
     --create-summary  --  use this to create summary files for features
-    --verbose         --  set verbose printing to stdout
-    --show-data       --  print available datasets, then exits
-    --show-pipelines  --  print defined pipelines, then exits
+    --verbose         --  switch on verbose mode
+    --show-data       --  print available datasets, then exit
+    --show-pipelines  --  print defined pipelines, then exit
 
 For training, you typically want to pick the best setting or settings as it
 became apparent from all the testing and create a model for a sufficiently large
@@ -70,94 +70,129 @@ from step2_document_processing import show_datasets, show_pipelines
 # note that the old--scores option is now folded in with --classify
 ALL_STAGES = ['--train', '--classify']
 
+VERBOSE = False
 
-def run_train(config, file_list, features,
-              annotation_file, annotation_count, version, xval, create_summary):
 
-    """Creates a MaxEnt statistical model for the classifier as well as a series of
-    intermediate files and files that log the state of the system at processing time. Uses
-    labeled data with features as union of all phrase instances within a doc."""
+class TrainerClassifier(object):
 
-    data_dir = os.path.join(config.target_path, config.language, 'data')
-    train_dir = os.path.join(data_dir, 't1_train', version)
-    initialize_train(config, file_list, features, annotation_file, annotation_count,
-                     train_dir, version, xval)
-
-    # select data sets and check whether all files are available
-    file_list = os.path.join(config.config_dir, file_list)
-    input_dataset1 = find_input_dataset1(config)
-    input_dataset2 = find_input_dataset2(config)
-    check_file_availability(input_dataset1, file_list)
-    check_file_availability(input_dataset2, file_list)
-
-    # this step is not needed for model building but can be consumed by later stages
-    if create_summary:
-        create_summary_files(input_dataset1, input_dataset2, file_list,
-                             train_dir, version)
+    """Abstract class with some common methods for the trainer and the classifier."""
     
-    ## build the model using the doc features dataset
-    fnames = filename_generator(input_dataset2.path, file_list)
-    mallet_file = os.path.join(train_dir, "train.mallet")
-    stats_file = os.path.join(train_dir, "train.info.stats.txt")
-    train.patent_utraining_data3(mallet_file, annotation_file, annotation_count, 
-                                 fnames, features, version, xval, verbose, stats_file)
+    def _create_summary_files(self):
+        """Concatenate files from the datasets that occur in file_list. For now only does
+        the doc_feats and phr_feats files, not the phr_occ files. This step is not needed
+        for model building but can be consumed by later stages or be used for
+        analysis. The default for the trainer is to not use it."""
+        if create_summary:
+            file_generator1 = filename_generator(self.input_dataset1.path, self.file_list)
+            file_generator2 = filename_generator(self.input_dataset2.path, self.file_list)
+            fh_doc_feats = codecs.open(self.doc_feats_file, 'w', encoding='utf-8')
+            fh_phr_feats = codecs.open(self.phr_feats_file, 'w', encoding='utf-8')
+            for fname1 in file_generator1:
+                fh_phr_feats.write(codecs.open(fname1, encoding='utf-8').read())
+                for fname2 in file_generator2:
+                    fh_doc_feats.write(codecs.open(fname2, encoding='utf-8').read())
+
+    def _find_datasets(self):
+        """Select data sets and check whether all files are available."""
+        self.input_dataset1 = find_input_dataset1(self.config)
+        self.input_dataset2 = find_input_dataset2(self.config)
+        check_file_availability(self.input_dataset1, self.file_list)
+        check_file_availability(self.input_dataset2, self.file_list)
 
 
-def initialize_train(config, file_list, features, annotation_file, annotation_count,
-                     train_dir, version, xval):
 
-    ensure_path(train_dir)
-    info_file_general = os.path.join(train_dir, "train.info.general.txt")
-    info_file_annotation = os.path.join(train_dir, "train.info.annotation.txt")
-    info_file_config = os.path.join(train_dir, "train.info.config.txt")
-    info_file_filelist = os.path.join(train_dir, "train.info.filelist.txt")
-    info_file_features = os.path.join(train_dir, "train.info.features.txt")
-    
-    if os.path.exists(info_file_general):
-        sys.exit("WARNING: model for setting train.%s already exists" % version)
+class Trainer(TrainerClassifier):
 
-    with open(info_file_general, 'w') as fh:
-        fh.write("$ python %s\n\n" % ' '.join(sys.argv))
-        fh.write("version           =  %s\n" % version)
-        fh.write("xval              =  %s\n" % xval)
-        fh.write("file_list         =  %s\n" % file_list)
-        fh.write("annotation_file   =  %s\n" % annotation_file)
-        fh.write("annotation_count  =  %s\n" % annotation_count)
-        fh.write("config_file       =  %s\n" % os.path.basename(config.pipeline_config_file))
-        fh.write("features          =  %s\n" % features)
-        fh.write("git_commit        =  %s" % get_git_commit())
+    """Class that tat takes care of all the housekeeping around a call to the train
+    module. Its purpose is to create a mallet mmodel while keeping track of processing
+    configurations and writing statistics."""
 
-    with codecs.open(annotation_file) as fh1:
-        with codecs.open(info_file_annotation, 'w') as fh2:
-            fh2.writelines(fh1.readlines()[:annotation_count])
+    def __init__(self, config, file_list, features,
+                 annotation_file, annotation_count, version, xval=0, create_summary=False):
+        """Store parameters and initialize file names."""
+        self.config = config
+        self.features = features
+        self.file_list = os.path.join(config.config_dir, file_list)
+        self.annotation_file = annotation_file
+        self.annotation_count = annotation_count
+        self.version = version
+        self.xval = xval
+        self.create_summary = create_summary
+        self.data_dir = os.path.join(config.target_path, config.language, 'data')
+        self.train_dir = os.path.join(self.data_dir, 't1_train', version)
+        self.info_file_general = os.path.join(self.train_dir, "train.info.general.txt")
+        self.info_file_annotation = os.path.join(self.train_dir, "train.info.annotation.txt")
+        self.info_file_config = os.path.join(self.train_dir, "train.info.config.txt")
+        self.info_file_filelist = os.path.join(self.train_dir, "train.info.filelist.txt")
+        self.info_file_features = os.path.join(self.train_dir, "train.info.features.txt")
+        self.info_file_stats = os.path.join(self.train_dir, "train.info.stats.txt")
+        self.doc_feats_file = os.path.join(self.train_dir, "train.features.doc_feats.txt")
+        self.phr_feats_file = os.path.join(self.train_dir, "train.features.phr_feats.txt")
+        self.mallet_file = os.path.join(self.train_dir, "train.mallet")
 
-    if features is not None:
-        if os.path.isfile(features):
-            shutil.copyfile(features, info_file_features)
-        else:
-            features_file = os.path.join('features', features + '.features')
-            if os.path.isfile(features_file):
-                shutil.copyfile(features_file, info_file_features)
+    def run(self):
+        """Run the trainer by finding the input data and building a model from it. Also
+        writes files with information on configuration settings, features, gold standard
+        term annotations and other things required to reproduce the model."""
+        self._find_datasets()
+        self._create_info_files()
+        self._create_summary_files()
+        self._build_model()
+        
+    def _create_info_files(self):
+        """Create the info files that together give a complete picture of the
+        configuration of the classifier as it ran. This is partially done by copying
+        external files into the local directory."""
+        ensure_path(self.train_dir)
+        if os.path.exists(self.info_file_general):
+            sys.exit("WARNING: model for setting train.%s already exists" % version)
+        self._create_info_general_file()
+        self._create_info_annotation_file()
+        self._create_info_features_file()
+        shutil.copyfile(self.config.pipeline_config_file, self.info_file_config)
+        shutil.copyfile(self.file_list, self.info_file_filelist)
+
+    def _create_info_general_file(self):
+        with open(self.info_file_general, 'w') as fh:
+            fh.write("$ python %s\n\n" % ' '.join(sys.argv))
+            fh.write("version           =  %s\n" % self.version)
+            fh.write("xval              =  %s\n" % self.xval)
+            fh.write("file_list         =  %s\n" % self.file_list)
+            fh.write("annotation_file   =  %s\n" % self.annotation_file)
+            fh.write("annotation_count  =  %s\n" % self.annotation_count)
+            fh.write("config_file       =  %s\n" % os.path.basename(config.pipeline_config_file))
+            fh.write("features          =  %s\n" % self.features)
+            fh.write("git_commit        =  %s" % get_git_commit())
+
+    def _create_info_annotation_file(self):
+        with codecs.open(self.annotation_file) as fh1:
+            with codecs.open(self.info_file_annotation, 'w') as fh2:
+                written = 0
+                for line in fh1:
+                    if line.startswith('y') or line.startswith('n'):
+                        written += 1
+                        if written > self.annotation_count:
+                            break
+                        fh2.write(line)
+
+    def _create_info_features_file(self):
+        if self.features is not None:
+            if os.path.isfile(self.features):
+                shutil.copyfile(self.features, self.info_file_features)
             else:
-                print "[initialize_train] WARNING: no file", features_file
-    shutil.copyfile(config.pipeline_config_file, info_file_config)
-    shutil.copyfile(os.path.join(config.config_dir, file_list), info_file_filelist)
+                features_file = os.path.join('features', features + '.features')
+                if os.path.isfile(features_file):
+                    shutil.copyfile(features_file, self.info_file_features)
+                else:
+                    print "[initialize_train] WARNING: no file", features_file
 
+    def _build_model(self):
+        """Build the classifier model using the doc features files."""
+        fnames = filename_generator(self.input_dataset2.path, self.file_list)
+        train.patent_utraining_data3(
+            self.mallet_file, self.annotation_file, self.annotation_count, fnames,
+            self.features, self.version, self.xval, VERBOSE, self.info_file_stats)
 
-def create_summary_files(input_dataset1, input_dataset2, file_list,
-                         train_dir, version, prefix='train'):
-    """Concatenate files from the datasets that occur in file_list. For now only does the
-    doc_feats and phr_feats files, not the phr_occ files."""
-    file_generator1 = filename_generator(input_dataset1.path, file_list)
-    file_generator2 = filename_generator(input_dataset2.path, file_list)
-    doc_feats_file = os.path.join(train_dir, "%s.features.doc_feats.txt" % prefix)
-    phr_feats_file = os.path.join(train_dir, "%s.features.phr_feats.txt" % prefix)
-    fh_doc_feats = codecs.open(doc_feats_file, 'w', encoding='utf-8')
-    fh_phr_feats = codecs.open(phr_feats_file, 'w', encoding='utf-8')
-    for fname1 in file_generator1:
-        fh_phr_feats.write(codecs.open(fname1, encoding='utf-8').read())
-    for fname2 in file_generator2:
-        fh_doc_feats.write(codecs.open(fname2, encoding='utf-8').read())
 
 def find_input_dataset1(config):
     """Find the dataset that is input for training. Unlike the code in
@@ -214,145 +249,139 @@ def check_file_availability(dataset, filelist):
                  (not_in_dataset, total, os.path.basename(filelist), dataset))
 
 
-def run_classify(config, file_list, model, version,
+
+
+
+class Classifier(TrainerClassifier):
+
+    def __init__(self, config, file_list, model, version,
                  classifier='MaxEnt', create_summary=False, use_all_chunks_p=True):
 
-    """Run the classifier on the files in file_list. Uses config to find the input
-    dataset. Version contains a user-specified identifer of the run and model refers to a
-    previously created tarining model."""
+        """Run the classifier on the files in file_list. Uses config to find the input
+        dataset. Version contains a user-specified identifer of the run and model refers
+        to a previously created tarining model."""
 
-    (train_dir, classify_dir, label_file, mallet_file, results_file, stderr_file) = \
-        set_classifier_paths(config, model, version, classifier)
-    intitialize_classify(config, file_list, classify_dir, model, version)
+        self.config = config
+        self.file_list = os.path.join(config.config_dir, file_list)
+        self.model = model
+        self.version = version
+        self.classifier = classifier
+        self.create_summary = create_summary
+        self.use_all_chunks_p = use_all_chunks_p
+        
+        self.data_dir = os.path.join(self.config.target_path, config.language, 'data')
+        self.train_dir = os.path.join(self.data_dir, 't1_train', model)
+        self.classify_dir = os.path.join(self.data_dir, 't2_classify', version)
+        self.label_file = os.path.join(self.train_dir, "train.info.annotation.txt")
+        self.mallet_file = os.path.join(self.classify_dir, "classify.mallet")
+        self.results_file = os.path.join(self.classify_dir, "classify.%s.out" % (classifier))
+        self.stderr_file = os.path.join(self.classify_dir, "classify.%s.stderr" % (classifier))
+        self.info_file_general = os.path.join(self.classify_dir, "classify.info.general.txt")
+        self.info_file_config = os.path.join(self.classify_dir, "classify.info.config.txt")
+        self.info_file_filelist = os.path.join(self.classify_dir, "classify.info.filelist.txt")
+        self.doc_feats_file = os.path.join(self.classify_dir, "classify.features.doc_feats.txt")
+        self.phr_feats_file = os.path.join(self.classify_dir, "classify.features.phr_feats.txt")
 
-    # select input data sets and check whether all files are available
-    (file_list, input_dataset1, input_dataset2) = get_classify_datasets(file_list, config)
-
-    # not needed for this step but kept around for the same reasons as with the train step
-    if create_summary:
-        create_summary_files(input_dataset1, input_dataset2,
-                             file_list, classify_dir, version, 'classify')
-
-    create_mallet_file(mallet_file, input_dataset2, file_list, label_file, use_all_chunks_p)
-    print "[--classify] creating results file - %s" %  os.path.basename(results_file)
-    mtest = mallet.Mallet_test("classify", model, classify_dir, "train", train_dir)
-    mtest.mallet_test_classifier(classifier, mallet_file, results_file, stderr_file)
-    calculate_scores(config, version, classifier)
-
-    
-def set_classifier_paths(config, model, version, classifier):
-    data_dir = os.path.join(config.target_path, config.language, 'data')
-    train_dir = os.path.join(data_dir, 't1_train', model)
-    classify_dir = os.path.join(data_dir, 't2_classify', version)
-    label_file = os.path.join(train_dir, "train.info.annotation.txt")
-    mallet_file = os.path.join(classify_dir, "classify.mallet")
-    results_file = os.path.join(classify_dir, "classify.%s.out" % (classifier))
-    stderr_file = os.path.join(classify_dir, "classify.%s.stderr" % (classifier))
-    return (train_dir, classify_dir, label_file, mallet_file, results_file, stderr_file)
-
-def intitialize_classify(config, file_list, classify_dir, model, version):
-    # TODO: very similar to intitialize_train, should perhaps merge the two
-    info_file_general = os.path.join(classify_dir, "classify.info.general.txt")
-    info_file_config = os.path.join(classify_dir, "classify.info.config.txt")
-    info_file_filelist = os.path.join(classify_dir, "classify.info.filelist.txt")
-    if os.path.exists(info_file_general):
-        sys.exit("WARNING: already ran classifer for version %s" % version)
-    print "[--classify] initializing %s directory" %  version
-    ensure_path(classify_dir)
-    with open(info_file_general, 'w') as fh:
-        fh.write("$ python %s\n\n" % ' '.join(sys.argv))
-        fh.write("version      =  %s\n" % version)
-        fh.write("file_list    =  %s\n" % file_list)
-        fh.write("model        =  %s\n" % model)
-        fh.write("config_file  =  %s\n" % os.path.basename(config.pipeline_config_file))
-        fh.write("git_commit   =  %s" % get_git_commit())
-    shutil.copyfile(config.pipeline_config_file, info_file_config)
-    shutil.copyfile(os.path.join(config.config_dir, file_list), info_file_filelist)
-
-def get_classify_datasets(file_list, config):
-    file_list = os.path.join(config.config_dir, file_list)
-    input_dataset1 = find_input_dataset1(config)
-    input_dataset2 = find_input_dataset2(config)
-    check_file_availability(input_dataset1, file_list)
-    check_file_availability(input_dataset2, file_list)
-    return (file_list, input_dataset1, input_dataset2)
-
-def create_mallet_file(mallet_file, dataset, file_list, label_file, use_all_chunks_p):
-    print "[--classify] creating vector file - %s" %  os.path.basename(mallet_file)
-    count = 0
-    d_phr2label = train.load_phrase_labels3(label_file)
-    fh = codecs.open(mallet_file, "a", encoding='utf-8')
-    stats = { 'labeled_count': 0, 'unlabeled_count': 0, 'total_count': 0 }
-    fnames = filename_generator(dataset.path, file_list)
-    for doc_feats_file in fnames:
-        count += 1
-        if verbose:
-            print "%05d %s" % (count, doc_feats_file)
-        train.add_file_to_utraining_test_file(doc_feats_file, fh, d_phr2label, stats,
-                                              use_all_chunks_p=use_all_chunks_p)
-    fh.close()
-    print "[--classify]", stats
+        base = os.path.join(self.classify_dir, "classify.%s.out" % (classifier))
+        self.classifier_output = base
+        self.scores_s1 = base + ".s1.all_scores"
+        self.scores_s2 = base + ".s2.y.nr"
+        self.scores_s3 = base + ".s3.scores"
+        self.scores_s4 = base + ".s4.scores.sum"
+        self.scores_s5 = base + ".s5.scores.sum.nr"
 
 
-def calculate_scores(config, version, classifier='MaxEnt', verbose=False):
-    """Use the clasifier output files to generate a sorted list of technology terms with
-    their probabilities. This is an alternative way of using the commands in
-    patent_tech_scores.sh."""
+        
+    def run(self):
+        self._find_datasets()
+        self._create_info_files()
+        self._create_summary_files()
+        self._create_mallet_file()#mallet_file, input_dataset2, file_list, label_file, use_all_chunks_p)
+        print "[--classify] creating results file - %s" %  os.path.basename(self.results_file)
+        mtest = mallet.Mallet_test("classify", self.model, self.classify_dir, "train", self.train_dir)
+        mtest.mallet_test_classifier(self.classifier, self.mallet_file, self.results_file, self.stderr_file)
+        self._calculate_scores()
 
-    dirname = os.path.join(config.target_path, config.language,
-                           'data', 't2_classify', version)
-    base = os.path.join(dirname, "classify.%s.out" % (classifier))
-    fin = base
-    fout1 = base + ".s1.all_scores"
-    fout2 = base + ".s2.y.nr"
-    fout3 = base + ".s3.scores"
-    fout4 = base + ".s4.scores.sum"
-    fout5 = base + ".s5.scores.sum.nr"
-    print "[--classify] generating scores"
-    scores_s1_select_score_lines(fin, fout1, verbose)
-    scores_s2_select_scores(fout1, fout2, verbose)
-    scores_s3_remove_tiny_scores(fout2, fout3, verbose)
-    scores_s4_summing_scores(fout3, fout4, verbose)
-    scores_s5_sort_scores(fout4, fout5, verbose)
 
-    
-def run_score_command(command, verbose=False):
-    prefix = os.path.join(config.target_path, config.language)
-    if verbose:
-        print "[--scores]", command.replace(prefix,'')
-    subprocess.call(command, shell=True)
+    def _create_info_files(self):
+        if os.path.exists(self.info_file_general):
+            sys.exit("WARNING: already ran classifer for version %s" % self.version)
+        print "[--classify] initializing %s directory" %  self.version
+        ensure_path(self.classify_dir)
+        with open(self.info_file_general, 'w') as fh:
+            fh.write("$ python %s\n\n" % ' '.join(sys.argv))
+            fh.write("version      =  %s\n" % self.version)
+            fh.write("file_list    =  %s\n" % self.file_list)
+            fh.write("model        =  %s\n" % self.model)
+            fh.write("config_file  =  %s\n" % os.path.basename(config.pipeline_config_file))
+            fh.write("git_commit   =  %s" % get_git_commit())
+        shutil.copyfile(self.config.pipeline_config_file, self.info_file_config)
+        shutil.copyfile(self.file_list, self.info_file_filelist)
 
-def scores_s1_select_score_lines(fin, fout1, verbose):
-    if verbose:
-        print "[--classify] select the line from the classifier output that contains the scores"
-    command = "cat %s | egrep '^[0-9]' > %s" % (fin, fout1)
-    run_score_command(command, verbose)
+    def _create_mallet_file(self):
+        print "[--classify] creating vector file - %s" %  os.path.basename(self.mallet_file)
+        count = 0
+        d_phr2label = train.load_phrase_labels3(self.label_file)
+        fh = codecs.open(self.mallet_file, "a", encoding='utf-8')
+        stats = { 'labeled_count': 0, 'unlabeled_count': 0, 'total_count': 0 }
+        fnames = filename_generator(self.input_dataset2.path, self.file_list)
+        for doc_feats_file in fnames:
+            count += 1
+            if VERBOSE:
+                print "[--classify] %05d %s" % (count, self.doc_feats_file)
+            train.add_file_to_utraining_test_file(self.doc_feats_file, fh, d_phr2label, stats,
+                                                  use_all_chunks_p=self.use_all_chunks_p)
+        fh.close()
+        print "[--classify]", stats
 
-def scores_s2_select_scores(fout1, fout2, verbose):
-    if verbose:
-        print "[--classify] select 'y' scores and sort"
-    column = find_mallet_field_value_column.find_column(fout1, 'y')
-    if verbose:
-        print "[--classify] 'y' score is in column %s of %s" % (column, os.path.basename(fout1))
-    command = "cat %s | cut -f1,%s | sort -k2 -nr > %s" % (fout1, column, fout2)
-    run_score_command(command)
 
-def scores_s3_remove_tiny_scores(fout2, fout3, verbose):
-    if verbose:
-        print "[--classify] remove tiny scores (that is, scores like 8.833699651282083E-6)"
-    command = "cat %s | grep -v \"E-\" > %s" % (fout2, fout3)
-    run_score_command(command)
+    def _calculate_scores(self):
+        """Use the clasifier output files to generate a sorted list of technology terms
+        with their probabilities. This is an alternative way of using the commands in
+        patent_tech_scores.sh."""
+        self._scores_s1_select_score_lines()
+        self._scores_s2_select_scores()
+        self._scores_s3_remove_tiny_scores()
+        self._scores_s4_summing_scores()
+        self._scores_s5_sort_scores()
 
-def scores_s4_summing_scores(fout3, fout4, verbose):
-    if verbose:
-        print "[--classify] summing scores into", os.path.basename(fout4)
-    sum_scores.sum_scores(fout3, fout4)
+    def run_score_command(self, command, message):
+        if VERBOSE:
+            prefix = os.path.join(self.config.target_path, self.config.language,
+                                  'data', 't2_classify', self.version)
+            print "[--scores]", message
+            print "[--scores]", command.replace(prefix + os.sep, '')
+        subprocess.call(command, shell=True)
 
-def scores_s5_sort_scores(fout4, fout5, verbose):
-    if verbose:
-        print "[--classify] sort on average scores"
-    command = "cat %s | sort -k2,2 -nr -t\"\t\" > %s" % (fout4, fout5)
-    run_score_command(command)
+    def _scores_s1_select_score_lines(self):
+        message = "select the line from the classifier output that contains the scores"
+        command = "cat %s | egrep '^[0-9]' > %s" % (self.classifier_output, self.scores_s1)
+        self.run_score_command(command, message)
+
+    def _scores_s2_select_scores(self):
+        if VERBOSE:
+            print "[--scores] select 'y' scores and sort"
+        column = find_mallet_field_value_column.find_column(self.scores_s1, 'y')
+        message = "'y' score is in column %s of %s" % (column, os.path.basename(self.scores_s1))
+        command = "cat %s | cut -f1,%s | sort -k2 -nr > %s" % (self.scores_s1, column, self.scores_s2)
+        self.run_score_command(command,message)
+
+    def _scores_s3_remove_tiny_scores(self):
+        message = "remove tiny scores (that is, scores like 8.833699651282083E-6)"
+        command = "cat %s | grep -v \"E-\" > %s" % (self.scores_s2, self.scores_s3)
+        self.run_score_command(command, message)
+
+    def _scores_s4_summing_scores(self):
+        if VERBOSE:
+            print "[--scores] summing scores into", os.path.basename(self.scores_s4)
+        sum_scores.sum_scores(self.scores_s3, self.scores_s4)
+
+    def _scores_s5_sort_scores(self):
+        message = "sort on average scores"
+        command = "cat %s | sort -k2,2 -nr -t\"\t\" > %s" % (self.scores_s4, self.scores_s5)
+        self.run_score_command(command, message)
+
+
 
 
 def read_opts():
@@ -373,7 +402,7 @@ if __name__ == '__main__':
     target_path, language, stage = 'data/patents', 'en', None
     file_list = 'training-files-000000-000500.txt'
     pipeline_config = 'pipeline-default.txt'
-    verbose, show_data_p, show_pipelines_p = False, False, False
+    show_data_p, show_pipelines_p = False, False
     annotation_count = 9999999999999
     version, features, xval, = None, None, "0"
     model, use_all_chunks = None, True
@@ -396,11 +425,11 @@ if __name__ == '__main__':
         if opt == '--show-pipelines': show_pipelines_p = True
         if opt in ALL_STAGES:
             stage = opt
-        if opt == '--verbose': verbose = True
+        if opt == '--verbose': VERBOSE = True
         if opt == '--eval-on-unseen-terms': use_all_chunks = False
 
     config = GlobalConfig(target_path, language, pipeline_config)
-    if verbose:
+    if VERBOSE:
         config.pp()
 
     if show_data_p:
@@ -409,8 +438,8 @@ if __name__ == '__main__':
         show_pipelines(target_path, language)
 
     elif stage == '--train':
-        run_train(config, file_list, features,
-                  annotation_file, annotation_count, version, xval, create_summary)
+        Trainer(config, file_list, features,
+                annotation_file, annotation_count, version, xval, create_summary).run()
     elif stage == '--classify':
-        run_classify(config, file_list, model, version,
-                     create_summary=create_summary, use_all_chunks_p=use_all_chunks)
+        Classifier(config, file_list, model, version,
+                   create_summary=create_summary, use_all_chunks_p=use_all_chunks).run()
