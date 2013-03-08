@@ -64,6 +64,9 @@ $ python step6_index.py -t data/patents -l en --collect-data --dataset standard.
 Example for --build-index:
 $ python step6_index.py -t data/patents -l en --build-index --index-name standard.idx --dataset 'standard.???-???' 
 
+Example for --analyze-index:
+$ python step6_index.py -t data/patents -l en --analyze-index --index-name standard.idx
+
 """
 
 import os, sys, time, shutil, getopt, codecs, resource, glob
@@ -463,8 +466,8 @@ class IndexAnalyzer(object):
         ensure_path(html_dir)
         index_file = os.path.join(html_dir, 'index.html')
         index_fh = codecs.open(index_file, 'w', encoding='utf-8')
-        index_fh.write("<p>Terms that occur in more than %d documents\n" % self.min_docs)
-        index_fh.write("and that have a technology score > %.2f</p>\n" % self.min_score)
+        index_fh.write("<p>Terms that occur in %s or more documents\n" % self.min_docs)
+        index_fh.write("and that have a technology score of %.2f or higher</p>\n" % self.min_score)
         index_fh.write("\n")
         index_fh.write("<blockquote>\n")
         index_fh.write("<table border=1 cellspacing=0 cellpadding=5>\n")
@@ -549,7 +552,7 @@ class TermAnalyzer(object):
             doc_count, term_count, scores = self.year_scores[year]
             fh.write("\n<p>Distribution for %s (%d documents, %d instances)</p>\n\n" % \
                      (year, doc_count, term_count))
-            fh.write("<pre class='graph boxed'>\n")
+            fh.write("<pre class='graph boxed smaller'>\n")
             graph = Graph(self.term, year, scores).draw(fh=fh)
             fh.write("</pre>\n")
 
@@ -559,7 +562,7 @@ class TermAnalyzer(object):
         fh.write("<style>\n")
         fh.write(".graph { margin-left: 20px; padding: 8px; width: 500px; background-color: lightyellow; }\n")
         fh.write(".boxed { border: thin dotted black; }\n")
-        fh.write("\n")
+        fh.write(".smaller { font-size: 12px; width: 400px; }\n")
         fh.write("\n")
         fh.write("\n")
         fh.write("\n")
@@ -627,14 +630,14 @@ class Graph(object):
         graph_data = [int(round(i * graph_height)) for i in self.data]
         for i in reversed(range(graph_height)):
             y_value = i + 1
-            fh.write("%s%.2f | " % (indent, y_value / float(graph_height)))
+            fh.write("%s%.2f |" % (indent, y_value / float(graph_height)))
             for value in graph_data:
                 if value >= y_value:
                     fh.write(' *** ')
                 else:
                     fh.write('     ')
             fh.write("\n")
-        fh.write("%s     +%s\n%s       " % (indent, '-' * 51, indent))
+        fh.write("%s     +%s\n%s      " % (indent, '-' * 50, indent))
         for i in (0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9):
             fh.write(" %.1f " % i)
         fh.write("\n")

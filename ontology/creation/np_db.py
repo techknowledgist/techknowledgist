@@ -108,7 +108,7 @@ class TermsDatabase(Database):
         return self.cursor.fetchone()
 
     def select_terms(self, doc_count, score):
-        query = "SELECT * FROM terms WHERE doc_count > ? AND score > ?"
+        query = "SELECT * FROM terms WHERE doc_count >= ? AND score >= ?"
         self.execute('TermsDatabase.select_terms', query, (doc_count, score))
         return self.cursor.fetchall()
 
