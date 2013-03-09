@@ -69,7 +69,7 @@ $ python step6_index.py -t data/patents -l en --analyze-index --index-name stand
 
 """
 
-import os, sys, time, shutil, getopt, codecs, resource, glob
+import os, sys, time, shutil, getopt, codecs, resource, glob, StringIO
 
 script_path = os.path.abspath(sys.argv[0])
 script_dir = os.path.dirname(script_path)
@@ -81,6 +81,7 @@ os.chdir(script_dir)
 from ontology.utils.batch import GlobalConfig
 from ontology.utils.file import ensure_path
 from ontology.utils.git import get_git_commit
+from ontology.utils.html import HtmlDocument
 from step2_document_processing import show_datasets, show_pipelines
 from np_db import YearsDatabase, TermsDatabase, SummaryDatabase
 
@@ -105,8 +106,9 @@ def measure_memory_use(fun):
 
 def run_collect_data(config, dataset):
     """Data collections proceeds off of a classify dataset, using the
-    classify.features.doc_feats.txt and classify.features.phr_feats.txt files (or the file
-    list and then get the files from the doc_feats and phr_feats datasets)."""
+    classify.features.doc_feats.txt and classify.features.phr_feats.txt files
+    (or the file list and then get the files from the doc_feats and phr_feats
+    datasets)."""
     data_dir = os.path.join(config.target_path, config.language, 'data')
     classify_dir = os.path.join(data_dir, 't2_classify', dataset)
     index_dir = os.path.join(data_dir, 'o1_index', dataset)
@@ -117,9 +119,9 @@ def run_collect_data(config, dataset):
     print_processing_statistics(index_dir, m1, t1)
 
 def generate_collect_info_files(config, dataset, index_dir, classify_dir):
-    """Copy information from t2_classify to o1_index data sets. In some cases the
-    statistics can be different, overwrite the classifier values with the indexer values
-    (for example for the git commit)."""
+    """Copy information from t2_classify to o1_index data sets. In some cases
+    the statistics can be different, overwrite the classifier values with the
+    indexer values (for example for the git commit)."""
     ensure_path(index_dir)
     fh = open(os.path.join(index_dir, 'index.info.general.txt'), 'w')
     fh.write("$ python %s\n\n" % ' '.join(sys.argv))
@@ -131,8 +133,8 @@ def generate_collect_info_files(config, dataset, index_dir, classify_dir):
                         os.path.join(index_dir, 'index.' + info_file))
 
 def collect_counts(classify_dir, index_dir):
-    """Collect statistics from the phr_feats file(s) and the scores file and write them to
-    files in the index directory."""
+    """Collect statistics from the phr_feats file(s) and the scores file and
+    write them to files in the index directory."""
     term_statistics = {}
     feats_fh = codecs.open(os.path.join(classify_dir, 'classify.features.phr_feats.txt'))
     scores_fh = codecs.open(os.path.join(classify_dir, 'classify.MaxEnt.out.s2.y.nr'))
@@ -152,8 +154,8 @@ def load_scores(scores_fh):
 
 @measure_memory_use
 def process_phr_feats(statistics, scores, feats_fh, expanded_fh, years_fh):
-    """Repeatedly take the next document from the phr_feats summary file (where a document
-    is a list of lines) and process the lines for each document."""
+    """Repeatedly take the next document from the phr_feats summary file (where
+    a document is a list of lines) and process the lines for each document."""
     fr = FeatureReader(feats_fh)
     years = {}
     while True:
@@ -240,12 +242,12 @@ class Scores(object):
 
 class FeatureReader(object):
 
-    """Interface to the phr_features summary file. You can either iterate over all the
-    lines or ask for the next document. """
+    """Interface to the phr_features summary file. You can either iterate over
+    all the lines or ask for the next document."""
 
-    ## TODO: this could be generalzied by passing in the function that picks the document
-    ## identifier (or any other identifier) from the line, now it has a hard-coded call to
-    ## get_docid_from_phr_feats_line()
+    ## TODO: this could be generalzied by passing in the function that picks the
+    ## document identifier (or any other identifier) from the line, now it has a
+    ## hard-coded call to get_docid_from_phr_feats_line()
 
     def __init__(self, feats_fh):
         self.fh = feats_fh
@@ -294,9 +296,9 @@ class FeatureReader(object):
 
 
 def parse_phr_feats_line(line):
-    """Parse a line from the phr_feats file and return a tuple with term, year, docid,
-    features and locfeat. For the docid, the count at the end is stripped, for example
-    'US09123404.xml_217' is turned into 'US09123404.xml'."""
+    """Parse a line from the phr_feats file and return a tuple with term, year,
+    docid, features and locfeat. For the docid, the count at the end is
+    stripped, for example 'US09123404.xml_217' is turned into 'US09123404.xml'."""
     vector = line.strip().split("\t")
     (docid, year, term) = vector[0:3]
     docid = docid.rstrip('0123456789')[:-1]
@@ -353,8 +355,8 @@ def build_years_index(build_dir, datasets):
     db.commit_and_close()
 
 def read_years(datasets):
-    """This is just to let the user see how many documents are involved and what the
-    distributionover the years is."""
+    """This is just to let the user see how many documents are involved and what
+    the distributionover the years is."""
     years = {}
     total_count = 0
     for ds in datasets:
@@ -446,7 +448,7 @@ def run_analyze_index(config, index_name, min_docs, min_score):
     analyzer = IndexAnalyzer(db_file, min_docs, min_score)
     analyzer.analyze_terms()
     analyzer.write_html()
-    analyzer.close_db()
+    analyzer.close()
 
 
 class IndexAnalyzer(object):
@@ -459,7 +461,7 @@ class IndexAnalyzer(object):
         self.min_docs = min_docs
         self.min_score = min_score
 
-    def close_db(self):
+    def close(self):
         self.db.close()
 
     def analyze_terms(self):
@@ -490,32 +492,23 @@ class IndexAnalyzer(object):
     def write_index_file(self):
         index_file = os.path.join(self.html_dir, 'index.html')
         fh = codecs.open(index_file, 'w', encoding='utf-8')
-        fh.write("<p>Terms that occur in %s or more documents\n" % self.min_docs)
-        fh.write("and that have a technology score of %.2f " % self.min_score)
-        fh.write("or higher</p>\n\n")
-        fh.write("<blockquote>\n")
-        fh.write("<table border=1 cellspacing=0 cellpadding=5>\n")
-        html_row(fh, ('&nbsp;',), ('term',), ('score',), ('documents',), ('instances',))
+        doc = HtmlDocument(fh, 'Term Browser')
+        doc.add_paragraph(None,
+                          "Terms that occur in %s or more documents" % self.min_docs +
+                          " and that have a technology score of %.2f " % self.min_score +
+                          "or higher")
+        doc.add_raw('<blockquote>')
+        table = doc.add_table(class_name='indent')
+        table.add_row(('&nbsp;',), ('term',), ('score',), ('documents',), ('instances',))
         for term in self.terms:
-            html_row(fh,
-                     ('right', term.id,),
-                     ('left', "<a href=%05d.html>%s</a>\n" % (term.id, term.term)),
-                     ('right', "%.2f" % term.average_score),
-                     ('right', "%d" % term.document_count),
-                     ('right', "%d" % term.instance_count))
-        fh.write("</table>\n</blockquote>\n")
-
-
-def html_row(fh, *arggs):
-    fh.write("<tr>\n")
-    for arg in arggs:
-        if len(arg) == 1:
-            (align, td_content) = ('left', arg[0])
-        else:
-            (align, td_content) = arg
-        fh.write("  <td align=%s>%s\n" % (align, td_content))
-    fh.write("</tr>\n")
-
+            table.add_row(
+                ('right', term.id,),
+                ('left', "<a href=%05d.html>%s</a>\n" % (term.id, term.term)),
+                ('right', "%.2f" % term.average_score),
+                ('right', "%d" % term.document_count),
+                ('right', "%d" % term.instance_count))
+        doc.add_raw('</blockquote>')
+        doc.print_html()
 
 
 class Term(object):
@@ -578,41 +571,35 @@ class Term(object):
             self.year_scores[year][2] = distribution
 
     def generate_html(self, fh=sys.stdout):
-        self._generate_html_head(fh)
-        fh.write("<h2>%s</h2>\n" % self.term)
-        fh.write("<table border=1 cellspacing=0 cellpadding=5>\n")
-        fh.write("<tr>\n")
-        fh.write("<td>document count</td><td align=right>%s</td></tr>\n" % \
-                 self.document_count)
-        fh.write("<td>instance count</td><td align=right>%s</td></tr>\n" % \
-                 self.instance_count)
-        fh.write("<td>technology score</td><td align=right>%.2f</td></tr>\n" % \
-                 self.average_score)
-        fh.write("</table>\n")
-        fh.write("\n<p>Distribution of technology scores</p>\n")
-        fh.write("<pre class='graph boxed'>\n")
-        Graph(self.term, 'TOTAL', self.total_scores[2]).draw(fh=fh)
-        fh.write("</pre>\n")
+
+        doc = HtmlDocument(fh, "Term Browser on '%s'" % self.term)
+        doc.add_style(".graph", ('margin-left', '20px'), ('padding', '10px'),
+                      ('background-color', 'lightyellow'))
+        doc.add_style(".boxed", ('border', 'thin dotted black'))
+        doc.add_style(".small", ('font-size', '12px'), ('width', '400px'))
+
+        doc.add_h2(None, self.term)
+
+        summary_table = doc.add_table(class_name='indent')
+        summary_table.add_row(('document count',), ('right', self.document_count))
+        summary_table.add_row(('instance count',), ('right', self.instance_count))
+        summary_table.add_row(('technology score',), ('right', "%.2f" % self.average_score))
+        
+        doc.add_paragraph(None, "Distribution of technology scores")
+        scores_table = doc.add_table(class_name='indent', border=0)
+        graph = Graph(self.term, 'TOTAL', self.total_scores[2])
+        scores_table.add_row(("<pre class='graph boxed'>%s</pre>" % graph,))
+        
         for year in sorted(self.year_scores.keys()):
             doc_count, term_count, scores = self.year_scores[year]
-            fh.write("\n<p>Distribution for %s (%d documents, %d instances)</p>\n\n" % \
-                     (year, doc_count, term_count))
-            fh.write("<pre class='graph boxed xsmaller'>\n")
-            graph = Graph(self.term, year, scores).draw(fh=fh)
-            fh.write("</pre>\n")
+            doc.add_paragraph(None, "Distribution for %s (%d documents, %d instances)"
+                              %  (year, doc_count, term_count))
+            year_table = doc.add_table(class_name='indent', border=0)
+            graph = Graph(self.term, year, scores)
+            year_table.add_row(("<pre class='graph boxed'>%s</pre>" % graph,))
 
-    def _generate_html_head(self, fh):
-        fh.write("\n")
-        fh.write("<head>\n")
-        fh.write("<style>\n")
-        fh.write(".graph { margin-left: 20px; padding: 8px; width: 500px; background-color: lightyellow; }\n")
-        fh.write(".boxed { border: thin dotted black; }\n")
-        fh.write(".smaller { font-size: 12px; width: 400px; }\n")
-        fh.write("\n")
-        fh.write("\n")
-        fh.write("\n")
-        fh.write("</style>\n")
-        fh.write("</head>\n\n")
+        doc.print_html()
+
 
     def draw_graphs(self, fh=sys.stdout):
         for year in sorted(self.year_scores.keys()):
@@ -652,6 +639,11 @@ class Graph(object):
         self.year = year
         self.data = term_data
 
+    def __str__(self):
+        string = StringIO.StringIO()
+        self.draw(fh=string)
+        return string.getvalue()
+    
     def draw(self, graph_height=10, fh=sys.stdout, indent=""):
         graph_data = [int(round(i * graph_height)) for i in self.data]
         for i in reversed(range(graph_height)):
@@ -669,14 +661,12 @@ class Graph(object):
         fh.write("\n")
 
 
-
-
 #### UTILITIES
 
 def fequal(float1, float2):
     """Test equality of two floats up to the 12th decimal."""
     return abs(float1-float2) < 1E-12
-        
+
 def print_processing_statistics(index_dir, m1, t1):
     m2 = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
     t2 = time.time()
