@@ -75,21 +75,23 @@ VERBOSE = False
 
 class TrainerClassifier(object):
 
-    """Abstract class with some common methods for the trainer and the classifier."""
+    """Abstract class with some common methods for the trainer and the
+    classifier."""
     
     def _create_summary_files(self):
-        """Concatenate files from the datasets that occur in file_list. For now only does
-        the doc_feats and phr_feats files, not the phr_occ files. This step is not needed
-        for model building but can be consumed by later stages or be used for
-        analysis. The default for the trainer is to not use it."""
+        """Concatenate files from the datasets that occur in file_list. For now
+        only does the doc_feats and phr_feats files, not the phr_occ files. This
+        step is not needed for model building but can be consumed by later
+        stages or be used for analysis. The default for the trainer is to not
+        use it."""
         if create_summary:
-            file_generator1 = filename_generator(self.input_dataset1.path, self.file_list)
-            file_generator2 = filename_generator(self.input_dataset2.path, self.file_list)
+            generator1 = filename_generator(self.input_dataset1.path, self.file_list)
+            generator2 = filename_generator(self.input_dataset2.path, self.file_list)
             fh_doc_feats = codecs.open(self.doc_feats_file, 'w', encoding='utf-8')
             fh_phr_feats = codecs.open(self.phr_feats_file, 'w', encoding='utf-8')
-            for fname1 in file_generator1:
+            for fname1 in generator1:
                 fh_phr_feats.write(codecs.open(fname1, encoding='utf-8').read())
-                for fname2 in file_generator2:
+                for fname2 in generator2:
                     fh_doc_feats.write(codecs.open(fname2, encoding='utf-8').read())
 
     def _find_datasets(self):
@@ -103,9 +105,9 @@ class TrainerClassifier(object):
 
 class Trainer(TrainerClassifier):
 
-    """Class that tat takes care of all the housekeeping around a call to the train
-    module. Its purpose is to create a mallet mmodel while keeping track of processing
-    configurations and writing statistics."""
+    """Class that tat takes care of all the housekeeping around a call to the
+    train module. Its purpose is to create a mallet mmodel while keeping track
+    of processing configurations and writing statistics."""
 
     def __init__(self, config, file_list, features,
                  annotation_file, annotation_count, version, xval=0, create_summary=False):
@@ -160,7 +162,8 @@ class Trainer(TrainerClassifier):
             fh.write("file_list         =  %s\n" % self.file_list)
             fh.write("annotation_file   =  %s\n" % self.annotation_file)
             fh.write("annotation_count  =  %s\n" % self.annotation_count)
-            fh.write("config_file       =  %s\n" % os.path.basename(config.pipeline_config_file))
+            fh.write("config_file       =  %s\n" % \
+                     os.path.basename(config.pipeline_config_file))
             fh.write("features          =  %s\n" % self.features)
             fh.write("git_commit        =  %s" % get_git_commit())
 
@@ -192,63 +195,6 @@ class Trainer(TrainerClassifier):
         train.patent_utraining_data3(
             self.mallet_file, self.annotation_file, self.annotation_count, fnames,
             self.features, self.version, self.xval, VERBOSE, self.info_file_stats)
-
-
-def find_input_dataset1(config):
-    """Find the dataset that is input for training. Unlike the code in
-    step2_document_processing.find_input_dataset(), this function hard-codes the input
-    data type rather than referring to DOCUMENT_PROCESSING_IO. Note that this particular
-    one was only used for generating the summary files, it is currently not used as input
-    to training."""
-    datasets = []
-    for ds in get_datasets(config, '--train', 'd3_phr_feats'):
-        full_config = ds.pipeline_trace
-        full_config.append(ds.pipeline_head)
-        # for d3_phr_feats we do not need to apply the entire pipeline, therefore matching
-        # should not be on the entire pipeline either
-        if full_config == config.pipeline[:-1]:
-            datasets.append(ds)
-    return check_result(datasets)
-
-def find_input_dataset2(config):
-    # TODO: see remark under find_input_dataset1
-    datasets = []
-    for ds in get_datasets(config, '--train', 'd4_doc_feats'):
-        full_config = ds.pipeline_trace
-        full_config.append(ds.pipeline_head)
-        if full_config == config.pipeline:
-            datasets.append(ds)
-    return check_result(datasets)
-
-def check_result(datasets):
-    """Return the dataset if there is only one in the list, otherwise write a warning and
-    exit."""
-    if len(datasets) == 1:
-        return datasets[0]
-    elif len(datasets) > 1:
-        print "WARNING, more than one approriate training set:"
-        for ds in datasets:
-            print '  ', ds
-        sys.exit("Exiting...")
-    elif len(datasets) == 0:
-        print "WARNING: no datasets available to meet input requirements"
-        sys.exit("Exiting...")
-
-def check_file_availability(dataset, filelist):
-    """Check whether all files in filelist have been processed and are available in
-    dataset. If not, print a warning and exit."""
-    file_generator = filename_generator(dataset.path, filelist)
-    total = 0
-    not_in_dataset = 0
-    for fname in file_generator:
-        total += 1
-        if not os.path.exists(fname):
-            not_in_dataset += 1
-    if not_in_dataset > 0:
-        sys.exit("WARNING: %d/%d files in %s have not been processed yet\n         %s" %
-                 (not_in_dataset, total, os.path.basename(filelist), dataset))
-
-
 
 
 
@@ -291,15 +237,17 @@ class Classifier(TrainerClassifier):
         self.scores_s5 = base + ".s5.scores.sum.nr"
 
 
-        
     def run(self):
         self._find_datasets()
         self._create_info_files()
         self._create_summary_files()
-        self._create_mallet_file()#mallet_file, input_dataset2, file_list, label_file, use_all_chunks_p)
-        print "[--classify] creating results file - %s" %  os.path.basename(self.results_file)
-        mtest = mallet.Mallet_test("classify", self.model, self.classify_dir, "train", self.train_dir)
-        mtest.mallet_test_classifier(self.classifier, self.mallet_file, self.results_file, self.stderr_file)
+        self._create_mallet_file()
+        print "[--classify] creating results file - %s" % \
+              os.path.basename(self.results_file)
+        mtest = mallet.Mallet_test("classify", self.model,
+                                   self.classify_dir, "train", self.train_dir)
+        mtest.mallet_test_classifier(self.classifier, self.mallet_file,
+                                     self.results_file, self.stderr_file)
         self._calculate_scores()
 
 
@@ -362,8 +310,10 @@ class Classifier(TrainerClassifier):
         if VERBOSE:
             print "[--scores] select 'y' scores and sort"
         column = find_mallet_field_value_column.find_column(self.scores_s1, 'y')
-        message = "'y' score is in column %s of %s" % (column, os.path.basename(self.scores_s1))
-        command = "cat %s | cut -f1,%s | sort -k2 -nr > %s" % (self.scores_s1, column, self.scores_s2)
+        message = "'y' score is in column %s of %s" % \
+                  (column, os.path.basename(self.scores_s1))
+        command = "cat %s | cut -f1,%s | sort -k2 -nr > %s" % \
+                  (self.scores_s1, column, self.scores_s2)
         self.run_score_command(command,message)
 
     def _scores_s3_remove_tiny_scores(self):
@@ -382,6 +332,59 @@ class Classifier(TrainerClassifier):
         self.run_score_command(command, message)
 
 
+def find_input_dataset1(config):
+    """Find the dataset that is input for training. Unlike the code in
+    step2_document_processing.find_input_dataset(), this function hard-codes the input
+    data type rather than referring to DOCUMENT_PROCESSING_IO. Note that this particular
+    one was only used for generating the summary files, it is currently not used as input
+    to training."""
+    datasets = []
+    for ds in get_datasets(config, '--train', 'd3_phr_feats'):
+        full_config = ds.pipeline_trace
+        full_config.append(ds.pipeline_head)
+        # for d3_phr_feats we do not need to apply the entire pipeline, therefore matching
+        # should not be on the entire pipeline either
+        if full_config == config.pipeline[:-1]:
+            datasets.append(ds)
+    return check_result(datasets)
+
+def find_input_dataset2(config):
+    # TODO: see remark under find_input_dataset1
+    datasets = []
+    for ds in get_datasets(config, '--train', 'd4_doc_feats'):
+        full_config = ds.pipeline_trace
+        full_config.append(ds.pipeline_head)
+        if full_config == config.pipeline:
+            datasets.append(ds)
+    return check_result(datasets)
+
+def check_result(datasets):
+    """Return the dataset if there is only one in the list, otherwise write a warning and
+    exit."""
+    if len(datasets) == 1:
+        return datasets[0]
+    elif len(datasets) > 1:
+        print "WARNING, more than one approriate training set:"
+        for ds in datasets:
+            print '  ', ds
+        sys.exit("Exiting...")
+    elif len(datasets) == 0:
+        print "WARNING: no datasets available to meet input requirements"
+        sys.exit("Exiting...")
+
+def check_file_availability(dataset, filelist):
+    """Check whether all files in filelist have been processed and are available in
+    dataset. If not, print a warning and exit."""
+    file_generator = filename_generator(dataset.path, filelist)
+    total = 0
+    not_in_dataset = 0
+    for fname in file_generator:
+        total += 1
+        if not os.path.exists(fname):
+            not_in_dataset += 1
+    if not_in_dataset > 0:
+        sys.exit("WARNING: %d/%d files in %s have not been processed yet\n         %s" %
+                 (not_in_dataset, total, os.path.basename(filelist), dataset))
 
 
 def read_opts():

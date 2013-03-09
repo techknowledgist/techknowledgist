@@ -445,6 +445,7 @@ def run_analyze_index(config, index_name, min_docs, min_score):
     db_file = os.path.join(index_dir, index_name, 'db-summary.sqlite')
     analyzer = IndexAnalyzer(db_file, min_docs, min_score)
     analyzer.analyze_terms()
+    analyzer.write_html()
     analyzer.close_db()
 
 
@@ -453,121 +454,103 @@ class IndexAnalyzer(object):
     def __init__(self, db_file, min_docs, min_score):
         self.db = SummaryDatabase(db_file)
         self.db_file = db_file
-        self.directory = os.path.dirname(db_file)
+        self.index_dir = os.path.dirname(db_file)
+        self.html_dir = os.path.join(self.index_dir, 'html')
         self.min_docs = min_docs
         self.min_score = min_score
-        print "[run_analyze_index] opened", self.db_file
 
     def close_db(self):
         self.db.close()
 
     def analyze_terms(self):
-        html_dir = os.path.join(self.directory, 'html')
-        ensure_path(html_dir)
-        index_file = os.path.join(html_dir, 'index.html')
-        index_fh = codecs.open(index_file, 'w', encoding='utf-8')
-        index_fh.write("<p>Terms that occur in %s or more documents\n" % self.min_docs)
-        index_fh.write("and that have a technology score of %.2f or higher</p>\n" % self.min_score)
-        index_fh.write("\n")
-        index_fh.write("<blockquote>\n")
-        index_fh.write("<table border=1 cellspacing=0 cellpadding=5>\n")
-        index_fh.write("<tr>\n")
-        index_fh.write("  <td>&nbsp;\n")
-        index_fh.write("  <td align=center>term\n")
-        index_fh.write("  <td align=center>score\n")
-        index_fh.write("  <td align=center>documents\n")
-        index_fh.write("  <td align=center>instances\n")
         terms = self.select_terms()
+        print "[analyze_terms] number of terms selected:", len(terms)
+        self.terms = []
         term_id = 0
-        for term_data in terms:
-            (term, score, docs, instances) = term_data
+        for (term, score, docs, instances) in terms:
             term_id += 1
-            term_id_str = "%05d" % term_id
-            index_fh.write("<tr>\n")
-            index_fh.write("  <td align=right>%s\n" % (term_id))
-            index_fh.write("  <td align=left><a href=%s.html>%s</a>\n" % (term_id_str, term))
-            index_fh.write("  <td align=right>%.2f\n" % score)
-            index_fh.write("  <td align=right>%d\n" % docs)
-            index_fh.write("  <td align=right>%d\n" % instances)
-            index_fh.write("</tr>\n")
-            term_file = os.path.join(html_dir, term_id_str + '.html')
-            term_fh = codecs.open(term_file, 'w', encoding='utf-8')
             raw_data = self.db.get_term_data(term)
-            ta = TermAnalyzer(term, raw_data, self.directory)
-            ta.analyze()
-            #ta.pp()
-            ta.generate_html(fh=term_fh)
-        index_fh.write("</table>\n")
+            term = Term(term, term_id, score, docs, instances, raw_data, self.index_dir)
+            self.terms.append(term)
 
     def select_terms(self):
-        db = TermsDatabase(os.path.join(self.directory, 'db-terms.sqlite'))
-        terms = db.select_terms(self.min_docs, self.min_score)
-        print "[analyze_terms] number of terms selected:", len(terms)
-        return terms
+        """Select and return all terms that match the user specification on
+        frequency and technology score."""
+        db = TermsDatabase(os.path.join(self.index_dir, 'db-terms.sqlite'))
+        return db.select_terms(self.min_docs, self.min_score)
+
+    def write_html(self):
+        ensure_path(self.html_dir)
+        self.write_index_file()
+        for term in self.terms:
+            term_file = os.path.join(self.html_dir, "%05d.html" % term.id)
+            term_fh = codecs.open(term_file, 'w', encoding='utf-8')
+            term.generate_html(fh=term_fh)
+
+    def write_index_file(self):
+        index_file = os.path.join(self.html_dir, 'index.html')
+        fh = codecs.open(index_file, 'w', encoding='utf-8')
+        fh.write("<p>Terms that occur in %s or more documents\n" % self.min_docs)
+        fh.write("and that have a technology score of %.2f " % self.min_score)
+        fh.write("or higher</p>\n\n")
+        fh.write("<blockquote>\n")
+        fh.write("<table border=1 cellspacing=0 cellpadding=5>\n")
+        html_row(fh, ('&nbsp;',), ('term',), ('score',), ('documents',), ('instances',))
+        for term in self.terms:
+            html_row(fh,
+                     ('right', term.id,),
+                     ('left', "<a href=%05d.html>%s</a>\n" % (term.id, term.term)),
+                     ('right', "%.2f" % term.average_score),
+                     ('right', "%d" % term.document_count),
+                     ('right', "%d" % term.instance_count))
+        fh.write("</table>\n</blockquote>\n")
 
 
-class TermAnalyzer(object):
+def html_row(fh, *arggs):
+    fh.write("<tr>\n")
+    for arg in arggs:
+        if len(arg) == 1:
+            (align, td_content) = ('left', arg[0])
+        else:
+            (align, td_content) = arg
+        fh.write("  <td align=%s>%s\n" % (align, td_content))
+    fh.write("</tr>\n")
 
-    def __init__(self, term, raw_data, directory):
-        """All the instance variables are overwritten when you start a new
-        term. It may be better to use a TermAnalyzer class to do all this
-        work."""
+
+
+class Term(object):
+
+    def __init__(self, term, term_id, score, docs, insts, raw_data, directory):
+        """Put the summary data on top level variables and stroe the raw data
+        from the database."""
         self.term = term
+        self.id = term_id
+        self.average_score = score
+        self.document_count = docs
+        self.instance_count = insts
         self.raw_data = raw_data
-        self.directory = directory
+        self.index_dir = directory
+        self._check_counts()
+        self._analyze()
 
-    def analyze(self):
-        self.document_count = sum([r[3] for r in self.raw_data])
-        self.instance_count = sum([r[4] for r in self.raw_data])
-        self.average_score = sum([r[2] * r[3] for r in self.raw_data]) / self.document_count
+    def _check_counts(self):
+        """This is a sanity check that compares the summary statistics to the
+        ones derived from the raw data."""
+        document_count = sum([r[3] for r in self.raw_data])
+        instance_count = sum([r[4] for r in self.raw_data])
+        average_score = sum([r[2] * r[3] for r in self.raw_data]) / self.document_count
+        if not fequal(document_count, self.document_count):
+            print 'doc_count', document_count, self.document_count
+        if not fequal(instance_count, self.instance_count):
+            print 'ins_count', instance_count, self.instance_count
+        if not fequal(average_score, self.average_score):
+            print 'avg_score', average_score, self.average_score
+
+    def _analyze(self):
         self.year_scores = {}
         self.total_scores = {}
         self._collect_scores()
         self._normalize_scores()
-
-    def draw_graphs(self, fh=sys.stdout):
-        for year in sorted(self.year_scores.keys()):
-            fh.write("\n%s - %s\n\n" % (year, self.term))
-            doc_count, term_count, scores = self.year_scores[year]
-            graph = Graph(self.term, year, scores).draw(fh=fh, indent='   ')
-        fh.write("\n%s - %s\n\n" % ('TOTAL', self.term))
-        Graph(self.term, 'TOTAL', self.total_scores[2]).draw(fh=fh, indent='   ')
-
-    def generate_html(self, fh=sys.stdout):
-        fh.write("\n")
-        fh.write("\n")
-        self._generate_html_head(fh)
-        fh.write("<h2>%s</h2>\n" % self.term)
-        fh.write("<table border=1 cellspacing=0 cellpadding=5>\n")
-        fh.write("<tr>\n")
-        fh.write("<td>document count</td><td align=right>%s</td></tr>\n" % self.document_count)
-        fh.write("<td>instance count</td><td align=right>%s</td></tr>\n" % self.instance_count)
-        fh.write("<td>technology score</td><td align=right>%.2f</td></tr>\n" % self.average_score)
-        fh.write("</table>\n")
-        fh.write("\n<p>Distribution of technology scores</p>\n")
-        fh.write("<pre class='graph boxed'>\n")
-        Graph(self.term, 'TOTAL', self.total_scores[2]).draw(fh=fh)
-        fh.write("</pre>\n")
-        for year in sorted(self.year_scores.keys()):
-            doc_count, term_count, scores = self.year_scores[year]
-            fh.write("\n<p>Distribution for %s (%d documents, %d instances)</p>\n\n" % \
-                     (year, doc_count, term_count))
-            fh.write("<pre class='graph boxed smaller'>\n")
-            graph = Graph(self.term, year, scores).draw(fh=fh)
-            fh.write("</pre>\n")
-
-    def _generate_html_head(self, fh):
-        fh.write("\n")
-        fh.write("<head>\n")
-        fh.write("<style>\n")
-        fh.write(".graph { margin-left: 20px; padding: 8px; width: 500px; background-color: lightyellow; }\n")
-        fh.write(".boxed { border: thin dotted black; }\n")
-        fh.write(".smaller { font-size: 12px; width: 400px; }\n")
-        fh.write("\n")
-        fh.write("\n")
-        fh.write("\n")
-        fh.write("</style>\n")
-        fh.write("</head>\n\n")
 
     def _collect_scores(self):
         """Get the scores from the raw data."""
@@ -576,9 +559,7 @@ class TermAnalyzer(object):
             # keep the number of documents, the number of instances and the raw
             # distribution data
             self.year_scores[year] = [row[3], row[4], row[5:]]
-        self.total_scores = [self.document_count,
-                             self.instance_count,
-                             [0] * 10]
+        self.total_scores = [self.document_count, self.instance_count, [0] * 10]
         for year_data in self.raw_data:
             year_scores = year_data[5:]
             for i in range(10):
@@ -595,6 +576,51 @@ class TermAnalyzer(object):
             for i in range(len(distribution)):
                 distribution[i] = (distribution[i] / float(total))
             self.year_scores[year][2] = distribution
+
+    def generate_html(self, fh=sys.stdout):
+        self._generate_html_head(fh)
+        fh.write("<h2>%s</h2>\n" % self.term)
+        fh.write("<table border=1 cellspacing=0 cellpadding=5>\n")
+        fh.write("<tr>\n")
+        fh.write("<td>document count</td><td align=right>%s</td></tr>\n" % \
+                 self.document_count)
+        fh.write("<td>instance count</td><td align=right>%s</td></tr>\n" % \
+                 self.instance_count)
+        fh.write("<td>technology score</td><td align=right>%.2f</td></tr>\n" % \
+                 self.average_score)
+        fh.write("</table>\n")
+        fh.write("\n<p>Distribution of technology scores</p>\n")
+        fh.write("<pre class='graph boxed'>\n")
+        Graph(self.term, 'TOTAL', self.total_scores[2]).draw(fh=fh)
+        fh.write("</pre>\n")
+        for year in sorted(self.year_scores.keys()):
+            doc_count, term_count, scores = self.year_scores[year]
+            fh.write("\n<p>Distribution for %s (%d documents, %d instances)</p>\n\n" % \
+                     (year, doc_count, term_count))
+            fh.write("<pre class='graph boxed xsmaller'>\n")
+            graph = Graph(self.term, year, scores).draw(fh=fh)
+            fh.write("</pre>\n")
+
+    def _generate_html_head(self, fh):
+        fh.write("\n")
+        fh.write("<head>\n")
+        fh.write("<style>\n")
+        fh.write(".graph { margin-left: 20px; padding: 8px; width: 500px; background-color: lightyellow; }\n")
+        fh.write(".boxed { border: thin dotted black; }\n")
+        fh.write(".smaller { font-size: 12px; width: 400px; }\n")
+        fh.write("\n")
+        fh.write("\n")
+        fh.write("\n")
+        fh.write("</style>\n")
+        fh.write("</head>\n\n")
+
+    def draw_graphs(self, fh=sys.stdout):
+        for year in sorted(self.year_scores.keys()):
+            fh.write("\n%s - %s\n\n" % (year, self.term))
+            doc_count, term_count, scores = self.year_scores[year]
+            graph = Graph(self.term, year, scores).draw(fh=fh, indent='   ')
+        fh.write("\n%s - %s\n\n" % ('TOTAL', self.term))
+        Graph(self.term, 'TOTAL', self.total_scores[2]).draw(fh=fh, indent='   ')
 
     def pp(self):
         print "\n<<<%s>>>\n" % self.term
@@ -647,6 +673,10 @@ class Graph(object):
 
 #### UTILITIES
 
+def fequal(float1, float2):
+    """Test equality of two floats up to the 12th decimal."""
+    return abs(float1-float2) < 1E-12
+        
 def print_processing_statistics(index_dir, m1, t1):
     m2 = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
     t2 = time.time()
