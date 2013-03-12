@@ -573,10 +573,10 @@ class Term(object):
     def generate_html(self, fh=sys.stdout):
 
         doc = HtmlDocument(fh, "Term Browser on '%s'" % self.term)
-        doc.add_style(".graph", ('margin-left', '20px'), ('padding', '10px'),
-                      ('background-color', 'lightyellow'))
-        doc.add_style(".boxed", ('border', 'thin dotted black'))
-        doc.add_style(".small", ('font-size', '12px'), ('width', '400px'))
+        doc.add_style(".graph", 'margin-left: 20px', 'padding: 10px',
+                      'background-color: lightyellow')
+        doc.add_style(".boxed", 'border: thin dotted black')
+        doc.add_style(".small", 'font-size: 12px', 'width: 400px')
 
         doc.add_h2(None, self.term)
 
