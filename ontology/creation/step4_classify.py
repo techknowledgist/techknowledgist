@@ -58,7 +58,8 @@ sys.path.insert(0, os.getcwd())
 os.chdir(script_dir)
 
 import train
-import mallet
+import mallet2
+import config_mallet
 import find_mallet_field_value_column
 import sum_scores
 
@@ -105,9 +106,9 @@ class TrainerClassifier(object):
 
 class Trainer(TrainerClassifier):
 
-    """Class that tat takes care of all the housekeeping around a call to the
-    train module. Its purpose is to create a mallet mmodel while keeping track
-    of processing configurations and writing statistics."""
+    """Class that takes care of all the housekeeping around a call to the train
+    module. Its purpose is to create a mallet mmodel while keeping track of
+    processing configurations and writing statistics."""
 
     def __init__(self, config, file_list, features,
                  annotation_file, annotation_count, version, xval=0, create_summary=False):
@@ -238,16 +239,20 @@ class Classifier(TrainerClassifier):
 
 
     def run(self):
+        """Run the classifier on the data set defined by the configuration."""
         self._find_datasets()
         self._create_info_files()
         self._create_summary_files()
         self._create_mallet_file()
         print "[--classify] creating results file - %s" % \
               os.path.basename(self.results_file)
-        mtest = mallet.Mallet_test("classify", self.model,
-                                   self.classify_dir, "train", self.train_dir)
-        mtest.mallet_test_classifier(self.classifier, self.mallet_file,
-                                     self.results_file, self.stderr_file)
+        mconfig = mallet2.MalletConfig(
+            config_mallet.mallet_dir, 'train', 'classify', self.version,
+            self.train_dir, self.classify_dir,
+            classifier_type=self.classifier, number_xval=xval, training_portion=0,
+            prune_p=False, infogain_pruning="5000", count_pruning="3")
+        mtest = mallet2.MalletClassifier(mconfig)
+        mtest.mallet_test_classifier()
         self._calculate_scores()
 
 
@@ -276,8 +281,8 @@ class Classifier(TrainerClassifier):
         for doc_feats_file in fnames:
             count += 1
             if VERBOSE:
-                print "[--classify] %05d %s" % (count, self.doc_feats_file)
-            train.add_file_to_utraining_test_file(self.doc_feats_file, fh, d_phr2label, stats,
+                print "[--classify] %05d %s" % (count, doc_feats_file)
+            train.add_file_to_utraining_test_file(doc_feats_file, fh, d_phr2label, stats,
                                                   use_all_chunks_p=self.use_all_chunks_p)
         fh.close()
         print "[--classify]", stats

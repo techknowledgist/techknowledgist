@@ -16,6 +16,8 @@
 import os
 import sys
 import mallet
+import mallet2
+import config_mallet
 import putils
 import codecs
 
@@ -226,19 +228,25 @@ def patent_utraining_data(patent_dir, lang, version="1", xval=0, limit=0,
 def patent_utraining_data3(mallet_file, annotation_file, annotation_count, fnames,
                            features=None, version="1", xval=0,
                            verbose=False, stats_file=None):
-    """Wrapper around mallet.py functionality to create a classifier model."""
-    # get dictionary of annotations and output directory
+
+    """Wrapper around mallet.py functionality to create a classifier
+    model. Creates a dictionary of annotations, sets the mallet configuration
+    and creates an instance of MalletTraining class to do the rest: creating #
+    .mallet file, creating the .vectors file from the mallet file, and #
+    creating the model.
+    """
+
     d_phr2label = load_phrase_labels3(annotation_file, annotation_count)
     train_output_dir = os.path.dirname(mallet_file)
-    # create an instance of Mallet_training class to do the rest
-    mtr = mallet.Mallet_training("train", version, train_output_dir, features)
-    # create .mallet file
-    mtr.make_utraining_file3(mallet_file, fnames, version, d_phr2label, features=features)
-    # create the .vectors file from the mallet file
+    mconfig = mallet2.MalletConfig(
+        config_mallet.mallet_dir, 'train', 'classify', version,
+        train_output_dir, '/tmp',
+        classifier_type="MaxEnt", number_xval=xval, training_portion=0,
+        prune_p=False, infogain_pruning="5000", count_pruning="3")
+    mtr = mallet2.MalletTraining(mconfig, features)
+    mtr.make_utraining_file3(fnames, d_phr2label, features=features)
     mtr.write_train_mallet_vectors_file()
-    # create the model (train.MaxEnt.model), make sure xval is an integer since
-    # it can be passed in by command line args
-    mtr.mallet_train_classifier("MaxEnt", int(xval), verbose=verbose)
+    mtr.mallet_train_classifier()
     write_training_statistics(stats_file, mtr)
 
 

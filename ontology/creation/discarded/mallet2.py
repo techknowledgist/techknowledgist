@@ -1,68 +1,43 @@
-"""
-library for dealing with mallet feature production
-PGA 10/72012
+# library for dealing with mallet feature production
+# PGA 10/72012
+#
+# python 2.6 or higher required
 
-python 2.6 or higher required
+# Rewritten 12/19/12 PGA to remove file naming from inner functions
 
-Rewritten 12/19/12 PGA to remove file naming from inner functions
+# We assume that training data files will all be in placed in a single directory $train_dir
+# file names for use with mallet are constructed using
+# a user supplied file_prefix (e.g. test_data)
+# a user supplied trainer (which must be a case sensitive Mallet trainer keyword (e.g. MaxEnt)
+# system supplied qualifiers (such as .out, .mallet, .vectors, .vectors.out)
+#
+# import test_flib to test the flib methods with a small example.
 
-We assume that training data files will all be in placed in a single directory $train_dir
-file names for use with mallet are constructed using
-a user supplied file_prefix (e.g. test_data)
-a user supplied trainer (which must be a case sensitive Mallet trainer keyword (e.g. MaxEnt)
-system supplied qualifiers (such as .out, .mallet, .vectors, .vectors.out)
+# For mallet command line documentation, see
+# http://www.cs.cmu.edu/afs/cs.cmu.edu/project/cmt-40/Nice/Urdu-MT/code/Tools/POS/postagger/mallet_0.4/doc/command-line-classification.html
 
-import test_flib to test the flib methods with a small example.
-
-For mallet command line documentation, see
-http://www.cs.cmu.edu/afs/cs.cmu.edu/project/cmt-40/Nice/Urdu-MT/code/Tools/POS/postagger/mallet_0.4/doc/command-line-classification.html
-
-"""
 
 import os
 import re
-import codecs
 from collections import defaultdict
 import config_mallet
 import inspect
 
+# mallet_dir may be different depending on machine
+#from config_mallet import *
 
-
-def parse_doc_feats_line(line):
-    """Parse a doc_feats line and return phrase, identifier and feature list."""
-    fields = line.strip("\n").split("\t")
-    phrase, uid = fields[0], fields[1]
-    feats = unique_list(fields[2:])
-    return (phrase, uid, feats)
-
-def unique_list(non_unique_list):
-    # TODO: copied from train.py, move this to a utilities file or directory
-    return (list(set(non_unique_list)))
-
+# view the attributes and values of a class instance
 def cattrs(inst):
-    """View the attributes and values of a class instance."""
     attributes = inspect.getmembers(inst, lambda a:not(inspect.isroutine(a)))
     for a in attributes:
         if not(a[0].startswith('__') and a[0].endswith('__')):
             print a
 
-def run_command(cmd):
-    print_command(cmd)
-    os.system(cmd)
-
-def print_command(cmd):
-    cmd = cmd.replace('--', "\n      --")
-    cmd = cmd.replace('> ', "\n      > ")
-    cmd = cmd.replace('| ', "\n      | ")
-    print '   $', cmd
-
-
-
 
 ############################################################################
-class MalletConfig(object):
-
-    # TODO: add self.classifier_type to all the file names!  So far, only added it to the test output files.
+class MalletConfig:
+    
+    # TODO: add self.classifier_type to all the file names!  So far, only added it to the test output files.///
 
     def __init__(self, mallet_dir, train_file_prefix, test_file_prefix, version,
                  train_dir, test_dir, classifier_type="MaxEnt", number_xval=0,
@@ -77,10 +52,9 @@ class MalletConfig(object):
         self.train_dir = train_dir
         self.test_dir = test_dir
         self.classifier_type = classifier_type
-        self.number_xval = int(number_xval)
-        self.training_portion = float(training_portion)
+        self.number_xval = number_xval
+        self.training_portion = training_portion
         self.infogain_pruning = infogain_pruning
-        self.prune_p = prune_p
         self.count_pruning = count_pruning
         
         # mallet output files
@@ -89,12 +63,14 @@ class MalletConfig(object):
         self.train_vectors_file = os.path.join(train_dir, train_file_prefix + ".vectors")
         self.train_vectors_out_file = os.path.join(train_dir, train_file_prefix + ".vectors.out")
 
+
         # Currently, pruning is not working, due to an error in the mallet code
-        # itself, which doesn't set up the pipes correctly.  train_prune_file
-        # will only exist if the prune command is run.  If it's value is "", we
-        # will assume it was not run and the train_vectors file should be used
-        # as input to the classifier.  If its value is not "", it will be used
-        # as the train_vectors file for training the classifier.
+        # itself, which doesn't set up the pipes correctly.
+        # train_prune_file will only exist if the prune command is run.  If it's
+        # value is "", we will assume it was not run and the train_vectors file
+        # should be used as input to the classifier.  If its value is not "", it
+        # will be used as the train_vectors file for training the classifier.
+        self.prune_p = prune_p
         self.pruned_vectors_file = os.path.join(train_dir, train_file_prefix + ".pruned.vectors")
 
         self.test_mallet_file = os.path.join(test_dir, test_file_prefix + ".mallet")
@@ -114,25 +90,23 @@ class MalletConfig(object):
         
         # classifier output
         self.classifier_out_file =  os.path.join(test_dir, test_file_prefix + "." + self.classifier_type + ".out")
-        self.classifier_stderr_file =  os.path.join(test_dir, test_file_prefix + "." + self.classifier_type + ".stderr")
+        self.classifier_stderr_file =  os.path.join(test_dir, test_file_prefix "." + self.classifier_type + ".stderr")
 
 
+        # mallet shell commands
         # vectors
         self.cmd_csv2vectors_train = "sh " + self.mallet_dir + "/csv2vectors" + \
                                      " --token-regex '[^ ]+'" + \
                                      " --input " + self.train_mallet_file + \
                                      " --output " + self.train_vectors_file + \
-                                     " --print-output TRUE" + \
-                                     " > " + self.train_vectors_out_file
+                                     " --print-output TRUE > " + self.train_vectors_out_file
 
         self.cmd_csv2vectors_test = "sh " + self.mallet_dir + "/csv2vectors" + \
                                     " --input " + self.test_mallet_file + \
                                     " --output " + self.test_vectors_file + \
                                     " --print-output TRUE" + \
-                                    " --use-pipe-from " + self.get_vectors_file()  + \
-                                    " > " + self.test_vectors_out_file
+                                    " --use-pipe-from " + self.get_vectors_file()  + "  > " + self.test_vectors_out_file
 
-        # pruning
         self.cmd_prune = "sh " + self.mallet_dir + "/mallet prune" + \
                          " --input " + self.train_vectors_file + \
                          " --output " + self.pruned_vectors_file + \
@@ -144,74 +118,38 @@ class MalletConfig(object):
         # 2 OUT OUT:0.6415563874015857 IN:0.3584436125984143 
 
         if self.training_portion > 0.0:
-            print "[mallet_train_classifier] setting mallet command with portions for testing and training"
-            self.cmd_train_classifier = "sh " + self.mallet_dir + "/mallet train-classifier" + \
-                                        " --input " + self.get_vectors_file() + \
-                                        " --trainer " + self.classifier_type + \
-                                        " --output-classifier " + self.model_file + \
-                                        " --training-portion " + str(training_portion) + \
-                                        " --report test:accuracy test:confusion train:raw" + \
-                                        " > " + self.train_out_file + \
-                                        " 2> " + self.train_stderr_file
+            # divide instances into training and test
+            #self.cmd_train_classifier = "sh " + self.mallet_dir + "/mallet train-classifier --input " + self.train_vectors_file + " --trainer " + self.classifier_type + " --output-classifier " + self.model_file + " --training-portion " + str(training_portion) + " --report test:accuracy test:confusion train:raw > " + self.train_out_file + " 2> " + self.train_stderr_file
+
+            self.cmd_train_classifier = "sh " + self.mallet_dir + "/mallet train-classifier --input " + self.get_vectors_file() + " --trainer " + self.classifier_type + " --output-classifier " + self.model_file + " --training-portion " + str(training_portion) + " --report test:accuracy test:confusion train:raw > " + self.train_out_file + " 2> " + self.train_stderr_file
 
         elif self.number_xval < 2: 
-            print "[mallet_train_classifier] setting mallet command without cross validation or portions"
-            self.cmd_train_classifier = "sh " + self.mallet_dir + "/mallet train-classifier" + \
-                                        " --input " + self.get_vectors_file() + \
-                                        " --trainer " + self.classifier_type + \
-                                        " --output-classifier " + self.model_file + \
-                                        " --report test:accuracy test:confusion test:raw" + \
-                                        " > " + self.train_out_file + \
-                                        " 2> " + self.train_stderr_file
+            # don't do any testing
+            print "[mallet_train_classifier]Using mallet command without cross validation or portions"
+            #self.cmd_train_classifier = "sh " + self.mallet_dir + "/mallet train-classifier --input " + self.train_vectors_file + " --trainer " + self.classifier_type + " --output-classifier " + self.model_file + " --report test:accuracy test:confusion test:raw > " + self.train_out_file + " 2> " + self.train_stderr_file
+            self.cmd_train_classifier = "sh " + self.mallet_dir + "/mallet train-classifier --input " + self.get_vectors_file() + " --trainer " + self.classifier_type + " --output-classifier " + self.model_file + " --report test:accuracy test:confusion test:raw > " + self.train_out_file + " 2> " + self.train_stderr_file
 
         else:
             # using cross-validation
-            print "[mallet_train_classifier] setting mallet command with cross validation"
-            self.cmd_train_classifier = "sh " + self.mallet_dir + "/mallet train-classifier" + \
-                                        " --input " + self.get_vectors_file() + \
-                                        " --trainer " + self.classifier_type + \
-                                        " --output-classifier " + self.model_file + \
-                                        " --cross-validation " + str(self.number_xval) + \
-                                        " --report test:accuracy test:confusion test:raw" + \
-                                        " > " + self.train_out_file + \
-                                        " 2> " + self.train_stderr_file
+            print "[mallet_train_classifier]Using mallet command with cross validation"
+            #self.cmd_train_classifier = "sh " + self.mallet_dir + "/mallet train-classifier --input " + self.train_vectors_file + " --trainer " + self.classifier_type + " --output-classifier " + self.model_file + " --cross-validation " + str(self.number_xval) + " --report test:accuracy test:confusion test:raw > " + self.train_out_file + " 2> " + self.train_stderr_file
+            self.cmd_train_classifier = "sh " + self.mallet_dir + "/mallet train-classifier --input " + self.get_vectors_file() + " --trainer " + self.classifier_type + " --output-classifier " + self.model_file + " --cross-validation " + str(self.number_xval) + " --report test:accuracy test:confusion test:raw > " + self.train_out_file + " 2> " + self.train_stderr_file
 
             # Remove low values (negative /// why are there multiple scores for the same features?)
-            self.cmd_sort_model = "cat " + self.cinfo_file + \
-                                  " | egrep -v '^FEAT|^ <default'" + \
-                                  " | egrep -v 'E-[0-9]+$'" + \
-                                  " | sed -e 's/^ //'" + \
-                                  " | python reformat_uc.py" + \
-                                  " | awk '{print $2,$1}'" + \
-                                  " | egrep -v '^-'" + \
-                                  " | sort -nr" + \
-                                  " > " + self.cinfo_sorted_file
+            self.cmd_sort_model = "cat " + self.cinfo_file + " | egrep -v '^FEAT|^ <default' | egrep -v 'E-[0-9]+$' | sed -e 's/^ //' | python /home/j/anick/patent-classifier/ontology/creation/reformat_uc.py | awk '{print $2,$1}' | egrep -v '^-' | sort -nr > " + self.cinfo_sorted_file
 
         # classification
-        self.cmd_classify_file = "sh " + self.mallet_dir + "/mallet classify-file" + \
-                                 " --line-regex \"^(\S*)[\s,]*(\S*)[\s]*(.*)$\"" + \
-                                 " --name 1 --data 3" + \
-                                 " --input " + self.test_mallet_file + \
-                                 " --classifier " + self.model_file + \
-                                 " --output -" + \
-                                 " > " + self.classifier_out_file + \
-                                 " 2> " + self.classifier_stderr_file
+        #sh /home/j/anick/mallet/mallet-2.0.7/bin/mallet classify-file --input $test_dir/$type.$version.features.vectors  --classifier $train_dir/$type.$version.classifier.mallet  --output -  >  $test_dir/$type.$version.res.stdout
+
+        self.cmd_classify_file = "sh " + self.mallet_dir + "/mallet classify-file " + \
+              "--line-regex \"^(\S*)[\s,]*(\S*)[\s]*(.*)$\" --name 1 --data 3 --input " + \
+              self.test_mallet_file + " --classifier " + self.model_file + \
+              " --output -  > " + self.classifier_out_file + " 2> " + self.classifier_stderr_file
 
         # output a readable version of model values for features
-        self.cmd_classifier2info = "sh " + self.mallet_dir + "/classifier2info" + \
-                                   " --classifier " + self.model_file + \
-                                   " > " + self.cinfo_file
+        self.cmd_classifier2info = "sh " + self.mallet_dir + "/classifier2info --classifier " + self.model_file + " > " + self.cinfo_file
 
-        self.cmd_cinfo_sorted = "cat " + self.cinfo_file + \
-                                " | egrep -v '^FEAT|^ <default'" + \
-                                " | egrep -v 'E-[0-9]+$'" + \
-                                " | sed -e 's/^ //'" + \
-                                " | python reformat_uc.py" + \
-                                " | awk '{print $2,$1}'" + \
-                                " | sort -nr" + \
-                                " > " + self.cinfo_sorted_file
-
-
+        self.cmd_cinfo_sorted = "cat " + self.cinfo_file + " | egrep -v '^FEAT|^ <default' | egrep -v 'E-[0-9]+$' | sed -e 's/^ //' | python /home/j/anick/patent-classifier/ontology/creation/reformat_uc.py | awk '{print $2,$1}' | sort -nr > " + self.cinfo_sorted_file
 
     # use pruned or unpruned vectors file depending on the value of parameter prune_p
     def get_vectors_file(self):
@@ -219,35 +157,6 @@ class MalletConfig(object):
             return(self.pruned_vectors_file)
         else:
             return(self.train_vectors_file)
-
-
-    def print_vars(self):
-        print "\nINSTANCE VARIABLES:"
-        print "   mallet_dir          %s" % self.mallet_dir
-        print "   train_file_prefix   %s" % self.train_file_prefix
-        print "   test_file_prefix    %s" % self.test_file_prefix
-        print "   version             %s" % self.version
-        print "   train_dir           %s" % self.train_dir
-        print "   test_dir            %s" % self.test_dir
-        print "   classifier_type     %s" % self.classifier_type
-        print "   number_xval         %s" % self.number_xval
-        print "   training_portion    %s" % self.training_portion
-        print "   infogain_pruning    %s" % self.infogain_pruning
-        print "   prune_p             %s" % self.prune_p
-        print "   count_pruning       %s" % self.count_pruning
-
-    def print_files(self):
-        print "\nFILES:"
-        for f in [self.train_mallet_file, self.train_vectors_file,
-                  self.train_vectors_out_file, self.pruned_vectors_file,
-                  self.test_mallet_file, self.test_vectors_file,
-                  self.test_vectors_out_file, self.test_mallet_file,
-                  self.model_file, self.train_out_file,
-                  self.train_stderr_file, self.cinfo_file,
-                  self.cinfo_sorted_file, self.classifier_out_file,
-                  self.classifier_stderr_file]:
-            print '  ', f
-
 
 ############################################################################
 # MalletInstance class encapsulates data and methods to capture one line of a mallet instance input file
@@ -278,7 +187,6 @@ class MalletInstance:
         #feat = fname + "=" + str_value
         feat = fname + "=" + str_value
         self.l_feat.append(feat)
-
 
 ###################################################################
 # MalletTraining class encapsulates data and methods for adding instances and running mallet.
@@ -340,53 +248,7 @@ class MalletTraining:
         return [f for f in feats if self.d_filter_feat.has_key(f.split("=")[0])]
 
 
-    def make_utraining_file3(self, fnames, d_phr2label, verbose=False, features=None):
-
-        """ Create a file with training instances for Mallet. The list of doc_feats files
-        to use is given in fnames and the annotated terms in d_phr2label.
-
-        This method is based on a similarly named function in train.py. It was moved here
-        for consistency. This version should eventually make train.make_utraining_file()
-        obsolete."""
-
-        version = self.mallet_config.version
-        mallet_file = self.mallet_config.train_mallet_file
-
-        print "[make_utraining_file3] writing to", mallet_file
-
-        s_train = codecs.open(mallet_file, "w", encoding='utf-8')
-        self.stats_labeled_count = 0
-        self.stats_unlabeled_count = 0
-        file_count = 0
-        for doc_feats_file in fnames:
-            if verbose:
-                print "%05d %s" % (file_count, doc_feats_file)
-            fh = codecs.open(doc_feats_file, encoding='utf-8')
-            for line in fh:
-                (phrase, uid, feats) = parse_doc_feats_line(line)
-                feats = self.remove_filtered_feats(feats)
-                # check if the phrase has a known label
-                if d_phr2label.has_key(phrase):
-                    label = d_phr2label.get(phrase)
-                    if label == "":
-                        print "[make_utraining_file3] " + \
-                              "WARNING: phrase with null label: %s" % phrase
-                    else:
-                        # create a line with with format "uid label f1 f2 f3 ..."
-                        mallet_list = [uid, label] + feats
-                        mallet_line = " ".join(mallet_list)
-                        s_train.write(mallet_line + "\n")
-                        self.stats_labeled_count += 1
-                else:
-                   self.stats_unlabeled_count += 1
-            fh.close()
-        s_train.close()
         
-        print "[make_utraining_file3] labeled instances: %i, unlabeled: %i" \
-              % (self.stats_labeled_count, self.stats_unlabeled_count)
-
-
-
     # NOTE: The next two functions are used to build a .mallet file.  If this is built
     # externally, they can be ignored.  However, the mallet file must consist of 
     # <uid> <label> <f1> <f2> ....
@@ -421,26 +283,29 @@ class MalletTraining:
     # This is required to run the classifier on the data.
     # command format: sh $mallet_dir/csv2vectors --input $train_dir/features.mallet --output $train_dir/features.vectors --print-output TRUE > $train_dir/features.vectors.out
     def write_train_mallet_vectors_file(self):
+
         cmd = self.mallet_config.cmd_csv2vectors_train
-        print "[write_train_mallet_vectors_file]"
-        run_command(cmd)
+        print "[write_train_mallet_vectors_file]cmd: %s" % cmd
+        os.system(cmd)
 
     def write_test_mallet_vectors_file(self):
+
         cmd = self.mallet_config.cmd_csv2vectors_test
-        print "[write_test_mallet_vectors_file]"
-        run_command(cmd)
+        print "[write_test_mallet_vectors_file]cmd: %s" % cmd
+        os.system(cmd)
+
 
     def prune_vectors_file(self):
+        
         cmd = self.mallet_config.cmd_prune
-        print "[prune_vectors_file]"
-        run_command(cmd)
+        print "[prune_vectors_file]cmd: %s" % cmd
+        os.system(cmd)
 
     # set vectors file name attribute directly (useful if testing on vectors data created elsewhere)
     # arg is full path for .vectors file
-    def set_mallet_vectors_file(self, full_vectors_path):
-        self.train_vectors_file = full_vectors_path
-        self.train_vectors_out_file = full_vectors_path + ".out" 
-
+    #def set_mallet_vectors_file(self, full_vectors_path):
+    #    self.train_vectors_file = full_vectors_path
+    #    self.train_vectors_out_file = full_vectors_path + ".out" 
 
     # train a mallet classifier
     # trainer is the case-sensitive name for a mallet classifier (e.g., "MaxEnt", "NaiveBayes")
@@ -453,21 +318,32 @@ class MalletTraining:
     # Command line format: vectors2train --training-file train.vectors --trainer  MaxEnt --output-classifier foo_model --report train:accuracy train:confusion> foo.stdout 2>foo.stderr
     def mallet_train_classifier(self):
 
-        commands = [self.mallet_config.cmd_csv2vectors_train,
-                    self.mallet_config.cmd_train_classifier,
-                    self.mallet_config.cmd_classifier2info,
-                    self.mallet_config.cmd_cinfo_sorted]
-        if self.mallet_config.prune_p:
-            commands.append(self.mallet_config.cmd_prune)
-        for cmd in commands:
-            print "[mallet_train_classifier]"
-            run_command(cmd)
+        cmd = self.mallet_config.cmd_csv2vectors_train
+        print "[mallet_train_classifier]cmd: %s" % cmd
+        os.system(cmd)
 
+
+        cmd = self.mallet_config.cmd_train_classifier
+        print "[mallet_train_classifier]cmd: %s" % cmd
+        os.system(cmd)
+
+        cmd = self.mallet_config.cmd_classifier2info
+        print "[mallet_train_classifier]cmd: %s" % cmd
+        os.system(cmd)
+
+        cmd = self.mallet_config.cmd_cinfo_sorted
+        print "[mallet_train_classifier]cmd: %s" % cmd
+        os.system(cmd)
+
+        if self.mallet_config.prune_p:
+            cmd = self.mallet_config.cmd_prune
+            os.system(cmd)
 
     def mallet_csv2vectors(self):
+
         cmd = self.mallet_config.cmd_csv2vectors_train
-        print "[mallet_train_classifier]"
-        run_command(cmd)
+        print "[mallet_train_classifier]cmd: %s" % cmd
+        os.system(cmd)
 
 
 
@@ -480,6 +356,7 @@ class MalletTraining:
 class MalletClassifier:
 
     def __init__(self, mallet_config):
+
         self.mallet_config = mallet_config
         # id's are 0 based
         self.next_instance_id = 0
@@ -510,12 +387,14 @@ class MalletClassifier:
             mallet_stream.write("\n")
         mallet_stream.close()
 
+    # sh $mallet_dir/csv2vectors --input $test_dir/features.mallet --output $test_dir/features.vectors --print-output TRUE > $test_dir/features.vectors.out
+
     # create test vectors file compatible with training vectors file (using use-pipe-from option)
     def write_test_mallet_vectors_file(self):
 
         cmd = self.mallet_config.cmd_csv2vectors_test
-        print "[write_test_mallet_vectors_file]"
-        run_command(cmd)
+        print "[write_test_mallet_vectors_file]cmd: %s" % cmd
+        os.system(cmd)
 
     # trainer is parameter to the method to allow for multiple classifiers over the same data
     # However, models built with the trainer must already exist in the training directory
@@ -524,18 +403,24 @@ class MalletClassifier:
     # You need to train with no xvalidation to generate a model file name that will work with the tester here.
     
     def mallet_test_classifier(self):
+
         print "[mallet_test_classifier] classifier_type is %s" % self.mallet_config.classifier_type
+
+        #sh /home/j/anick/mallet/mallet-2.0.7/bin/mallet classify-file --input $test_dir/$type.$version.features.vectors  --classifier $train_dir/$type.$version.classifier.mallet  --output -  >  $test_dir/$type.$version.res.stdout
+
         cmd = self.mallet_config.cmd_classify_file
-        print "[mallet_test_classifier]"
-        run_command(cmd)
+
+        print "[mallet_test_classifier]cmd: %s" % cmd
+        os.system(cmd)
 
     #create a vectors file from the .mallet file for the test data
     def mallet_csv2vectors_test(self):
         cmd = self.mallet_config.cmd_csv2vectors_test
-        print "[mallet_test_classifier]"
-        run_command(cmd)
+        print "[mallet_test_classifier]cmd: %s" % cmd
+        os.system(cmd)
             
 
+    #def write_test_meta_file(self):
 
 #######################################################################
 # analyze mallet results different ways
@@ -543,14 +428,15 @@ class ResultInspector():
 
     def __init__(self, ds, mallet_config):
         self.ds = ds
+
         # dictionaries for tlink data
         self.d_uid2features = {}
         self.d_uid2labels = {}
         self.d_labels2uid = defaultdict(list)
         # maps actual label and feature to list of so labeled tlinks containing the feature
         self.d_afeat2uid = defaultdict(list)
+        
         self.load_raw_data()
-
 
     def load_raw_data(self):
 
@@ -641,8 +527,7 @@ class ResultInspector():
             print "Path: %s" % self.ds.id2tlinks[uid].dep_path
         else:
             print "Missing key %s in ds.id2.tlinks" % uid
-
-
+        
 ####################################################################
 # small utility functions for creating features
 
@@ -651,6 +536,7 @@ def startswith_one(str, l_prefix):
         #print "matching %s with %s" % (p, str)
         if str.startswith(p):
             return True
+        
     return False
 
 def verb_p(dep_node):
@@ -712,7 +598,6 @@ def l_tok2string(l_tok):
     joined_string =  "_".join(l_tok_str)
     return(joined_string)
 
-
 # This test assumes that mallet training and test files already exist.
 def test1():
     mallet_dir = config_mallet.mallet_dir
@@ -721,11 +606,16 @@ def test1():
     version = "1"
     train_dir = "/home/j/anick/patent-classifier/ontology/creation/data/patents/test1/train"
     test_dir = "/home/j/anick/patent-classifier/ontology/creation/data/patents/test1/test"
-    mallet_config = MalletConfig(mallet_dir, train_file_prefix, test_file_prefix,
-                                 version, train_dir, test_dir, classifier_type="MaxEnt",
-                                 number_xval=0, training_portion=0)
+    classifier_type = "MaxEnt"
+    number_xval = 0
+    training_portion = 0
+
+    mallet_config = MalletConfig(mallet_dir, train_file_prefix, test_file_prefix, version, train_dir, test_dir, classifier_type="MaxEnt", number_xval=0, training_portion=0)
+
     mallet_training = MalletTraining(mallet_config)
     mallet_training.mallet_train_classifier()
     print "[test1]After training classifier"
+    
+
     return(mallet_config)
 
