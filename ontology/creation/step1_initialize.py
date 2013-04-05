@@ -165,7 +165,6 @@ def init(language, source_file, source_path, target_path, pipeline_config, shuff
     create_general_config_file(conf_path, settings)
     create_default_pipeline_config_file(pipeline_config, conf_path)
     create_filelist(source_file, source_path, conf_path, shuffle_file)
-    create_default_train_and_test_file_selections(conf_path)
     print
     
 
@@ -183,6 +182,7 @@ def create_filelist(source_file, source_path, conf_path, shuffle_file):
     print "[--init] creating %s/files.txt" % (conf_path)
     file_list = os.path.join(conf_path, 'files.txt')
     if source_file is not None:
+        # TODO: add dual stuff
         shutil.copyfile(source_file, file_list)
     elif source_path is not None:
         filenames = get_file_paths(source_path)
@@ -193,16 +193,6 @@ def create_filelist(source_file, source_path, conf_path, shuffle_file):
                 fh.write(fname + "\n")
     else:
         sys.exit("[--init] ERROR: need to define input with -f or -s option, aborting")
-
-def create_default_train_and_test_file_selections(conf_path):
-    """Take first 500 files of filelist and use those as the default for the test and
-    training set."""
-    file_list = os.path.join(conf_path, 'files.txt')
-    lines = get_lines(file_list, start=0, limit=500)
-    for fname in ("training-files-000000-000500.txt", "testing-files-000000-000500.txt"):
-        print "[--init] creating %s" % fname
-        fh = open(os.path.join("%s" % conf_path, fname), 'w')
-        fh.write("\n".join(lines) + "\n")
 
 def create_general_config_file(conf_path, settings):
     print "[--init] creating %s/general.txt" % (conf_path)
