@@ -1,11 +1,11 @@
 """
 
-Script to initialize a working directory for patent processing. It does the following
-things: (1) initialize the directory structure for a language, (2) import or create a file
-config/files.txt with all external files to process, (3) create two default files that
-define the set of training and test files, (4) create a file config/pipeline-default.txt
-with default settings for the pipeline, and (5) create a file config/general.txt
-with settings used by this script.
+Script to initialize a working directory for patent processing. It does the
+following things: (1) initialize the directory structure for a language, (2)
+import or create a file config/files.txt with all external files to process,
+(3) create a file config/pipeline-default.txt with default settings for the
+pipeline, and (4) create a file config/general.txt with settings used by this
+script.
 
 USAGE
    % python step1_initialize.py OPTIONS
@@ -19,13 +19,24 @@ OPTIONS
 
 Typical invocations:
     % python step1_initialize.py -l en -t data/patents -f filelist.txt
-    % python step1_initialize.py -l en -t data/patents -s ../external/US/Xml --shuffle
+    % python step1_initialize.py -l en -t data/patents -s ../external/US --shuffle
 
-    Both commands create a directory en/ inside of data/patents/, with config/ and data/
-    subdirectories and several files mentioned above in the config/ subdirectory. The
-    first form copies filelist.txt to en/config/files.txt. The second form traverses the
-    directory ../external/US/Xml/, takes all file paths, randomly shuffles them, and then
-    saves the result to en/config/files.txt.
+    Both commands create a directory en/ inside of data/patents/, with config/
+    and data/ subdirectories and several files mentioned above in the config/
+    subdirectory. The first form copies filelist.txt to en/config/files.txt. The
+    second form traverses the directory ../external/US, takes all file paths,
+    randomly shuffles them, and then saves the result to en/config/files.txt.
+
+    When the -f options is used, the system expects that FILE has two or three
+    columns with year, source file and an optional target file, which is the
+    filepath in the corpus starting at the target directory handed in with the
+    -t option. If there is no third column that the source and target file will
+    be the same as the source file, except that a leading path separator will be
+    stripped.
+
+    With the -s option, the source and target will alwasy be the same and the
+    year will always be set to 0000. It is up to the user to change this if
+    needed.
 
 
 NOTES
@@ -40,20 +51,12 @@ more arguments are added, then this file should be updated manually and it shoul
 also be used to fill in default values for past processing jobs (assuming that there is a
 default that makes sense).
 
-The default for creating the training set and test set is to use the first 500 files in
-config/files.txt. This was done because it made sense for the 500 sample patents that were
-often used. Normally, having identical files for test and training sets is a no no, but
-due to the particular nature of how we train and test it was okay. In general though,
-non-default versionsof these files will be created.
-
 The directory tree created inside the language directory is as follows:
 
     |-- config
     |   |-- files.txt
     |   |-- general.txt
     |   |-- pipeline-default.txt
-    |   |-- testing-files-000000-000500.txt
-    |   `-- training-files-000000-000500.txt
     `-- data
         |-- d0_xml            'import of XML data'
         |-- d1_txt            'results of document structure parser'
@@ -182,7 +185,6 @@ def create_filelist(source_file, source_path, conf_path, shuffle_file):
     print "[--init] creating %s/files.txt" % (conf_path)
     file_list = os.path.join(conf_path, 'files.txt')
     if source_file is not None:
-        # TODO: add dual stuff
         shutil.copyfile(source_file, file_list)
     elif source_path is not None:
         filenames = get_file_paths(source_path)
@@ -190,7 +192,7 @@ def create_filelist(source_file, source_path, conf_path, shuffle_file):
             random.shuffle(filenames)
         with open(file_list, 'w') as fh:
             for fname in filenames:
-                fh.write(fname + "\n")
+                fh.write("0000\t" + fname + "\n")
     else:
         sys.exit("[--init] ERROR: need to define input with -f or -s option, aborting")
 
@@ -204,7 +206,6 @@ def create_default_pipeline_config_file(pipeline_config, conf_path):
     print "[--init] creating %s" % (fh.name)
     fh.write(pipeline_config.lstrip())
     fh.close()
-
 
 
 if __name__ == '__main__':

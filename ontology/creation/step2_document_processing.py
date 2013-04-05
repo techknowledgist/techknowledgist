@@ -116,18 +116,16 @@ def run_populate(config, limit, verbose=False):
     count = 0
     # TODO: get_lines() should also return a range from the file, actually, this is
     # available right here with the dataset.files_processed and limit variables
-    filenames = get_lines(config.filenames, dataset.files_processed, limit)
-    for filename in filenames:
+    fspecs = get_lines(config.filenames, dataset.files_processed, limit)
+    for fspec in fspecs:
         count += 1
-        # strip a leading separator to make path relative so it can be glued to the target
-        # directory
-        src_file = filename[1:] if filename.startswith(os.sep) else filename
+        src_file = fspec.source
         dst_file = os.path.join(target_path, language, 'data',
-                                output_names[0], dataset.version_id, 'files', src_file)
+                                output_names[0], dataset.version_id, 'files', fspec.target)
         if verbose:
-            print "[--populate] %04d %s" % (count, filename)
+            print "[--populate] %04d %s" % (count, dst_file)
         ensure_path(os.path.dirname(dst_file))
-        shutil.copyfile(filename, dst_file)
+        shutil.copyfile(src_file, dst_file)
 
     return [dataset]
 
@@ -145,9 +143,10 @@ def run_xml2txt(config, limit, options, verbose=False):
     count = 0
     doc_parser = make_parser(config.language)
     workspace = os.path.join(config.target_path, config.language, 'data', 'workspace')
-    filenames = get_lines(config.filenames, output_dataset.files_processed, limit)
-    for filename in filenames:
+    fspecs = get_lines(config.filenames, output_dataset.files_processed, limit)
+    for fspec in fspecs:
         count += 1
+        filename = fspec.target
         print_file_progress('--xml2txt', count, filename, verbose)
         file_in, file_out = prepare_io(filename, input_dataset, output_dataset)
         try:
@@ -172,9 +171,10 @@ def run_txt2tag(config, limit, options, verbose):
 
     count = 0
     tagger = txt2tag.get_tagger(language)
-    filenames = get_lines(config.filenames, output_dataset.files_processed, limit)
-    for filename in filenames:
+    fspecs = get_lines(config.filenames, output_dataset.files_processed, limit)
+    for fspec in fspecs:
         count += 1
+        filename = fspec.target
         print_file_progress('--txt2tag', count, filename, verbose)
         file_in, file_out = prepare_io(filename, input_dataset, output_dataset)
         txt2tag.tag(file_in, file_out, tagger)
@@ -194,9 +194,10 @@ def run_txt2seg(config, limit, options, verbose):
 
     count = 0
     segmenter = sdp.Segmenter()
-    filenames = get_lines(config.filenames, output_dataset.files_processed, limit)
-    for filename in filenames:
+    fspecs = get_lines(config.filenames, output_dataset.files_processed, limit)
+    for fspec in fspecs:
         count += 1
+        filename = fspec.target
         print_file_progress('--txt2seg', count, filename, verbose)
         file_in, file_out = prepare_io(filename, input_dataset, output_dataset)
         cn_txt2seg.seg(file_in, file_out, segmenter)
@@ -215,9 +216,10 @@ def run_seg2tag(config, limit, options, verbose):
 
     count = 0
     tagger = txt2tag.get_tagger(language)
-    filenames = get_lines(config.filenames, output_dataset.files_processed, limit)
-    for filename in filenames:
+    fspecs = get_lines(config.filenames, output_dataset.files_processed, limit)
+    for fspec in fspecs:
         count += 1
+        filename = fspec.target
         print_file_progress('--seg2tag', count, filename, verbose)
         file_in, file_out = prepare_io(filename, input_dataset, output_dataset)
         cn_seg2tag.tag(file_in, file_out, tagger)
@@ -247,9 +249,10 @@ def run_tag2chk(config, limit, options, verbose):
     check_file_counts(input_dataset, output_dataset2, limit)
 
     count = 0
-    filenames = get_lines(config.filenames, output_dataset1.files_processed, limit)
-    for filename in filenames:
+    fspecs = get_lines(config.filenames, output_dataset1.files_processed, limit)
+    for fspec in fspecs:
         count += 1
+        filename = fspec.target
         print_file_progress('--tag2chk', count, filename, verbose)
         file_in, file_out1 = prepare_io(filename, input_dataset, output_dataset1)
         file_in, file_out2 = prepare_io(filename, input_dataset, output_dataset2)
@@ -265,6 +268,8 @@ def run_tag2chk(config, limit, options, verbose):
 def run_pf2dfeats(config, limit, options, verbose):
     """Creates a union of the features for each chunk in a doc (for training)."""
 
+    # TODO: move this to step4
+
     input_dataset = find_input_dataset('--pf2dfeats', config)
     output_datasets = find_output_datasets('--pf2dfeats', config)
     output_dataset = output_datasets[0]
@@ -272,9 +277,10 @@ def run_pf2dfeats(config, limit, options, verbose):
     check_file_counts(input_dataset, output_dataset, limit)
 
     count = 0
-    filenames = get_lines(config.filenames, output_dataset.files_processed, limit)
-    for filename in filenames:
+    fspecs = get_lines(config.filenames, output_dataset.files_processed, limit)
+    for fspec in fspecs:
         count += 1
+        filename = fspec.target
         print_file_progress('--txt2tag', count, filename, verbose)
         file_in, file_out = prepare_io(filename, input_dataset, output_dataset)
         year = os.path.basename(os.path.dirname(filename))
