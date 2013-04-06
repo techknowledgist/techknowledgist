@@ -16,29 +16,35 @@ OPTIONS:
    --tag2chk    --  creating chunks in context
    --pf2dfeats  --  go from phrase features to document features
 
-   -l LANGUAGE     --  provides the language, one of ('en, 'de', 'cn'), default is 'en'
+   -l en|cn|de     --  provides the language, default is 'en'
    -t TARGET_PATH  --  target directory, default is 'data/patents'
    -n INTEGER      --  number of documents to process, default is 1
 
-   --verbose        --  print name of each processed file to stdout
-   --show-data      --  print all datasets, then exits, requires -t and -l options
-   --show-pipeline  --  print all pipelines, then exits, requires -t and -l options,
-                          also requires that all pipeline files match 'pipeline-*.txt'
-   
-   --pipeline FILE  --  optional configuration file to overrule the default config
-                          this is just the basename not path, so with '--pipeline conf.txt',
-                          the config file loaded is TARGET_PATH/LANGUAGE/config/conf.txt
+   --verbose:
+       print name of each processed file to stdout
+
+   --show-data:
+       print all datasets, then exits, requires -t and -l options
+
+   --show-pipeline
+       print all pipelines, then exits, requires -t and -l options, also
+       requires that all pipeline files match 'pipeline-*.txt'
+
+   --pipeline FILE:
+      optional configuration file to overrule the default config this is just
+      the basename not path, so with '--pipeline conf.txt', the config file
+      loaded is TARGET_PATH/LANGUAGE/config/conf.txt
                               
-The script assumes an initialzed directory (created with step1_initialize.py) with a set
-of external files defined in TARGET_PATH/LANGUAGE/config/files.txt. Default pipeline
-configuration settings are in TARGET_PATH/LANGUAGE/config/pipeline-default.txt.
+The script assumes an initialzed directory (created with step1_initialize.py)
+with a set of external files defined in TARGET_PATH/config/files.txt. Default
+pipeline configuration settings are in TARGET_PATH/config/pipeline-default.txt.
 
 Examples:
-   %  python step2_document_processing.py -l en -t data/patents --populate -n 5
-   %  python step2_document_processing.py -l en -t data/patents --xml2txt -n 5
-   %  python step2_document_processing.py -l en -t data/patents --txt2tag -n 5
-   %  python step2_document_processing.py -l en -t data/patents --tag2chk -n 5
-   %  python step2_document_processing.py -l en -t data/patents --pf2dfeats -n 5
+   %  python step2_document_processing.py -l en -t data/patents/en --populate -n 5
+   %  python step2_document_processing.py -l en -t data/patents/en --xml2txt -n 5
+   %  python step2_document_processing.py -l en -t data/patents/en --txt2tag -n 5
+   %  python step2_document_processing.py -l en -t data/patents/en --tag2chk -n 5
+   %  python step2_document_processing.py -l en -t data/patents/en --pf2dfeats -n 5
 
 """
 
@@ -120,7 +126,7 @@ def run_populate(config, limit, verbose=False):
     for fspec in fspecs:
         count += 1
         src_file = fspec.source
-        dst_file = os.path.join(target_path, language, 'data',
+        dst_file = os.path.join(target_path, 'data',
                                 output_names[0], dataset.version_id, 'files', fspec.target)
         if verbose:
             print "[--populate] %04d %s" % (count, dst_file)
@@ -142,7 +148,7 @@ def run_xml2txt(config, limit, options, verbose=False):
 
     count = 0
     doc_parser = make_parser(config.language)
-    workspace = os.path.join(config.target_path, config.language, 'data', 'workspace')
+    workspace = os.path.join(config.target_path, 'data', 'workspace')
     fspecs = get_lines(config.filenames, output_dataset.files_processed, limit)
     for fspec in fspecs:
         count += 1
@@ -229,8 +235,8 @@ def run_seg2tag(config, limit, options, verbose):
 
 @update_state
 def run_tag2chk(config, limit, options, verbose):
-    """Runs the np-in-context code on tagged input. Populates language/phr_occ and
-    language/phr_feat. Sets the contents of config-chunk-filter.txt given the value of
+    """Runs the np-in-context code on tagged input. Populates d3_phr_occ and
+    d3_phr_feat. Sets the contents of config-chunk-filter.txt given the value of
     chunk_filter."""
 
     candidate_filter = options.get('--candidate-filter', 'off')
@@ -290,11 +296,11 @@ def run_pf2dfeats(config, limit, options, verbose):
     return [output_dataset]
 
 
-def show_datasets(target_path, language, config):
+def show_datasets(config):
     """Print all datasets in the data directory."""
     for dataset_type in DATA_TYPES:
         print "\n===", dataset_type, "===\n"
-        path = os.path.join(target_path, language, 'data', dataset_type)
+        path = os.path.join(config.target_path, 'data', dataset_type)
         datasets1 = [ds for ds in os.listdir(path) if ds.isdigit()]
         datasets2 = [DataSet(None, dataset_type, config, ds) for ds in datasets1]
         for ds in datasets2:
@@ -303,8 +309,8 @@ def show_datasets(target_path, language, config):
                 print "   ", e[0], e[1]
             print "   ", ds.pipeline_head[0], ds.pipeline_head[1]
 
-def show_pipelines(target_path, language):
-    path = os.path.join(target_path, language, 'config')
+def show_pipelines(config):
+    path = os.path.join(config.target_path, 'config')
     pipeline_files = [f for f in os.listdir(path) if f.startswith('pipeline')]
     for pipeline_file in sorted(pipeline_files):
         if pipeline_file[-1] == '~':
@@ -330,7 +336,7 @@ def find_input_dataset(stage, config, data_type=None):
     if data_type is None:
         data_type = DOCUMENT_PROCESSING_IO[stage]['in']
     # Get all data sets D for input name
-    dirname = os.path.join(config.target_path, config.language, 'data', data_type)
+    dirname = os.path.join(config.target_path, 'data', data_type)
     datasets1 = [ds for ds in os.listdir(dirname) if ds.isdigit()]
     datasets2 = [DataSet(stage, data_type, config, ds) for ds in datasets1]
     # Filer the datasets making sure that d.trace + d.head matches
@@ -361,14 +367,14 @@ def find_output_datasets(stage, config, data_type=None):
     output_datasets = []
     for output_name in data_types:
         # Get all data sets D for input name
-        dirname = os.path.join(target_path, language, 'data', output_name)
+        dirname = os.path.join(target_path, 'data', output_name)
         datasets1 = [ds for ds in os.listdir(dirname) if ds.isdigit()]
         datasets2 = [DataSet(stage, output_name, config, ds) for ds in datasets1]
         # Filer the datasets making sure that d.trace + d.head matches
         # config.pipeline(txt).trace
         datasets3 = [ds for ds in datasets2 if ds.output_matches_global_config()]
         #print output_name, dirname, datasets1, datasets3
-        # If there is one result, return it, otherwise write a warniong and exit
+        # If there is one result, return it, otherwise write a warning and exit
         if len(datasets3) == 1:
             output_datasets.append( datasets3[0])
         elif len(datasets3) > 1:
@@ -455,9 +461,9 @@ if __name__ == '__main__':
     config.pp()
 
     if show_data_p:
-        show_datasets(target_path, language, config)
+        show_datasets(config)
     elif show_pipelines_p:
-        show_pipelines(target_path, language)
+        show_pipelines(config)
 
     elif stage == '--populate':
         run_populate(config, limit, verbose)

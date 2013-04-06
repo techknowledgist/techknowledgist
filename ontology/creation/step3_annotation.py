@@ -44,8 +44,8 @@ def run_annotate1(target_path, language, limit):
     limit is used just to determine how many files are taken to create the list for
     annotation, it is not used to increment any number in the ALL_STAGES.txt file."""
     
-    phr_occ_all_file = os.path.join(target_path, language, 'ws', 'phr_occ.all')
-    phr_occ_phr_file = os.path.join(target_path, language, 'ws', 'phr_occ.phr')
+    phr_occ_all_file = os.path.join(target_path, 'ws', 'phr_occ.all')
+    phr_occ_phr_file = os.path.join(target_path, 'ws', 'phr_occ.phr')
     fh_phr_occ_all = codecs.open(phr_occ_all_file, 'r', encoding='utf-8')
     fh_phr_occ_phr = codecs.open(phr_occ_phr_file, 'w', encoding='utf-8')
 
@@ -64,8 +64,8 @@ def run_annotate1(target_path, language, limit):
         fh_phr_occ_phr.write(phrase+"\n")
 
     # now create phr_occ.uct and phr_occ.unlab
-    phr_occ_uct_file = os.path.join(target_path, language, 'ws', 'phr_occ.uct')
-    phr_occ_unlab_file = os.path.join(target_path, language, 'ws', 'phr_occ.unlab')
+    phr_occ_uct_file = os.path.join(target_path, 'ws', 'phr_occ.uct')
+    phr_occ_unlab_file = os.path.join(target_path, 'ws', 'phr_occ.unlab')
     print "Creating", phr_occ_uct_file 
     command = "cat %s | sort | uniq -c | sort -nr | python reformat_uc.py > %s" \
               % (phr_occ_phr_file, phr_occ_uct_file)
@@ -86,10 +86,10 @@ def run_annotate2(target_path, language, limit):
     named doc_feats.eval which is a subset of doc_feats.all, but it contains only those
     term-file pairs that occur in phr_occ.eval.unlab."""
     
-    eval1 = os.path.join(target_path, language, 'ws', 'phr_occ.eval.unlab')
-    eval2 = os.path.join(target_path, language, 'ws', 'doc_feats.eval')
-    eval3 = os.path.join(target_path, language, 'ws', 'phr_occ.eval.unlab.html')
-    eval4 = os.path.join(target_path, language, 'ws', 'phr_occ.eval.unlab.txt')
+    eval1 = os.path.join(target_path, 'ws', 'phr_occ.eval.unlab')
+    eval2 = os.path.join(target_path, 'ws', 'doc_feats.eval')
+    eval3 = os.path.join(target_path, 'ws', 'phr_occ.eval.unlab.html')
+    eval4 = os.path.join(target_path, 'ws', 'phr_occ.eval.unlab.txt')
     fh_eval1 = codecs.open(eval1, 'w', encoding='utf-8')
     fh_eval2 = codecs.open(eval2, 'w', encoding='utf-8')
     fh_eval3 = codecs.open(eval3, 'w', encoding='utf-8')
@@ -149,7 +149,7 @@ def _read_doc_feats(target_path, language, limit):
     return _read_phrocc_or_docfeats('doc_feats.all', get_stuff)
 
 def _read_phrocc_or_docfeats(fname, get_stuff_fun):
-    phr_occ_file = os.path.join(target_path, language, 'ws', fname)
+    phr_occ_file = os.path.join(target_path, 'ws', fname)
     fh_phr_occ = codecs.open(phr_occ_file, encoding='utf-8')
     phr_occ_array = {}
     current_fname = None

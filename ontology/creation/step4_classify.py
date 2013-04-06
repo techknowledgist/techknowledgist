@@ -31,7 +31,7 @@ For training, you typically want to pick the best setting or settings as it
 became apparent from all the testing and create a model for a sufficiently large
 training set. There is typically no need to create the summary files.
 
-$ python step4_classify.py --train -t data/patents -l en --pipeline pipeline-default.txt --filelist training-files-v1.txt --annotation-file ../annotation/en/phr_occ.lab --annotation-count 2000 --version standard --features extint --xval 0
+$ python step4_classify.py --train -t data/patents/test -l en --pipeline pipeline-default.txt --filelist training-files-v1.txt --annotation-file ../annotation/en/phr_occ.lab --annotation-count 2000 --version standard --features extint --xval 0
 
 For running the classfier, you just pick your model (which is the version
 identifier of a trained model) and run it on a set of files. It is a good idea
@@ -44,7 +44,7 @@ standard-batch3 and standard-batch4. You should also use the --create-summary
 session in case you want to do some indexing, which happens on the summary files
 (this may be changed later so we never need the summaries).
 
-$ python step4_classify.py --classify -t data/patents -l en --pipeline pipeline-default.txt --filelist testing-files-v1.txt --model standard --version standard.batch1 --create-summary
+$ python step4_classify.py --classify -t data/patents/test -l en --pipeline pipeline-default.txt --filelist testing-files-v1.txt --model standard --version standard.batch1 --create-summary
 
 """
 
@@ -121,7 +121,7 @@ class Trainer(TrainerClassifier):
         self.version = version
         self.xval = xval
         self.create_summary = create_summary
-        self.data_dir = os.path.join(config.target_path, config.language, 'data')
+        self.data_dir = os.path.join(config.target_path, 'data')
         self.train_dir = os.path.join(self.data_dir, 't1_train', version)
         self.info_file_general = os.path.join(self.train_dir, "train.info.general.txt")
         self.info_file_annotation = os.path.join(self.train_dir, "train.info.annotation.txt")
@@ -216,7 +216,7 @@ class Classifier(TrainerClassifier):
         self.create_summary = create_summary
         self.use_all_chunks_p = use_all_chunks_p
         
-        self.data_dir = os.path.join(self.config.target_path, config.language, 'data')
+        self.data_dir = os.path.join(self.config.target_path, 'data')
         self.train_dir = os.path.join(self.data_dir, 't1_train', model)
         self.classify_dir = os.path.join(self.data_dir, 't2_classify', version)
         self.label_file = os.path.join(self.train_dir, "train.info.annotation.txt")
@@ -300,7 +300,7 @@ class Classifier(TrainerClassifier):
 
     def run_score_command(self, command, message):
         if VERBOSE:
-            prefix = os.path.join(self.config.target_path, self.config.language,
+            prefix = os.path.join(self.config.target_path, 
                                   'data', 't2_classify', self.version)
             print "[--scores]", message
             print "[--scores]", command.replace(prefix + os.sep, '')
@@ -441,9 +441,9 @@ if __name__ == '__main__':
         config.pp()
 
     if show_data_p:
-        show_datasets(target_path, language, config)
+        show_datasets(config)
     elif show_pipelines_p:
-        show_pipelines(target_path, language)
+        show_pipelines(config)
 
     elif stage == '--train':
         Trainer(config, file_list, features,

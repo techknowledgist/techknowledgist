@@ -14,15 +14,15 @@ OPTIONS
    -l en|de|cn   --  language
    -f FILE       --  input: use external FILE and copy it to config/files.txt
    -s DIRECTORY  --  input: generate config/files.txt from DIRECTORY
-   -t DIRECTORY  --  output: target directory where the language directory is put
+   -t DIRECTORY  --  output: target directory where the corpus is put
    --shuffle     --  performs a random sort of config/files.txt, used with the -s option
 
 Typical invocations:
     % python step1_initialize.py -l en -t data/patents -f filelist.txt
     % python step1_initialize.py -l en -t data/patents -s ../external/US --shuffle
 
-    Both commands create a directory en/ inside of data/patents/, with config/
-    and data/ subdirectories and several files mentioned above in the config/
+    Both commands create a directory data/patents/, with config/ and data/
+    subdirectories and several files mentioned above in the config/
     subdirectory. The first form copies filelist.txt to en/config/files.txt. The
     second form traverses the directory ../external/US, takes all file paths,
     randomly shuffles them, and then saves the result to en/config/files.txt.
@@ -51,7 +51,7 @@ more arguments are added, then this file should be updated manually and it shoul
 also be used to fill in default values for past processing jobs (assuming that there is a
 default that makes sense).
 
-The directory tree created inside the language directory is as follows:
+The directory tree created inside the target directory is as follows:
 
     |-- config
     |   |-- files.txt
@@ -145,8 +145,9 @@ PROCESSING_AREAS = \
 
 def init(language, source_file, source_path, target_path, pipeline_config, shuffle_file):
 
-    """Creates a directory named target_path/language and all subdirectories and files in
-    there needed for further processing. See the module docstring for more details."""
+    """Creates a directory named target_path and all subdirectories and files in
+    there needed for further processing. See the module docstring for more
+    details."""
 
     settings = ["timestamp    =  %s\n" % time.strftime("%x %X"),
                 "language     =  %s\n" % language,
@@ -155,25 +156,24 @@ def init(language, source_file, source_path, target_path, pipeline_config, shuff
                 "target_path  =  %s\n" % target_path,
                 "shuffle      =  %s\n" % str(shuffle_file)]
     
-    print "\n[--init] initializing %s/%s" % (target_path, language)
+    print "\n[--init] initializing %s" % (target_path)
     print "\n   %s" % ("   ".join(settings))
     
-    lang_path = os.path.join(target_path, language)
-    if os.path.exists(lang_path):
-        sys.exit("[--init] ERROR: %s already exists" % lang_path)
-    data_path = os.path.join(lang_path, 'data')
-    conf_path = os.path.join(lang_path, 'config')
+    if os.path.exists(target_path):
+        sys.exit("[--init] ERROR: %s already exists" % target_path)
+    data_path = os.path.join(target_path, 'data')
+    conf_path = os.path.join(target_path, 'config')
     
-    create_directories(lang_path, conf_path, data_path)
+    create_directories(target_path, conf_path, data_path)
     create_general_config_file(conf_path, settings)
     create_default_pipeline_config_file(pipeline_config, conf_path)
     create_filelist(source_file, source_path, conf_path, shuffle_file)
     print
     
 
-def create_directories(lang_path, conf_path, data_path):
+def create_directories(target_path, conf_path, data_path):
     """Create subdirectory structure in target_path."""
-    print "[--init] creating directory structure in %s" % (lang_path)
+    print "[--init] creating directory structure in %s" % (target_path)
     ensure_path(conf_path)
     for subdir in PROCESSING_AREAS:
         subdir_path = data_path + os.sep + subdir

@@ -106,7 +106,7 @@ def run_collect_data(config, dataset):
     classify.features.doc_feats.txt and classify.features.phr_feats.txt files
     (or the file list and then get the files from the doc_feats and phr_feats
     datasets)."""
-    data_dir = os.path.join(config.target_path, config.language, 'data')
+    data_dir = os.path.join(config.target_path, 'data')
     classify_dir = os.path.join(data_dir, 't2_classify', dataset)
     index_dir = os.path.join(data_dir, 'o1_index', dataset)
     generate_collect_info_files(config, dataset, index_dir, classify_dir)
@@ -316,7 +316,7 @@ def run_build_index(config, index_name, dataset_exp, balance):
     """Build the index databases from a set of datasets, descirbed by the dataset_ep
     regular expression. Balance is not implemented yet, but could be used to limit the
     number of documents used for each year."""
-    index_dir = os.path.join(config.target_path, config.language, 'data', 'o1_index')
+    index_dir = os.path.join(config.target_path, 'data', 'o1_index')
     build_dir = os.path.join(index_dir, index_name)
     datasets = glob.glob(os.path.join(index_dir, dataset_exp))
     generate_build_info_files(config, index_name, datasets, balance, build_dir)
@@ -440,7 +440,7 @@ def build_expanded_index(build_dir, datasets):
 #### OPTION --analyze-index
 
 def run_analyze_index(config, index_name, min_docs, min_score):
-    index_dir = os.path.join(config.target_path, config.language, 'data', 'o1_index')
+    index_dir = os.path.join(config.target_path, 'data', 'o1_index')
     db_file = os.path.join(index_dir, index_name, 'db-summary.sqlite')
     analyzer = IndexAnalyzer(db_file, min_docs, min_score)
     analyzer.analyze_terms()
@@ -716,9 +716,9 @@ if __name__ == '__main__':
         config.pp()
 
     if show_data_p:
-        show_datasets(target_path, language, config)
+        show_datasets(config)
     elif show_pipelines_p:
-        show_pipelines(target_path, language)
+        show_pipelines(config)
     elif collect_data:
         run_collect_data(config, dataset)
     elif build_index:
