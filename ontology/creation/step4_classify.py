@@ -18,7 +18,7 @@ OPTIONS
     --model STRING       --  the identifier of a model (--classify only)
 
     --config FILENAME           --  file with pipeline configuration
-    --files FILENAME            --  contains files to process
+    --filelist FILENAME         --  contains files to process
     --annotation-file FILENAME  --  specify file with labeled terms (--train only)
     --annotation-count INTEGER  --  number of lines to take (--train only)
 
@@ -408,7 +408,7 @@ if __name__ == '__main__':
 
     # default values of options
     target_path, language, stage = 'data/patents', 'en', None
-    file_list = 'training-files-000000-000500.txt'
+    file_list = 'files.txt'
     pipeline_config = 'pipeline-default.txt'
     show_data_p, show_pipelines_p = False, False
     annotation_count = 9999999999999
