@@ -17,7 +17,7 @@ OPTIONS
                              default is 0
     --model STRING       --  the identifier of a model (--classify only)
 
-    --config FILENAME           --  file with pipeline configuration
+    --pipeline FILENAME         --  file with pipeline configuration
     --filelist FILENAME         --  contains files to process
     --annotation-file FILENAME  --  specify file with labeled terms (--train only)
     --annotation-count INTEGER  --  number of lines to take (--train only)
@@ -31,7 +31,7 @@ For training, you typically want to pick the best setting or settings as it
 became apparent from all the testing and create a model for a sufficiently large
 training set. There is typically no need to create the summary files.
 
-$ python step4_classify.py --train -t data/patents -l en --config pipeline-default.txt --filelist training-files-v1.txt --annotation-file ../annotation/en/phr_occ.lab --annotation-count 2000 --version standard --features extint --xval 0
+$ python step4_classify.py --train -t data/patents -l en --pipeline pipeline-default.txt --filelist training-files-v1.txt --annotation-file ../annotation/en/phr_occ.lab --annotation-count 2000 --version standard --features extint --xval 0
 
 For running the classfier, you just pick your model (which is the version
 identifier of a trained model) and run it on a set of files. It is a good idea
@@ -44,7 +44,7 @@ standard-batch3 and standard-batch4. You should also use the --create-summary
 session in case you want to do some indexing, which happens on the summary files
 (this may be changed later so we never need the summaries).
 
-$ python step4_classify.py --classify -t data/patents -l en --config pipeline-default.txt --filelist testing-files-v1.txt --model standard --version standard.batch1 --create-summary
+$ python step4_classify.py --classify -t data/patents -l en --pipeline pipeline-default.txt --filelist testing-files-v1.txt --model standard --version standard.batch1 --create-summary
 
 """
 
@@ -428,7 +428,7 @@ if __name__ == '__main__':
         if opt == '--create-summary': create_summary = True
         if opt == '--annotation-file': annotation_file = val
         if opt == '--annotation-count': annotation_count = int(val)
-        if opt == '--config': pipeline_config = val
+        if opt == '--pipeline': pipeline_config = val
         if opt == '--show-data': show_data_p = True
         if opt == '--show-pipelines': show_pipelines_p = True
         if opt in ALL_STAGES:

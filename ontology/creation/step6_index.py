@@ -19,16 +19,13 @@ OPTIONS
    -n INTEGER  number of documents to process.
 
    --collect-data
-         run in batch mode to collect data from a set of documents.
+       Run in batch mode to collect data from a set of documents.
 
    --build-index:
        Combine the results from available batches.
 
    --analyze-index:
        Analyze the contents of the index in various ways.
-
-   --config FILENAME:
-       File with pipeline configuration.
 
    --index-name STRING:
        Name of index directory being created (--build-index only).

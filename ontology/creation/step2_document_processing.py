@@ -25,9 +25,9 @@ OPTIONS:
    --show-pipeline  --  print all pipelines, then exits, requires -t and -l options,
                           also requires that all pipeline files match 'pipeline-*.txt'
    
-   --config FILE -- optional configuration file to overrule the default config this is
-                    just the basename not path, so with '--config conf.txt', the config
-                    file loaded is TARGET_PATH/LANGUAGE/config/conf.txt
+   --pipeline FILE  --  optional configuration file to overrule the default config
+                          this is just the basename not path, so with '--pipeline conf.txt',
+                          the config file loaded is TARGET_PATH/LANGUAGE/config/conf.txt
                               
 The script assumes an initialzed directory (created with step1_initialize.py) with a set
 of external files defined in TARGET_PATH/LANGUAGE/config/files.txt. Default pipeline
@@ -444,7 +444,7 @@ if __name__ == '__main__':
         if opt == '-t': target_path = val
         if opt == '-n': limit = int(val)
         if opt == '--verbose': verbose = True
-        if opt == '--config': pipeline_config = val
+        if opt == '--pipeline': pipeline_config = val
         if opt == '--show-data': show_data_p = True
         if opt == '--show-pipelines': show_pipelines_p = True
         if opt in ALL_STAGES:
