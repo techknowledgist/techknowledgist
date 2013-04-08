@@ -1,0 +1,420 @@
+These are all tags from five German patents from 2007:
+
+      DE202006011111U1.xml
+      DE202006014225U1.xml
+      DE202006016251U1.xml
+      DE202006017703U1.xml
+      E202006018601U1.xml
+
+For each tag, all tokens that occur more than five times are listed.
+
+
+$(
+     26  "
+     22  -
+$,
+    796  ,
+$.
+    493  .
+     13  :
+     17  ;
+ADJA
+     11  Wesentlichen
+      9  aufzunehmenden
+      9  befindliche
+     10  befindlichen
+      8  befindliches
+     10  derartige
+      7  dritte
+     12  dritten
+      6  entsprechende
+     11  erfindungsgemäße
+     19  erfindungsgemäßen
+     43  erste
+     78  ersten
+      6  unterschiedlichen
+      6  vorbestimmte
+      7  vorgeschlagene
+     10  vorgeschlagenen
+     14  vorliegenden
+      7  vorteilhafte
+     22  vorteilhaften
+      6  vorteilhafter
+      7  weitere
+     10  weiteren
+     30  zweite
+     35  zweiten
+ADJD
+     16  Entsprechend
+     10  bewegbar
+     19  entsprechend
+      8  grundsätzlich
+      7  größer
+     10  verschiebbar
+ADV
+      6  Auch
+      8  Ferner
+      7  abschnittsweise
+     32  auch
+     31  beispielsweise
+      8  bereits
+      7  da
+      8  derart
+      9  ebenfalls
+      7  etwa
+      7  gegeneinander
+     11  hier
+     43  insbesondere
+     15  jedoch
+     14  jeweils
+      8  letztendlich
+     11  mehr
+     27  mindestens
+     10  noch
+      9  nunmehr
+     16  nur
+      9  oben
+      7  sehr
+     45  so
+      6  voneinander
+     23  vorteilhafterweise
+     21  vorzugsweise
+     11  weiterhin
+      7  wieder
+      8  zumindest
+APPR
+     10  --
+     11  Durch
+     13  In
+     28  als
+     43  an
+     83  auf
+     81  aus
+     29  bei
+     13  bis
+     70  durch
+     12  entlang
+     42  für
+      8  gegen
+      8  gegenüber
+     12  gemäß
+    273  in
+     28  innerhalb
+    152  mit
+     14  mittels
+      9  nach
+      9  ohne
+     17  um
+      8  unter
+     86  von
+     13  vor
+     23  zu
+     57  zwischen
+     34  über
+APPRART
+      6  Zum
+      7  beim
+     38  im
+     19  zum
+     74  zur
+APZR
+     11  hinaus
+ART
+     12  Das
+     15  Der
+     38  Die
+      7  Ein
+     13  Eine
+    179  das
+    209  dem
+    131  den
+    533  der
+    298  des
+    365  die
+    128  ein
+    194  eine
+     77  einem
+     76  einen
+    178  einer
+     56  eines
+CARD
+     70  1
+     13  10
+      7  12
+     95  2
+     20  20
+      7  21
+     62  22
+     29  24
+      6  25
+      6  26
+      8  29
+      6  2a
+      7  2b
+     41  3
+     15  33
+      7  35
+     12  39
+     11  3a
+     10  3b
+     27  4
+     36  42
+      9  43
+     14  45
+      6  46
+      7  5
+      8  50
+      7  52
+      6  53
+     30  56
+     15  57
+      7  58
+      8  6
+     12  63
+      9  7
+      8  8
+     17  9
+      6  vier
+     10  zwei
+FM
+KOKOM
+     14  wie
+KON
+     43  oder
+      8  sowie
+    265  und
+KOUI
+      8  um
+KOUS
+     10  da
+    192  dass
+     10  sofern
+     10  wenn
+NE
+      7  Magazin
+NN
+      8  Abgabe
+     15  Abschlussmutter
+      7  Abschnitt
+     15  Abstand
+      9  Abzug
+      9  Anordnung
+      7  Anschluss
+      6  Anspruchs
+      6  Antrieb
+      6  Art
+     10  Aufgabe
+     29  Aufnahme
+     21  Ausgestaltung
+     16  Aussparung
+      9  Betätigung
+     20  Bewegung
+     10  Blow-Back-System
+     20  Boden
+     21  Bohrung
+     13  Bohrungen
+      9  CO2-Schusswaffe
+     10  Dichtung
+      8  Druck
+      6  Druckluft
+     56  Düse
+     19  Düsenausgang
+     11  Düseneingang
+      6  Eigenschaften
+      7  Einleitung
+      7  Elemente
+      7  Ende
+     29  Erfindung
+      9  Fall
+     41  Feder
+     11  Federkraft
+      6  Flüssigkeit
+     12  Form
+      7  Formen
+     12  Führung
+      7  Führungskante
+      7  Führungsmittel
+     14  Gas
+     50  Gasportion
+     12  Gasportionseinrichtung
+     14  Gasreservoir
+      7  Gehäuses
+      7  Gewindestange
+      6  Kanal
+      8  Kanten
+     43  Kettenschieber
+     31  Kettenschiebers
+      9  Kraft
+      9  Kragen
+     51  Lauf
+     16  Laufes
+     13  Länge
+     18  Längsachse
+     34  Magazin
+     13  Magazinaufnahme
+     29  Magazins
+      8  Möglichkeit
+      6  Nachladen
+      6  Oberbegriff
+    150  Position
+     30  Projektil
+      6  Projektile
+    155  Projektillager
+     49  Projektillageraufnahmebereich
+     14  Projektillageraufnahmebereichs
+      9  Projektillagern
+     38  Projektillagers
+      8  Projektils
+     19  Projektilübergabebereich
+      6  Puzzeln
+      8  Puzzle
+      9  Puzzleteile
+      7  Querschnitt
+     19  Rahmen
+      7  Rahmens
+      8  Rahmenspanner
+     17  Raste
+      8  Reißverschlusshälfte
+     27  Richtung
+     15  Rolle
+     21  Rollen
+      7  Rückstellung
+     80  Schlagstück
+     10  Schlagstückkammer
+     44  Schlagstücks
+      8  Schraube
+      9  Schussabgabe
+     63  Schusswaffe
+     11  Seite
+     16  Sofern
+      7  Säule
+      8  Säulen
+     19  Tasche
+     18  Taschenklappe
+     12  Transport
+     33  Transportband
+     22  Transporteinrichtung
+     14  Transporthebel
+      8  Transporthebels
+     27  Transportklinke
+     12  Transportmittel
+      8  Transportrichtung
+     24  Ventil
+     37  Ventilausgang
+      8  Ventileingang
+     18  Ventilgehäuse
+     10  Ventilkammer
+     12  Ventils
+     45  Ventilstößel
+     21  Ventilstößels
+     11  Verbindung
+     16  Vorsprung
+      9  Weg
+     14  Weise
+     15  Winkel
+     15  Winkelelemente
+      9  Zeichnung
+PDAT
+      6  diese
+      7  diesem
+      6  dieser
+PDS
+PIAT
+      9  kein
+      8  keine
+PIDAT
+      9  beiden
+PIS
+PPER
+     14  Es
+     32  es
+PPOSAT
+     16  seine
+     13  seiner
+PRELAT
+PRELS
+     15  der
+     29  die
+     10  welches
+PRF
+     88  sich
+PROAV
+      6  Darüber
+     33  dadurch
+     38  dazu
+      6  demnach
+PTKA
+PTKNEG
+     27  nicht
+PTKVZ
+     12  an
+     20  auf
+     17  aus
+PTKZU
+     48  zu
+PWAT
+      7  welche
+PWAV
+      6  wie
+     91  wobei
+PWS
+TRUNC
+     86  -LRB-
+     88  -RRB-
+VAFIN
+    261  ist
+     53  sind
+     32  werden
+    121  wird
+VAINF
+     68  sein
+    105  werden
+VAPP
+VMFIN
+    173  kann
+     28  können
+VMINF
+VVFIN
+     10  aufweist
+      9  befindet
+      7  besteht
+     14  betätigt
+     14  bietet
+     11  bzw
+      7  drückt
+      6  eignet
+      6  entspricht
+     23  ergibt
+      8  liegt
+      7  umfasst
+      9  weist
+VVIMP
+     11  siehe
+     18  sprich
+VVINF
+VVIZU
+VVPP
+     10  abgegeben
+      8  angebracht
+     18  angeordnet
+     23  aufgenommen
+      8  aufweist
+      8  ausgebildet
+      9  ausgegangen
+      9  ausgerichtet
+     13  ausgestaltet
+     29  ausgestattet
+     21  bewegt
+      7  eingefangen
+      6  eingeleitet
+     48  eingerichtet
+      8  erreicht
+     15  gekennzeichnet
+      7  gelöst
+      8  transportiert
+     20  verbunden
+     11  verschoben
+      8  versehen
+     82  vorgesehen
+XY
+      9  °
