@@ -1,6 +1,5 @@
 *pyc
 *~
-utils/docstructure/*
 utils/tries/*
 ontology/creation/log.dat
 ontology/creation/data/*
