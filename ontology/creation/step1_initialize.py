@@ -102,7 +102,7 @@ os.chdir('../..')
 sys.path.insert(0, os.getcwd())
 os.chdir(script_dir)
 
-import config_data
+import config
 from ontology.utils.file import ensure_path, get_lines, get_file_paths
 
 
@@ -214,8 +214,8 @@ if __name__ == '__main__':
 
     source_file = None
     source_path = None
-    target_path = config_data.working_patent_path
-    language = config_data.language
+    target_path = config.WORKING_PATENT_PATH
+    language = config.LANGUAGE
     shuffle_file = False
     pipeline_config = DEFAULT_PIPELINE
     

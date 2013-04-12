@@ -7,8 +7,7 @@ import os
 import putils
 import train
 import mallet2
-import config_mallet
-
+import config
 
 # experiments with mallet training and testing
 # attribute pruning
@@ -139,7 +138,7 @@ def test_data_ts10(version):
 # train classifier
 # experiments.mc_ts1("ext")
 def mc_ts1(version):
-    mallet_dir = config_mallet.mallet_dir
+    mallet_dir = config.MALLET_DIR
     train_file_prefix = "utrain"
     test_file_prefix = "utrain"
     #version = "1"
@@ -156,7 +155,7 @@ def mc_ts1(version):
 
 # experiments.mc_ts2("ext")
 def mc_ts2(version):
-    mallet_dir = config_mallet.mallet_dir
+    mallet_dir = config.MALLET_DIR
     train_file_prefix = "utrain"
     test_file_prefix = "utest"
     #version = "1"
@@ -175,7 +174,7 @@ def mc_ts2(version):
 
 #-----
 def mc_ts10(version):
-    mallet_dir = config_mallet.mallet_dir
+    mallet_dir = config.MALLET_DIR
     train_file_prefix = "utrain"
     test_file_prefix = "utest"
     #version = "1"
@@ -194,7 +193,7 @@ def mc_ts10(version):
 
 # called by train_ts490
 def mc_ts490(version):
-    mallet_dir = config_mallet.mallet_dir
+    mallet_dir = config.MALLET_DIR
     train_file_prefix = "utrain"
     test_file_prefix = "utest"
     #version = "1"

@@ -31,9 +31,10 @@ OPTIONS:
        requires that all pipeline files match 'pipeline-*.txt'
 
    --pipeline FILE:
-      optional configuration file to overrule the default config this is just
-      the basename not path, so with '--pipeline conf.txt', the config file
-      loaded is TARGET_PATH/LANGUAGE/config/conf.txt
+
+      optional pipeline configuration file to overrule the default pipeline; this is just
+      the basename not path, so with '--pipeline conf.txt', the config file loaded is
+      TARGET_PATH/LANGUAGE/config/conf.txt
                               
 The script assumes an initialzed directory (created with step1_initialize.py)
 with a set of external files defined in TARGET_PATH/config/files.txt. Default
@@ -67,7 +68,7 @@ sys.path.insert(0, os.getcwd())
 os.chdir(script_dir)
 
 from utils.docstructure.main import Parser
-from ontology.utils.batch import GlobalConfig, DataSet
+from ontology.utils.batch import RuntimeConfig, DataSet
 from ontology.utils.file import ensure_path, get_lines, create_file
 from step1_initialize import DATA_TYPES
 
@@ -100,15 +101,15 @@ def update_state(fun):
     
 
 @update_state
-def run_populate(config, limit, verbose=False):
+def run_populate(rconfig, limit, verbose=False):
     """Populate xml directory in the target directory with limit files from the source
     path."""
 
-    target_path = config.target_path
-    language = config.language
-    source = config.source()
+    target_path = rconfig.target_path
+    language = rconfig.language
+    source = rconfig.source()
     output_names = DOCUMENT_PROCESSING_IO['--populate']['out']
-    dataset = DataSet('--populate', output_names[0], config)
+    dataset = DataSet('--populate', output_names[0], rconfig)
 
     print "[--populate] populating %s" % (dataset)
     print "[--populate] using %d files from %s" % (limit, source)
@@ -122,7 +123,7 @@ def run_populate(config, limit, verbose=False):
     count = 0
     # TODO: get_lines() should also return a range from the file, actually, this is
     # available right here with the dataset.files_processed and limit variables
-    fspecs = get_lines(config.filenames, dataset.files_processed, limit)
+    fspecs = get_lines(rconfig.filenames, dataset.files_processed, limit)
     for fspec in fspecs:
         count += 1
         src_file = fspec.source
@@ -137,19 +138,19 @@ def run_populate(config, limit, verbose=False):
 
 
 @update_state
-def run_xml2txt(config, limit, options, verbose=False):
+def run_xml2txt(rconfig, limit, options, verbose=False):
     """Run the document structure parser in onto mode."""
 
-    input_dataset = find_input_dataset('--xml2txt', config)
-    output_datasets = find_output_datasets('--xml2txt', config)
+    input_dataset = find_input_dataset('--xml2txt', rconfig)
+    output_datasets = find_output_datasets('--xml2txt', rconfig)
     output_dataset = output_datasets[0]
     print_datasets('--xml2txt', input_dataset, output_datasets)
     check_file_counts(input_dataset, output_dataset, limit)
 
     count = 0
-    doc_parser = make_parser(config.language)
-    workspace = os.path.join(config.target_path, 'data', 'workspace')
-    fspecs = get_lines(config.filenames, output_dataset.files_processed, limit)
+    doc_parser = make_parser(rconfig.language)
+    workspace = os.path.join(rconfig.target_path, 'data', 'workspace')
+    fspecs = get_lines(rconfig.filenames, output_dataset.files_processed, limit)
     for fspec in fspecs:
         count += 1
         filename = fspec.target
@@ -166,18 +167,18 @@ def run_xml2txt(config, limit, options, verbose=False):
 
 
 @update_state
-def run_txt2tag(config, limit, options, verbose):
+def run_txt2tag(rconfig, limit, options, verbose):
     """Takes txt files and runs the tagger on them."""
 
-    input_dataset = find_input_dataset('--txt2tag', config)
-    output_datasets = find_output_datasets('--txt2tag', config)
+    input_dataset = find_input_dataset('--txt2tag', rconfig)
+    output_datasets = find_output_datasets('--txt2tag', rconfig)
     output_dataset = output_datasets[0]
     print_datasets('--txt2tag', input_dataset, output_datasets)
     check_file_counts(input_dataset, output_dataset, limit)
 
     count = 0
     tagger = txt2tag.get_tagger(language)
-    fspecs = get_lines(config.filenames, output_dataset.files_processed, limit)
+    fspecs = get_lines(rconfig.filenames, output_dataset.files_processed, limit)
     for fspec in fspecs:
         count += 1
         filename = fspec.target
@@ -189,18 +190,18 @@ def run_txt2tag(config, limit, options, verbose):
 
 
 @update_state
-def run_txt2seg(config, limit, options, verbose):
+def run_txt2seg(rconfig, limit, options, verbose):
     """Takes txt files and runs the Chinese segmenter on them."""
 
-    input_dataset = find_input_dataset('--txt2seg', config)
-    output_datasets = find_output_datasets('--txt2seg', config)
+    input_dataset = find_input_dataset('--txt2seg', rconfig)
+    output_datasets = find_output_datasets('--txt2seg', rconfig)
     output_dataset = output_datasets[0]
     print_datasets('--txt2seg', input_dataset, output_datasets)
     check_file_counts(input_dataset, output_dataset, limit)
 
     count = 0
     segmenter = sdp.Segmenter()
-    fspecs = get_lines(config.filenames, output_dataset.files_processed, limit)
+    fspecs = get_lines(rconfig.filenames, output_dataset.files_processed, limit)
     for fspec in fspecs:
         count += 1
         filename = fspec.target
@@ -211,18 +212,18 @@ def run_txt2seg(config, limit, options, verbose):
 
 
 @update_state
-def run_seg2tag(config, limit, options, verbose):
+def run_seg2tag(rconfig, limit, options, verbose):
     """Takes seg files and runs the Chinese tagger on them."""
 
-    input_dataset = find_input_dataset('--seg2tag', config)
-    output_datasets = find_output_datasets('--seg2tag', config)
+    input_dataset = find_input_dataset('--seg2tag', rconfig)
+    output_datasets = find_output_datasets('--seg2tag', rconfig)
     output_dataset = output_datasets[0]
     print_datasets('--seg2tag', input_dataset, output_datasets)
     check_file_counts(input_dataset, output_dataset, limit)
 
     count = 0
     tagger = txt2tag.get_tagger(language)
-    fspecs = get_lines(config.filenames, output_dataset.files_processed, limit)
+    fspecs = get_lines(rconfig.filenames, output_dataset.files_processed, limit)
     for fspec in fspecs:
         count += 1
         filename = fspec.target
@@ -234,7 +235,7 @@ def run_seg2tag(config, limit, options, verbose):
 
 
 @update_state
-def run_tag2chk(config, limit, options, verbose):
+def run_tag2chk(rconfig, limit, options, verbose):
     """Runs the np-in-context code on tagged input. Populates d3_phr_occ and
     d3_phr_feat. Sets the contents of config-chunk-filter.txt given the value of
     chunk_filter."""
@@ -245,8 +246,8 @@ def run_tag2chk(config, limit, options, verbose):
     # TODO: a hack that maps the official name (candidate_filter) to the old name
     filter_p = True if candidate_filter == 'on' else False
     
-    input_dataset = find_input_dataset('--tag2chk', config)
-    output_datasets = find_output_datasets('--tag2chk', config)
+    input_dataset = find_input_dataset('--tag2chk', rconfig)
+    output_datasets = find_output_datasets('--tag2chk', rconfig)
     output_dataset1 = output_datasets[0]
     output_dataset2 = output_datasets[1]
     print_datasets('--txt2tag', input_dataset, output_datasets)
@@ -255,7 +256,7 @@ def run_tag2chk(config, limit, options, verbose):
     check_file_counts(input_dataset, output_dataset2, limit)
 
     count = 0
-    fspecs = get_lines(config.filenames, output_dataset1.files_processed, limit)
+    fspecs = get_lines(rconfig.filenames, output_dataset1.files_processed, limit)
     for fspec in fspecs:
         count += 1
         filename = fspec.target
@@ -264,26 +265,26 @@ def run_tag2chk(config, limit, options, verbose):
         file_in, file_out2 = prepare_io(filename, input_dataset, output_dataset2)
         # TODO: handle the year stuff differently (this is a bit of a hack)
         year = os.path.basename(os.path.dirname(filename))
-        tag2chunk.Doc(file_in, file_out2, file_out1, year, config.language,
+        tag2chunk.Doc(file_in, file_out2, file_out1, year, rconfig.language,
                       filter_p=filter_p, chunker_rules=chunker_rules)
 
     return output_datasets
 
 
 @update_state
-def run_pf2dfeats(config, limit, options, verbose):
+def run_pf2dfeats(rconfig, limit, options, verbose):
     """Creates a union of the features for each chunk in a doc (for training)."""
 
     # TODO: move this to step4
 
-    input_dataset = find_input_dataset('--pf2dfeats', config)
-    output_datasets = find_output_datasets('--pf2dfeats', config)
+    input_dataset = find_input_dataset('--pf2dfeats', rconfig)
+    output_datasets = find_output_datasets('--pf2dfeats', rconfig)
     output_dataset = output_datasets[0]
     print_datasets('--pf2dfeats', input_dataset, output_datasets)
     check_file_counts(input_dataset, output_dataset, limit)
 
     count = 0
-    fspecs = get_lines(config.filenames, output_dataset.files_processed, limit)
+    fspecs = get_lines(rconfig.filenames, output_dataset.files_processed, limit)
     for fspec in fspecs:
         count += 1
         filename = fspec.target
@@ -296,21 +297,21 @@ def run_pf2dfeats(config, limit, options, verbose):
     return [output_dataset]
 
 
-def show_datasets(config):
+def show_datasets(rconfig):
     """Print all datasets in the data directory."""
     for dataset_type in DATA_TYPES:
         print "\n===", dataset_type, "===\n"
-        path = os.path.join(config.target_path, 'data', dataset_type)
+        path = os.path.join(rconfig.target_path, 'data', dataset_type)
         datasets1 = [ds for ds in os.listdir(path) if ds.isdigit()]
-        datasets2 = [DataSet(None, dataset_type, config, ds) for ds in datasets1]
+        datasets2 = [DataSet(None, dataset_type, rconfig, ds) for ds in datasets1]
         for ds in datasets2:
             print ds
             for e in ds.pipeline_trace:
                 print "   ", e[0], e[1]
             print "   ", ds.pipeline_head[0], ds.pipeline_head[1]
 
-def show_pipelines(config):
-    path = os.path.join(config.target_path, 'config')
+def show_pipelines(rconfig):
+    path = os.path.join(rconfig.target_path, 'config')
     pipeline_files = [f for f in os.listdir(path) if f.startswith('pipeline')]
     for pipeline_file in sorted(pipeline_files):
         if pipeline_file[-1] == '~':
@@ -327,7 +328,7 @@ def show_pipelines(config):
     
 ## UTILITY METHODS
     
-def find_input_dataset(stage, config, data_type=None):
+def find_input_dataset(stage, rconfig, data_type=None):
     """Find the input data set for a processing stage for a given configuration and return
     it. Print a warning and exit if no dataset or more than one dataset was found. If a
     data type is passed in, the dat type lookup for the stage is bypassed."""
@@ -336,11 +337,11 @@ def find_input_dataset(stage, config, data_type=None):
     if data_type is None:
         data_type = DOCUMENT_PROCESSING_IO[stage]['in']
     # Get all data sets D for input name
-    dirname = os.path.join(config.target_path, 'data', data_type)
+    dirname = os.path.join(rconfig.target_path, 'data', data_type)
     datasets1 = [ds for ds in os.listdir(dirname) if ds.isdigit()]
-    datasets2 = [DataSet(stage, data_type, config, ds) for ds in datasets1]
+    datasets2 = [DataSet(stage, data_type, rconfig, ds) for ds in datasets1]
     # Filer the datasets making sure that d.trace + d.head matches
-    # config.pipeline(txt).trace
+    # rconfig.pipeline(txt).trace
     datasets3 = [ds for ds in datasets2 if ds.input_matches_global_config()]
     # If there is one result, return it, otherwise write a warning and exit
     if len(datasets3) == 1:
@@ -355,7 +356,7 @@ def find_input_dataset(stage, config, data_type=None):
         sys.exit("Exiting...")
 
     
-def find_output_datasets(stage, config, data_type=None):
+def find_output_datasets(stage, rconfig, data_type=None):
     """Find the output data set of a stage for a given configuration and return it. Print
     a warning and exit if no dataset or more than one dataset was found."""
 
@@ -369,9 +370,9 @@ def find_output_datasets(stage, config, data_type=None):
         # Get all data sets D for input name
         dirname = os.path.join(target_path, 'data', output_name)
         datasets1 = [ds for ds in os.listdir(dirname) if ds.isdigit()]
-        datasets2 = [DataSet(stage, output_name, config, ds) for ds in datasets1]
+        datasets2 = [DataSet(stage, output_name, rconfig, ds) for ds in datasets1]
         # Filer the datasets making sure that d.trace + d.head matches
-        # config.pipeline(txt).trace
+        # rconfig.pipeline(txt).trace
         datasets3 = [ds for ds in datasets2 if ds.output_matches_global_config()]
         #print output_name, dirname, datasets1, datasets3
         # If there is one result, return it, otherwise write a warning and exit
@@ -385,7 +386,7 @@ def find_output_datasets(stage, config, data_type=None):
         elif len(datasets3) == 0:
             highest_id = max([0] + [int(ds) for ds in datasets1])
             new_id = "%02d" % (highest_id + 1)
-            dataset = DataSet(stage, output_name, config, new_id)
+            dataset = DataSet(stage, output_name, rconfig, new_id)
             if not dataset.exists():
                 dataset.initialize_on_disk()
                 dataset.load_from_disk()
@@ -429,7 +430,7 @@ def make_parser(language):
 def read_opts():
     longopts = ['populate', 'xml2txt', 'txt2tag', 'txt2seg', 'seg2tag',
                 'tag2chk', 'pf2dfeats',
-                'verbose', 'config=', 'show-data', 'show-pipelines']
+                'verbose', 'pipeline=', 'show-data', 'show-pipelines']
     try:
         return getopt.getopt(sys.argv[1:], 'l:t:n:', longopts)
     except getopt.GetoptError as e:
@@ -456,26 +457,27 @@ if __name__ == '__main__':
         if opt in ALL_STAGES:
             stage = opt
 
-    config = GlobalConfig(target_path, language, pipeline_config)
-    options = config.get_options(stage)
-    config.pp()
+    # NOTE: renamed config to avoid confusion with config.py
+    rconfig = RuntimeConfig(target_path, language, pipeline_config)
+    options = rconfig.get_options(stage)
+    rconfig.pp()
 
     if show_data_p:
-        show_datasets(config)
+        show_datasets(rconfig)
     elif show_pipelines_p:
-        show_pipelines(config)
+        show_pipelines(rconfig)
 
     elif stage == '--populate':
-        run_populate(config, limit, verbose)
+        run_populate(rconfig, limit, verbose)
     elif stage == '--xml2txt':
-        run_xml2txt(config, limit, options, verbose)
+        run_xml2txt(rconfig, limit, options, verbose)
     elif stage == '--txt2tag':
-        run_txt2tag(config, limit, options, verbose)
+        run_txt2tag(rconfig, limit, options, verbose)
     elif stage == '--txt2seg':
-        run_txt2seg(config, limit, options, verbose)
+        run_txt2seg(rconfig, limit, options, verbose)
     elif stage == '--seg2tag':
-        run_seg2tag(config, limit, options, verbose)
+        run_seg2tag(rconfig, limit, options, verbose)
     elif stage == '--tag2chk':
-        run_tag2chk(config, limit, options, verbose)
+        run_tag2chk(rconfig, limit, options, verbose)
     elif stage == '--pf2dfeats':
-        run_pf2dfeats(config, limit, options, verbose)
+        run_pf2dfeats(rconfig, limit, options, verbose)

@@ -17,7 +17,7 @@ import os
 import sys
 import mallet
 import mallet2
-import config_mallet
+import config
 import putils
 import codecs
 
@@ -239,8 +239,7 @@ def patent_utraining_data3(mallet_file, annotation_file, annotation_count, fname
     d_phr2label = load_phrase_labels3(annotation_file, annotation_count)
     train_output_dir = os.path.dirname(mallet_file)
     mconfig = mallet2.MalletConfig(
-        config_mallet.mallet_dir, 'train', 'classify', version,
-        train_output_dir, '/tmp',
+        config.MALLET_DIR, 'train', 'classify', version, train_output_dir, '/tmp',
         classifier_type="MaxEnt", number_xval=xval, training_portion=0,
         prune_p=False, infogain_pruning="5000", count_pruning="3")
     mtr = mallet2.MalletTraining(mconfig, features)

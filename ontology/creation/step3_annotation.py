@@ -17,7 +17,7 @@ Usage:
 import os, sys, time, shutil, getopt, subprocess, codecs, textwrap
 from random import shuffle
 
-import config_data
+import config
 import putils
 
 script_path = os.path.abspath(sys.argv[0])
@@ -28,9 +28,9 @@ sys.path.insert(0, os.getcwd())
 os.chdir(script_dir)
 
 # defaults that can be overwritten by command line options
-source_path = config_data.external_patent_path
-target_path = config_data.working_patent_path
-language = config_data.language
+source_path = config.EXTERNAL_PATENT_PATH
+target_path = config.WORKING_PATENT_PATH
+language = config.LANGUAGE
 verbose = False
 
     

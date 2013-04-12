@@ -23,7 +23,7 @@ import os
 import re
 import codecs
 from collections import defaultdict
-import config_mallet
+import config
 import inspect
 
 
@@ -715,7 +715,7 @@ def l_tok2string(l_tok):
 
 # This test assumes that mallet training and test files already exist.
 def test1():
-    mallet_dir = config_mallet.mallet_dir
+    mallet_dir = config.MALLET_DIR
     train_file_prefix = "utrain_30K"  
     test_file_prefix =  "utest"
     version = "1"

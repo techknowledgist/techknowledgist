@@ -83,8 +83,8 @@ import cn_seg2tag
 import pf2dfeats
 import train
 
-# config_data holds default values for the parameters below
-import config_data
+# config holds default values for the parameters below
+import config
 
 # The following parameters must be set:
 # -p patent_path
@@ -94,11 +94,11 @@ import config_data
 
 # patent_path is the path to the local patent directory.  We assume that it is 
 # populated by running patent_analysis.py before running this script.
-patent_dir = config_data.working_patent_path
+patent_dir = config.WORKING_PATENT_PATH
 
 # target_path is the path to a directory in which information for processing an RDG will be stored.
 # It should be a "local" path, such as data/working/rdg/<RDG>
-target_path = config_data.working_rdg_path
+target_path = config.WORKING_RDG_PATH
 
 # source_path is the path to an "external" file containing a list of documents (RDG).  The file should be given a name
 # <RDG>.txt
@@ -107,17 +107,19 @@ target_path = config_data.working_rdg_path
 # US4192770A 1980 /home/j/clp/chinese/corpora/fuse-patents/500-patents/DATA/Lexis-Nexis/US/Xml/1980/US4192770A.xml
 # 
 # This file will be copied into the target_path as file_list.txt
-source_path = config_data.external_rdg_filelist
+source_path = config.EXTERNAL_RDG_FILELIST
 
 # language should be one of "en", "de", "cn"
-language = config_data.language
+language = config.LANGUAGE
+
 
 if __name__ == '__main__':
 
     (opts, args) = getopt.getopt(
         sys.argv[1:],
         'l:s:t:p:',
-        ['init', 'populate', 'xml2txt', 'txt2tag', 'tag2chk', 'pf2dfeats', 'summary', 'utest', 'scores', 'all'])
+        ['init', 'populate', 'xml2txt', 'txt2tag', 'tag2chk', 'pf2dfeats', 
+         'summary', 'utest', 'scores', 'all'])
     
     version = "1"
     xval = "0"
