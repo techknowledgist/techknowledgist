@@ -1,0 +1,3 @@
+[submodule "utils/docstructure"]
+	path = utils/docstructure
+	url = marc@chalciope.cs.brandeis.edu:/home/j/marc/git/fuse/docstructure.git
