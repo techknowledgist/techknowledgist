@@ -449,7 +449,7 @@ if __name__ == '__main__':
     # default values of options
     target_path, language, stage = 'data/patents', 'en', None
     pipeline_config = 'pipeline-default.txt'
-    show_data_p, show_pipelines_p = False, False
+    verbose, show_data_p, show_pipelines_p = False, False, False
     limit = 1
     
     (opts, args) = read_opts()
