@@ -8,13 +8,14 @@ import sys
 
 # path to include Marc's code
 # MV: added the manipulations with the directory since that works on fusenet
-# MV: kept all code for safety (and it doe not hurt on fusenet)
+# MV: kept all code for safety (and it does not hurt on fusenet)
 script_path = os.path.abspath(sys.argv[0])
 script_dir = os.path.dirname(script_path)
 os.chdir(script_dir)
 os.chdir('../..')
 sys.path.insert(0, os.getcwd())
 os.chdir(script_dir)
+# MV: this should really go or be put in a config file
 sys.path.append("/home/j/corpuswork/fuse/code/patent-classifier")
 from utils.docstructure.main import Parser
 
@@ -28,6 +29,8 @@ def xml2txt(xml_parser, source_file, target_file, workspace):
     ds_tags_file = os.path.join(workspace, "%s.tags" % basename)
     ds_fact_file = os.path.join(workspace, "%s.fact" % basename)
     ds_sect_file = os.path.join(workspace, "%s.sect" % basename)
+    # MV: okay, here we should really pull the specialistic stuff out of the document
+    # parser.
     xml_parser.create_ontology_creation_input(source_file, ds_text_file, ds_tags_file,
                                               ds_fact_file, ds_sect_file, target_file)
 

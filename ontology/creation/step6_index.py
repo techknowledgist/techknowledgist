@@ -7,8 +7,8 @@ the --dataset option, which points to a dataset created by the classifier. For
 convenience, it also relies on access to the classifier's phr_feats summary
 files.
 
-Much of the work on the batches involves building a large in-memory
-datastructure to collect summary counts, therefore the batches are going to be
+Much of the work on the batches involves building a large in-memory data
+structure to collect summary counts, therefore the batches are going to be
 limited to a certain yet-to-be-determined size.
 
 
@@ -34,7 +34,7 @@ OPTIONS
        Classifier dataset to collect data from or indexer datasets that are to
        be combined into the index, in the letter case the value can be a unix
        filename pattern with '*', '?' and '[]'. Note that if you use wildcards
-       in the string you need to surround them in quotes.
+       in the string you need to surround the string in quotes.
 
    --balance INTEGER:
        If this options is used with the --build-index option, the number of
@@ -55,14 +55,14 @@ OPTIONS
 
 
 Example for --collect-data:
-$ python step6_index.py -t data/patents -l en --collect-data --dataset standard.001-020
-$ python step6_index.py -t data/patents -l en --collect-data --dataset standard.021-040
+$ python step6_index.py -t data/patents/en -l en --collect-data --dataset standard.001-020
+$ python step6_index.py -t data/patents/en -l en --collect-data --dataset standard.021-040
 
 Example for --build-index:
-$ python step6_index.py -t data/patents -l en --build-index --index-name standard.idx --dataset 'standard.???-???' 
+$ python step6_index.py -t data/patents/en -l en --build-index --index-name standard.idx --dataset 'standard.???-???' 
 
 Example for --analyze-index:
-$ python step6_index.py -t data/patents -l en --analyze-index --index-name standard.idx
+$ python step6_index.py -t data/patents/en -l en --analyze-index --index-name standard.idx
 
 """
 
@@ -312,8 +312,8 @@ def get_docid_from_phr_feats_line(line):
 
 #### OPTION --build-index
 
-def run_build_index(rconfig, index_name, dataset_exp, balance):
-    """Build the index databases from a set of datasets, descirbed by the dataset_ep
+def run_build_index(config, index_name, dataset_exp, balance):
+    """Build the index databases from a set of datasets, described by the dataset_exp
     regular expression. Balance is not implemented yet, but could be used to limit the
     number of documents used for each year."""
     index_dir = os.path.join(rconfig.target_path, 'data', 'o1_index')
@@ -332,15 +332,14 @@ def generate_build_info_files(rconfig, index_name, datasets, balance, build_dir)
     fh.write("config_file  =  %s\n" % os.path.basename(rconfig.pipeline_config_file))
     fh.write("index_name   =  %s\n" % index_name)
     for ds in datasets:
-        fh.write("dataset  =  %s\n" % ds)
+        fh.write("dataset      =  %s\n" % ds)
     fh.write("balance      =  %d\n" % balance)
     fh.write("git_commit   =  %s" % get_git_commit())
 
 def build_years_index(build_dir, datasets):
-    """Add years to the database, not just the count but also a ratio (for
-    example ,if 1990 has 20 document sut of a total of 100, then it gets the 0.2
-    ratio (this is done in read_years, replacing the count with a <count, ratio>
-    pair)."""
+    """Add years to the database, not just the count but also a ratio (for example,
+    if 1990 has 20 documents out of a total of 100, then it gets the 0.2 ratio (this
+    is done in read_years, replacing the count with a <count, ratio> pair)."""
     db_file = os.path.join(build_dir, 'db-years.sqlite')
     stats_file = os.path.join(build_dir, 'index.stats.years.txt')
     years, document_count = read_years(datasets)
@@ -352,8 +351,9 @@ def build_years_index(build_dir, datasets):
     db.commit_and_close()
 
 def read_years(datasets):
-    """This is just to let the user see how many documents are involved and what
-    the distributionover the years is."""
+    """This is to expose how many documents are involved and what the distribution over
+    the years is. First collect all the counts for each dataset, then calculate the
+    distribution."""
     years = {}
     total_count = 0
     for ds in datasets:

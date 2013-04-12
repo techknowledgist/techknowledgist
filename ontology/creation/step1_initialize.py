@@ -42,14 +42,14 @@ Typical invocations:
 NOTES
 
 Paths in config/general.txt can be either relative or absolute. Initially, all
-settings are from this initialization script, but other configuration settings could be
-added later.
+settings are from this initialization script, but other configuration settings
+could be added later.
 
-The pipeline-default.txt file is tricky. It contains all default settings for arguments
-handed over to individual components (tagger, chunker, maxent model trainer etcetera). If
-more arguments are added, then this file should be updated manually and it should then
-also be used to fill in default values for past processing jobs (assuming that there is a
-default that makes sense).
+The pipeline-default.txt file is tricky. It contains all default settings for
+arguments handed over to individual components (tagger, chunker, maxent model
+trainer etcetera). If more arguments are added, then this file should be updated
+manually and it should then also be used to fill in default values for past
+processing jobs (assuming that there is a default that makes sense).
 
 The directory tree created inside the target directory is as follows:
 
@@ -58,37 +58,43 @@ The directory tree created inside the target directory is as follows:
     |   |-- general.txt
     |   |-- pipeline-default.txt
     `-- data
-        |-- d0_xml            'import of XML data'
-        |-- d1_txt            'results of document structure parser'
-        |-- d2_seg            'segmenter results'
-        |-- d2_tag            'tagger results '
-        |-- d3_phr_feats      'results from candidate selection'
-        |-- d3_phr_occ        'results from candidate selection'
-        |-- d4_doc_feats      'results from merging phrase features intro doc features'
-        |-- o1_index          'term indexes'
-        |-- o2_matcher        'results of the pattern matcher'
-        |-- o3_selector       'results of the selector'
-        |-- t0_annotate       'input for annotation effort'
-        |-- t1_train          'vectors for the classifier and classifier models'
-        |-- t2_classify       'classification results'
-        |-- t3_test           'test and evaluation area'
-        `-- workspace         'work space area'
+        |-- d0_xml         'import of XML data'
+        |-- d1_txt         'results of document structure parser'
+        |-- d2_seg         'segmenter results'
+        |-- d2_tag         'tagger results '
+        |-- d3_phr_feats   'results from candidate selection'
+        |-- d3_phr_occ     'results from candidate selection'
+        |-- d4_doc_feats   'results from merging phrase features'
+        |-- o1_index       'term indexes'
+        |-- o2_matcher     'results of the pattern matcher'
+        |-- o3_selector    'results of the selector'
+        |-- t0_annotate    'input for annotation effort'
+        |-- t1_train       'vectors for the classifier and classifier models'
+        |-- t2_classify    'classification results'
+        |-- t3_test        'test and evaluation area'
+        `-- workspace      'work space area'
 
-Note that the processing stages are grouped using prefixes, where the features carry some
-meaning:
+Note that the processing stages are grouped using prefixes, where the features
+carry some meaning:
 
    d -- document level processing
    t -- processing for the technology classifier
    o -- processing for the ontology creator (this is used by a downstream script)
 
-No existing files or directories will be overwritten, except for the files in the config
-directory that are listed above (general.txt, files.txt, pipeline-default.txt, etcetera).
+No existing files or directories will be overwritten, except for the files in
+the config directory that are listed above (general.txt, files.txt,
+pipeline-default.txt).
 
 
 TODO
-- filenames like files.txt and general.txt are defined in the code, should be put up front
-- same with names of processing stages
-- same with input and output directories like d2_tag
+
+- Filenames like files.txt and general.txt are defined in the code, should be
+  put up front; the same holds for names of processing stages and input and
+  output directories like d2_tag.
+
+- Add option to grow an already initialized corpus. One question to answer here
+  is whether you just add lines to config/files.txt or also add some lines
+  saying that x files were added at time t.
 
 """
 
@@ -109,10 +115,10 @@ from ontology.utils.file import ensure_path, get_lines, get_file_paths
 # definition of the default pipeline configurations
 
 DEFAULT_PIPELINE = """
-# This file contains the default pipeline configuration settings. Settings in here can be
-# overruled by handing the step2_document_processing script the identifier for another
-# configuration file. All pipeline configuration files live inside of the config directory
-# configuration file.
+# This file contains the default pipeline configuration settings. Settings in
+# here can be overruled by handing the step2_document_processing script the
+# identifier for another configuration file. All pipeline configuration files
+# live inside of the config directory configuration file.
 
 --populate
 --xml2txt

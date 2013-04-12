@@ -4,11 +4,11 @@ Scripts that lets you run the trainer and classifier on specified datasets.
 
 OPTIONS
 
-    -l LANG     --  provides the language, one of ('en, 'de', 'cn'), default is 'en'
-    -t PATH     --  target directory, default is data/patents
+    -l en|de|cn  --  provides the language, default is 'en'
+    -t PATH      --  target directory, default is data/patents
      
-    --train     --  create model for classifier
-    --classify  --  run classifier
+    --train      --  create model for classifier
+    --classify   --  run classifier
 
     --version STRING     --  identifier for the model
     --features FILENAME  --  file with features to use for the model
@@ -249,6 +249,7 @@ class Classifier(TrainerClassifier):
         mconfig = mallet2.MalletConfig(
             config.MALLET_DIR, 'train', 'classify', self.version,
             self.train_dir, self.classify_dir,
+            # TODO: probably need to replace xval with 0
             classifier_type=self.classifier, number_xval=xval, training_portion=0,
             prune_p=False, infogain_pruning="5000", count_pruning="3")
         mtest = mallet2.MalletClassifier(mconfig)
