@@ -48,16 +48,13 @@ in init, tagcmd: java -mx300m -cp /home/g/grad/anick/ie/stanford-parser-2010-02-
 
 """
 
-# default parameters for sdp
-import sdp_config
 import sys, os, re
 from subprocess import Popen, PIPE, STDOUT, call
 import pickle
-# debugger
 import pdb
 
-# attempt to fix deadlock in Popen
-# import Popen3
+import config
+
 
 # debug_p value for sdpWrapper instance 
 debug_p = 1
@@ -359,36 +356,13 @@ class sdpWrapper:
 
 
     def get_config(self):
-        # use defaults in sdp_config.py
-        # use try/except in case some defaults are not included
-        # in sdp_config.py
-        #pdb.set_trace()
-        try:
-            self.sdp_dir = sdp_config.sdp_dir
-        except AttributeError:
-            self.sdp_dir = "."
-        try:
-            self.tokenized = sdp_config.tokenized
-        except AttributeError:
-            self.tokenized = 0
-        try:
-            self.mx = sdp_config.mx
-        except AttributeError:
-            self.mx = "300m"
-        try:
-            self.tag_separator = sdp_config.tag_separator
-        except AttributeError:
-            self.tag_separator = ""
-        try:
-            self.sentences = sdp_config.sentences
-        except AttributeError:
-            self.sentences = ""
-        try:
-            self.debug_p = sdp_config.debug_p
-        except AttributeError:
-            self.debug_p = 0
-
-            
+        # use defaults in config.py
+        self.sdp_dir = config.sdp_dir
+        self.tokenized = config.STANFORD_TOKENIZED
+        self.mx = config.STANFORD_MX
+        self.tag_separator = config.STANFORD_TAG_SEPARATOR
+        self.sentences = config.STANFORD_SENTENCES
+        self.debug_p = config.STANFORD_DEBUG_P
         global debug_p
         debug_p = 0
 
@@ -827,7 +801,7 @@ class sdpWrapper:
         graph = self.get_graph(result)
         graph.print_graph()
 
-    #### For these tags, set the appropriate sdp_config parameters and adjust get_outputs to a list with two items.
+    #### For these tags, set the appropriate config parameters and adjust get_outputs to a list with two items.
     # test for input with tags
     def test10(self):
         # tags from original sdp output
@@ -1109,35 +1083,13 @@ class corpus_db:
 class STagger:
 
     def get_config(self):
-        # use defaults in sdp_config.py
-        # use try/except in case some defaults are not included
-        # in sdp_config.py
-        #pdb.set_trace()
-        try:
-            self.stag_dir = sdp_config.stag_dir
-        except AttributeError:
-            self.sdp_dir = "."
-        try:
-            self.tokenized = sdp_config.tokenized
-        except AttributeError:
-            self.tokenized = 0
-        try:
-            self.mx = sdp_config.mx
-        except AttributeError:
-            self.mx = "300m"
-        try:
-            self.tag_separator = sdp_config.tag_separator
-        except AttributeError:
-            self.tag_separator = ""
-        try:
-            self.sentences = sdp_config.sentences
-        except AttributeError:
-            self.sentences = ""
-        try:
-            self.debug_p = sdp_config.debug_p
-        except AttributeError:
-            self.debug_p = 0
-
+        # use defaults in config.py
+        self.stag_dir = config.STANFORD_TAGGER_DIR
+        self.tokenized = config.STANFORD_TOKENIZED
+        self.mx = config.STANFORD_MX
+        self.tag_separator = config.STANFORD_TAG_SEPARATOR
+        self.sentences = config.STANFORD_SENTENCES
+        self.debug_p = config.STANFORD_DEBUG_P
         global debug_p
         debug_p = 0
 
@@ -1351,20 +1303,20 @@ without probabilities).
 class Segmenter:
 
     def get_config(self):
-        # use defaults in sdp_config.py
+        # use defaults in config.py
         # use try/except in case some defaults are not included
-        # in sdp_config.py
+        # in config.py
         #pdb.set_trace()
         try:
-            self.seg_dir = sdp_config.seg_dir
+            self.seg_dir = config.STANFORD_SEGMENTER_DIR
         except AttributeError:
             self.sdp_dir = "."
         try:
-            self.mx = sdp_config.mx
+            self.mx = config.STANFORD_MX
         except AttributeError:
             self.mx = "300m"
         try:
-            self.debug_p = sdp_config.debug_p
+            self.debug_p = config.STANFORD_DEBUG_P
         except AttributeError:
             self.debug_p = 0
 
@@ -1562,203 +1514,6 @@ class Segmenter:
         #self.give_input_and_end('John went to school today.')
         #result = self.get_output_to_end()
         print "result: %s" % result
-
-
-
-
-
-class SegmenterOLD:
-
-    def get_config(self):
-        # use defaults in sdp_config.py
-        # use try/except in case some defaults are not included
-        # in sdp_config.py
-        #pdb.set_trace()
-        try:
-            self.seg_dir = sdp_config.seg_dir
-        except AttributeError:
-            self.sdp_dir = "."
-        try:
-            self.mx = sdp_config.mx
-        except AttributeError:
-            self.mx = "300m"
-        try:
-            self.debug_p = sdp_config.debug_p
-        except AttributeError:
-            self.debug_p = 0
-
-        global debug_p
-        debug_p = 0
-
-    # model should be ctb (chinese using penn term bank model)
-
-    # eg. st = sdp.Segmenter()
-    def __init__(self):
-        #pdb.set_trace()
-        # PGA modified to use config data
-        self.get_config()
-        #print "\n\ninitializing stagWrapper--init()\n"
-
-        self.data_dir = self.seg_dir + "/data"
-
-        # print debugging statements if True
-        #self.verbose = False
-        self.verbose = True
-
-        # make the models directory explicit
-        # This fixes a broken pipe error that results when the entire models path is not specified.
-        # Note that option: -outputFormatOptions lemmatize  does not work.
-
-        # One issue is to read from stdin rather than from a file.  We use the linux solution described in 
-        # https://mailman.stanford.edu/pipermail/java-nlp-user/2012-July/002371.html
-        # to set file to /dev/stdin
-
-        #tagcmd = ('java -mx' + self.mx + ' -cp \'' + self.stag_dir + '/stanford-postagger.jar:\' '  + 'edu.stanford.nlp.tagger.maxent.MaxentTagger ' + '-model /home/j/anick/fuse/share/stanford-postagger-full-2012-07-09/models/' + self.model + tag_separator_option + '  2>log.dat')
-
-        #segcmd = ('java -mx' + self.mx + ' -cp \'' + self.seg_dir + '/seg.jar edu.stanford.nlp.ie.crf.CRFClassifier -sighanCorporaDict  '  + self.data_dir + ' -testFile  /dev/stdin  -inputEncoding UTF-8 -sighanPostProcessing true -keepAllWhitespaces false -loadClassifier ' + self.data_dir + '/ctb.gz -serDictionary ' + self.data_dir + '/dict-chris6.ser.gz   2>log.dat')
-
-        # version of cmd without -testFile option
-        #segcmd = ('java -mx' + self.mx + ' -cp ' + self.seg_dir + '/seg.jar edu.stanford.nlp.ie.crf.CRFClassifier -sighanCorporaDict  '  + self.data_dir + '   -inputEncoding UTF-8 -sighanPostProcessing true -keepAllWhitespaces false -loadClassifier ' + self.data_dir + '/ctb.gz -serDictionary ' + self.data_dir + '/dict-chris6.ser.gz   2>log.dat')
-
-        self.segcmd = ('java -mx' + self.mx + ' -cp ' + self.seg_dir + '/seg.jar edu.stanford.nlp.ie.crf.CRFClassifier -sighanCorporaDict  '  + self.data_dir + ' -testFile /dev/stdin -inputEncoding UTF-8 -sighanPostProcessing true -keepAllWhitespaces false -loadClassifier ' + self.data_dir + '/ctb.gz -serDictionary ' + self.data_dir + '/dict-chris6.ser.gz 2>log.dat' )
-
-        if self.verbose:
-            print "[segWrapper init]segcmd: %s" % self.segcmd
-
-        print "\n\n[segWrapper]before self.proc\n"
-        # create a subprocess that reads from stdin and writes to stdout
-        #self.proc = Popen(segcmd, shell=True, stdin=PIPE, stdout=PIPE, universal_newlines = True)
-        # PGA could not get the Popen method to work, so for now doing it less efficiently with subprocess.call
-        # which calls the segmenter separately for each file
-        #self.proc = Popen(segcmd, shell=True, stdin=PIPE, stdout=PIPE, universal_newlines = False)
-        
-        print "\n\n[segWrapper]after self.proc\n"
-
-    # returns a list of segmented sentence strings
-    def seg_old(self, text):
-        if self.verbose:
-            print "[process_to_end]text: %s" % text
-
-        self.give_input_and_end(text)
-        if self.verbose:
-            print "[process_to_end]after give_input_and_end"
-        result = self.get_output_to_end()
-        #print "[process_to_end]after setting result to: %s" % result
-        return(result)
-
-    # NOT WORKIGN for seg
-    # version that expects one line of output for one line of input
-    def seg_w_popoen(self, text):
-        if self.verbose:
-            print "[process_to_end]text: %s" % text
-
-        self.give_input_and_end(text)
-        if self.verbose:
-            print "[process_to_end]after give_input_and_end"
-        result = self.get_output_to_end()
-        #print "[process_to_end]after setting result to: %s" % result
-        return(result)
-
-    # segmenter call that requires re-opening the segmenter for each file
-    # Inefficient and slow, but at least it works!
-    def cn_segment_file(self, infile, outfile):
-        
-        full_command = self.segcmd + ' < ' + infile + ' > ' + outfile
-        if self.verbose:
-            print "[seg]full_command: %s" % (full_command)
-
-        # the arg "shell=True" allows you to enter a simple string as command.
-        returncode = call(full_command, shell=True)
-        #print "returncode: %s" % returncode
-
-    # version without special terminator marker added.
-    # passes a string to the sdp tagger subprocess
-    # Also passes a special "~" string to use as a signal that tag output
-    # is finished.
-    def give_input_and_end(self,text):
-        #self.proc.stdin.flush()
-        #terminated_line = text + '\n~_\n'
-        terminated_line = text
-        if self.verbose:
-            print "[give_input_and_end]terminated_line: |%s|" % terminated_line
-        self.proc.stdin.write(terminated_line.encode('utf-8'))
-
-        if self.verbose:
-            print "[give_input_and_end]After proc.stdin.write"
-
-        #self.proc.stdin.write(text)
-        self.proc.stdin.flush()
-
-
-    # Reads lines from the output of the subprocess (sdp parser) and 
-    # concatenates them into a single string, returned as the result
-    # We use a line with a single "~" to signal the end of the output
-    # from the tagger.  Note that the tagger will add _<tag> to the tilda,
-    # so we match on the first two characters only for the termination condition.
-    def get_output_to_end(self):
-        ###print "[get_output] entered..."
-        result=[]
-        #line = self.proc.stdout.readline()
-        #line = self.proc.stdout.readline().decode('utf8')
-        line = self.proc.stdout.readline()
-        # Not sure why the != None is needed if this is called from pubmed.sh rather than 
-        #  fxml.test_pm() within python.  PGA
-        if line != None:
-            line = line.decode(sys.stdout.encoding)
-            
-        #line = self.proc.stdout.readline()
-        ###line = unicode(line)
-        #print "[tag: get_output_to_end]line is: |%s|" % line
-
-        # remove tabs from sdp output (e.g. for Phrase structure)
-        line = line.strip("\n")
-        #line = line.lstrip()
-
-        if self.verbose:
-            print "[get_output_to_end]in while loop.  line: |%s|" % line
-        #result=result+line
-        # Append result only if line is not empty
-        if line != "":
-            result.append(line)
-        if self.verbose:
-            print "[get_output_to_end]result: |%s|" % result
-        #line = self.proc.stdout.readline()
-        #line = self.proc.stdout.readline().decode('utf8')
-        line = self.proc.stdout.readline().decode(sys.stdout.encoding)
-        ###line = unicode(line)
-        if self.verbose:
-            print "[get_output_to_end]next line: |%s|" % line
-
-        if self.verbose:
-            print "[get_output_to_end]Out of loop.  Returning..."
-
-        return(result)
-
-
-    def test1(self):
-
-        print "sentence 1\n"
-
-        result = self.process_to_end('John went today. Second sentence exists.')
-        #self.give_input_and_end('John went to school today.')
-        #result = self.get_output_to_end()
-        print "result: %s" % result
-        
-        print "sentence 2\n"
-        
-        result = self.process_to_end('Mary went to school yesterday. Another sentence occurs!')
-        #self.give_input('Mary went to school yesterday. Another sentence occurs!')
-        #result = self.get_output()
-        print "result: %s" % result
-
-        print "sentence 3\n"
-
-        result = self.process_to_end('John went today. Repeated sent 1.')
-        #self.give_input_and_end('John went to school today.')
-        #result = self.get_output_to_end()
-        print "result: %s" % result
-
-
 
 
 

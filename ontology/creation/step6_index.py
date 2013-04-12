@@ -75,7 +75,7 @@ os.chdir('../..')
 sys.path.insert(0, os.getcwd())
 os.chdir(script_dir)
 
-from ontology.utils.batch import GlobalConfig
+from ontology.utils.batch import RuntimeConfig
 from ontology.utils.file import ensure_path
 from ontology.utils.git import get_git_commit
 from ontology.utils.html import HtmlDocument
@@ -101,21 +101,21 @@ def measure_memory_use(fun):
 
 #### OPTION --collect-data
 
-def run_collect_data(config, dataset):
+def run_collect_data(rconfig, dataset):
     """Data collections proceeds off of a classify dataset, using the
     classify.features.doc_feats.txt and classify.features.phr_feats.txt files
     (or the file list and then get the files from the doc_feats and phr_feats
     datasets)."""
-    data_dir = os.path.join(config.target_path, 'data')
+    data_dir = os.path.join(rconfig.target_path, 'data')
     classify_dir = os.path.join(data_dir, 't2_classify', dataset)
     index_dir = os.path.join(data_dir, 'o1_index', dataset)
-    generate_collect_info_files(config, dataset, index_dir, classify_dir)
+    generate_collect_info_files(rconfig, dataset, index_dir, classify_dir)
     m1 = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
     t1 = time.time()
     collect_counts(classify_dir, index_dir)
     print_processing_statistics(index_dir, m1, t1)
 
-def generate_collect_info_files(config, dataset, index_dir, classify_dir):
+def generate_collect_info_files(rconfig, dataset, index_dir, classify_dir):
     """Copy information from t2_classify to o1_index data sets. In some cases
     the statistics can be different, overwrite the classifier values with the
     indexer values (for example for the git commit)."""
@@ -123,7 +123,7 @@ def generate_collect_info_files(config, dataset, index_dir, classify_dir):
     fh = open(os.path.join(index_dir, 'index.info.general.txt'), 'w')
     fh.write("$ python %s\n\n" % ' '.join(sys.argv))
     fh.write("dataset      =  %s\n" % dataset)
-    fh.write("config_file  =  %s\n" % os.path.basename(config.pipeline_config_file))
+    fh.write("config_file  =  %s\n" % os.path.basename(rconfig.pipeline_config_file))
     fh.write("git_commit   =  %s" % get_git_commit())
     for info_file in ('info.config.txt', 'info.filelist.txt'):
         shutil.copyfile(os.path.join(classify_dir, 'classify.' + info_file),
@@ -312,24 +312,24 @@ def get_docid_from_phr_feats_line(line):
 
 #### OPTION --build-index
 
-def run_build_index(config, index_name, dataset_exp, balance):
+def run_build_index(rconfig, index_name, dataset_exp, balance):
     """Build the index databases from a set of datasets, descirbed by the dataset_ep
     regular expression. Balance is not implemented yet, but could be used to limit the
     number of documents used for each year."""
-    index_dir = os.path.join(config.target_path, 'data', 'o1_index')
+    index_dir = os.path.join(rconfig.target_path, 'data', 'o1_index')
     build_dir = os.path.join(index_dir, index_name)
     datasets = glob.glob(os.path.join(index_dir, dataset_exp))
-    generate_build_info_files(config, index_name, datasets, balance, build_dir)
+    generate_build_info_files(rconfig, index_name, datasets, balance, build_dir)
     build_years_index(build_dir, datasets)
     build_summary_index(build_dir, datasets)
     build_expanded_index(build_dir, datasets)
 
-def generate_build_info_files(config, index_name, datasets, balance, build_dir):
+def generate_build_info_files(rconfig, index_name, datasets, balance, build_dir):
     """Write files with information on the build."""
     ensure_path(build_dir)
     fh = open(os.path.join(build_dir, 'index.info.general.txt'), 'w')
     fh.write("$ python %s\n\n" % ' '.join(sys.argv))
-    fh.write("config_file  =  %s\n" % os.path.basename(config.pipeline_config_file))
+    fh.write("config_file  =  %s\n" % os.path.basename(rconfig.pipeline_config_file))
     fh.write("index_name   =  %s\n" % index_name)
     for ds in datasets:
         fh.write("dataset  =  %s\n" % ds)
@@ -439,8 +439,8 @@ def build_expanded_index(build_dir, datasets):
 
 #### OPTION --analyze-index
 
-def run_analyze_index(config, index_name, min_docs, min_score):
-    index_dir = os.path.join(config.target_path, 'data', 'o1_index')
+def run_analyze_index(rconfig, index_name, min_docs, min_score):
+    index_dir = os.path.join(rconfig.target_path, 'data', 'o1_index')
     db_file = os.path.join(index_dir, index_name, 'db-summary.sqlite')
     analyzer = IndexAnalyzer(db_file, min_docs, min_score)
     analyzer.analyze_terms()
@@ -673,7 +673,7 @@ def print_processing_statistics(index_dir, m1, t1):
     fh.write("memory after     =  %dMB\n" % (m2 / 1000))
 
 def read_opts():
-    longopts = ['config=', 'collect-data', 'build-index', 'analyze-index',
+    longopts = ['collect-data', 'build-index', 'analyze-index',
                 'index-name=', 'dataset=', 'balance=',
                 'minimum-doc-count=', 'minimum-score=',
                 'track-memory', 'verbose', 'show-data', 'show-pipelines']
@@ -711,17 +711,17 @@ if __name__ == '__main__':
         if opt == '--verbose': VERBOSE = True
         if opt == '--track-memory': TRACK_MEMORY = True
 
-    config = GlobalConfig(target_path, language, pipeline_config)
+    rconfig = RuntimeConfig(target_path, language, pipeline_config)
     if VERBOSE:
         config.pp()
 
     if show_data_p:
-        show_datasets(config)
+        show_datasets(rconfig)
     elif show_pipelines_p:
-        show_pipelines(config)
+        show_pipelines(rconfig)
     elif collect_data:
-        run_collect_data(config, dataset)
+        run_collect_data(rconfig, dataset)
     elif build_index:
-        run_build_index(config, index_name, dataset, balance)
+        run_build_index(rconfig, index_name, dataset, balance)
     elif analyze_index:
-        run_analyze_index(config, index_name, min_docs, min_score)
+        run_analyze_index(rconfig, index_name, min_docs, min_score)

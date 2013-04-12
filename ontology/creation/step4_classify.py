@@ -59,11 +59,11 @@ os.chdir(script_dir)
 
 import train
 import mallet2
-import config_mallet
+import config
 import find_mallet_field_value_column
 import sum_scores
 
-from ontology.utils.batch import GlobalConfig, get_datasets
+from ontology.utils.batch import RuntimeConfig, get_datasets
 from ontology.utils.file import filename_generator, ensure_path
 from ontology.utils.git import get_git_commit
 from step2_document_processing import show_datasets, show_pipelines
@@ -97,8 +97,8 @@ class TrainerClassifier(object):
 
     def _find_datasets(self):
         """Select data sets and check whether all files are available."""
-        self.input_dataset1 = find_input_dataset1(self.config)
-        self.input_dataset2 = find_input_dataset2(self.config)
+        self.input_dataset1 = find_input_dataset1(self.rconfig)
+        self.input_dataset2 = find_input_dataset2(self.rconfig)
         check_file_availability(self.input_dataset1, self.file_list)
         check_file_availability(self.input_dataset2, self.file_list)
 
@@ -110,18 +110,18 @@ class Trainer(TrainerClassifier):
     module. Its purpose is to create a mallet mmodel while keeping track of
     processing configurations and writing statistics."""
 
-    def __init__(self, config, file_list, features,
+    def __init__(self, rconfig, file_list, features,
                  annotation_file, annotation_count, version, xval=0, create_summary=False):
         """Store parameters and initialize file names."""
-        self.config = config
+        self.rconfig = rconfig
         self.features = features
-        self.file_list = os.path.join(config.config_dir, file_list)
+        self.file_list = os.path.join(rconfig.config_dir, file_list)
         self.annotation_file = annotation_file
         self.annotation_count = annotation_count
         self.version = version
         self.xval = xval
         self.create_summary = create_summary
-        self.data_dir = os.path.join(config.target_path, 'data')
+        self.data_dir = os.path.join(rconfig.target_path, 'data')
         self.train_dir = os.path.join(self.data_dir, 't1_train', version)
         self.info_file_general = os.path.join(self.train_dir, "train.info.general.txt")
         self.info_file_annotation = os.path.join(self.train_dir, "train.info.annotation.txt")
@@ -152,7 +152,7 @@ class Trainer(TrainerClassifier):
         self._create_info_general_file()
         self._create_info_annotation_file()
         self._create_info_features_file()
-        shutil.copyfile(self.config.pipeline_config_file, self.info_file_config)
+        shutil.copyfile(self.rconfig.pipeline_config_file, self.info_file_config)
         shutil.copyfile(self.file_list, self.info_file_filelist)
 
     def _create_info_general_file(self):
@@ -164,7 +164,7 @@ class Trainer(TrainerClassifier):
             fh.write("annotation_file   =  %s\n" % self.annotation_file)
             fh.write("annotation_count  =  %s\n" % self.annotation_count)
             fh.write("config_file       =  %s\n" % \
-                     os.path.basename(config.pipeline_config_file))
+                     os.path.basename(rconfig.pipeline_config_file))
             fh.write("features          =  %s\n" % self.features)
             fh.write("git_commit        =  %s" % get_git_commit())
 
@@ -201,22 +201,22 @@ class Trainer(TrainerClassifier):
 
 class Classifier(TrainerClassifier):
 
-    def __init__(self, config, file_list, model, version,
+    def __init__(self, rconfig, file_list, model, version,
                  classifier='MaxEnt', create_summary=False, use_all_chunks_p=True):
 
         """Run the classifier on the files in file_list. Uses config to find the input
         dataset. Version contains a user-specified identifer of the run and model refers
         to a previously created tarining model."""
 
-        self.config = config
-        self.file_list = os.path.join(config.config_dir, file_list)
+        self.rconfig = rconfig
+        self.file_list = os.path.join(rconfig.config_dir, file_list)
         self.model = model
         self.version = version
         self.classifier = classifier
         self.create_summary = create_summary
         self.use_all_chunks_p = use_all_chunks_p
         
-        self.data_dir = os.path.join(self.config.target_path, 'data')
+        self.data_dir = os.path.join(self.rconfig.target_path, 'data')
         self.train_dir = os.path.join(self.data_dir, 't1_train', model)
         self.classify_dir = os.path.join(self.data_dir, 't2_classify', version)
         self.label_file = os.path.join(self.train_dir, "train.info.annotation.txt")
@@ -247,7 +247,7 @@ class Classifier(TrainerClassifier):
         print "[--classify] creating results file - %s" % \
               os.path.basename(self.results_file)
         mconfig = mallet2.MalletConfig(
-            config_mallet.mallet_dir, 'train', 'classify', self.version,
+            config.MALLET_DIR, 'train', 'classify', self.version,
             self.train_dir, self.classify_dir,
             classifier_type=self.classifier, number_xval=xval, training_portion=0,
             prune_p=False, infogain_pruning="5000", count_pruning="3")
@@ -266,9 +266,9 @@ class Classifier(TrainerClassifier):
             fh.write("version      =  %s\n" % self.version)
             fh.write("file_list    =  %s\n" % self.file_list)
             fh.write("model        =  %s\n" % self.model)
-            fh.write("config_file  =  %s\n" % os.path.basename(config.pipeline_config_file))
+            fh.write("config_file  =  %s\n" % os.path.basename(rconfig.pipeline_config_file))
             fh.write("git_commit   =  %s" % get_git_commit())
-        shutil.copyfile(self.config.pipeline_config_file, self.info_file_config)
+        shutil.copyfile(self.rconfig.pipeline_config_file, self.info_file_config)
         shutil.copyfile(self.file_list, self.info_file_filelist)
 
     def _create_mallet_file(self):
@@ -300,7 +300,7 @@ class Classifier(TrainerClassifier):
 
     def run_score_command(self, command, message):
         if VERBOSE:
-            prefix = os.path.join(self.config.target_path, 
+            prefix = os.path.join(self.rconfig.target_path, 
                                   'data', 't2_classify', self.version)
             print "[--scores]", message
             print "[--scores]", command.replace(prefix + os.sep, '')
@@ -337,29 +337,29 @@ class Classifier(TrainerClassifier):
         self.run_score_command(command, message)
 
 
-def find_input_dataset1(config):
+def find_input_dataset1(rconfig):
     """Find the dataset that is input for training. Unlike the code in
     step2_document_processing.find_input_dataset(), this function hard-codes the input
     data type rather than referring to DOCUMENT_PROCESSING_IO. Note that this particular
     one was only used for generating the summary files, it is currently not used as input
     to training."""
     datasets = []
-    for ds in get_datasets(config, '--train', 'd3_phr_feats'):
+    for ds in get_datasets(rconfig, '--train', 'd3_phr_feats'):
         full_config = ds.pipeline_trace
         full_config.append(ds.pipeline_head)
         # for d3_phr_feats we do not need to apply the entire pipeline, therefore matching
         # should not be on the entire pipeline either
-        if full_config == config.pipeline[:-1]:
+        if full_config == rconfig.pipeline[:-1]:
             datasets.append(ds)
     return check_result(datasets)
 
-def find_input_dataset2(config):
+def find_input_dataset2(rconfig):
     # TODO: see remark under find_input_dataset1
     datasets = []
-    for ds in get_datasets(config, '--train', 'd4_doc_feats'):
+    for ds in get_datasets(rconfig, '--train', 'd4_doc_feats'):
         full_config = ds.pipeline_trace
         full_config.append(ds.pipeline_head)
-        if full_config == config.pipeline:
+        if full_config == rconfig.pipeline:
             datasets.append(ds)
     return check_result(datasets)
 
@@ -393,7 +393,7 @@ def check_file_availability(dataset, filelist):
 
 
 def read_opts():
-    longopts = ['config=', 'filelist=', 'annotation-file=', 'annotation-count=',
+    longopts = ['pipeline=', 'filelist=', 'annotation-file=', 'annotation-count=',
                 'train', 'classify', 'create-summary',
                 'version=', 'features=', 'xval=', 'model=', 'eval-on-unseen-terms',
                 'verbose', 'show-data', 'show-pipelines']
@@ -436,18 +436,18 @@ if __name__ == '__main__':
         if opt == '--verbose': VERBOSE = True
         if opt == '--eval-on-unseen-terms': use_all_chunks = False
 
-    config = GlobalConfig(target_path, language, pipeline_config)
+    rconfig = RuntimeConfig(target_path, language, pipeline_config)
     if VERBOSE:
-        config.pp()
+        rconfig.pp()
 
     if show_data_p:
-        show_datasets(config)
+        show_datasets(rconfig)
     elif show_pipelines_p:
-        show_pipelines(config)
+        show_pipelines(rconfig)
 
     elif stage == '--train':
-        Trainer(config, file_list, features,
+        Trainer(rconfig, file_list, features,
                 annotation_file, annotation_count, version, xval, create_summary).run()
     elif stage == '--classify':
-        Classifier(config, file_list, model, version,
+        Classifier(rconfig, file_list, model, version,
                    create_summary=create_summary, use_all_chunks_p=use_all_chunks).run()

@@ -111,18 +111,13 @@ import pf2dfeats
 import train
 import sum_scores
 import log
-import config_data
+import config
 
-# moved to config_data.py
-#source_path = "/home/j/clp/chinese/corpora/fuse-patents/" + \
-#              "500-patents/DATA/Lexis-Nexis/US/Xml"
-#target_path = "data/patents"
-#language = "en"
 
-source_path = config_data.external_patent_path
-target_path = config_data.working_patent_path
-language = config_data.language
-annot_path = config_data.annotation_directory
+source_path = config.EXTERNAL_PATENT_PATH
+target_path = config.WORKING_PATENT_PATH
+language = config.LANGUAGE
+annot_path = config.ANNOTATION_DIRECTORY
 
 if __name__ == '__main__':
 

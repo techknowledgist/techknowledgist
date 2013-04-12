@@ -26,11 +26,12 @@
 #           to be loaded with proper encoding of characters.   Name this file chunk_schema_<lang>.txt
 #    5. Create a test function in tag2chunk.py that processes a sample file in the given lanuage.
 
-import config_data
 import collections
 import os
 import codecs
 from xml.sax.saxutils import escape
+
+import config
 
 # list of languages used to build dictionary of chunk schemas.
 # NOTE: If a new language chunk schema is added, it must be added to this list.
@@ -1028,7 +1029,7 @@ class chunkSchema:
     def add_noise_list(self, name, filename):
         # file should contain one term per line.
         # add a list of terms to be indexed under [name][term] as noisewords with value True
-        filepath = os.path.join(config_data.annotation_directory, filename)
+        filepath = os.path.join(config.ANNOTATION_DIRECTORY, filename)
         #print "[add_noise_list]Adding chunker noise list in %s" % filepath 
         s_noise = open(filepath)
         self.d_noise.setdefault(name, {})
