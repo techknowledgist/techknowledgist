@@ -31,7 +31,7 @@ For training, you typically want to pick the best setting or settings as it
 became apparent from all the testing and create a model for a sufficiently large
 training set. There is typically no need to create the summary files.
 
-$ python step4_classify.py --train -t data/patents/test -l en --pipeline pipeline-default.txt --filelist training-files-v1.txt --annotation-file ../annotation/en/phr_occ.lab --annotation-count 2000 --version standard --features extint --xval 0
+$ python step4_classify.py --train -t data/patents/test -l en --pipeline pipeline-default.txt --filelist training-files-v1.txt --annotation-file ../annotation/en/technology/phr_occ.lab --annotation-count 2000 --version standard --features extint --xval 0
 
 For running the classfier, you just pick your model (which is the version
 identifier of a trained model) and run it on a set of files. It is a good idea
