@@ -24,17 +24,17 @@ OPTIONS:
        print name of each processed file to stdout
 
    --show-data:
-       print all datasets, then exits, requires -t and -l options
+       print all datasets, then exits, requires the -t option
 
    --show-pipeline
-       print all pipelines, then exits, requires -t and -l options, also
-       requires that all pipeline files match 'pipeline-*.txt'
+       print all pipelines, then exits, requires the -t option, also assumes
+       that all pipeline files match 'pipeline-*.txt'
 
    --pipeline FILE:
       optional configuration file to overrule the default config this is just
       the basename not path, so with '--pipeline conf.txt', the config file
       loaded is TARGET_PATH/LANGUAGE/config/conf.txt
-                              
+
 The script assumes an initialzed directory (created with step1_initialize.py)
 with a set of external files defined in TARGET_PATH/config/files.txt. Default
 pipeline configuration settings are in TARGET_PATH/config/pipeline-default.txt.
@@ -72,19 +72,27 @@ from ontology.utils.file import ensure_path, get_lines, create_file
 from step1_initialize import DATA_TYPES
 
 
-ALL_STAGES = ['--populate', '--xml2txt', '--txt2tag', '--txt2seg', '--seg2tag',
-              '--tag2chk', '--pf2dfeats']
+POPULATE = '--populate'
+XML2TXT = '--xml2txt'
+TXT2TAG = '--txt2tag'
+TXT2SEG = '--txt2seg'
+SEG2TAG = '--seg2tag'
+TAG2CHK = '--tag2chk'
+PF2DFEATS = '--pf2dfeats'
+
+ALL_STAGES = [POPULATE, XML2TXT, TXT2TAG, TXT2SEG, SEG2TAG, TAG2CHK, PF2DFEATS]
+
 
 # definition of mappings from document processing stage to input and output data
 # directories (named processing areas above)
 DOCUMENT_PROCESSING_IO = \
-    { '--populate': { 'in': 'external', 'out': ('d0_xml',) },
-      '--xml2txt': { 'in': 'd0_xml', 'out': ('d1_txt',) },
-      '--txt2seg': { 'in': 'd1_txt', 'out': ('d2_seg',) },
-      '--seg2tag': { 'in': 'd2_seg', 'out': ('d2_tag',) },
-      '--txt2tag': { 'in': 'd1_txt', 'out': ('d2_tag',) },
-      '--tag2chk': { 'in': 'd2_tag', 'out': ('d3_phr_feats', 'd3_phr_occ') },
-      '--pf2dfeats': { 'in': 'd3_phr_feats', 'out': ('d4_doc_feats',) }}
+    { POPULATE: { 'in': 'external', 'out': ('d0_xml',) },
+      XML2TXT: { 'in': 'd0_xml', 'out': ('d1_txt',) },
+      TXT2TAG: { 'in': 'd1_txt', 'out': ('d2_seg',) },
+      TXT2SEG: { 'in': 'd2_seg', 'out': ('d2_tag',) },
+      SEG2TAG: { 'in': 'd1_txt', 'out': ('d2_tag',) },
+      TAG2CHK: { 'in': 'd2_tag', 'out': ('d3_phr_feats', 'd3_phr_occ') },
+      PF2DFEATS: { 'in': 'd3_phr_feats', 'out': ('d4_doc_feats',) }}
 
 
 def update_state(fun):
@@ -107,8 +115,8 @@ def run_populate(config, limit, verbose=False):
     target_path = config.target_path
     language = config.language
     source = config.source()
-    output_names = DOCUMENT_PROCESSING_IO['--populate']['out']
-    dataset = DataSet('--populate', output_names[0], config)
+    output_names = DOCUMENT_PROCESSING_IO[POPULATE]['out']
+    dataset = DataSet(POPULATE, output_names[0], config)
 
     print "[--populate] populating %s" % (dataset)
     print "[--populate] using %d files from %s" % (limit, source)
@@ -140,10 +148,10 @@ def run_populate(config, limit, verbose=False):
 def run_xml2txt(config, limit, options, verbose=False):
     """Run the document structure parser in onto mode."""
 
-    input_dataset = find_input_dataset('--xml2txt', config)
-    output_datasets = find_output_datasets('--xml2txt', config)
+    input_dataset = find_input_dataset(XML2TXT, config)
+    output_datasets = find_output_datasets(XML2TXT, config)
     output_dataset = output_datasets[0]
-    print_datasets('--xml2txt', input_dataset, output_datasets)
+    print_datasets(XML2TXT, input_dataset, output_datasets)
     check_file_counts(input_dataset, output_dataset, limit)
 
     count = 0
@@ -153,7 +161,7 @@ def run_xml2txt(config, limit, options, verbose=False):
     for fspec in fspecs:
         count += 1
         filename = fspec.target
-        print_file_progress('--xml2txt', count, filename, verbose)
+        print_file_progress(XML2TXT, count, filename, verbose)
         file_in, file_out = prepare_io(filename, input_dataset, output_dataset)
         try:
             xml2txt.xml2txt(doc_parser, file_in, file_out, workspace)
@@ -169,10 +177,10 @@ def run_xml2txt(config, limit, options, verbose=False):
 def run_txt2tag(config, limit, options, verbose):
     """Takes txt files and runs the tagger on them."""
 
-    input_dataset = find_input_dataset('--txt2tag', config)
-    output_datasets = find_output_datasets('--txt2tag', config)
+    input_dataset = find_input_dataset(TXT2TAG, config)
+    output_datasets = find_output_datasets(TXT2TAG, config)
     output_dataset = output_datasets[0]
-    print_datasets('--txt2tag', input_dataset, output_datasets)
+    print_datasets(TXT2TAG, input_dataset, output_datasets)
     check_file_counts(input_dataset, output_dataset, limit)
 
     count = 0
@@ -181,7 +189,7 @@ def run_txt2tag(config, limit, options, verbose):
     for fspec in fspecs:
         count += 1
         filename = fspec.target
-        print_file_progress('--txt2tag', count, filename, verbose)
+        print_file_progress(TXT2TAG, count, filename, verbose)
         file_in, file_out = prepare_io(filename, input_dataset, output_dataset)
         txt2tag.tag(file_in, file_out, tagger)
 
@@ -192,10 +200,10 @@ def run_txt2tag(config, limit, options, verbose):
 def run_txt2seg(config, limit, options, verbose):
     """Takes txt files and runs the Chinese segmenter on them."""
 
-    input_dataset = find_input_dataset('--txt2seg', config)
-    output_datasets = find_output_datasets('--txt2seg', config)
+    input_dataset = find_input_dataset(TXT2SEG, config)
+    output_datasets = find_output_datasets(TXT2SEG, config)
     output_dataset = output_datasets[0]
-    print_datasets('--txt2seg', input_dataset, output_datasets)
+    print_datasets(TXT2SEG, input_dataset, output_datasets)
     check_file_counts(input_dataset, output_dataset, limit)
 
     count = 0
@@ -204,7 +212,7 @@ def run_txt2seg(config, limit, options, verbose):
     for fspec in fspecs:
         count += 1
         filename = fspec.target
-        print_file_progress('--txt2seg', count, filename, verbose)
+        print_file_progress(TXT2SEG, count, filename, verbose)
         file_in, file_out = prepare_io(filename, input_dataset, output_dataset)
         cn_txt2seg.seg(file_in, file_out, segmenter)
     return [output_dataset]
@@ -214,10 +222,10 @@ def run_txt2seg(config, limit, options, verbose):
 def run_seg2tag(config, limit, options, verbose):
     """Takes seg files and runs the Chinese tagger on them."""
 
-    input_dataset = find_input_dataset('--seg2tag', config)
-    output_datasets = find_output_datasets('--seg2tag', config)
+    input_dataset = find_input_dataset(SEG2TAG, config)
+    output_datasets = find_output_datasets(SEG2TAG, config)
     output_dataset = output_datasets[0]
-    print_datasets('--seg2tag', input_dataset, output_datasets)
+    print_datasets(SEG2TAG, input_dataset, output_datasets)
     check_file_counts(input_dataset, output_dataset, limit)
 
     count = 0
@@ -226,7 +234,7 @@ def run_seg2tag(config, limit, options, verbose):
     for fspec in fspecs:
         count += 1
         filename = fspec.target
-        print_file_progress('--seg2tag', count, filename, verbose)
+        print_file_progress(SEG2TAG, count, filename, verbose)
         file_in, file_out = prepare_io(filename, input_dataset, output_dataset)
         cn_seg2tag.tag(file_in, file_out, tagger)
 
@@ -245,11 +253,11 @@ def run_tag2chk(config, limit, options, verbose):
     # TODO: a hack that maps the official name (candidate_filter) to the old name
     filter_p = True if candidate_filter == 'on' else False
     
-    input_dataset = find_input_dataset('--tag2chk', config)
-    output_datasets = find_output_datasets('--tag2chk', config)
+    input_dataset = find_input_dataset(TAG2CHK, config)
+    output_datasets = find_output_datasets(TAG2CHK, config)
     output_dataset1 = output_datasets[0]
     output_dataset2 = output_datasets[1]
-    print_datasets('--txt2tag', input_dataset, output_datasets)
+    print_datasets(TXT2TAG, input_dataset, output_datasets)
     print "[--tag2chk] using '%s' chunker rules" % chunker_rules
     check_file_counts(input_dataset, output_dataset1, limit)
     check_file_counts(input_dataset, output_dataset2, limit)
@@ -259,7 +267,7 @@ def run_tag2chk(config, limit, options, verbose):
     for fspec in fspecs:
         count += 1
         filename = fspec.target
-        print_file_progress('--tag2chk', count, filename, verbose)
+        print_file_progress(TAG2CHK, count, filename, verbose)
         file_in, file_out1 = prepare_io(filename, input_dataset, output_dataset1)
         file_in, file_out2 = prepare_io(filename, input_dataset, output_dataset2)
         # TODO: handle the year stuff differently (this is a bit of a hack)
@@ -276,10 +284,10 @@ def run_pf2dfeats(config, limit, options, verbose):
 
     # TODO: move this to step4
 
-    input_dataset = find_input_dataset('--pf2dfeats', config)
-    output_datasets = find_output_datasets('--pf2dfeats', config)
+    input_dataset = find_input_dataset(PF2DFEATS, config)
+    output_datasets = find_output_datasets(PF2DFEATS, config)
     output_dataset = output_datasets[0]
-    print_datasets('--pf2dfeats', input_dataset, output_datasets)
+    print_datasets(PF2DFEATS, input_dataset, output_datasets)
     check_file_counts(input_dataset, output_dataset, limit)
 
     count = 0
@@ -287,7 +295,7 @@ def run_pf2dfeats(config, limit, options, verbose):
     for fspec in fspecs:
         count += 1
         filename = fspec.target
-        print_file_progress('--txt2tag', count, filename, verbose)
+        print_file_progress(TXT2TAG, count, filename, verbose)
         file_in, file_out = prepare_io(filename, input_dataset, output_dataset)
         year = os.path.basename(os.path.dirname(filename))
         doc_id = os.path.basename(filename)
@@ -441,7 +449,7 @@ if __name__ == '__main__':
     # default values of options
     target_path, language, stage = 'data/patents', 'en', None
     pipeline_config = 'pipeline-default.txt'
-    verbose, show_data_p, show_pipelines_p = False, False, False
+    show_data_p, show_pipelines_p = False, False
     limit = 1
     
     (opts, args) = read_opts()
@@ -458,24 +466,25 @@ if __name__ == '__main__':
 
     config = GlobalConfig(target_path, language, pipeline_config)
     options = config.get_options(stage)
-    config.pp()
+    if verbose:
+        config.pp()
 
     if show_data_p:
         show_datasets(config)
     elif show_pipelines_p:
         show_pipelines(config)
 
-    elif stage == '--populate':
+    elif stage == POPULATE:
         run_populate(config, limit, verbose)
-    elif stage == '--xml2txt':
+    elif stage == XML2TXT:
         run_xml2txt(config, limit, options, verbose)
-    elif stage == '--txt2tag':
+    elif stage == TXT2TAG:
         run_txt2tag(config, limit, options, verbose)
-    elif stage == '--txt2seg':
+    elif stage == TXT2SEG:
         run_txt2seg(config, limit, options, verbose)
-    elif stage == '--seg2tag':
+    elif stage == SEG2TAG:
         run_seg2tag(config, limit, options, verbose)
-    elif stage == '--tag2chk':
+    elif stage == TAG2CHK:
         run_tag2chk(config, limit, options, verbose)
-    elif stage == '--pf2dfeats':
+    elif stage == PF2DFEATS:
         run_pf2dfeats(config, limit, options, verbose)
