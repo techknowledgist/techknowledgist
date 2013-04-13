@@ -50,6 +50,7 @@ Examples:
 
 import os, sys, time, shutil, getopt, subprocess, codecs, textwrap
 
+import config
 import putils
 import xml2txt
 import txt2tag
@@ -67,9 +68,8 @@ sys.path.insert(0, os.getcwd())
 os.chdir(script_dir)
 
 from utils.docstructure.main import Parser
-from ontology.utils.batch import RuntimeConfig, DataSet
+from ontology.utils.batch import RuntimeConfig, DataSet, show_datasets, show_pipelines
 from ontology.utils.file import ensure_path, get_lines, create_file
-from step1_initialize import DATA_TYPES
 
 
 POPULATE = '--populate'
@@ -304,34 +304,6 @@ def run_pf2dfeats(rconfig, limit, options, verbose):
     return [output_dataset]
 
 
-def show_datasets(rconfig):
-    """Print all datasets in the data directory."""
-    for dataset_type in DATA_TYPES:
-        print "\n===", dataset_type, "===\n"
-        path = os.path.join(rconfig.target_path, 'data', dataset_type)
-        datasets1 = [ds for ds in os.listdir(path) if ds.isdigit()]
-        datasets2 = [DataSet(None, dataset_type, rconfig, ds) for ds in datasets1]
-        for ds in datasets2:
-            print ds
-            for e in ds.pipeline_trace:
-                print "   ", e[0], e[1]
-            print "   ", ds.pipeline_head[0], ds.pipeline_head[1]
-
-def show_pipelines(rconfig):
-    path = os.path.join(rconfig.target_path, 'config')
-    pipeline_files = [f for f in os.listdir(path) if f.startswith('pipeline')]
-    for pipeline_file in sorted(pipeline_files):
-        if pipeline_file[-1] == '~':
-            continue
-        print "\n[%s]" % pipeline_file
-        for line in open(os.path.join(path, pipeline_file)).readlines():
-            line = line.strip()
-            if not line or line[0] == '#':
-                continue
-            print '  ', line
-    print
-
-
     
 ## UTILITY METHODS
     
@@ -470,7 +442,7 @@ if __name__ == '__main__':
     rconfig.pp()
 
     if show_data_p:
-        show_datasets(rconfig)
+        show_datasets(rconfig, config.DATA_TYPES)
     elif show_pipelines_p:
         show_pipelines(rconfig)
 

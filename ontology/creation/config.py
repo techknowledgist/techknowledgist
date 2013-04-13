@@ -6,8 +6,11 @@ variables that are intended to be consumed by other scripts, which makes it easi
 recognize when variables from this file are used.
 
 Configuration settings in this file:
+- general settings
+- processing pipeline
 - mallet location
 - stanford tool locations and settings
+- settings for pipeline and patent_analyzer scripts
 
 """
 
@@ -28,6 +31,56 @@ else:
     print "WARNING: could not determine the location"
     location = None
 
+
+### General settings
+### -----------------------------------------------------------------------
+
+# default language
+LANGUAGE = "en"
+
+# annotations directory, general and for the language
+ANNOTATION_DIRECTORY = "../annotation"
+ANNOT_LANG_PATH = ANNOTATION_DIRECTORY + "/" + LANGUAGE
+
+
+### Pipeline settings
+### -----------------------------------------------------------------------
+
+# definition of the default pipeline configurations
+
+DEFAULT_PIPELINE = """
+# This file contains the default pipeline configuration settings. Settings in
+# here can be overruled by handing the step2_document_processing script the
+# identifier for another configuration file. All pipeline configuration files
+# live inside of the config directory configuration file.
+
+--populate
+--xml2txt
+--txt2tag
+--tag2chk --candidate-filter=off --chunker-rules=en
+--pf2dfeats
+"""
+
+DEFAULT_PIPELINE_CN = """
+# This file contains the default pipeline configuration settings for Chinese. Settings in
+# here can be overruled by handing the step2_document_processing script the identifier for
+# another configuration file. All pipeline configuration files live inside of the config
+# directory configuration file.
+
+--populate
+--xml2txt
+--txt2seg
+--seg2tag
+--tag2chk --candidate-filter=off --chunker-rules=en
+--pf2dfeats
+"""
+
+# definition of sub directory names for processing stages
+DATA_TYPES = \
+    ['d0_xml', 'd1_txt', 'd2_tag', 'd2_seg', 'd3_phr_occ', 'd3_phr_feats', 'd4_doc_feats']
+PROCESSING_AREAS = \
+    DATA_TYPES + ['t0_annotate', 't1_train', 't2_classify', 't3_test',
+                  'o1_index', 'o2_matcher', 'o3_selector', 'workspace' ]
 
 
 ### MALLET settings
@@ -113,15 +166,6 @@ EXTERNAL_PATENT_PATH = "/home/j/clp/chinese/corpora/fuse-patents/500-patents/DAT
 # The .xml qualifier is expected on file names in all subdirectories, so that the file
 # names within the step subdirectories are identical.
 WORKING_PATENT_PATH = os.path.join(DATA_ROOT, "patents")
-
-# default language
-LANGUAGE = "en"
-
-# for training annotations
-ANNOT_LANG_PATH = "../annotation/" + LANGUAGE
-
-# another version that is less language specific (the above always uses 'en')
-ANNOTATION_DIRECTORY = "../annotation"
 
 # for pipeline.py
 

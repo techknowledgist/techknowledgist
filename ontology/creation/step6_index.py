@@ -68,6 +68,8 @@ $ python step6_index.py -t data/patents/en -l en --analyze-index --index-name st
 
 import os, sys, time, shutil, getopt, codecs, resource, glob, StringIO
 
+import config
+
 script_path = os.path.abspath(sys.argv[0])
 script_dir = os.path.dirname(script_path)
 os.chdir(script_dir)
@@ -75,11 +77,10 @@ os.chdir('../..')
 sys.path.insert(0, os.getcwd())
 os.chdir(script_dir)
 
-from ontology.utils.batch import RuntimeConfig
+from ontology.utils.batch import RuntimeConfig, show_datasets, show_pipelines
 from ontology.utils.file import ensure_path
 from ontology.utils.git import get_git_commit
 from ontology.utils.html import HtmlDocument
-from step2_document_processing import show_datasets, show_pipelines
 from np_db import YearsDatabase, TermsDatabase, SummaryDatabase
 
 
@@ -716,7 +717,7 @@ if __name__ == '__main__':
         config.pp()
 
     if show_data_p:
-        show_datasets(rconfig)
+        show_datasets(rconfig, config.DATA_TYPES)
     elif show_pipelines_p:
         show_pipelines(rconfig)
     elif collect_data:

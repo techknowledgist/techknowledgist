@@ -112,42 +112,6 @@ import config
 from ontology.utils.file import ensure_path, get_lines, get_file_paths
 
 
-# definition of the default pipeline configurations
-
-DEFAULT_PIPELINE = """
-# This file contains the default pipeline configuration settings. Settings in
-# here can be overruled by handing the step2_document_processing script the
-# identifier for another configuration file. All pipeline configuration files
-# live inside of the config directory configuration file.
-
---populate
---xml2txt
---txt2tag
---tag2chk --candidate-filter=off --chunker-rules=en
---pf2dfeats
-"""
-
-DEFAULT_PIPELINE_CN = """
-# This file contains the default pipeline configuration settings for Chinese. Settings in
-# here can be overruled by handing the step2_document_processing script the identifier for
-# another configuration file. All pipeline configuration files live inside of the config
-# directory configuration file.
-
---populate
---xml2txt
---txt2seg
---seg2tag
---tag2chk --candidate-filter=off --chunker-rules=en
---pf2dfeats
-"""
-
-# definition of sub directory names for processing stages
-DATA_TYPES = \
-    ['d0_xml', 'd1_txt', 'd2_tag', 'd2_seg', 'd3_phr_occ', 'd3_phr_feats', 'd4_doc_feats']
-PROCESSING_AREAS = \
-    DATA_TYPES + ['t0_annotate', 't1_train', 't2_classify', 't3_test',
-                  'o1_index', 'o2_matcher', 'o3_selector', 'workspace' ]
-
 
 def init(language, source_file, source_path, target_path, pipeline_config, shuffle_file):
 
@@ -181,7 +145,7 @@ def create_directories(target_path, conf_path, data_path):
     """Create subdirectory structure in target_path."""
     print "[--init] creating directory structure in %s" % (target_path)
     ensure_path(conf_path)
-    for subdir in PROCESSING_AREAS:
+    for subdir in config.PROCESSING_AREAS:
         subdir_path = data_path + os.sep + subdir
         ensure_path(subdir_path)
 
@@ -223,7 +187,7 @@ if __name__ == '__main__':
     target_path = config.WORKING_PATENT_PATH
     language = config.LANGUAGE
     shuffle_file = False
-    pipeline_config = DEFAULT_PIPELINE
+    pipeline_config = config.DEFAULT_PIPELINE
     
     for opt, val in opts:
         if opt == '-l': language = val
@@ -233,6 +197,6 @@ if __name__ == '__main__':
         if opt == '--shuffle': shuffle_file = True
 
     if language == 'cn':
-            pipeline_config = DEFAULT_PIPELINE_CN
+            pipeline_config = config.DEFAULT_PIPELINE_CN
 
     init(language, source_file, source_path, target_path, pipeline_config, shuffle_file)

@@ -63,10 +63,9 @@ import config
 import find_mallet_field_value_column
 import sum_scores
 
-from ontology.utils.batch import RuntimeConfig, get_datasets
+from ontology.utils.batch import RuntimeConfig, get_datasets, show_datasets, show_pipelines
 from ontology.utils.file import filename_generator, ensure_path
 from ontology.utils.git import get_git_commit
-from step2_document_processing import show_datasets, show_pipelines
 
 # note that the old--scores option is now folded in with --classify
 ALL_STAGES = ['--train', '--classify']
@@ -442,7 +441,7 @@ if __name__ == '__main__':
         rconfig.pp()
 
     if show_data_p:
-        show_datasets(rconfig)
+        show_datasets(rconfig, config.DATA_TYPES)
     elif show_pipelines_p:
         show_pipelines(rconfig)
 
