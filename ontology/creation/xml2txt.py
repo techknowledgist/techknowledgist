@@ -16,87 +16,146 @@ os.chdir(script_dir)
 from utils.docstructure.main import Parser, create_fact_file, open_write_file
 from utils.docstructure.main import load_data, restore_sentences
 
+TARGET_FIELDS = ['FH_TITLE', 'FH_DATE', 'FH_ABSTRACT', 'FH_SUMMARY',
+                 'FH_TECHNICAL_FIELD', 'FH_BACKGROUND_ART',
+                 'FH_DESC_REST', 'FH_FIRST_CLAIM', 'FH_OTHER_CLAIMS']
+
+USED_FIELDS = TARGET_FIELDS + ['FH_DESCRIPTION']
+
+# all the fields that should only have one element in their list
+SINGLETON_FIELDS = TARGET_FIELDS[:-1]
+
+MAPPINGS = { 'META-TITLE': 'FH_TITLE',
+             'META-DATE': 'FH_DATE',
+             'ABSTRACT': 'FH_ABSTRACT',
+             'SUMMARY': 'FH_SUMMARY',
+             'DESCRIPTION': 'FH_DESCRIPTION',
+             'TECHNICAL_FIELD': 'FH_TECHNICAL_FIELD',
+             'BACKGROUND_ART': 'FH_BACKGROUND_ART' }
+
+DEBUG = False
+
 
 def xml2txt(xml_parser, source_file, target_file, workspace):
-    """Create a target_file in the txt directory from a source_file in the xml directory,
-    using a Parser() object. This method is called from batch.py and does not depend on
-    the hard-coded path above."""
+    """Create a target_file in the d1_txt directory from a source_file in the xml
+    directory."""
+
     basename = os.path.basename(target_file)
     ds_text_file = os.path.join(workspace, "%s.text" % basename)
     ds_tags_file = os.path.join(workspace, "%s.tags" % basename)
     ds_fact_file = os.path.join(workspace, "%s.fact" % basename)
     ds_sect_file = os.path.join(workspace, "%s.sect" % basename)
 
-    #print "\n".join((source_file, ds_text_file, ds_tags_file, ds_fact_file, ds_sect_file))
     create_fact_file(source_file, ds_text_file, ds_tags_file, ds_fact_file)
     xml_parser.collection = 'LEXISNEXIS'
     xml_parser.process_file(ds_text_file, ds_fact_file, ds_sect_file, fact_type='BASIC')
+
     (text, section_tags) = load_data(ds_text_file, ds_sect_file)
-    TARGET_FIELDS = ['FH_TITLE', 'FH_DATE', 'FH_ABSTRACT', 'FH_SUMMARY',
-                     'FH_TECHNICAL_FIELD', 'FH_BACKGROUND_ART',
-                     'FH_DESC_REST', 'FH_FIRST_CLAIM']
-    USED_FIELDS = TARGET_FIELDS + ['FH_DESCRIPTION']
-    FH_DATA = {}
+    fh_data = {}
     for f in USED_FIELDS:
-        FH_DATA[f] = None
-    _add_usable_sections(xml_parser, section_tags, text, FH_DATA)
-    ONTO_FH = open_write_file(target_file)
-    for f in TARGET_FIELDS:
-        if FH_DATA.has_key(f) and FH_DATA[f] is not None:
-            ONTO_FH.write("%s:\n" % f)
-            data_to_write = FH_DATA[f][2]
-            if xml_parser.language == 'CHINESE':
-                data_to_write = restore_sentences(f, data_to_write)
-            ONTO_FH.write(data_to_write)
-            ONTO_FH.write("\n")
-    ONTO_FH.write("END\n")
+        fh_data[f] = []
+
+    add_sections(xml_parser, section_tags, text, fh_data)
+    write_sections(xml_parser, target_file, fh_data)
     for fname in (ds_text_file, ds_tags_file, ds_fact_file, ds_sect_file):
         os.remove(fname)
 
-    
-def _add_usable_sections(xml_paser, section_tags, text, FH_DATA):
-    mappings = { 'META-TITLE': 'FH_TITLE', 'META-DATE': 'FH_DATE',
-                 'ABSTRACT': 'FH_ABSTRACT', 'SUMMARY': 'FH_SUMMARY',
-                 'DESCRIPTION': 'FH_DESCRIPTION',
-                 'TECHNICAL_FIELD': 'FH_TECHNICAL_FIELD',
-                 'BACKGROUND_ART': 'FH_BACKGROUND_ART'
-                 }
-    for tag in section_tags:
-        (p1, p2, tagtype) = (tag.start_index, tag.end_index, tag.attr('TYPE'))
-        if mappings.get(tagtype) is not None:
-            mapped_type = mappings[tagtype]
-            # skip the title or abstract if it is in English and the language set is
-            # German or Chinese
-            # TODO: needs to be generalized to all languages
-            if xml_paser.language != 'ENGLISH' and tagtype in ('META-TITLE', 'ABSTRACT'):
-                if tag.attr('LANGUAGE') == 'eng':
-                    continue
-            # only add the content if there wasn't any already, this is a bit ad hoc
-            # but will have a preference for the first occurrence of the same content
-            if FH_DATA.has_key(mapped_type) and FH_DATA[mapped_type] is None:
-                section_text = text[int(p1):int(p2)].strip()
-                if mapped_type == 'FH_TITLE' and xml_paser.language == 'GERMAN':
-                    section_text = restore_proper_capitalization(section_text)
-                FH_DATA[mapped_type] = (p1, p2, section_text)
+
+def add_sections(xml_parser, section_tags, text, fh_data):
+    """Collect all the tags that have a mapping or that are claims. Then remove embedded
+    tags and add content to the FH_DESC_REST section."""
+    for stag in section_tags:
+        (p1, p2, tagtype) = (stag.start_index, stag.end_index, stag.attr('TYPE'))
+        section = (p1, p2, text[int(p1):int(p2)].strip())
+        if MAPPINGS.get(tagtype) is not None:
+            add_mapped_tagtype(xml_parser, stag, fh_data, p1, p2, tagtype, section)
         elif tagtype == 'CLAIM':
-            if tag.attr('CLAIM_NUMBER') == '1':
-                FH_DATA['FH_FIRST_CLAIM'] = (p1, p2, text[int(p1):int(p2)].strip())
-    desc = FH_DATA['FH_DESCRIPTION']
-    summ = FH_DATA['FH_SUMMARY']
-    tech = FH_DATA['FH_TECHNICAL_FIELD']
-    back = FH_DATA['FH_BACKGROUND_ART']
+            add_claim(fh_data, stag, section)
+    remove_embedded_section(fh_data)
+    populate_desc_rest(fh_data, text)
+
+def write_sections(xml_parser, target_file, fh_data):
+    """Write the sections as requested by the technology tagger to a file."""
+    onto_fh = open_write_file(target_file)
+    for f in TARGET_FIELDS:
+        if fh_data.has_key(f) and fh_data[f]:
+            onto_fh.write(u"%s:\n" % f)
+            for sect in fh_data[f]:
+                data_to_write = sect[2]
+                if xml_parser.language == 'CHINESE':
+                    data_to_write = restore_sentences(f, data_to_write)
+                onto_fh.write(data_to_write)
+                onto_fh.write(u"\n")
+    onto_fh.write("END\n")
+    
+def populate_desc_rest(fh_data, text):
+    """Create the content of FH_DESC_REST, which has the parts of the description that are
+    not in the summary, technical field or backhruond art. A summary is used for English
+    patents. Chinese patents can have the background art and/or technical field
+    sections."""
+    desc = get_first(fh_data, 'FH_DESCRIPTION')
+    summ = get_first(fh_data, 'FH_SUMMARY')
+    tech = get_first(fh_data, 'FH_TECHNICAL_FIELD')
+    back = get_first(fh_data, 'FH_BACKGROUND_ART')
     if desc and summ:
-        FH_DATA['FH_DESC_REST'] = (summ[1], desc[1], text[summ[1]:desc[1]].strip())
+        fh_data['FH_DESC_REST'].append((summ[1], desc[1], text[summ[1]:desc[1]].strip()))
     elif desc and tech and back:
-        FH_DATA['FH_DESC_REST'] = (back[1], desc[1], text[back[1]:desc[1]].strip())
-    elif desc and  back:
-        FH_DATA['FH_DESC_REST'] = (back[1], desc[1], text[back[1]:desc[1]].strip())
+        fh_data['FH_DESC_REST'].append((back[1], desc[1], text[back[1]:desc[1]].strip()))
+    elif desc and back:
+        fh_data['FH_DESC_REST'].append((back[1], desc[1], text[back[1]:desc[1]].strip()))
     elif desc and tech:
-        FH_DATA['FH_DESC_REST'] = (tech[1], desc[1], text[tech[1]:desc[1]].strip())
+        fh_data['FH_DESC_REST'].append((tech[1], desc[1], text[tech[1]:desc[1]].strip()))
     elif desc:
-        FH_DATA['FH_DESC_REST'] = (desc[0], desc[1], text[desc[0]:desc[1]].strip())
+        fh_data['FH_DESC_REST'].append((desc[0], desc[1], text[desc[0]:desc[1]].strip()))
 
 
+def add_mapped_tagtype(xml_parser, section_tag, fh_data, p1, p2, tagtype, section):
+    """Add a section tag for those tags whose tagtype are mapped to one of the FH_*
+    fields used by the technology tagger."""
+    mapped_type = MAPPINGS[tagtype]
+    # Skip the title or abstract if it is in English and the language set is
+    # German or Chinese. TODO: needs to be generalized to all languages.
+    if xml_parser.language != 'ENGLISH' and tagtype in ('META-TITLE', 'ABSTRACT'):
+        if section_tag.attr('LANGUAGE') == 'eng':
+            return        
+    # ad hoc fix for german
+    if mapped_type == 'FH_TITLE' and xml_parser.language == 'GERMAN':
+        section[2] = restore_proper_capitalization(section[2])
+    if DEBUG:
+        print_section(section, mapped_type)
+    fh_data[mapped_type].append(section)
+    
+def add_claim(fh_data, section_tag, section):
+    """Add a claim section, distinguishing between first claim and other claims."""
+    if section_tag.attr('CLAIM_NUMBER') == '1':
+        if DEBUG:
+            print_section(section, 'FH_FIRST_CLAIM')
+        fh_data['FH_FIRST_CLAIM'].append(section)
+    else:
+        if DEBUG:
+            print_section(section, 'FH_OTHER_CLAIMS')
+        fh_data['FH_OTHER_CLAIMS'].append(section)
+
+def remove_embedded_section(fh_data):
+    """Remove all the embedded tags. For example, it is quite common for tthere to be a
+    summary inside of a summary (where there is a summary tag and within it a "Summary of
+    the Invention" heading). Rather simplistic way of doing this, just keep the first
+    summary and description section. Should really loop over all elements and check
+    whether they are embedded in any other element."""
+    for tagtype in SINGLETON_FIELDS:
+        fh_data[tagtype] = fh_data[tagtype][:1]
+
+def get_first(fh_data, field):
+    return fh_data[field][0] if fh_data[field] else None
+    
+def print_section(section, prefix=''):
+    if prefix:
+        print prefix,
+    print section[0], section[1], section[2][:50]
+
+
+    
+### ALL THE FOLLOWING MAY BE OBSOLETE
 
 def xml2txt_dir(xml_parser, source_path, target_path,
                 ds_text_path, ds_tags_path , ds_fact_path, ds_sect_path):

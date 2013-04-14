@@ -165,10 +165,12 @@ def run_xml2txt(rconfig, limit, options, verbose=False):
         file_in, file_out = prepare_io(filename, input_dataset, output_dataset)
         try:
             xml2txt.xml2txt(doc_parser, file_in, file_out, workspace)
-        except Exception:
+        except Exception as e:
+            # just write an empty file that can be consumed downstream
             fh = codecs.open(file_out, 'w')
             fh.close()
             print "[--xml2txt] WARNING: error on", file_in
+            print "           ", e
 
     return [output_dataset]
 
