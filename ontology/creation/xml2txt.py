@@ -6,18 +6,15 @@ import os
 import pdb
 import sys
 
-# path to include Marc's code
-# MV: added the manipulations with the directory since that works on fusenet
-# MV: kept all code for safety (and it does not hurt on fusenet)
 script_path = os.path.abspath(sys.argv[0])
 script_dir = os.path.dirname(script_path)
 os.chdir(script_dir)
 os.chdir('../..')
 sys.path.insert(0, os.getcwd())
 os.chdir(script_dir)
-# MV: this should really go or be put in a config file
-sys.path.append("/home/j/corpuswork/fuse/code/patent-classifier")
-from utils.docstructure.main import Parser
+
+from utils.docstructure.main import Parser, create_fact_file, open_write_file
+from utils.docstructure.main import load_data, restore_sentences
 
 
 def xml2txt(xml_parser, source_file, target_file, workspace):
@@ -29,14 +26,82 @@ def xml2txt(xml_parser, source_file, target_file, workspace):
     ds_tags_file = os.path.join(workspace, "%s.tags" % basename)
     ds_fact_file = os.path.join(workspace, "%s.fact" % basename)
     ds_sect_file = os.path.join(workspace, "%s.sect" % basename)
-    # MV: okay, here we should really pull the specialistic stuff out of the document
-    # parser.
-    xml_parser.create_ontology_creation_input(source_file, ds_text_file, ds_tags_file,
-                                              ds_fact_file, ds_sect_file, target_file)
+
+    #print "\n".join((source_file, ds_text_file, ds_tags_file, ds_fact_file, ds_sect_file))
+    create_fact_file(source_file, ds_text_file, ds_tags_file, ds_fact_file)
+    xml_parser.collection = 'LEXISNEXIS'
+    xml_parser.process_file(ds_text_file, ds_fact_file, ds_sect_file, fact_type='BASIC')
+    (text, section_tags) = load_data(ds_text_file, ds_sect_file)
+    TARGET_FIELDS = ['FH_TITLE', 'FH_DATE', 'FH_ABSTRACT', 'FH_SUMMARY',
+                     'FH_TECHNICAL_FIELD', 'FH_BACKGROUND_ART',
+                     'FH_DESC_REST', 'FH_FIRST_CLAIM']
+    USED_FIELDS = TARGET_FIELDS + ['FH_DESCRIPTION']
+    FH_DATA = {}
+    for f in USED_FIELDS:
+        FH_DATA[f] = None
+    _add_usable_sections(xml_parser, section_tags, text, FH_DATA)
+    ONTO_FH = open_write_file(target_file)
+    for f in TARGET_FIELDS:
+        if FH_DATA.has_key(f) and FH_DATA[f] is not None:
+            ONTO_FH.write("%s:\n" % f)
+            data_to_write = FH_DATA[f][2]
+            if xml_parser.language == 'CHINESE':
+                data_to_write = restore_sentences(f, data_to_write)
+            ONTO_FH.write(data_to_write)
+            ONTO_FH.write("\n")
+    ONTO_FH.write("END\n")
+    for fname in (ds_text_file, ds_tags_file, ds_fact_file, ds_sect_file):
+        os.remove(fname)
+
+    
+def _add_usable_sections(xml_paser, section_tags, text, FH_DATA):
+    mappings = { 'META-TITLE': 'FH_TITLE', 'META-DATE': 'FH_DATE',
+                 'ABSTRACT': 'FH_ABSTRACT', 'SUMMARY': 'FH_SUMMARY',
+                 'DESCRIPTION': 'FH_DESCRIPTION',
+                 'TECHNICAL_FIELD': 'FH_TECHNICAL_FIELD',
+                 'BACKGROUND_ART': 'FH_BACKGROUND_ART'
+                 }
+    for tag in section_tags:
+        (p1, p2, tagtype) = (tag.start_index, tag.end_index, tag.attr('TYPE'))
+        if mappings.get(tagtype) is not None:
+            mapped_type = mappings[tagtype]
+            # skip the title or abstract if it is in English and the language set is
+            # German or Chinese
+            # TODO: needs to be generalized to all languages
+            if xml_paser.language != 'ENGLISH' and tagtype in ('META-TITLE', 'ABSTRACT'):
+                if tag.attr('LANGUAGE') == 'eng':
+                    continue
+            # only add the content if there wasn't any already, this is a bit ad hoc
+            # but will have a preference for the first occurrence of the same content
+            if FH_DATA.has_key(mapped_type) and FH_DATA[mapped_type] is None:
+                section_text = text[int(p1):int(p2)].strip()
+                if mapped_type == 'FH_TITLE' and xml_paser.language == 'GERMAN':
+                    section_text = restore_proper_capitalization(section_text)
+                FH_DATA[mapped_type] = (p1, p2, section_text)
+        elif tagtype == 'CLAIM':
+            if tag.attr('CLAIM_NUMBER') == '1':
+                FH_DATA['FH_FIRST_CLAIM'] = (p1, p2, text[int(p1):int(p2)].strip())
+    desc = FH_DATA['FH_DESCRIPTION']
+    summ = FH_DATA['FH_SUMMARY']
+    tech = FH_DATA['FH_TECHNICAL_FIELD']
+    back = FH_DATA['FH_BACKGROUND_ART']
+    if desc and summ:
+        FH_DATA['FH_DESC_REST'] = (summ[1], desc[1], text[summ[1]:desc[1]].strip())
+    elif desc and tech and back:
+        FH_DATA['FH_DESC_REST'] = (back[1], desc[1], text[back[1]:desc[1]].strip())
+    elif desc and  back:
+        FH_DATA['FH_DESC_REST'] = (back[1], desc[1], text[back[1]:desc[1]].strip())
+    elif desc and tech:
+        FH_DATA['FH_DESC_REST'] = (tech[1], desc[1], text[tech[1]:desc[1]].strip())
+    elif desc:
+        FH_DATA['FH_DESC_REST'] = (desc[0], desc[1], text[desc[0]:desc[1]].strip())
+
 
 
 def xml2txt_dir(xml_parser, source_path, target_path,
                 ds_text_path, ds_tags_path , ds_fact_path, ds_sect_path):
+    # TODO: this does not work anymore and should be fixed, but only if it is going to be
+    # used again (which it isn't as of April 14, 2013)
     print "[xml2txt_dir]source_path: %s, target_path: %s" % (source_path, target_path)
     for file in os.listdir(source_path):
         source_file = source_path + "/" + file
@@ -51,12 +116,12 @@ def xml2txt_dir(xml_parser, source_path, target_path,
         xml_parser.create_ontology_creation_input(source_file, ds_text_file, ds_tags_file,
                                                   ds_fact_file, ds_sect_file, target_file)
 
+
 def test():
     xml_parser = Parser()
     parser.language = "ENGLISH" 
     #parser.language = "GERMAN" 
     #parser.language = "CHINESE" 
-
     source_path = "/home/j/anick/fuse/data/patents/en_test/xml"
     target_path = "/home/j/anick/fuse/data/patents/en_test/pickle"
     ds_text_path = "/home/j/anick/fuse/data/patents/en_test/ds_text"
