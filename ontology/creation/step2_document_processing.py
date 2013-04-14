@@ -88,8 +88,8 @@ ALL_STAGES = [POPULATE, XML2TXT, TXT2TAG, TXT2SEG, SEG2TAG, TAG2CHK, PF2DFEATS]
 DOCUMENT_PROCESSING_IO = \
     { POPULATE: { 'in': 'external', 'out': ('d0_xml',) },
       XML2TXT: { 'in': 'd0_xml', 'out': ('d1_txt',) },
-      TXT2TAG: { 'in': 'd1_txt', 'out': ('d2_seg',) },
-      TXT2SEG: { 'in': 'd2_seg', 'out': ('d2_tag',) },
+      TXT2TAG: { 'in': 'd1_txt', 'out': ('d2_tag',) },
+      TXT2SEG: { 'in': 'd2_seg', 'out': ('d2_seg',) },
       SEG2TAG: { 'in': 'd1_txt', 'out': ('d2_tag',) },
       TAG2CHK: { 'in': 'd2_tag', 'out': ('d3_phr_feats', 'd3_phr_occ') },
       PF2DFEATS: { 'in': 'd3_phr_feats', 'out': ('d4_doc_feats',) }}
