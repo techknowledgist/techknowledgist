@@ -1,6 +1,6 @@
 """
 
-Compare two sets with labeld data, print the phrases that receive different labels as well
+Compare two sets with labeled data, print the phrases that receive different labels as well
 as a count of the overlap.
 
 """
