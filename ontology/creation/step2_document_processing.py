@@ -35,7 +35,7 @@ OPTIONS:
       the basename not path, so with '--pipeline conf.txt', the config file loaded is
       TARGET_PATH/LANGUAGE/config/conf.txt
                               
-The script assumes an initialzed directory (created with step1_initialize.py)
+The script assumes an initialized directory (created with step1_initialize.py)
 with a set of external files defined in TARGET_PATH/config/files.txt. Default
 pipeline configuration settings are in TARGET_PATH/config/pipeline-default.txt.
 
@@ -421,7 +421,9 @@ def read_opts():
 if __name__ == '__main__':
 
     # default values of options
-    target_path, language, stage = 'data/patents', 'en', None
+    target_path = config.WORKING_PATENT_PATH
+    language = config.LANGUAGE
+    stage = None
     pipeline_config = 'pipeline-default.txt'
     verbose, show_data_p, show_pipelines_p = False, False, False
     limit = 1

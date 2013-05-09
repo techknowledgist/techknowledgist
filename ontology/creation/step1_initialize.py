@@ -109,7 +109,7 @@ sys.path.insert(0, os.getcwd())
 os.chdir(script_dir)
 
 import config
-from ontology.utils.file import ensure_path, get_lines, get_file_paths
+from ontology.utils.file import ensure_path, get_lines, get_file_paths, read_only
 
 
 
@@ -165,17 +165,22 @@ def create_filelist(source_file, source_path, conf_path, shuffle_file):
                 fh.write("0000\t" + fname + "\n")
     else:
         sys.exit("[--init] ERROR: need to define input with -f or -s option, aborting")
+    read_only(file_list)
 
 def create_general_config_file(conf_path, settings):
-    print "[--init] creating %s/general.txt" % (conf_path)
-    settings_file = open(os.path.join(conf_path, 'general.txt'), 'w')
-    settings_file.write("".join(settings))
+    filename = os.path.join(conf_path, 'general.txt')
+    print "[--init] creating %s" % (filename)
+    fh = open(filename, 'w')
+    fh.write("".join(settings))
+    read_only(filename)
 
 def create_default_pipeline_config_file(pipeline_config, conf_path):
-    fh = open(os.path.join(conf_path, 'pipeline-default.txt'), 'w')
-    print "[--init] creating %s" % (fh.name)
+    filename = os.path.join(conf_path, 'pipeline-default.txt')
+    print "[--init] creating %s" % (filename)
+    fh = open(filename, 'w')
     fh.write(pipeline_config.lstrip())
-    fh.close()
+    read_only(filename)
+
 
 
 if __name__ == '__main__':
