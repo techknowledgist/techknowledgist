@@ -50,7 +50,7 @@ To get the nubers with threshold set to 0, use 0.000000000001 (to avoid cofusion
 """
 
 import train
-import mallet
+#import mallet
 import os
 import collections
 import codecs

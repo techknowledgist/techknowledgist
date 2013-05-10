@@ -8,16 +8,16 @@ are selected with the following three options:
     --classify   run classifier
     --evaluate   run evaluation on test corpus
     
-The are two options that are relevant for all three modes
+There are two general options that are relevant for all three modes:
 
     --corpus PATH          corpus directory, default is data/patents
-    --verbose              switched on verbose mode
+    --verbose              switches on verbose mode
 
 Note that unlike with the document processing step there is no language option,
 this reflects the mostly language independent nature of this step. Of course,
 the corpus itself has the lanuage in its configuration file. Also, as we will
-see below, language-specific information can be handed in to the process
-(annotated terms for example).
+see below, language-specific information like annotated terms can be handed in
+to the process.
 
     
 SHOWING INFO
@@ -38,18 +38,17 @@ For training, you typically want to pick the best pipeline settings as it became
 apparent from all previous testing and create a model for a sufficiently large
 training set. Below is an example invocation:
 
-   $ python step4_classify.py \
-       --train \
-       --corpus data/patents/201305-en \
-       --language en \
-       --pipeline pipeline-default.txt \
-       --filelist files-testing.txt \
-       --annotation-file ../annotation/en/technology/phr_occ.lab \
-       --annotation-count 2000 \
-       --model standard \
-       --features extint \
-       --xval 0 \
-       --verbose
+  $ python step4_technologies.py \
+      --train \
+      --corpus data/patents/201305-en \
+      --pipeline pipeline-default.txt \
+      --filelist files-testing.txt \
+      --annotation-file ../annotation/en/technology/phr_occ.lab \
+      --annotation-count 2000 \
+      --model standard \
+      --features extint \
+      --xval 0 \
+      --verbose
 
 This creates a set of files in data/t1_train/standard in the corpus directory,
 where the last part of the directory name is given by the --model option (which
@@ -83,7 +82,7 @@ For running the classifier, you just pick your model with the --model option,
 picking out a model created by the trainer, and run it on a set of files defined
 by a pipeline and a file list. Here is a typical invocation:
 
-  $ python step4_classify.py \
+  $ python step4_technologies.py \
       --classify \
       --corpus data/patents/201305-en \
       --pipeline pipeline-default.txt \
@@ -119,6 +118,32 @@ never need the summaries).
 
 EVALUATION
 
+Evaluation mode is simply a wrapper around the evaluaton.py script. In addition
+to a corpus name, you need to supply it with a batch identifier and a gold
+standard file.
+
+  $ python step4_technologies.py \
+      --evaluate \
+      --corpus data/patents/201305-en \
+      --batch standard.batch1 \
+      --gold-standard ../annotation/en/technology/phr_occ.eval.lab \
+      --logfile log-evaluation.txt \
+      --threshold 0.9
+
+Ideally, the gold standard was manually created over the same files as the one
+in the batch. The log file will contain all terms with gold label, system
+response and system score. List of options:
+
+  --corpus - the corpus that contains the evaluation data
+
+  --batch - the clasifier batch that is evaluated
+
+  --gold-standard - file with labeled terms
+
+  --logfile - logfile, default is ../evaluation/logs/tmp.log
+
+  --threshold - classifier threshold, if none specified, a range from 0.0-0.9 is used
+
 
 """
 
@@ -136,6 +161,7 @@ import mallet2
 import config
 import find_mallet_field_value_column
 import sum_scores
+import evaluation
 
 from ontology.utils.batch import RuntimeConfig, get_datasets, show_datasets, show_pipelines
 from ontology.utils.file import filename_generator, ensure_path
@@ -465,12 +491,35 @@ def check_file_availability(dataset, filelist):
                  (not_in_dataset, total, os.path.basename(filelist), dataset))
 
 
+def run_evaluation(rconfig, batch, gold_standard, threshold, log_file, command):
+    """Runs an evaluation, comparing the system results in the batch to the gold
+    standard. """
+    corpus_dir = rconfig.target_path
+    system_file = os.path.join(corpus_dir, 'data', 't2_classify', batch,
+                               'classify.MaxEnt.out.s5.scores.sum.nr')
+    if threshold is not None:
+        evaluation.test(gold_standard, system_file, threshold, log_file,
+                        debug_c=True, command=command)
+    else:
+        # this requires that the version can be extracted as below
+        version = os.path.basename(os.path.dirname(system_file))
+        log_file = os.path.join('..', 'evaluation', 'logs', "%s-%s.log" % (version, "0.90"))
+        evaluation.test(gold_standard, system_file, 0.9, log_file,
+                        debug_c=True, command=command)
+        for threshold in (0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1, 0.0):
+            log_file = os.path.join('..', 'evaluation', 'logs',
+                                    "%s-%s.log" % (version, "%.2f" % threshold))
+            evaluation.test(gold_standard, system_file, threshold, log_file,
+                            debug_c=False, command=command)
+
+
 def read_opts():
     longopts = ['corpus=', 'language=',
                 'train', 'classify', 'evaluate', 'create-summary',
                 'pipeline=', 'filelist=', 'annotation-file=', 'annotation-count=',
                 'batch=', 'features=', 'xval=', 'model=', 'eval-on-unseen-terms',
-                'verbose', 'show-data', 'show-pipelines']
+                'verbose', 'show-data', 'show-pipelines',
+                'gold-standard=', 'threshold=', 'logfile=']
     try:
         return getopt.getopt(sys.argv[1:], '', longopts)
     except getopt.GetoptError as e:
@@ -482,52 +531,68 @@ if __name__ == '__main__':
 
     # default values of options
     target_path = config.WORKING_PATENT_PATH
-    stage = None
     file_list = 'files.txt'
     pipeline_config = 'pipeline-default.txt'
     show_data_p, show_pipelines_p = False, False
     annotation_count = 9999999999999
-    batch, features, xval, = None, None, "0"
-    model, use_all_chunks = None, True
+    model, batch, features, xval, = None, None, None, "0"
+    use_all_chunks = True
     create_summary = False
+    gold_standard = None
+    threshold = None
+    logfile = '../evaluation/logs/tmp.log'
 
     (opts, args) = read_opts()
-    for opt, val in opts:
-        if opt == '--corpus': target_path = val
-        if opt == '--model': model = val
-        if opt == '--batch': batch = val
-        if opt == '--filelist': file_list = val
-        if opt == '--create-summary': create_summary = True
-        if opt == '--annotation-file': annotation_file = val
-        if opt == '--annotation-count': annotation_count = int(val)
-        if opt == '--pipeline': pipeline_config = val
-        if opt == '--features': features = val
-        if opt == '--xval': xval = val
-        if opt == '--show-data': show_data_p = True
-        if opt == '--show-pipelines': show_pipelines_p = True
-        if opt in ALL_MODES:
-            mode = opt
-        if opt == '--verbose': VERBOSE = True
-        if opt == '--eval-on-unseen-terms': use_all_chunks = False
 
-    # there is no language to hand in to the runtime config, will be plucked
-    # from the general configuration
+    for opt, val in opts:
+
+        if opt in ALL_MODES: # --train
+            mode = opt
+
+        elif opt == '--corpus': target_path = val
+        elif opt == '--model': model = val
+        elif opt == '--batch': batch = val
+        elif opt == '--filelist': file_list = val
+
+        elif opt == '--show-data': show_data_p = True
+        elif opt == '--show-pipelines': show_pipelines_p = True
+
+        elif opt == '--create-summary': create_summary = True
+        elif opt == '--annotation-file': annotation_file = val
+        elif opt == '--annotation-count': annotation_count = int(val)
+        elif opt == '--pipeline': pipeline_config = val
+        elif opt == '--features': features = val
+        elif opt == '--xval': xval = val
+
+        elif opt == '--gold-standard': gold_standard = val
+        elif opt == '--system-file': system_file = val
+        elif opt == '--threshold': threshold = float(val)
+        elif opt == '--logfile': logfile = val
+
+        elif opt == '--verbose': VERBOSE = True
+        elif opt == '--eval-on-unseen-terms': use_all_chunks = False
+
+    # there is no language to hand in to the runtime config, but it will be
+    # plucked from the general configuration if needed
     rconfig = RuntimeConfig(target_path, None, pipeline_config)
     if VERBOSE:
         rconfig.pp()
 
     if show_data_p:
         show_datasets(rconfig, config.DATA_TYPES)
+
     elif show_pipelines_p:
         show_pipelines(rconfig)
 
     elif mode == '--train':
         Trainer(rconfig, file_list, features,
                 annotation_file, annotation_count, model, xval).run()
+
     elif mode == '--classify':
         Classifier(rconfig, file_list, model, batch,
                    create_summary=create_summary,
                    use_all_chunks_p=use_all_chunks).run()
 
     elif mode == '--evaluate':
-        pass
+        command = "python %s" % ' '.join(sys.argv)
+        run_evaluation(rconfig, batch, gold_standard, threshold, logfile, command)
