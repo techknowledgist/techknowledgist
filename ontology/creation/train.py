@@ -15,7 +15,7 @@
 
 import os
 import sys
-import mallet
+#import mallet
 import mallet2
 import config
 import putils
