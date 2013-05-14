@@ -1,21 +1,49 @@
 """
 
-Usage:
-    
-    % python patent_analyzer.py [OPTIONS]
+Script to create annotation files. The input is assumed to be: (i) a corpus from
+which to cull the ddata, (ii) a file list with filenames from the corpus, (iii)
+a name of the annotation set created, and (iv) a marker that indicates what kind
+of annotation files are created (now only --technologies, with a stump method
+for --inventions).
 
-    -l LANG      --  provides the language, one of ('en, 'de', 'cn'), default is 'en'
-    -t PATH      --  target directory, default is data/patents
-     
-    --annotate1  --  prepare files for annotation of the prior
-    --annotate2  --  prepare files for annotation for evaluation
-    --verbose    --  
-    
+There are two options that indicate the main mode of the script: one for
+technologies and one for inventions:
+
+   --technologies
+   --inventions
+
+
+TECHNOLOGIES
+
+To create technology annotation files do something like:
+
+  $ python step3_annotation.py \
+      --technologies \
+      --name test1 \
+      --corpus data/patents/201305-en \
+      --filelist files-testing.txt \
+      --verbose
+
+Options:
+
+   --corpus CORPUS_DIRECTORY - the directory where the corpus lives
+
+   --pipeline FILENAME - the kind of pipeline that is expected for the input
+       data, defaults to default-pipeline.txt
+
+   --filelist FILENAME - this is a file inside of CORPUS_DIRECTORY/config which creates
+       a list of filenames in the corpus, the annotation file are taken from
+       these files
+
+   --name STRING - the name for the annotation set, this will be used as a
+       directory name inside CORPUS_DIRECTORY/data/t0_annotation
+
+   --verbose - switch on verbose mode
+
 
 """
 
-import os, sys, time, shutil, getopt, subprocess, codecs, textwrap
-from random import shuffle
+import os, sys, shutil, getopt, codecs, random
 
 import config
 import putils
@@ -27,169 +55,214 @@ os.chdir('../..')
 sys.path.insert(0, os.getcwd())
 os.chdir(script_dir)
 
-# defaults that can be overwritten by command line options
-source_path = config.EXTERNAL_PATENT_PATH
-target_path = config.WORKING_PATENT_PATH
-language = config.LANGUAGE
-verbose = False
+from ontology.utils.batch import RuntimeConfig, find_input_dataset, check_file_availability
+from ontology.utils.file import filename_generator, ensure_path
+from ontology.utils.git import get_git_commit
+
+
+def annotate_technologies(name, rconfig, filelist):
+
+    """Create input for annotation effort for creating a labeled list of
+    terms. Given a runtime configuration for a corpus and a file list, creates
+    three files: (1) list of unlabeled terms, ordered on frequency, (2) list of
+    ordered terms with frequency information, and (3) an ordered list of terms
+    with contexts. For contexts, a maximum of 10 is printed, selected
+    randomly."""
+
+    filelist_path = os.path.join(rconfig.config_dir, filelist)
+    dataset1_occurrences = find_input_dataset(rconfig, 'd3_phr_occ')
+    dataset2_docfeatures = find_input_dataset(rconfig, 'd4_doc_feats')
+    check_file_availability(dataset1_occurrences, filelist_path)
+    check_file_availability(dataset2_docfeatures, filelist_path)
+
+    if verbose:
+        print "\nFILELIST:", filelist
+        print "DATASET1:", dataset1_occurrences
+        print "DATASET2:", dataset2_docfeatures, "\n"
+
+    dirname = set_dirname(rconfig, 'technologies', name)
+    write_info(rconfig, dirname, filelist_path)
+    term_contexts = collect_contexts(dataset1_occurrences, filelist_path)
+    term_counts = collect_counts(dataset2_docfeatures, filelist_path)
+    term_count_list = list(term_counts.items())
+    term_count_list.sort(lambda x, y: cmp(y[1],x[1]))
+    print_annotation_files(dirname, term_count_list, term_contexts)
+
+
+
+def set_dirname(rconfig, annotation_type, name):
+    """Returns the directory where all annotation files will be written. Exit if
+    the directory already exists, otherwise create it and return it. The two
+    current annotation_types are 'technologies' and 'inventions'. The name is
+    given by the user and is used as the name of a subdirectory."""
+    dirname = os.path.join(rconfig.target_path,
+                           'data', 't0_annotate', annotation_type, name)
+    if os.path.exists(dirname):
+        exit("WARNING: exiting, already created annotation files in %s" % dirname)
+    ensure_path(dirname)
+    return dirname
+
+def write_info(rconfig, dirname, filelist_path):
+    """Generate a file with general information and copy the file list to the
+    annotation directory."""
+    print "Writing general info..."
+    fh = open(os.path.join(dirname, 'annotate.info.general.txt'), 'w')
+    fh.write("$ python %s\n\n" % ' '.join(sys.argv))
+    fh.write("file_list         =  %s\n" % filelist_path)
+    fh.write("config_file       =  %s\n" % \
+             os.path.basename(rconfig.pipeline_config_file))
+    fh.write("git_commit        =  %s" % get_git_commit())
+    print "Copying %s..." % (filelist_path)
+    shutil.copyfile(filelist_path,
+                    os.path.join(dirname, 'annotate.info.filelist.txt'))
+
+def collect_contexts(dataset, filelist):
+    """Collect all contexts from the dataset and return them as a dictionary
+    indexed on terms. Each key is a list of [year, id, context] lists."""
+    if verbose:
+        print "\nGathering contexts..."
+    contexts = {}
+    fnames = filename_generator(dataset.path, filelist)
+    for fname in fnames:
+        if verbose:
+            print '  ', fname
+        with codecs.open(fname, encoding="utf-8") as fh:
+            for line in fh:
+                (id, year, term, context) = line.strip().split("\t")
+                contexts.setdefault(term,[]).append([year, id, context])
+    return contexts
+
+    for term in sorted(term_contexts.keys()):
+        print term
+
+def collect_counts(dataset, filelist):
+    """Return a dictionary with for each term the number of documents it
+    appeared in. This assumes that the dataset is a d4_doc_feats dataset."""
+    if verbose:
+        print "\nGathering counts..."
+    counts = {}
+    fnames = filename_generator(dataset.path, filelist)
+    for fname in fnames:
+        if verbose:
+            print '  ', fname
+        with codecs.open(fname, encoding="utf-8") as fh:
+            for line in fh:
+                term = line.strip().split("\t")[0]
+                counts[term] = counts.get(term, 0) + 1
+    return counts
 
     
-def run_annotate1(target_path, language, limit):
+def print_annotation_files(dirname, term_count_list, term_contexts):
 
-    """Create input for annotation effort fro creating a prior. This function is different
-    in the sense that it does not keep track of how far it got into the corpus. Rather,
-    you tell it how many files you want to use and it takes those files off the top of the
-    ws/phr_occ.all file and generates the input for annotation from there. And unlike
-    --summary, this does not append to the output files but overwrites older versions. The
-    limit is used just to determine how many files are taken to create the list for
-    annotation, it is not used to increment any number in the ALL_STAGES.txt file."""
+    """Print the three annotation files in dirname, using the list of term
+    counts and the dictionary of contexts."""
     
-    phr_occ_all_file = os.path.join(target_path, 'ws', 'phr_occ.all')
-    phr_occ_phr_file = os.path.join(target_path, 'ws', 'phr_occ.phr')
-    fh_phr_occ_all = codecs.open(phr_occ_all_file, 'r', encoding='utf-8')
-    fh_phr_occ_phr = codecs.open(phr_occ_phr_file, 'w', encoding='utf-8')
+    file_unlab = os.path.join(dirname, 'annotate.terms.unlab.txt')
+    file_counts = os.path.join(dirname, 'annotate.terms.counts.txt')
+    file_context = os.path.join(dirname, 'annotate.terms.context.html')
 
-    # first collect all phrases
-    print "Creating", phr_occ_phr_file 
-    current_fname = None
-    count = 0
-    for line in fh_phr_occ_all:
-        (fname, year, phrase, sentence) = line.strip("\n").split("\t")
-        fname = fname.split('.xml_')[0] + '.xml'
-        if fname != current_fname:
-            current_fname = fname
-            count += 1
-        if count > limit:
-            break
-        fh_phr_occ_phr.write(phrase+"\n")
+    fh_unlab = codecs.open(file_unlab, 'w', encoding='utf-8')
+    fh_counts = codecs.open(file_counts, 'w', encoding='utf-8')
+    fh_context = codecs.open(file_context, 'w', encoding='utf-8')
+    write_html_prefix(fh_context)
 
-    # now create phr_occ.uct and phr_occ.unlab
-    phr_occ_uct_file = os.path.join(target_path, 'ws', 'phr_occ.uct')
-    phr_occ_unlab_file = os.path.join(target_path, 'ws', 'phr_occ.unlab')
-    print "Creating", phr_occ_uct_file 
-    command = "cat %s | sort | uniq -c | sort -nr | python reformat_uc.py > %s" \
-              % (phr_occ_phr_file, phr_occ_uct_file)
-    print '%', command
-    subprocess.call(command, shell=True)    
-    print "Creating", phr_occ_unlab_file 
-    command = "cat %s | sed -e 's/^[0-9]*\t/\t/' > %s" \
-              % (phr_occ_uct_file, phr_occ_unlab_file)
-    print '%', command
-    subprocess.call(command, shell=True)    
+    term_no = 0
+    cumulative = 0
+    for term, count in term_count_list:
+        term_no += 1
+        cumulative += count
+        fh_unlab.write("\t%s\n" % term)
+        fh_counts.write("%d\t%d\t%d\t%s\n" % (term_no, count, cumulative, term))
+        fh_context.write("\n<p>%s (%d documents)</p>\n" % (term, count))
+        random.shuffle(term_contexts[term])
+        for year, id, context  in term_contexts[term][:10]:
+            fh_context.write("<blockquote>%s</blockquote>\n" % context)
 
-    
-def run_annotate2(target_path, language, limit):
 
-    """Prepare two files that can be used for evaluation. One file named
-    phr_occ.eval.unlab that lists a term-file pairs from n=limit files where all contexts
-    are listed following the pair. This file is input for manual annotation. And one file
-    named doc_feats.eval which is a subset of doc_feats.all, but it contains only those
-    term-file pairs that occur in phr_occ.eval.unlab."""
-    
-    eval1 = os.path.join(target_path, 'ws', 'phr_occ.eval.unlab')
-    eval2 = os.path.join(target_path, 'ws', 'doc_feats.eval')
-    eval3 = os.path.join(target_path, 'ws', 'phr_occ.eval.unlab.html')
-    eval4 = os.path.join(target_path, 'ws', 'phr_occ.eval.unlab.txt')
-    fh_eval1 = codecs.open(eval1, 'w', encoding='utf-8')
-    fh_eval2 = codecs.open(eval2, 'w', encoding='utf-8')
-    fh_eval3 = codecs.open(eval3, 'w', encoding='utf-8')
-    fh_eval4 = codecs.open(eval4, 'w', encoding='utf-8')
+def write_html_prefix(fh_context):
+    fh_context.write("<html>\n")
+    fh_context.write("<head>\n")
+    fh_context.write("<style>\n")
+    fh_context.write("np { color: blue; }\n")
+    fh_context.write("p { font-size: 20; }\n")
+    fh_context.write("blockquote { font-size: 16; }\n")
+    fh_context.write("</style>\n")
+    fh_context.write("</head>\n")
+    fh_context.write("<body>\n")
 
-    fh_eval3.write("<html>\n")
-    fh_eval3.write("<head>\n")
-    fh_eval3.write("<style>\n")
-    fh_eval3.write("np { color: blue; }\n")
-    fh_eval3.write("</style>\n")
-    fh_eval3.write("</head>\n")
-    fh_eval3.write("<body>\n")
-    fh_eval4.write("# Terms to be annotated for evaluation, using first %d patents\n\n" % limit)
 
-    phr_occ_array = _read_phr_occ(target_path, language, limit)
-    doc_feats_array = _read_doc_feats(target_path, language, limit)
 
-    # sort phrases on how many contexts we have for each
-    phrases = phr_occ_array.keys()
-    sort_fun = lambda x: sum([len(x) for x in phr_occ_array[x].values()])
-    for phrase in reversed(sorted(phrases, key=sort_fun)):
-        fh_eval3.write("<p>%s</p>\n" % phrase)
-        fh_eval4.write("\t%s\n" % phrase)
-        if not (phr_occ_array.has_key(phrase) and doc_feats_array.has_key(phrase)):
-            continue
-        for doc in phr_occ_array[phrase].keys():
-            fh_eval1.write("\n?\t%s\t%s\n\n" % (phrase, doc))
-            for sentence in phr_occ_array[phrase][doc]:
-                fh_eval3.write("<blockquote>%s</blockquote>\n" % sentence)
-                lines = textwrap.wrap(sentence, 100)
-                fh_eval1.write("\t- %s\n" %  lines[0])
-                for line in lines[1:]:
-                    fh_eval1.write("\t  %s\n" % line)
-        for doc in doc_feats_array[phrase].keys():
-            for sentence in doc_feats_array[phrase][doc]:
-                fh_eval2.write(sentence)
+def annotate_inventions(name, rconfig, filelist):
 
-                
-def _read_phr_occ(target_path, language, limit):
-    """Return the contents of ws/phr_occ.all in a dictionary."""
-    def get_stuff(line):
-        """Returns the file name, the phrase and the context, here the context is the
-        sentence listed with the phrase."""
-        (fname, year, phrase, sentence) = line.strip("\n").split("\t")
-        fname = fname.split('.xml_')[0]
-        return (fname, phrase, sentence)
-    return _read_phrocc_or_docfeats('phr_occ.all', get_stuff)
+    """This is a example method that show how pull information out of feature or
+    occurrences files."""
 
-def _read_doc_feats(target_path, language, limit):
-    """Return the contents of ws/doc_feats.all in a dictionary."""
-    def get_stuff(line):
-        """Returns the file name, the phrase and the context, here the context is the
-        entire line."""
-        (phrase, id, feats) = line.strip("\n").split("\t", 2)
-        (year, fname, phrase2) = id.split('|', 2)
-        return (fname, phrase, line)
-    return _read_phrocc_or_docfeats('doc_feats.all', get_stuff)
+    # Create the complete path to the file list; the rconfig is an instance of
+    # RuntimeCOnfiguration and is created from the corpus and the pipeline
+    # specification
+    filelist_path = os.path.join(rconfig.config_dir, filelist)
 
-def _read_phrocc_or_docfeats(fname, get_stuff_fun):
-    phr_occ_file = os.path.join(target_path, 'ws', fname)
-    fh_phr_occ = codecs.open(phr_occ_file, encoding='utf-8')
-    phr_occ_array = {}
-    current_fname = None
-    count = 0
-    for line in fh_phr_occ:
-        fname, phrase, context = get_stuff_fun(line)
-        if count >= limit:
-            break
-        if fname != current_fname:
-            current_fname = fname
-            count += 1
-        phr_occ_array.setdefault(phrase, {})
-        phr_occ_array[phrase].setdefault(fname, []).append(context)
-    return phr_occ_array
+    # Do this if you want to take data from d3_phr_occ. You can data from
+    # d3_phr_occ, d3_phr_feats and d4_doc_feats.
+    dataset = find_input_dataset(rconfig, 'd3_phr_occ')
+
+    # Check whether files form the file list are available
+    check_file_availability(dataset, filelist_path)
+
+    # Create the directory where the files will be written to
+    dirname = set_dirname(rconfig, 'technologies', name)
+
+    # Next would typically be some way of writing down the information, the
+    # following writes general information (command used, corpus directory, git
+    # commit) and the list of files used.
+    write_info(rconfig, dirname, filelist_path)
+
+    # Now we can get the file names, loop over them, and extract the needed
+    # information.
+    fnames = filename_generator(dataset.path, filelist)
+    for fname in fnames:
+        with codecs.open(fname, encoding="utf-8") as fh:
+            for line in fh:
+                # extract data from the line, you probably want to put it in
+                # some temporary data structure
+                pass
+
+    # Print file(s) to the dirname directory
+    pass
 
 
 
 if __name__ == '__main__':
 
-    (opts, args) = getopt.getopt(
-        sys.argv[1:],
-        'l:s:t:n:r:',
-        ['annotate1', 'annotate2', 'verbose'])
+    options = ['name=', 'corpus=', 'pipeline=', 'filelist=',
+               'technologies', 'inventions', 'verbose']
+    (opts, args) = getopt.getopt(sys.argv[1:], '', options)
 
-    annotate1, annotate2 = False, False
+    name = None
+    target_path = config.WORKING_PATENT_PATH
+    pipeline_config = config.DEFAULT_PIPELINE_CONFIGURATION_FILE
+    filelist = 'files.txt'
+    annotate_technologies_p = False
+    annotate_inventions_p = False
     verbose = False
     
     for opt, val in opts:
-
-        if opt == '-l': language = val
-        if opt == '-t': target_path = val
-        if opt == '--annotate1': annotate1 = True
-        if opt == '--annotate2': annotate2 = True
+        if opt == '--name': name = val
+        if opt == '--corpus': target_path = val
+        if opt == '--pipeline': pipeline_config = val
+        if opt == '--filelist': filelist = val
+        if opt == '--technologies': annotate_technologies_p = True
+        if opt == '--inventions': annotate_inventions_p = True
         if opt == '--verbose': verbose = True
         
-    # Note: At this point, user must manually create an annotated file phr_occ.lab, it is
-    # expected that this file lives in ../annotation/<language>. It is automatically
-    # copied to the <language>/ws subdirectory in the next step.
+    if name is None:
+        exit("ERROR: missing --name option")
         
-    if annotate1:
-        run_annotate1(target_path, language, limit)
-    elif annotate2:
-        run_annotate2(target_path, language, limit)
+    rconfig = RuntimeConfig(target_path, None, pipeline_config)
+    if verbose:
+        rconfig.pp()
+
+    if annotate_technologies_p:
+        annotate_technologies(name, rconfig, filelist)
+    elif annotate_inventions_p:
+        annotate_inventions(name, rconfig, filelist)

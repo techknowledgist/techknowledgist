@@ -10,8 +10,8 @@ are selected with the following three options:
     
 There are two general options that are relevant for all three modes:
 
-    --corpus PATH          corpus directory, default is data/patents
-    --verbose              switches on verbose mode
+    --corpus PATH   corpus directory, default is data/patents
+    --verbose       switches on verbose mode
 
 Note that unlike with the document processing step there is no language option,
 this reflects the mostly language independent nature of this step. Of course,
@@ -28,8 +28,9 @@ corpus:
     --show-data        print available datasets, then exit
     --show-pipelines   print defined pipelines, then exit
 
-Both these options require the --corpus option but nothing else. The following
-shows how to use the three main modes.
+Both these options require the --corpus option but nothing else (in fact, all
+other options handed in will be ignored). The following shows how to use the
+three main modes.
 
     
 TRAINING
@@ -42,7 +43,7 @@ training set. Below is an example invocation:
       --train \
       --corpus data/patents/201305-en \
       --pipeline pipeline-default.txt \
-      --filelist files-testing.txt \
+      --filelist files-training.txt \
       --annotation-file ../annotation/en/technology/phr_occ.lab \
       --annotation-count 2000 \
       --model standard \
@@ -55,22 +56,23 @@ where the last part of the directory name is given by the --model option (which
 basically gives a name to the model created). Additional options:
 
   --pipeline FILENAME - file with pipeline configuration; this is used to select
-      the data set, picking out the data set created with that pipeline, the
+      the data set, picking out the data set created with that pipeline; the
       default is 'pipeline-default.txt'.
 
   --filelist FILENAME - contains files to process, that is, the elements from
       the data set used to create the model
 
   --annotation-file FILENAME - this specifies file with labeled terms, these
-      terms are used to created positive and negative instances in the
-      --filelist file
+      terms are used to created positive and negative instances from terms and
+      contexts in the --filelist file
 
   --annotation-count INTEGER - number of lines to take from the annotation file,
       the default is to use all labeled terms
 
   --features FILENAME - file with features to use for the model, the name refers
-      to the basename of a file in the features directory, the default is to use
-      all features
+      to the basename of a file in the features directory (all files there are
+      expected to have the .features extension), the default is to use all
+      features
 
   --xval INTEGER - cross-validation setting for classifier, if set to 0 (which
       is the default) then no cross-validation will be performed
@@ -79,8 +81,8 @@ basically gives a name to the model created). Additional options:
 CLASSIFICATION
 
 For running the classifier, you just pick your model with the --model option,
-picking out a model created by the trainer, and run it on a set of files defined
-by a pipeline and a file list. Here is a typical invocation:
+which picks out a model created by the trainer, and run the classifier on a set
+of files defined by a pipeline and a file list. Here is a typical invocation:
 
   $ python step4_technologies.py \
       --classify \
@@ -104,12 +106,11 @@ Other options:
 
   --create-summary - use this to create summary files for features
 
-You have to run the classifier many times when you have a large dataset, hence
-the --batch options which allows you to number all these batches. It is a good
-idea to reflect the model used this in the names. For example, if you use the
-standard model and you run three batches, you should name them (using --batch)
-something like standard-batch1, standard-batch2, standard-batch3 and
-standard-batch4.
+You may have to run the classifier many times when you have a large dataset,
+hence the --batch options which allows you to number all these batches. It is a
+good idea to reflect the model used in the names of the batches. For example, if
+you use the standard model and you run three batches, you should name them
+something like standard-batch1, standard-batch2, and standard-batch3.
 
 You should use --create-summary in case you want to do some indexing or
 matching, which happens on the summary files (this may be changed later so we
@@ -130,9 +131,11 @@ standard file.
       --logfile log-evaluation.txt \
       --threshold 0.9
 
-Ideally, the gold standard was manually created over the same files as the one
-in the batch. The log file will contain all terms with gold label, system
-response and system score. List of options:
+The system will select classify.MaxEnt.out.s5.scores.sum.nr in the selected
+batch of the corpus and consider that file to be the system response. Ideally,
+the gold standard was manually created over the same files as the one in the
+batch. The log file will contain all terms with gold label, system response and
+system score. List of options:
 
   --corpus - the corpus that contains the evaluation data
 
@@ -143,7 +146,6 @@ response and system score. List of options:
   --logfile - logfile, default is ../evaluation/logs/tmp.log
 
   --threshold - classifier threshold, if none specified, a range from 0.0-0.9 is used
-
 
 """
 
@@ -164,6 +166,7 @@ import sum_scores
 import evaluation
 
 from ontology.utils.batch import RuntimeConfig, get_datasets, show_datasets, show_pipelines
+from ontology.utils.batch import find_input_dataset, check_file_availability
 from ontology.utils.file import filename_generator, ensure_path
 from ontology.utils.git import get_git_commit
 
@@ -180,8 +183,8 @@ class TrainerClassifier(object):
     
     def _find_datasets(self):
         """Select data sets and check whether all files are available."""
-        self.input_dataset1 = find_input_dataset1(self.rconfig)
-        self.input_dataset2 = find_input_dataset2(self.rconfig)
+        self.input_dataset1 = find_input_dataset(self.rconfig, 'd3_phr_feats')
+        self.input_dataset2 = find_input_dataset(self.rconfig, 'd4_doc_feats')
         check_file_availability(self.input_dataset1, self.file_list)
         check_file_availability(self.input_dataset2, self.file_list)
 
@@ -435,60 +438,6 @@ class Classifier(TrainerClassifier):
         command = "cat %s | sort -k2,2 -nr -t\"\t\" > %s" % (self.scores_s4, self.scores_s5)
         self.run_score_command(command, message)
 
-
-def find_input_dataset1(rconfig):
-    """Find the dataset that is input for training. Unlike the code in
-    step2_document_processing.find_input_dataset(), this function hard-codes the input
-    data type rather than referring to DOCUMENT_PROCESSING_IO. Note that this particular
-    one was only used for generating the summary files, it is currently not used as input
-    to training."""
-    datasets = []
-    for ds in get_datasets(rconfig, '--train', 'd3_phr_feats'):
-        full_config = ds.pipeline_trace
-        full_config.append(ds.pipeline_head)
-        # for d3_phr_feats we do not need to apply the entire pipeline, therefore matching
-        # should not be on the entire pipeline either
-        if full_config == rconfig.pipeline[:-1]:
-            datasets.append(ds)
-    return check_result(datasets)
-
-def find_input_dataset2(rconfig):
-    # TODO: see remark under find_input_dataset1
-    datasets = []
-    for ds in get_datasets(rconfig, '--train', 'd4_doc_feats'):
-        full_config = ds.pipeline_trace
-        full_config.append(ds.pipeline_head)
-        if full_config == rconfig.pipeline:
-            datasets.append(ds)
-    return check_result(datasets)
-
-def check_result(datasets):
-    """Return the dataset if there is only one in the list, otherwise write a warning and
-    exit."""
-    if len(datasets) == 1:
-        return datasets[0]
-    elif len(datasets) > 1:
-        print "WARNING, more than one approriate training set:"
-        for ds in datasets:
-            print '  ', ds
-        sys.exit("Exiting...")
-    elif len(datasets) == 0:
-        print "WARNING: no datasets available to meet input requirements"
-        sys.exit("Exiting...")
-
-def check_file_availability(dataset, filelist):
-    """Check whether all files in filelist have been processed and are available in
-    dataset. If not, print a warning and exit."""
-    file_generator = filename_generator(dataset.path, filelist)
-    total = 0
-    not_in_dataset = 0
-    for fname in file_generator:
-        total += 1
-        if not os.path.exists(fname):
-            not_in_dataset += 1
-    if not_in_dataset > 0:
-        sys.exit("WARNING: %d/%d files in %s have not been processed yet\n         %s" %
-                 (not_in_dataset, total, os.path.basename(filelist), dataset))
 
 
 def run_evaluation(rconfig, batch, gold_standard, threshold, log_file, command):

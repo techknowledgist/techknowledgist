@@ -46,7 +46,10 @@ ANNOT_LANG_PATH = ANNOTATION_DIRECTORY + "/" + LANGUAGE
 ### Pipeline settings
 ### -----------------------------------------------------------------------
 
-# definition of the default pipeline configurations
+# definition of default configuration file and the default pipeline
+# configurations
+
+DEFAULT_PIPELINE_CONFIGURATION_FILE = 'pipeline-default.txt'
 
 DEFAULT_PIPELINE = """
 # This file contains the default pipeline configuration settings. Settings in
