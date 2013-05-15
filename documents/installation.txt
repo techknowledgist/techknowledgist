@@ -1,0 +1,106 @@
+Installation Instructions
+----------------------------------------------------------------
+
+Marc Verhagen, May 2013
+
+
+Instructions are for Linux/Unix and Mac OSX. 
+
+In the first case, there is a configuration assumption that you are running your
+code from inside /home/j, in the second case, the assumption is that code is
+inside /Users. If neither is the case, some editing of the configurations in
+ontology/creation/config.py will be needed.
+
+
+
+1. Get the Git repository
+
+On the cs machines: 
+
+  $ git clone /home/j/marc/git/fuse/patent-classifier
+
+Elsewhere (still assumes you have a CS account):
+
+  $ git clone ssh://USERNAME@chalciope.cs.brandeis.edu/home/j/marc/git/fuse/patent-classifier
+
+In both cases, a directory named patent-classifier will be created in your
+working directory.
+
+
+2. Initialize submodules
+
+The patent classifier relies on a submodule that needs to be initialize and
+updated separately:
+
+  $ cd patent-classifier
+  $ git submodule init
+  $ git submodule update
+
+
+3. Get the tries code
+
+This is a utility that is not yet turned into a submodule, so there is a
+slightly convoluted way of installing it.
+
+On a department machine:
+
+  $ cp -r /home/j/corpuswork/fuse/code/patent-classifier/utils/tries utils
+
+Elsewhere (assumes you have a CS account):
+
+  $ scp -r USERNAME@chalciope.cs.brandeis.edu:/home/j/corpuswork/fuse/code/patent-classifier/utils/tries utils
+
+
+4. Install Mallet and the Stanford tools.
+
+If you run the code on a CS machine from inside the /home/j directory, then
+installation of Mallet and Stanford tools is not needed.
+
+On OSX, first get the sources:
+
+  $ scp USERNAME@chalciope.cs.brandeis.edu:/home/j/corpuswork/fuse/code/patent-classifier/tools/mallet.tar .
+
+  $ scp USERNAME@chalciope.cs.brandeis.edu:/home/j/corpuswork/fuse/code/patent-classifier/tools/stanford/stanford-postagger-full-2012-07-09.tar .
+
+  $ scp USERNAME@chalciope.cs.brandeis.edu:/home/j/corpuswork/fuse/code/patent-classifier/tools/stanford/stanford-segmenter-2012-07-09.tar .
+
+The second and third are large and may take a while. These files need to be
+unpacked in a directory named /Applications/ADDED/nlp and you need to end up
+with the following directories:
+
+  /Applications/ADDED/nlp/mallet/mallet-2.0.7/
+  /Applications/ADDED/nlp/stanford/stanford-postagger-full-2012-07-09/
+  /Applications/ADDED/nlp/stanford/stanford-segmenter-2012-07-09/
+
+
+5. Get the sample patents.
+
+On the CS machines you don't need to get them, they live at
+
+  /home/j/corpuswork/fuse/fuse-patents/500-patents
+
+Elsewhere, scp the archive:
+
+  $ scp USERNAME@chalciope.cs.brandeis.edu:/home/j/corpuswork/fuse/fuse-patents/patents.tar.gz .
+
+Then unpack it and put it anywhere.
+
+
+6. Read the very limited documentation
+
+Files to look at
+
+  documents/installation.txt (this file)
+  documents/ontology-creation/batch-processing.html
+  ontology/creation/step?_*.py
+
+
+7. Run the processing scripts in ontology/creation
+
+These all start with the prefix 'step'.
+
+Note that the steps above will steer you towards using the -s option in
+step1_initialzie.py, which is fine but it will result on long local path names
+in the data directory. Take a peek at create-file-list.py in
+ontology/creation/data/patents/ for a way to generate a file list that can be
+used with the -f option.
