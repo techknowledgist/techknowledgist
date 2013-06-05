@@ -25,6 +25,7 @@ OPTIONS:
 
    --show-data:
        print all datasets, then exits, requires the -t option
+       if --verbose is used, will also print the pipelines for each dataset
 
    --show-pipeline
        print all pipelines, then exits, requires the -t option, also assumes
@@ -259,7 +260,7 @@ def run_tag2chk(rconfig, limit, options, verbose):
     output_datasets = find_output_datasets(TAG2CHK, rconfig)
     output_dataset1 = output_datasets[0]
     output_dataset2 = output_datasets[1]
-    print_datasets(TXT2TAG, input_dataset, output_datasets)
+    print_datasets(TAG2CHK, input_dataset, output_datasets)
     print "[--tag2chk] using '%s' chunker rules" % chunker_rules
     check_file_counts(input_dataset, output_dataset1, limit)
     check_file_counts(input_dataset, output_dataset2, limit)
@@ -297,7 +298,7 @@ def run_pf2dfeats(rconfig, limit, options, verbose):
     for fspec in fspecs:
         count += 1
         filename = fspec.target
-        print_file_progress(TXT2TAG, count, filename, verbose)
+        print_file_progress(PF2DFEATS, count, filename, verbose)
         file_in, file_out = prepare_io(filename, input_dataset, output_dataset)
         year = os.path.basename(os.path.dirname(filename))
         doc_id = os.path.basename(filename)
@@ -446,7 +447,7 @@ if __name__ == '__main__':
     rconfig.pp()
 
     if show_data_p:
-        show_datasets(rconfig, config.DATA_TYPES)
+        show_datasets(rconfig, config.DATA_TYPES, verbose)
     elif show_pipelines_p:
         show_pipelines(rconfig)
 
