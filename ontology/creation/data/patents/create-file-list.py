@@ -1,9 +1,20 @@
 """
 
-Takes a file with file paths and creates two files each with three columns: year, file
-path, short path. The second file will have the files in random order.
+Takes a file with file paths and creates two files each with three columns:
+year, file path, short path. The short path just contains the year and the
+filename.
+
+The second file will have the files in random order.
 
 Can be used as input to the -f option of step1_initialize.py.
+
+Assumes that the path includes one subdir that encodes a year (that is, a
+four-digit integer).
+
+Usage:
+
+    $ python create-file-list.py INFILE OUTFILE1 OUTFILE2
+
 
 The input for this could be created with
 
@@ -21,8 +32,9 @@ saved_lines = []
 
 for line in fh_in:
     long_path = line.strip()
-    d1, fname = os.path.split(long_path)
-    d2, year = os.path.split(d1)
+    parsed_path = long_path.split(os.sep)
+    fname = parsed_path[-1]
+    year = [p for p in parsed_path if len(p) == 4 and p.isdigit()][0]
     short_path = os.path.join(year, fname)
     saved_lines.append([year, long_path, short_path])
 
