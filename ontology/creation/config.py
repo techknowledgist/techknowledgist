@@ -1,9 +1,9 @@
 """
 
-File with configuration settings. Intended to replace all previous configuration files,
-which were named inconsistently and which duplicated some code. Used all caps for all
-variables that are intended to be consumed by other scripts, which makes it easier to
-recognize when variables from this file are used.
+File with configuration settings. Intended to replace all previous configuration
+files, which were named inconsistently and which duplicated some code. Used all
+caps for all variables that are intended to be consumed by other scripts, which
+makes it easier to recognize when variables from this file are used.
 
 Configuration settings in this file:
 - general settings
@@ -17,15 +17,20 @@ Configuration settings in this file:
 import os, sys
 
 
-# First some code to determine what machine we are running this on, will be used to
-# determine locations
+# First some code to determine what machine we are running this on, will be used
+# to determine locations.
+
+# TODO: this feels a bit hackish, may want to think about a more elegant
+# solution.
 
 script_path = os.path.abspath(sys.argv[0])
-if script_path.startswith('/home/fuse'):
+if script_path.startswith('/shared/home'):
     location = 'FUSENET'
 elif script_path.startswith('/home/j/'):
     location = 'BRANDEIS'
 elif script_path.startswith('/Users/'): 
+    location = 'MAC'
+elif script_path.startswith('/home/sean'):
     location = 'MAC'
 else:
     print "WARNING: could not determine the location"
@@ -129,9 +134,8 @@ else:
     STANFORD_SEGMENTER_DIR = os.path.join(tools_path, "stanford-segmenter-2012-07-09")
 
 
-# memory use for any of the stanford tools, may need to define separate values for tagger,
-# segmenter and parser
-STANFORD_MX = "3000m"
+# memory use for the stanford tagger and segmenter
+STANFORD_MX = "2000m"
 
 STANFORD_DEBUG_P = 1
 

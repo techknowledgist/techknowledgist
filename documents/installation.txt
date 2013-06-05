@@ -36,6 +36,17 @@ updated separately:
   $ git submodule init
   $ git submodule update
 
+If updating asks for the password for user 'marc', then you should edit the file
+.gitmodules. It will probably look like:
+
+[submodule "utils/docstructure"]
+        path = utils/docstructure
+        url = marc@chalciope.cs.brandeis.edu:/home/j/marc/git/fuse/docstructure.git
+
+All you need to do is to remove "marc@" and replace it with "your_name@". Then
+try the update step again.
+
+
 
 3. Get the tries code
 
