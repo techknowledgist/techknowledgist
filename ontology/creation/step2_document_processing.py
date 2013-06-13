@@ -69,8 +69,10 @@ sys.path.insert(0, os.getcwd())
 os.chdir(script_dir)
 
 from utils.docstructure.main import Parser
-from ontology.utils.batch import RuntimeConfig, DataSet, show_datasets, show_pipelines
+from ontology.utils.batch import RuntimeConfig, DataSet
+from ontology.utils.batch import show_datasets, show_pipelines
 from ontology.utils.file import ensure_path, get_lines, create_file
+from ontology.utils.file import compress, uncompress
 
 
 POPULATE = '--populate'
@@ -122,9 +124,7 @@ def run_populate(rconfig, limit, verbose=False):
         dataset.load_from_disk()
 
     fspecs = get_lines(rconfig.filenames, dataset.files_processed, limit)
-
     print "[--populate] adding %d files to %s" % (len(fspecs), dataset)
-
     count = 0
     for fspec in fspecs:
         count += 1
@@ -135,6 +135,7 @@ def run_populate(rconfig, limit, verbose=False):
             print "[--populate] %04d %s" % (count, dst_file)
         ensure_path(os.path.dirname(dst_file))
         shutil.copyfile(src_file, dst_file)
+        compress(dst_file)
 
     return (len(fspecs), [dataset])
 
@@ -158,6 +159,7 @@ def run_xml2txt(rconfig, limit, options, verbose=False):
         filename = fspec.target
         print_file_progress(XML2TXT, count, filename, verbose)
         file_in, file_out = prepare_io(filename, input_dataset, output_dataset)
+        uncompress(file_in)
         try:
             xml2txt.xml2txt(doc_parser, file_in, file_out, workspace)
         except Exception as e:
@@ -166,6 +168,7 @@ def run_xml2txt(rconfig, limit, options, verbose=False):
             fh.close()
             print "[--xml2txt] WARNING: error on", file_in
             print "           ", e
+        compress(file_in, file_out)
 
     return (len(fspecs), [output_dataset])
 
@@ -188,7 +191,9 @@ def run_txt2tag(rconfig, limit, options, verbose):
         filename = fspec.target
         print_file_progress(TXT2TAG, count, filename, verbose)
         file_in, file_out = prepare_io(filename, input_dataset, output_dataset)
+        uncompress(file_in)
         txt2tag.tag(file_in, file_out, tagger)
+        compress(file_in, file_out)
 
     return (len(fspecs), [output_dataset])
 
@@ -210,7 +215,9 @@ def run_txt2seg(rconfig, limit, options, verbose):
         count += 1
         filename = fspec.target
         print_file_progress(TXT2SEG, count, filename, verbose)
+        uncompress(file_in)
         file_in, file_out = prepare_io(filename, input_dataset, output_dataset)
+        compress(file_in, file_out)
         cn_txt2seg.seg(file_in, file_out, segmenter)
     return (len(fspecs), [output_dataset])
 
@@ -233,7 +240,9 @@ def run_seg2tag(rconfig, limit, options, verbose):
         filename = fspec.target
         print_file_progress(SEG2TAG, count, filename, verbose)
         file_in, file_out = prepare_io(filename, input_dataset, output_dataset)
+        uncompress(file_in)
         cn_seg2tag.tag(file_in, file_out, tagger)
+        compress(file_in, file_out)
 
     return (len(fspecs), [output_dataset])
 
@@ -269,8 +278,10 @@ def run_tag2chk(rconfig, limit, options, verbose):
         file_in, file_out2 = prepare_io(filename, input_dataset, output_dataset2)
         # TODO: handle the year stuff differently (this is a bit of a hack)
         year = os.path.basename(os.path.dirname(filename))
+        uncompress(file_in)
         tag2chunk.Doc(file_in, file_out2, file_out1, year, rconfig.language,
                       filter_p=filter_p, chunker_rules=chunker_rules)
+        compress(file_in, file_out1, file_out2)
 
     return (len(fspecs), output_datasets)
 
@@ -296,12 +307,14 @@ def run_pf2dfeats(rconfig, limit, options, verbose):
         file_in, file_out = prepare_io(filename, input_dataset, output_dataset)
         year = os.path.basename(os.path.dirname(filename))
         doc_id = os.path.basename(filename)
+        uncompress(file_in)
         pf2dfeats.make_doc_feats(file_in, file_out, doc_id, year)
+        compress(file_in, file_out)
 
     return (len(fspecs), [output_dataset])
 
 
-    
+
 ## UTILITY METHODS
 
 def find_input_dataset(stage, rconfig, data_type=None):
