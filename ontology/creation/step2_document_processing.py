@@ -5,33 +5,33 @@ that is document parsing, segmentation, tagging, chunking and creation of phrase
 document-level feature vectors.
 
 USAGE:
-   % python step2_document_processing.py [OPTIONS]
+  % python step2_document_processing.py OPTIONS
 
 OPTIONS:
-   --populate   --  import external files
-   --xml2txt    --  document structure parsing
-   --txt2tag    --  tagging (English and German)
-   --txt2seg    --  segmenting (Chinese only)
-   --seg2tag    --  tagging segemented text (Chinese only)
-   --tag2chk    --  creating chunks in context
-   --pf2dfeats  --  go from phrase features to document features
+  --populate   import external files
+  --xml2txt    document structure parsing
+  --txt2tag    tagging (English and German)
+  --txt2seg    segmenting (Chinese only)
+  --seg2tag    tagging segemented text (Chinese only)
+  --tag2chk    creating chunks in context
+  --pf2dfeats  go from phrase features to document features
 
-   -l en|cn|de     --  provides the language, default is 'en'
-   -t TARGET_PATH  --  target directory, default is 'data/patents'
-   -n INTEGER      --  number of documents to process, default is 1
+  --languagel en|cn|de   provides the language, default is 'en'
+  --corpus TARGET_PATH   corpus directory, default is data/patents
+  --documents INTEGER    number of documents to process, default is 1
 
-   --verbose:
+  --verbose:
        print name of each processed file to stdout
 
-   --show-data:
+  --show-data:
        print all datasets, then exits, requires the -t option
        if --verbose is used, will also print the pipelines for each dataset
 
-   --show-pipeline
+  --show-pipeline
        print all pipelines, then exits, requires the -t option, also assumes
        that all pipeline files match 'pipeline-*.txt'
 
-   --pipeline FILE:
+  --pipeline FILE:
       optional pipeline configuration file to overrule the default pipeline; this is just
       the basename not path, so with '--pipeline conf.txt', the config file loaded is
       TARGET_PATH/LANGUAGE/config/conf.txt
@@ -100,49 +100,43 @@ def update_state(fun):
     """To be used as a decorator around functions that run one of the processing steps."""
     def wrapper(*args):
         t1 = time.time()
-        datasets = fun(*args)
-        limit = args[1]
+        files_processed, datasets = fun(*args)
         for dataset in datasets:
-            dataset.files_processed += limit
-            dataset.update_state(limit, t1)
+            dataset.files_processed += files_processed
+            dataset.update_state(files_processed, t1)
     return wrapper
     
 
 @update_state
 def run_populate(rconfig, limit, verbose=False):
-    """Populate xml directory in the target directory with limit files from the source
-    path."""
+    """Populate xml directory in the target directory with limit files from the
+    source file list or the source directory."""
 
-    target_path = rconfig.target_path
-    language = rconfig.language
-    source = rconfig.source()
     output_names = DOCUMENT_PROCESSING_IO[POPULATE]['out']
     dataset = DataSet(POPULATE, output_names[0], rconfig)
 
-    print "[--populate] populating %s" % (dataset)
-    print "[--populate] using %d files from %s" % (limit, source)
-
-    # initialize data set if it does not exist, this is not contingent on anything because
-    # --populate is the first step
+    # initialize data set if it does not exist, this is not contingent on
+    # anything because --populate is the first step
     if not dataset.exists():
         dataset.initialize_on_disk()
         dataset.load_from_disk()
 
-    count = 0
-    # TODO: get_lines() should also return a range from the file, actually, this is
-    # available right here with the dataset.files_processed and limit variables
     fspecs = get_lines(rconfig.filenames, dataset.files_processed, limit)
+
+    print "[--populate] adding %d files to %s" % (len(fspecs), dataset)
+
+    count = 0
     for fspec in fspecs:
         count += 1
         src_file = fspec.source
-        dst_file = os.path.join(target_path, 'data',
-                                output_names[0], dataset.version_id, 'files', fspec.target)
+        dst_file = os.path.join(rconfig.target_path, 'data', output_names[0],
+                                dataset.version_id, 'files', fspec.target)
         if verbose:
             print "[--populate] %04d %s" % (count, dst_file)
         ensure_path(os.path.dirname(dst_file))
         shutil.copyfile(src_file, dst_file)
 
-    return [dataset]
+    return (len(fspecs), [dataset])
 
 
 @update_state
@@ -173,7 +167,7 @@ def run_xml2txt(rconfig, limit, options, verbose=False):
             print "[--xml2txt] WARNING: error on", file_in
             print "           ", e
 
-    return [output_dataset]
+    return (len(fspecs), [output_dataset])
 
 
 @update_state
@@ -196,7 +190,7 @@ def run_txt2tag(rconfig, limit, options, verbose):
         file_in, file_out = prepare_io(filename, input_dataset, output_dataset)
         txt2tag.tag(file_in, file_out, tagger)
 
-    return [output_dataset]
+    return (len(fspecs), [output_dataset])
 
 
 @update_state
@@ -218,7 +212,7 @@ def run_txt2seg(rconfig, limit, options, verbose):
         print_file_progress(TXT2SEG, count, filename, verbose)
         file_in, file_out = prepare_io(filename, input_dataset, output_dataset)
         cn_txt2seg.seg(file_in, file_out, segmenter)
-    return [output_dataset]
+    return (len(fspecs), [output_dataset])
 
 
 @update_state
@@ -241,7 +235,7 @@ def run_seg2tag(rconfig, limit, options, verbose):
         file_in, file_out = prepare_io(filename, input_dataset, output_dataset)
         cn_seg2tag.tag(file_in, file_out, tagger)
 
-    return [output_dataset]
+    return (len(fspecs), [output_dataset])
 
 
 @update_state
@@ -278,7 +272,7 @@ def run_tag2chk(rconfig, limit, options, verbose):
         tag2chunk.Doc(file_in, file_out2, file_out1, year, rconfig.language,
                       filter_p=filter_p, chunker_rules=chunker_rules)
 
-    return output_datasets
+    return (len(fspecs), output_datasets)
 
 
 @update_state
@@ -304,12 +298,12 @@ def run_pf2dfeats(rconfig, limit, options, verbose):
         doc_id = os.path.basename(filename)
         pf2dfeats.make_doc_feats(file_in, file_out, doc_id, year)
 
-    return [output_dataset]
+    return (len(fspecs), [output_dataset])
 
 
     
 ## UTILITY METHODS
-    
+
 def find_input_dataset(stage, rconfig, data_type=None):
     """Find the input data set for a processing stage for a given configuration and return
     it. Print a warning and exit if no dataset or more than one dataset was found. If a
@@ -350,7 +344,7 @@ def find_output_datasets(stage, rconfig, data_type=None):
     output_datasets = []
     for output_name in data_types:
         # Get all data sets D for input name
-        dirname = os.path.join(target_path, 'data', output_name)
+        dirname = os.path.join(rconfig.target_path, 'data', output_name)
         datasets1 = [ds for ds in os.listdir(dirname) if ds.isdigit()]
         datasets2 = [DataSet(stage, output_name, rconfig, ds) for ds in datasets1]
         # Filer the datasets making sure that d.trace + d.head matches
@@ -410,11 +404,12 @@ def make_parser(language):
     return parser
 
 def read_opts():
-    longopts = ['populate', 'xml2txt', 'txt2tag', 'txt2seg', 'seg2tag',
-                'tag2chk', 'pf2dfeats',
-                'verbose', 'pipeline=', 'show-data', 'show-pipelines']
+    options = ['corpus=', 'language=', 'documents=',
+               'populate', 'xml2txt', 'txt2tag', 'txt2seg', 'seg2tag',
+               'tag2chk', 'pf2dfeats',
+               'verbose', 'pipeline=', 'show-data', 'show-pipelines']
     try:
-        return getopt.getopt(sys.argv[1:], 'l:t:n:', longopts)
+        return getopt.getopt(sys.argv[1:], '', options)
     except getopt.GetoptError as e:
         sys.exit("ERROR: " + str(e))
 
@@ -422,7 +417,7 @@ def read_opts():
 if __name__ == '__main__':
 
     # default values of options
-    target_path = config.WORKING_PATENT_PATH
+    corpus = config.WORKING_PATENT_PATH
     language = config.LANGUAGE
     stage = None
     pipeline_config = 'pipeline-default.txt'
@@ -431,9 +426,9 @@ if __name__ == '__main__':
     
     (opts, args) = read_opts()
     for opt, val in opts:
-        if opt == '-l': language = val
-        if opt == '-t': target_path = val
-        if opt == '-n': limit = int(val)
+        if opt == '--language': language = val
+        if opt == '--corpus': corpus = val
+        if opt == '--documents': limit = int(val)
         if opt == '--verbose': verbose = True
         if opt == '--pipeline': pipeline_config = val
         if opt == '--show-data': show_data_p = True
@@ -442,9 +437,9 @@ if __name__ == '__main__':
             stage = opt
 
     # NOTE: renamed config to avoid confusion with config.py
-    rconfig = RuntimeConfig(target_path, language, pipeline_config)
+    rconfig = RuntimeConfig(corpus, language, pipeline_config)
     options = rconfig.get_options(stage)
-    rconfig.pp()
+    #rconfig.pp()
 
     if show_data_p:
         show_datasets(rconfig, config.DATA_TYPES, verbose)

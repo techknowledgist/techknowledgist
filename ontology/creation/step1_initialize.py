@@ -1,42 +1,62 @@
 """
 
 Script to initialize a working directory for patent processing. It does the
-following things: (1) initialize the directory structure for a language, (2)
-import or create a file config/files.txt with all external files to process,
-(3) create a file config/pipeline-default.txt with default settings for the
-pipeline, and (4) create a file config/general.txt with settings used by this
-script.
+following things:
+
+    (1) initialize the directory structure for the corpus,
+
+    (2) import or create a file config/files.txt with all external files to
+        process,
+
+    (3) create a file config/pipeline-default.txt with default settings for the
+        pipeline,
+
+    (4) create a file config/general.txt with settings used by this script.
+
 
 USAGE
    % python step1_initialize.py OPTIONS
 
 OPTIONS
-   -l en|de|cn   --  language
-   -f FILE       --  input: use external FILE and copy it to config/files.txt
-   -s DIRECTORY  --  input: generate config/files.txt from DIRECTORY
-   -t DIRECTORY  --  output: target directory where the corpus is put
-   --shuffle     --  performs a random sort of config/files.txt, used with the -s option
+   --language en|de|cn      language, default is 'en'
+   --file-list PATH         a file with a list of source files
+   --source-directory PATH  a directory with all the source files
+   --corpus PATH            a directory where the corpus is initialized
+   --shuffle                randomly sort config/files.txt, used with the
+                             --source-dirrectory option
 
-Typical invocations:
-    % python step1_initialize.py -l en -t data/patents -f filelist.txt
-    % python step1_initialize.py -l en -t data/patents -s ../external/US --shuffle
 
-    Both commands create a directory data/patents/, with config/ and data/
-    subdirectories and several files mentioned above in the config/
-    subdirectory. The first form copies filelist.txt to en/config/files.txt. The
-    second form traverses the directory ../external/US, takes all file paths,
-    randomly shuffles them, and then saves the result to en/config/files.txt.
+There is are two typical invocations, one where a file list is given to
+initialize the corpus and one where a source directory is given:
 
-    When the -f options is used, the system expects that FILE has two or three
-    columns with year, source file and an optional target file, which is the
-    filepath in the corpus starting at the target directory handed in with the
-    -t option. If there is no third column that the source and target file will
-    be the same as the source file, except that a leading path separator will be
-    stripped.
+  % python step1_initialize.py \
+      --language en \
+      --corpus data/patents/test \
+      --file-list filelist.txt
 
-    With the -s option, the source and target will alwasy be the same and the
-    year will always be set to 0000. It is up to the user to change this if
-    needed.
+  % python step1_initialize.py \
+      --language en \
+      --corpus data/patents/test \
+      --source-directory ../external/US \
+      --shuffle
+
+Both commands create a directory data/patents/test, in which the corpus will be
+initialized. It will include config/ and data/ subdirectories and several files
+mentioned above in the config/ subdirectory. The first form copies filelist.txt
+to en/config/files.txt. The second form traverses the directory ../external/US,
+takes all file paths, randomly shuffles them, and then saves the result to
+en/config/files.txt.
+
+When the --file-list options is used, the system expects that FILE has two or
+three columns with year, source file and an optional target file, which is the
+filepath in the corpus starting at the target directory handed in with the
+--corpus option. If there is no third column that the source and target file
+will be the same as the source file, except that a leading path separator will
+be stripped.
+
+With the --source-directory option, the source and target will always be the
+same and the year will always be set to 0000. It is up to the user to change
+this if needed.
 
 
 NOTES
@@ -109,11 +129,12 @@ sys.path.insert(0, os.getcwd())
 os.chdir(script_dir)
 
 import config
-from ontology.utils.file import ensure_path, get_lines, get_file_paths, read_only
+from ontology.utils.file import ensure_path, get_file_paths, read_only
 
 
 
-def init(language, source_file, source_path, target_path, pipeline_config, shuffle_file):
+def init(language, source_file, source_path, target_path, pipeline_config,
+         shuffle_file):
 
     """Creates a directory named target_path and all subdirectories and files in
     there needed for further processing. See the module docstring for more
@@ -150,8 +171,8 @@ def create_directories(target_path, conf_path, data_path):
         ensure_path(subdir_path)
 
 def create_filelist(source_file, source_path, conf_path, shuffle_file):
-    """Create a list of files either by copying a given list or by traversing a given
-    directory."""
+    """Create a list of files either by copying a given list or by traversing a
+    given directory."""
     print "[--init] creating %s/files.txt" % (conf_path)
     file_list = os.path.join(conf_path, 'files.txt')
     if source_file is not None:
@@ -164,7 +185,9 @@ def create_filelist(source_file, source_path, conf_path, shuffle_file):
             for fname in filenames:
                 fh.write("0000\t" + fname + "\n")
     else:
-        sys.exit("[--init] ERROR: need to define input with -f or -s option, aborting")
+        sys.exit("[--init] ERROR: " +
+                 "need to define input with --file-list or " +
+                 "--source-directory option, aborting")
     read_only(file_list)
 
 def create_general_config_file(conf_path, settings):
@@ -185,7 +208,9 @@ def create_default_pipeline_config_file(pipeline_config, conf_path):
 
 if __name__ == '__main__':
 
-    (opts, args) = getopt.getopt(sys.argv[1:], 'l:s:f:t:', ['shuffle'])
+    options = ['language=', 'corpus=',
+               'file-list=', 'source-directory=', 'shuffle']
+    (opts, args) = getopt.getopt(sys.argv[1:], '', options)
 
     source_file = None
     source_path = None
@@ -195,13 +220,14 @@ if __name__ == '__main__':
     pipeline_config = config.DEFAULT_PIPELINE
     
     for opt, val in opts:
-        if opt == '-l': language = val
-        if opt == '-f': source_file = val
-        if opt == '-s': source_path = val
-        if opt == '-t': target_path = val
+        if opt == '--language': language = val
+        if opt == '--file-list': source_file = val
+        if opt == '--source-directory': source_path = val
+        if opt == '--corpus': target_path = val
         if opt == '--shuffle': shuffle_file = True
 
     if language == 'cn':
             pipeline_config = config.DEFAULT_PIPELINE_CN
 
-    init(language, source_file, source_path, target_path, pipeline_config, shuffle_file)
+    init(language, source_file, source_path, target_path, pipeline_config,
+         shuffle_file)

@@ -4,14 +4,14 @@ Scripts that lets you run the trainer and classifier on specified datasets. It
 runs in three major modes: training, classification and evaluation. These modes
 are selected with the following three options:
 
-    --train      create model for classifier
-    --classify   run classifier
-    --evaluate   run evaluation on test corpus
+  --train      create model for classifier
+  --classify   run classifier
+  --evaluate   run evaluation on test corpus
     
 There are two general options that are relevant for all three modes:
 
-    --corpus PATH   corpus directory, default is data/patents
-    --verbose       switches on verbose mode
+  --corpus PATH   corpus directory, default is data/patents
+  --verbose       switches on verbose mode
 
 Note that unlike with the document processing step there is no language option,
 this reflects the mostly language independent nature of this step. Of course,
@@ -25,8 +25,8 @@ SHOWING INFO
 There are two options that are there purely to print information about the
 corpus:
 
-    --show-data        print available datasets, then exit
-    --show-pipelines   print defined pipelines, then exit
+  --show-data        print available datasets, then exit
+  --show-pipelines   print defined pipelines, then exit
 
 Both these options require the --corpus option but nothing else (in fact, all
 other options handed in will be ignored). The following shows how to use the
