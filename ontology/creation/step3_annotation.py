@@ -55,39 +55,42 @@ os.chdir('../..')
 sys.path.insert(0, os.getcwd())
 os.chdir(script_dir)
 
-from ontology.utils.batch import RuntimeConfig, find_input_dataset, check_file_availability
+from ontology.utils.batch import RuntimeConfig, find_input_dataset
+from ontology.utils.batch import check_file_availability
 from ontology.utils.file import filename_generator, ensure_path
+from ontology.utils.file import compress, uncompress
 from ontology.utils.git import get_git_commit
+from pf2dfeats import generate_doc_feats
 
 
 def annotate_technologies(name, rconfig, filelist):
 
-    """Create input for annotation effort for creating a labeled list of
-    terms. Given a runtime configuration for a corpus and a file list, creates
-    three files: (1) list of unlabeled terms, ordered on frequency, (2) list of
-    ordered terms with frequency information, and (3) an ordered list of terms
-    with contexts. For contexts, a maximum of 10 is printed, selected
+    """Create input for manually annotation (that is, creation of a labeled list
+    of terms). Given a runtime configuration for a corpus and a file list,
+    creates three files: (1) list of unlabeled terms, ordered on frequency, (2)
+    list of ordered terms with frequency information, and (3) an ordered list of
+    terms with contexts. For contexts, a maximum of 10 is printed, selected
     randomly."""
 
     filelist_path = os.path.join(rconfig.config_dir, filelist)
     dataset1_occurrences = find_input_dataset(rconfig, 'd3_phr_occ')
-    dataset2_docfeatures = find_input_dataset(rconfig, 'd4_doc_feats')
-    check_file_availability(dataset1_occurrences, filelist_path)
-    check_file_availability(dataset2_docfeatures, filelist_path)
+    dataset2_features = find_input_dataset(rconfig, 'd3_phr_feats')
 
     if verbose:
         print "\nFILELIST:", filelist
         print "DATASET1:", dataset1_occurrences
-        print "DATASET2:", dataset2_docfeatures, "\n"
+        print "DATASET2:", dataset2_features, "\n"
+
+    check_file_availability(dataset1_occurrences, filelist_path)
+    check_file_availability(dataset2_features, filelist_path)
 
     dirname = set_dirname(rconfig, 'technologies', name)
     write_info(rconfig, dirname, filelist_path)
     term_contexts = collect_contexts(dataset1_occurrences, filelist_path)
-    term_counts = collect_counts(dataset2_docfeatures, filelist_path)
-    term_count_list = list(term_counts.items())
+    term_counts = collect_counts(dataset2_features, filelist_path)
+    term_count_list = sorted(list(term_counts.items()))
     term_count_list.sort(lambda x, y: cmp(y[1],x[1]))
     print_annotation_files(dirname, term_count_list, term_contexts)
-
 
 
 def set_dirname(rconfig, annotation_type, name):
@@ -124,20 +127,23 @@ def collect_contexts(dataset, filelist):
     contexts = {}
     fnames = filename_generator(dataset.path, filelist)
     for fname in fnames:
+        uncompress(fname)
         if verbose:
             print '  ', fname
         with codecs.open(fname, encoding="utf-8") as fh:
             for line in fh:
                 (id, year, term, context) = line.strip().split("\t")
                 contexts.setdefault(term,[]).append([year, id, context])
+        compress(fname)
     return contexts
 
     for term in sorted(term_contexts.keys()):
         print term
 
+
 def collect_counts(dataset, filelist):
     """Return a dictionary with for each term the number of documents it
-    appeared in. This assumes that the dataset is a d4_doc_feats dataset."""
+    appeared in. This assumes that the dataset is a d3_phr_feats dataset."""
     if verbose:
         print "\nGathering counts..."
     counts = {}
@@ -145,10 +151,17 @@ def collect_counts(dataset, filelist):
     for fname in fnames:
         if verbose:
             print '  ', fname
+        uncompress(fname)
+        # TODO: this is dangerous because it makes assumptions about the
+        # directory structure, something similar is the case in step2 for at
+        # least the docfeats generation
+        year = os.path.basename(os.path.dirname(fname))
+        doc_id = os.path.basename(fname)
         with codecs.open(fname, encoding="utf-8") as fh:
-            for line in fh:
-                term = line.strip().split("\t")[0]
+            docfeats = generate_doc_feats(fh, doc_id, year)
+            for term in docfeats.keys():
                 counts[term] = counts.get(term, 0) + 1
+        compress(fname)
     return counts
 
     
@@ -175,7 +188,7 @@ def print_annotation_files(dirname, term_count_list, term_contexts):
         fh_counts.write("%d\t%d\t%d\t%s\n" % (term_no, count, cumulative, term))
         fh_context.write("\n<p>%s (%d documents)</p>\n" % (term, count))
         random.shuffle(term_contexts[term])
-        for year, id, context  in term_contexts[term][:10]:
+        for year, id, context in term_contexts[term][:10]:
             fh_context.write("<blockquote>%s</blockquote>\n" % context)
 
 
@@ -194,8 +207,8 @@ def write_html_prefix(fh_context):
 
 def annotate_inventions(name, rconfig, filelist):
 
-    """This is a example method that show how pull information out of feature or
-    occurrences files."""
+    """This is an example method that show how pull information out of feature
+    or occurrences files."""
 
     # Create the complete path to the file list; the rconfig is an instance of
     # RuntimeCOnfiguration and is created from the corpus and the pipeline
