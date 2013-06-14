@@ -1,54 +1,40 @@
 # convert a file of phrase occurrence features (phr_feats)
 # to a file with one (summed) set of features per phrase (doc_feats)
 
-import collections
 import os
 import codecs
 
+
 def make_doc_feats(phr_feats, doc_feats, doc_id, year):
+    """Take a file with phrase features and create a file with document
+    features."""
     s_phr_feats = codecs.open(phr_feats)
     s_doc_feats = codecs.open(doc_feats, "w")
-    # map phrase to features
-    d_p2f = {}
-    for line in s_phr_feats:
-        line = line.strip("\n")
-        #print "\n[make_doc_feats]line: |%s|" % line
-        l_feat = line.split("\t")
-        # key is the chunk itself
-        key = l_feat[2]
-        #print "key: %s, l_feat: %s" % (key, l_feat[3:])
-        feats = l_feat[3:]
-        if d_p2f.has_key(key):
-            l_current_feat = d_p2f.get(key)
-            #if l_current_feat == None:
-            #    print "key: %s has None value: |%s|" % (key, l_current_feat) 
-            l_new_feat = []
-            # merge the new feats
-            for feat in feats:
-                #print "[2]feat: %s, l_current_feat: %s" % (feat, l_current_feat)
-                if feat not in l_current_feat:
-                    l_new_feat.append(feat)
-                #else:
-                #    print feat
-            #extension = l_current_feat.extend(l_new_feat)
-            # extend the key value in place (note that extend doesn't return a value, it modifies the list directly)
-            d_p2f[key].extend(l_new_feat)
-            #print "Extended |%s| with |%s|\n" % (l_current_feat, l_new_feat)
-            #print "key: %s, value: |%s|" % (key, extension)
-        else:
-            #print "[make_doc_feats] New key: %s, feats: |%s|\n" % (key, feats)
-            d_p2f[key] = feats
-
-    for key in d_p2f.keys():
-        # remember that key is the phrase (i.e., chunk)
-        symbol_key = key.replace(" ", "_")
-        uid = year + "|" + doc_id + "|" + symbol_key
-        feat_string = key + "\t" + uid + "\t" + "\t".join(d_p2f.get(key)) + "\n"
-        s_doc_feats.write(feat_string)
-
+    d_p2f = generate_doc_feats(s_phr_feats, doc_id, year)
+    for key in sorted(d_p2f.keys()):
+        features = d_p2f[key]
+        s_doc_feats.write("\t".join(features) + "\n")
     s_phr_feats.close()
     s_doc_feats.close()
 
+def generate_doc_feats(s_phr_feats, doc_id, year):
+    """Given a file handle to a file with phase features, generate and return a
+    mapping from phrases to the document features for the phrase. The document
+    features include the term as the first element and an identifier with year,
+    document and term as the second element."""
+    d_doc_feats = {}
+    for line in s_phr_feats:
+        l_feat = line.strip("\n").split("\t")
+        # key is the chunk/phrase itself
+        key, feats = l_feat[2], l_feat[3:]
+        d_doc_feats.setdefault(key, set()).update(set(feats))
+    for key, value in d_doc_feats.items():
+        symbol_key = key.replace(" ", "_")
+        uid = year + "|" + doc_id + "|" + symbol_key
+        features = [key, uid]
+        features.extend(sorted(list(value)))
+        d_doc_feats[key] = features
+    return d_doc_feats
 
 def pf2dfeats_dir(phr_feats_year_dir, doc_feats_year_dir, year):
     for file in os.listdir(phr_feats_year_dir):
