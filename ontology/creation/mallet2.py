@@ -477,6 +477,10 @@ class MalletTraining:
         for cmd in commands:
             print "[mallet_train_classifier]"
             run_command(cmd)
+        compress(self.mallet_config.cinfo_file,
+                 self.mallet_config.cinfo_sorted_file,
+                 self.mallet_config.train_vectors_out_file,
+                 self.mallet_config.train_mallet_file)
 
 
     def mallet_csv2vectors(self):
@@ -543,6 +547,10 @@ class MalletClassifier:
         cmd = self.mallet_config.cmd_classify_file
         print "[mallet_test_classifier]"
         run_command(cmd)
+
+    def compress_files(self):
+        compress(self.mallet_config.test_mallet_file,
+                 self.mallet_config.classifier_out_file)
 
     #create a vectors file from the .mallet file for the test data
     def mallet_csv2vectors_test(self):

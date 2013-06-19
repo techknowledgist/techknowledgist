@@ -205,9 +205,8 @@ class Trainer(TrainerClassifier):
         self.info_file_filelist = os.path.join(self.train_dir, "train.info.filelist.txt")
         self.info_file_features = os.path.join(self.train_dir, "train.info.features.txt")
         self.info_file_stats = os.path.join(self.train_dir, "train.info.stats.txt")
-        self.doc_feats_file = os.path.join(self.train_dir, "train.features.doc_feats.txt")
-        self.phr_feats_file = os.path.join(self.train_dir, "train.features.phr_feats.txt")
         self.mallet_file = os.path.join(self.train_dir, "train.mallet")
+
 
     def run(self):
         """Run the trainer by finding the input data and building a model from it. Also
@@ -326,6 +325,7 @@ class Classifier(TrainerClassifier):
         mtest = mallet2.MalletClassifier(mconfig)
         mtest.mallet_test_classifier()
         self._calculate_scores()
+        mtest.compress_files()
 
 
     def _create_info_files(self):

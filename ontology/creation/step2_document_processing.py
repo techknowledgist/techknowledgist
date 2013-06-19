@@ -411,7 +411,7 @@ if __name__ == '__main__':
         if opt in ALL_STAGES:
             stage = opt
 
-    # NOTE: renamed config to avoid confusion with config.py
+    # NOTE: this is named rconfig to avoid confusion with config.py
     rconfig = RuntimeConfig(corpus, language, pipeline_config)
     options = rconfig.get_options(stage)
     #rconfig.pp()
