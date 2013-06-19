@@ -21,18 +21,29 @@ import config
 import putils
 import codecs
 
+from pf2dfeats import generate_doc_feats
 
-# return a list in which each element only appears once.
-# NOTE: The order of the list may change.
+
+script_path = os.path.abspath(sys.argv[0])
+script_dir = os.path.dirname(script_path)
+os.chdir(script_dir)
+os.chdir('../..')
+sys.path.insert(0, os.getcwd())
+os.chdir(script_dir)
+
+from ontology.utils.file import compress, uncompress, get_year_and_docid
+
+
 def unique_list(non_unique_list):
+    """Return a list in which each element only appears once. Note that the
+    order of the list may change."""
     return (list(set(non_unique_list)))
 
 
 def load_phrase_labels(patent_dir, lang):
-    """Populate dictionary of labeled phrases with their labels assume label file is in
-    the workspace (ws) directory We will treat the "?" as a special label which for the
-    purposes of this function is equivalent to no label."""
-
+    """Populate dictionary of labeled phrases with their labels assume label
+    file is in the workspace (ws) directory We will treat the "?" as a special
+    label which for the purposes of this function is equivalent to no label."""
     d_phr2label = {}
     label_file = os.path.join(patent_dir, lang, "ws", "phr_occ.lab")
     s_label_file = codecs.open(label_file, encoding='utf-8')
@@ -45,12 +56,10 @@ def load_phrase_labels(patent_dir, lang):
     s_label_file.close()
     return(d_phr2label)
 
-
 def load_phrase_labels3(label_file, annotation_count=999999):
-    """Use the label-term pairs in label_file to populate a dictionary of labeled phrases
-    with their labels. Only labels used are 'y' and 'n', all others, including '?' are
-    ignored."""
-
+    """Use the label-term pairs in label_file to populate a dictionary of
+    labeled phrases with their labels. Only labels used are 'y' and 'n', all
+    others, including '?' are ignored."""
     d_phr2label = {}
     with codecs.open(label_file, encoding='utf-8') as s_label_file:
         count = 0
@@ -67,8 +76,8 @@ def load_phrase_labels3(label_file, annotation_count=999999):
 
 def make_utraining_file_by_dir(patent_dir, lang, version, d_phr2label):
 
-    """Create a .mallet training file using features unioned over all chunk occurrences
-    within a doc."""
+    """Create a .mallet training file using features unioned over all chunk
+    occurrences within a doc."""
     
     doc_feats_dir = os.path.join(patent_dir, lang, "doc_feats")
     train_dir = os.path.join(patent_dir, lang, "train")
@@ -100,7 +109,7 @@ def make_utraining_file_by_dir(patent_dir, lang, version, d_phr2label):
                 if d_phr2label.has_key(phrase):
                     label = d_phr2label.get(phrase)
                     if label == "":
-                        print "[make_training_file]Error: found phrase with null label: %s" % phrase
+                        print "[make_training_file] Error: found phrase with null label: %s" % phrase
                         sys.exit()
                     else:
                         mallet_list = [uid, label]
@@ -290,27 +299,30 @@ def _get_testing_io(patent_dir, lang, version):
 def add_file_to_utraining_test_file(fname, s_test, d_phr2label, stats,
                                     use_all_chunks_p=True, default_label='n'):
 
-    """Add document features from fname as vectors to s_test. This was factored out from
-    make_utraining_test_file() so that I could call it from batch.py (MV)."""
+    """Add document features from fname as vectors to s_test. This was factored
+    out from make_utraining_test_file() so that it could be called by itself."""
 
     def incr(x): stats[x] += 1
-    s_doc_feats_input = codecs.open(fname, encoding='utf-8')
-    for line in s_doc_feats_input:
-        fields = line.strip("\n").split("\t")
-        phrase = fields[0]
-        uid = fields[1]
-        feats = unique_list(fields[2:])
-        # keep count of labeled and unlabeled instances
-        incr('labeled_count') if d_phr2label.has_key(phrase) else incr('unlabeled_count')
+    uncompress(fname)
+    fh = codecs.open(fname, encoding='utf-8')
+    year, doc_id = get_year_and_docid(fname)
+    docfeats = generate_doc_feats(fh, doc_id, year)
+    for term in sorted(docfeats.keys()):
+        feats = docfeats[term][2:]
+        # may want to add somethig like this to reduce disk space further
+        # feats = self.remove_filtered_feats(feats)
+        uid = "%s|%s|%s" % (year, doc_id, term.replace(' ','_'))
+        feats = sorted(unique_list(feats))
+        incr('labeled_count') if d_phr2label.has_key(term) else incr('unlabeled_count')
         # include the instance if all chunks are used or if it doesn't have a label.
-        if use_all_chunks_p == True or not d_phr2label.has_key(phrase):
-            mallet_list = [uid, default_label]
-            mallet_list.extend(feats)
-            # create a whitespace separated line with format "uid f1 f2 f3 ..."
+        if use_all_chunks_p == True or not d_phr2label.has_key(term):
+            mallet_list = [uid, default_label] + feats
+            # mallet line format: "uid label f1 f2 f3 ..."
             mallet_line = u" ".join(mallet_list) + u"\n"
             s_test.write(mallet_line)
             incr('total_count')
-    s_doc_feats_input.close()
+    fh.close()
+    compress(fname)
     
 
 # When we create test data for evaluation, we may choose to leave out any chunks that were 

@@ -91,7 +91,6 @@ of files defined by a pipeline and a file list. Here is a typical invocation:
       --filelist files-testing.txt \
       --model standard \
       --batch standard.batch1 \
-      --create-summary \
       --verbose
 
 Other options:
@@ -104,17 +103,11 @@ Other options:
 
   --batch STRING - name of the current batch
 
-  --create-summary - use this to create summary files for features
-
 You may have to run the classifier many times when you have a large dataset,
 hence the --batch options which allows you to number all these batches. It is a
 good idea to reflect the model used in the names of the batches. For example, if
 you use the standard model and you run three batches, you should name them
 something like standard-batch1, standard-batch2, and standard-batch3.
-
-You should use --create-summary in case you want to do some indexing or
-matching, which happens on the summary files (this may be changed later so we
-never need the summaries).
 
 
 EVALUATION
@@ -183,10 +176,8 @@ class TrainerClassifier(object):
     
     def _find_datasets(self):
         """Select data sets and check whether all files are available."""
-        self.input_dataset1 = find_input_dataset(self.rconfig, 'd3_phr_feats')
-        self.input_dataset2 = find_input_dataset(self.rconfig, 'd4_doc_feats')
-        check_file_availability(self.input_dataset1, self.file_list)
-        check_file_availability(self.input_dataset2, self.file_list)
+        self.input_dataset = find_input_dataset(self.rconfig, 'd3_phr_feats')
+        check_file_availability(self.input_dataset, self.file_list)
 
 
 
@@ -276,7 +267,7 @@ class Trainer(TrainerClassifier):
 
     def _build_model(self):
         """Build the classifier model using the doc features files."""
-        fnames = filename_generator(self.input_dataset2.path, self.file_list)
+        fnames = filename_generator(self.input_dataset.path, self.file_list)
         train.patent_utraining_data3(
             self.mallet_file, self.annotation_file, self.annotation_count, fnames,
             self.features, self.model, self.xval, VERBOSE, self.info_file_stats)
@@ -286,7 +277,7 @@ class Trainer(TrainerClassifier):
 class Classifier(TrainerClassifier):
 
     def __init__(self, rconfig, file_list, model, batch,
-                 classifier='MaxEnt', create_summary=False, use_all_chunks_p=True):
+                 classifier='MaxEnt', use_all_chunks_p=True):
 
         """Run the classifier on the files in file_list. Uses config to find the
         input dataset. The batch variable contains a user-specified identifier
@@ -297,7 +288,6 @@ class Classifier(TrainerClassifier):
         self.model = model
         self.batch = batch
         self.classifier = classifier
-        self.create_summary = create_summary
         self.use_all_chunks_p = use_all_chunks_p
         
         self.data_dir = os.path.join(self.rconfig.target_path, 'data')
@@ -310,8 +300,6 @@ class Classifier(TrainerClassifier):
         self.info_file_general = os.path.join(self.classify_dir, "classify.info.general.txt")
         self.info_file_config = os.path.join(self.classify_dir, "classify.info.config.txt")
         self.info_file_filelist = os.path.join(self.classify_dir, "classify.info.filelist.txt")
-        self.doc_feats_file = os.path.join(self.classify_dir, "classify.features.doc_feats.txt")
-        self.phr_feats_file = os.path.join(self.classify_dir, "classify.features.phr_feats.txt")
 
         base = os.path.join(self.classify_dir, "classify.%s.out" % (classifier))
         self.classifier_output = base
@@ -326,7 +314,6 @@ class Classifier(TrainerClassifier):
         """Run the classifier on the data set defined by the configuration."""
         self._find_datasets()
         self._create_info_files()
-        self._create_summary_files()
         self._create_mallet_file()
         print "[--classify] creating results file - %s" % \
               os.path.basename(self.results_file)
@@ -362,33 +349,15 @@ class Classifier(TrainerClassifier):
         d_phr2label = train.load_phrase_labels3(self.label_file)
         fh = codecs.open(self.mallet_file, "a", encoding='utf-8')
         stats = { 'labeled_count': 0, 'unlabeled_count': 0, 'total_count': 0 }
-        fnames = filename_generator(self.input_dataset2.path, self.file_list)
-        for doc_feats_file in fnames:
+        fnames = filename_generator(self.input_dataset.path, self.file_list)
+        for phr_feats_file in fnames:
             count += 1
             if VERBOSE:
-                print "[--classify] %05d %s" % (count, doc_feats_file)
-            train.add_file_to_utraining_test_file(doc_feats_file, fh, d_phr2label, stats,
+                print "[--classify] %05d %s" % (count, phr_feats_file)
+            train.add_file_to_utraining_test_file(phr_feats_file, fh, d_phr2label, stats,
                                                   use_all_chunks_p=self.use_all_chunks_p)
         fh.close()
         print "[--classify]", stats
-
-
-    def _create_summary_files(self):
-        """Concatenate files from the datasets that occur in file_list. For now
-        only does the doc_feats and phr_feats files, not the phr_occ files. This
-        step is not needed for model building but can be consumed by later
-        stages or be used for analysis. The default for the trainer is to not
-        use it."""
-        if create_summary:
-            generator1 = filename_generator(self.input_dataset1.path, self.file_list)
-            generator2 = filename_generator(self.input_dataset2.path, self.file_list)
-            fh_doc_feats = codecs.open(self.doc_feats_file, 'w', encoding='utf-8')
-            fh_phr_feats = codecs.open(self.phr_feats_file, 'w', encoding='utf-8')
-            for fname1 in generator1:
-                fh_phr_feats.write(codecs.open(fname1, encoding='utf-8').read())
-                for fname2 in generator2:
-                    fh_doc_feats.write(codecs.open(fname2, encoding='utf-8').read())
-
 
     def _calculate_scores(self):
         """Use the clasifier output files to generate a sorted list of technology terms
@@ -463,8 +432,7 @@ def run_evaluation(rconfig, batch, gold_standard, threshold, log_file, command):
 
 
 def read_opts():
-    longopts = ['corpus=', 'language=',
-                'train', 'classify', 'evaluate', 'create-summary',
+    longopts = ['corpus=', 'language=', 'train', 'classify', 'evaluate', 
                 'pipeline=', 'filelist=', 'annotation-file=', 'annotation-count=',
                 'batch=', 'features=', 'xval=', 'model=', 'eval-on-unseen-terms',
                 'verbose', 'show-data', 'show-pipelines',
@@ -486,7 +454,6 @@ if __name__ == '__main__':
     annotation_count = 9999999999999
     model, batch, features, xval, = None, None, None, "0"
     use_all_chunks = True
-    create_summary = False
     gold_standard = None
     threshold = None
     logfile = '../evaluation/logs/tmp.log'
@@ -506,7 +473,6 @@ if __name__ == '__main__':
         elif opt == '--show-data': show_data_p = True
         elif opt == '--show-pipelines': show_pipelines_p = True
 
-        elif opt == '--create-summary': create_summary = True
         elif opt == '--annotation-file': annotation_file = val
         elif opt == '--annotation-count': annotation_count = int(val)
         elif opt == '--pipeline': pipeline_config = val
@@ -539,7 +505,6 @@ if __name__ == '__main__':
 
     elif mode == '--classify':
         Classifier(rconfig, file_list, model, batch,
-                   create_summary=create_summary,
                    use_all_chunks_p=use_all_chunks).run()
 
     elif mode == '--evaluate':

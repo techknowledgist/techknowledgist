@@ -19,7 +19,7 @@ USAGE
 
 OPTIONS
    --language en|de|cn      language, default is 'en'
-   --file-list PATH         a file with a list of source files
+   --filelist PATH          a file with a list of source files
    --source-directory PATH  a directory with all the source files
    --corpus PATH            a directory where the corpus is initialized
    --shuffle                randomly sort config/files.txt, used with the
@@ -32,7 +32,7 @@ initialize the corpus and one where a source directory is given:
   % python step1_initialize.py \
       --language en \
       --corpus data/patents/test \
-      --file-list filelist.txt
+      --filelist filelist.txt
 
   % python step1_initialize.py \
       --language en \
@@ -47,7 +47,7 @@ to en/config/files.txt. The second form traverses the directory ../external/US,
 takes all file paths, randomly shuffles them, and then saves the result to
 en/config/files.txt.
 
-When the --file-list options is used, the system expects that FILE has two or
+When the --filelist options is used, the system expects that FILE has two or
 three columns with year, source file and an optional target file, which is the
 filepath in the corpus starting at the target directory handed in with the
 --corpus option. If there is no third column that the source and target file
@@ -186,7 +186,7 @@ def create_filelist(source_file, source_path, conf_path, shuffle_file):
                 fh.write("0000\t" + fname + "\n")
     else:
         sys.exit("[--init] ERROR: " +
-                 "need to define input with --file-list or " +
+                 "need to define input with --filelist or " +
                  "--source-directory option, aborting")
     read_only(file_list)
 
@@ -209,7 +209,7 @@ def create_default_pipeline_config_file(pipeline_config, conf_path):
 if __name__ == '__main__':
 
     options = ['language=', 'corpus=',
-               'file-list=', 'source-directory=', 'shuffle']
+               'filelist=', 'source-directory=', 'shuffle']
     (opts, args) = getopt.getopt(sys.argv[1:], '', options)
 
     source_file = None
@@ -221,7 +221,7 @@ if __name__ == '__main__':
     
     for opt, val in opts:
         if opt == '--language': language = val
-        if opt == '--file-list': source_file = val
+        if opt == '--filelist': source_file = val
         if opt == '--source-directory': source_path = val
         if opt == '--corpus': target_path = val
         if opt == '--shuffle': shuffle_file = True

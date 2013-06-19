@@ -33,14 +33,11 @@ def mallet_feature(name, value):
 
 class Doc:
 
-    def __init__(self, input,  output_phr_occ, output_phr_feats, year, lang,
+    def __init__(self, input, output_phr_feats, year, lang,
                  filter_p=True, chunker_rules='en'):
         
         self.input = input
-        # PGA made year a parameter so not dependent on path structure 10/9/12
-        #self.year = input.split(os.sep)[-2]
         self.year = year
-        self.output_phr_occ = output_phr_occ
         self.output_phr_feats = output_phr_feats
         self.chunk_schema = sentence.chunk_schema(chunker_rules)
         self.lang = lang
@@ -62,14 +59,16 @@ class Doc:
         self.process_doc(filter_p, chunker_rules)
         
 
-    # process the doc, creating all potential technology chunks
     def process_doc(self, filter_p=True, chunker_rules='en'):
+
+        """Process the doc, creating all potential technology chunks and
+        calculating their features."""
 
         debug_p = False
         if debug_p:
-            print "[process_doc] filter_p: %s, writing to %s" % (filter_p, self.output_phr_feats)
+            print "[process_doc] filter_p: %s, writing to %s" % \
+                  (filter_p, self.output_phr_feats)
         s_input = codecs.open(self.input, encoding='utf-8')
-        s_output_phr_occ = codecs.open(self.output_phr_occ, "w", encoding='utf-8')
         s_output_phr_feats = codecs.open(self.output_phr_feats, "w", encoding='utf-8')
         section = "FH_NONE"   # default section if document has no section header lines
         self.d_field[section] = []
@@ -81,27 +80,25 @@ class Doc:
                 print "[process_doc] line: %s" % line
 
             if line[0:3] == "FH_":
-                # we are at a section header; note we have to strip off both final ':' and
-                # whitespace, since in some cases eg. Chinese segmentation, the colon will
-                # be separated from the header term by a blank.
+                # we are at a section header; note we have to strip off both
+                # final ':' and whitespace, since in some cases eg. Chinese
+                # segmentation, the colon will be separated from the header term
+                # by a blank.
                 section = line.split("_")[1].rstrip(": ")
                 self.d_field[section] = []
                 sent_no_in_section = 0
             else:
                 # process the sentence, the line is a list of token_tag pairs
                 if section == "TITLE" or section == "ABSTRACT":
-                    #print "[process_doc] found line in title or abstract"
                     self.l_lc_title_noun.extend(lc_nouns(line))
 
                 # call the appropriate Sentence subclass based on the language
-                # (get_sentence_for_lang)
                 sent_args = [self.next_sent_id, section, sent_no_in_section, line,
                              self.chunk_schema]
                 sent = sentence.get_sentence_for_lang(self.lang, sent_args)
                 # get context info
                 i = 0
                 for chunk in sent.chunk_iter():
-
                     if chunk.label == "tech":
                         # index of chunk start in sentence => ci
                         ci = chunk.chunk_start
@@ -114,14 +111,12 @@ class Doc:
                             print "index: %i, start: %i, end: %i, sentence: %s" % \
                                 (i, chunk.chunk_start, chunk.chunk_end, sent.sentence)
                         if add_chunk_data(self, chunk, section, filter_p):
-                            add_line_to_phr_occ(uid, self, chunk, hsent, s_output_phr_occ)
-                            add_line_to_phr_feats(metadata_list, mallet_feature_list, s_output_phr_feats)
+                            add_line_to_phr_feats(metadata_list, mallet_feature_list,
+                                                  s_output_phr_feats)
                         chunk.sid = self.next_sent_id
-                        #print chunk.sid
                         self.d_chunk[self.next_chunk_id] = chunk
                         sent.chunks.append(chunk)
                         self.next_chunk_id += 1
-
                     i = chunk.chunk_end
                     
                 # keep track of the location of this sentence within the section
@@ -132,7 +127,6 @@ class Doc:
                 self.next_sent_id += 1
 
         s_input.close()
-        s_output_phr_occ.close()
         s_output_phr_feats.close()
 
 

@@ -20,11 +20,25 @@ http://www.cs.cmu.edu/afs/cs.cmu.edu/project/cmt-40/Nice/Urdu-MT/code/Tools/POS/
 """
 
 import os
+import sys
 import re
 import codecs
 from collections import defaultdict
 import config
 import inspect
+
+from pf2dfeats import generate_doc_feats
+
+
+script_path = os.path.abspath(sys.argv[0])
+script_dir = os.path.dirname(script_path)
+os.chdir(script_dir)
+os.chdir('../..')
+sys.path.insert(0, os.getcwd())
+os.chdir(script_dir)
+
+from ontology.utils.file import compress, uncompress, get_year_and_docid
+
 
 
 
@@ -332,55 +346,56 @@ class MalletTraining:
 
 
     def remove_filtered_feats(self, feats):
-        """Given a list of features, return a line with all non-filtered features removed
-        We filter on the prefix of the feature (the part before the '='). Return the
-        original line if the features dictionary is empty."""
+        """Given a list of features, return a line with all non-filtered
+        features removed We filter on the prefix of the feature (that is, the
+        part before the '='). Return the original line if the features
+        dictionary is empty."""
         if not self.d_filter_feat:
             return feats
         return [f for f in feats if self.d_filter_feat.has_key(f.split("=")[0])]
 
 
-    def make_utraining_file3(self, fnames, d_phr2label, verbose=False, features=None):
+    def make_utraining_file3(self, fnames, d_phr2label,
+                             verbose=False, features=None):
 
-        """ Create a file with training instances for Mallet. The list of doc_feats files
-        to use is given in fnames and the annotated terms in d_phr2label.
-
-        This method is based on a similarly named function in train.py. It was moved here
-        for consistency. This version should eventually make train.make_utraining_file()
-        obsolete."""
+        """ Create a file with training instances for Mallet. The list of
+        doc_feats files to use is given in fnames and the annotated terms in
+        d_phr2label. This method is based on a similarly named function in
+        train.py. It was moved here for consistency. This version should
+        eventually make train.make_utraining_file() obsolete."""
 
         version = self.mallet_config.version
         mallet_file = self.mallet_config.train_mallet_file
-
         print "[make_utraining_file3] writing to", mallet_file
-
-        s_train = codecs.open(mallet_file, "w", encoding='utf-8')
         self.stats_labeled_count = 0
         self.stats_unlabeled_count = 0
         file_count = 0
-        for doc_feats_file in fnames:
-            if verbose:
-                print "%05d %s" % (file_count, doc_feats_file)
-            fh = codecs.open(doc_feats_file, encoding='utf-8')
-            for line in fh:
-                (phrase, uid, feats) = parse_doc_feats_line(line)
-                feats = self.remove_filtered_feats(feats)
-                # check if the phrase has a known label
-                if d_phr2label.has_key(phrase):
-                    label = d_phr2label.get(phrase)
-                    if label == "":
-                        print "[make_utraining_file3] " + \
-                              "WARNING: phrase with null label: %s" % phrase
-                    else:
-                        # create a line with with format "uid label f1 f2 f3 ..."
-                        mallet_list = [uid, label] + feats
-                        mallet_line = " ".join(mallet_list)
-                        s_train.write(mallet_line + "\n")
-                        self.stats_labeled_count += 1
-                else:
-                   self.stats_unlabeled_count += 1
-            fh.close()
-        s_train.close()
+
+        with codecs.open(mallet_file, "w", encoding='utf-8') as s_train:
+            for phr_feats_file in fnames:
+                uncompress(phr_feats_file)
+                if verbose:
+                    print "%05d %s" % (file_count, phr_feats_file)
+                year, doc_id = get_year_and_docid(phr_feats_file)
+                with codecs.open(phr_feats_file, encoding="utf-8") as fh:
+                    docfeats = generate_doc_feats(fh, doc_id, year)
+                    for term in sorted(docfeats.keys()):
+                        feats = docfeats[term][2:]
+                        feats = self.remove_filtered_feats(feats)
+                        uid = "%s|%s|%s" % (year, doc_id, term.replace(' ','_'))
+                        if d_phr2label.has_key(term):
+                            label = d_phr2label.get(term)
+                            if label == "":
+                                print "[make_utraining_file3] " + \
+                                      "WARNING: term with null label: %s" % term
+                            else:
+                                # mallet line format: "uid label f1 f2 f3 ..."
+                                mallet_line = " ".join([uid, label] + feats)
+                                s_train.write(mallet_line + "\n")
+                                self.stats_labeled_count += 1
+                        else:
+                            self.stats_unlabeled_count += 1
+                compress(phr_feats_file)
         
         print "[make_utraining_file3] labeled instances: %i, unlabeled: %i" \
               % (self.stats_labeled_count, self.stats_unlabeled_count)

@@ -13,12 +13,11 @@ OPTIONS:
   --txt2tag    tagging (English and German)
   --txt2seg    segmenting (Chinese only)
   --seg2tag    tagging segemented text (Chinese only)
-  --tag2chk    creating chunks in context
-  --pf2dfeats  go from phrase features to document features
+  --tag2chk    creating chunks in context and adding features
 
-  --languagel en|cn|de   provides the language, default is 'en'
-  --corpus TARGET_PATH   corpus directory, default is data/patents
-  --documents INTEGER    number of documents to process, default is 1
+  --corpus TARGET_PATH  corpus directory, default is data/patents
+  --l en|cn|de          provides the language, default is 'en'
+  --n INTEGER           number of documents to process, default is 1
 
   --verbose:
        print name of each processed file to stdout
@@ -41,11 +40,10 @@ with a set of external files defined in TARGET_PATH/config/files.txt. Default
 pipeline configuration settings are in TARGET_PATH/config/pipeline-default.txt.
 
 Examples:
-   %  python step2_document_processing.py -l en -t data/patents/en --populate -n 5
-   %  python step2_document_processing.py -l en -t data/patents/en --xml2txt -n 5
-   %  python step2_document_processing.py -l en -t data/patents/en --txt2tag -n 5
-   %  python step2_document_processing.py -l en -t data/patents/en --tag2chk -n 5
-   %  python step2_document_processing.py -l en -t data/patents/en --pf2dfeats -n 5
+   %  python step2_document_processing.py --corpus data/patents/en --populate -n 5
+   %  python step2_document_processing.py --corpus data/patents/en --xml2txt -n 5
+   %  python step2_document_processing.py --corpus data/patents/en --txt2tag -n 5
+   %  python step2_document_processing.py --corpus data/patents/en --tag2chk -n 5
 
 """
 
@@ -81,9 +79,8 @@ TXT2TAG = '--txt2tag'
 TXT2SEG = '--txt2seg'
 SEG2TAG = '--seg2tag'
 TAG2CHK = '--tag2chk'
-PF2DFEATS = '--pf2dfeats'
 
-ALL_STAGES = [POPULATE, XML2TXT, TXT2TAG, TXT2SEG, SEG2TAG, TAG2CHK, PF2DFEATS]
+ALL_STAGES = [POPULATE, XML2TXT, TXT2TAG, TXT2SEG, SEG2TAG, TAG2CHK]
 
 
 # definition of mappings from document processing stage to input and output data
@@ -94,8 +91,7 @@ DOCUMENT_PROCESSING_IO = \
       TXT2TAG: { 'in': 'd1_txt', 'out': ('d2_tag',) },
       TXT2SEG: { 'in': 'd2_seg', 'out': ('d2_seg',) },
       SEG2TAG: { 'in': 'd1_txt', 'out': ('d2_tag',) },
-      TAG2CHK: { 'in': 'd2_tag', 'out': ('d3_phr_feats', 'd3_phr_occ') },
-      PF2DFEATS: { 'in': 'd3_phr_feats', 'out': ('d4_doc_feats',) }}
+      TAG2CHK: { 'in': 'd2_tag', 'out': ('d3_phr_feats',) }}
 
 
 def update_state(fun):
@@ -260,42 +256,9 @@ def run_tag2chk(rconfig, limit, options, verbose):
     filter_p = True if candidate_filter == 'on' else False
     
     input_dataset = find_input_dataset(TAG2CHK, rconfig)
-    output_datasets = find_output_datasets(TAG2CHK, rconfig)
-    output_dataset1 = output_datasets[0]
-    output_dataset2 = output_datasets[1]
-    print_datasets(TAG2CHK, input_dataset, output_datasets)
+    output_dataset = find_output_datasets(TAG2CHK, rconfig)[0]
+    print_datasets(TAG2CHK, input_dataset, [output_dataset])
     print "[--tag2chk] using '%s' chunker rules" % chunker_rules
-    check_file_counts(input_dataset, output_dataset1, limit)
-    check_file_counts(input_dataset, output_dataset2, limit)
-
-    count = 0
-    fspecs = get_lines(rconfig.filenames, output_dataset1.files_processed, limit)
-    for fspec in fspecs:
-        count += 1
-        filename = fspec.target
-        print_file_progress(TAG2CHK, count, filename, verbose)
-        file_in, file_out1 = prepare_io(filename, input_dataset, output_dataset1)
-        file_in, file_out2 = prepare_io(filename, input_dataset, output_dataset2)
-        # TODO: handle the year stuff differently (this is a bit of a hack)
-        year = os.path.basename(os.path.dirname(filename))
-        uncompress(file_in)
-        tag2chunk.Doc(file_in, file_out2, file_out1, year, rconfig.language,
-                      filter_p=filter_p, chunker_rules=chunker_rules)
-        compress(file_in, file_out1, file_out2)
-
-    return (len(fspecs), output_datasets)
-
-
-@update_state
-def run_pf2dfeats(rconfig, limit, options, verbose):
-    """Creates a union of the features for each chunk in a doc (for training)."""
-
-    # TODO: move this to step4
-
-    input_dataset = find_input_dataset(PF2DFEATS, rconfig)
-    output_datasets = find_output_datasets(PF2DFEATS, rconfig)
-    output_dataset = output_datasets[0]
-    print_datasets(PF2DFEATS, input_dataset, output_datasets)
     check_file_counts(input_dataset, output_dataset, limit)
 
     count = 0
@@ -303,12 +266,13 @@ def run_pf2dfeats(rconfig, limit, options, verbose):
     for fspec in fspecs:
         count += 1
         filename = fspec.target
-        print_file_progress(PF2DFEATS, count, filename, verbose)
+        print_file_progress(TAG2CHK, count, filename, verbose)
         file_in, file_out = prepare_io(filename, input_dataset, output_dataset)
+        # TODO: handle the year stuff differently (this is a bit of a hack)
         year = os.path.basename(os.path.dirname(filename))
-        doc_id = os.path.basename(filename)
         uncompress(file_in)
-        pf2dfeats.make_doc_feats(file_in, file_out, doc_id, year)
+        tag2chunk.Doc(file_in, file_out, year, rconfig.language,
+                      filter_p=filter_p, chunker_rules=chunker_rules)
         compress(file_in, file_out)
 
     return (len(fspecs), [output_dataset])
@@ -363,7 +327,6 @@ def find_output_datasets(stage, rconfig, data_type=None):
         # Filer the datasets making sure that d.trace + d.head matches
         # rconfig.pipeline(txt).trace
         datasets3 = [ds for ds in datasets2 if ds.output_matches_global_config()]
-        #print output_name, dirname, datasets1, datasets3
         # If there is one result, return it, otherwise write a warning and exit
         if len(datasets3) == 1:
             output_datasets.append( datasets3[0])
@@ -417,12 +380,11 @@ def make_parser(language):
     return parser
 
 def read_opts():
-    options = ['corpus=', 'language=', 'documents=',
-               'populate', 'xml2txt', 'txt2tag', 'txt2seg', 'seg2tag',
-               'tag2chk', 'pf2dfeats',
+    options = ['corpus=', 'populate',
+               'xml2txt', 'txt2tag', 'txt2seg', 'seg2tag', 'tag2chk',
                'verbose', 'pipeline=', 'show-data', 'show-pipelines']
     try:
-        return getopt.getopt(sys.argv[1:], '', options)
+        return getopt.getopt(sys.argv[1:], 'l:n:', options)
     except getopt.GetoptError as e:
         sys.exit("ERROR: " + str(e))
 
@@ -439,9 +401,9 @@ if __name__ == '__main__':
     
     (opts, args) = read_opts()
     for opt, val in opts:
-        if opt == '--language': language = val
         if opt == '--corpus': corpus = val
-        if opt == '--documents': limit = int(val)
+        if opt == '-l': language = val
+        if opt == '-n': limit = int(val)
         if opt == '--verbose': verbose = True
         if opt == '--pipeline': pipeline_config = val
         if opt == '--show-data': show_data_p = True
@@ -471,5 +433,3 @@ if __name__ == '__main__':
         run_seg2tag(rconfig, limit, options, verbose)
     elif stage == TAG2CHK:
         run_tag2chk(rconfig, limit, options, verbose)
-    elif stage == PF2DFEATS:
-        run_pf2dfeats(rconfig, limit, options, verbose)
