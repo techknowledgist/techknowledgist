@@ -47,6 +47,20 @@ Examples:
 
 """
 
+# TODO
+
+# The run_X methods all update the count in state/processed.txt every STEP
+# files. And at the end of each method, the final remainder is added and the
+# state/processing_hiistory fiel is updated. We may want to update the history
+# with every STEP files as well and at the end get a final tally. Currently,
+# there is not guaranteed to be an entry when an error happens.
+
+# It might be a good idea to have a general way to catch exceptions for the
+# run_X methods. We could either have a try-except in each method or use a with
+# statement and a class for each run_X method. A superclass could deal with
+# errors and perhaps with bookkeeping to (instead of the decorator function).
+
+
 import os, sys, time, shutil, getopt, subprocess, codecs, textwrap
 
 import config
@@ -129,6 +143,8 @@ def run_populate(rconfig, limit, verbose=False):
         ensure_path(os.path.dirname(dst_file))
         shutil.copyfile(src_file, dst_file)
         compress(dst_file)
+        if count % STEP == 0:
+            output_dataset.update_processed_count(STEP)
 
     return (len(fspecs), [dataset])
 
@@ -162,8 +178,10 @@ def run_xml2txt(rconfig, limit, options, verbose=False):
             print "[--xml2txt] WARNING: error on", file_in
             print "           ", e
         compress(file_in, file_out)
+        if count % STEP == 0:
+            output_dataset.update_processed_count(STEP)
 
-    return (len(fspecs), [output_dataset])
+    return (count % STEP, [output_dataset])
 
 
 @update_state
@@ -187,8 +205,10 @@ def run_txt2tag(rconfig, limit, options, verbose):
         uncompress(file_in)
         txt2tag.tag(file_in, file_out, tagger)
         compress(file_in, file_out)
+        if count % STEP == 0:
+            output_dataset.update_processed_count(STEP)
 
-    return (len(fspecs), [output_dataset])
+    return (count % STEP, [output_dataset])
 
 
 @update_state
@@ -212,7 +232,10 @@ def run_txt2seg(rconfig, limit, options, verbose):
         file_in, file_out = prepare_io(filename, input_dataset, output_dataset)
         compress(file_in, file_out)
         cn_txt2seg.seg(file_in, file_out, segmenter)
-    return (len(fspecs), [output_dataset])
+        if count % STEP == 0:
+            output_dataset.update_processed_count(STEP)
+
+    return (count % STEP, [output_dataset])
 
 
 @update_state
@@ -236,8 +259,10 @@ def run_seg2tag(rconfig, limit, options, verbose):
         uncompress(file_in)
         cn_seg2tag.tag(file_in, file_out, tagger)
         compress(file_in, file_out)
+        if count % STEP == 0:
+            output_dataset.update_processed_count(STEP)
 
-    return (len(fspecs), [output_dataset])
+    return (count % STEP, [output_dataset])
 
 
 @update_state
@@ -268,17 +293,10 @@ def run_tag2chk(rconfig, limit, options, verbose):
         tag2chunk.Doc(file_in, file_out, year, rconfig.language,
                       filter_p=filter_p, chunker_rules=chunker_rules)
         compress(file_in, file_out)
-        # with this, and the changed line below, we store intermediate counts
         if count % STEP == 0:
             output_dataset.update_processed_count(STEP)
 
-    # TODO: there may be a better way to do this. One option is to catch
-    # exceptions and to handle them the same way for each run_ method. That has
-    # the disadvantage that intermediate counts are not available during
-    # processing. Another option is to use the with statement, which has the
-    # same disadvantage but it is another way of dealing with errors.
     return (count % STEP, [output_dataset])
-    #return (len(fspecs), [output_dataset])
 
 
 
