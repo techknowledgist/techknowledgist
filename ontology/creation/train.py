@@ -226,12 +226,10 @@ def patent_utraining_data(patent_dir, lang, version="1", xval=0, limit=0,
     # let's do the work in the train directory for now.
     train_output_dir = os.path.join(patent_dir, lang, "train")
     mtr = mallet.Mallet_training("utrain", version , train_output_dir)
-    # create the mallet vectors file from the mallet file
-    mtr.write_train_mallet_vectors_file()
-    # make sure xval is an int (since it can be passed in by command line args)
-    xval = int(xval)
-    # create the model (utrain.<version>.MaxEnt.model)
-    mtr.mallet_train_classifier(classifier, xval)
+    # create the mallet vectors file from the mallet file and create the model
+    # (utrain.<version>.MaxEnt.model), make sure xval is an int (since it can be
+    # passed in as a command line arg)
+    mtr.mallet_train_classifier(classifier, int(xval))
 
 
 def patent_utraining_data3(mallet_file, annotation_file, annotation_count, fnames,
@@ -253,7 +251,6 @@ def patent_utraining_data3(mallet_file, annotation_file, annotation_count, fname
         prune_p=False, infogain_pruning="5000", count_pruning="3")
     mtr = mallet2.MalletTraining(mconfig, features)
     mtr.make_utraining_file3(fnames, d_phr2label, features=features)
-    mtr.write_train_mallet_vectors_file()
     mtr.mallet_train_classifier()
     write_training_statistics(stats_file, mtr)
 

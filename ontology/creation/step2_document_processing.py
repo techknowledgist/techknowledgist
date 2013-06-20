@@ -92,12 +92,12 @@ ALL_STAGES = [POPULATE, XML2TXT, TXT2TAG, TXT2SEG, SEG2TAG, TAG2CHK]
 # definition of mappings from document processing stage to input and output data
 # directories (named processing areas above)
 DOCUMENT_PROCESSING_IO = \
-    { POPULATE: { 'in': 'external', 'out': ('d0_xml',) },
-      XML2TXT: { 'in': 'd0_xml', 'out': ('d1_txt',) },
-      TXT2TAG: { 'in': 'd1_txt', 'out': ('d2_tag',) },
-      TXT2SEG: { 'in': 'd2_seg', 'out': ('d2_seg',) },
-      SEG2TAG: { 'in': 'd1_txt', 'out': ('d2_tag',) },
-      TAG2CHK: { 'in': 'd2_tag', 'out': ('d3_phr_feats',) }}
+    { POPULATE: { 'in': 'external', 'out': 'd0_xml' },
+      XML2TXT: { 'in': 'd0_xml', 'out': 'd1_txt' },
+      TXT2TAG: { 'in': 'd1_txt', 'out': 'd2_tag' },
+      TXT2SEG: { 'in': 'd2_seg', 'out': 'd2_seg' },
+      SEG2TAG: { 'in': 'd1_txt', 'out': 'd2_tag' },
+      TAG2CHK: { 'in': 'd2_tag', 'out': 'd3_phr_feats' }}
 
 # This variable governs after how many files the files_processed counter in the
 # state directory is updated, this way we still have a reasonably recent count
@@ -112,7 +112,7 @@ def update_state(fun):
         files_processed, datasets = fun(*args)
         for dataset in datasets:
             dataset.files_processed += files_processed
-            dataset.update_state(files_processed, t1)
+            dataset.update_state(dataset.files_processed, t1)
     return wrapper
 
 
@@ -121,8 +121,8 @@ def run_populate(rconfig, limit, verbose=False):
     """Populate xml directory in the target directory with limit files from the
     source file list or the source directory."""
 
-    output_names = DOCUMENT_PROCESSING_IO[POPULATE]['out']
-    dataset = DataSet(POPULATE, output_names[0], rconfig)
+    output_name = DOCUMENT_PROCESSING_IO[POPULATE]['out']
+    dataset = DataSet(POPULATE, output_name, rconfig)
 
     # initialize data set if it does not exist, this is not contingent on
     # anything because --populate is the first step
@@ -136,7 +136,7 @@ def run_populate(rconfig, limit, verbose=False):
     for fspec in fspecs:
         count += 1
         src_file = fspec.source
-        dst_file = os.path.join(rconfig.target_path, 'data', output_names[0],
+        dst_file = os.path.join(rconfig.target_path, 'data', output_name,
                                 dataset.version_id, 'files', fspec.target)
         if verbose:
             print "[--populate] %04d %s" % (count, dst_file)
@@ -154,9 +154,8 @@ def run_xml2txt(rconfig, limit, options, verbose=False):
     """Run the document structure parser in onto mode."""
 
     input_dataset = find_input_dataset(XML2TXT, rconfig)
-    output_datasets = find_output_datasets(XML2TXT, rconfig)
-    output_dataset = output_datasets[0]
-    print_datasets(XML2TXT, input_dataset, output_datasets)
+    output_dataset = find_output_dataset(XML2TXT, rconfig)
+    print_datasets(XML2TXT, input_dataset, output_dataset)
     check_file_counts(input_dataset, output_dataset, limit)
 
     count = 0
@@ -189,9 +188,8 @@ def run_txt2tag(rconfig, limit, options, verbose):
     """Takes txt files and runs the tagger on them."""
 
     input_dataset = find_input_dataset(TXT2TAG, rconfig)
-    output_datasets = find_output_datasets(TXT2TAG, rconfig)
-    output_dataset = output_datasets[0]
-    print_datasets(TXT2TAG, input_dataset, output_datasets)
+    output_dataset = find_output_dataset(TXT2TAG, rconfig)
+    print_datasets(TXT2TAG, input_dataset, output_dataset)
     check_file_counts(input_dataset, output_dataset, limit)
 
     count = 0
@@ -216,9 +214,8 @@ def run_txt2seg(rconfig, limit, options, verbose):
     """Takes txt files and runs the Chinese segmenter on them."""
 
     input_dataset = find_input_dataset(TXT2SEG, rconfig)
-    output_datasets = find_output_datasets(TXT2SEG, rconfig)
-    output_dataset = output_datasets[0]
-    print_datasets(TXT2SEG, input_dataset, output_datasets)
+    output_dataset = find_output_dataset(TXT2SEG, rconfig)
+    print_datasets(TXT2SEG, input_dataset, output_dataset)
     check_file_counts(input_dataset, output_dataset, limit)
 
     count = 0
@@ -243,9 +240,8 @@ def run_seg2tag(rconfig, limit, options, verbose):
     """Takes seg files and runs the Chinese tagger on them."""
 
     input_dataset = find_input_dataset(SEG2TAG, rconfig)
-    output_datasets = find_output_datasets(SEG2TAG, rconfig)
-    output_dataset = output_datasets[0]
-    print_datasets(SEG2TAG, input_dataset, output_datasets)
+    output_dataset = find_output_dataset(SEG2TAG, rconfig)
+    print_datasets(SEG2TAG, input_dataset, output_dataset)
     check_file_counts(input_dataset, output_dataset, limit)
 
     count = 0
@@ -277,8 +273,8 @@ def run_tag2chk(rconfig, limit, options, verbose):
     filter_p = True if candidate_filter == 'on' else False
     
     input_dataset = find_input_dataset(TAG2CHK, rconfig)
-    output_dataset = find_output_datasets(TAG2CHK, rconfig)[0]
-    print_datasets(TAG2CHK, input_dataset, [output_dataset])
+    output_dataset = find_output_dataset(TAG2CHK, rconfig)
+    print_datasets(TAG2CHK, input_dataset, output_dataset)
     print "[--tag2chk] using '%s' chunker rules" % chunker_rules
     check_file_counts(input_dataset, output_dataset, limit)
 
@@ -330,48 +326,45 @@ def find_input_dataset(stage, rconfig, data_type=None):
         sys.exit("Exiting...")
 
     
-def find_output_datasets(stage, rconfig, data_type=None):
-    """Find the output data set of a stage for a given configuration and return it. Print
-    a warning and exit if no dataset or more than one dataset was found."""
+def find_output_dataset(stage, rconfig, data_type=None):
+    """Find the output data set of a stage for a given configuration and return
+    it. Print a warning and exit if no dataset or more than one dataset was
+    found."""
 
     # Use the stage-to-data mapping to find the output names
-    if data_type is not None:
-        data_types = [data_type]
-    else:
-        data_types = DOCUMENT_PROCESSING_IO[stage]['out']
-    output_datasets = []
-    for output_name in data_types:
-        # Get all data sets D for input name
-        dirname = os.path.join(rconfig.target_path, 'data', output_name)
-        datasets1 = [ds for ds in os.listdir(dirname) if ds.isdigit()]
-        datasets2 = [DataSet(stage, output_name, rconfig, ds) for ds in datasets1]
-        # Filer the datasets making sure that d.trace + d.head matches
-        # rconfig.pipeline(txt).trace
-        datasets3 = [ds for ds in datasets2 if ds.output_matches_global_config()]
-        # If there is one result, return it, otherwise write a warning and exit
-        if len(datasets3) == 1:
-            output_datasets.append( datasets3[0])
-        elif len(datasets3) > 1:
-            print "WARNING, more than one approriate training set found:"
-            for ds in datasets3:
-                print '  ', ds
-            sys.exit("Exiting...")
-        elif len(datasets3) == 0:
-            highest_id = max([0] + [int(ds) for ds in datasets1])
-            new_id = "%02d" % (highest_id + 1)
-            dataset = DataSet(stage, output_name, rconfig, new_id)
-            if not dataset.exists():
-                dataset.initialize_on_disk()
-                dataset.load_from_disk()
-            print "[%s] created %s" % (stage, dataset)
-            output_datasets.append(dataset)
-    return output_datasets
+    if data_type is None:
+        data_type = DOCUMENT_PROCESSING_IO[stage]['out']
+    #for output_name in data_types:
+    # Get all data sets D for input name
+    dirname = os.path.join(rconfig.target_path, 'data', data_type)
+    datasets1 = [ds for ds in os.listdir(dirname) if ds.isdigit()]
+    datasets2 = [DataSet(stage, data_type, rconfig, ds) for ds in datasets1]
+    # Filer the datasets making sure that d.trace + d.head matches
+    # rconfig.pipeline(txt).trace
+    datasets3 = [ds for ds in datasets2 if ds.output_matches_global_config()]
+    # If there is one result, return it, if there are more than one, write a
+    # warning and exit, otherwise, initialize a dataset and return it
+    if len(datasets3) == 1:
+        return datasets3[0]
+    elif len(datasets3) > 1:
+        print "WARNING, more than one approriate training set found:"
+        for ds in datasets3:
+            print '  ', ds
+        sys.exit("Exiting...")
+    elif len(datasets3) == 0:
+        highest_id = max([0] + [int(ds) for ds in datasets1])
+        new_id = "%02d" % (highest_id + 1)
+        dataset = DataSet(stage, data_type, rconfig, new_id)
+        if not dataset.exists():
+            dataset.initialize_on_disk()
+            dataset.load_from_disk()
+        print "[%s] created %s" % (stage, dataset)
+        return dataset
     
 
-def print_datasets(stage, input_dataset, output_datasets):
+def print_datasets(stage, input_dataset, output_dataset):
     print "[%s] input %s" % (stage, input_dataset)
-    for output_dataset in output_datasets:
-        print "[%s] output %s" % (stage, output_dataset)
+    print "[%s] output %s" % (stage, output_dataset)
 
 def print_file_progress(stage, count, filename, verbose):
     if verbose:
