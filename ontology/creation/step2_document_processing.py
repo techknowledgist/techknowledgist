@@ -85,6 +85,11 @@ DOCUMENT_PROCESSING_IO = \
       SEG2TAG: { 'in': 'd1_txt', 'out': ('d2_tag',) },
       TAG2CHK: { 'in': 'd2_tag', 'out': ('d3_phr_feats',) }}
 
+# This variable governs after how many files the files_processed counter in the
+# state directory is updated, this way we still have a reasonably recent count
+# if there is an error that is not trapped.
+STEP = 100
+
 
 def update_state(fun):
     """To be used as a decorator around functions that run one of the processing steps."""
@@ -95,7 +100,7 @@ def update_state(fun):
             dataset.files_processed += files_processed
             dataset.update_state(files_processed, t1)
     return wrapper
-    
+
 
 @update_state
 def run_populate(rconfig, limit, verbose=False):
@@ -263,8 +268,17 @@ def run_tag2chk(rconfig, limit, options, verbose):
         tag2chunk.Doc(file_in, file_out, year, rconfig.language,
                       filter_p=filter_p, chunker_rules=chunker_rules)
         compress(file_in, file_out)
+        # with this, and the changed line below, we store intermediate counts
+        if count % STEP == 0:
+            output_dataset.update_processed_count(STEP)
 
-    return (len(fspecs), [output_dataset])
+    # TODO: there may be a better way to do this. One option is to catch
+    # exceptions and to handle them the same way for each run_ method. That has
+    # the disadvantage that intermediate counts are not available during
+    # processing. Another option is to use the with statement, which has the
+    # same disadvantage but it is another way of dealing with errors.
+    return (count % STEP, [output_dataset])
+    #return (len(fspecs), [output_dataset])
 
 
 
