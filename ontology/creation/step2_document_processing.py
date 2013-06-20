@@ -50,27 +50,19 @@ Examples:
 import os, sys, time, shutil, getopt, subprocess, codecs, textwrap
 
 import config
-import putils
 import xml2txt
 import txt2tag
 import sdp
 import tag2chunk
 import cn_txt2seg
 import cn_seg2tag
-import pf2dfeats
-
-script_path = os.path.abspath(sys.argv[0])
-script_dir = os.path.dirname(script_path)
-os.chdir(script_dir)
-os.chdir('../..')
-sys.path.insert(0, os.getcwd())
-os.chdir(script_dir)
+import path
 
 from utils.docstructure.main import Parser
 from ontology.utils.batch import RuntimeConfig, DataSet
 from ontology.utils.batch import show_datasets, show_pipelines
 from ontology.utils.file import ensure_path, get_lines, create_file
-from ontology.utils.file import compress, uncompress
+from ontology.utils.file import compress, uncompress, get_year
 
 
 POPULATE = '--populate'
@@ -245,14 +237,13 @@ def run_seg2tag(rconfig, limit, options, verbose):
 
 @update_state
 def run_tag2chk(rconfig, limit, options, verbose):
-    """Runs the np-in-context code on tagged input. Populates d3_phr_occ and
-    d3_phr_feat. Sets the contents of config-chunk-filter.txt given the value of
-    chunk_filter."""
+    """Runs the np-in-context code on tagged input. Populates d3_phr_feat."""
 
     candidate_filter = options.get('--candidate-filter', 'off')
     chunker_rules = options.get('--chunker-rules', 'en')
 
-    # TODO: a hack that maps the official name (candidate_filter) to the old name
+    # this is a hack that maps the value of the new official name to the value
+    # expected by the old name
     filter_p = True if candidate_filter == 'on' else False
     
     input_dataset = find_input_dataset(TAG2CHK, rconfig)
@@ -268,9 +259,7 @@ def run_tag2chk(rconfig, limit, options, verbose):
         filename = fspec.target
         print_file_progress(TAG2CHK, count, filename, verbose)
         file_in, file_out = prepare_io(filename, input_dataset, output_dataset)
-        # TODO: handle the year stuff differently (this is a bit of a hack)
-        year = os.path.basename(os.path.dirname(filename))
-        uncompress(file_in)
+        year = get_year(filename)
         tag2chunk.Doc(file_in, file_out, year, rconfig.language,
                       filter_p=filter_p, chunker_rules=chunker_rules)
         compress(file_in, file_out)

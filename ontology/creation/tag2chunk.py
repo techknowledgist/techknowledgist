@@ -9,6 +9,9 @@
 import os
 import codecs
 import sentence
+import path
+
+from ontology.utils.file import openfile
 
 # returns True if lists share at least one term
 def share_term_p(l1, l2):
@@ -33,24 +36,23 @@ def mallet_feature(name, value):
 
 class Doc:
 
-    def __init__(self, input, output_phr_feats, year, lang,
+    def __init__(self, tag_file, phr_feats_file, year, lang,
                  filter_p=True, chunker_rules='en'):
         
-        self.input = input
+        self.input = tag_file
+        self.output = phr_feats_file
         self.year = year
-        self.output_phr_feats = output_phr_feats
         self.chunk_schema = sentence.chunk_schema(chunker_rules)
         self.lang = lang
         # field_name to list of sent instances
         # field name is header string without FH_ or : affixes
         self.d_field = {}
         
-        # sent id to sent instance
-        self.next_sent_id = 0
+        # sent id to sent instance and chunk id to chunk instance
         self.d_sent = {}
-        # chunk id to chunk instance
-        self.next_chunk_id = 0
         self.d_chunk = {}
+        self.next_sent_id = 0
+        self.next_chunk_id = 0
 
         # lc noun tokens appearing in title
         self.l_lc_title_noun = []
@@ -67,9 +69,9 @@ class Doc:
         debug_p = False
         if debug_p:
             print "[process_doc] filter_p: %s, writing to %s" % \
-                  (filter_p, self.output_phr_feats)
-        s_input = codecs.open(self.input, encoding='utf-8')
-        s_output_phr_feats = codecs.open(self.output_phr_feats, "w", encoding='utf-8')
+                  (filter_p, self.output)
+        s_input = openfile(self.input)
+        s_output_phr_feats = codecs.open(self.output, "w", encoding='utf-8')
         section = "FH_NONE"   # default section if document has no section header lines
         self.d_field[section] = []
 
