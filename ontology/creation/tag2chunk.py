@@ -11,7 +11,7 @@ import codecs
 import sentence
 import path
 
-from ontology.utils.file import openfile
+from ontology.utils.file import open_input_file, open_output_file
 
 # returns True if lists share at least one term
 def share_term_p(l1, l2):
@@ -70,8 +70,8 @@ class Doc:
         if debug_p:
             print "[process_doc] filter_p: %s, writing to %s" % \
                   (filter_p, self.output)
-        s_input = openfile(self.input)
-        s_output_phr_feats = codecs.open(self.output, "w", encoding='utf-8')
+        s_input = open_input_file(self.input)
+        s_output = open_output_file(self.output)
         section = "FH_NONE"   # default section if document has no section header lines
         self.d_field[section] = []
 
@@ -114,7 +114,7 @@ class Doc:
                                 (i, chunk.chunk_start, chunk.chunk_end, sent.sentence)
                         if add_chunk_data(self, chunk, section, filter_p):
                             add_line_to_phr_feats(metadata_list, mallet_feature_list,
-                                                  s_output_phr_feats)
+                                                  s_output)
                         chunk.sid = self.next_sent_id
                         self.d_chunk[self.next_chunk_id] = chunk
                         sent.chunks.append(chunk)
@@ -123,13 +123,12 @@ class Doc:
                     
                 # keep track of the location of this sentence within the section
                 sent_no_in_section += 1
-                #print "[process_doc] section: |%s|" % section
                 self.d_field[section].append(sent)
                 self.d_sent[self.next_sent_id] = sent
                 self.next_sent_id += 1
 
         s_input.close()
-        s_output_phr_feats.close()
+        s_output.close()
 
 
 def get_features(sent, ci):
