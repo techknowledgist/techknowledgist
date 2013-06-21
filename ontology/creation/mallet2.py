@@ -65,9 +65,10 @@ def run_command(cmd):
     os.system(cmd)
 
 def print_command(cmd):
-    cmd = cmd.replace('--', "\n      --")
-    cmd = cmd.replace('> ', "\n      > ")
-    cmd = cmd.replace('| ', "\n      | ")
+    cmd = cmd.replace(' --', "\n      --")
+    cmd = cmd.replace(' > ', "\n      > ")
+    cmd = cmd.replace(' 2> ', "\n      2> ")
+    cmd = cmd.replace(' | ', "\n      | ")
     print '   $', cmd
 
 
@@ -76,7 +77,8 @@ def print_command(cmd):
 ############################################################################
 class MalletConfig(object):
 
-    # TODO: add self.classifier_type to all the file names!  So far, only added it to the test output files.
+    # TODO: add self.classifier_type to all the file names!  So far, only added
+    # it to the test output files.
 
     def __init__(self, mallet_dir, train_file_prefix, test_file_prefix, version,
                  train_dir, test_dir, classifier_type="MaxEnt", number_xval=0,

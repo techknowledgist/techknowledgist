@@ -390,7 +390,7 @@ class Classifier(TrainerClassifier):
                   (column, os.path.basename(self.scores_s1))
         command = "cat %s | cut -f1,%s | sort -k2 -nr > %s" % \
                   (self.scores_s1, column, self.scores_s2)
-        self.run_score_command(command,message)
+        self.run_score_command(command, message)
 
     def _scores_s3_remove_tiny_scores(self):
         message = "remove tiny scores (that is, scores like 8.833699651282083E-6)"
