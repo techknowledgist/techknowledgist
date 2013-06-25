@@ -31,7 +31,7 @@ os.chdir('../..')
 sys.path.insert(0, os.getcwd())
 os.chdir(script_dir)
 
-from ontology.utils.file import compress, uncompress, get_year_and_docid
+from ontology.utils.file import get_year_and_docid, open_input_file
 
 
 def unique_list(non_unique_list):
@@ -300,8 +300,7 @@ def add_file_to_utraining_test_file(fname, s_test, d_phr2label, stats,
     out from make_utraining_test_file() so that it could be called by itself."""
 
     def incr(x): stats[x] += 1
-    uncompress(fname)
-    fh = codecs.open(fname, encoding='utf-8')
+    fh = open_input_file(fname)
     year, doc_id = get_year_and_docid(fname)
     docfeats = generate_doc_feats(fh, doc_id, year)
     for term in sorted(docfeats.keys()):
@@ -319,7 +318,6 @@ def add_file_to_utraining_test_file(fname, s_test, d_phr2label, stats,
             s_test.write(mallet_line)
             incr('total_count')
     fh.close()
-    compress(fname)
     
 
 # When we create test data for evaluation, we may choose to leave out any chunks that were 
