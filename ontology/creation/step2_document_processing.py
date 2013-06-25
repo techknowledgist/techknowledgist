@@ -112,7 +112,7 @@ def update_state(fun):
         files_processed, datasets = fun(*args)
         for dataset in datasets:
             dataset.files_processed += files_processed
-            dataset.update_state(dataset.files_processed, t1)
+            dataset.update_state(args[1], t1)
     return wrapper
 
 
