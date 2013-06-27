@@ -144,13 +144,7 @@ system score. List of options:
 
 import os, sys, shutil, getopt, subprocess, codecs
 
-script_path = os.path.abspath(sys.argv[0])
-script_dir = os.path.dirname(script_path)
-os.chdir(script_dir)
-os.chdir('../..')
-sys.path.insert(0, os.getcwd())
-os.chdir(script_dir)
-
+import path
 import train
 import mallet2
 import config
@@ -159,7 +153,7 @@ import sum_scores
 import evaluation
 
 from ontology.utils.batch import RuntimeConfig, get_datasets, show_datasets, show_pipelines
-from ontology.utils.batch import find_input_dataset, check_file_availability
+from ontology.utils.batch import find_input_dataset, check_file_availability, Profiler
 from ontology.utils.file import filename_generator, ensure_path
 from ontology.utils.git import get_git_commit
 
@@ -313,6 +307,7 @@ class Classifier(TrainerClassifier):
         """Run the classifier on the data set defined by the configuration."""
         self._find_datasets()
         self._create_info_files()
+        #Profiler(self._create_mallet_file, [], {}, 'data/cprofile/create_mallet.prof')
         self._create_mallet_file()
         print "[--classify] creating results file - %s" % \
               os.path.basename(self.results_file)
