@@ -425,12 +425,25 @@ def run_evaluation(rconfig, batch, gold_standard, threshold, log_file, command):
             evaluation.test(gold_standard, system_file, threshold, log_file,
                             debug_c=False, command=command)
 
+def show_batches(rconfig):
+    """Show the number if files processed for each classify batch."""
+    print "\nCorpus:", rconfig.target_path, "\n"
+    classify_dir = os.path.join(rconfig.target_path, 'data', 't2_classify')
+    total_files = 0
+    for batch_dir in sorted(os.listdir(classify_dir)):
+        filelist = os.path.join(classify_dir, batch_dir, 'classify.info.filelist.txt')
+        if os.path.exists(filelist):
+            files = len(open(filelist).readlines())
+            total_files += files
+            print "   %s: %6d files" % (batch_dir, files)
+    print "\nTotal files: %d\n" % total_files
+
 
 def read_opts():
     longopts = ['corpus=', 'language=', 'train', 'classify', 'evaluate', 
                 'pipeline=', 'filelist=', 'annotation-file=', 'annotation-count=',
                 'batch=', 'features=', 'xval=', 'model=', 'eval-on-unseen-terms',
-                'verbose', 'show-data', 'show-pipelines',
+                'verbose', 'show-batches', 'show-data', 'show-pipelines',
                 'gold-standard=', 'threshold=', 'logfile=']
     try:
         return getopt.getopt(sys.argv[1:], '', longopts)
@@ -465,6 +478,7 @@ if __name__ == '__main__':
         elif opt == '--batch': batch = val
         elif opt == '--filelist': file_list = val
 
+        elif opt == '--show-batches': show_batches_p = True
         elif opt == '--show-data': show_data_p = True
         elif opt == '--show-pipelines': show_pipelines_p = True
 
@@ -490,18 +504,17 @@ if __name__ == '__main__':
 
     if show_data_p:
         show_datasets(rconfig, config.DATA_TYPES)
-
+    elif show_batches_p:
+        show_batches(rconfig)
     elif show_pipelines_p:
         show_pipelines(rconfig)
 
     elif mode == '--train':
         Trainer(rconfig, file_list, features,
                 annotation_file, annotation_count, model, xval).run()
-
     elif mode == '--classify':
         Classifier(rconfig, file_list, model, batch,
                    use_all_chunks_p=use_all_chunks).run()
-
     elif mode == '--evaluate':
         command = "python %s" % ' '.join(sys.argv)
         run_evaluation(rconfig, batch, gold_standard, threshold, logfile, command)
