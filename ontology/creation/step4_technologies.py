@@ -378,6 +378,7 @@ class Classifier(TrainerClassifier):
         self.run_score_command(command, message)
 
     def _scores_s2_select_scores(self):
+        # TODO: is the sorting truly needed?
         if VERBOSE:
             print "[--scores] select 'y' scores and sort"
         column = find_mallet_field_value_column.find_column(self.scores_s1, 'y')
@@ -388,6 +389,7 @@ class Classifier(TrainerClassifier):
         self.run_score_command(command, message)
 
     def _scores_s3_remove_tiny_scores(self):
+        # TODO: what motivated this step?
         message = "remove tiny scores (that is, scores like 8.833699651282083E-6)"
         command = "cat %s | grep -v \"E-\" > %s" % (self.scores_s2, self.scores_s3)
         self.run_score_command(command, message)
