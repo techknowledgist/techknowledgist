@@ -61,7 +61,7 @@ from ontology.utils.batch import find_input_dataset, check_file_availability
 from ontology.utils.file import ensure_path, open_input_file
 from ontology.utils.git import get_git_commit
 from ontology.utils.html import HtmlDocument
-from np_db import InfoDatabase, YearsDatabase, TermsDatabase, SummaryDatabase
+from np_db import InfoDatabase, YearsDatabase, TermsDatabase
 
 
 VERBOSE = False
@@ -420,6 +420,7 @@ def build_expanded_index(build_dir, datasets):
     db.commit_and_close()
 
 
+########################################################################################
     
 ### OPTION --build-index
 
@@ -440,20 +441,12 @@ class Index(object):
         self.idx_dir = os.path.join(corpus, 'data', 'o1_index', index_name)
         self.classify_dir = os.path.join(corpus, 'data', 't2_classify', dataset)
         ensure_path(self.idx_dir)
+        self.log = open(os.path.join(self.idx_dir, 'index.stats.processing.txt'), 'a')
         self.db_info = InfoDatabase(self.idx_dir, 'db-info.sqlite')
         self.db_years = YearsDatabase(self.idx_dir, 'db-years.sqlite')
-        self.db_terms = TermsDatabase(self.idx_dir, 'db-terms.sqlite')
+        self.db_terms = {}
         self.pp()
         self.check()
-
-    def _update_info_files(self):
-        """Write files with information on the build."""
-        fh = open(os.path.join(self.idx_dir, 'index.info.general.txt'), 'a')
-        fh.write("$ python %s\n\n" % ' '.join(sys.argv))
-        fh.write("index_name   =  %s\n" % self.index_name)
-        fh.write("dataset      =  %s\n" % self.dataset)
-        fh.write("git_commit   =  %s\n" % get_git_commit())
-        fh.write("timestamp    =  %s\n\n" % time.strftime('%Y%m%d-%H%M%S'))
 
     def check(self):
         if self.dataset in self.db_info.list_datasets():
@@ -465,7 +458,17 @@ class Index(object):
         years = {}
         terms = {}
         print "Collecting terms..."
+        count = 0
+        t1 = time.time()
+        step = 100000
         for line in fh:
+            count += 1
+            #if count > 100000: break
+            if count % step == 0:
+                t2 = time.time()
+                print "   loaded %s classifier lines in %.2f seconds (%sK done)" \
+                      % (step, t2 - t1, count / 1000)
+                t1 = t2
             (id, score) = line.rstrip().split("\t")
             (year, doc, term) = id.split("|", 2)
             score = float(score)
@@ -475,6 +478,19 @@ class Index(object):
         self._update_years_db(years)
         self._update_terms_db(terms)
 
+    def finish(self):
+        self.db_info.add_dataset(self.dataset)
+        self.db_info.commit_and_close()
+        self.db_years.commit_and_close()
+        for year in sorted(self.db_terms.keys()):
+            self.db_terms[year].commit_and_close()
+        self._update_info_files()
+
+    def pp(self):
+        print "\nINDEX %s on %s" % (self.index_name, self.corpus)
+        print "   datasets:", self.db_info.list_datasets()
+        print
+
     def _update_years_idx(self, year, doc, years):
         years.setdefault(year, {})[doc] = True
 
@@ -482,20 +498,20 @@ class Index(object):
         if filter_term(term):
             return
         idx = get_bin_index(score)
-        terms.setdefault(term, {})
-        if terms[term].has_key(year):
-            count = terms[term][year]['doc_count']
-            old_average = terms[term][year]['score']
+        terms.setdefault(year, {})
+        if terms[year].has_key(term):
+            count = terms[year][term]['doc_count']
+            old_average = terms[year][term]['score']
             new_average = (old_average * count + score) / (count + 1)
-            terms[term][year]['doc_count'] = count + 1
-            terms[term][year]['score'] = new_average
-            terms[term][year]['bins'][idx] += 1
+            terms[year][term]['doc_count'] = count + 1
+            terms[year][term]['score'] = new_average
+            terms[year][term]['bins'][idx] += 1
             #print old_average, count, score, new_average, year, term
         else:
-            terms[term][year] = { 'score': score,
+            terms[year][term] = { 'score': score,
                                   'doc_count': 1,
                                   'bins': [0,0,0,0,0,0,0,0,0,0] }
-            terms[term][year]['bins'][idx] = 1
+            terms[year][term]['bins'][idx] = 1
 
     def _update_years_db(self, years):
         for year in years:
@@ -507,31 +523,37 @@ class Index(object):
 
     def _update_terms_db(self, terms):
         count = 0
-        step = 50000
+        step = 100000
         t1 = time.time()
-        for term in terms:
-            for year in terms[term]:
+        for year in sorted(terms.keys()):
+            db_file = "db-terms-%s.sqlite" % year
+            print "Inserting into %s..." % db_file
+            self.db_terms[year] = TermsDatabase(self.idx_dir, db_file)
+            for term in terms[year]:
                 count += 1
-                score = terms[term][year]['score']
-                doc_count = terms[term][year]['doc_count']
-                bins = terms[term][year]['bins']
-                self.db_terms.add(term, year, score, doc_count, bins)
+                score = terms[year][term]['score']
+                doc_count = terms[year][term]['doc_count']
+                bins = terms[year][term]['bins']
+                self.db_terms[year].add(term, score, doc_count, bins)
                 if count % step == 0:
                     t2 = time.time() 
-                    print "Inserted/updated %d rows in %d seconds" % (step, t2 - t1)
+                    print "   inserted/updated %d rows in %.2f seconds (done %dK)" \
+                          % (step, t2 - t1, count / 1000)
                     t1 = t2
+            print "   inserts: %6d" % self.db_terms[year].inserts
+            print "   updates: %6d" % self.db_terms[year].updates
 
-    def finish(self):
-        self.db_info.add_dataset(self.dataset)
-        self.db_info.commit_and_close()
-        self.db_years.commit_and_close()
-        self.db_terms.commit_and_close()
-        self._update_info_files()
 
-    def pp(self):
-        print "\nINDEX %s on %s" % (self.index_name, self.corpus)
-        print "   datasets:", self.db_info.list_datasets()
-        print
+    def _update_info_files(self):
+        """Write files with information on the build."""
+        fh = open(os.path.join(self.idx_dir, 'index.info.general.txt'), 'a')
+        fh.write("$ python %s\n\n" % ' '.join(sys.argv))
+        fh.write("index_name   =  %s\n" % self.index_name)
+        fh.write("dataset      =  %s\n" % self.dataset)
+        fh.write("git_commit   =  %s\n" % get_git_commit())
+        fh.write("timestamp    =  %s\n\n" % time.strftime('%Y%m%d-%H%M%S'))
+
+
 
 def filter_term(term):
     """used to filter out the obvious crap. Do not allow (i) terms with spaces,
