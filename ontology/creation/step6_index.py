@@ -3,36 +3,31 @@
 Script to build an index over files with document features.
 
 Indexing is done on top of the results of the classifier. It does this by using
-the --dataset option, which points to a dataset created by the classifier. For
-convenience, it also relies on access to the classifier's phr_feats summary
-files.
+the --dataset option, which points to a dataset created by the classifier.
 
 Much of the work on the batches involves building a large in-memory data
-structure to collect summary counts, therefore the batches are going to be
-limited to a certain yet-to-be-determined size.
+structure to collect term counts, therefore the batches are going to be limited
+to a certain yet-to-be-determined size.
+
 
 
 OPTIONS
 
-   -l LANG     provides the language, one of ('en, 'de', 'cn'), default is 'en'.
-   -t PATH     target directory, default is data/patents.
-   -n INTEGER  number of documents to process.
-
-   --collect-data
-       Run in batch mode to collect data from a set of documents.
+   --language en|cn|de  provides the language, default is 'en'.
+   --corpus PATH        target directory, default is data/patents.
 
    --build-index:
-       Combine the results from available batches.
+       Add term data from a dataset to the index.
 
    --analyze-index:
        Analyze the contents of the index in various ways.
 
    --index-name STRING:
-       Name of index directory being created (--build-index only).
+       Name of index directory being created or analyzed.
 
    --dataset STRING:
        Classifier dataset to collect data from or indexer datasets that are to
-       be combined into the index, in the letter case the value can be a unix
+       be combined into the index, in the latter case the value can be a unix
        filename pattern with '*', '?' and '[]'. Note that if you use wildcards
        in the string you need to surround the string in quotes.
 
@@ -44,44 +39,31 @@ OPTIONS
        adjust for the size of documents and (ii) we could have a number smaller
        than INTEGER if the year simply only has a few documents.
 
-    --minimum-doc-count INTEGER:
-
-    --minimum-score FLOAT:
-
    --verbose          set verbose printing to stdout
    --track-memory     use this to track memory usage
    --show-data        print available datasets, then exits
    --show-pipelines   print defined pipelines, then exits
 
 
-Example for --collect-data:
-$ python step6_index.py -t data/patents/en -l en --collect-data --dataset standard.001-020
-$ python step6_index.py -t data/patents/en -l en --collect-data --dataset standard.021-040
-
 Example for --build-index:
-$ python step6_index.py -t data/patents/en -l en --build-index --index-name standard.idx --dataset 'standard.???-???' 
+$ python step6_index.py --build-index --corpus data/patents/en --index-name standard.idx --dataset 'standard.batch1'
 
 Example for --analyze-index:
-$ python step6_index.py -t data/patents/en -l en --analyze-index --index-name standard.idx
+$ python step6_index.py --analyze-index --corpus data/patents/en --index-name standard.idx
 
 """
 
 import os, sys, time, shutil, getopt, codecs, resource, glob, StringIO
 
 import config
-
-script_path = os.path.abspath(sys.argv[0])
-script_dir = os.path.dirname(script_path)
-os.chdir(script_dir)
-os.chdir('../..')
-sys.path.insert(0, os.getcwd())
-os.chdir(script_dir)
+import path
 
 from ontology.utils.batch import RuntimeConfig, show_datasets, show_pipelines
-from ontology.utils.file import ensure_path
+from ontology.utils.batch import find_input_dataset, check_file_availability
+from ontology.utils.file import ensure_path, open_input_file
 from ontology.utils.git import get_git_commit
 from ontology.utils.html import HtmlDocument
-from np_db import YearsDatabase, TermsDatabase, SummaryDatabase
+from np_db import InfoDatabase, YearsDatabase, TermsDatabase, SummaryDatabase
 
 
 VERBOSE = False
@@ -154,6 +136,14 @@ def load_scores(scores_fh):
 def process_phr_feats(statistics, scores, feats_fh, expanded_fh, years_fh):
     """Repeatedly take the next document from the phr_feats summary file (where
     a document is a list of lines) and process the lines for each document."""
+
+    exit('ole')
+    
+    self.input_dataset = find_input_dataset(self.rconfig, 'd3_phr_feats')
+    check_file_availability(self.input_dataset, self.file_list)
+
+
+
     fr = FeatureReader(feats_fh)
     years = {}
     while True:
@@ -243,7 +233,7 @@ class FeatureReader(object):
     """Interface to the phr_features summary file. You can either iterate over
     all the lines or ask for the next document."""
 
-    ## TODO: this could be generalzied by passing in the function that picks the
+    ## TODO: this could be generalized by passing in the function that picks the
     ## document identifier (or any other identifier) from the line, now it has a
     ## hard-coded call to get_docid_from_phr_feats_line()
 
@@ -438,6 +428,136 @@ def build_expanded_index(build_dir, datasets):
     db.commit_and_close()
 
 
+    
+### OPTION --build-index
+
+def run_add_dataset_to_index(corpus, index_name, dataset):
+    """Adds the data in dataset to index_name, creating the index if it does not
+    yet exist."""
+    idx = Index(corpus, index_name, dataset)
+    idx.add_technology_scores()
+    idx.finish()
+
+
+class Index(object):
+
+    def __init__(self, corpus, index_name, dataset):
+        self.corpus = corpus
+        self.index_name = index_name
+        self.dataset = dataset
+        self.idx_dir = os.path.join(corpus, 'data', 'o1_index', index_name)
+        self.classify_dir = os.path.join(corpus, 'data', 't2_classify', dataset)
+        ensure_path(self.idx_dir)
+        self.db_info = InfoDatabase(self.idx_dir, 'db-info.sqlite')
+        self.db_years = YearsDatabase(self.idx_dir, 'db-years.sqlite')
+        self.db_terms = TermsDatabase(self.idx_dir, 'db-terms.sqlite')
+        self.pp()
+        self.check()
+
+    def _update_info_files(self):
+        """Write files with information on the build."""
+        fh = open(os.path.join(self.idx_dir, 'index.info.general.txt'), 'a')
+        fh.write("$ python %s\n\n" % ' '.join(sys.argv))
+        fh.write("index_name   =  %s\n" % self.index_name)
+        fh.write("dataset      =  %s\n" % self.dataset)
+        fh.write("git_commit   =  %s\n" % get_git_commit())
+        fh.write("timestamp    =  %s\n\n" % time.strftime('%Y%m%d-%H%M%S'))
+
+    def check(self):
+        if self.dataset in self.db_info.list_datasets():
+            exit("WARNING: dataset %s already loaded" % self.dataset)
+
+    def add_technology_scores(self):
+        fname = os.path.join(self.classify_dir, 'classify.MaxEnt.out.s2.y.nr')
+        fh = open_input_file(fname)
+        years = {}
+        terms = {}
+        print "Collecting terms..."
+        for line in fh:
+            (id, score) = line.rstrip().split("\t")
+            (year, doc, term) = id.split("|", 2)
+            score = float(score)
+            self._update_years_idx(year, doc, years)
+            self._update_terms_idx(term, year, score, terms)
+        print "Updating databases..."
+        self._update_years_db(years)
+        self._update_terms_db(terms)
+
+    def _update_years_idx(self, year, doc, years):
+        years.setdefault(year, {})[doc] = True
+
+    def _update_terms_idx(self, term, year, score, terms):
+        idx = get_bin_index(score)
+        terms.setdefault(term, {})
+        if terms[term].has_key(year):
+            count = terms[term][year]['doc_count']
+            old_average = terms[term][year]['score']
+            new_average = (old_average * count + score) / (count + 1)
+            terms[term][year]['doc_count'] = count + 1
+            terms[term][year]['score'] = new_average
+            terms[term][year]['bins'][idx] += 1
+            #print old_average, count, score, new_average, year, term
+        else:
+            terms[term][year] = { 'score': score,
+                                  'doc_count': 1,
+                                  'bins': [0,0,0,0,0,0,0,0,0,0] }
+            terms[term][year]['bins'][idx] = 1
+
+    def _update_years_db(self, years):
+        for year in years:
+            current_count = self.db_years.get_count(year)
+            if current_count == 0:
+                self.db_years.add(year, len(years[year]))
+            else:
+                self.db_years.update(year, current_count + len(years[year]))
+
+    def _update_terms_db(self, terms):
+        count = 0
+        step = 50000
+        t1 = time.time()
+        for term in terms:
+            for year in terms[term]:
+                count += 1
+                score = terms[term][year]['score']
+                doc_count = terms[term][year]['doc_count']
+                bins = terms[term][year]['bins']
+                self.db_terms.add(term, year, score, doc_count, bins)
+                if count % step == 0:
+                    t2 = time.time() 
+                    print "Inserted/updated %d rows in %d seconds" % (step, t2 - t1)
+                    t1 = t2
+
+    def finish(self):
+        self.db_info.add_dataset(self.dataset)
+        self.db_info.commit_and_close()
+        self.db_years.commit_and_close()
+        self.db_terms.commit_and_close()
+        self._update_info_files()
+
+    def pp(self):
+        print "\nINDEX %s on %s" % (self.index_name, self.corpus)
+        print "   datasets:", self.db_info.list_datasets()
+        print
+
+
+def get_bin_index(score):
+    if score < 0.1: idx = 0
+    elif score < 0.2: idx = 1
+    elif score < 0.3: idx = 2
+    elif score < 0.4: idx = 3
+    elif score < 0.5: idx = 4
+    elif score < 0.6: idx = 5
+    elif score < 0.7: idx = 6
+    elif score < 0.8: idx = 7
+    elif score < 0.9: idx = 8
+    elif score <= 1.0: idx = 9
+    else:
+        idx = None
+        print "WARNING: unexpected score:", type(score), score
+    return idx
+
+
+
 #### OPTION --analyze-index
 
 def run_analyze_index(rconfig, index_name, min_docs, min_score):
@@ -626,7 +746,7 @@ class Term(object):
 
 class Graph(object):
 
-    """A Graph is initialized with a set of values. it's only task is to write these in a
+    """A Graph is initialized with a set of values. It's only task is to write these in a
     graph format to an output stream. The implementation is geared towards the graph you
     would draw to show the distribution of technology scores. For example, it assumes an
     x-axis with 10 fixed values (0.0 through 0.9). It should be generalized so we can also
@@ -674,55 +794,36 @@ def print_processing_statistics(index_dir, m1, t1):
     fh.write("memory after     =  %dMB\n" % (m2 / 1000))
 
 def read_opts():
-    longopts = ['collect-data', 'build-index', 'analyze-index',
-                'index-name=', 'dataset=', 'balance=',
-                'minimum-doc-count=', 'minimum-score=',
-                'track-memory', 'verbose', 'show-data', 'show-pipelines']
+    longopts = ['corpus=', 'language=', 'build-index', 'analyze-index',
+                'index-name=', 'dataset=', 'balance=', 'track-memory', 'verbose']
     try:
-        return getopt.getopt(sys.argv[1:], 'l:t:n:', longopts)
+        return getopt.getopt(sys.argv[1:], '', longopts)
     except getopt.GetoptError as e:
         sys.exit("ERROR: " + str(e))
+
+
 
 
 if __name__ == '__main__':
 
     # default values of options
-    target_path, language = 'data/patents', 'en'
-    collect_data, build_index, analyze_index = False, False, False
+    corpus, language = 'data/patents', 'en'
+    build_index, analyze_index = False, False, False
     index_name, dataset, balance = None, None, 9999999
-    min_docs = 10
-    min_score = 0.3
-    pipeline_config = 'pipeline-default.txt'
-    show_data_p, show_pipelines_p = False, False
 
     (opts, args) = read_opts()
     for opt, val in opts:
-        if opt == '-l': language = val
-        if opt == '-t': target_path = val
-        if opt == '--collect-data': collect_data = True
+        if opt == '--language': language = val
+        if opt == '--corpus': corpus = val
         if opt == '--build-index': build_index = True
         if opt == '--analyze-index': analyze_index = True
         if opt == '--index-name': index_name = val
         if opt == '--dataset': dataset = val
-        if opt == '--balance': balance = int(val)
-        if opt == '--minimum-doc-count': min_docs = int(val)
-        if opt == '--minimum-score': min_score = float(val)
-        if opt == '--show-data': show_data_p = True
-        if opt == '--show-pipelines': show_pipelines_p = True
+        #if opt == '--balance': balance = int(val)
         if opt == '--verbose': VERBOSE = True
-        if opt == '--track-memory': TRACK_MEMORY = True
+        #if opt == '--track-memory': TRACK_MEMORY = True
 
-    rconfig = RuntimeConfig(target_path, language, pipeline_config)
-    if VERBOSE:
-        config.pp()
-
-    if show_data_p:
-        show_datasets(rconfig, config.DATA_TYPES)
-    elif show_pipelines_p:
-        show_pipelines(rconfig)
-    elif collect_data:
-        run_collect_data(rconfig, dataset)
-    elif build_index:
-        run_build_index(rconfig, index_name, dataset, balance)
+    if build_index:
+        run_add_dataset_to_index(corpus, index_name, dataset)
     elif analyze_index:
         run_analyze_index(rconfig, index_name, min_docs, min_score)

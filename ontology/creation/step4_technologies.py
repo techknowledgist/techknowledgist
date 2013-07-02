@@ -460,7 +460,7 @@ if __name__ == '__main__':
     target_path = config.WORKING_PATENT_PATH
     file_list = 'files.txt'
     pipeline_config = 'pipeline-default.txt'
-    show_data_p, show_pipelines_p = False, False
+    show_data_p, show_pipelines_p, show_batches_p = False, False, False
     annotation_count = 9999999999999
     model, batch, features, xval, = None, None, None, "0"
     use_all_chunks = True
