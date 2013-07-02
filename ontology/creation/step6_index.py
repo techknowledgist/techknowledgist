@@ -13,8 +13,8 @@ to a certain yet-to-be-determined size.
 
 OPTIONS
 
-   --language en|cn|de  provides the language, default is 'en'.
-   --corpus PATH        target directory, default is data/patents.
+   --language en|cn|de  provides the language, default is 'en'
+   --corpus PATH        target directory
 
    --build-index:
        Add term data from a dataset to the index.
@@ -41,8 +41,6 @@ OPTIONS
 
    --verbose          set verbose printing to stdout
    --track-memory     use this to track memory usage
-   --show-data        print available datasets, then exits
-   --show-pipelines   print defined pipelines, then exits
 
 
 Example for --build-index:
@@ -136,14 +134,8 @@ def load_scores(scores_fh):
 def process_phr_feats(statistics, scores, feats_fh, expanded_fh, years_fh):
     """Repeatedly take the next document from the phr_feats summary file (where
     a document is a list of lines) and process the lines for each document."""
-
-    exit('ole')
-    
     self.input_dataset = find_input_dataset(self.rconfig, 'd3_phr_feats')
     check_file_availability(self.input_dataset, self.file_list)
-
-
-
     fr = FeatureReader(feats_fh)
     years = {}
     while True:
@@ -487,6 +479,8 @@ class Index(object):
         years.setdefault(year, {})[doc] = True
 
     def _update_terms_idx(self, term, year, score, terms):
+        if filter_term(term):
+            return
         idx = get_bin_index(score)
         terms.setdefault(term, {})
         if terms[term].has_key(year):
@@ -539,6 +533,16 @@ class Index(object):
         print "   datasets:", self.db_info.list_datasets()
         print
 
+def filter_term(term):
+    """used to filter out the obvious crap. Do not allow (i) terms with spaces,
+    (ii) terms with three or more hyphens/underscores in a row, and (iii) terms
+    that ar elonger than 75 characters. The latter avoids loading what could be
+    huge outliers."""
+    # TODO: character limit is not optimal for Chinese
+    if term.find(' ') > -1: return True
+    if term.find('---') > -1: return True
+    if term.find('___') > -1: return True
+    return len(term) > 75
 
 def get_bin_index(score):
     if score < 0.1: idx = 0
@@ -808,7 +812,7 @@ if __name__ == '__main__':
 
     # default values of options
     corpus, language = 'data/patents', 'en'
-    build_index, analyze_index = False, False, False
+    build_index, analyze_index = False, False
     index_name, dataset, balance = None, None, 9999999
 
     (opts, args) = read_opts()

@@ -22,6 +22,16 @@ class Database(object):
     """Abstract class that contains some basic code for database
     connectivity."""
 
+    def __init__(self, dir, db_file, schema):
+        """Open the db_file database and create a cursor objects. Create the
+        schema if db_file did not exist."""
+        self.db_file = os.path.join(dir, db_file)
+        db_existed = os.path.exists(self.db_file)
+        self.connect()
+        if not db_existed:
+            for q in schema:
+                self.cursor.execute(q)
+
     def connect(self):
         self.connection = sqlite3.connect(self.db_file)
         self.cursor = self.connection.cursor()
@@ -49,17 +59,14 @@ class Database(object):
 class InfoDatabase(Database):
 
     """Wrapper around the info database, which for now only keeps track of the
-    batches loaded."""
+    datasets loaded."""
+
+    DATASETS_TABLE = "CREATE TABLE datasets(dataset TEXT)"
+    SCHEMA = [DATASETS_TABLE]
 
     def __init__(self, dir, db_file):
-        """Open the db_file database and create connection and cursor
-        objects. Create the years table if db_file did not exist."""
-        self.db_file = os.path.join(dir, db_file)
-        db_existed = os.path.exists(self.db_file)
-        self.connect()
-        if not db_existed:
-            q1 = "CREATE TABLE datasets(dataset TEXT)"
-            self.cursor.execute(q1)
+        """Open the info database, creating it if needed."""
+        Database.__init__(self, dir, db_file, InfoDatabase.SCHEMA)
         print "[InfoDatabase] Opened database in %s" % self.db_file
 
     def add_dataset(self, dataset):
@@ -76,17 +83,13 @@ class YearsDatabase(Database):
 
     """This database holds document counts for each year."""
 
+    YEARS_TABLE = "CREATE TABLE years(year TEXT, doc_count INT)"
+    YEARS_INDEX = "CREATE UNIQUE INDEX idx_year ON years(year)"
+    SCHEMA = [YEARS_TABLE, YEARS_INDEX]
+
     def __init__(self, dir, db_file):
-        """Open the db_file database and create connection and cursor
-        objects. Create the years table if db_file did not exist."""
-        self.db_file = os.path.join(dir, db_file)
-        db_existed = os.path.exists(self.db_file)
-        self.connect()
-        if not db_existed:
-            q1 = "CREATE TABLE years(year TEXT, doc_count INT)"
-            q2 = "CREATE UNIQUE INDEX idx_year ON years(year)"
-            self.cursor.execute(q1)
-            self.cursor.execute(q2)
+        """Open the years database, creating it if needed."""
+        Database.__init__(self, dir, db_file, YearsDatabase.SCHEMA)
         print "[YearsDatabase] Opened database in %s" % self.db_file
 
     def add(self, year, count):
@@ -108,49 +111,45 @@ class TermsDatabase(Database):
 
     """Wrapper around the terms database."""
 
+    TERMS_TABLE = "CREATE TABLE terms(" + \
+                  'term TEXT, year TEXT, score FLOAT, doc_count INT, ' + \
+                  'v0 INT, v1 INT, v2 INT, v3 INT, v4 INT, ' + \
+                  'v5 INT, v6 INT, v7 INT, v8 INT, v9 INT)'
+    TERMS_INDEX = "CREATE UNIQUE INDEX idx_term_year ON terms(term, year)"
+    SCHEMA = [TERMS_TABLE, TERMS_INDEX]
+
     def __init__(self, dir, db_file):
-        """Open the db_file database and create connection and cursor objects. Create the
-        years table if db_file did not exist."""
-        self.db_file = os.path.join(dir, db_file)
-        db_existed = os.path.exists(self.db_file)
-        self.connect()
-        if not db_existed:
-            fields = ['term TEXT', 'year TEXT', 'score FLOAT', 'doc_count INT',
-                      'v0 INT', 'v1 INT', 'v2 INT', 'v3 INT', 'v4 INT',
-                      'v5 INT', 'v6 INT', 'v7 INT', 'v8 INT', 'v9 INT' ]
-            q1 = "CREATE TABLE terms(%s)" % ', '.join(fields)
-            q2 = "CREATE UNIQUE INDEX idx_term_year ON terms(term, year)"
-            self.cursor.execute(q1)
-            self.cursor.execute(q2)
+        """Open the terms database, creating it if needed."""
+        Database.__init__(self, dir, db_file, TermsDatabase.SCHEMA)
         print "[TermsDatabase] Opened database in %s" % self.db_file
 
     def add(self, term, year, score, doc_count, bins):
+        """Add term data by either inserting a row or updating an existing row."""
         result = self.get_term(term, year)
         if result is None:
-            self.execute(
-                'TermsDatabase.add',
-                "INSERT INTO terms VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
-                [term, year, score, doc_count,
-                 bins[0], bins[1], bins[2], bins[3], bins[4],
-                 bins[5], bins[6], bins[7], bins[8], bins[9]])
+            self._insert(term, year, score, doc_count, bins)
         else:
-            #print term, year, score, doc_count, bins
-            #print '  ', result
-            (old_score, old_doc_count, v0, v1, v2, v3, v4, v5, v6, v7, v8, v9) = result[2:]
-            new_doc_count = old_doc_count + doc_count
-            new_score = ((old_score * old_doc_count) + (score * doc_count)) / new_doc_count
-            self.execute(
-                'TermsDatabase.add',
-                "UPDATE terms SET score=?, doc_count=?, " +
-                "v0=?, v1=?, v2=?, v3=?, v4=?, v5=?, v6=?, v7=?, v8=?, v9=? " +
-                "WHERE term=? AND year=?",
-                [new_score, new_doc_count,
-                 bins[0] + v0, bins[1] + v1, bins[2] + v2, bins[3] + v3, bins[4] + v4,
-                 bins[5] + v5, bins[6] + v6, bins[7] + v7, bins[8] + v8, bins[9] + v9,
-                 term, year])
-            #result = self.get_term(term, year)
-            #print '  ', result
-            #exit("No thanks")
+            self._update(result, term, year, score, doc_count, bins)
+
+    def _insert(self, term, year, score, doc_count, bins):
+        self.execute(
+            'TermsDatabase.add',
+            "INSERT INTO terms VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+            [term, year, score, doc_count] + bins)
+
+    def _update(self, old_row, term, year, score, doc_count, bins):
+        (old_score, old_doc_count, v0, v1, v2, v3, v4, v5, v6, v7, v8, v9) = old_row[2:]
+        new_doc_count = old_doc_count + doc_count
+        new_score = ((old_score * old_doc_count) + (score * doc_count)) / new_doc_count
+        self.execute(
+            'TermsDatabase.add',
+            "UPDATE terms SET score=?, doc_count=?, " +
+            "v0=?, v1=?, v2=?, v3=?, v4=?, v5=?, v6=?, v7=?, v8=?, v9=? " +
+            "WHERE term=? AND year=?",
+            [new_score, new_doc_count,
+             bins[0] + v0, bins[1] + v1, bins[2] + v2, bins[3] + v3, bins[4] + v4,
+             bins[5] + v5, bins[6] + v6, bins[7] + v7, bins[8] + v8, bins[9] + v9,
+             term, year])
 
     def get_term(self, term, year):
         query = "SELECT * FROM terms WHERE term=? AND year=?"
