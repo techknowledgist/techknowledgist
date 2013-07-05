@@ -143,10 +143,11 @@ def run_populate(rconfig, limit, verbose=False):
         ensure_path(os.path.dirname(dst_file))
         shutil.copyfile(src_file, dst_file)
         compress(dst_file)
+        # TODO: does this mean that you miss some if total_count % STEP != 0
         if count % STEP == 0:
-            output_dataset.update_processed_count(STEP)
+            dataset.update_processed_count(STEP)
 
-    return (len(fspecs), [dataset])
+    return (count % STEP, [dataset])
 
 
 @update_state
