@@ -1,6 +1,6 @@
 """
 
-Script to build an index over files with document features.
+The index builder.
 
 Indexing is done on top of the results of the classifier. It does this by using
 the --dataset option, which points to a dataset created by the classifier.
@@ -16,8 +16,13 @@ OPTIONS
    --corpus PATH:
        Corpus directory.
 
-   --build-index:
-       Add term data from a dataset to the index.
+   --add-to-index:
+       Add a dataset to the index, creating a new index if needed.
+
+   --create-term-summary:
+       Creates a summary of the term indexes, taking the term index for each
+       year and add/update the summary counts (term, doc_count, score) in the
+       summary index (db-terms-summary.sqlite).
 
    --analyze-index:
        Analyze the contents of the index in various ways.
@@ -25,11 +30,9 @@ OPTIONS
    --index-name STRING:
        Name of index directory being created or analyzed.
 
-   --dataset STRING:
-       Classifier dataset to collect data from or indexer datasets that are to
-       be combined into the index, in the latter case the value can be a unix
-       filename pattern with '*', '?' and '[]'. Note that if you use wildcards
-       in the string you need to surround the string in quotes.
+   --dataset DATASET_NAME:
+       Used with --add-to-index. The name of the dataset to add to the
+       index. This dataset is a classifier result.
 
    --balance INTEGER:
        If this options is used with the --build-index option, the number of
@@ -50,14 +53,14 @@ OPTIONS
 
 
 Example for --build-index:
-$ python step6_index.py --build-index --corpus data/patents/en --index-name standard.idx --dataset 'standard.batch1'
+$ python step6_index.py --add-to-index --corpus data/patents/en --index-name standard.idx --dataset standard.batch1
 
 Example for --analyze-index:
 $ python step6_index.py --analyze-index --corpus data/patents/en --index-name standard.idx --min-docs 100 --min-score 0.7
 
 """
 
-import os, sys, time, shutil, getopt, codecs, resource, glob, StringIO
+import os, sys, time, shutil, getopt, codecs, resource, StringIO
 
 import config
 import path
@@ -67,11 +70,23 @@ from ontology.utils.batch import find_input_dataset, check_file_availability
 from ontology.utils.file import ensure_path, open_input_file
 from ontology.utils.git import get_git_commit
 from ontology.utils.html import HtmlDocument
-from np_db import InfoDatabase, YearsDatabase, TermsDatabase
+from np_db import InfoDatabase, YearsDatabase, TermsDatabase, SummaryDatabase
 
 
 VERBOSE = False
 TRACK_MEMORY = False
+
+
+def measure_memory_use(fun):
+    """Print the increased memory use after the wrapped function exits."""
+    def wrapper(*args):
+        m1 = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
+        result = fun(*args)
+        m2 = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
+        if TRACK_MEMORY:
+            print "[%s] increase in memory use: %dMB" % (fun.__name__, (m2 - m1) / 1000)
+        return result
+    return wrapper
 
 
 def add_dataset_to_index(corpus, index_name, dataset):
@@ -81,14 +96,18 @@ def add_dataset_to_index(corpus, index_name, dataset):
     idx.add_dataset(dataset)
     idx.finish()
 
+@measure_memory_use
+def create_summary_index(corpus, index_name):
+    print index_name
+    idx = Index(corpus, index_name)
+    idx.create_summary()
+
 def analyze_terms(corpus, index_name, min_docs, min_score):
     idx = Index(corpus, index_name)
-    #db_file = os.path.join(index_dir, index_name, 'db-summary.sqlite')
-    #analyzer = IndexAnalyzer(db_file, min_docs, min_score)
-    #analyzer.analyze_terms()
-    #analyzer.write_html()
-    #analyzer.close()
-
+    analyzer = IndexAnalyzer(idx, min_docs, min_score)
+    analyzer.analyze_terms()
+    analyzer.write_html()
+    analyzer.close()
 
 
 
@@ -101,6 +120,7 @@ class Index(object):
         ensure_path(self.idx_dir)
         self.db_info = InfoDatabase(self.idx_dir, 'db-info.sqlite')
         self.db_years = YearsDatabase(self.idx_dir, 'db-years.sqlite')
+        self.db_summary = SummaryDatabase(self.idx_dir, 'db-terms.sqlite')
         self.db_terms = {}
         self.pp()
 
@@ -136,6 +156,30 @@ class Index(object):
         self._write_message("Updating databases...")
         self._update_years_db(years)
         self._update_terms_db(terms)
+
+    def create_summary(self):
+        self._open_term_databases()
+        years = sorted(self.db_terms.keys())
+        term_idx = {}
+        total_count = 0
+        for year in years:
+            terms = self.db_terms[year].get_terms()
+            print year, len(terms)
+            total_count += len(terms)
+            for (term, count, score) in terms:
+                old_count, old_score = term_idx.setdefault(term, (0,0))
+                new_count = old_count + count
+                new_score = (old_score * old_count + score * count) / new_count
+                term_idx[term] = (new_count, new_score)
+        print "\nALL: %d ==> %d" % (total_count, len(term_idx))
+        for i in (1, 5, 10, 50, 100):
+            print "> %3d: %5d" % (i, len([t for t in term_idx.values() if t[0] > i]))
+        print "== 1: %5d" % len([t for t in term_idx.values() if t[0] == 1])
+        for term in term_idx:
+            count, score = term_idx[term]
+            if count > 1:
+                self.db_summary.add(term, count, score)
+        self.db_summary.commit_and_close()
 
     def finish(self):
         self.db_info.add_dataset(self.dataset)
@@ -216,6 +260,12 @@ class Index(object):
         fh.write("git_commit   =  %s\n" % get_git_commit())
         fh.write("timestamp    =  %s\n\n" % time.strftime('%Y%m%d-%H%M%S'))
 
+    def _open_term_databases(self):
+        dbs = [f for f in os.listdir(self.idx_dir) if f.startswith('db-terms-')]
+        for db in dbs:
+            year = db[-11:-7]
+            self.db_terms[year] = TermsDatabase(self.idx_dir, db)
+
     def _write_message(self, message):
         print message
         self.log.write(message + "\n")
@@ -224,8 +274,9 @@ class Index(object):
 
 class IndexAnalyzer(object):
 
-    def __init__(self, db, min_docs, min_score):
-        self.db = db
+    # TODO: this now takes an Index instance instead of a db filename
+    def __init__(self, db_file, min_docs, min_score):
+        self.db = SummaryDatabase(db_file)
         self.db_file = db_file
         self.index_dir = os.path.dirname(db_file)
         self.html_dir = os.path.join(self.index_dir, 'html')
@@ -434,17 +485,6 @@ class Graph(object):
 
 #### UTILITIES
 
-def measure_memory_use(fun):
-    """Print the increased memory use after the wrapped function exits."""
-    def wrapper(*args):
-        m1 = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
-        result = fun(*args)
-        m2 = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
-        if TRACK_MEMORY:
-            print "[%s] increase in memory use: %dMB" % (fun.__name__, (m2 - m1) / 1000)
-        return result
-    return wrapper
-
 def filter_term(term):
     """Filter out some obvious crap. Do not allow (i) terms with spaces, (ii)
     terms with three or more hyphens/underscores in a row, and (iii) terms that
@@ -501,7 +541,7 @@ def print_processing_statistics(index_dir, m1, t1):
     fh.write("memory after     =  %dMB\n" % (m2 / 1000))
 
 def read_opts():
-    longopts = ['corpus=', 'language=', 'build-index', 'analyze-index',
+    longopts = ['corpus=', 'add-to-index', 'create-summary', 'analyze-index',
                 'index-name=', 'dataset=', 'balance=', 'track-memory', 'verbose',
                 'min-docs=', 'min-score=']
     try:
@@ -516,13 +556,14 @@ if __name__ == '__main__':
 
     # default values of options
     corpus, language = None, 'en'
-    build_index, analyze_index = False, False
+    add_to_index, create_summary, analyze_index = False, False, False
     index_name, dataset, balance = None, None, 9999999
     min_docs, min_score = 100, 0.7
     
     (opts, args) = read_opts()
     for opt, val in opts:
-        if opt == '--build-index': build_index = True
+        if opt == '--add-to-index': add_to_index = True
+        if opt == '--create-summary': create_summary = True
         if opt == '--analyze-index': analyze_index = True
         if opt == '--corpus': corpus = val
         if opt == '--index-name': index_name = val
@@ -533,7 +574,9 @@ if __name__ == '__main__':
         if opt == '--verbose': VERBOSE = True
         if opt == '--track-memory': TRACK_MEMORY = True
 
-    if build_index:
+    if add_to_index:
         add_dataset_to_index(corpus, index_name, dataset)
+    elif create_summary:
+        create_summary_index(corpus, index_name)
     elif analyze_index:
         analyze_terms(corpus, index_name, min_docs, min_score)

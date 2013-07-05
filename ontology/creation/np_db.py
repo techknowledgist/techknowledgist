@@ -171,8 +171,7 @@ class OLD_TermsDatabase(Database):
 
 class TermsDatabase(Database):
 
-    """Wrapper around a term database. Similar as TermDatabase, but specific to
-    a year. This will make scaling up a bit easier."""
+    """Wrapper around a database with all terms for a given year."""
 
     TERMS_TABLE = "CREATE TABLE terms(" + \
                   'term TEXT, score FLOAT, doc_count INT, ' + \
@@ -217,12 +216,35 @@ class TermsDatabase(Database):
              term])
 
     def get_term(self, term):
+        """Return all information for the term."""
         query = "SELECT * FROM terms WHERE term=?"
         self.execute('TermsDatabase.get_term', query, (term,))
         return self.cursor.fetchone()
+
+    def get_terms(self):
+        query = "SELECT term, doc_count, score FROM terms"
+        self.execute('TermsDatabase.get_terms', query, [])
+        return self.cursor.fetchall()
 
     def select_terms(self, doc_count, score):
         query = "SELECT * FROM terms WHERE doc_count >= ? AND score >= ?"
         self.execute('TermsDatabase.select_terms', query, (doc_count, score))
         return self.cursor.fetchall()
 
+
+class SummaryDatabase(Database):
+
+    TABLE = "CREATE TABLE terms(term TEXT, score FLOAT, doc_count INT)"
+    TERMS_INDEX = "CREATE UNIQUE INDEX idx_term ON terms(term)"
+    COUNT_INDEX = "CREATE INDEX idx_count ON terms(doc_count)"
+    SCORE_INDEX = "CREATE INDEX idx_score ON terms(score)"
+    SCHEMA = [TABLE, TERMS_INDEX, COUNT_INDEX, SCORE_INDEX]
+
+    def __init__(self, dir, db_file):
+        """Open the terms database, creating it if needed."""
+        Database.__init__(self, dir, db_file, self.__class__.SCHEMA)
+        #print "[TermsDatabase] Opened database in %s" % self.db_file
+
+    def add(self, term, count, score):
+        query = "INSERT INTO terms VALUES (?,?,?)"
+        self.execute("SummaryDatabase.add", query, (term, score, count))
