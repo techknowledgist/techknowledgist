@@ -238,10 +238,9 @@ def patent_utraining_data3(mallet_file, annotation_file, annotation_count, fname
 
     """Wrapper around mallet.py functionality to create a classifier
     model. Creates a dictionary of annotations, sets the mallet configuration
-    and creates an instance of MalletTraining class to do the rest: creating #
-    .mallet file, creating the .vectors file from the mallet file, and #
-    creating the model.
-    """
+    and creates an instance of MalletTraining class to do the rest: creating
+    .mallet file, creating the .vectors file from the mallet file, and creating
+    the model."""
 
     d_phr2label = load_phrase_labels3(annotation_file, annotation_count)
     train_output_dir = os.path.dirname(mallet_file)
