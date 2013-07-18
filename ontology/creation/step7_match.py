@@ -16,6 +16,7 @@ import path
 from ontology.utils.batch import RuntimeConfig, DataSet
 from ontology.utils.batch import find_input_dataset, check_file_availability
 from ontology.utils.file import filename_generator, ensure_path, open_input_file
+from ontology.utils.file import parse_feats_line
 from ontology.utils.git import get_git_commit
 
 
@@ -152,13 +153,6 @@ class Pattern(object):
         return ' '.join(matched_features)
 
 
-
-def parse_feats_line(line):
-    (id, year, term, feats) = line.strip().split("\t", 3)
-    feats = feats.split("\t")
-    feats = dict((k,v) for (k,v) in [f.split('=', 1) for f in feats])
-    return (id, year, term, feats)
-    
 def print_file_progress(stage, count, filename, verbose):
     # copied from step2_document_processing
     if verbose:
