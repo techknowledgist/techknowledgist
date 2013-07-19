@@ -182,12 +182,19 @@ def print_annotation_files(dirname, term_count_list, term_contexts):
 
     term_no = 0
     cumulative = 0
+    #ensure_path(os.path.join(dirname, 'term.contexts'))
     for term, count in term_count_list:
         term_no += 1
         cumulative += count
+        term_str = term.replace(' ', '_')
+        google_query = '"' + '+'.join(term.split()) + '"'
+        google_url = "https://www.google.com/#sclient=psy-ab&q=%s" % google_query
         fh_unlab.write("\t%s\n" % term)
         fh_counts.write("%d\t%d\t%d\t%s\n" % (term_no, count, cumulative, term))
         fh_context.write("\n<p>%s (%d documents)</p>\n\n" % (term, count))
+        fh_context.write("<blockquote>%s</blockquote>\n\n" % wikipedia_link)
+        #file_term_context = os.path.join(dirname, 'term.contexts', "%04d.html" % term_no)
+        #fh_term_context = codecs.open(file_term_context, 'w', encoding='utf-8')
         random.shuffle(term_contexts[term])
         for year, id, context in term_contexts[term][:10]:
             fh_context.write("<blockquote>\n%s\n</blockquote>\n\n" % context)
