@@ -36,11 +36,18 @@ whether it can retrieve the path for some numbers:
    
 This was only useful when developing the script, typically this script would be
 loaded as a module by another script. Loading the index requires creating an
-instance of PatentIndex. The initialization method can be given the location of
-the filename, but it will default to ln_uspto.all.index.txt.
+instance of PatentIndex.
+
+The initialization method can be given the location of the filename, but it will
+default to ln_uspto.all.index.txt.
 
     >>> from patent_index import PatentIndex
     >>> idx = PatentIndex()
+
+You can now use get_path() to get the path for a patent:
+
+   >>> idx.get_path('20010001003')
+   /home/j/corpuswork/fuse/FUSEData/2013-04/ln_uspto/2001/028/US20010001003A1.xml
 
 """
 
@@ -124,43 +131,26 @@ def test_patent_family(patent_list):
 
 
 def index_patents(patent_list, index_file, maxcount=100, fast=False):
-
     """Create a text index for all the patents in patent_list. Two formats are
     allowed: one with just the filepath and one where the first field is a
     shortname and the second the full path."""
-
-    count = 0
     basepath = None
     index = []
-    prefixes = {}
-    kind_codes = {}
-    classes = {}
+    prefixes, kind_codes, classes = {}, {}, {}
     print "collecting mappings..."
+    count = 0
     for line in open(patent_list):
         count += 1
         if count % 100000 == 0: print count
         if count > maxcount: break
         fname = line.strip().split()[-1]
-        path_elements = os.path.dirname(fname).split(os.sep)
-        if len(path_elements[-1]) == 4:
-            year = os.path.basename(os.path.dirname(fname))
-            base_dir = os.path.dirname(os.path.dirname(fname))
-            shortpath = os.path.join(year, os.path.basename(fname))
-        elif len(path_elements[-2]) == 4:
-            base_dir = os.sep.join(path_elements[:-2])
-            shortpath = os.path.join(os.sep.join(path_elements[-2:]),
-                                     os.path.basename(fname))
+        (base_dir, shortpath) = _get_paths(fname)
         if basepath is None:
             basepath = "BASE_DIR = %s" % base_dir
-        (prefix, docnumber, kind_code) = get_docnumber(fname, fast)
-        prefixes[prefix] = prefixes.get(prefix, 0) + 1
-        kind_codes[kind_code] = kind_codes.get(kind_code, 0) + 1
-        pclass = "%s-%s" % (prefix, kind_code)
-        classes[pclass] = classes.get(pclass, 0) + 1
+        (prefix, docnumber, kind_code) = _get_docnumber(fname, fast)
+        _update_statistics(prefixes, kind_codes, classes, prefix, kind_code)
         index.append("%s\t%s" % (docnumber, shortpath))
-    print "prefixes:", prefixes
-    print "kind_codes:", kind_codes
-    print "classes:", classes
+    _print_statistics(prefixes, kind_codes, classes)
     print "sorting index..."
     index.sort()
     print "writing index..."
@@ -169,8 +159,19 @@ def index_patents(patent_list, index_file, maxcount=100, fast=False):
     for line in index:
         fh.write(line + "\n")
     
+def _get_paths(fname):
+    path_elements = os.path.dirname(fname).split(os.sep)
+    if len(path_elements[-1]) == 4:
+        year = os.path.basename(os.path.dirname(fname))
+        base_dir = os.path.dirname(os.path.dirname(fname))
+        shortpath = os.path.join(year, os.path.basename(fname))
+    elif len(path_elements[-2]) == 4:
+        base_dir = os.sep.join(path_elements[:-2])
+        shortpath = os.path.join(os.sep.join(path_elements[-2:]),
+                                 os.path.basename(fname))
+    return (base_dir, shortpath)
 
-def get_docnumber(fname, fast):
+def _get_docnumber(fname, fast):
     if fast:
         basename = os.path.basename(fname)[2:-4]
         result = re_PATENT_NUMBER.match(basename)
@@ -189,13 +190,27 @@ def get_docnumber(fname, fast):
         # don't bother getting the prefix and kind code for the slow version
         return (None, document_id.docnumber, None)
 
+def _update_statistics(prefixes, kind_codes, classes, prefix, kind_code):
+    prefixes[prefix] = prefixes.get(prefix, 0) + 1
+    kind_codes[kind_code] = kind_codes.get(kind_code, 0) + 1
+    pclass = "%s-%s" % (prefix, kind_code)
+    classes[pclass] = classes.get(pclass, 0) + 1
+
+def _print_statistics(prefixes, kind_codes, classes):
+    print "prefixes:", prefixes
+    print "kind_codes:", kind_codes
+    print "classes:", classes
 
 
 def test_index(index_file, maxcount):
+    """Load a number of lines from the index test retrieval."""
     idx = PatentIndex(index_file, maxcount)
     print
     print idx
-    print "\nTesting existing patent numbers"
+    print "\nTesting existing patent numbers (on sample 500)"
+    for n in ['4322557', '4353538']:
+        print '  ', [n, idx.get_path(n)]
+    print "Testing existing patent numbers (on first 100K of full index)"
     for n in ['20010000983', '20010001003']:
         print '  ', [n, idx.get_path(n)]
     print "Testing non-existing patent numbers"
@@ -208,10 +223,15 @@ def test_index(index_file, maxcount):
 
 class PatentIndex(object):
 
-    def __init__(self, text_index=None, macxount=999999999):
+    """Initialization loads the index from the index file into memory. The
+    instance can then be queried with patent numbers and it will return the
+    associated file path or None."""
+
+    def __init__(self, text_index=None, maxcount=999999999):
         """Uses the first line of the text_index to determine the base directory
         and then read the rest."""
         self.index = '/home/j/corpuswork/fuse/FUSEData/lists/ln_uspto.all.index.txt'
+        self.basedir = None
         if text_index is not None:
             self.index = text_index
         self.data = {}
@@ -229,9 +249,27 @@ class PatentIndex(object):
         return "<PatentIndex using %s>" % self.index
     
     def get_path(self, patent_number):
-        return self.data.get(patent_number)
-        
-            
+        """Return the full path for the patent number or None if the number was
+        not in the index."""
+        result = self.data.get(patent_number)
+        return None if result is None else os.path.join(self.basedir, result)
+
+
+def example():
+    """This takes the list with promince scores from Patrick and writes it to a
+    file."""
+    idx = PatentIndex()
+    dirname = "/home/j/marc/Dropbox/fuse/data/patents/"
+    fh_in = open(dirname +"0_2003_us_pats_w_mitre_gtf.txt")
+    fh_out = open('out.txt', 'w')
+    fh_in.readline()
+    for line in fh_in:
+        fields = line.strip().split(',')
+        patent_number = fields[0][1:-1]
+        fh_out.write("%s\t%s\n" % (patent_number,
+                                   idx.get_path(patent_number.lstrip('0'))))
+
+
 if __name__ == '__main__':
 
     # default values for arguments
