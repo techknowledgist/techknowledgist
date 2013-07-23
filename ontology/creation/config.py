@@ -78,7 +78,7 @@ DEFAULT_PIPELINE_CN = """
 --xml2txt
 --txt2seg
 --seg2tag
---tag2chk --candidate-filter=off --chunker-rules=en
+--tag2chk --candidate-filter=off --chunker-rules=cn
 """
 
 # definition of sub directory names for processing stages

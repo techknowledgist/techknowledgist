@@ -95,8 +95,8 @@ DOCUMENT_PROCESSING_IO = \
     { POPULATE: { 'in': 'external', 'out': 'd0_xml' },
       XML2TXT: { 'in': 'd0_xml', 'out': 'd1_txt' },
       TXT2TAG: { 'in': 'd1_txt', 'out': 'd2_tag' },
-      TXT2SEG: { 'in': 'd2_seg', 'out': 'd2_seg' },
-      SEG2TAG: { 'in': 'd1_txt', 'out': 'd2_tag' },
+      TXT2SEG: { 'in': 'd1_txt', 'out': 'd2_seg' },
+      SEG2TAG: { 'in': 'd2_seg', 'out': 'd2_tag' },
       TAG2CHK: { 'in': 'd2_tag', 'out': 'd3_phr_feats' }}
 
 # This variable governs after how many files the files_processed counter in the
@@ -142,7 +142,8 @@ def run_populate(rconfig, limit, verbose=False):
             print "[--populate] %04d %s" % (count, dst_file)
         ensure_path(os.path.dirname(dst_file))
         shutil.copyfile(src_file, dst_file)
-        compress(dst_file)
+        if rconfig.language == 'en':
+            compress(dst_file)
         # TODO: does this mean that you miss some if total_count % STEP != 0
         if count % STEP == 0:
             dataset.update_processed_count(STEP)
@@ -177,7 +178,8 @@ def run_xml2txt(rconfig, limit, options, verbose=False):
             fh.close()
             print "[--xml2txt] WARNING: error on", file_in
             print "           ", e
-        compress(file_in, file_out)
+        if rconfig.language == 'en':
+            compress(file_in, file_out)
         if count % STEP == 0:
             output_dataset.update_processed_count(STEP)
 
@@ -203,7 +205,8 @@ def run_txt2tag(rconfig, limit, options, verbose):
         file_in, file_out = prepare_io(filename, input_dataset, output_dataset)
         uncompress(file_in)
         txt2tag.tag(file_in, file_out, tagger)
-        compress(file_in, file_out)
+        if rconfig.language == 'en':
+            compress(file_in, file_out)
         if count % STEP == 0:
             output_dataset.update_processed_count(STEP)
 
@@ -226,10 +229,10 @@ def run_txt2seg(rconfig, limit, options, verbose):
         count += 1
         filename = fspec.target
         print_file_progress(TXT2SEG, count, filename, verbose)
-        uncompress(file_in)
         file_in, file_out = prepare_io(filename, input_dataset, output_dataset)
-        compress(file_in, file_out)
+        #uncompress(file_in)
         cn_txt2seg.seg(file_in, file_out, segmenter)
+        #compress(file_in, file_out)
         if count % STEP == 0:
             output_dataset.update_processed_count(STEP)
 
@@ -253,9 +256,9 @@ def run_seg2tag(rconfig, limit, options, verbose):
         filename = fspec.target
         print_file_progress(SEG2TAG, count, filename, verbose)
         file_in, file_out = prepare_io(filename, input_dataset, output_dataset)
-        uncompress(file_in)
+        #uncompress(file_in)
         cn_seg2tag.tag(file_in, file_out, tagger)
-        compress(file_in, file_out)
+        #compress(file_in, file_out)
         if count % STEP == 0:
             output_dataset.update_processed_count(STEP)
 
@@ -289,7 +292,8 @@ def run_tag2chk(rconfig, limit, options, verbose):
         year = get_year(filename)
         tag2chunk.Doc(file_in, file_out, year, rconfig.language,
                       filter_p=filter_p, chunker_rules=chunker_rules)
-        compress(file_in, file_out)
+        if rconfig.language == 'en':
+            compress(file_in, file_out)
         if count % STEP == 0:
             output_dataset.update_processed_count(STEP)
 
