@@ -41,6 +41,24 @@ Options:
    --verbose - switch on verbose mode
 
 
+INVENTIONS:
+
+The following command creates a directory with some info files and an annotation
+file for inventions:
+
+  $ python step3_annotation.py \
+      --inventions \
+      --corpus data/patents/201305-en \
+      --filelist files-n2.txt \
+      --name test2 \
+      --chunks 30 \
+      --verbose
+
+Options are the same as for --technologies, except that there is an added option
+--chunks, which defines the maximum number of chunks per document to put in the
+annotation file. The default is 30. Only chunks from the FH_TITLE and
+FH_ABSTRACT sections will be used (this is hard-coded).
+
 """
 
 import os, sys, shutil, getopt, codecs, random
@@ -111,12 +129,12 @@ def write_info(rconfig, dirname, filelist_path):
     """Generate a file with general information and copy the file list to the
     annotation directory."""
     print "Writing general info..."
-    fh = open(os.path.join(dirname, 'annotate.info.general.txt'), 'w')
-    fh.write("$ python %s\n\n" % ' '.join(sys.argv))
-    fh.write("file_list         =  %s\n" % filelist_path)
-    fh.write("config_file       =  %s\n" % \
-             os.path.basename(rconfig.pipeline_config_file))
-    fh.write("git_commit        =  %s" % get_git_commit())
+    with open(os.path.join(dirname, 'annotate.info.general.txt'), 'w') as fh:
+        fh.write("$ python %s\n\n" % ' '.join(sys.argv))
+        fh.write("file_list         =  %s\n" % filelist_path)
+        fh.write("config_file       =  %s\n" % \
+                     os.path.basename(rconfig.pipeline_config_file))
+        fh.write("git_commit        =  %s" % get_git_commit())
     print "Copying %s..." % (filelist_path)
     shutil.copyfile(filelist_path,
                     os.path.join(dirname, 'annotate.info.filelist.txt'))
@@ -189,10 +207,11 @@ def print_annotation_files(dirname, term_count_list, term_contexts):
         term_str = term.replace(' ', '_')
         google_query = '"' + '+'.join(term.split()) + '"'
         google_url = "https://www.google.com/#sclient=psy-ab&q=%s" % google_query
+        google_link = "<a href='%s' target='_bank'>Google</a>" % google_url
         fh_unlab.write("\t%s\n" % term)
         fh_counts.write("%d\t%d\t%d\t%s\n" % (term_no, count, cumulative, term))
         fh_context.write("\n<p>%s (%d documents)</p>\n\n" % (term, count))
-        fh_context.write("<blockquote>%s</blockquote>\n\n" % wikipedia_link)
+        fh_context.write("<blockquote>%s</blockquote>\n\n" % google_link)
         #file_term_context = os.path.join(dirname, 'term.contexts', "%04d.html" % term_no)
         #fh_term_context = codecs.open(file_term_context, 'w', encoding='utf-8')
         random.shuffle(term_contexts[term])
@@ -214,10 +233,60 @@ def write_html_prefix(fh_context):
 
 
 
-def annotate_inventions(name, rconfig, filelist):
+def annotate_inventions(name, rconfig, filelist, chunks):
+    """Create a directory with annotation files in t0_annotation/<name>."""
 
-    """This is a stub method that shows how to pull information out of
-    phrase feature and tag files."""
+    filelist_path = os.path.join(rconfig.config_dir, filelist)
+    dataset_tags = find_input_dataset(rconfig, 'd2_tag')
+    dataset_feats = find_input_dataset(rconfig, 'd3_phr_feats')
+    check_file_availability(dataset_tags, filelist_path)
+    check_file_availability(dataset_feats, filelist_path)
+
+    dirname = set_dirname(rconfig, 'inventions', name)
+    write_info(rconfig, dirname, filelist_path)
+    outfile = os.path.join(dirname, 'annotate.inventions.unlab.txt')
+    output_fh = codecs.open(outfile, 'w', encoding='utf-8')
+    tag_files = list(filename_generator(dataset_tags.path, filelist_path))
+    feat_files = list(filename_generator(dataset_feats.path, filelist_path))
+
+    # add the content of the general info file as a preface
+    with open(os.path.join(dirname, 'annotate.info.general.txt')) as fh:
+        for line in fh:
+            output_fh.write("# %s" % line)
+        output_fh.write("\n\n")
+
+    for i in range(len(tag_files)):
+        fd = FileData(tag_files[i], feat_files[i])
+        _add_file_data_to_annotation_file(output_fh, fd)
+
+
+def _add_file_data_to_annotation_file(output_fh, fd):
+    # TODO: may want to make sure that sentences without terms are included for
+    # reference, in that case, use the list of(section, tokens) pair in fg.tags
+    # as well as fd.get_term_instances_dictionary()
+    instances = []
+    # TODO: also need to get the title
+    for term in fd.get_terms():
+        # all stuff lives in the Term object
+        term_obj = fd.get_term(term)
+        instances.extend(term_obj.term_instances)
+    instances.sort()
+    for i in range(chunks):
+        inst = instances[i]
+        section = inst.feats['section_loc']
+        if section.startswith('TITLE') or section.startswith('ABSTRACT'):
+            output_fh.write(
+                "\t%s\t%s\t%s\t%s <np>%s</np> %s\n" % \
+                    (inst.id, inst.year, inst.term,
+                     inst.context_left(), inst.context_token(), inst.context_right()))
+    output_fh.write("\n")
+
+
+def annotate_something(name, rconfig, filelist, chunks):
+
+    """This is a stub method that explains a bit more on how to create
+    annotation files. Includes scaffolding that shows how to pull information
+    out of phrase feature and tag files."""
 
     # Create the complete path to the file list; the rconfig is an instance of
     # RuntimeConfiguration and is created from the corpus and the pipeline
@@ -243,33 +312,33 @@ def annotate_inventions(name, rconfig, filelist):
     # Now we can get the file names, loop over them, and extract the needed
     # information. The code below is some scaffolding if all you need is in one
     # dataset.
-    fnames = filename_generator(dataset_feats.path, filelist)
+    fnames = filename_generator(dataset_feats.path, filelist_path)
     for fname in fnames:
-        with codecs.open(fname, encoding="utf-8") as fh:
+        with open_input_file(fname) as fh:
+            # extract data from the line, you may want to put it in some
+            # temporary data structure
             for line in fh:
-                # extract data from the line, you probably want to put it in
-                # some temporary data structure
                 pass
 
     # And this is what you do if you need information that is distributed over
     # the feature and tag files.
-    tag_files = list(filename_generator(dataset_tags.path, filelist))
-    feat_files = list(filename_generator(dataset_feats.path, filelist))
+    tag_files = list(filename_generator(dataset_tags.path, filelist_path))
+    feat_files = list(filename_generator(dataset_feats.path, filelist_path))
     for i in range(len(tag_files)):
+        # the FileData object
         fd = FileData(tag_files[i], feat_files[i])
+        # all term-related stuff lives in the Term object and its term_instances
+        # variable, you can print to the annotation file(s) from here or first
+        # build som eintermediate data structure and then print the output later
         for term in fd.get_terms():
-            # all stuff lives in the Term object
             term_obj = fd.get_term(term)
-
-    # Finally, you would print the results to the dirname directory
-    pass
 
 
 
 if __name__ == '__main__':
 
     options = ['name=', 'corpus=', 'pipeline=', 'filelist=',
-               'technologies', 'inventions', 'verbose']
+               'technologies', 'inventions', 'chunks=', 'verbose']
     (opts, args) = getopt.getopt(sys.argv[1:], '', options)
 
     name = None
@@ -278,6 +347,7 @@ if __name__ == '__main__':
     filelist = 'files.txt'
     annotate_technologies_p = False
     annotate_inventions_p = False
+    chunks = 30
     verbose = False
     
     for opt, val in opts:
@@ -287,6 +357,7 @@ if __name__ == '__main__':
         if opt == '--filelist': filelist = val
         if opt == '--technologies': annotate_technologies_p = True
         if opt == '--inventions': annotate_inventions_p = True
+        if opt == '--chunks': chunks = int(val)
         if opt == '--verbose': verbose = True
         
     if name is None:
@@ -299,4 +370,4 @@ if __name__ == '__main__':
     if annotate_technologies_p:
         annotate_technologies(name, rconfig, filelist)
     elif annotate_inventions_p:
-        annotate_inventions(name, rconfig, filelist)
+        annotate_inventions(name, rconfig, filelist, chunks)

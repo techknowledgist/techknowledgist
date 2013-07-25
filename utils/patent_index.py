@@ -257,7 +257,7 @@ class PatentIndex(object):
 
 def example():
     """This takes the list with promince scores from Patrick and writes it to a
-    file."""
+    file. It strips leading zeros from the patent number."""
     idx = PatentIndex()
     dirname = "/home/j/marc/Dropbox/fuse/data/patents/"
     fh_in = open(dirname +"0_2003_us_pats_w_mitre_gtf.txt")
