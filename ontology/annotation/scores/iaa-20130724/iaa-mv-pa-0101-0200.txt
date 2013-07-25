@@ -1,0 +1,44 @@
+iaa-mv-pa-0101-0200.txt
+
+FILE1: en/technology/annot.ts10.nc.lo.mv.20130424.lab
+FILE2: en/technology/annot.ts10.nc.lo.pa.20130415.lab
+
+Confusion Matrix:
+
+      |   y    n    ?   |
+   ---|-----------------|----
+    y |   9    6    1   |  16 
+    n |   4   67    6   |  77 
+    ? |   1    5    1   |   7 
+   ---|-----------------|----
+      |  14   78    8   |
+
+Agreement:  0.77
+Kappa:      0.38
+
+
+Diagreements on:
+
+  [n,?] arrow
+  [n,?] balloon
+  [?,n] carriage
+  [y,?] cepo4
+  [y,n] crane pivot axis
+  [y,n] crane post
+  [y,n] detector housing
+  [?,n] device
+  [y,n] longitudinal guide
+  [n,?] map
+  [?,y] motor
+  [y,n] organic medium
+  [?,n] pes
+  [?,n] pinch region
+  [n,y] plasma
+  [?,n] radiation
+  [n,y] read recovery process
+  [n,?] records
+  [n,?] separator signals
+  [y,n] ser
+  [n,y] solvents
+  [n,y] synchronized transactions
+  [n,?] tubing

@@ -1,0 +1,44 @@
+iaa-er-mv-0801-0900.txt
+
+FILE1: en/technology/annot.ts10.nc.lo.er.20130611.lab
+FILE2: en/technology/annot.ts10.nc.lo.mv.20130424.lab
+
+Confusion Matrix:
+
+      |   y    n    ?   |
+   ---|-----------------|----
+    y |  10    2    1   |  13 
+    n |   7   65    1   |  73 
+    ? |   3    9    2   |  14 
+   ---|-----------------|----
+      |  20   76    4   |
+
+Agreement:  0.77
+Kappa:      0.44
+
+
+Diagreements on:
+
+  [y,n] beam separation box
+  [n,y] beam splitting
+  [y,?] energy detector
+  [n,y] euv radiation source
+  [n,y] guide pin part
+  [n,y] horizontal axis
+  [n,y] implantation
+  [?,y] initiator compositions
+  [?,n] luminescent metal salt
+  [y,n] moment-compensating counterweight
+  [?,y] recording channel
+  [?,n] recovery process
+  [?,n] software
+  [n,y] tb nanoparticle
+  [?,n] tool
+  [?,y] transportation system
+  [?,n] tubes
+  [n,?] uv radiation
+  [?,n] vehicle floor
+  [?,n] vehicle roof
+  [?,n] work copy data set
+  [?,n] work copy data sets
+  [n,y] wrap control

@@ -1,0 +1,462 @@
+iaa-pa-er-ALL.txt
+
+FILE1: en/technology/annot.ts10.nc.lo.pa.20130415.lab
+FILE2: en/technology/annot.ts10.nc.lo.er.20130611.lab
+
+Confusion Matrix:
+
+      |   y    n    ?   |
+   ---|-----------------|----
+    y | 162  125   52   | 339 
+    n |  54  793  171   | 1018 
+    ? |  15   24   23   |  62 
+   ---|-----------------|----
+      | 231  942  246   |
+
+Agreement:  0.69
+Kappa:      0.35
+
+
+Diagreements on:
+
+  [n,y] access point
+  [n,?] accord
+  [n,?] active data
+  [y,n] advanced image augmentation
+  [n,y] advanced image augmentation application
+  [n,?] advantageous output emission beam
+  [?,n] agent
+  [y,?] algorithm
+  [y,?] algorithms
+  [n,?] amantadine sulfates
+  [n,y] apertures
+  [n,?] apparatus
+  [n,?] application
+  [n,?] applications
+  [?,y] arrow
+  [n,y] associates explosive safety siting method
+  [n,?] attachment
+  [n,y] attachment platform
+  [y,n] augmented real scene image
+  [?,y] balloon
+  [n,?] base
+  [n,?] beam 7a
+  [n,?] beam enclosure
+  [n,y] beam exit window
+  [n,?] beam path enclosure
+  [n,?] beam portion 7c
+  [n,y] beam splitter 4a
+  [y,n] beam splitting
+  [y,?] beam splitting enclosure
+  [y,?] bonding agent
+  [n,y] boom
+  [n,?] boom1
+  [n,?] bracket
+  [y,n] butadiene
+  [n,?] c
+  [n,?] c. sub
+  [n,?] c. sub .1
+  [n,?] c. sub .3
+  [n,?] camera column3
+  [n,?] camera column3to
+  [n,?] camera roll axis
+  [n,y] camera tilt axle
+  [n,y] camera7
+  [n,y] carriage
+  [y,?] cartridge
+  [n,?] case
+  [n,?] cases
+  [n,?] ceramic material
+  [n,?] chamber
+  [n,?] channels
+  [n,?] combiner
+  [n,?] component
+  [y,?] computer program
+  [n,?] connector
+  [n,?] consecutive synchronized transactions
+  [n,y] contact wire
+  [n,y] contact wires
+  [y,n] contactless energy supply
+  [y,n] contactless energy transfer
+  [y,?] contactless energy transmission
+  [y,n] control signals
+  [?,y] controller
+  [n,?] core material
+  [n,?] core nanoparticles
+  [n,?] core\/shell material
+  [n,y] core\/shell nanoparticles
+  [n,y] core\/shell particle
+  [n,y] crane
+  [n,y] crane attachment
+  [n,y] crane column
+  [n,y] crane post
+  [n,y] crane post3
+  [y,n] cylinder
+  [n,?] cylindrical rings
+  [?,y] data processor
+  [n,?] data region
+  [n,?] data set separator
+  [y,n] data storage
+  [y,n] database
+  [y,n] dc voltage
+  [y,n] demi-water
+  [n,?] detector
+  [n,?] detector element
+  [n,y] detector enclosure
+  [n,y] detector housing
+  [n,?] device
+  [n,?] devices
+  [y,?] digital image
+  [?,n] displays
+  [?,n] dopant
+  [n,y] dopant metal ions
+  [?,n] dopants
+  [n,y] doped core material
+  [n,y] drive
+  [y,?] dss
+  [n,?] dy
+  [n,?] early synchronized transactions
+  [y,n] electrical contact
+  [y,n] electrodes
+  [y,?] electron energy loss spectroscopy
+  [y,n] electronic components
+  [y,n] electronic excitation
+  [y,n] electronic image
+  [y,?] electronics system
+  [n,?] enclosure
+  [n,?] energy detector housing
+  [n,?] energy monitor housing
+  [y,n] energy supply
+  [y,n] energy transfer
+  [y,n] energy transmission
+  [y,n] epitaxial layer
+  [n,?] equipment
+  [n,?] er
+  [n,?] er3
+  [y,?] error recovery
+  [n,?] eu
+  [y,n] eu nanoparticles
+  [y,n] euv beam
+  [y,n] euv beam output
+  [n,?] euv detector housing
+  [y,n] euv generating source
+  [y,n] euv irradiation
+  [n,y] euv mirror 4b
+  [y,n] euv photon radiation
+  [y,n] euv radiation
+  [y,n] euv radiation source
+  [y,n] euv radiation sources
+  [y,n] euv signal
+  [n,y] expandable cylindrical rings
+  [n,?] explosive sites
+  [y,n] extreme ultraviolet radiation detection
+  [y,?] extreme ultraviolet radiation source
+  [n,?] facilities
+  [n,?] fields
+  [n,?] filemark command
+  [n,y] film camera
+  [n,y] filter
+  [y,n] firewire data bus
+  [n,?] fixture
+  [n,y] flange
+  [n,?] floor
+  [y,n] fluids
+  [y,n] fluoride
+  [?,n] fluoride source
+  [n,?] formula
+  [n,?] forward pointers
+  [n,y] frame
+  [n,?] frames
+  [y,?] free standing transmission filter
+  [y,n] gas discharge euv photon source
+  [?,y] glass
+  [n,?] gr
+  [n,?] grooves
+  [n,?] guide pin parts
+  [n,?] guide shoes
+  [n,?] guide slot
+  [n,y] guide slots
+  [n,?] guide walls
+  [n,?] hand
+  [n,?] head
+  [y,n] high energy photon emission
+  [y,n] hmds
+  [y,?] homogeneous cylindrical plasma source
+  [n,y] hook-like part
+  [n,?] host material
+  [?,n] housing
+  [y,?] hud
+  [y,?] huds
+  [y,n] hydrated metal salts
+  [y,?] hyperbolic mirror
+  [n,y] i. lumininescent nanoparticles
+  [n,?] ieee
+  [n,?] iii
+  [y,n] image augmentation
+  [n,?] image data
+  [y,n] image magnification
+  [n,?] image stabilization efforts
+  [y,n] image supplementation
+  [y,n] implantation
+  [n,?] improved euv photon source
+  [n,?] incoming beam 7a
+  [n,?] infig
+  [n,?] information delivery mechanism
+  [n,?] information table
+  [n,?] information tables
+  [y,n] initiator composition
+  [y,?] initiator compositions
+  [y,n] ink
+  [n,?] installation data
+  [n,?] installation property data
+  [y,?] insulator
+  [n,?] interface
+  [?,n] invention
+  [y,n] ip
+  [n,?] jun.
+  [y,n] laf3 nanoparticles
+  [y,n] lanthanide metal combinations
+  [y,n] lanthanide metal ion
+  [y,n] lanthanide sulfates
+  [y,n] lanthanide-doped phosphates
+  [?,n] lapo4
+  [n,y] larger camera cranes
+  [y,n] laser beams
+  [y,n] laser radiation
+  [n,?] legs
+  [?,y] lever
+  [n,y] lifting platform
+  [y,n] light generation
+  [?,y] line conductor
+  [n,y] long extended conductor device
+  [n,y] longitudinal guide
+  [n,y] longitudinal guides
+  [n,?] longitudinal side edges
+  [?,n] luminescence
+  [y,n] luminescence energy
+  [y,n] luminescence quantum yield
+  [y,n] luminescence quantum yields
+  [y,?] luminescent inorganic metal salt
+  [y,?] luminescent metal salt
+  [y,?] luminescent metal sulfate
+  [y,n] luminescent nanoparticle core
+  [y,n] luminescent nanoparticle cores
+  [n,?] machine
+  [?,y] map
+  [?,y] maps
+  [?,n] mask
+  [n,?] material
+  [n,?] mechanism
+  [y,n] membranes
+  [y,?] mesh pattern
+  [n,?] metal
+  [y,n] metal salt
+  [y,n] metal salts
+  [y,n] metal sulfate
+  [n,?] metallic cylindrical rings
+  [y,n] metallic material
+  [n,?] methods
+  [n,?] mirror 4b
+  [n,?] mixture
+  [n,y] ml round-bottom flask
+  [?,n] mmol
+  [?,n] mold
+  [y,n] molecular fluorine laser radiation
+  [y,n] moment compensation
+  [n,?] movable vehicle part
+  [y,?] multiprocessing system
+  [y,n] nanoparticle cores
+  [y,n] nanoparticles
+  [y,n] nanoparticulate metal phosphate
+  [y,n] nd nanoparticle cores
+  [y,n] ndpo4 nanoparticle cores
+  [y,n] non-luminescent metal salts
+  [n,?] nos.
+  [n,y] nozzle
+  [y,n] optical image
+  [y,n] optics
+  [n,?] organic medium
+  [y,n] organic synthesis
+  [n,y] outlet
+  [n,y] output aperture
+  [n,y] output beam
+  [?,n] packed cell structure
+  [n,?] panel
+  [n,?] panels
+  [n,?] parallel data
+  [y,n] parallel processor
+  [y,n] parallel radiation
+  [n,?] partial data
+  [n,?] partial data set
+  [n,?] parts
+  [y,?] pass indicator
+  [y,?] pass indicators
+  [y,n] pci data bus
+  [?,y] performance reflux condenser
+  [y,n] peroxycarbonates
+  [n,?] pes
+  [y,n] pes-es separation distance
+  [y,n] photon image
+  [y,n] photon sources
+  [n,?] pin parts
+  [n,?] pinch region
+  [?,y] pivot head
+  [y,n] pixels
+  [n,?] plane
+  [y,n] plasma
+  [y,?] plasma pinch euv sources
+  [n,y] pointer
+  [n,?] pointers
+  [?,n] polar organic compound
+  [y,n] polymer
+  [?,n] polymeric peroxycarbonate
+  [y,n] polymerization
+  [y,n] polymerization initiators
+  [y,n] polymerization reaction
+  [y,n] polymers
+  [y,n] polyols
+  [n,?] portion
+  [?,n] prepulse
+  [y,n] printing
+  [n,?] process step
+  [n,?] processes
+  [n,?] processor
+  [n,?] processors
+  [n,?] program
+  [y,n] programming
+  [n,?] ptsi
+  [y,n] ptsi barrier
+  [y,n] ptsi-nsi
+  [n,?] r. sub .1
+  [n,?] r. sub .2
+  [n,?] r. sub .3
+  [y,n] radiation detection
+  [?,n] range
+  [?,n] reaction
+  [n,?] reaction medium
+  [y,n] reactive metal salt
+  [y,?] read recovery
+  [n,?] real scene
+  [y,n] real scene photon images
+  [y,?] recording channel
+  [n,?] recovery process
+  [n,y] rectangular panel
+  [n,?] rings
+  [n,?] roll axis r.
+  [n,?] roof
+  [n,y] roof opening
+  [?,y] round-bottom flask
+  [n,?] satellite route section
+  [n,y] satellite vehicle
+  [n,y] satellite vehicles
+  [n,?] seat
+  [y,?] semiconductor
+  [y,n] semiconductor nanoparticles
+  [n,?] ser
+  [y,?] serial port interface
+  [n,?] shaft
+  [n,?] shelf
+  [y,n] shell formation anions
+  [y,n] shell growth
+  [y,?] shell material
+  [y,?] shell materials
+  [y,?] shell synthesis
+  [y,n] shell-forming metal atoms
+  [n,?] shell-forming metal ions
+  [n,?] shelves
+  [y,?] si dead region diode
+  [y,?] si n-p
+  [y,n] si pn
+  [y,?] si pn diode
+  [n,?] side pieces20 ,21,22
+  [n,?] sides
+  [y,n] silicon
+  [n,y] single mirror
+  [y,n] single multilayer mirror
+  [y,n] site plan package manager
+  [n,y] slide
+  [?,n] slides
+  [n,?] slots
+  [y,n] soft x-ray radiation sources
+  [n,?] software
+  [n,?] solution
+  [y,n] solvents
+  [y,n] stainless steel
+  [n,?] stationary frame
+  [n,?] stent structure
+  [n,?] step
+  [n,?] steps
+  [y,?] storage unit
+  [n,?] sub
+  [n,?] sub .2
+  [y,n] sulfate nanoparticles
+  [?,y] sunshade
+  [y,?] switch
+  [y,n] synchrotron ultraviolet facility
+  [n,?] synthesis
+  [n,?] system
+  [?,y] tape
+  [?,n] tb
+  [y,?] tb cores
+  [y,n] tb nanoparticle
+  [y,n] tb nanoparticle cores
+  [y,n] tb nanoparticles
+  [y,n] tb quantum yields
+  [n,?] technique
+  [n,?] techniques
+  [?,n] tehp
+  [n,?] telescoping elements
+  [y,n] tem micrographs
+  [y,n] thermal conductivity
+  [n,y] tilt-sliding roof
+  [?,n] toluene
+  [n,?] tool
+  [n,?] transaction
+  [n,?] transaction data
+  [n,?] transaction data sets
+  [y,?] transaction record
+  [n,?] transactions
+  [y,?] transfer line
+  [y,?] transformer
+  [y,n] transport system
+  [y,?] transportation system
+  [y,?] transportation vehicle
+  [n,?] tube
+  [n,?] tubes
+  [n,?] tubular structure
+  [y,n] ultraviolet radiometry
+  [y,n] uncoated euv transmissive plate
+  [?,n] upm
+  [y,n] uv radiation
+  [y,?] v-lace ™ real time image enhancement algorithm
+  [n,y] vacuum
+  [n,?] vehicle control
+  [n,?] vehicle floor
+  [n,?] vehicle roof
+  [n,?] vehicles
+  [n,?] vessel
+  [?,n] vessels
+  [?,y] video
+  [y,?] video data
+  [y,n] vinyl monomers
+  [y,?] virtual reality systems
+  [y,?] vision systems
+  [n,?] vol
+  [y,?] voltage source
+  [n,?] w-shaped members
+  [n,?] wall
+  [y,n] wet synthesis techniques
+  [n,y] window
+  [n,?] work copy data
+  [n,?] work copy data set
+  [n,?] work copy data sets
+  [n,?] work copy wrap
+  [n,?] wp
+  [y,n] wp3
+  [y,n] wrap control
+  [y,?] wrap control system
+  [n,?] wrap data
+  [n,?] x
+  [y,n] xzenon z-pinch source
+  [n,?] yb
+  [n,?] yb3

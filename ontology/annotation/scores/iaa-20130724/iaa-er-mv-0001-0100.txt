@@ -1,0 +1,43 @@
+iaa-er-mv-0001-0100.txt
+
+FILE1: en/technology/annot.ts10.nc.lo.er.20130611.lab
+FILE2: en/technology/annot.ts10.nc.lo.mv.20130424.lab
+
+Confusion Matrix:
+
+      |   y    n    ?   |
+   ---|-----------------|----
+    y |  12    6    1   |  19 
+    n |   1   63    1   |  65 
+    ? |   2   11    3   |  16 
+   ---|-----------------|----
+      |  15   80    5   |
+
+Agreement:  0.78
+Kappa:      0.50
+
+
+Diagreements on:
+
+  [y,n] access point
+  [?,n] application
+  [y,n] boom
+  [y,?] controller
+  [?,y] cylindrical rings
+  [?,y] detector
+  [y,n] explosive safety siting method
+  [?,n] information table
+  [?,n] metal
+  [n,y] methanol
+  [?,n] mixture
+  [n,?] nanoparticles
+  [?,n] rings
+  [?,n] roof
+  [y,n] roof opening
+  [?,n] shelf
+  [y,n] slide
+  [?,n] step
+  [?,n] system
+  [y,n] tape
+  [?,n] transaction
+  [?,n] transactions

@@ -1,0 +1,50 @@
+iaa-er-mv-0101-0200.txt
+
+FILE1: en/technology/annot.ts10.nc.lo.er.20130611.lab
+FILE2: en/technology/annot.ts10.nc.lo.mv.20130424.lab
+
+Confusion Matrix:
+
+      |   y    n    ?   |
+   ---|-----------------|----
+    y |  11    7    2   |  20 
+    n |   2   55    0   |  57 
+    ? |   3   15    4   |  22 
+   ---|-----------------|----
+      |  16   77    6   |
+
+Agreement:  0.71
+Kappa:      0.42
+
+
+Diagreements on:
+
+  [y,n] arrow
+  [y,n] balloon
+  [?,n] c
+  [y,?] carriage
+  [?,n] case
+  [?,y] cepo4
+  [?,n] component
+  [n,y] crane pivot axis
+  [y,n] drive
+  [?,n] enclosure
+  [?,n] gr
+  [n,y] ip
+  [y,n] map
+  [?,n] material
+  [y,?] motor
+  [?,y] organic medium
+  [y,n] read recovery process
+  [?,n] real scene
+  [?,n] records
+  [?,n] separator signals
+  [?,y] ser
+  [?,n] solution
+  [?,n] steps
+  [?,n] sub .2
+  [y,n] synchronized transactions
+  [?,n] synthesis
+  [?,n] tubing
+  [y,n] vacuum
+  [?,n] work copy wrap

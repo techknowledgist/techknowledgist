@@ -1,0 +1,35 @@
+iaa-mv-pa-0801-0900.txt
+
+FILE1: en/technology/annot.ts10.nc.lo.mv.20130424.lab
+FILE2: en/technology/annot.ts10.nc.lo.pa.20130415.lab
+
+Confusion Matrix:
+
+      |   y    n    ?   |
+   ---|-----------------|----
+    y |  16    4    0   |  20 
+    n |   6   69    1   |  76 
+    ? |   2    1    1   |   4 
+   ---|-----------------|----
+      |  24   74    2   |
+
+Agreement:  0.86
+Kappa:      0.64
+
+
+Diagreements on:
+
+  [n,y] beam separation box
+  [y,n] core\/shell particle
+  [?,y] energy detector
+  [y,n] guide pin part
+  [y,n] horizontal axis
+  [n,?] housing
+  [n,y] ink
+  [n,y] luminescent metal salt
+  [n,y] luminescent nanoparticle cores
+  [n,y] moment-compensating counterweight
+  [y,n] nozzle
+  [n,y] sulfate nanoparticles
+  [?,y] uv radiation
+  [?,n] vehicle control

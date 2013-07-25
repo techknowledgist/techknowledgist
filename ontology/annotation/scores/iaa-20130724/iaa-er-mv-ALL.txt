@@ -1,0 +1,192 @@
+iaa-er-mv-ALL.txt
+
+FILE1: en/technology/annot.ts10.nc.lo.er.20130611.lab
+FILE2: en/technology/annot.ts10.nc.lo.mv.20130424.lab
+
+Confusion Matrix:
+
+      |   y    n    ?   |
+   ---|-----------------|----
+    y |  80   30    7   | 117 
+    n |  26  330   11   | 367 
+    ? |  18   79   17   | 114 
+   ---|-----------------|----
+      | 124  439   35   |
+
+Agreement:  0.71
+Kappa:      0.43
+
+
+Diagreements on:
+
+  [y,n] access point
+  [?,n] application
+  [?,n] applications
+  [y,n] arrow
+  [?,n] attachment
+  [y,n] baffles
+  [y,n] balloon
+  [?,n] beam 7a
+  [y,n] beam separation box
+  [n,y] beam splitting
+  [n,?] bits
+  [n,?] body lumen
+  [y,n] boom
+  [?,n] boom1
+  [n,?] butadiene
+  [?,n] c
+  [?,n] c. sub .1
+  [n,?] c1
+  [?,n] camera column3
+  [?,n] camera column3to
+  [y,n] camera tilt axle
+  [y,?] carriage
+  [?,n] case
+  [?,n] ce
+  [?,y] cepo4
+  [?,n] channels
+  [y,?] clipping aperture
+  [?,n] component
+  [?,y] computer program
+  [?,n] consecutive synchronized transactions
+  [n,y] contactless energy supply
+  [n,y] contactless energy transfer
+  [?,y] control device
+  [y,?] controller
+  [?,n] core nanoparticles
+  [?,y] core\/shell material
+  [y,n] crane
+  [y,n] crane attachment
+  [n,y] crane pivot axis
+  [n,y] cylinder
+  [?,y] cylindrical rings
+  [n,?] data base
+  [?,n] data set separator
+  [n,y] data storage
+  [?,y] detector
+  [?,n] devices
+  [y,?] dopant metal ions
+  [y,n] drive
+  [n,y] electrodes
+  [?,y] electron energy loss spectroscopy
+  [?,n] electronics system
+  [?,n] enclosure
+  [y,?] energy detector
+  [?,n] energy detector housing
+  [y,n] energy monitor detectors
+  [?,n] energy monitor housing
+  [n,y] energy transmission
+  [n,y] epitaxial layer
+  [?,n] es
+  [?,n] eu
+  [n,y] euv irradiation
+  [y,n] euv mirror 4b
+  [n,y] euv radiation source
+  [y,n] explosive safety siting method
+  [?,n] explosive sites
+  [?,n] fields
+  [y,n] filter
+  [n,y] flow chart
+  [?,n] formula
+  [?,n] gr
+  [n,y] guide pin part
+  [?,n] hand
+  [n,y] horizontal axis
+  [?,y] host system
+  [n,y] implantation
+  [?,n] information table
+  [?,n] information tables
+  [?,y] initiator compositions
+  [n,y] ip
+  [y,n] lapo4 shell
+  [?,n] luminescent metal salt
+  [y,n] map
+  [y,n] maps
+  [?,n] material
+  [?,n] mechanism
+  [?,n] mesh pattern
+  [?,n] metal
+  [?,y] metallic cylindrical rings
+  [n,y] methanol
+  [?,n] methods
+  [y,n] mirror
+  [?,n] mixture
+  [n,?] mole
+  [y,n] moment-compensating counterweight
+  [y,?] motor
+  [n,?] nanoparticles
+  [?,n] nos.
+  [n,y] optics
+  [?,y] organic medium
+  [n,y] organic synthesis
+  [n,?] oxide
+  [y,n] performance reflux condenser
+  [n,y] phosphoric acid
+  [?,y] pin parts
+  [y,n] pointer
+  [n,y] polymer
+  [n,y] polymers
+  [y,n] polyol
+  [?,n] portion
+  [n,y] potassium hydroxide
+  [?,y] ptsi
+  [?,n] qd
+  [?,n] r. sub .3
+  [?,n] reaction medium
+  [?,n] read recovery
+  [y,n] read recovery process
+  [?,n] real scene
+  [?,y] recording channel
+  [?,n] records
+  [?,n] recovery process
+  [n,?] return line
+  [?,n] rings
+  [?,n] roof
+  [y,n] roof opening
+  [?,n] satellite route section
+  [?,n] separator signals
+  [?,y] ser
+  [?,n] shelf
+  [?,n] shell-forming metal ions
+  [?,n] shelves
+  [y,n] slide
+  [?,n] slots
+  [?,n] software
+  [?,n] solution
+  [y,?] spatial analysis
+  [n,y] stainless steel
+  [?,n] stationary frame
+  [?,n] step
+  [?,n] steps
+  [?,n] sub .2
+  [n,?] sulfoxide
+  [y,n] synchronized transactions
+  [?,n] synthesis
+  [?,n] system
+  [y,n] tape
+  [n,y] tb nanoparticle
+  [?,n] tool
+  [?,n] transaction
+  [?,n] transaction data
+  [?,n] transaction data sets
+  [?,n] transactions
+  [?,y] transportation system
+  [?,n] tubes
+  [?,n] tubing
+  [y,n] tumbler
+  [?,n] tunnel
+  [n,?] uv radiation
+  [y,n] vacuum
+  [?,n] vehicle floor
+  [?,n] vehicle roof
+  [?,n] video data
+  [?,n] wall
+  [y,n] water gutter
+  [?,n] work copy data
+  [?,n] work copy data set
+  [?,n] work copy data sets
+  [?,n] work copy wrap
+  [n,y] wrap control
+  [?,y] wrap control system
+  [?,n] wrap data
+  [?,y] zoom video bus

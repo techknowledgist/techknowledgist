@@ -1,0 +1,42 @@
+iaa-mv-pa-0301-0400.txt
+
+FILE1: en/technology/annot.ts10.nc.lo.mv.20130424.lab
+FILE2: en/technology/annot.ts10.nc.lo.pa.20130415.lab
+
+Confusion Matrix:
+
+      |   y    n    ?   |
+   ---|-----------------|----
+    y |  15    2    3   |  20 
+    n |   7   63    4   |  74 
+    ? |   1    4    1   |   6 
+   ---|-----------------|----
+      |  23   69    8   |
+
+Agreement:  0.79
+Kappa:      0.52
+
+
+Diagreements on:
+
+  [n,y] baffles
+  [?,n] body lumen
+  [y,?] control device
+  [y,?] data processor
+  [n,y] energy transfer
+  [n,y] euv radiation
+  [n,y] fluoride
+  [?,y] huds
+  [n,y] lapo4 shell
+  [n,?] luminescence
+  [?,n] mole
+  [n,?] performance reflux condenser
+  [y,n] phosphoric acid
+  [y,n] pin parts
+  [n,y] read recovery
+  [?,n] sulfoxide
+  [n,?] tb
+  [?,n] telescoping elements
+  [n,?] tunnel
+  [n,y] video data
+  [y,?] zoom video bus

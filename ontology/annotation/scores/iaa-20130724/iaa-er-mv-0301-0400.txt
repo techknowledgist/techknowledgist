@@ -1,0 +1,52 @@
+iaa-er-mv-0301-0400.txt
+
+FILE1: en/technology/annot.ts10.nc.lo.er.20130611.lab
+FILE2: en/technology/annot.ts10.nc.lo.mv.20130424.lab
+
+Confusion Matrix:
+
+      |   y    n    ?   |
+   ---|-----------------|----
+    y |  11    4    0   |  15 
+    n |   6   55    3   |  64 
+    ? |   3   15    3   |  21 
+   ---|-----------------|----
+      |  20   74    6   |
+
+Agreement:  0.69
+Kappa:      0.36
+
+
+Diagreements on:
+
+  [?,n] attachment
+  [y,n] baffles
+  [?,n] beam 7a
+  [n,?] body lumen
+  [?,n] c. sub .1
+  [?,y] control device
+  [?,n] devices
+  [n,y] electrodes
+  [y,n] filter
+  [?,n] hand
+  [?,n] information tables
+  [y,n] lapo4 shell
+  [n,?] mole
+  [n,y] organic synthesis
+  [y,n] performance reflux condenser
+  [n,y] phosphoric acid
+  [?,y] pin parts
+  [n,y] polymer
+  [n,y] polymers
+  [?,n] r. sub .3
+  [?,n] read recovery
+  [?,n] satellite route section
+  [?,n] shell-forming metal ions
+  [?,n] slots
+  [n,y] stainless steel
+  [?,n] stationary frame
+  [n,?] sulfoxide
+  [?,n] tunnel
+  [?,n] video data
+  [?,n] wall
+  [?,y] zoom video bus
