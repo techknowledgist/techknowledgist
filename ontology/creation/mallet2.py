@@ -37,7 +37,7 @@ os.chdir('../..')
 sys.path.insert(0, os.getcwd())
 os.chdir(script_dir)
 
-from ontology.utils.file import compress, uncompress, get_year_and_docid
+from ontology.utils.file import compress, uncompress, get_year_and_docid, open_input_file
 
 
 
@@ -322,8 +322,8 @@ class MalletTraining:
         self.d_labels2uid = defaultdict(list)
         self.d_uid2labels = {}
 
-        # create self.d_filter_feats, a table of feature (prefixes) to use from .mallet
-        # file lines
+        # create self.d_filter_feats, a table of feature (prefixes) to use from
+        # .mallet file lines
         self.d_filter_feat = {}
         if features is not None:
             self.populate_feature_dictionary(features)
@@ -331,11 +331,11 @@ class MalletTraining:
 
     def populate_feature_dictionary(self, features):
 
-        """Populate the d_filter_feat dictionary with all the features used for the
-        model. If no features are added, the dictionary will remain empty, which
-        downstream will be taken to mean that all features will be used. The argument can
-        either be a filename or an identifier that points to a file in the features
-        directory."""
+        """Populate the d_filter_feat dictionary with all the features used for
+        the model. If no features are added, the dictionary will remain empty,
+        which downstream will be taken to mean that all features will be
+        used. The argument can either be a filename or an identifier that points
+        to a file in the features directory."""
 
         try:
             if os.path.isfile(features):
@@ -373,17 +373,19 @@ class MalletTraining:
         version = self.mallet_config.version
         mallet_file = self.mallet_config.train_mallet_file
         print "[make_utraining_file3] writing to", mallet_file
+        print "[make_utraining_file3] features used:", \
+              sorted(self.d_filter_feat.keys())
+
         self.stats_labeled_count = 0
         self.stats_unlabeled_count = 0
         file_count = 0
 
         with codecs.open(mallet_file, "w", encoding='utf-8') as s_train:
             for phr_feats_file in fnames:
-                uncompress(phr_feats_file)
                 if verbose:
                     print "%05d %s" % (file_count, phr_feats_file)
                 year, doc_id = get_year_and_docid(phr_feats_file)
-                with codecs.open(phr_feats_file, encoding="utf-8") as fh:
+                with open_input_file(phr_feats_file) as fh:
                     docfeats = generate_doc_feats(fh, doc_id, year)
                     for term in sorted(docfeats.keys()):
                         feats = docfeats[term][2:]
@@ -401,7 +403,6 @@ class MalletTraining:
                                 self.stats_labeled_count += 1
                         else:
                             self.stats_unlabeled_count += 1
-                compress(phr_feats_file)
         
         print "[make_utraining_file3] labeled instances: %i, unlabeled: %i" \
               % (self.stats_labeled_count, self.stats_unlabeled_count)

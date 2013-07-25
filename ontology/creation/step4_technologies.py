@@ -71,8 +71,8 @@ basically gives a name to the model created). Additional options:
 
   --features FILENAME - file with features to use for the model, the name refers
       to the basename of a file in the features directory (all files there are
-      expected to have the .features extension), the default is to use all
-      features
+      expected to have the .features extension), the default is to use the
+      features in standard.features
 
   --xval INTEGER - cross-validation setting for classifier, if set to 0 (which
       is the default) then no cross-validation will be performed
@@ -459,10 +459,11 @@ if __name__ == '__main__':
     # default values of options
     target_path = config.WORKING_PATENT_PATH
     file_list = 'files.txt'
+    features = 'standard'
     pipeline_config = 'pipeline-default.txt'
     show_data_p, show_pipelines_p, show_batches_p = False, False, False
     annotation_count = 9999999999999
-    model, batch, features, xval, = None, None, None, "0"
+    model, batch, xval, = None, None, "0"
     use_all_chunks = True
     gold_standard = None
     threshold = None
