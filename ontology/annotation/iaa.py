@@ -7,6 +7,8 @@ files where each line is of the following format:
    
 Terms for which there is only one judgement are ignored.
 
+See iaa.sh on how to call this script.
+
 """
 
 import sys, codecs
@@ -65,24 +67,24 @@ def calculate_pe():
             'n1': n1, 'n2': n2, 'p_n1': p_n1, 'p_n2': p_n2,
             '?1': q1, '?2': q2, 'p_?1': p_q1, 'p_?2': p_q2 }
 
-def print_judgements():
-    print "\nConfusion Matrix:\n"
-    print '      | ',
+def print_judgements(fh):
+    fh.write("\nConfusion Matrix:\n\n")
+    fh.write('      | ')
     for i in ('y', 'n', '?'):
-        print " %s  " % i,
-    print '|',
-    print "\n   ---|-----------------|----"
+        fh.write("  %s  " % i)
+    fh.write(' |')
+    fh.write("\n   ---|-----------------|----\n")
     for i in ('y', 'n', '?'):
-        print "    %s |" % i,
+        fh.write("    %s | " % i)
         for j in ('y', 'n', '?'):
-            print "%3d " % JUDGEMENTS[i][j],
-        print " | %3d" % P_E[i+'1'],
-        print
-    print "   ---|-----------------|----"
-    print '      |',
+            fh.write("%3d  " % JUDGEMENTS[i][j])
+        fh.write(" | %3d " % P_E[i+'1'])
+        fh.write("\n")
+    fh.write("   ---|-----------------|----\n")
+    fh.write('      |')
     for i in ('y', 'n', '?'):
-        print "%3d " % P_E[i+'2'],
-    print " |"
+        fh.write(" %3d " % P_E[i+'2'])
+    fh.write("  |\n")
     
 def print_all():
     print "\nAll labeled terms:\n"
@@ -94,11 +96,11 @@ def print_all():
     for t in labeled_terms:
         print '  ', t.encode('utf-8')
 
-def print_disagreements():
-    print "\nDiagreements on:\n"
+def print_disagreements(fh):
+    fh.write("\nDiagreements on:\n\n")
     for term, labels in sorted(TERMS.items()):
         if len(labels) == 2 and labels[0] != labels[1]:
-            print "  [%s] %s" % (','.join(labels), term)
+            fh.write("  [%s] %s\n" % (','.join(labels), term))
 
 def iaa():
     (agree, disagree) = agreement_scores()
@@ -126,20 +128,35 @@ def agreement_scores():
                 disagree += JUDGEMENTS[i][j]
     return (agree, disagree)
 
-def print_scores():
-    print
-    print "Agreement:  %.2f" % iaa()
-    print "Kappa:      %.2f\n" % kappa()
+def print_scores(fh):
+    fh.write("\nAgreement:  %.2f\n" % iaa())
+    fh.write("Kappa:      %.2f\n\n" % kappa())
 
 
 
 if __name__ == '__main__':
     file1 = sys.argv[1]
     file2 = sys.argv[2]
-    start = int(sys.argv[3]) if len(sys.argv) > 3 else 0
-    end = int(sys.argv[4]) if len(sys.argv) > 4 else 9999999
+    if len(sys.argv) == 4:
+        outfile = sys.argv[3]
+        start = 0
+        end = 999999999
+    elif len(sys.argv) == 6:
+        outfile = sys.argv[5]
+        start = int(sys.argv[3])
+        end = int(sys.argv[4])
+    fh = codecs.open(outfile, 'w', encoding='utf-8')
+    fh.write("%s\n\n" % outfile)
+    fh.write("FILE1: %s\n" % file1)
+    fh.write("FILE2: %s\n" % file2)
     collect_judgements(file1, file2, start, end)
-    #print_judgements()
-    #print_scores()
-    #print_disagreements()
-    print_all()
+    print_judgements(fh)
+    print_scores(fh)
+    print_disagreements(fh)
+    #print_all()
+    fh.close()
+    if True:
+        fh = codecs.open(outfile)
+        #for i in range(2): fh.readline(),
+        for i in range(15): print fh.readline(),
+        for i in range(3): print '  ', fh.readline(),
