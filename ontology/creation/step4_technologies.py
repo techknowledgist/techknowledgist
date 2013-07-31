@@ -154,7 +154,7 @@ import evaluation
 
 from ontology.utils.batch import RuntimeConfig, get_datasets, show_datasets, show_pipelines
 from ontology.utils.batch import find_input_dataset, check_file_availability, Profiler
-from ontology.utils.file import filename_generator, ensure_path
+from ontology.utils.file import filename_generator, ensure_path, open_output_file
 from ontology.utils.git import get_git_commit
 
 # note that the old--scores option is now folded in with --classify
@@ -288,11 +288,27 @@ class Classifier(TrainerClassifier):
         self.classify_dir = os.path.join(self.data_dir, 't2_classify', batch)
         self.label_file = os.path.join(self.train_dir, "train.info.annotation.txt")
         self.mallet_file = os.path.join(self.classify_dir, "classify.mallet")
-        self.results_file = os.path.join(self.classify_dir, "classify.%s.out" % (classifier))
-        self.stderr_file = os.path.join(self.classify_dir, "classify.%s.stderr" % (classifier))
-        self.info_file_general = os.path.join(self.classify_dir, "classify.info.general.txt")
-        self.info_file_config = os.path.join(self.classify_dir, "classify.info.config.txt")
-        self.info_file_filelist = os.path.join(self.classify_dir, "classify.info.filelist.txt")
+        self.results_file = os.path.join(self.classify_dir,
+                                         "classify.%s.out" % (classifier))
+        self.stderr_file = os.path.join(self.classify_dir,
+                                        "classify.%s.stderr" % (classifier))
+        self.info_file_general = os.path.join(self.classify_dir,
+                                              "classify.info.general.txt")
+        self.info_file_config = os.path.join(self.classify_dir,
+                                             "classify.info.config.txt")
+        self.info_file_filelist = os.path.join(self.classify_dir,
+                                               "classify.info.filelist.txt")
+
+        # The features as used in the model. In self.features we store the
+        # features file, which is taken from the training directory of the
+        # model. This is similar to the self.features variable on the Trainer
+        # instance. In self.d_feats we store the actuall dictionary of features
+        # used, this is similar to the d_features variable in MalletTraining.
+        self.features = self._get_features_file()
+        self.d_features = self._get_features()
+        # TODO: these lines reflect that mallet files are created in different
+        # ways depending on whether it is for training or classifying, which is
+        # not all good.
 
         base = os.path.join(self.classify_dir, "classify.%s.out" % (classifier))
         self.classifier_output = base
@@ -323,6 +339,12 @@ class Classifier(TrainerClassifier):
         mtest.compress_files()
 
 
+    def _get_features_file(self):
+        return os.path.join(self.train_dir, 'train.info.features.txt')
+
+    def _get_features(self):
+        return dict([(f, True) for f in open(self.features).read().split()])
+
     def _create_info_files(self):
         if os.path.exists(self.info_file_general):
             sys.exit("WARNING: already ran classifer for batch %s" % self.batch)
@@ -342,15 +364,16 @@ class Classifier(TrainerClassifier):
         print "[--classify] creating vector file - %s" %  os.path.basename(self.mallet_file)
         count = 0
         d_phr2label = train.load_phrase_labels3(self.label_file)
-        fh = codecs.open(self.mallet_file, "a", encoding='utf-8')
+        fh = open_output_file(self.mallet_file)
         stats = { 'labeled_count': 0, 'unlabeled_count': 0, 'total_count': 0 }
         fnames = filename_generator(self.input_dataset.path, self.file_list)
         for phr_feats_file in fnames:
             count += 1
             if VERBOSE:
                 print "[--classify] %05d %s" % (count, phr_feats_file)
-            train.add_file_to_utraining_test_file(phr_feats_file, fh, d_phr2label, stats,
-                                                  use_all_chunks_p=self.use_all_chunks_p)
+            train.add_file_to_utraining_test_file(
+                phr_feats_file, fh, d_phr2label, self.d_features, stats,
+                use_all_chunks_p=self.use_all_chunks_p)
         fh.close()
         print "[--classify]", stats
 

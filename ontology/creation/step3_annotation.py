@@ -329,7 +329,7 @@ def annotate_something(name, rconfig, filelist, chunks):
         fd = FileData(tag_files[i], feat_files[i])
         # all term-related stuff lives in the Term object and its term_instances
         # variable, you can print to the annotation file(s) from here or first
-        # build som eintermediate data structure and then print the output later
+        # build some intermediate data structure and then print the output later
         for term in fd.get_terms():
             term_obj = fd.get_term(term)
 
