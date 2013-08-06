@@ -1,0 +1,44 @@
+iaa-mv-pa-0201-0300.txt
+
+FILE1: en/technology/annot.ts10.nc.lo.mv.20130424.lab
+FILE2: en/technology/annot.ts10.nc.lo.pa.20130415.lab
+
+Confusion Matrix:
+
+      |   y    n    ?   |
+   ---|-----------------|----
+    y |  15    7    1   |  23 
+    n |   5   62    5   |  72 
+    ? |   3    2    0   |   5 
+   ---|-----------------|----
+      |  23   71    6   |
+
+Agreement:  0.77
+Kappa:      0.47
+
+
+Diagreements on:
+
+  [y,n] attachment platform
+  [n,?] ce
+  [?,y] clipping aperture
+  [?,y] dss
+  [n,?] es
+  [y,n] flange
+  [y,n] flow chart
+  [y,?] host system
+  [y,n] longitudinal guides
+  [n,?] maps
+  [n,y] mesh pattern
+  [y,n] metallic cylindrical rings
+  [n,y] mirror
+  [?,n] oxide
+  [n,y] polyol
+  [y,n] potassium hydroxide
+  [y,n] ptsi
+  [n,?] qd
+  [n,?] range
+  [?,n] return line
+  [?,y] spatial analysis
+  [n,y] tumbler
+  [n,y] water gutter

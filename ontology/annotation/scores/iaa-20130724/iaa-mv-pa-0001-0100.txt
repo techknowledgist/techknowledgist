@@ -1,0 +1,37 @@
+iaa-mv-pa-0001-0100.txt
+
+FILE1: en/technology/annot.ts10.nc.lo.mv.20130424.lab
+FILE2: en/technology/annot.ts10.nc.lo.pa.20130415.lab
+
+Confusion Matrix:
+
+      |   y    n    ?   |
+   ---|-----------------|----
+    y |   8    5    2   |  15 
+    n |   1   74    5   |  80 
+    ? |   1    2    2   |   5 
+   ---|-----------------|----
+      |  10   81    9   |
+
+Agreement:  0.84
+Kappa:      0.52
+
+
+Diagreements on:
+
+  [n,?] agent
+  [y,n] cylindrical rings
+  [y,n] detector
+  [n,y] explosive safety siting method
+  [n,?] invention
+  [y,?] lever
+  [y,n] lifting platform
+  [y,?] line conductor
+  [y,n] methanol
+  [n,?] mmol
+  [?,y] nanoparticles
+  [?,n] panel
+  [n,?] reaction
+  [y,n] satellite vehicle
+  [n,?] tape
+  [?,n] tube

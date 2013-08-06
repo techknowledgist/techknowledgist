@@ -1,0 +1,45 @@
+iaa-mv-pa-1301-1400.txt
+
+FILE1: en/technology/annot.ts10.nc.lo.mv.20130424.lab
+FILE2: en/technology/annot.ts10.nc.lo.pa.20130415.lab
+
+Confusion Matrix:
+
+      |   y    n    ?   |
+   ---|-----------------|----
+    y |  26    4    0   |  30 
+    n |  11   50    0   |  61 
+    ? |   2    7    0   |   9 
+   ---|-----------------|----
+      |  39   61    0   |
+
+Agreement:  0.76
+Kappa:      0.53
+
+
+Diagreements on:
+
+  [?,n] bits
+  [?,n] bracket
+  [?,y] butadiene
+  [?,n] c1
+  [?,n] ceramic material
+  [?,n] combiner
+  [y,n] contact wires
+  [n,y] control signals
+  [y,n] core\/shell material
+  [y,n] crane column
+  [?,n] data base
+  [n,y] dc voltage
+  [?,n] dopant metal ions
+  [y,n] doped core material
+  [n,y] electrical contact
+  [n,y] electronic components
+  [n,y] electronics system
+  [n,y] energy monitor detectors
+  [n,y] energy supply
+  [?,y] error recovery
+  [n,y] eu nanoparticles
+  [n,y] euv beam output
+  [n,y] euv generating source
+  [n,y] euv photon radiation

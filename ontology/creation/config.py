@@ -66,7 +66,6 @@ DEFAULT_PIPELINE = """
 --xml2txt
 --txt2tag
 --tag2chk --candidate-filter=off --chunker-rules=en
---pf2dfeats
 """
 
 DEFAULT_PIPELINE_CN = """
@@ -79,13 +78,12 @@ DEFAULT_PIPELINE_CN = """
 --xml2txt
 --txt2seg
 --seg2tag
---tag2chk --candidate-filter=off --chunker-rules=en
---pf2dfeats
+--tag2chk --candidate-filter=off --chunker-rules=cn
 """
 
 # definition of sub directory names for processing stages
 DATA_TYPES = \
-    ['d0_xml', 'd1_txt', 'd2_tag', 'd2_seg', 'd3_phr_occ', 'd3_phr_feats', 'd4_doc_feats']
+    ['d0_xml', 'd1_txt', 'd2_tag', 'd2_seg', 'd3_phr_feats']
 PROCESSING_AREAS = \
     DATA_TYPES + ['t0_annotate', 't1_train', 't2_classify', 't3_test',
                   'o1_index', 'o2_matcher', 'o3_selector', 'workspace' ]

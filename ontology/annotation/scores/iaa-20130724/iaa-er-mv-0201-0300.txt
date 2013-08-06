@@ -1,0 +1,58 @@
+iaa-er-mv-0201-0300.txt
+
+FILE1: en/technology/annot.ts10.nc.lo.er.20130611.lab
+FILE2: en/technology/annot.ts10.nc.lo.mv.20130424.lab
+
+Confusion Matrix:
+
+      |   y    n    ?   |
+   ---|-----------------|----
+    y |  16    6    2   |  24 
+    n |   3   46    2   |  51 
+    ? |   4   20    1   |  25 
+   ---|-----------------|----
+      |  23   72    5   |
+
+Agreement:  0.63
+Kappa:      0.35
+
+
+Diagreements on:
+
+  [?,n] applications
+  [?,n] boom1
+  [?,n] ce
+  [y,?] clipping aperture
+  [?,n] es
+  [?,n] eu
+  [?,n] explosive sites
+  [?,n] fields
+  [n,y] flow chart
+  [?,n] formula
+  [?,y] host system
+  [y,n] maps
+  [?,n] mechanism
+  [?,n] mesh pattern
+  [?,y] metallic cylindrical rings
+  [?,n] methods
+  [y,n] mirror
+  [?,n] nos.
+  [n,y] optics
+  [n,?] oxide
+  [y,n] pointer
+  [y,n] polyol
+  [?,n] portion
+  [n,y] potassium hydroxide
+  [?,y] ptsi
+  [?,n] qd
+  [?,n] reaction medium
+  [n,?] return line
+  [?,n] shelves
+  [y,?] spatial analysis
+  [?,n] transaction data
+  [?,n] transaction data sets
+  [y,n] tumbler
+  [y,n] water gutter
+  [?,n] work copy data
+  [?,y] wrap control system
+  [?,n] wrap data

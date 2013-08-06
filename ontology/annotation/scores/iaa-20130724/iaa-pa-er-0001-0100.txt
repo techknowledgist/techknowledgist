@@ -1,0 +1,51 @@
+iaa-pa-er-0001-0100.txt
+
+FILE1: en/technology/annot.ts10.nc.lo.pa.20130415.lab
+FILE2: en/technology/annot.ts10.nc.lo.er.20130611.lab
+
+Confusion Matrix:
+
+      |   y    n    ?   |
+   ---|-----------------|----
+    y |   9    1    0   |  10 
+    n |   6   60   15   |  81 
+    ? |   4    4    1   |   9 
+   ---|-----------------|----
+      |  19   65   16   |
+
+Agreement:  0.70
+Kappa:      0.32
+
+
+Diagreements on:
+
+  [n,y] access point
+  [?,n] agent
+  [n,?] application
+  [n,y] boom
+  [?,y] controller
+  [n,?] cylindrical rings
+  [n,?] detector
+  [n,?] information table
+  [?,n] invention
+  [?,y] lever
+  [n,y] lifting platform
+  [?,y] line conductor
+  [n,?] metal
+  [n,?] mixture
+  [?,n] mmol
+  [y,n] nanoparticles
+  [n,?] panel
+  [?,n] reaction
+  [n,?] rings
+  [n,?] roof
+  [n,y] roof opening
+  [n,y] satellite vehicle
+  [n,?] shelf
+  [n,y] slide
+  [n,?] step
+  [n,?] system
+  [?,y] tape
+  [n,?] transaction
+  [n,?] transactions
+  [n,?] tube

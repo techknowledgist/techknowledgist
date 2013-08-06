@@ -1,0 +1,46 @@
+iaa-pa-er-0801-0900.txt
+
+FILE1: en/technology/annot.ts10.nc.lo.pa.20130415.lab
+FILE2: en/technology/annot.ts10.nc.lo.er.20130611.lab
+
+Confusion Matrix:
+
+      |   y    n    ?   |
+   ---|-----------------|----
+    y |  11    9    4   |  24 
+    n |   2   63    9   |  74 
+    ? |   0    1    1   |   2 
+   ---|-----------------|----
+      |  13   73   14   |
+
+Agreement:  0.75
+Kappa:      0.41
+
+
+Diagreements on:
+
+  [y,n] beam splitting
+  [n,y] core\/shell particle
+  [y,n] euv radiation source
+  [?,n] housing
+  [y,n] implantation
+  [y,?] initiator compositions
+  [y,n] ink
+  [y,?] luminescent metal salt
+  [y,n] luminescent nanoparticle cores
+  [n,y] nozzle
+  [y,?] recording channel
+  [n,?] recovery process
+  [n,?] software
+  [y,n] sulfate nanoparticles
+  [y,n] tb nanoparticle
+  [n,?] tool
+  [y,?] transportation system
+  [n,?] tubes
+  [y,n] uv radiation
+  [n,?] vehicle control
+  [n,?] vehicle floor
+  [n,?] vehicle roof
+  [n,?] work copy data set
+  [n,?] work copy data sets
+  [y,n] wrap control

@@ -1,0 +1,62 @@
+iaa-pa-er-1301-1400.txt
+
+FILE1: en/technology/annot.ts10.nc.lo.pa.20130415.lab
+FILE2: en/technology/annot.ts10.nc.lo.er.20130611.lab
+
+Confusion Matrix:
+
+      |   y    n    ?   |
+   ---|-----------------|----
+    y |  18   17    4   |  39 
+    n |   8   39   12   |  59 
+    ? |   0    0    0   |   0 
+   ---|-----------------|----
+      |  26   56   16   |
+
+Agreement:  0.58
+Kappa:      0.24
+
+
+Diagreements on:
+
+  [n,?] bracket
+  [y,n] butadiene
+  [n,?] camera column3
+  [n,?] camera column3to
+  [n,y] camera tilt axle
+  [n,?] ceramic material
+  [n,?] channels
+  [n,?] combiner
+  [y,?] computer program
+  [n,?] consecutive synchronized transactions
+  [n,y] contact wires
+  [y,n] contactless energy supply
+  [y,n] contactless energy transfer
+  [y,n] control signals
+  [n,?] core nanoparticles
+  [n,?] core\/shell material
+  [n,y] crane
+  [n,y] crane attachment
+  [n,y] crane column
+  [y,n] cylinder
+  [n,?] data set separator
+  [y,n] data storage
+  [y,n] dc voltage
+  [n,y] dopant metal ions
+  [n,y] doped core material
+  [y,n] electrical contact
+  [y,?] electron energy loss spectroscopy
+  [y,n] electronic components
+  [y,?] electronics system
+  [n,?] energy detector housing
+  [n,?] energy monitor housing
+  [y,n] energy supply
+  [y,n] energy transmission
+  [y,n] epitaxial layer
+  [y,?] error recovery
+  [y,n] eu nanoparticles
+  [y,n] euv beam output
+  [y,n] euv generating source
+  [y,n] euv irradiation
+  [n,y] euv mirror 4b
+  [y,n] euv photon radiation

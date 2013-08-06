@@ -1,0 +1,50 @@
+iaa-er-mv-1301-1400.txt
+
+FILE1: en/technology/annot.ts10.nc.lo.er.20130611.lab
+FILE2: en/technology/annot.ts10.nc.lo.mv.20130424.lab
+
+Confusion Matrix:
+
+      |   y    n    ?   |
+   ---|-----------------|----
+    y |  20    5    1   |  26 
+    n |   7   45    4   |  56 
+    ? |   3    9    4   |  16 
+   ---|-----------------|----
+      |  30   59    9   |
+
+Agreement:  0.70
+Kappa:      0.47
+
+
+Diagreements on:
+
+  [n,?] bits
+  [n,?] butadiene
+  [n,?] c1
+  [?,n] camera column3
+  [?,n] camera column3to
+  [y,n] camera tilt axle
+  [?,n] channels
+  [?,y] computer program
+  [?,n] consecutive synchronized transactions
+  [n,y] contactless energy supply
+  [n,y] contactless energy transfer
+  [?,n] core nanoparticles
+  [?,y] core\/shell material
+  [y,n] crane
+  [y,n] crane attachment
+  [n,y] cylinder
+  [n,?] data base
+  [?,n] data set separator
+  [n,y] data storage
+  [y,?] dopant metal ions
+  [?,y] electron energy loss spectroscopy
+  [?,n] electronics system
+  [?,n] energy detector housing
+  [y,n] energy monitor detectors
+  [?,n] energy monitor housing
+  [n,y] energy transmission
+  [n,y] epitaxial layer
+  [n,y] euv irradiation
+  [y,n] euv mirror 4b

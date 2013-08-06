@@ -1,0 +1,51 @@
+iaa-pa-er-0301-0400.txt
+
+FILE1: en/technology/annot.ts10.nc.lo.pa.20130415.lab
+FILE2: en/technology/annot.ts10.nc.lo.er.20130611.lab
+
+Confusion Matrix:
+
+      |   y    n    ?   |
+   ---|-----------------|----
+    y |  12    8    3   |  23 
+    n |   1   54   14   |  69 
+    ? |   2    2    4   |   8 
+   ---|-----------------|----
+      |  15   64   21   |
+
+Agreement:  0.70
+Kappa:      0.41
+
+
+Diagreements on:
+
+  [n,?] attachment
+  [n,?] beam 7a
+  [n,?] c. sub .1
+  [?,y] data processor
+  [n,?] devices
+  [y,n] electrodes
+  [y,n] energy transfer
+  [y,n] euv radiation
+  [n,y] filter
+  [y,n] fluoride
+  [n,?] hand
+  [y,?] huds
+  [n,?] information tables
+  [?,n] luminescence
+  [y,n] organic synthesis
+  [?,y] performance reflux condenser
+  [n,?] pin parts
+  [y,n] polymer
+  [y,n] polymers
+  [n,?] r. sub .3
+  [y,?] read recovery
+  [n,?] satellite route section
+  [n,?] shell-forming metal ions
+  [n,?] slots
+  [y,n] stainless steel
+  [n,?] stationary frame
+  [?,n] tb
+  [n,?] telescoping elements
+  [y,?] video data
+  [n,?] wall

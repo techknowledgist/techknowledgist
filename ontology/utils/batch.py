@@ -4,9 +4,9 @@ Various utilities for ontology creation.
 
 """
 
-import os, sys, time, shutil
+import os, sys, time, shutil, cProfile, pstats
 
-from ontology.utils.file import filename_generator, ensure_path, get_lines, create_file
+from ontology.utils.file import filename_generator, ensure_path, create_file
 from ontology.utils.git import get_git_commit
 
 
@@ -77,26 +77,18 @@ def show_pipelines(rconfig):
             print '  ', line
     print
 
-
 def find_input_dataset(rconfig, dataset_name):
     """Find the dataset that is input for training. Unlike the code in
-    step2_document_processing.find_input_dataset(), this function hard-codes the
-    input data type rather than referring to DOCUMENT_PROCESSING_IO. Note that
-    this particular one was only used for generating the summary files, it is
-    currently not used as input to training. This method probably only works for
-    dataset_names d3_phr_feats, d3_phr_occ and d4_doc_feats"""
-    # TODO: this is part of the find_input_dataset() mess
+    step2_document_processing.find_input_dataset(), this function takes the
+    input data type as an argument rather than using the stage name and
+    referring to DOCUMENT_PROCESSING_IO """
+    # TODO: having two ways to do this is not optimal, merge the two
     datasets = []
     for ds in get_datasets(rconfig, '--train', dataset_name):
-        full_config = ds.pipeline_trace
-        full_config.append(ds.pipeline_head)
-        # for d3_phr_feats and d3_phr_occ we do not need to apply the entire
-        # pipeline, therefore matching should not be on the entire pipeline
-        # either
+        ds_config = ds.pipeline_trace + [ds.pipeline_head]
+        ds_config_length = len(ds_config)
         pipeline = rconfig.pipeline
-        if dataset_name.startswith('d3_'):
-            pipeline = rconfig.pipeline[:-1]
-        if full_config == pipeline:
+        if ds_config == pipeline[:ds_config_length]:
             datasets.append(ds)
     return _check_result(datasets)
 
@@ -115,14 +107,15 @@ def _check_result(datasets):
         sys.exit("Exiting...")
 
 def check_file_availability(dataset, filelist):
-    """Check whether all files in filelist have been processed and are available in
-    dataset. If not, print a warning and exit."""
+    """Check whether all files in filelist are available in dataset. If not,
+    print a warning and exit. This method allows for possibility that the file
+    was compressed."""
     file_generator = filename_generator(dataset.path, filelist)
     total = 0
     not_in_dataset = 0
     for fname in file_generator:
         total += 1
-        if not os.path.exists(fname):
+        if not os.path.exists(fname) and not os.path.exists(fname+'.gz'):
             not_in_dataset += 1
     if not_in_dataset > 0:
         sys.exit("WARNING: %d/%d files in %s have not been processed yet\n         %s" %
@@ -132,12 +125,14 @@ def check_file_availability(dataset, filelist):
 
 class RuntimeConfig(object):
 
-    """Class that manages the configuration settings. This includes keeping track of the
-    language, the source directory or file, pipeline configuration settings etcetera. The
-    setting in here are particular to a certain pipeline as defined for a corpus."""
+    """Class that manages the configuration settings. This includes keeping
+    track of the language, the source directory or file, pipeline configuration
+    settings etcetera. The settings in here are particular to a certain pipeline
+    as defined for a corpus."""
     
     def __init__(self, target_path, language, pipeline_config_file):
-        self.target_path = target_path
+        self.target_path = target_path # kept here for older code
+        self.corpus = target_path
         self.language = language
         self.config_dir = os.path.join(target_path, 'config')
         self.general_config_file = os.path.join(self.config_dir, 'general.txt')
@@ -285,8 +280,17 @@ class DataSet(object):
         create_file(os.path.join(self.path, 'state', 'processed.txt'), processed)
         history_file = os.path.join(self.path, 'state', 'processing-history.txt')
         fh = open(history_file, 'a')
-        fh.write("%d\t%s\t%s\t%s\n" % (limit, time.strftime("%Y:%m:%d-%H:%M:%S"),
-                                       get_git_commit(), time_elapsed))
+        fh.write("%s\t%d\t%s\t%s\t%s\n" % (self.stage_name, limit,
+                                           time.strftime("%Y:%m:%d-%H:%M:%S"),
+                                           get_git_commit(), time_elapsed))
+
+    def update_processed_count(self, n):
+        """Increment the count of files processed in the state directory."""
+        processed_filename = os.path.join(self.path, 'state', 'processed.txt')
+        files_processed = int(open(processed_filename).read().strip())
+        new_count = files_processed + n
+        self.files_processed = new_count
+        create_file(processed_filename, str(new_count))
 
     def input_matches_global_config(self):
         """This determines whether the data set matches the global pipeline configuration
@@ -327,3 +331,51 @@ class DataSet(object):
         for e in self.pipeline_trace:
             print "     ", e[0], e[1]
         print
+
+
+
+class Profiler(object):
+
+    """Wrapper for the profiler. You can simply initialize a class instance to run
+    the profiler and print the statistics. It lets you select an arbitrary
+    function call and replace it with a version that wraps the profiler, handing
+    the profiler the function, the list of arguments, a dictionary of keyword
+    arguments and a filename to print results to. For example, take the
+    following piece of code in Classifier._create_mallet_file() in
+    step4_technologies.py:
+
+      train.add_file_to_utraining_test_file(phr_feats_file, fh, d_phr2label, stats,
+                                            use_all_chunks_p=self.use_all_chunks_p)
+
+    To run the profiler you would replace it with:
+
+      Profiler(train.add_file_to_utraining_test_file,
+               [phr_feats_file, fh, d_phr2label, stats],
+               {'use_all_chunks_p': self.use_all_chunks_p},
+               'mallet_stats.txt')
+
+    This writes profiling statistics to 'mallet_stats.txt' and prints them. You
+    would typically do this on simpler calls, for example:
+
+      Profiler(self._create_mallet_file, [], {}, 'mallet_stats.txt')
+      # self._create_mallet_file()
+
+    """
+
+    def __init__(self, cmd, args, kwargs, filename):
+        self.cmd = cmd
+        self.args = args
+        self.kwargs = kwargs
+        self.filename = filename
+        self.profile()
+
+    def profile(self):
+        cProfile.runctx('self.run()', globals(), locals(), self.filename)
+        p = pstats.Stats(self.filename)
+        p.sort_stats('cumulative').print_stats(30)
+
+    def run(self):
+        for i in range(1):
+            args = self.args
+            kwargs = self.kwargs
+            self.cmd(*args, **kwargs)

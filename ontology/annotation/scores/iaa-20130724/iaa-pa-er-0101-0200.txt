@@ -1,0 +1,50 @@
+iaa-pa-er-0101-0200.txt
+
+FILE1: en/technology/annot.ts10.nc.lo.pa.20130415.lab
+FILE2: en/technology/annot.ts10.nc.lo.er.20130611.lab
+
+Confusion Matrix:
+
+      |   y    n    ?   |
+   ---|-----------------|----
+    y |  11    3    0   |  14 
+    n |   6   54   17   |  77 
+    ? |   3    0    5   |   8 
+   ---|-----------------|----
+      |  20   57   22   |
+
+Agreement:  0.71
+Kappa:      0.42
+
+
+Diagreements on:
+
+  [?,y] arrow
+  [?,y] balloon
+  [n,?] c
+  [n,y] carriage
+  [n,?] case
+  [n,?] component
+  [n,y] crane post
+  [n,y] detector housing
+  [n,?] device
+  [n,y] drive
+  [n,?] enclosure
+  [n,?] gr
+  [y,n] ip
+  [n,y] longitudinal guide
+  [?,y] map
+  [n,?] material
+  [n,?] organic medium
+  [n,?] pes
+  [n,?] pinch region
+  [y,n] plasma
+  [n,?] real scene
+  [n,?] ser
+  [n,?] solution
+  [y,n] solvents
+  [n,?] steps
+  [n,?] sub .2
+  [n,?] synthesis
+  [n,y] vacuum
+  [n,?] work copy wrap

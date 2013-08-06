@@ -21,18 +21,29 @@ import config
 import putils
 import codecs
 
+from pf2dfeats import generate_doc_feats
 
-# return a list in which each element only appears once.
-# NOTE: The order of the list may change.
+
+script_path = os.path.abspath(sys.argv[0])
+script_dir = os.path.dirname(script_path)
+os.chdir(script_dir)
+os.chdir('../..')
+sys.path.insert(0, os.getcwd())
+os.chdir(script_dir)
+
+from ontology.utils.file import get_year_and_docid, open_input_file
+
+
 def unique_list(non_unique_list):
+    """Return a list in which each element only appears once. Note that the
+    order of the list may change."""
     return (list(set(non_unique_list)))
 
 
 def load_phrase_labels(patent_dir, lang):
-    """Populate dictionary of labeled phrases with their labels assume label file is in
-    the workspace (ws) directory We will treat the "?" as a special label which for the
-    purposes of this function is equivalent to no label."""
-
+    """Populate dictionary of labeled phrases with their labels assume label
+    file is in the workspace (ws) directory We will treat the "?" as a special
+    label which for the purposes of this function is equivalent to no label."""
     d_phr2label = {}
     label_file = os.path.join(patent_dir, lang, "ws", "phr_occ.lab")
     s_label_file = codecs.open(label_file, encoding='utf-8')
@@ -45,12 +56,10 @@ def load_phrase_labels(patent_dir, lang):
     s_label_file.close()
     return(d_phr2label)
 
-
 def load_phrase_labels3(label_file, annotation_count=999999):
-    """Use the label-term pairs in label_file to populate a dictionary of labeled phrases
-    with their labels. Only labels used are 'y' and 'n', all others, including '?' are
-    ignored."""
-
+    """Use the label-term pairs in label_file to populate a dictionary of
+    labeled phrases with their labels. Only labels used are 'y' and 'n', all
+    others, including '?' are ignored."""
     d_phr2label = {}
     with codecs.open(label_file, encoding='utf-8') as s_label_file:
         count = 0
@@ -67,8 +76,8 @@ def load_phrase_labels3(label_file, annotation_count=999999):
 
 def make_utraining_file_by_dir(patent_dir, lang, version, d_phr2label):
 
-    """Create a .mallet training file using features unioned over all chunk occurrences
-    within a doc."""
+    """Create a .mallet training file using features unioned over all chunk
+    occurrences within a doc."""
     
     doc_feats_dir = os.path.join(patent_dir, lang, "doc_feats")
     train_dir = os.path.join(patent_dir, lang, "train")
@@ -100,7 +109,7 @@ def make_utraining_file_by_dir(patent_dir, lang, version, d_phr2label):
                 if d_phr2label.has_key(phrase):
                     label = d_phr2label.get(phrase)
                     if label == "":
-                        print "[make_training_file]Error: found phrase with null label: %s" % phrase
+                        print "[make_training_file] Error: found phrase with null label: %s" % phrase
                         sys.exit()
                     else:
                         mallet_list = [uid, label]
@@ -132,8 +141,7 @@ def make_utraining_file(patent_dir, lang, version, d_phr2label, limit=0):
     filtering.
 
     MV: there is also a problem in that it relies on a hard-coded file 'ws/doc_feats.all'
-    file.
-    """
+    file, this method should probably be considered obsolete."""
 
     # create a MalletTraining instance to handle feature filtering
     train_output_dir = os.path.join(patent_dir, lang, "train")
@@ -217,25 +225,20 @@ def patent_utraining_data(patent_dir, lang, version="1", xval=0, limit=0,
     # let's do the work in the train directory for now.
     train_output_dir = os.path.join(patent_dir, lang, "train")
     mtr = mallet.Mallet_training("utrain", version , train_output_dir)
-    # create the mallet vectors file from the mallet file
-    mtr.write_train_mallet_vectors_file()
-    # make sure xval is an int (since it can be passed in by command line args)
-    xval = int(xval)
-    # create the model (utrain.<version>.MaxEnt.model)
-    mtr.mallet_train_classifier(classifier, xval)
+    # create the mallet vectors file from the mallet file and create the model
+    # (utrain.<version>.MaxEnt.model), make sure xval is an int (since it can be
+    # passed in as a command line arg)
+    mtr.mallet_train_classifier(classifier, int(xval))
 
 
 def patent_utraining_data3(mallet_file, annotation_file, annotation_count, fnames,
                            features=None, version="1", xval=0,
                            verbose=False, stats_file=None):
-
     """Wrapper around mallet.py functionality to create a classifier
     model. Creates a dictionary of annotations, sets the mallet configuration
-    and creates an instance of MalletTraining class to do the rest: creating #
-    .mallet file, creating the .vectors file from the mallet file, and #
-    creating the model.
-    """
-
+    and creates an instance of MalletTraining class to do the rest: creating
+    .mallet file, creating the .vectors file from the mallet file, and creating
+    the model."""
     d_phr2label = load_phrase_labels3(annotation_file, annotation_count)
     train_output_dir = os.path.dirname(mallet_file)
     mconfig = mallet2.MalletConfig(
@@ -243,8 +246,7 @@ def patent_utraining_data3(mallet_file, annotation_file, annotation_count, fname
         classifier_type="MaxEnt", number_xval=xval, training_portion=0,
         prune_p=False, infogain_pruning="5000", count_pruning="3")
     mtr = mallet2.MalletTraining(mconfig, features)
-    mtr.make_utraining_file3(fnames, d_phr2label, features=features)
-    mtr.write_train_mallet_vectors_file()
+    mtr.make_utraining_file3(fnames, d_phr2label)
     mtr.mallet_train_classifier()
     write_training_statistics(stats_file, mtr)
 
@@ -287,36 +289,37 @@ def _get_testing_io(patent_dir, lang, version):
     return (doc_feats_dir, s_test)
 
 
-def add_file_to_utraining_test_file(fname, s_test, d_phr2label, stats,
+def add_file_to_utraining_test_file(fname, s_test, d_phr2label, d_features, stats,
                                     use_all_chunks_p=True, default_label='n'):
-
-    """Add document features from fname as vectors to s_test. This was factored out from
-    make_utraining_test_file() so that I could call it from batch.py (MV)."""
-
+    """Add document features from fname as vectors to s_test. This was factored
+    out from make_utraining_test_file() so that it could be called by itself."""
     def incr(x): stats[x] += 1
-    s_doc_feats_input = codecs.open(fname, encoding='utf-8')
-    for line in s_doc_feats_input:
-        fields = line.strip("\n").split("\t")
-        phrase = fields[0]
-        uid = fields[1]
-        feats = unique_list(fields[2:])
-        # keep count of labeled and unlabeled instances
-        incr('labeled_count') if d_phr2label.has_key(phrase) else incr('unlabeled_count')
+    fh = open_input_file(fname)
+    year, doc_id = get_year_and_docid(fname)
+    docfeats = generate_doc_feats(fh, doc_id, year)
+    for term in sorted(docfeats.keys()):
+        feats = docfeats[term][2:]
+        # use only the features used by the model
+        if d_features:
+            feats = [f for f in feats if d_features.has_key(f.split("=")[0])]
+        uid = "%s|%s|%s" % (year, doc_id, term.replace(' ','_'))
+        feats = sorted(unique_list(feats))
+        incr('labeled_count') if d_phr2label.has_key(term) else incr('unlabeled_count')
         # include the instance if all chunks are used or if it doesn't have a label.
-        if use_all_chunks_p == True or not d_phr2label.has_key(phrase):
-            mallet_list = [uid, default_label]
-            mallet_list.extend(feats)
-            # create a whitespace separated line with format "uid f1 f2 f3 ..."
+        if use_all_chunks_p == True or not d_phr2label.has_key(term):
+            mallet_list = [uid, default_label] + feats
+            # mallet line format: "uid label f1 f2 f3 ..."
             mallet_line = u" ".join(mallet_list) + u"\n"
             s_test.write(mallet_line)
             incr('total_count')
-    s_doc_feats_input.close()
+    fh.close()
     
 
-# When we create test data for evaluation, we may choose to leave out any chunks that were 
-# included in the annotation data.  In this case, use_annotated_chunks_p should be set to False.
-# But to generate actual labeled data for some other use, then set this parameter to True so that
-# labels are generated for all chunks.
+# When we create test data for evaluation, we may choose to leave out any chunks
+# that were included in the annotation data.  In this case,
+# use_annotated_chunks_p should be set to False. But to generate actual labeled
+# data for some other use, then set this parameter to True so that labels are
+# generated for all chunks.
 def patent_utraining_test_data(patent_dir, lang, version="1", use_annotated_chunks_p=True):
     # get dictionary of annotations
     d_phr2label = load_phrase_labels(patent_dir, lang)

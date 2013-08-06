@@ -9,8 +9,6 @@
 import sdp
 import os
 import codecs
-
-#YZ
 import re
 from time import sleep
 
@@ -18,15 +16,13 @@ debug_p = False
 #debug_p = True
 
 #version to work with Popen --YZ
-def seg(input, output, segmenter):
-
-    s_input = codecs.open(input, encoding='utf-8')
-    s_output = codecs.open(output, "w", encoding='utf-8')
-
-    output=[]
+def seg(infile, outfile, segmenter):
+    s_input = codecs.open(infile, encoding='utf-8')
+    s_output = codecs.open(outfile, "w", encoding='utf-8')
+    output = []
     for line in s_input:
-
-        line=re.sub(r'^\s*$', '', line)
+        print '.',
+        line = re.sub(r'^\s*$', '', line)
         if debug_p == True:
             print "[tag]Processing line: %s\n" % line
         if line != "":
@@ -34,13 +30,13 @@ def seg(input, output, segmenter):
                 s_output.write(line)
                 #print "Omit: %s" %line
             else:
-                # this is a hack needed becuase the segmenter has a normalization error
+                # this is a hack needed because the segmenter has a normalization error
                 # for non-breaking spaces, replace them here with regular spaces.
                 line = line.replace(unichr(160),' ')
                 l_seg_string = segmenter.seg(line)
                 if l_seg_string != '':
                     s_output.write("%s" % l_seg_string)
-                    
+    print
     s_input.close()        
     s_output.close()
 

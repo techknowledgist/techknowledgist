@@ -1,0 +1,142 @@
+iaa-mv-pa-ALL.txt
+
+FILE1: en/technology/annot.ts10.nc.lo.mv.20130424.lab
+FILE2: en/technology/annot.ts10.nc.lo.pa.20130415.lab
+
+Confusion Matrix:
+
+      |   y    n    ?   |
+   ---|-----------------|----
+    y |  89   28    7   | 124 
+    n |  34  385   21   | 440 
+    ? |  10   21    5   |  36 
+   ---|-----------------|----
+      | 133  434   33   |
+
+Agreement:  0.80
+Kappa:      0.52
+
+
+Diagreements on:
+
+  [n,?] agent
+  [n,?] arrow
+  [y,n] attachment platform
+  [n,y] baffles
+  [n,?] balloon
+  [n,y] beam separation box
+  [?,n] bits
+  [?,n] body lumen
+  [?,n] bracket
+  [?,y] butadiene
+  [?,n] c1
+  [?,n] carriage
+  [n,?] ce
+  [y,?] cepo4
+  [?,n] ceramic material
+  [?,y] clipping aperture
+  [?,n] combiner
+  [y,n] contact wires
+  [y,?] control device
+  [n,y] control signals
+  [y,n] core\/shell material
+  [y,n] core\/shell particle
+  [y,n] crane column
+  [y,n] crane pivot axis
+  [y,n] crane post
+  [y,n] cylindrical rings
+  [?,n] data base
+  [y,?] data processor
+  [n,y] dc voltage
+  [y,n] detector
+  [y,n] detector housing
+  [?,n] device
+  [?,n] dopant metal ions
+  [y,n] doped core material
+  [?,y] dss
+  [n,y] electrical contact
+  [n,y] electronic components
+  [n,y] electronics system
+  [?,y] energy detector
+  [n,y] energy monitor detectors
+  [n,y] energy supply
+  [n,y] energy transfer
+  [?,y] error recovery
+  [n,?] es
+  [n,y] eu nanoparticles
+  [n,y] euv beam output
+  [n,y] euv generating source
+  [n,y] euv photon radiation
+  [n,y] euv radiation
+  [n,y] explosive safety siting method
+  [y,n] flange
+  [y,n] flow chart
+  [n,y] fluoride
+  [y,n] guide pin part
+  [y,n] horizontal axis
+  [y,?] host system
+  [n,?] housing
+  [?,y] huds
+  [n,y] ink
+  [n,?] invention
+  [n,y] lapo4 shell
+  [y,?] lever
+  [y,n] lifting platform
+  [y,?] line conductor
+  [y,n] longitudinal guide
+  [y,n] longitudinal guides
+  [n,?] luminescence
+  [n,y] luminescent metal salt
+  [n,y] luminescent nanoparticle cores
+  [n,?] map
+  [n,?] maps
+  [n,y] mesh pattern
+  [y,n] metallic cylindrical rings
+  [y,n] methanol
+  [n,y] mirror
+  [n,?] mmol
+  [?,n] mole
+  [n,y] moment-compensating counterweight
+  [?,y] motor
+  [?,y] nanoparticles
+  [y,n] nozzle
+  [y,n] organic medium
+  [?,n] oxide
+  [?,n] panel
+  [n,?] performance reflux condenser
+  [?,n] pes
+  [y,n] phosphoric acid
+  [y,n] pin parts
+  [?,n] pinch region
+  [n,y] plasma
+  [n,y] polyol
+  [y,n] potassium hydroxide
+  [y,n] ptsi
+  [n,?] qd
+  [?,n] radiation
+  [n,?] range
+  [n,?] reaction
+  [n,y] read recovery
+  [n,y] read recovery process
+  [n,?] records
+  [?,n] return line
+  [y,n] satellite vehicle
+  [n,?] separator signals
+  [y,n] ser
+  [n,y] solvents
+  [?,y] spatial analysis
+  [n,y] sulfate nanoparticles
+  [?,n] sulfoxide
+  [n,y] synchronized transactions
+  [n,?] tape
+  [n,?] tb
+  [?,n] telescoping elements
+  [?,n] tube
+  [n,?] tubing
+  [n,y] tumbler
+  [n,?] tunnel
+  [?,y] uv radiation
+  [?,n] vehicle control
+  [n,y] video data
+  [n,y] water gutter
+  [y,?] zoom video bus

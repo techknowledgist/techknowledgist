@@ -20,11 +20,25 @@ http://www.cs.cmu.edu/afs/cs.cmu.edu/project/cmt-40/Nice/Urdu-MT/code/Tools/POS/
 """
 
 import os
+import sys
 import re
 import codecs
 from collections import defaultdict
 import config
 import inspect
+
+from pf2dfeats import generate_doc_feats
+
+
+script_path = os.path.abspath(sys.argv[0])
+script_dir = os.path.dirname(script_path)
+os.chdir(script_dir)
+os.chdir('../..')
+sys.path.insert(0, os.getcwd())
+os.chdir(script_dir)
+
+from ontology.utils.file import compress, uncompress, get_year_and_docid, open_input_file
+
 
 
 
@@ -51,9 +65,10 @@ def run_command(cmd):
     os.system(cmd)
 
 def print_command(cmd):
-    cmd = cmd.replace('--', "\n      --")
-    cmd = cmd.replace('> ', "\n      > ")
-    cmd = cmd.replace('| ', "\n      | ")
+    cmd = cmd.replace(' --', "\n      --")
+    cmd = cmd.replace(' > ', "\n      > ")
+    cmd = cmd.replace(' 2> ', "\n      2> ")
+    cmd = cmd.replace(' | ', "\n      | ")
     print '   $', cmd
 
 
@@ -62,7 +77,8 @@ def print_command(cmd):
 ############################################################################
 class MalletConfig(object):
 
-    # TODO: add self.classifier_type to all the file names!  So far, only added it to the test output files.
+    # TODO: add self.classifier_type to all the file names!  So far, only added
+    # it to the test output files.
 
     def __init__(self, mallet_dir, train_file_prefix, test_file_prefix, version,
                  train_dir, test_dir, classifier_type="MaxEnt", number_xval=0,
@@ -113,8 +129,10 @@ class MalletConfig(object):
         self.cinfo_sorted_file = os.path.join(train_dir, train_file_prefix + ".cinfo.sorted")
         
         # classifier output
-        self.classifier_out_file =  os.path.join(test_dir, test_file_prefix + "." + self.classifier_type + ".out")
-        self.classifier_stderr_file =  os.path.join(test_dir, test_file_prefix + "." + self.classifier_type + ".stderr")
+        self.classifier_out_file =  os.path.join(test_dir, test_file_prefix +
+                                                 "." + self.classifier_type + ".out")
+        self.classifier_stderr_file =  os.path.join(test_dir, test_file_prefix + "." +
+                                                    self.classifier_type + ".stderr")
 
 
         # vectors
@@ -144,7 +162,8 @@ class MalletConfig(object):
         # 2 OUT OUT:0.6415563874015857 IN:0.3584436125984143 
 
         if self.training_portion > 0.0:
-            print "[mallet_train_classifier] setting mallet command with portions for testing and training"
+            print "[mallet_train_classifier] " + \
+                  "setting mallet command with portions for testing and training"
             self.cmd_train_classifier = "sh " + self.mallet_dir + "/mallet train-classifier" + \
                                         " --input " + self.get_vectors_file() + \
                                         " --trainer " + self.classifier_type + \
@@ -155,7 +174,8 @@ class MalletConfig(object):
                                         " 2> " + self.train_stderr_file
 
         elif self.number_xval < 2: 
-            print "[mallet_train_classifier] setting mallet command without cross validation or portions"
+            print "[mallet_train_classifier] " + \
+                  "setting mallet command without cross validation or portions"
             self.cmd_train_classifier = "sh " + self.mallet_dir + "/mallet train-classifier" + \
                                         " --input " + self.get_vectors_file() + \
                                         " --trainer " + self.classifier_type + \
@@ -176,7 +196,8 @@ class MalletConfig(object):
                                         " > " + self.train_out_file + \
                                         " 2> " + self.train_stderr_file
 
-            # Remove low values (negative /// why are there multiple scores for the same features?)
+            # Remove low values (negative /// why are there multiple scores for
+            # the same features?)
             self.cmd_sort_model = "cat " + self.cinfo_file + \
                                   " | egrep -v '^FEAT|^ <default'" + \
                                   " | egrep -v 'E-[0-9]+$'" + \
@@ -197,7 +218,7 @@ class MalletConfig(object):
                                  " > " + self.classifier_out_file + \
                                  " 2> " + self.classifier_stderr_file
 
-        # output a readable version of model values for features
+        # create readable versions of model values for features
         self.cmd_classifier2info = "sh " + self.mallet_dir + "/classifier2info" + \
                                    " --classifier " + self.model_file + \
                                    " > " + self.cinfo_file
@@ -210,7 +231,6 @@ class MalletConfig(object):
                                 " | awk '{print $2,$1}'" + \
                                 " | sort -nr" + \
                                 " > " + self.cinfo_sorted_file
-
 
 
     # use pruned or unpruned vectors file depending on the value of parameter prune_p
@@ -302,95 +322,93 @@ class MalletTraining:
         self.d_labels2uid = defaultdict(list)
         self.d_uid2labels = {}
 
-        # create self.d_filter_feats, a table of feature (prefixes) to use from .mallet
-        # file lines
-        self.d_filter_feat = {}
+        # a table of feature (prefixes) to use from the phr_feats lines
+        self.d_features = {}
         if features is not None:
             self.populate_feature_dictionary(features)
 
 
     def populate_feature_dictionary(self, features):
-
-        """Populate the d_filter_feat dictionary with all the features used for the
+        """Populate the d_features dictionary with all the features used for the
         model. If no features are added, the dictionary will remain empty, which
-        downstream will be taken to mean that all features will be used. The argument can
-        either be a filename or an identifier that points to a file in the features
-        directory."""
-
+        downstream will be taken to mean that all features will be used. The
+        argument can either be a filename or an identifier that points to a file
+        in the features directory."""
+        if os.path.isfile(features):
+            filter_filename = features
+        else:
+            filter_filename = os.path.join("features", features + ".features")
         try:
-            if os.path.isfile(features):
-                filter_filename = features
-            else:
-                filter_filename = os.path.join("features", features + ".features")
             with open(filter_filename) as s_filter:
                 print "[MalletTraining] Using features file: %s" % filter_filename
                 for line in s_filter:
                     feature_prefix = line.strip()
-                    self.d_filter_feat[feature_prefix] = True
+                    self.d_features[feature_prefix] = True
         except IOError as e:
             print "[MalletTraining] No features file found: %s" % filter_filename
 
-
     def remove_filtered_feats(self, feats):
-        """Given a list of features, return a line with all non-filtered features removed
-        We filter on the prefix of the feature (the part before the '='). Return the
-        original line if the features dictionary is empty."""
-        if not self.d_filter_feat:
+        """Given a list of features, return a line with all non-filtered
+        features removed We filter on the prefix of the feature (that is, the
+        part before the '='). Return the original line if the features
+        dictionary is empty."""
+        if not self.d_features:
             return feats
-        return [f for f in feats if self.d_filter_feat.has_key(f.split("=")[0])]
+        return [f for f in feats if self.d_features.has_key(f.split("=")[0])]
 
 
-    def make_utraining_file3(self, fnames, d_phr2label, verbose=False, features=None):
+    def make_utraining_file3(self, fnames, d_phr2label, verbose=False):
 
-        """ Create a file with training instances for Mallet. The list of doc_feats files
-        to use is given in fnames and the annotated terms in d_phr2label.
-
-        This method is based on a similarly named function in train.py. It was moved here
-        for consistency. This version should eventually make train.make_utraining_file()
-        obsolete."""
+        """ Create a file with training instances for Mallet. The list of
+        feature files to use is given in fnames and the annotated terms in
+        d_phr2label. This method is based on a similarly named function in
+        train.py. It was moved here for consistency. This version should
+        eventually make train.make_utraining_file() obsolete."""
 
         version = self.mallet_config.version
         mallet_file = self.mallet_config.train_mallet_file
-
         print "[make_utraining_file3] writing to", mallet_file
+        print "[make_utraining_file3] features used:", \
+              sorted(self.d_features.keys())
 
-        s_train = codecs.open(mallet_file, "w", encoding='utf-8')
         self.stats_labeled_count = 0
         self.stats_unlabeled_count = 0
         file_count = 0
-        for doc_feats_file in fnames:
-            if verbose:
-                print "%05d %s" % (file_count, doc_feats_file)
-            fh = codecs.open(doc_feats_file, encoding='utf-8')
-            for line in fh:
-                (phrase, uid, feats) = parse_doc_feats_line(line)
-                feats = self.remove_filtered_feats(feats)
-                # check if the phrase has a known label
-                if d_phr2label.has_key(phrase):
-                    label = d_phr2label.get(phrase)
-                    if label == "":
-                        print "[make_utraining_file3] " + \
-                              "WARNING: phrase with null label: %s" % phrase
-                    else:
-                        # create a line with with format "uid label f1 f2 f3 ..."
-                        mallet_list = [uid, label] + feats
-                        mallet_line = " ".join(mallet_list)
-                        s_train.write(mallet_line + "\n")
-                        self.stats_labeled_count += 1
-                else:
-                   self.stats_unlabeled_count += 1
-            fh.close()
-        s_train.close()
+
+        with codecs.open(mallet_file, "w", encoding='utf-8') as s_train:
+            for phr_feats_file in fnames:
+                if verbose:
+                    print "%05d %s" % (file_count, phr_feats_file)
+                year, doc_id = get_year_and_docid(phr_feats_file)
+                with open_input_file(phr_feats_file) as fh:
+                    # this hard-wires the use of union train
+                    docfeats = generate_doc_feats(fh, doc_id, year)
+                    for term in sorted(docfeats.keys()):
+                        feats = docfeats[term][2:]
+                        feats = self.remove_filtered_feats(feats)
+                        uid = "%s|%s|%s" % (year, doc_id, term.replace(' ','_'))
+                        if d_phr2label.has_key(term):
+                            label = d_phr2label.get(term)
+                            if label == "":
+                                print "[make_utraining_file3] " + \
+                                      "WARNING: term with null label: %s" % term
+                            else:
+                                # mallet line format: "uid label f1 f2 f3 ..."
+                                mallet_line = " ".join([uid, label] + feats)
+                                s_train.write(mallet_line + "\n")
+                                self.stats_labeled_count += 1
+                        else:
+                            self.stats_unlabeled_count += 1
         
         print "[make_utraining_file3] labeled instances: %i, unlabeled: %i" \
               % (self.stats_labeled_count, self.stats_unlabeled_count)
 
 
 
-    # NOTE: The next two functions are used to build a .mallet file.  If this is built
-    # externally, they can be ignored.  However, the mallet file must consist of 
-    # <uid> <label> <f1> <f2> ....
-    # and be named <train_file_prefix>.mallet
+    ## NOTE: The next two functions are used to build a .mallet file.  If this
+    ## is built externally, they can be ignored.  However, the mallet file must
+    ## consist of <uid> <label> <f1> <f2> ...
+    ## and be named <train_file_prefix>.mallet
 
     # add an instance object to the list of instances in the MalletTraining object
     def add_instance(self, mallet_instance):
@@ -404,9 +422,10 @@ class MalletTraining:
 
     # write out training instances file to file $train_file_prefix.ver.mallet
     def write_train_mallet_file(self):
-
+        # TODO: this function does not appear to be used
         mallet_stream = open(self.mallet_config.train_mallet_file, "w")
-        print "writing to: %s (with feature uniqueness enforced)" %  self.mallet_config.train_mallet_file
+        print "writing to: %s (with feature uniqueness enforced)" \
+            %  self.mallet_config.train_mallet_file
         for instance in self.l_instance:
             mallet_stream.write("%s %s " % (instance.id, instance.label))
             # use (list(set(...))) to insure that each feature is only included once.
@@ -419,24 +438,13 @@ class MalletTraining:
 
     # convert mallet instance file to mallet vectors format in file $file_prefix.vectors
     # This is required to run the classifier on the data.
-    # command format: sh $mallet_dir/csv2vectors --input $train_dir/features.mallet --output $train_dir/features.vectors --print-output TRUE > $train_dir/features.vectors.out
-    def write_train_mallet_vectors_file(self):
-        cmd = self.mallet_config.cmd_csv2vectors_train
-        print "[write_train_mallet_vectors_file]"
-        run_command(cmd)
-
     def write_test_mallet_vectors_file(self):
         cmd = self.mallet_config.cmd_csv2vectors_test
         print "[write_test_mallet_vectors_file]"
         run_command(cmd)
 
-    def prune_vectors_file(self):
-        cmd = self.mallet_config.cmd_prune
-        print "[prune_vectors_file]"
-        run_command(cmd)
-
-    # set vectors file name attribute directly (useful if testing on vectors data created elsewhere)
-    # arg is full path for .vectors file
+    # set vectors file name attribute directly (useful if testing on vectors
+    # data created elsewhere), arg is full path for .vectors file
     def set_mallet_vectors_file(self, full_vectors_path):
         self.train_vectors_file = full_vectors_path
         self.train_vectors_out_file = full_vectors_path + ".out" 
@@ -462,6 +470,11 @@ class MalletTraining:
         for cmd in commands:
             print "[mallet_train_classifier]"
             run_command(cmd)
+        compress(self.mallet_config.cinfo_file,
+                 self.mallet_config.cinfo_sorted_file,
+                 self.mallet_config.train_vectors_file,
+                 self.mallet_config.train_vectors_out_file,
+                 self.mallet_config.train_mallet_file)
 
 
     def mallet_csv2vectors(self):
@@ -497,7 +510,6 @@ class MalletClassifier:
 
     # write out test instances file to test_dir
     def write_test_mallet_file(self):
-
         mallet_stream = open(self.mallet_config.test_mallet_file, "w")
         print "writing to: %s" %  self.test_mallet_file
         for instance in self.l_instance:
@@ -510,24 +522,40 @@ class MalletClassifier:
             mallet_stream.write("\n")
         mallet_stream.close()
 
-    # create test vectors file compatible with training vectors file (using use-pipe-from option)
+    # create test vectors file compatible with training vectors file (using
+    # use-pipe-from option)
     def write_test_mallet_vectors_file(self):
-
         cmd = self.mallet_config.cmd_csv2vectors_test
         print "[write_test_mallet_vectors_file]"
         run_command(cmd)
 
-    # trainer is parameter to the method to allow for multiple classifiers over the same data
-    # However, models built with the trainer must already exist in the training directory
+    # trainer is parameter to the method to allow for multiple classifiers over
+    # the same data However, models built with the trainer must already exist in
+    # the training directory
 
-    # Note also that training with xvalidation on will create multiple models, one per trial.
-    # You need to train with no xvalidation to generate a model file name that will work with the tester here.
-    
+    # Note also that training with xvalidation on will create multiple models,
+    # one per trial.  You need to train with no xvalidation to generate a model
+    # file name that will work with the tester here.
+
+    # deprecated 6/6/13 PGA
     def mallet_test_classifier(self):
-        print "[mallet_test_classifier] classifier_type is %s" % self.mallet_config.classifier_type
+        print "[mallet_test_classifier] classifier_type is %s" \
+              % self.mallet_config.classifier_type
         cmd = self.mallet_config.cmd_classify_file
         print "[mallet_test_classifier]"
         run_command(cmd)
+
+    # replaces mallet_test_classifier (PGA, used by invention.py)
+    def mallet_classify(self):
+        print "[mallet_test_classifier] classifier_type is %s" \
+              % self.mallet_config.classifier_type
+        cmd = self.mallet_config.cmd_classify_file
+        print "[mallet_test_classifier]"
+        run_command(cmd)
+        
+    def compress_files(self):
+        compress(self.mallet_config.test_mallet_file,
+                 self.mallet_config.classifier_out_file)
 
     #create a vectors file from the .mallet file for the test data
     def mallet_csv2vectors_test(self):
