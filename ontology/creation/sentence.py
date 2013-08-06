@@ -542,6 +542,11 @@ class Sentence_english(Sentence):
     # previous verb
     # return closest verb to left of NP
     # as well as prep or particle if there is one after verb
+
+    # TODO PGA extend this to handle the case of chunks within a list.
+    # We want to capture the verb to left of the list for all members of the list, 
+    # not just the first.  Also may need to adjust for prev_n and prev_prep
+
     @feature_method
     def prev_V(self, index):
         verb = ""
@@ -570,6 +575,73 @@ class Sentence_english(Sentence):
             #print "[sentence.py] verb_prep: %s" % verb_prep
         res = verb_prep
         return(fname("prev_V", res))        
+
+    # prev_V2
+    # a less restrictive feature looking for a preceding verb
+    # deals with cases like:
+    # Cache memory control circuit including summarized cache tag memory summarizing cache tag information in parallel processor system
+    # in the above, we don't want "summarized" to be treated as preceding verb for NP memory.
+    # A multi-processor system includes a plurality of processor node control circuits in respective processor nodes , and a <np> cache memory </np> which is an external cache .
+    # in the above, we don't want "plurality" to block finding "includes" for the NP circuits.
+    @feature_method
+    def prev_V2(self, index):
+        verb = ""
+        prep = ""
+        past_verb = ""
+        verb_prep = ""
+        i = index -1
+        while i > 0:
+            # terminate if verb is found
+            # but not if the verb is past participle (VBN) or past tense (VBD)
+            # which could be an adjectival use of the verb.
+            # Also look for a form of "to be" before a VBN or VBD
+            # and accept the verb if an aux is found.
+            if self.chart[i].tag[0] in ["VBG", "VBP", "VBZ", "VB"]:
+                verb = self.chart[i].lc_tok
+                break
+
+            # check for form of "to be" just before a past_verb.  
+            # If found, then assume this is the main verb.  If not, remove
+            # the past_verb value.
+            if past_verb != "" and self.chart[i].lc_tok in ["is", "are", "were", "was", "been"]:
+                verb = past_verb
+                break
+            else:
+                past_verb = ""
+
+            # Store a past verb in case an aux precedes it.
+            if self.chart[i].tag[0] in ["VBD", "VBN"]:
+                past_verb = self.chart[i].lc_tok
+
+            # Do not terminate if a noun is reached before a verb
+            #if self.chart[i].tag[0] == "N":
+            #    break
+
+            # keep a prep if reached before verb
+            # this could be a particle.  Note we always replace 
+            # any previously encountered prep, giving us the one
+            # closest to the verb, assuming we find a verb.
+            if self.chart[i].tag in ["RP", "IN"]:
+                prep = self.chart[i].lc_tok
+
+            # remove the prep if a comma is found, since a
+            # comma makes the particle interpretation unlikely
+            if self.chart[i].lc_tok == ",":
+                prep = ""
+            # keep looking 
+            i = i - 1
+        if verb != "":
+            # 11/9/21 PGA replaced blank with _
+            if prep != "":
+                verb_prep = verb + "_" + prep
+            else:
+                verb_prep = verb
+            #print "[sentence.py] verb_prep: %s" % verb_prep
+        res = verb_prep
+        return(fname("prev_V2", res))        
+
+
+
 
     # first noun to the left of chunk, within 3 words
     @feature_method
