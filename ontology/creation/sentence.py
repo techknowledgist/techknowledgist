@@ -601,7 +601,7 @@ class Sentence_english(Sentence):
             # which could be an adjectival use of the verb.
             # Also look for a form of "to be" before a VBN or VBD
             # and accept the verb if an aux is found.
-            if self.chart[i].tag[0] in ["VBG", "VBP", "VBZ", "VB"]:
+            if self.chart[i].tag in ["VBG", "VBP", "VBZ", "VB"]:
                 verb = self.chart[i].lc_tok
                 break
 
@@ -615,7 +615,7 @@ class Sentence_english(Sentence):
                 past_verb = ""
 
             # Store a past verb in case an aux precedes it.
-            if self.chart[i].tag[0] in ["VBD", "VBN"]:
+            if self.chart[i].tag in ["VBD", "VBN"]:
                 past_verb = self.chart[i].lc_tok
 
             # Do not terminate if a noun is reached before a verb
