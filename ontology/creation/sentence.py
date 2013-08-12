@@ -543,6 +543,8 @@ class Sentence_english(Sentence):
     # return closest verb to left of NP
     # as well as prep or particle if there is one after verb
 
+
+    """
     # TODO PGA extend this to handle the case of chunks within a list.
     # We want to capture the verb to left of the list for all members of the list, 
     # not just the first.  Also may need to adjust for prev_n and prev_prep
@@ -575,6 +577,8 @@ class Sentence_english(Sentence):
             #print "[sentence.py] verb_prep: %s" % verb_prep
         res = verb_prep
         return(fname("prev_V", res))        
+
+    """
 
     # prev_V2
     # a less restrictive feature looking for a preceding verb
@@ -640,9 +644,6 @@ class Sentence_english(Sentence):
         res = verb_prep
         return(fname("prev_V2", res))        
 
-
-
-
     # first noun to the left of chunk, within 3 words
     @feature_method
     def prev_N(self, index):
@@ -662,6 +663,11 @@ class Sentence_english(Sentence):
             distance_limit = distance_limit - 1
         res = noun.lower()
         return(fname("prev_N", res))
+
+    """
+    ### These features are not being used, given the current chunker, so
+    ### won't bother to create them.  But they could be useful for a different 
+    ### chunker, e.g. one that includes verbal modifiers
 
     # initial adj in chunk, if there is one
     @feature_method
@@ -692,16 +698,6 @@ class Sentence_english(Sentence):
             res = head.lower()
         return(fname("of_head", res))
 
-    # previous adj (JJ, JJR, JJS)
-    # Adj must be immediately bfore index term
-    @feature_method
-    def prev_J(self, index):
-        res = ""
-        i = index - 1
-        if self.chart[i].tag[0] == "J":
-            res = self.chart[i].lc_tok
-        return(fname("prev_J", res))
-
     # first adjective in the chunk
     @feature_method
     def initial_J(self, index):
@@ -729,6 +725,17 @@ class Sentence_english(Sentence):
             if self.chart[following_index].tag == "IN":
                 res = self.chart[following_index].lc_tok
         return(fname("following_prep", res))        
+    """
+
+    # previous adj (JJ, JJR, JJS)
+    # Adj must be immediately bfore index term
+    @feature_method
+    def prev_J(self, index):
+        res = ""
+        i = index - 1
+        if self.chart[i].tag[0] == "J":
+            res = self.chart[i].lc_tok
+        return(fname("prev_J", res))
 
 
 class Sentence_german(Sentence):
