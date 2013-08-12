@@ -433,7 +433,8 @@ class Sentence(object):
 
     @feature_method
     def document_loc(self, index):
-        res = "sent%d" % (self.sid)
+        # PGA removed the "sent" prefix from the value 8/12/13
+        res = "%d" % (self.sid)
         return fname("doc_loc", res)
 
     @feature_method
