@@ -536,7 +536,8 @@ class MalletClassifier:
     # Note also that training with xvalidation on will create multiple models,
     # one per trial.  You need to train with no xvalidation to generate a model
     # file name that will work with the tester here.
-    
+
+    # deprecated 6/6/13 PGA
     def mallet_test_classifier(self):
         print "[mallet_test_classifier] classifier_type is %s" \
               % self.mallet_config.classifier_type
@@ -544,6 +545,14 @@ class MalletClassifier:
         print "[mallet_test_classifier]"
         run_command(cmd)
 
+    # replaces mallet_test_classifier (PGA, used by invention.py)
+    def mallet_classify(self):
+        print "[mallet_test_classifier] classifier_type is %s" \
+              % self.mallet_config.classifier_type
+        cmd = self.mallet_config.cmd_classify_file
+        print "[mallet_test_classifier]"
+        run_command(cmd)
+        
     def compress_files(self):
         compress(self.mallet_config.test_mallet_file,
                  self.mallet_config.classifier_out_file)
