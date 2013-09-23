@@ -364,7 +364,7 @@ class Classifier(TrainerClassifier):
         print "[--classify] creating vector file - %s" %  os.path.basename(self.mallet_file)
         count = 0
         d_phr2label = train.load_phrase_labels3(self.label_file)
-        fh = open_output_file(self.mallet_file)
+        fh = open_output_file(self.mallet_file, compress=False)
         stats = { 'labeled_count': 0, 'unlabeled_count': 0, 'total_count': 0 }
         fnames = filename_generator(self.input_dataset.path, self.file_list)
         for phr_feats_file in fnames:
