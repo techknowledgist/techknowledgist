@@ -15,10 +15,8 @@
 
 import os
 import sys
-#import mallet
 import mallet2
 import config
-import putils
 import codecs
 
 from pf2dfeats import generate_doc_feats
