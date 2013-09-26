@@ -8,7 +8,6 @@ makes it easier to recognize when variables from this file are used.
 Configuration settings in this file:
 - general settings
 - processing pipeline
-- mallet location
 - stanford tool locations and settings
 - settings for pipeline and patent_analyzer scripts
 
@@ -81,7 +80,10 @@ DEFAULT_PIPELINE_CN = """
 --tag2chk --candidate-filter=off --chunker-rules=cn
 """
 
-# definition of sub directory names for processing stages
+# Definition of sub directory names for processing stages. DATA_TYPES is also
+# defined in ../classificatier, if it is changed here it should be changed there
+# as well.
+
 DATA_TYPES = \
     ['d0_xml', 'd1_txt', 'd2_tag', 'd2_seg', 'd3_phr_feats']
 PROCESSING_AREAS = \
@@ -91,6 +93,9 @@ PROCESSING_AREAS = \
 
 ### MALLET settings
 ### -----------------------------------------------------------------------
+
+# NOTE: this is left in because experiments.py uses it, but it should only be
+# used in ../classification
 
 MALLET_RELEASE = '2.0.7'
 
