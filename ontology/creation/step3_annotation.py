@@ -74,11 +74,10 @@ sys.path.insert(0, os.getcwd())
 os.chdir(script_dir)
 
 from ontology.utils.batch import RuntimeConfig, find_input_dataset
-from ontology.utils.batch import check_file_availability
+from ontology.utils.batch import check_file_availability, generate_doc_feats
 from ontology.utils.file import filename_generator, ensure_path, FileData
 from ontology.utils.file import open_input_file, compress, uncompress
 from ontology.utils.git import get_git_commit
-from pf2dfeats import generate_doc_feats
 
 
 def annotate_technologies(name, rconfig, filelist):

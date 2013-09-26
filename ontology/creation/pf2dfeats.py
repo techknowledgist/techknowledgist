@@ -1,8 +1,9 @@
 # convert a file of phrase occurrence features (phr_feats)
 # to a file with one (summed) set of features per phrase (doc_feats)
 
-import os
-import codecs
+import os, sys, codecs
+
+from ontology.utils.batch import check_file_availability, generate_doc_feats
 
 
 def make_doc_feats(phr_feats, doc_feats, doc_id, year):
@@ -16,25 +17,6 @@ def make_doc_feats(phr_feats, doc_feats, doc_id, year):
         s_doc_feats.write("\t".join(features) + "\n")
     s_phr_feats.close()
     s_doc_feats.close()
-
-def generate_doc_feats(s_phr_feats, doc_id, year):
-    """Given a file handle to a file with phase features, generate and return a
-    mapping from phrases to the document features for the phrase. The document
-    features include the term as the first element and an identifier with year,
-    document and term as the second element."""
-    d_doc_feats = {}
-    for line in s_phr_feats:
-        l_feat = line.strip("\n").split("\t")
-        # key is the chunk/phrase itself
-        key, feats = l_feat[2], l_feat[3:]
-        d_doc_feats.setdefault(key, set()).update(set(feats))
-    for key, value in d_doc_feats.items():
-        symbol_key = key.replace(" ", "_")
-        uid = year + "|" + doc_id + "|" + symbol_key
-        features = [key, uid]
-        features.extend(sorted(list(value)))
-        d_doc_feats[key] = features
-    return d_doc_feats
 
 def pf2dfeats_dir(phr_feats_year_dir, doc_feats_year_dir, year):
     for file in os.listdir(phr_feats_year_dir):
@@ -69,7 +51,7 @@ def pipeline_pf2dfeats_dir(root, language):
         make_doc_feats(phr_feats_file, doc_feats_file, identifier, year)
     s_list.close()
 
-# pf2dfeats.test_p2d()
+
 def test_p2d():
     input_phr_feats = "/home/j/anick/fuse/data/patents/en_test/phr_feats/US20110052365A1.xml"
     output_doc_feats = "/home/j/anick/fuse/data/patents/en_test/doc_feats/US20110052365A1.xml"
@@ -77,17 +59,6 @@ def test_p2d():
     (doc_id, extension) = input_phr_feats.split(".")
     make_doc_feats(input_phr_feats, output_doc_feats, doc_id, year)
 
-
-if __name__ == '__main__':
-    import sys
+def test():
     (phr_feats, doc_feats, doc_id, year) = sys.argv[1:]
     make_doc_feats(phr_feats, doc_feats, doc_id, year)
-
-
-"""
-
-python pf2dfeats.py data/patents/en/data/d3_phr_feats/01/files/home/j/corpuswork/fuse/fuse-patents/500-patents/DATA/Lexis-Nexis/US/Xml/2009/US20090032458A1.xml data/tmp.US20090032458A1.doc_feats.txt US20090032458A1.xml 2009
-
-diff data/patents/en/data/d4_doc_feats/01/files/home/j/corpuswork/fuse/fuse-patents/500-patents/DATA/Lexis-Nexis/US/Xml/2009/US20090032458A1.xml data/tmp.US20090032458A1.doc_feats.txt
-
-"""
