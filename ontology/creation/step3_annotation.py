@@ -362,7 +362,7 @@ if __name__ == '__main__':
     if name is None:
         exit("ERROR: missing --name option")
         
-    rconfig = RuntimeConfig(target_path, None, pipeline_config)
+    rconfig = RuntimeConfig(target_path, None, None, pipeline_config)
     if verbose:
         rconfig.pp()
 
