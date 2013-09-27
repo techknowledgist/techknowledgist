@@ -41,8 +41,8 @@ def find_dates():
         if count > COUNT: break
         if count % 100 == 0: sys.stderr.write("%d\n" % count)
         fname = line.strip().split("\t")[1]
-        find_dates_using_xml(fname)
-        #find_dates_using_grep(fname)
+        #find_dates_using_xml(fname)
+        find_dates_using_grep(fname)
 
 
 def find_dates_using_xml(fname):
