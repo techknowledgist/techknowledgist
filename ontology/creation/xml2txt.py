@@ -5,6 +5,9 @@
 import os
 import pdb
 import sys
+import codecs
+import re
+import StringIO
 
 script_path = os.path.abspath(sys.argv[0])
 script_dir = os.path.dirname(script_path)
@@ -15,6 +18,7 @@ os.chdir(script_dir)
 
 from utils.docstructure.main import Parser, create_fact_file, open_write_file
 from utils.docstructure.main import load_data, restore_sentences
+from ontology.utils.misc import findall
 
 TARGET_FIELDS = ['FH_TITLE', 'FH_DATE', 'FH_ABSTRACT', 'FH_SUMMARY',
                  'FH_TECHNICAL_FIELD', 'FH_BACKGROUND_ART',
@@ -35,31 +39,42 @@ MAPPINGS = { 'META-TITLE': 'FH_TITLE',
 
 DEBUG = False
 
+opentag_idx = {}
+closetag_idx = {}
+
+
+def print_tags():
+    print "OPENTAGS"
+    for t, c in opentag_idx.items():
+        print "  %4d  '%s'" % (c, t)
+    print "CLOSETAGS"
+    for t, c in closetag_idx.items():
+        print "  %4d  '%s'" % (c, t)
+
 
 def xml2txt(xml_parser, source_file, target_file, workspace):
-    """Create a target_file in the d1_txt directory from a source_file in the xml
-    directory."""
-
+    """Create a target_file in the d1_txt directory from a source_file in the
+    xml directory. This includes some cleaning of the source file by adding some
+    spaces, see clean_file() and clean_tag() for more details."""
     basename = os.path.basename(target_file)
+    cleaned_source_file = os.path.join(workspace, "%s.clean" % basename)
+    clean_file(source_file, cleaned_source_file, opentag_idx, closetag_idx)
     ds_text_file = os.path.join(workspace, "%s.text" % basename)
     ds_tags_file = os.path.join(workspace, "%s.tags" % basename)
     ds_fact_file = os.path.join(workspace, "%s.fact" % basename)
     ds_sect_file = os.path.join(workspace, "%s.sect" % basename)
-
-    create_fact_file(source_file, ds_text_file, ds_tags_file, ds_fact_file)
+    create_fact_file(cleaned_source_file, ds_text_file, ds_tags_file, ds_fact_file)
     xml_parser.collection = 'LEXISNEXIS'
     xml_parser.process_file(ds_text_file, ds_fact_file, ds_sect_file, fact_type='BASIC')
-
     (text, section_tags) = load_data(ds_text_file, ds_sect_file)
     fh_data = {}
     for f in USED_FIELDS:
         fh_data[f] = []
-
     add_sections(xml_parser, section_tags, text, fh_data)
     write_sections(xml_parser, target_file, fh_data)
-    for fname in (ds_text_file, ds_tags_file, ds_fact_file, ds_sect_file):
+    for fname in (cleaned_source_file,
+                  ds_text_file, ds_tags_file, ds_fact_file, ds_sect_file):
         os.remove(fname)
-
 
 def add_sections(xml_parser, section_tags, text, fh_data):
     """Collect all the tags that have a mapping or that are claims. Then remove embedded
@@ -108,7 +123,6 @@ def populate_desc_rest(fh_data, text):
     elif desc:
         fh_data['FH_DESC_REST'].append((desc[0], desc[1], text[desc[0]:desc[1]].strip()))
 
-
 def add_mapped_tagtype(xml_parser, section_tag, fh_data, p1, p2, tagtype, section):
     """Add a section tag for those tags whose tagtype are mapped to one of the FH_*
     fields used by the technology tagger."""
@@ -137,11 +151,12 @@ def add_claim(fh_data, section_tag, section):
         fh_data['FH_OTHER_CLAIMS'].append(section)
 
 def remove_embedded_section(fh_data):
-    """Remove all the embedded tags. For example, it is quite common for tthere to be a
-    summary inside of a summary (where there is a summary tag and within it a "Summary of
-    the Invention" heading). Rather simplistic way of doing this, just keep the first
-    summary and description section. Should really loop over all elements and check
-    whether they are embedded in any other element."""
+    """Remove all the embedded tags. For example, it is quite common for there
+    to be a summary inside of a summary (where there is a summary tag and within
+    it a 'Summary of the Invention' heading). Rather simplistic way of doing
+    this, just keep the first summary and description section. Should really
+    loop over all elements and check whether they are embedded in any other
+    element."""
     for tagtype in SINGLETON_FIELDS:
         fh_data[tagtype] = fh_data[tagtype][:1]
 
@@ -154,7 +169,91 @@ def print_section(section, prefix=''):
     print section[0], section[1], section[2][:50]
 
 
-    
+# Some methods to clean the input before XML parsing
+
+def clean_file(source_file, cleaned_source_file, opentag_idx, closetag_idx):
+    """A method to perform various cleaning operations of the source file. Now
+    mostly concentrates on adding spaces before and after some xml tags."""
+    fh_in = codecs.open(source_file, encoding="utf-8")
+    fh_out = codecs.open(cleaned_source_file, 'w', encoding="utf-8")
+    for line in fh_in:
+        #_store_tag_statistics(line, opentag_idx, closetag_idx)
+        changed = False
+        if line.find('claim-text') > -1:
+            # insert a linefeed and not a newline because the source data has
+            # the former
+            line = clean_tag(line, 'claim-text', "\l")
+            changed = True
+        if line.find('claim-ref') > -1:
+            line = clean_tag(line, 'claim-ref', ' ')
+            changed = True
+        if line.find('figref') > -1:
+            line = clean_tag(line, 'figref', ' ')
+            changed = True
+        fh_out.write(line)
+
+def _store_tag_statistics(line, opentag_idx, closetag_idx):
+    """Store some tag statistics in the two indexes. This could be used later on
+    when we try to be a bit smarter on where to insert spaces."""
+    pat1 = re.compile('.<[^/][^>]+>')
+    pat2 = re.compile('</[^>]+>.')
+    result1 = pat1.findall(line)
+    result2 = pat2.findall(line)
+    for r in result1:
+        r = r.replace("\n", ' ')
+        if r[0] != ' ':
+            opentag_idx[r] = opentag_idx.get(r, 0) + 1
+    for r in result2:
+        r = r.replace("\n", ' ')
+        r = r.replace("\r", ' ')
+        if r[-1] != ' ':
+            closetag_idx[r] = closetag_idx.get(r, 0) + 1
+
+def clean_tag(line, tag, insert):
+    """Clean a tag by surrounding it by spaces if needed. This turned out to be
+    needed because in the source data there are many occurrences where the text
+    inside figref, claim-ref and claim-text tags is not separated from the text
+    outside by a space or newline and the tag itself is the only separator. This
+    results in weird terms like 'AndFIG' and '1shows' coming out of a string
+    like 'And<figref>FIG 1</figref>shows an...'."""
+    open_tag = "<%s>" % tag
+    close_tag = "</%s>" % tag
+    idxs = findall(line, open_tag)
+    if idxs:
+        line = add_space_before(line, idxs, insert)
+        #print line
+    idxs = findall(line, close_tag)
+    if idxs:
+        line = add_space_after(line, idxs, close_tag, insert)
+        #print line
+    return line
+
+def add_space_before(line, idxs, insert):
+    output = StringIO.StringIO()
+    idx = -1
+    for c in line:
+        idx += 1
+        if idx in idxs and idx > 0 and not line[idx-1].isspace():
+            #print "Adding space before: [%s]" % (line[idx:idx+20])
+            output.write(insert)
+        output.write(c)
+    return output.getvalue()
+
+def add_space_after(line, idxs, tag_string, insert):
+    step = len(tag_string)
+    output = StringIO.StringIO()
+    idx = -1
+    for c in line:
+        idx += 1
+        if idx - step in idxs and idx < len(line) and line[idx].isalnum():
+            #print "Adding space after: [%s] and before [%s]" % \
+            #      (line[idx-20:idx], line[idx:idx+20])
+            output.write(insert)
+        output.write(c)
+    return output.getvalue()
+
+
+
 ### ALL THE FOLLOWING MAY BE OBSOLETE
 
 def xml2txt_dir(xml_parser, source_path, target_path,
@@ -244,30 +343,5 @@ def pipeline_xml2txt(root_dir, lang):
     ds_tags_path = root_dir + "/ds_tags"
     ds_fact_path = root_dir + "/ds_fact"
     ds_sect_path = root_dir + "/ds_sect"
-    xml2txt_dir(xml_parser, source_path, target_path, ds_text_path, ds_tags_path, ds_fact_path, ds_sect_path)
-        
-        
-"""
-def test_pm():
-    dir = "/home/j/anick/fuse/data/pubmed"
-    file = "pubmed_lines.txt"
-    output_file = "/home/j/anick/fuse/data/pubmed/chunks.txt"
-    #file = "pubmed_lines_test_1.txt"
-    # create a chunker schema instance
-    cs = sdp.chunker_tech()
-    # create tagger instance
-    tagger = sdp.STagger("english-caseless-left3words-distsim.tagger") 
-
-    process_patent_sent_file(dir, file, tagger, cs, output_file)
-
-
-
-# process file generated by Olga from pubmed titles and abstracts
-def process_pubmed_lines_file(pubmed_file, tagger, cs):
-    s_pm = open(pubmed_file)
-    for line in s_pm:
-        line= line.strip("\n")
-        fields = line.split("\t")
-        
-    s_pm.close()
-"""
+    xml2txt_dir(xml_parser, source_path, target_path,
+                ds_text_path, ds_tags_path, ds_fact_path, ds_sect_path)
