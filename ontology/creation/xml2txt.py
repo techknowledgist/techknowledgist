@@ -39,6 +39,8 @@ MAPPINGS = { 'META-TITLE': 'FH_TITLE',
 
 DEBUG = False
 
+tm = u'\u2122'
+
 opentag_idx = {}
 closetag_idx = {}
 
@@ -173,23 +175,22 @@ def print_section(section, prefix=''):
 
 def clean_file(source_file, cleaned_source_file, opentag_idx, closetag_idx):
     """A method to perform various cleaning operations of the source file. Now
-    mostly concentrates on adding spaces before and after some xml tags."""
+    mostly concentrates on two things: removing the trademark symbol and adding
+    spaces before and after some xml tags."""
     fh_in = codecs.open(source_file, encoding="utf-8")
     fh_out = codecs.open(cleaned_source_file, 'w', encoding="utf-8")
     for line in fh_in:
         #_store_tag_statistics(line, opentag_idx, closetag_idx)
-        changed = False
+        if line.find(tm) > -1:
+            line = remove_trademark(line)
         if line.find('claim-text') > -1:
             # insert a linefeed and not a newline because the source data has
             # the former
             line = clean_tag(line, 'claim-text', "\l")
-            changed = True
         if line.find('claim-ref') > -1:
             line = clean_tag(line, 'claim-ref', ' ')
-            changed = True
         if line.find('figref') > -1:
             line = clean_tag(line, 'figref', ' ')
-            changed = True
         fh_out.write(line)
 
 def _store_tag_statistics(line, opentag_idx, closetag_idx):
@@ -208,6 +209,9 @@ def _store_tag_statistics(line, opentag_idx, closetag_idx):
         r = r.replace("\r", ' ')
         if r[-1] != ' ':
             closetag_idx[r] = closetag_idx.get(r, 0) + 1
+
+def remove_trademark(line):
+    return line.replace(tm, '')
 
 def clean_tag(line, tag, insert):
     """Clean a tag by surrounding it by spaces if needed. This turned out to be
