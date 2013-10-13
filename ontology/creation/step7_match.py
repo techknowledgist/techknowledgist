@@ -9,9 +9,9 @@ $ python step7_match.py \
 
 """
 
-import os, sys, getopt, shutil, codecs, time
+import os, sys, getopt, shutil, codecs, time, subprocess
 
-import path
+sys.path.append(os.path.abspath('../..'))
 
 from ontology.utils.batch import RuntimeConfig, DataSet
 from ontology.utils.batch import find_input_dataset, check_file_availability
@@ -33,7 +33,8 @@ class Matcher(object):
         self.data_dir = os.path.join(self.rconfig.target_path, 'data')
         self.match_dir = os.path.join(self.data_dir, 'o2_matcher')
         self.batch_dir = os.path.join(self.match_dir, batch)
-        self.results_file = os.path.join(self.batch_dir, "match.results.txt")
+        self.results_file1 = os.path.join(self.batch_dir, "match.results.full.txt")
+        self.results_file2 = os.path.join(self.batch_dir, "match.results.summ.txt")
         self.info_file_general = os.path.join(self.batch_dir, "match.info.general.txt")
         self.info_file_config = os.path.join(self.batch_dir, "match.info.config.txt")
         self.info_file_filelist = os.path.join(self.batch_dir, "match.info.filelist.txt")
@@ -50,13 +51,14 @@ class Matcher(object):
         self._find_datasets()
         self._create_info_files()
         fnames = filename_generator(self.input_dataset.path, self.file_list)
-        with codecs.open(self.results_file, 'w', encoding='utf-8') as fh:
+        with codecs.open(self.results_file1, 'w', encoding='utf-8') as fh:
             count = 0
             for fname in fnames:
                 count += 1
                 print_file_progress("Matcher", count, fname, VERBOSE)
                 # if count > 10: break
                 self.run_matcher_on_file(fname, fh)
+        self.create_summary()
         if self.gather_statistics:
             self.feature_statistics.write_to_file()
         self._finish()
@@ -77,6 +79,18 @@ class Matcher(object):
                 if matched_features is not None:
                     fh.write("%s\t%s\t%s\t%s\t%s\n" %
                              (year, id, pattern.name, term , matched_features))
+
+    def create_summary(self):
+        """Creates a summary of all the matches. Now simply collects the number
+        of matches for each term. This only works for now because all patterns
+        are patterns that indicate usage. If promise patterns are added this
+        method should generate two numbers. Also, th enumber is now a simple
+        count that does not yet take the pattern weights into account."""
+        command = "cut -f4 %s | sort | uniq -c > %s" % \
+                  (self.results_file1, self.results_file2)
+        print "[--matcher] creating summary"
+        print "[--matcher]", command
+        subprocess.call(command, shell=True)
 
     def pp(self):
         print "\n<Matcher on '%s'>" % self.rconfig.corpus
