@@ -1,6 +1,6 @@
 """
 
-$ python step7_match.py \
+$ python run_matcher.py \
     --corpus data/patents/201306-computer-science \
     --filelist files_testing_01.txt \
     --batch batch-01 \
