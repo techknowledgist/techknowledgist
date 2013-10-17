@@ -1,5 +1,10 @@
 *pyc
 *~
+
 utils/tries/*
+
 ontology/creation/log.dat
+
 ontology/creation/data/*
+!ontology/creation/data/wos
+ontology/creation/data/wos/cs-*
