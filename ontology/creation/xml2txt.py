@@ -54,29 +54,33 @@ def print_tags():
         print "  %4d  '%s'" % (c, t)
 
 
-def xml2txt(xml_parser, source_file, target_file, workspace):
+def xml2txt(xml_parser, source, source_file, target_file, workspace):
     """Create a target_file in the d1_txt directory from a source_file in the
     xml directory. This includes some cleaning of the source file by adding some
     spaces, see clean_file() and clean_tag() for more details."""
     basename = os.path.basename(target_file)
     cleaned_source_file = os.path.join(workspace, "%s.clean" % basename)
     clean_file(source_file, cleaned_source_file, opentag_idx, closetag_idx)
-    ds_text_file = os.path.join(workspace, "%s.text" % basename)
-    ds_tags_file = os.path.join(workspace, "%s.tags" % basename)
-    ds_fact_file = os.path.join(workspace, "%s.fact" % basename)
-    ds_sect_file = os.path.join(workspace, "%s.sect" % basename)
-    create_fact_file(cleaned_source_file, ds_text_file, ds_tags_file, ds_fact_file)
-    xml_parser.collection = 'LEXISNEXIS'
-    xml_parser.process_file(ds_text_file, ds_fact_file, ds_sect_file, fact_type='BASIC')
-    (text, section_tags) = load_data(ds_text_file, ds_sect_file)
-    fh_data = {}
-    for f in USED_FIELDS:
-        fh_data[f] = []
-    add_sections(xml_parser, section_tags, text, fh_data)
-    write_sections(xml_parser, target_file, fh_data)
-    for fname in (cleaned_source_file,
-                  ds_text_file, ds_tags_file, ds_fact_file, ds_sect_file):
-        os.remove(fname)
+    if source == 'LEXISNEXIS':
+        ds_text_file = os.path.join(workspace, "%s.text" % basename)
+        ds_tags_file = os.path.join(workspace, "%s.tags" % basename)
+        ds_fact_file = os.path.join(workspace, "%s.fact" % basename)
+        ds_sect_file = os.path.join(workspace, "%s.sect" % basename)
+        create_fact_file(cleaned_source_file, ds_text_file, ds_tags_file, ds_fact_file)
+        xml_parser.collection = 'LEXISNEXIS'
+        xml_parser.process_file(ds_text_file, ds_fact_file, ds_sect_file, fact_type='BASIC')
+        (text, section_tags) = load_data(ds_text_file, ds_sect_file)
+        fh_data = {}
+        for f in USED_FIELDS:
+            fh_data[f] = []
+        add_sections(xml_parser, section_tags, text, fh_data)
+        write_sections(xml_parser, target_file, fh_data)
+        for fname in (cleaned_source_file,
+                      ds_text_file, ds_tags_file, ds_fact_file, ds_sect_file):
+            os.remove(fname)
+    elif source == 'WOS':
+        parse_wos_doc(cleaned_source_file, target_file)
+
 
 def add_sections(xml_parser, section_tags, text, fh_data):
     """Collect all the tags that have a mapping or that are claims. Then remove embedded
@@ -256,6 +260,38 @@ def add_space_after(line, idxs, tag_string, insert):
         output.write(c)
     return output.getvalue()
 
+
+STATS_TITLES = []
+STATS_DATES = {}
+
+def print_stats():
+    print "\n".join(STATS_TITLES)
+    for k,v in STATS_DATES.items(): print k, v
+            
+def parse_wos_doc(cleaned_source_file, target_file):
+    fh_in = codecs.open(cleaned_source_file)
+    fh_out = codecs.open(target_file, 'w')
+    title = None
+    year = None
+    abstract = None
+    for line in fh_in:
+        #print line,
+        if line.startswith('<item_title'):
+            title = line.strip()[12:-13]
+            STATS_TITLES.append(title)
+        if line.startswith('<bib_date'):
+            year_idx = line.find('year="')
+            year = line[year_idx+6:year_idx+10]
+            STATS_DATES[year] = STATS_DATES.get(year, 0) + 1
+        if line.startswith('<p>'):
+            abstract = line.strip()[3:-4]
+    #print "\nFH_DATE:\n%s" % year
+    #print "FH_TITLE:\n%s" % title
+    #print "FH_ABSTRACT:\n%s" % abstract
+    #print "\n" + '-' * 80
+    fh_out.write("FH_DATE:\n%s\n" % year)
+    fh_out.write("FH_TITLE:\n%s\n" % title)
+    fh_out.write("FH_ABSTRACT:\n%s\nEND\n" % abstract)
 
 
 ### ALL THE FOLLOWING MAY BE OBSOLETE
