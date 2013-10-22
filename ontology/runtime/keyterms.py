@@ -11,9 +11,10 @@ Usage:
     be print to the terminal and temporary files in workspace/tmp will not be
     removed.
 
-    Results are printed to results.txt in this directory.
+Results are printed to a set of files in this directory, they all have the
+prefix 'iclassify'.
 
-Some runtime results on a set of identical files (th etotal set of 1000 is 40M,
+Some runtime results on a set of identical files (the total set of 1000 is 40M,
 about 32k for each xml file):
 
        1 file  -   4s
@@ -38,6 +39,7 @@ from ontology.creation import txt2tag, tag2chunk
 from ontology.classifier.run_iclassify import add_phr_feats_file
 from ontology.classifier.run_iclassify import patent_invention_classify
 from ontology.classifier.run_iclassify import merge_scores
+from ontology.classifier.run_iclassify import generate_tab_format
 
 
 def process(filelist):
@@ -119,7 +121,12 @@ def run_classifier(chk_files):
     subprocess.call(command, shell=True)
     # creates the .cat and .merged files
     merge_scores(corpus, classification, label_file, runtime=True, verbose=False)
-    os.rename(os.path.join(classification, label_file + '.merged'), 'results.txt')
+    generate_tab_format(classification)
+    command = "mv %s/iclassify* ." % classification
+    if VERBOSE:
+        print '$', command
+    subprocess.call(command, shell=True)
+    #os.rename(os.path.join(classification, label_file + '.merged'), 'results.txt')
 
 
 
