@@ -11,14 +11,14 @@ Usage:
     $ python analyze_features.py FILE_PATH?
 
     The optional argument is the file to be read, the default is
-    201309-en.phr.tab
+    features/201309-en.phr.tab
 
 """
 
 
 import os, sys, codecs
 
-FEATS_FILE = "201309-en.phr.tab"
+FEATS_FILE = "features/201309-en.phr.tab"
 
 if len(sys.argv) > 1:
     FEATS_FILE = sys.argv[1]
