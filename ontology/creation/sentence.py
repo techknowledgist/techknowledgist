@@ -588,6 +588,8 @@ class Sentence_english(Sentence):
     # in the above, we don't want "summarized" to be treated as preceding verb for NP memory.
     # A multi-processor system includes a plurality of processor node control circuits in respective processor nodes , and a <np> cache memory </np> which is an external cache .
     # in the above, we don't want "plurality" to block finding "includes" for the NP circuits.
+    # however, the verb in this case will include the prep "of" if that is the last prep encountered.  ie. prev_V2=includes_of
+    # This is a nice feature to detect cases of N1 of N2 but won't work if the verb includes a particle of its own.
     @feature_method
     def prev_V2(self, index):
         verb = ""
