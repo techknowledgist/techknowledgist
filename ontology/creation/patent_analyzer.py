@@ -139,6 +139,7 @@ if __name__ == '__main__':
     tag_to_chk = False
     pf_to_dfeats = False
     union_train = False
+    classify = False
     union_test = False
     tech_scores = False
     summary = False

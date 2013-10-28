@@ -433,7 +433,8 @@ class Sentence(object):
 
     @feature_method
     def document_loc(self, index):
-        res = "sent%d" % (self.sid)
+        # PGA removed the "sent" prefix from the value 8/12/13
+        res = "%d" % (self.sid)
         return fname("doc_loc", res)
 
     @feature_method
@@ -543,6 +544,8 @@ class Sentence_english(Sentence):
     # return closest verb to left of NP
     # as well as prep or particle if there is one after verb
 
+
+    """
     # TODO PGA extend this to handle the case of chunks within a list.
     # We want to capture the verb to left of the list for all members of the list, 
     # not just the first.  Also may need to adjust for prev_n and prev_prep
@@ -576,6 +579,8 @@ class Sentence_english(Sentence):
         res = verb_prep
         return(fname("prev_V", res))        
 
+    """
+
     # prev_V2
     # a less restrictive feature looking for a preceding verb
     # deals with cases like:
@@ -583,6 +588,8 @@ class Sentence_english(Sentence):
     # in the above, we don't want "summarized" to be treated as preceding verb for NP memory.
     # A multi-processor system includes a plurality of processor node control circuits in respective processor nodes , and a <np> cache memory </np> which is an external cache .
     # in the above, we don't want "plurality" to block finding "includes" for the NP circuits.
+    # however, the verb in this case will include the prep "of" if that is the last prep encountered.  ie. prev_V2=includes_of
+    # This is a nice feature to detect cases of N1 of N2 but won't work if the verb includes a particle of its own.
     @feature_method
     def prev_V2(self, index):
         verb = ""
@@ -596,7 +603,7 @@ class Sentence_english(Sentence):
             # which could be an adjectival use of the verb.
             # Also look for a form of "to be" before a VBN or VBD
             # and accept the verb if an aux is found.
-            if self.chart[i].tag[0] in ["VBG", "VBP", "VBZ", "VB"]:
+            if self.chart[i].tag in ["VBG", "VBP", "VBZ", "VB"]:
                 verb = self.chart[i].lc_tok
                 break
 
@@ -610,7 +617,7 @@ class Sentence_english(Sentence):
                 past_verb = ""
 
             # Store a past verb in case an aux precedes it.
-            if self.chart[i].tag[0] in ["VBD", "VBN"]:
+            if self.chart[i].tag in ["VBD", "VBN"]:
                 past_verb = self.chart[i].lc_tok
 
             # Do not terminate if a noun is reached before a verb
@@ -640,9 +647,6 @@ class Sentence_english(Sentence):
         res = verb_prep
         return(fname("prev_V2", res))        
 
-
-
-
     # first noun to the left of chunk, within 3 words
     @feature_method
     def prev_N(self, index):
@@ -662,6 +666,11 @@ class Sentence_english(Sentence):
             distance_limit = distance_limit - 1
         res = noun.lower()
         return(fname("prev_N", res))
+
+    """
+    ### These features are not being used, given the current chunker, so
+    ### won't bother to create them.  But they could be useful for a different 
+    ### chunker, e.g. one that includes verbal modifiers
 
     # initial adj in chunk, if there is one
     @feature_method
@@ -692,16 +701,6 @@ class Sentence_english(Sentence):
             res = head.lower()
         return(fname("of_head", res))
 
-    # previous adj (JJ, JJR, JJS)
-    # Adj must be immediately bfore index term
-    @feature_method
-    def prev_J(self, index):
-        res = ""
-        i = index - 1
-        if self.chart[i].tag[0] == "J":
-            res = self.chart[i].lc_tok
-        return(fname("prev_J", res))
-
     # first adjective in the chunk
     @feature_method
     def initial_J(self, index):
@@ -729,6 +728,17 @@ class Sentence_english(Sentence):
             if self.chart[following_index].tag == "IN":
                 res = self.chart[following_index].lc_tok
         return(fname("following_prep", res))        
+    """
+
+    # previous adj (JJ, JJR, JJS)
+    # Adj must be immediately bfore index term
+    @feature_method
+    def prev_J(self, index):
+        res = ""
+        i = index - 1
+        if self.chart[i].tag[0] == "J":
+            res = self.chart[i].lc_tok
+        return(fname("prev_J", res))
 
 
 class Sentence_german(Sentence):
