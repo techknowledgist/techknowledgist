@@ -152,8 +152,13 @@ def run_populate(rconfig, limit, verbose=False):
 
 
 @update_state
-def run_xml2txt(rconfig, limit, options, verbose=False):
-    """Run the document structure parser in onto mode."""
+def run_xml2txt(rconfig, limit, options, source, verbose=False):
+
+    """Takes the xml file and produces a txt file with a simplified document
+    structure, keeping date, title, abstract, summary, description_rest,
+    first_claim and other_claims. Does this by calling the document structure
+    parser in onto mode if the document source is LEXISNEXIS and uses a simple
+    parser defined in xml2txt if the source is WOS.."""
 
     input_dataset = find_input_dataset(XML2TXT, rconfig)
     output_dataset = find_output_dataset(XML2TXT, rconfig)
@@ -171,7 +176,7 @@ def run_xml2txt(rconfig, limit, options, verbose=False):
         file_in, file_out = prepare_io(filename, input_dataset, output_dataset)
         uncompress(file_in)
         try:
-            xml2txt.xml2txt(doc_parser, file_in, file_out, workspace)
+            xml2txt.xml2txt(doc_parser, source, file_in, file_out, workspace)
         except Exception as e:
             # just write an empty file that can be consumed downstream
             fh = codecs.open(file_out, 'w')
@@ -183,6 +188,7 @@ def run_xml2txt(rconfig, limit, options, verbose=False):
         if count % STEP == 0:
             output_dataset.update_processed_count(STEP)
 
+    #xml2txt.print_stats()
     return (count % STEP, [output_dataset])
 
 
@@ -399,7 +405,7 @@ def make_parser(language):
     return parser
 
 def read_opts():
-    options = ['corpus=', 'populate',
+    options = ['corpus=', 'source=', 'populate',
                'xml2txt', 'txt2tag', 'txt2seg', 'seg2tag', 'tag2chk',
                'verbose', 'pipeline=', 'show-data', 'show-pipelines']
     try:
@@ -412,6 +418,7 @@ if __name__ == '__main__':
 
     # default values of options
     corpus = config.WORKING_PATENT_PATH
+    source = 'LEXISNEXIS'
     language = config.LANGUAGE
     stage = None
     pipeline_config = 'pipeline-default.txt'
@@ -421,6 +428,7 @@ if __name__ == '__main__':
     (opts, args) = read_opts()
     for opt, val in opts:
         if opt == '--corpus': corpus = val
+        if opt == '--source': source = val
         if opt == '-l': language = val
         if opt == '-n': limit = int(val)
         if opt == '--verbose': verbose = True
@@ -431,7 +439,7 @@ if __name__ == '__main__':
             stage = opt
 
     # NOTE: this is named rconfig to avoid confusion with config.py
-    rconfig = RuntimeConfig(corpus, language, pipeline_config)
+    rconfig = RuntimeConfig(corpus, None, None, language, pipeline_config)
     options = rconfig.get_options(stage)
     #rconfig.pp()
 
@@ -440,10 +448,12 @@ if __name__ == '__main__':
     elif show_pipelines_p:
         show_pipelines(rconfig)
 
+    # note that the second argument always has to be the limit, this is required
+    # by update_state()
     elif stage == POPULATE:
         run_populate(rconfig, limit, verbose)
     elif stage == XML2TXT:
-        run_xml2txt(rconfig, limit, options, verbose)
+        run_xml2txt(rconfig, limit, options, source, verbose)
     elif stage == TXT2TAG:
         run_txt2tag(rconfig, limit, options, verbose)
     elif stage == TXT2SEG:

@@ -1210,7 +1210,10 @@ def chunk_schema(lang):
             start_pat = []
             cont_pat = []
             end_pat = []
-            fh = codecs.open("chunk_schema_%s.txt" % lang, encoding='utf-8')
+            # changed the path to the patterns so this works when called from a
+            # script in this directory or a sister directory (ie, runtime)
+            # TODO: needs a less hackish solution
+            fh = codecs.open("../creation/chunk_schema_%s.txt" % lang, encoding='utf-8')
             for line in fh:
                 line = line.strip()
                 if not line:

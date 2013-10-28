@@ -37,13 +37,14 @@ def mallet_feature(name, value):
 class Doc:
 
     def __init__(self, tag_file, phr_feats_file, year, lang,
-                 filter_p=True, chunker_rules='en'):
+                 filter_p=True, chunker_rules='en', compress=True):
         
         self.input = tag_file
         self.output = phr_feats_file
         self.year = year
         self.chunk_schema = sentence.chunk_schema(chunker_rules)
         self.lang = lang
+        self.compress = compress
         # field_name to list of sent instances
         # field name is header string without FH_ or : affixes
         self.d_field = {}
@@ -71,7 +72,7 @@ class Doc:
             print "[process_doc] filter_p: %s, writing to %s" % \
                   (filter_p, self.output)
         s_input = open_input_file(self.input)
-        s_output = open_output_file(self.output)
+        s_output = open_output_file(self.output, compress=self.compress)
         section = "FH_NONE"   # default section if document has no section header lines
         self.d_field[section] = []
 

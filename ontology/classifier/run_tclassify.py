@@ -39,40 +39,44 @@ For training, you typically want to pick the best pipeline settings as it became
 apparent from all previous testing and create a model for a sufficiently large
 training set. Below is an example invocation:
 
-  $ python step4_technologies.py \
+  $ python run_classifier.py \
       --train \
       --corpus data/patents/201305-en \
-      --pipeline pipeline-default.txt \
-      --filelist files-training.txt \
+      --pipeline data/patents/201305-en/pipeline-default.txt \
+      --filelist data/patents/201305-en/files-training.txt \
       --annotation-file ../annotation/en/technology/phr_occ.lab \
       --annotation-count 2000 \
-      --model standard \
+      --model data/models/standard \
       --features extint \
       --xval 0 \
       --verbose
 
-This creates a set of files in data/t1_train/standard in the corpus directory,
-where the last part of the directory name is given by the --model option (which
-basically gives a name to the model created). Additional options:
+This takes the corpus in data/patents/201305-en (the --corpus option) and
+creates a set of files in data/models/standard (the --model option, which
+basically gives a path to the model to be created). A model is always identified
+by the path, so good naming conventions are useful.
 
-  --pipeline FILENAME - file with pipeline configuration; this is used to select
-      the data set, picking out the data set created with that pipeline; the
-      default is 'pipeline-default.txt'.
+Additional options:
+
+  --pipeline FILENAME - file with pipeline configuration; this is used to pick
+      out the data set created with that pipeline; the file is assumed to be in
+      the config directory of the corpus; the default is 'pipeline-default.txt'.
 
   --filelist FILENAME - contains files to process, that is, the elements from
-      the data set used to create the model
+      the data set used to create the model; this is an absolute or relative
+      path to a file
 
-  --annotation-file FILENAME - this specifies file with labeled terms, these
-      terms are used to created positive and negative instances from terms and
-      contexts in the --filelist file
+  --annotation-file FILENAME - this specifies a path to the file with labeled
+      terms, these terms are used to created positive and negative instances
+      from terms and contexts in the --filelist file
 
   --annotation-count INTEGER - number of lines to take from the annotation file,
       the default is to use all labeled terms
 
   --features FILENAME - file with features to use for the model, the name refers
-      to the basename of a file in the features directory (all files there are
-      expected to have the .features extension), the default is to use the
-      features in standard.features
+      to the basename of a file in the features directory (all files in that
+      directory are expected to have the .features extension), the default is to
+      use the features in standard.features
 
   --xval INTEGER - cross-validation setting for classifier, if set to 0 (which
       is the default) then no cross-validation will be performed
@@ -80,17 +84,18 @@ basically gives a name to the model created). Additional options:
 
 CLASSIFICATION
 
-For running the classifier, you just pick your model with the --model option,
-which picks out a model created by the trainer, and run the classifier on a set
-of files defined by a pipeline and a file list. Here is a typical invocation:
+For running the classifier, you just pick your corpus with the --corpus option
+and a model with the --model option, which picks out a model created by the
+trainer, and run the classifier on a set of files defined by a pipeline and a
+file list. Here is a typical invocation:
 
-  $ python step4_technologies.py \
+  $ python run_classifier.py \
       --classify \
       --corpus data/patents/201305-en \
       --pipeline pipeline-default.txt \
-      --filelist files-testing.txt \
-      --model standard \
-      --batch standard.batch1 \
+      --filelist data/patents/201305-en/files-testing.txt \
+      --model data/models/standard \
+      --batch data/classifications/standard.batch1 \
       --verbose
 
 Other options:
@@ -103,11 +108,11 @@ Other options:
 
   --batch STRING - name of the current batch
 
-You may have to run the classifier many times when you have a large dataset,
-hence the --batch options which allows you to number all these batches. It is a
-good idea to reflect the model used in the names of the batches. For example, if
-you use the standard model and you run three batches, you should name them
-something like standard-batch1, standard-batch2, and standard-batch3.
+You may have to run the classifier many times when you have a large corpus. The
+--batch option allows you to number all these batches. It is a good idea to
+reflect the model used in the names of the batches. For example, if you use the
+standard model and you run three batches, you should name them something like
+standard-batch1, standard-batch2, and standard-batch3.
 
 
 EVALUATION
@@ -119,12 +124,12 @@ standard file.
   $ python step4_technologies.py \
       --evaluate \
       --corpus data/patents/201305-en \
-      --batch standard.batch1 \
+      --batch data/classifications/standard.batch1 \
       --gold-standard ../annotation/en/technology/phr_occ.eval.lab \
       --logfile log-evaluation.txt \
       --threshold 0.9
 
-The system will select classify.MaxEnt.out.s5.scores.sum.nr in the selected
+The system will select classify.MaxEnt.out.s4.scores.sum.nr in the selected
 batch of the corpus and consider that file to be the system response. Ideally,
 the gold standard was manually created over the same files as the one in the
 batch. The log file will contain all terms with gold label, system response and
@@ -144,9 +149,10 @@ system score. List of options:
 
 import os, sys, shutil, getopt, subprocess, codecs
 
-import path
+sys.path.append(os.path.abspath('../..'))
+
 import train
-import mallet2
+import mallet
 import config
 import find_mallet_field_value_column
 import sum_scores
@@ -173,6 +179,10 @@ class TrainerClassifier(object):
         self.input_dataset = find_input_dataset(self.rconfig, 'd3_phr_feats')
         check_file_availability(self.input_dataset, self.file_list)
 
+    def _find_filelist(self, file_list):
+        if os.path.exists(file_list):
+            return file_list
+        return os.path.join(self.rconfig.config_dir, file_list)
 
 
 class Trainer(TrainerClassifier):
@@ -186,13 +196,13 @@ class Trainer(TrainerClassifier):
         """Store parameters and initialize file names."""
         self.rconfig = rconfig
         self.features = features
-        self.file_list = os.path.join(rconfig.config_dir, file_list)
+        self.file_list = self._find_filelist(file_list)
         self.annotation_file = annotation_file
         self.annotation_count = annotation_count
         self.model = model
         self.xval = xval
-        self.data_dir = os.path.join(rconfig.target_path, 'data')
-        self.train_dir = os.path.join(self.data_dir, 't1_train', model)
+        self.data_dir = os.path.join(rconfig.corpus, 'data')
+        self.train_dir = rconfig.model
         self.info_file_general = os.path.join(self.train_dir, "train.info.general.txt")
         self.info_file_annotation = os.path.join(self.train_dir, "train.info.annotation.txt")
         self.info_file_config = os.path.join(self.train_dir, "train.info.config.txt")
@@ -212,7 +222,7 @@ class Trainer(TrainerClassifier):
         self._find_datasets()
         self._create_info_files()
         self._build_model()
-        
+
     def _create_info_files(self):
         """Create the info files that together give a complete picture of the
         configuration of the classifier as it ran. This is partially done by copying
@@ -277,15 +287,15 @@ class Classifier(TrainerClassifier):
         of the run and model refers to a previously created training model."""
 
         self.rconfig = rconfig
-        self.file_list = os.path.join(rconfig.config_dir, file_list)
+        self.file_list = self._find_filelist(file_list)
         self.model = model
         self.batch = batch
         self.classifier = classifier
         self.use_all_chunks_p = use_all_chunks_p
         
         self.data_dir = os.path.join(self.rconfig.target_path, 'data')
-        self.train_dir = os.path.join(self.data_dir, 't1_train', model)
-        self.classify_dir = os.path.join(self.data_dir, 't2_classify', batch)
+        self.train_dir = rconfig.model
+        self.classify_dir = rconfig.classification
         self.label_file = os.path.join(self.train_dir, "train.info.annotation.txt")
         self.mallet_file = os.path.join(self.classify_dir, "classify.mallet")
         self.results_file = os.path.join(self.classify_dir,
@@ -313,10 +323,10 @@ class Classifier(TrainerClassifier):
         base = os.path.join(self.classify_dir, "classify.%s.out" % (classifier))
         self.classifier_output = base
         self.scores_s1 = base + ".s1.all_scores"
-        self.scores_s2 = base + ".s2.y.nr"
-        self.scores_s3 = base + ".s3.scores"
-        self.scores_s4 = base + ".s4.scores.sum"
-        self.scores_s5 = base + ".s5.scores.sum.nr"
+        self.scores_s2 = base + ".s2.y_scores"
+        self.scores_s3 = base + ".s3.scores.sum"
+        self.scores_s4 = base + ".s4.scores.sum.nr"
+        self.scores_s5 = base + ".s4.scores.sum.az"
 
 
     def run(self):
@@ -327,13 +337,13 @@ class Classifier(TrainerClassifier):
         self._create_mallet_file()
         print "[--classify] creating results file - %s" % \
               os.path.basename(self.results_file)
-        mconfig = mallet2.MalletConfig(
+        mconfig = mallet.MalletConfig(
             config.MALLET_DIR, 'train', 'classify', self.batch,
             self.train_dir, self.classify_dir,
             # TODO: probably need to replace xval with 0
             classifier_type=self.classifier, number_xval=xval, training_portion=0,
             prune_p=False, infogain_pruning="5000", count_pruning="3")
-        mtest = mallet2.MalletClassifier(mconfig)
+        mtest = mallet.MalletClassifier(mconfig)
         mtest.mallet_test_classifier()
         self._calculate_scores()
         mtest.compress_files()
@@ -364,7 +374,7 @@ class Classifier(TrainerClassifier):
         print "[--classify] creating vector file - %s" %  os.path.basename(self.mallet_file)
         count = 0
         d_phr2label = train.load_phrase_labels3(self.label_file)
-        fh = open_output_file(self.mallet_file)
+        fh = open_output_file(self.mallet_file, compress=False)
         stats = { 'labeled_count': 0, 'unlabeled_count': 0, 'total_count': 0 }
         fnames = filename_generator(self.input_dataset.path, self.file_list)
         for phr_feats_file in fnames:
@@ -383,9 +393,8 @@ class Classifier(TrainerClassifier):
         patent_tech_scores.sh."""
         self._scores_s1_select_score_lines()
         self._scores_s2_select_scores()
-        self._scores_s3_remove_tiny_scores()
-        self._scores_s4_summing_scores()
-        self._scores_s5_sort_scores()
+        self._scores_s3_summing_scores()
+        self._scores_s4_sort_scores()
 
     def run_score_command(self, command, message):
         if VERBOSE:
@@ -401,31 +410,30 @@ class Classifier(TrainerClassifier):
         self.run_score_command(command, message)
 
     def _scores_s2_select_scores(self):
-        # TODO: is the sorting truly needed?
-        if VERBOSE:
-            print "[--scores] select 'y' scores and sort"
         column = find_mallet_field_value_column.find_column(self.scores_s1, 'y')
-        message = "'y' score is in column %s of %s" % \
-                  (column, os.path.basename(self.scores_s1))
-        command = "cat %s | cut -f1,%s | sort -k2 -nr > %s" % \
-                  (self.scores_s1, column, self.scores_s2)
-        self.run_score_command(command, message)
-
-    def _scores_s3_remove_tiny_scores(self):
-        # TODO: what motivated this step?
-        message = "remove tiny scores (that is, scores like 8.833699651282083E-6)"
-        command = "cat %s | grep -v \"E-\" > %s" % (self.scores_s2, self.scores_s3)
-        self.run_score_command(command, message)
-
-    def _scores_s4_summing_scores(self):
         if VERBOSE:
-            print "[--scores] summing scores into", os.path.basename(self.scores_s4)
-        sum_scores.sum_scores(self.scores_s3, self.scores_s4)
+            print "[--scores] select 'y' score from column %s of %s" % \
+                  (column, os.path.basename(self.scores_s1))
+        fh_in = codecs.open(self.scores_s1)
+        fh_out = codecs.open(self.scores_s2, 'w')
+        for line in fh_in:
+            fields = line.split()
+            id = fields[0]
+            score = float(fields[int(column)-1])
+            fh_out.write("%s\t%.6f\n" % (id, score))
 
-    def _scores_s5_sort_scores(self):
-        message = "sort on average scores"
-        command = "cat %s | sort -k2,2 -nr -t\"\t\" > %s" % (self.scores_s4, self.scores_s5)
-        self.run_score_command(command, message)
+    def _scores_s3_summing_scores(self):
+        if VERBOSE:
+            print "[--scores] summing scores into", os.path.basename(self.scores_s3)
+        sum_scores.sum_scores(self.scores_s2, self.scores_s3)
+
+    def _scores_s4_sort_scores(self):
+        message1 = "sort on average scores"
+        message2 = "sort on terms"
+        command1 = "cat %s | sort -k2,2 -nr -t\"\t\" > %s" % (self.scores_s3, self.scores_s4)
+        command2 = "cat %s | sort > %s" % (self.scores_s3, self.scores_s5)
+        self.run_score_command(command1, message1)
+        self.run_score_command(command2, message2)
 
 
 
@@ -434,7 +442,7 @@ def run_evaluation(rconfig, batch, gold_standard, threshold, log_file, command):
     standard. """
     corpus_dir = rconfig.target_path
     system_file = os.path.join(corpus_dir, 'data', 't2_classify', batch,
-                               'classify.MaxEnt.out.s5.scores.sum.nr')
+                               'classify.MaxEnt.out.s4.scores.sum.nr')
     if threshold is not None:
         evaluation.test(gold_standard, system_file, threshold, log_file,
                         debug_c=True, command=command)
@@ -480,7 +488,7 @@ def read_opts():
 if __name__ == '__main__':
 
     # default values of options
-    target_path = config.WORKING_PATENT_PATH
+    corpus_path = None
     file_list = 'files.txt'
     features = 'standard'
     pipeline_config = 'pipeline-default.txt'
@@ -496,10 +504,10 @@ if __name__ == '__main__':
 
     for opt, val in opts:
 
-        if opt in ALL_MODES: # --train
+        if opt in ALL_MODES:
             mode = opt
 
-        elif opt == '--corpus': target_path = val
+        elif opt == '--corpus': corpus_path = val
         elif opt == '--model': model = val
         elif opt == '--batch': batch = val
         elif opt == '--filelist': file_list = val
@@ -522,14 +530,17 @@ if __name__ == '__main__':
         elif opt == '--verbose': VERBOSE = True
         elif opt == '--eval-on-unseen-terms': use_all_chunks = False
 
+    if corpus_path is None and not show_batches_p:
+        exit("WARNING: no corpus specified, exiting...\n")
+
     # there is no language to hand in to the runtime config, but it will be
     # plucked from the general configuration if needed
-    rconfig = RuntimeConfig(target_path, None, pipeline_config)
+    rconfig = RuntimeConfig(corpus_path, model, batch, None, pipeline_config)
     if VERBOSE:
         rconfig.pp()
 
     if show_data_p:
-        show_datasets(rconfig, config.DATA_TYPES)
+        show_datasets(rconfig, config.DATA_TYPES, VERBOSE)
     elif show_batches_p:
         show_batches(rconfig)
     elif show_pipelines_p:

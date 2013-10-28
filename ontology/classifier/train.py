@@ -15,14 +15,9 @@
 
 import os
 import sys
-#import mallet
-import mallet2
+import mallet
 import config
-import putils
 import codecs
-
-from pf2dfeats import generate_doc_feats
-
 
 script_path = os.path.abspath(sys.argv[0])
 script_dir = os.path.dirname(script_path)
@@ -31,6 +26,7 @@ os.chdir('../..')
 sys.path.insert(0, os.getcwd())
 os.chdir(script_dir)
 
+from ontology.utils.batch import generate_doc_feats
 from ontology.utils.file import get_year_and_docid, open_input_file
 
 
@@ -241,14 +237,14 @@ def patent_utraining_data3(mallet_file, annotation_file, annotation_count, fname
     the model."""
     d_phr2label = load_phrase_labels3(annotation_file, annotation_count)
     train_output_dir = os.path.dirname(mallet_file)
-    mconfig = mallet2.MalletConfig(
+    mconfig = mallet.MalletConfig(
         config.MALLET_DIR, 'train', 'classify', version, train_output_dir, '/tmp',
         classifier_type="MaxEnt", number_xval=xval, training_portion=0,
         prune_p=False, infogain_pruning="5000", count_pruning="3")
-    mtr = mallet2.MalletTraining(mconfig, features)
+    mtr = mallet.MalletTraining(mconfig, features)
     mtr.make_utraining_file3(fnames, d_phr2label)
     mtr.mallet_train_classifier()
-    write_training_statistics(stats_file, mtr)
+    #write_training_statistics(stats_file, mtr)
 
 
 def make_utraining_test_file(patent_dir, lang, version, d_phr2label, use_all_chunks_p=True):

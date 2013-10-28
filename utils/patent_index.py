@@ -49,6 +49,13 @@ You can now use get_path() to get the path for a patent:
    >>> idx.get_path('20010001003')
    /home/j/corpuswork/fuse/FUSEData/2013-04/ln_uspto/2001/028/US20010001003A1.xml
 
+The --lookup-bae option can be used to lookup the paths for patent numbers in
+BAE format (which patentid-year pairs that are separated by a comma):
+
+    $ python patent_index.py --lookup-bae csPatents.txt csPatents-path.txt
+
+See the /home/j/corpuswork/fuse/FUSEData/lists for the two files above.
+
 """
 
 
@@ -241,7 +248,8 @@ class PatentIndex(object):
             for line in fh:
                 count += 1
                 if count > maxcount: break
-                if count % 100000 == 0: print count
+                if count % 1000000 == 0:
+                    print "%sM lines read" % (count/1000000) 
                 (number, path) = line.split()
                 self.data[number] = path
 
@@ -268,6 +276,22 @@ def example():
         patent_number = fields[0][1:-1]
         fh_out.write("%s\t%s\n" % (patent_number,
                                    idx.get_path(patent_number.lstrip('0'))))
+
+
+def lookup_bae_cs_patents(fname_in, fname_out, maxcount):
+    """Look up the full path of patent documents given a BAE file with
+    patentid-year pairs (separated by a comma). """
+    idx = PatentIndex(maxcount=maxcount)
+    count = 0
+    out = open(fname_out, 'w')
+    for line in open(fname_in):
+        count += 1
+        patent, rest = line.split(',')
+        path = idx.get_path(patent)
+        out.write("%s\t%s\n" % (patent, path))
+        #print patent, idx.get_path(patent)
+        #if count > 1000: break
+
 
 
 if __name__ == '__main__':
@@ -305,6 +329,12 @@ if __name__ == '__main__':
         t1 = time.time()
         test_index(text_index, maxcount)
         print "done, elapsed time is %.2f seconds" % (time.time() - t1)
+
+    elif mode == '--lookup-bae':
+        fname_in = sys.argv[2]
+        fname_out = sys.argv[3]
+        #maxcount = 1000000
+        lookup_bae_cs_patents(fname_in, fname_out, maxcount=maxcount)
         
     else:
         print "WARNING: invalid mode, use --create-index or --test-index"

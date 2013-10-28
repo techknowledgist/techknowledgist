@@ -1,17 +1,24 @@
 """
 
-$ python step7_match.py \
+$ python run_matcher.py \
     --corpus data/patents/201306-computer-science \
     --filelist files_testing_01.txt \
+    --patterns MATURITY
     --batch batch-01 \
     --statistics \
     --verbose
 
+The default for patterns is MATURITY, the only other choice is PROMISE.
+
+TODO: should also allow using more than one patterns set. Also, the code that
+consumes the patterns (eg maturity.py) needs to be adapted.
+
 """
 
-import os, sys, getopt, shutil, codecs, time
 
-import path
+import os, sys, getopt, shutil, codecs, time, subprocess
+
+sys.path.append(os.path.abspath('../..'))
 
 from ontology.utils.batch import RuntimeConfig, DataSet
 from ontology.utils.batch import find_input_dataset, check_file_availability
@@ -33,7 +40,8 @@ class Matcher(object):
         self.data_dir = os.path.join(self.rconfig.target_path, 'data')
         self.match_dir = os.path.join(self.data_dir, 'o2_matcher')
         self.batch_dir = os.path.join(self.match_dir, batch)
-        self.results_file = os.path.join(self.batch_dir, "match.results.txt")
+        self.results_file1 = os.path.join(self.batch_dir, "match.results.full.txt")
+        self.results_file2 = os.path.join(self.batch_dir, "match.results.summ.txt")
         self.info_file_general = os.path.join(self.batch_dir, "match.info.general.txt")
         self.info_file_config = os.path.join(self.batch_dir, "match.info.config.txt")
         self.info_file_filelist = os.path.join(self.batch_dir, "match.info.filelist.txt")
@@ -50,13 +58,14 @@ class Matcher(object):
         self._find_datasets()
         self._create_info_files()
         fnames = filename_generator(self.input_dataset.path, self.file_list)
-        with codecs.open(self.results_file, 'w', encoding='utf-8') as fh:
+        with codecs.open(self.results_file1, 'w', encoding='utf-8') as fh:
             count = 0
             for fname in fnames:
                 count += 1
                 print_file_progress("Matcher", count, fname, VERBOSE)
                 # if count > 10: break
                 self.run_matcher_on_file(fname, fh)
+        self.create_summary()
         if self.gather_statistics:
             self.feature_statistics.write_to_file()
         self._finish()
@@ -77,6 +86,18 @@ class Matcher(object):
                 if matched_features is not None:
                     fh.write("%s\t%s\t%s\t%s\t%s\n" %
                              (year, id, pattern.name, term , matched_features))
+
+    def create_summary(self):
+        """Creates a summary of all the matches. Now simply collects the number
+        of matches for each term. This only works for now because all patterns
+        are patterns that indicate usage. If promise patterns are added this
+        method should generate two numbers. Also, th enumber is now a simple
+        count that does not yet take the pattern weights into account."""
+        command = "cut -f4 %s | sort | uniq -c > %s" % \
+                  (self.results_file1, self.results_file2)
+        print "[--matcher] creating summary"
+        print "[--matcher]", command
+        subprocess.call(command, shell=True)
 
     def pp(self):
         print "\n<Matcher on '%s'>" % self.rconfig.corpus
@@ -161,29 +182,100 @@ def print_file_progress(stage, count, filename, verbose):
 
 def read_opts():
     longopts = ['corpus=', 'filelist=', 'batch=', 'pipeline=',
-                'statistics', 'verbose' ]
+                'patterns=', 'statistics', 'verbose' ]
     try:
         return getopt.getopt(sys.argv[1:], '', longopts)
     except getopt.GetoptError as e:
         sys.exit("ERROR: " + str(e))
 
 
-PATTERNS = [
-    Pattern("maturity-use", 0.9, { 'prev_V': ('use', 'uses', 'used', 'using') }),
-    Pattern("maturity-have", 0.7, { 'prev_V': ('has', 'have', 'had', 'having') }),
-    Pattern("maturity-stored", 0.7, { 'prev_V': ('stored_in',) }),
-    Pattern("maturity-provide", 0.7, { 'prev_V': ('provide', 'provides', 'providing', 'provided') }),
-    Pattern("maturity-connect", 0.7, { 'prev_V': ('connect', 'connects', 'connected', 'connecting') }),
-    Pattern("maturity-received", 0.7, { 'prev_V': ('received_from', 'receive_from', 'receives_from', 'receiving_from') }),
-    Pattern("maturity-select", 0.7, { 'prev_V': ('select', 'selects', 'selected', 'selecting') }),
-    Pattern("maturity-access", 0.7, { 'prev_V': ('access', 'accesses', 'accessed', 'accessing') }),
-    Pattern("maturity-activate", 0.7, { 'prev_V': ('activate', 'activated', 'activates', 'activating') }),
-    Pattern("maturity-detect", 0.7, { 'prev_V': ('detect', 'detects', 'detected', 'detecting') }),
-    Pattern("maturity-obtain", 0.7, { 'prev_V': ('obtain', 'obtains', 'obtained', 'obtaining') }),
-    Pattern("maturity-store", 0.7, { 'prev_V': ('store', 'stores', 'stored', 'storing') }),
-    Pattern("maturity-generate", 0.7, { 'prev_V': ('generate', 'generates', 'generated', 'generating') }),
+
+MATURITY_PATTERNS = [
+
     #Pattern("maturity-", 0.7, { 'prev_V': ('', '', '', '') }),
+
+    Pattern("maturity-use", 0.9,
+            { 'prev_V': ('use', 'uses', 'used', 'using') }),
+
+    Pattern("maturity-have", 0.7,
+            { 'prev_V': ('has', 'have', 'had', 'having') }),
+
+    Pattern("maturity-stored", 0.7,
+            { 'prev_V': ('stored_in',) }),
+
+    Pattern("maturity-provide", 0.7,
+            { 'prev_V': ('provide', 'provides', 'providing', 'provided') }),
+
+    Pattern("maturity-connect", 0.7,
+            { 'prev_V': ('connect', 'connects', 'connected', 'connecting') }),
+
+    Pattern("maturity-received", 0.7,
+            { 'prev_V': ('received_from', 'receive_from', 'receives_from', 'receiving_from') }),
+
+    Pattern("maturity-select", 0.7,
+            { 'prev_V': ('select', 'selects', 'selected', 'selecting') }),
+
+    Pattern("maturity-access", 0.7,
+            { 'prev_V': ('access', 'accesses', 'accessed', 'accessing') }),
+
+    Pattern("maturity-activate", 0.7,
+            { 'prev_V': ('activate', 'activated', 'activates', 'activating') }),
+
+    Pattern("maturity-detect", 0.7,
+            { 'prev_V': ('detect', 'detects', 'detected', 'detecting') }),
+
+    Pattern("maturity-obtain", 0.7,
+            { 'prev_V': ('obtain', 'obtains', 'obtained', 'obtaining') }),
+
+    Pattern("maturity-store", 0.7,
+            { 'prev_V': ('store', 'stores', 'stored', 'storing') }),
+
+    Pattern("maturity-generate", 0.7,
+            { 'prev_V': ('generate', 'generates', 'generated', 'generating') }),
     ]
+
+
+PROMISE_PATTERNS = [
+
+    Pattern("promise-", 0.7, { '': ('', '', '', '') }),
+
+    # this one appeared to be way too generic and return things like 'promising
+    # method' and 'interesting approach'
+
+    #Pattern("promise-promising", 0.7,
+    #        { 'initial_J': ('promising', 'interesting') }),
+
+    Pattern("promise-is_promising", 0.7,
+            { 'next_n2': ('are_promising', 'is_promising'),
+              'next_n3': ('is_a_promising', 'are_promising_.', 'is_promising_.',
+                          'is_very_promising', 'are_very_promising',
+                          'is_promising_for', 'are_promising_and') }),
+
+    Pattern("promise-show_promise", 0.7,
+            { 'next_n2': ('shows_promising', 'shows_promise', 'show_promising'),
+              'next_n3': ('show_promising_results', 'shows_promising_results') }),
+
+    Pattern("promise-with_of", 0.7,
+            { 'next_n2': ('with_promising', 'of_promising'),
+              'next_n3': ('with_promising_results') }),
+
+    Pattern("promise-a_promising", 0.7,
+            { 'next_n2': ('a_promising'),
+              'next_n3': ('a_promising_new') }),
+    ]
+
+# Some promise patterns that may be used at some point, but not in their current
+# shape:
+#
+#    features-prev_n2.txt:16 promise_for
+#    features-prev_n2.txt:12 promise_of
+#    features-prev_n2.txt:11 promising_new
+#    features-prev_n2.txt:9  promising_in
+#    features-prev_n3.txt:8  the_promise_of
+#    features-prev_n3.txt:8  a_promising_new
+#    features-prev_n3.txt:6  very_promising_for
+#    features-prev_n3.txt:6  promising_approach_to
+#    features-prev_n3.txt:6  promising_area_of
 
 
 
@@ -192,6 +284,7 @@ if __name__ == '__main__':
     # default values of options
     corpus = None
     language = 'en'
+    patterns = 'MATURITY'
     batch = None
     filelist = 'files.txt'
     pipeline_config = 'pipeline-default.txt'
@@ -202,15 +295,23 @@ if __name__ == '__main__':
         if opt == '--corpus': corpus = val
         elif opt == '--language': language = val
         elif opt == '--filelist': filelist = val
+        elif opt == '--patterns': patterns = val
         elif opt == '--batch': batch = val
         elif opt == '--pipeline': pipeline_config = val
         elif opt == '--statistics': gather_statistics = True
         elif opt == '--verbose': VERBOSE = True
 
+    if patterns == 'MATURITY':
+        PATTERNS = MATURITY_PATTERNS
+    elif patterns == 'PROMISE':
+        PATTERNS = PROMISE_PATTERNS
+    else:
+        exit("ERROR: unknown pattern set '%s'" % patterns)
+
     # TODO: language should not be an option after step1_initialize since it is
     # associated with a corpus, should therefore also not be given to the config
     # object
-    rconfig = RuntimeConfig(corpus, language, pipeline_config)
+    rconfig = RuntimeConfig(corpus, None, None, language, pipeline_config)
 
     matcher = Matcher(rconfig, filelist, batch, gather_statistics)
     matcher.pp()

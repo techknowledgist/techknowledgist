@@ -1,5 +1,14 @@
 *pyc
 *~
+
 utils/tries/*
+
 ontology/creation/log.dat
+
 ontology/creation/data/*
+!ontology/creation/data/wos
+ontology/creation/data/wos/cs-*
+
+ontology/classifier/data/*
+# this does not work, I have no idea why not
+!ontology/classifier/data/models/inventions-standard-20130713
