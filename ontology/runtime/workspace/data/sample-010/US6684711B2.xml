@@ -1,0 +1,2553 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright ©2011 LexisNexis Univentio, The Netherlands. -->
+<lexisnexis-patent-document schema-version="1.08" date-produced="20110930" file="US6684711B2.xml" produced-by="LexisNexis-Univentio" lang="eng" date-changed="20110819" time-changed="060035">
+  <bibliographic-data lang="eng">
+    <publication-reference publ-type="Grant" publ-desc="Patent with a pre-grant publication">
+      <document-id>
+        <country>US</country>
+        <doc-number>6684711</doc-number>
+        <kind>B2</kind>
+        <date>20040203</date>
+      </document-id>
+    </publication-reference>
+    <application-reference appl-type="utility">
+      <document-id>
+        <country>US</country>
+        <doc-number>09939079</doc-number>
+        <date>20010823</date>
+      </document-id>
+    </application-reference>
+    <application-series-code>09</application-series-code>
+    <language-of-filing>eng</language-of-filing>
+    <language-of-publication>eng</language-of-publication>
+    <priority-claims date-changed="20070523">
+      <priority-claim sequence="1" kind="national">
+        <country>US</country>
+        <doc-number>09939079</doc-number>
+        <date>20010823</date>
+      </priority-claim>
+    </priority-claims>
+    <dates-of-public-availability date-changed="20090405">
+      <unexamined-printed-without-grant>
+        <date>20040203</date>
+      </unexamined-printed-without-grant>
+      <printed-with-grant>
+        <date>20040203</date>
+      </printed-with-grant>
+    </dates-of-public-availability>
+    <term-of-grant>
+      <us-term-extension>335</us-term-extension>
+    </term-of-grant>
+    <classification-ipc date-changed="20101116">
+      <main-classification>
+        <text> 7G 01L   9/12   A</text>
+        <edition>7</edition>
+        <section>G</section>
+        <class>01</class>
+        <subclass>L</subclass>
+        <main-group>9</main-group>
+        <subgroup>12</subgroup>
+        <qualifying-character>A</qualifying-character>
+      </main-classification>
+    </classification-ipc>
+    <classifications-ipcr date-changed="20101116">
+      <classification-ipcr sequence="1">
+        <text>G01L   9/12        20060101A I20051008RMEP        </text>
+        <ipc-version-indicator>
+          <date>20060101</date>
+        </ipc-version-indicator>
+        <classification-level>A</classification-level>
+        <section>G</section>
+        <class>01</class>
+        <subclass>L</subclass>
+        <main-group>9</main-group>
+        <subgroup>12</subgroup>
+        <classification-value>I</classification-value>
+        <action-date>
+          <date>20051008</date>
+        </action-date>
+        <generating-office>
+          <country>EP</country>
+        </generating-office>
+        <classification-status>R</classification-status>
+        <classification-data-source>M</classification-data-source>
+      </classification-ipcr>
+    </classifications-ipcr>
+    <classification-national date-changed="20101116">
+      <country>US</country>
+      <main-classification>
+        <text>73/724</text>
+        <class>73</class>
+        <subclass>724</subclass>
+      </main-classification>
+      <further-classification sequence="1">
+        <text>73/700</text>
+        <class>73</class>
+        <subclass>700</subclass>
+      </further-classification>
+      <further-classification sequence="2">
+        <text>73/715</text>
+        <class>73</class>
+        <subclass>715</subclass>
+      </further-classification>
+      <further-classification sequence="3">
+        <text>73/718</text>
+        <class>73</class>
+        <subclass>718</subclass>
+      </further-classification>
+      <further-classification sequence="4">
+        <text>361/283.1</text>
+        <class>361</class>
+        <subclass>283.1</subclass>
+      </further-classification>
+      <further-classification sequence="5">
+        <text>361/283.2</text>
+        <class>361</class>
+        <subclass>283.2</subclass>
+      </further-classification>
+      <further-classification sequence="6">
+        <text>361/283.3</text>
+        <class>361</class>
+        <subclass>283.3</subclass>
+      </further-classification>
+      <further-classification sequence="7">
+        <text>361/283.4</text>
+        <class>361</class>
+        <subclass>283.4</subclass>
+      </further-classification>
+    </classification-national>
+    <classifications-ecla date-changed="20101116">
+      <classification-ecla sequence="1" classification-scheme="EC" country="EP">
+        <text>G01L  9/12</text>
+        <section>G</section>
+        <class>01</class>
+        <subclass>L</subclass>
+        <main-group>9</main-group>
+        <subgroup>12</subgroup>
+      </classification-ecla>
+    </classifications-ecla>
+    <field-of-search date-changed="20070524">
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>73/700-756</text>
+          <class>73</class>
+          <subclass>700-756</subclass>
+        </main-classification>
+      </classification-national>
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>361/283.1-283.4</text>
+          <class>361</class>
+          <subclass>283.1-283.4</subclass>
+        </main-classification>
+      </classification-national>
+    </field-of-search>
+    <number-of-claims>21</number-of-claims>
+    <invention-title id="title_eng" date-changed="20100418" lang="eng" format="original">Three-phase excitation circuit for compensated capacitor industrial process control transmitters</invention-title>
+    <references-cited date-changed="20101019">
+      <patent-citations name="patcit" date-changed="20100409" />
+      <non-patent-citations name="nplcit" date-changed="20100409" />
+      <forward-citations name="fwdcit" date-changed="20101019" />
+      <citation srep-phase="o">
+        <patcit num="1">
+          <document-id>
+            <country>US</country>
+            <doc-number>3701280</doc-number>
+            <kind>A</kind>
+            <name>Stroman</name>
+            <date>19721031</date>
+          </document-id>
+          <application-date>
+            <date>19700318</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="2">
+          <document-id>
+            <country>US</country>
+            <doc-number>3968694</doc-number>
+            <kind>A</kind>
+            <name>Clark</name>
+            <date>19760713</date>
+          </document-id>
+          <application-date>
+            <date>19750421</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="3">
+          <document-id>
+            <country>US</country>
+            <doc-number>4120206</doc-number>
+            <kind>A</kind>
+            <name>Rud, Jr.</name>
+            <date>19781017</date>
+          </document-id>
+          <application-date>
+            <date>19770117</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="4">
+          <document-id>
+            <country>US</country>
+            <doc-number>4125027</doc-number>
+            <kind>A</kind>
+            <name>Clark</name>
+            <date>19781114</date>
+          </document-id>
+          <application-date>
+            <date>19771104</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="5">
+          <document-id>
+            <country>US</country>
+            <doc-number>4238825</doc-number>
+            <kind>A</kind>
+            <name>Geery</name>
+            <date>19801209</date>
+          </document-id>
+          <application-date>
+            <date>19781002</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="6">
+          <document-id>
+            <country>US</country>
+            <doc-number>4250490</doc-number>
+            <kind>A</kind>
+            <name>Dahlke</name>
+            <date>19810210</date>
+          </document-id>
+          <application-date>
+            <date>19790119</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="7">
+          <document-id>
+            <country>US</country>
+            <doc-number>4287501</doc-number>
+            <kind>A</kind>
+            <name>Tominaga et al.</name>
+            <date>19810901</date>
+          </document-id>
+          <application-date>
+            <date>19800104</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="8">
+          <document-id>
+            <country>US</country>
+            <doc-number>4414634</doc-number>
+            <kind>A</kind>
+            <name>Louis et al.</name>
+            <date>19831108</date>
+          </document-id>
+          <application-date>
+            <date>19810717</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="9">
+          <document-id>
+            <country>US</country>
+            <doc-number>4419898</doc-number>
+            <kind>A</kind>
+            <name>Zanker et al.</name>
+            <date>19831213</date>
+          </document-id>
+          <application-date>
+            <date>19811015</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="10">
+          <document-id>
+            <country>US</country>
+            <doc-number>4446730</doc-number>
+            <kind>A</kind>
+            <name>Smith</name>
+            <date>19840508</date>
+          </document-id>
+          <application-date>
+            <date>19820426</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="11">
+          <document-id>
+            <country>US</country>
+            <doc-number>4455875</doc-number>
+            <kind>A</kind>
+            <name>Guimard et al.</name>
+            <date>19840626</date>
+          </document-id>
+          <application-date>
+            <date>19811222</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="12">
+          <document-id>
+            <country>US</country>
+            <doc-number>4485673</doc-number>
+            <kind>A</kind>
+            <name>Stern</name>
+            <date>19841204</date>
+          </document-id>
+          <application-date>
+            <date>19810513</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="13">
+          <document-id>
+            <country>US</country>
+            <doc-number>4528855</doc-number>
+            <kind>A</kind>
+            <name>Singh</name>
+            <date>19850716</date>
+          </document-id>
+          <application-date>
+            <date>19840702</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="14">
+          <document-id>
+            <country>US</country>
+            <doc-number>4562744</doc-number>
+            <kind>A</kind>
+            <name>Hall et al.</name>
+            <date>19860107</date>
+          </document-id>
+          <application-date>
+            <date>19840504</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="15">
+          <document-id>
+            <country>US</country>
+            <doc-number>4598381</doc-number>
+            <kind>A</kind>
+            <name>Cucci</name>
+            <date>19860701</date>
+          </document-id>
+          <application-date>
+            <date>19830324</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="16">
+          <document-id>
+            <country>US</country>
+            <doc-number>4602344</doc-number>
+            <kind>A</kind>
+            <name>Ferretti et al.</name>
+            <date>19860722</date>
+          </document-id>
+          <application-date>
+            <date>19841025</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="17">
+          <document-id>
+            <country>US</country>
+            <doc-number>D287827</doc-number>
+            <kind>S</kind>
+            <name>Broden</name>
+            <date>19870100</date>
+          </document-id>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="18">
+          <document-id>
+            <country>US</country>
+            <doc-number>4644797</doc-number>
+            <kind>A</kind>
+            <name>Ichikawa et al.</name>
+            <date>19870224</date>
+          </document-id>
+          <application-date>
+            <date>19850711</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="19">
+          <document-id>
+            <country>US</country>
+            <doc-number>4653330</doc-number>
+            <kind>A</kind>
+            <name>Hedtke</name>
+            <date>19870331</date>
+          </document-id>
+          <application-date>
+            <date>19850715</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="20">
+          <document-id>
+            <country>US</country>
+            <doc-number>4677841</doc-number>
+            <kind>A</kind>
+            <name>Kennedy</name>
+            <date>19870707</date>
+          </document-id>
+          <application-date>
+            <date>19860306</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="21">
+          <document-id>
+            <country>US</country>
+            <doc-number>4745810</doc-number>
+            <kind>A</kind>
+            <name>Pierce et al.</name>
+            <date>19880524</date>
+          </document-id>
+          <application-date>
+            <date>19860915</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="22">
+          <document-id>
+            <country>US</country>
+            <doc-number>D296995</doc-number>
+            <kind>S</kind>
+            <name>Lee</name>
+            <date>19880800</date>
+          </document-id>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="23">
+          <document-id>
+            <country>US</country>
+            <doc-number>D297314</doc-number>
+            <kind>S</kind>
+            <name>Hedtke</name>
+            <date>19880800</date>
+          </document-id>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="24">
+          <document-id>
+            <country>US</country>
+            <doc-number>D297315</doc-number>
+            <kind>S</kind>
+            <name>Pierce et al.</name>
+            <date>19880800</date>
+          </document-id>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="25">
+          <document-id>
+            <country>US</country>
+            <doc-number>4783659</doc-number>
+            <kind>A</kind>
+            <name>Frick</name>
+            <date>19881108</date>
+          </document-id>
+          <application-date>
+            <date>19871224</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="26">
+          <document-id>
+            <country>US</country>
+            <doc-number>4791352</doc-number>
+            <kind>A</kind>
+            <name>Frick et al.</name>
+            <date>19881213</date>
+          </document-id>
+          <application-date>
+            <date>19860717</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="27">
+          <document-id>
+            <country>US</country>
+            <doc-number>4798089</doc-number>
+            <kind>A</kind>
+            <name>Frick et al.</name>
+            <date>19890117</date>
+          </document-id>
+          <application-date>
+            <date>19870312</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="28">
+          <document-id>
+            <country>US</country>
+            <doc-number>4818994</doc-number>
+            <kind>A</kind>
+            <name>Orth et al.</name>
+            <date>19890404</date>
+          </document-id>
+          <application-date>
+            <date>19871022</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="29">
+          <document-id>
+            <country>US</country>
+            <doc-number>4825704</doc-number>
+            <kind>A</kind>
+            <name>Aoshima et al.</name>
+            <date>19890502</date>
+          </document-id>
+          <application-date>
+            <date>19870824</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="30">
+          <document-id>
+            <country>US</country>
+            <doc-number>4833922</doc-number>
+            <kind>A</kind>
+            <name>Frick et al.</name>
+            <date>19890530</date>
+          </document-id>
+          <application-date>
+            <date>19870601</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="31">
+          <document-id>
+            <country>US</country>
+            <doc-number>4850227</doc-number>
+            <kind>A</kind>
+            <name>Luettgen et al.</name>
+            <date>19890725</date>
+          </document-id>
+          <application-date>
+            <date>19871222</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="32">
+          <document-id>
+            <country>US</country>
+            <doc-number>4866989</doc-number>
+            <kind>A</kind>
+            <name>Lawless</name>
+            <date>19890919</date>
+          </document-id>
+          <application-date>
+            <date>19881107</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="33">
+          <document-id>
+            <country>US</country>
+            <doc-number>4881412</doc-number>
+            <kind>A</kind>
+            <name>Northedge</name>
+            <date>19891121</date>
+          </document-id>
+          <application-date>
+            <date>19880804</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="34">
+          <document-id>
+            <country>US</country>
+            <doc-number>4930353</doc-number>
+            <kind>A</kind>
+            <name>Kato et al.</name>
+            <date>19900605</date>
+          </document-id>
+          <application-date>
+            <date>19890731</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="35">
+          <document-id>
+            <country>US</country>
+            <doc-number>4958938</doc-number>
+            <kind>A</kind>
+            <name>Schwartz et al.</name>
+            <date>19900925</date>
+          </document-id>
+          <application-date>
+            <date>19890605</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="36">
+          <document-id>
+            <country>US</country>
+            <doc-number>4970898</doc-number>
+            <kind>A</kind>
+            <name>Walish et al.</name>
+            <date>19901120</date>
+          </document-id>
+          <application-date>
+            <date>19890920</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="37">
+          <document-id>
+            <country>US</country>
+            <doc-number>4980675</doc-number>
+            <kind>A</kind>
+            <name>Meisenheimer, Jr.</name>
+            <date>19901225</date>
+          </document-id>
+          <application-date>
+            <date>19900109</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="38">
+          <document-id>
+            <country>US</country>
+            <doc-number>5000047</doc-number>
+            <kind>A</kind>
+            <name>Kato et al.</name>
+            <date>19910319</date>
+          </document-id>
+          <application-date>
+            <date>19890228</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="39">
+          <document-id>
+            <country>US</country>
+            <doc-number>D317266</doc-number>
+            <kind>S</kind>
+            <name>Broden et al.</name>
+            <date>19910600</date>
+          </document-id>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="40">
+          <document-id>
+            <country>US</country>
+            <doc-number>D317269</doc-number>
+            <kind>S</kind>
+            <name>Selg</name>
+            <date>19910600</date>
+          </document-id>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="41">
+          <document-id>
+            <country>US</country>
+            <doc-number>D318432</doc-number>
+            <kind>S</kind>
+            <name>Broden et al.</name>
+            <date>19910700</date>
+          </document-id>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="42">
+          <document-id>
+            <country>US</country>
+            <doc-number>5028746</doc-number>
+            <kind>A</kind>
+            <name>Petrich</name>
+            <date>19910702</date>
+          </document-id>
+          <application-date>
+            <date>19890831</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="43">
+          <document-id>
+            <country>US</country>
+            <doc-number>5035140</doc-number>
+            <kind>A</kind>
+            <name>Daniels et al.</name>
+            <date>19910730</date>
+          </document-id>
+          <application-date>
+            <date>19881103</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="44">
+          <document-id>
+            <country>US</country>
+            <doc-number>5058437</doc-number>
+            <kind>A</kind>
+            <name>Chaumont et al.</name>
+            <date>19911022</date>
+          </document-id>
+          <application-date>
+            <date>19890922</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="45">
+          <document-id>
+            <country>US</country>
+            <doc-number>5060108</doc-number>
+            <kind>A</kind>
+            <name>Baker et al.</name>
+            <date>19911022</date>
+          </document-id>
+          <application-date>
+            <date>19900125</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="46">
+          <document-id>
+            <country>US</country>
+            <doc-number>5070732</doc-number>
+            <kind>A</kind>
+            <name>Duncan et al.</name>
+            <date>19911210</date>
+          </document-id>
+          <application-date>
+            <date>19890912</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="47">
+          <document-id>
+            <country>US</country>
+            <doc-number>5083091</doc-number>
+            <kind>A</kind>
+            <name>Frick et al.</name>
+            <date>19920121</date>
+          </document-id>
+          <application-date>
+            <date>19880330</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="48">
+          <document-id>
+            <country>US</country>
+            <doc-number>5087871</doc-number>
+            <kind>A</kind>
+            <name>Losel</name>
+            <date>19920211</date>
+          </document-id>
+          <application-date>
+            <date>19901002</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="49">
+          <document-id>
+            <country>US</country>
+            <doc-number>5094109</doc-number>
+            <kind>A</kind>
+            <name>Dean et al.</name>
+            <date>19920310</date>
+          </document-id>
+          <application-date>
+            <date>19901206</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="50">
+          <document-id>
+            <country>US</country>
+            <doc-number>D329619</doc-number>
+            <kind>S</kind>
+            <name>Cartwright</name>
+            <date>19920900</date>
+          </document-id>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="51">
+          <document-id>
+            <country>US</country>
+            <doc-number>5142914</doc-number>
+            <kind>A</kind>
+            <name>Kusakabe et al.</name>
+            <date>19920901</date>
+          </document-id>
+          <application-date>
+            <date>19901029</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="52">
+          <document-id>
+            <country>US</country>
+            <doc-number>5157972</doc-number>
+            <kind>A</kind>
+            <name>Broden et al.</name>
+            <date>19921027</date>
+          </document-id>
+          <application-date>
+            <date>19910329</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="53">
+          <document-id>
+            <country>US</country>
+            <doc-number>5162725</doc-number>
+            <kind>A</kind>
+            <name>Hodson et al.</name>
+            <date>19921110</date>
+          </document-id>
+          <application-date>
+            <date>19910820</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="54">
+          <document-id>
+            <country>US</country>
+            <doc-number>5187474</doc-number>
+            <kind>A</kind>
+            <name>Kielb et al.</name>
+            <date>19930216</date>
+          </document-id>
+          <application-date>
+            <date>19880428</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="55">
+          <document-id>
+            <country>US</country>
+            <doc-number>5227782</doc-number>
+            <kind>A</kind>
+            <name>Nelson</name>
+            <date>19930713</date>
+          </document-id>
+          <application-date>
+            <date>19910814</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="56">
+          <document-id>
+            <country>US</country>
+            <doc-number>5236202</doc-number>
+            <kind>A</kind>
+            <name>Krouth et al.</name>
+            <date>19930817</date>
+          </document-id>
+          <application-date>
+            <date>19910923</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="57">
+          <document-id>
+            <country>US</country>
+            <doc-number>5245333</doc-number>
+            <kind>A</kind>
+            <name>Anderson et al.</name>
+            <date>19930914</date>
+          </document-id>
+          <application-date>
+            <date>19910925</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="58">
+          <document-id>
+            <country>US</country>
+            <doc-number>5248167</doc-number>
+            <kind>A</kind>
+            <name>Petrich et al.</name>
+            <date>19930928</date>
+          </document-id>
+          <application-date>
+            <date>19920707</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="59">
+          <document-id>
+            <country>US</country>
+            <doc-number>D342456</doc-number>
+            <kind>S</kind>
+            <name>Miller et al.</name>
+            <date>19931200</date>
+          </document-id>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="60">
+          <document-id>
+            <country>US</country>
+            <doc-number>5287746</doc-number>
+            <kind>A</kind>
+            <name>Broden</name>
+            <date>19940222</date>
+          </document-id>
+          <application-date>
+            <date>19920414</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="61">
+          <document-id>
+            <country>US</country>
+            <doc-number>5353200</doc-number>
+            <kind>A</kind>
+            <name>Bodin et al.</name>
+            <date>19941004</date>
+          </document-id>
+          <application-date>
+            <date>19930224</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="62">
+          <document-id>
+            <country>US</country>
+            <doc-number>5369386</doc-number>
+            <kind>A</kind>
+            <name>Alden et al.</name>
+            <date>19941129</date>
+          </document-id>
+          <application-date>
+            <date>19921113</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="63">
+          <document-id>
+            <country>US</country>
+            <doc-number>5377547</doc-number>
+            <kind>A</kind>
+            <name>Kusakabe et al.</name>
+            <date>19950103</date>
+          </document-id>
+          <application-date>
+            <date>19930910</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="64">
+          <document-id>
+            <country>US</country>
+            <doc-number>5381355</doc-number>
+            <kind>A</kind>
+            <name>Birangi et al.</name>
+            <date>19950110</date>
+          </document-id>
+          <application-date>
+            <date>19931217</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="65">
+          <document-id>
+            <country>US</country>
+            <doc-number>D358784</doc-number>
+            <kind>S</kind>
+            <name>Templin, Jr. et al.</name>
+            <date>19950500</date>
+          </document-id>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="66">
+          <document-id>
+            <country>US</country>
+            <doc-number>5436824</doc-number>
+            <kind>A</kind>
+            <name>Royner et al.</name>
+            <date>19950725</date>
+          </document-id>
+          <application-date>
+            <date>19921210</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="67">
+          <document-id>
+            <country>US</country>
+            <doc-number>5448180</doc-number>
+            <kind>A</kind>
+            <name>Kienzler et al.</name>
+            <date>19950905</date>
+          </document-id>
+          <application-date>
+            <date>19930916</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="68">
+          <document-id>
+            <country>US</country>
+            <doc-number>5469150</doc-number>
+            <kind>A</kind>
+            <name>Sitte</name>
+            <date>19951121</date>
+          </document-id>
+          <application-date>
+            <date>19941227</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="69">
+          <document-id>
+            <country>US</country>
+            <doc-number>5471885</doc-number>
+            <kind>A</kind>
+            <name>Wagner</name>
+            <date>19951205</date>
+          </document-id>
+          <application-date>
+            <date>19930811</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="70">
+          <document-id>
+            <country>US</country>
+            <doc-number>D366000</doc-number>
+            <kind>S</kind>
+            <name>Karas et al.</name>
+            <date>19960100</date>
+          </document-id>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="71">
+          <document-id>
+            <country>US</country>
+            <doc-number>D366218</doc-number>
+            <kind>S</kind>
+            <name>Price et al.</name>
+            <date>19960100</date>
+          </document-id>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="72">
+          <document-id>
+            <country>US</country>
+            <doc-number>5495768</doc-number>
+            <kind>A</kind>
+            <name>Louwagie et al.</name>
+            <date>19960305</date>
+          </document-id>
+          <application-date>
+            <date>19940720</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="73">
+          <document-id>
+            <country>US</country>
+            <doc-number>5498079</doc-number>
+            <kind>A</kind>
+            <name>Price</name>
+            <date>19960312</date>
+          </document-id>
+          <application-date>
+            <date>19941223</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="74">
+          <document-id>
+            <country>US</country>
+            <doc-number>5524333</doc-number>
+            <kind>A</kind>
+            <name>Hogue et al.</name>
+            <date>19960611</date>
+          </document-id>
+          <application-date>
+            <date>19950310</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="75">
+          <document-id>
+            <country>US</country>
+            <doc-number>5524492</doc-number>
+            <kind>A</kind>
+            <name>Frick et al.</name>
+            <date>19960611</date>
+          </document-id>
+          <application-date>
+            <date>19951003</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="76">
+          <document-id>
+            <country>US</country>
+            <doc-number>5546804</doc-number>
+            <kind>A</kind>
+            <name>Johnson et al.</name>
+            <date>19960820</date>
+          </document-id>
+          <application-date>
+            <date>19940811</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="77">
+          <document-id>
+            <country>US</country>
+            <doc-number>5600782</doc-number>
+            <kind>A</kind>
+            <name>Thomson</name>
+            <date>19970204</date>
+          </document-id>
+          <application-date>
+            <date>19941011</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="78">
+          <document-id>
+            <country>US</country>
+            <doc-number>5606513</doc-number>
+            <kind>A</kind>
+            <name>Louwagie et al.</name>
+            <date>19970225</date>
+          </document-id>
+          <application-date>
+            <date>19940609</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="79">
+          <document-id>
+            <country>US</country>
+            <doc-number>5656782</doc-number>
+            <kind>A</kind>
+            <name>Powell, II et al.</name>
+            <date>19970812</date>
+          </document-id>
+          <application-date>
+            <date>19950524</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="80">
+          <document-id>
+            <country>US</country>
+            <doc-number>5665899</doc-number>
+            <kind>A</kind>
+            <name>Willcox</name>
+            <date>19970909</date>
+          </document-id>
+          <application-date>
+            <date>19960223</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="81">
+          <document-id>
+            <country>US</country>
+            <doc-number>5668322</doc-number>
+            <kind>A</kind>
+            <name>Broden</name>
+            <date>19970916</date>
+          </document-id>
+          <application-date>
+            <date>19960613</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="82">
+          <document-id>
+            <country>US</country>
+            <doc-number>5670722</doc-number>
+            <kind>A</kind>
+            <name>Moser et al.</name>
+            <date>19970923</date>
+          </document-id>
+          <application-date>
+            <date>19961009</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="83">
+          <document-id>
+            <country>US</country>
+            <doc-number>5710552</doc-number>
+            <kind>A</kind>
+            <name>McCoy et al.</name>
+            <date>19980120</date>
+          </document-id>
+          <application-date>
+            <date>19950606</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="84">
+          <document-id>
+            <country>US</country>
+            <doc-number>5754596</doc-number>
+            <kind>A</kind>
+            <name>Bischoff et al.</name>
+            <date>19980519</date>
+          </document-id>
+          <application-date>
+            <date>19960319</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="85">
+          <document-id>
+            <country>US</country>
+            <doc-number>5764928</doc-number>
+            <kind>A</kind>
+            <name>Lanctot</name>
+            <date>19980609</date>
+          </document-id>
+          <application-date>
+            <date>19970205</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="86">
+          <document-id>
+            <country>US</country>
+            <doc-number>5823228</doc-number>
+            <kind>A</kind>
+            <name>Chou</name>
+            <date>19981020</date>
+          </document-id>
+          <application-date>
+            <date>19970205</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="87">
+          <document-id>
+            <country>US</country>
+            <doc-number>5870695</doc-number>
+            <kind>A</kind>
+            <name>Brown et al.</name>
+            <date>19990209</date>
+          </document-id>
+          <application-date>
+            <date>19970224</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="88">
+          <document-id>
+            <country>US</country>
+            <doc-number>5899962</doc-number>
+            <kind>A</kind>
+            <name>Louwagie et al.</name>
+            <date>19990504</date>
+          </document-id>
+          <application-date>
+            <date>19970131</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="89">
+          <document-id>
+            <country>US</country>
+            <doc-number>5920016</doc-number>
+            <kind>A</kind>
+            <name>Broden</name>
+            <date>19990706</date>
+          </document-id>
+          <application-date>
+            <date>19970915</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="90">
+          <document-id>
+            <country>US</country>
+            <doc-number>5948988</doc-number>
+            <kind>A</kind>
+            <name>Bodin</name>
+            <date>19990907</date>
+          </document-id>
+          <application-date>
+            <date>19980527</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="91">
+          <document-id>
+            <country>US</country>
+            <doc-number>5954526</doc-number>
+            <kind>A</kind>
+            <name>Smith</name>
+            <date>19990921</date>
+          </document-id>
+          <application-date>
+            <date>19961004</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="92">
+          <document-id>
+            <country>US</country>
+            <doc-number>5955684</doc-number>
+            <kind>A</kind>
+            <name>Gravel et al.</name>
+            <date>19990921</date>
+          </document-id>
+          <application-date>
+            <date>19970106</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="93">
+          <document-id>
+            <country>US</country>
+            <doc-number>5973942</doc-number>
+            <kind>A</kind>
+            <name>Nelson et al.</name>
+            <date>19991026</date>
+          </document-id>
+          <application-date>
+            <date>19980710</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="94">
+          <document-id>
+            <country>US</country>
+            <doc-number>5988206</doc-number>
+            <kind>A</kind>
+            <name>Bare et al.</name>
+            <date>19991123</date>
+          </document-id>
+          <application-date>
+            <date>19980312</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="95">
+          <document-id>
+            <country>US</country>
+            <doc-number>6005500</doc-number>
+            <kind>A</kind>
+            <name>Gaboury et al.</name>
+            <date>19991221</date>
+          </document-id>
+          <application-date>
+            <date>19970606</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="96">
+          <document-id>
+            <country>US</country>
+            <doc-number>6006338</doc-number>
+            <kind>A</kind>
+            <name>Longsdorf et al.</name>
+            <date>19991221</date>
+          </document-id>
+          <application-date>
+            <date>19970709</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="97">
+          <document-id>
+            <country>US</country>
+            <doc-number>6038927</doc-number>
+            <kind>A</kind>
+            <name>Karas</name>
+            <date>20000321</date>
+          </document-id>
+          <application-date>
+            <date>19961203</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="98">
+          <document-id>
+            <country>US</country>
+            <doc-number>6050145</doc-number>
+            <kind>A</kind>
+            <name>Olson et al.</name>
+            <date>20000418</date>
+          </document-id>
+          <application-date>
+            <date>19970710</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="99">
+          <document-id>
+            <country>US</country>
+            <doc-number>6059254</doc-number>
+            <kind>A</kind>
+            <name>Sundet et al.</name>
+            <date>20000509</date>
+          </document-id>
+          <application-date>
+            <date>19970327</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="100">
+          <document-id>
+            <country>US</country>
+            <doc-number>6105437</doc-number>
+            <kind>A</kind>
+            <name>Klug et al.</name>
+            <date>20000822</date>
+          </document-id>
+          <application-date>
+            <date>19981007</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="101">
+          <document-id>
+            <country>US</country>
+            <doc-number>6111888</doc-number>
+            <kind>A</kind>
+            <name>Green et al.</name>
+            <date>20000829</date>
+          </document-id>
+          <application-date>
+            <date>19970527</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="102">
+          <document-id>
+            <country>US</country>
+            <doc-number>6115831</doc-number>
+            <kind>A</kind>
+            <name>Hanf et al.</name>
+            <date>20000905</date>
+          </document-id>
+          <application-date>
+            <date>19970326</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="103">
+          <document-id>
+            <country>US</country>
+            <doc-number>6123585</doc-number>
+            <kind>A</kind>
+            <name>Hussong et al.</name>
+            <date>20000926</date>
+          </document-id>
+          <application-date>
+            <date>19991015</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="104">
+          <document-id>
+            <country>US</country>
+            <doc-number>6140952</doc-number>
+            <kind>A</kind>
+            <name>Gaboury</name>
+            <date>20001031</date>
+          </document-id>
+          <application-date>
+            <date>19981221</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="105">
+          <document-id>
+            <country>US</country>
+            <doc-number>6216172</doc-number>
+            <kind>B1</kind>
+            <name>Kolblin et al.</name>
+            <date>20010410</date>
+          </document-id>
+          <application-date>
+            <date>19980326</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="106">
+          <document-id>
+            <country>US</country>
+            <doc-number>6233532</doc-number>
+            <kind>B1</kind>
+            <name>Boudreau et al.</name>
+            <date>20010515</date>
+          </document-id>
+          <application-date>
+            <date>19980114</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="107">
+          <document-id>
+            <country>US</country>
+            <doc-number>6285964</doc-number>
+            <kind>B1</kind>
+            <name>Babel et al.</name>
+            <date>20010904</date>
+          </document-id>
+          <application-date>
+            <date>19981214</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="108">
+          <document-id>
+            <country>US</country>
+            <doc-number>6295875</doc-number>
+            <kind>B1</kind>
+            <name>Frick et al.</name>
+            <date>20011002</date>
+          </document-id>
+          <application-date>
+            <date>19990514</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="109">
+          <document-id>
+            <country>DE</country>
+            <doc-number>34 41 648</doc-number>
+            <date>19871200</date>
+          </document-id>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="110">
+          <document-id>
+            <country>DE</country>
+            <doc-number>G 91 09 176</doc-number>
+            <date>19911000</date>
+          </document-id>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="111">
+          <document-id>
+            <country>DE</country>
+            <doc-number>197 45 244</doc-number>
+            <date>19980400</date>
+          </document-id>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="112">
+          <document-id>
+            <country>DE</country>
+            <doc-number>299 03 260</doc-number>
+            <date>20000500</date>
+          </document-id>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="113">
+          <document-id>
+            <country>EP</country>
+            <doc-number>0 063 685</doc-number>
+            <date>19821100</date>
+          </document-id>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="114">
+          <document-id>
+            <country>EP</country>
+            <doc-number>0 167 941</doc-number>
+            <date>19850600</date>
+          </document-id>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="115">
+          <document-id>
+            <country>EP</country>
+            <doc-number>0 214 801</doc-number>
+            <date>19870300</date>
+          </document-id>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="116">
+          <document-id>
+            <country>EP</country>
+            <doc-number>0 223 300</doc-number>
+            <date>19870500</date>
+          </document-id>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="117">
+          <document-id>
+            <country>EP</country>
+            <doc-number>0 268 742</doc-number>
+            <date>19880600</date>
+          </document-id>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="118">
+          <document-id>
+            <country>EP</country>
+            <doc-number>0 903 651</doc-number>
+            <date>19990300</date>
+          </document-id>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="119">
+          <document-id>
+            <country>JP</country>
+            <doc-number>2000121470</doc-number>
+            <kind>A</kind>
+            <date>20000428</date>
+          </document-id>
+          <application-date>
+            <date>19981016</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="120">
+          <document-id>
+            <country>WO</country>
+            <doc-number>WO 88/01417</doc-number>
+            <date>19880200</date>
+          </document-id>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="121">
+          <document-id>
+            <country>WO</country>
+            <doc-number>WO 89/02578</doc-number>
+            <date>19890300</date>
+          </document-id>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="122">
+          <document-id>
+            <country>WO</country>
+            <doc-number>WO 89/04089</doc-number>
+            <date>19890500</date>
+          </document-id>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="123">
+          <document-id>
+            <country>WO</country>
+            <doc-number>WO 90/15975</doc-number>
+            <date>19901200</date>
+          </document-id>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="124">
+          <document-id>
+            <country>WO</country>
+            <doc-number>WO 91/18266</doc-number>
+            <date>19911100</date>
+          </document-id>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="125">
+          <document-id>
+            <country>WO</country>
+            <doc-number>WO 96/34264</doc-number>
+            <date>19961000</date>
+          </document-id>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="126">
+          <document-id>
+            <country>WO</country>
+            <doc-number>WO 98/48489</doc-number>
+            <date>19981000</date>
+          </document-id>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="127">
+          <document-id>
+            <country>WO</country>
+            <doc-number>WO 00/23776</doc-number>
+            <date>20000400</date>
+          </document-id>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="1">
+          <text>U.S. patent application Ser. No. 09/671,495, Behm et al., filed Sep. 27, 2000.</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="2">
+          <text>U.S. patent application Ser. No. 09/519,781, Neslon et al., filed Mar. 7, 2000.</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="3">
+          <text>U.S. patent application Ser. No. 09/520,292, Davis et al., filed Mar. 7, 2000.</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="4">
+          <text>U.S. patent application Ser. No. 09/519,912, Nelson et al., filed Mar. 7, 2000.</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="5">
+          <text>U.S. patent application Ser. No. 09/672,338, Nelson et al., filed Sep. 28, 2000.</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="6">
+          <text>U.S. patent application Ser. No. 09/638,181, Roper et al., filed Jul. 31, 2000.</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="7">
+          <text>U.S. patent application Ser. No. 09/571,111, Westfield et al., filed May 15, 2000.</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="8">
+          <text>U.S. patent application Ser. No. 09/564,506, Nord et al., filed May 4, 2000.</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="9">
+          <text>U.S. patent application Ser. No. 09/667,289, Westfield et al., filed Sep. 22, 2000.</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="10">
+          <text>U.S. patent application Ser. No. 09/667,399, Behm et al., filed Sep. 21, 2000.</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="11">
+          <text>U.S. patent application Ser. No. 09/671,130, Fandrey et al., filed Sep. 27, 2000.</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="12">
+          <text>U.S. patent application Ser. No. 29/120,531, Fandrey et al., filed Mar. 21, 2000.</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="13">
+          <text>U.S. patent application Ser. No. 29/120,544, Fandrey et al., filed Mar. 21, 2000.</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="14">
+          <text>U.S. patent application Ser. No. 29/120,538, Fandrey et al., filed Mar. 21, 2000.</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="15">
+          <text>U.S. patent application Ser. No. 29/120,552, Fandrey et al., filed Mar. 21, 2000.</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="16">
+          <text>U.S. patent application Ser. No. 29/120,537, Fandrey et al., filed Mar. 21, 2000.</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="17">
+          <text>U.S. patent application Ser. No. 29/120,553, Fandrey et al., filed Mar. 21, 2000.</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="18">
+          <text>Product Data Sheet No: 00813-0100-4378, “Model 751 Field Signal Indicator”, by Rosemount Inc., Eden Prairie, Minnesota, (1997).</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="19">
+          <text>Product Data Sheet No: 00813-0100-4731, “APEX™ Radar Gauge”, by Rosemount Inc., Eden Prairie, Minnesota, (1998).</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="20">
+          <text>Product Data Sheet No: 00813-0100-4640, “Model 3201 Hydrostatic Interface Unit”, from the Rosemount Comprehensive Product Catalog, published 1998, by Rosemount Inc., Eden Prairie, Minnesota.</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="21">
+          <text>Product Data Sheet No: 00813-0100-4003, “Model 8800A”, by Rosemount Inc., Eden Prairie, Minnesota, (1998).</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="22">
+          <text>Product Data Sheet No: 00813-0100-4773, “Model 8742C—Magnetic Flowmeter Transmitter with FOUNDATION™ Fieldbus”, from the Rosemount Comprehensive Product Catalog, published 1998, by Rosemount Inc., Eden Prairie, Minnesota.</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="23">
+          <text>“Rosemount Model 8732C Magnetic Flowmeter Transmitter”, by Rosemount Inc., Eden Prairie, Minnesota, (1998).</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="24">
+          <text>Product Data Sheet No: 00813-0100-4263, “Model 44 Alphaline® Temperature Transmitters”, by Rosemount Inc., Eden Prairie, Minnesota, (1997).</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="25">
+          <text>Product Data Sheet No: 00813-0100-4769, “Model 3244MV Multivariable Temperature Transmitter with FOUNDATION™ Fieldbus”, by Rosemount Inc., Eden Prairie, Minnesota, (1998).</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="26">
+          <text>Product Data Sheet No: 00813-0100-4724, “Models 3144 and 3244MV Smart Temperature Transmitters”, by Rosemount Inc., Eden Prairie, Minnesota, (1998).</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="27">
+          <text>Product Data Sheet No: 00813-0100-4738, “Model 3095FB Multivariable™ Transmitter with Modbus™ Protocol”, by Rosemount Inc., Eden Prairie, Minnesota, (1996, 1997).</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="28">
+          <text>Product Data Sheet No: 00813-0100-4001, “Model 3051 Digital Pressure Transmitter for Pressure, Flow, and Level Measurement”, by Rosemount Inc., Eden Prairie, Minnesota, (1998).</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="29">
+          <text>Product Data Sheet No: 00813-0100-4698, “Model 2090F Sanitary Pressure Transmitter”, by Rosemount Inc., Eden Prairie, Minnesota, (1998).</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="30">
+          <text>Product Data Sheet No: 00813-0100-4690, “Model 2088 Economical Smart Pressure Transmitter”, by Rosemount Inc., Eden Prairie, Minnesota, (1998).</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="31">
+          <text>Product Data Sheet No: 00813-0100-4592, “Model 2024 Differential Pressure Transmitter”, by Rosemount Inc., Eden Prairie, Minnesota, (1987-1995).</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="32">
+          <text>Product Data Sheet No: 00813-0100-4360, “Model 1151 Alphaline® Pressure Transmitters”, by Rosemount Inc., Eden Prairie, Minnesota, (1998).</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="33">
+          <text>Product Data Sheet No: 00813-0100-4458, “Model 1135F Pressure-to-Current Converter”, by Rosemount Inc., Eden Prairie, Minnesota, (1983, 1986, 1994).</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="34">
+          <text>“Single Chip Senses Pressure and Temperature,”Machine Design, 64 (1992) May 21, No. 10.</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="35">
+          <text>Brochure: “Reduce Unaccounted-For Natural Gas with High-Accuracy Pressure Transmitters,” Rosemount Inc. Measurement Division, Eden Prairie, Minnesota, ADS 3073, 5/91, pp. 1-4.</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="36">
+          <text>Technical Information Bulletin, “Liquid Level Transmitter Model DB40RL Sanitary SensorDeltapilot,” Endress+ Hauser, Greenwood, Indiana, 9/92, pp. 1-8.</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="37">
+          <text>“The Digitisation of Field Instruments” W. Van Der Bijl,Journal A, vol. 32, No. 3, 1991, pp. 62-65.</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="38">
+          <text>Specification Summary, “TELETRANS™ 3508-30A Smart Differential Pressure Transmitter,” (undated) Bristol Babcock, Inc., Watertown, CT, 06795.</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="39">
+          <text>Specification Summary, “TELETRANS™ 3508-10A Smart Pressure Transmitter,” (undated) Bristol Babcock, Inc., Watertown, CT, 06795.</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="40">
+          <text>Specification Summary, “AccuRate Advanced Gas Flow Computer, Model GFC 3308,” (undated) Bristol Babcock, Inc., Watertown, CT, 06795.</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="41">
+          <text>Product Data Sheet PDS 4640, “Model 3201 Hydrostatic Interface Unit,” Mar. 1992, Rosemount Inc., Eden Prairie, MN 55344.</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="42">
+          <text>Product Data Sheet PDS 4638, “Model 3001CL Flush-Mount Hydrostatic Pressure Transmitter,” Jul. 1992, Rosemount Inc., Eden Prairie, MN 55344.</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="43">
+          <text>“Flow Measurement,”Handbook of Fluid Dynamics, V. Streeter, Editor-in-chief, published by McGraw-Hill Book Company, Inc. 1961, pp. 14-4 to 14-15.</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="44">
+          <text>“Precise Computerized In-Line Compressible Flow Metering,”Flow—Its Measurement and Control in Science and Industry, vol. 1, Part 2, Edited by R. Wendt, Jr., Published by American Institute of Physics et al, (undated) pp. 539-540.</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="45">
+          <text>“A Systems Approach,” Dr. C. Ikoku,Natural Gas Engineering, PennWell Books, (undated) pp. 256-257.</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="46">
+          <text>“Methods for Volume Measurement Using Tank-Gauging Devices Can Be Error Prone,” F. Berto,The Advantages of Hydrostatic Tank Gauging Systems, undated reprint fromOil&amp;Gas Journal.</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="47">
+          <text>“Hydrostatic Tank Gauging—Technology Whose Time Has Come,” J. Berto,Rosemount Measurement Division Product Feature, undated reprint from INTECH.</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="48">
+          <text>“Pressure Sensors Gauge Tank level and Fluid Density,”Rosemount Measurement Division Product Feature, undated reprint fromPrepared Foods(Copyrighted 1991 by Gorman Publishing Company).</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="49">
+          <text>“Low Cost Electronic Flow Measurement System,”Tech Profile, May 1993, Gas Research Institute, Chicago, IL.</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="50">
+          <text>“Development of an Integrated EFM Device for Orifice Meter Custody Transfer Applications,” S.D. Nieberle et al.,American Gas Association Distribution/Transmission Conference&amp;Exhibit, May 19, 1993.</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="51">
+          <text>Advertisement, AccuRate Model 3308 Integral Smart DP/P/T Transmitter, (undated) Bristol Babcock, Inc., Watertown, CT 06795.</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="52">
+          <text>Advertisement, Model 3508 DP Transmitter,Control Engineering, Dec. 1992, Bristol Babcock, Inc., Watertown, CT 06795.</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="53">
+          <text>“Smart Transmitters Tear Up The Market,” C. Polsonetti,INTECH, Jul. 1993, pp. 42-45.</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="54">
+          <text>“MicroLAN Design Guide”, Dallas Semiconductor, Tech Brief No. 1, (undated).</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="55">
+          <text>“Bosch CAN Specification Version 2.0”, by Robert Bosch GmbH, pp. 1-68 including pp. -1-and -2-, (Sep. 1991).</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="56">
+          <text>Product Data Sheet No. 00813-0100-4001, “Digital Pressure Transmitter for Pressure, Flow, and Level Measurement”, by Rosemount Inc., (1998).</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="57">
+          <text>“Claudius Ptolemy (100?-170? AD)”,M&amp;C News, 7 pages, (Apr. 1994).</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="58">
+          <text>American National Standard , “Hydraulic Fluid Power-Solenoid Piloted Industrial Valves-Interface Dimensions for Electrical Connectors”, National Fluid Power Association, Inc., 10 pages, (Aug. 1981).</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="59">
+          <text>2 pages downloaded from http://www.interlinkbt.com/PRODUCT/IBT—PROD/DN/CN-DM—PN/EURO-DP.HTM dated Sep. 15, 2000.</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="60">
+          <text>4 pages downloaded from http://www.interlinkbt.com/PRODUCT/IBT—PROD/dn/EUR-CON/euro-fwc.htm dated Sep. 15, 2000.</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="61">
+          <text>3 pages from TURK Cable Standards, by Turk, Inc., Minneapolis, Minnesota.</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="62">
+          <text>“Notification of Transmittal of the International Search Report or Declaration” for International application Ser. No. PCT/US00/26561.</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="63">
+          <text>“Notification of Transmittal of the International Search Report or Declaration” for International application Ser. No. PCT/US00/26488.</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="64">
+          <text>“Notification of Transmittal of the International Search Report or Declaration” for International application Ser. No. PCT/US00/26563.</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="65">
+          <text>U.S. patent application Ser. No. 09/862,762, Wang, filed May 21, 2001.</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="66">
+          <text>U.S. patent application Ser. No. 09/867,961, Fandrey et al., filed May 30, 2001.</text>
+        </nplcit>
+      </citation>
+      <citation>
+        <fwdcit num="1">
+          <document-id>
+            <country>US</country>
+            <doc-number>7528755</doc-number>
+            <kind>B2</kind>
+            <date>20090505</date>
+          </document-id>
+          <application-date>
+            <date>20070906</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+      <citation>
+        <fwdcit num="2">
+          <document-id>
+            <country>US</country>
+            <doc-number>7319421</doc-number>
+            <kind>B2</kind>
+            <date>20080115</date>
+          </document-id>
+          <application-date>
+            <date>20060126</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+      <citation>
+        <fwdcit num="3">
+          <document-id>
+            <country>US</country>
+            <doc-number>7324029</doc-number>
+            <kind>B2</kind>
+            <date>20080129</date>
+          </document-id>
+          <application-date>
+            <date>20060126</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+      <citation>
+        <fwdcit num="4">
+          <document-id>
+            <country>US</country>
+            <doc-number>7295131</doc-number>
+            <kind>B2</kind>
+            <date>20071113</date>
+          </document-id>
+          <application-date>
+            <date>20050107</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+      <citation>
+        <fwdcit num="5">
+          <document-id>
+            <country>US</country>
+            <doc-number>6970126</doc-number>
+            <kind>B1</kind>
+            <date>20051129</date>
+          </document-id>
+          <application-date>
+            <date>20040625</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+      <citation>
+        <fwdcit num="6">
+          <document-id>
+            <country>US</country>
+            <doc-number>6873277</doc-number>
+            <kind>B1</kind>
+            <date>20050329</date>
+          </document-id>
+          <application-date>
+            <date>20030919</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+      <citation>
+        <fwdcit num="7">
+          <document-id>
+            <country>US</country>
+            <doc-number>7817073</doc-number>
+            <kind>B2</kind>
+            <date>20101019</date>
+          </document-id>
+          <application-date>
+            <date>20070615</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+    </references-cited>
+    <related-documents date-changed="20100409">
+      <related-publication>
+        <document-id>
+          <country>US</country>
+          <doc-number>20030056597</doc-number>
+          <kind>A1</kind>
+          <date>20030327</date>
+        </document-id>
+      </related-publication>
+    </related-documents>
+    <parties date-changed="20100409">
+      <applicants>
+        <applicant sequence="1" app-type="applicant">
+          <addressbook lang="eng">
+            <orgname>Rosemount Inc.</orgname>
+            <role>02</role>
+            <address>
+              <city>Eden Prairie</city>
+              <state>MN</state>
+            </address>
+          </addressbook>
+        </applicant>
+      </applicants>
+      <inventors>
+        <inventor sequence="1">
+          <addressbook lang="eng">
+            <name>Wang, Rongtai</name>
+            <address>
+              <city>Edina</city>
+              <state>MN</state>
+            </address>
+          </addressbook>
+        </inventor>
+      </inventors>
+      <agents>
+        <agent sequence="1" rep-type="attorney">
+          <addressbook lang="eng">
+            <name>Westman, Champlin &amp; Kelly</name>
+          </addressbook>
+        </agent>
+      </agents>
+    </parties>
+    <examiners>
+      <primary-examiner>
+        <last-name>Lefkowitz</last-name>
+        <first-name>Edward</first-name>
+        <department>2855</department>
+      </primary-examiner>
+      <assistant-examiner>
+        <last-name>Jenkins</last-name>
+        <first-name>Jermaine L</first-name>
+      </assistant-examiner>
+    </examiners>
+    <patent-family date-changed="20070530">
+      <main-family family-id="47861565">
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>6684711</doc-number>
+            <kind>B2</kind>
+            <date>20040203</date>
+          </document-id>
+          <application-date>
+            <date>20010823</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>20030056597</doc-number>
+            <kind>A1</kind>
+            <date>20030327</date>
+          </document-id>
+          <application-date>
+            <date>20010823</date>
+          </application-date>
+        </family-member>
+      </main-family>
+      <complete-family family-id="47695231">
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>6684711</doc-number>
+            <kind>B2</kind>
+            <date>20040203</date>
+          </document-id>
+          <application-date>
+            <date>20010823</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>20030056597</doc-number>
+            <kind>A1</kind>
+            <date>20030327</date>
+          </document-id>
+          <application-date>
+            <date>20010823</date>
+          </application-date>
+        </family-member>
+      </complete-family>
+    </patent-family>
+  </bibliographic-data>
+  <abstract id="abstr_eng" date-changed="20100409" lang="eng" format="original">
+    <p id="p-00001-en">A capacitor industrial process control transmitter includes a three-phase excitation circuit to charge a sensing capacitor and a compensation capacitor of the transmitter and transfer charges to an integrator. The sensing capacitor is charged during the first phase. During the second phase, the voltage to the sensing capacitor is reversed, and the charge on the sensing capacitor is pumped to the integrator. Also, the compensation capacitor is charged with the reversed voltage during the second phase. During the third phase, the voltage to the compensation capacitor is changed, and the charge on the compensation capacitor is pumped to the integrator.</p>
+  </abstract>
+  <legal-data date-changed="20110819">
+    <legal-event sequence="1">
+      <publication-date>
+        <date>20010823</date>
+      </publication-date>
+      <event-code-1>AS</event-code-1>
+      <legal-description>ASSIGNMENT</legal-description>
+      <status-identifier>N</status-identifier>
+      <docdb-publication-number> US     6684711B2</docdb-publication-number>
+      <new-owner>ROSEMOUNT INC., MINNESOTA</new-owner>
+      <free-text-description>ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNOR:WANG, RONGTAI;REEL/FRAME:012122/0804</free-text-description>
+      <effective-date>
+        <date>20010816</date>
+      </effective-date>
+    </legal-event>
+    <legal-event sequence="2">
+      <publication-date>
+        <date>20050322</date>
+      </publication-date>
+      <event-code-1>CC</event-code-1>
+      <legal-description>CERTIFICATE OF CORRECTION</legal-description>
+      <status-identifier>C</status-identifier>
+      <docdb-publication-number> US     6684711B2</docdb-publication-number>
+    </legal-event>
+    <legal-event sequence="3">
+      <publication-date>
+        <date>20070705</date>
+      </publication-date>
+      <event-code-1>FPAY</event-code-1>
+      <effect>+</effect>
+      <legal-description>FEE PAYMENT</legal-description>
+      <status-identifier>N</status-identifier>
+      <docdb-publication-number> US     6684711B2</docdb-publication-number>
+      <fee-payment-year>4</fee-payment-year>
+    </legal-event>
+    <legal-event sequence="4">
+      <publication-date>
+        <date>20110802</date>
+      </publication-date>
+      <event-code-1>FPAY</event-code-1>
+      <effect>+</effect>
+      <legal-description>FEE PAYMENT</legal-description>
+      <status-identifier>N</status-identifier>
+      <docdb-publication-number> US     6684711B2</docdb-publication-number>
+      <fee-payment-year>8</fee-payment-year>
+    </legal-event>
+  </legal-data>
+  <description id="descr_eng" lang="eng" format="original" date-changed="20100409">
+    <summary>
+      <heading level="2">FIELD OF THE INVENTION</heading>
+      <p id="p-00002-en">The present invention is related generally to industrial process control transmitters, and particularly to a sensor excitation circuit for use in such transmitters.</p>
+      <heading level="2">BACKGROUND OF THE INVENTION</heading>
+      <p id="p-00003-en">Industrial process control transmitters are used to measure process variables in field locations and provide standardized transmission signals as a function of the measured variable. The term “process variable” refers to a physical or chemical state of matter or conversion of energy, such as pressure, temperature, flow, conductivity, pH, and other properties. Process control transmitters are often operated in hazardous field environments to measure these variables and are connected by two-wire communication lines to a central or control station.</p>
+      <p id="p-00004-en">One such transmitter is described in U.S. application Ser. No. 09/312,411 filed May 14, 1999 by Roger L. Frick and David A. Broden for “Pressure Sensor for a Pressure Transmitter”, and assigned to the same assignee as the present invention. The Frick et al. transmitter employs a capacitive sensor having a deflectable sensing diaphragm and three or more capacitor electrodes forming separate capacitors with the diaphragm. Two of the capacitors are primary sensing capacitors that are arranged differentially so that the capacitances of the primary sensing capacitors change oppositely in proportion to the process variable. The third (and fourth, if used) capacitor is a compensation capacitor that provides signals representing certain offset errors associated with one or both of the primary sensing capacitors.</p>
+      <p id="p-00005-en">The Frick et al. transmitter includes a sigma-delta converter that acts as a capacitance-to-digital converter. An excitation circuit provides a charge packet to the capacitors of the sensor, which are charged by an amount based on the capacitance value of the capacitor. The charge is transferred to an integrator/amplifier of the sigma-delta converter to derive a signal representative of sensor capacitance. The signal is processed and a standardized transmission signal is transmitted to the central control station via the two-wire communication lines.</p>
+      <p id="p-00006-en">The excitation circuit of the Frick et al. application is operated such that each capacitor is charged by a charging voltage during a first phase and the charge is transferred to the integrator/amplifier during a second phase. The sensing capacitors and compensation capacitors are charged by the same charging voltage, necessitating the use of an inverting amplifier to invert one of the charges so that it may be subtracted from the other charge. The inverting amplifier introduces noise into the signal and consumes power.</p>
+      <heading level="2">SUMMARY OF THE INVENTION</heading>
+      <p id="p-00007-en">The present invention is directed to a technique permitting the sensing and compensation capacitors to be charged oppositely so the need for a separate inverting amplifier is eliminated.</p>
+      <p id="p-00008-en">In accordance with the present invention, an industrial process control transmitter has a capacitive sensor with at least one sensing capacitor and at least one compensation capacitor. The sensing capacitor is charged with a first polarity during a first phase and the charge on the sensing capacitor is pumped to a sigma-delta capacitance-to-digital circuit during a second phase, mutually distinct from the first phase. The compensation capacitor is charged with a second polarity during the second phase and the charge on the second capacitor is pumped to the sigma-delta capacitance-to-digital circuit during a third phase.</p>
+      <p id="p-00009-en">In one form of the invention, the capacitive sensor includes a second sensing capacitor that is charged during the third phase.</p>
+      <p id="p-00010-en">A switch circuit selectively couples the sensing capacitors to a charging circuit to charge the sensor capacitors, and selectively couples the sensing capacitors to the sigma-delta circuit. The charge transferred is based on the charging level to the respective capacitor. A transmitter output circuit receives a digital output from the sigma-delta circuit and generates a standardized transmitter output for coupling to a remote receiver.</p>
+    </summary>
+    <description-of-drawings>
+      <heading level="2">BRIEF DESCRIPTION OF THE DRAWINGS</heading>
+      <p id="p-00011-en">
+        <figref>FIG. 1</figref>is a block diagram of an industrial process control transmitter employing a sensor excitation circuit according to the present invention.</p>
+      <p id="p-00012-en">
+        <figref>FIG. 2</figref>is a circuit diagram illustrating the excitation and sigma-delta compensation circuit described in the Frick et al. application.</p>
+      <p id="p-00013-en">
+        <figref>FIG. 3</figref>is a timing diagram for the circuit illustrated in FIG.<b>2</b>.</p>
+      <p id="p-00014-en">
+        <figref>FIG. 4</figref>is a circuit diagram of a portion of a three-phase excitation circuit illustrating the principles of the present invention.</p>
+      <p id="p-00015-en">
+        <figref>FIG. 5</figref>is a timing diagram for the circuit portion illustrated in FIG.<b>4</b>.</p>
+      <p id="p-00016-en">
+        <figref>FIGS. 6-8</figref>are equivalents of the circuit portion illustrated in<figref>FIG. 4</figref>for each of the three phases.</p>
+      <p id="p-00017-en">
+        <figref>FIG. 9</figref>is a circuit diagram of another portion of a three-phase excitation circuit.</p>
+      <p id="p-00018-en">
+        <figref>FIG. 10</figref>is a circuit diagram of a three-phase excitation circuit according to the present invention.</p>
+      <p id="p-00019-en">
+        <figref>FIG. 11</figref>is a timing diagram for the circuit illustrated in FIG.<b>10</b>.</p>
+    </description-of-drawings>
+    <detailed-desc>
+      <heading level="2">DETAILED DESCRIPTION OF THE PREFERRED EMBODIMENTS</heading>
+      <p id="p-00020-en">The principal problem addressed by the present invention is that the prior amplifiers that inverted the charges from the compensation capacitors required considerable power. The power requirements of prior inverting amplifiers adversely affected performance, and left insufficient power available for other purposes, such as for diagnostic circuits. The present invention separately charges the sensing capacitors and compensation capacitors at the levels and polarities necessary for summing for the sigma-delta circuit, without the need for inverting amplifiers. Consequently, power requirements are reduced.</p>
+      <p id="p-00021-en">
+        <figref>FIG. 1</figref>is a block diagram of an industrial process control transmitter<b>900</b>having a sigma-delta circuit<b>1000</b>arranged to receive signals representative of a pressure from charge circuit<b>902</b>that charges pressure sensitive capacitors of sensor<b>904</b>. Charges on the capacitors are representative of pressure, and of sensor hysteresis, and are transferred to circuit<b>1000</b>by charge circuit<b>902</b>. Circuit<b>1000</b>converts the charges to digital signals which are processed by processor<b>1002</b>and input to transceiver<b>1004</b>which provides a standardized transmission signal in a protocol designed for transmission to central control station<b>1006</b>by a two-wire communication link<b>1008</b>. Additionally, control station<b>1006</b>may send signals to remote industrial process control transmitter<b>900</b>by communication link<b>1008</b>which are received through transceiver<b>1004</b>to provide control to transmitter<b>900</b>in a manner well known in the art.</p>
+      <p id="p-00022-en">
+        <figref>FIG. 2</figref>is a circuit diagram illustrating the excitation circuit and sigma-delta circuit<b>1000</b>of an industrial process control transmitter described in the Frick et al. application. The capacitive sensor is schematically represented as sensing capacitors C<sub>H</sub>and C<sub>L</sub>and compensation capacitors C<sub>HR</sub>and C<sub>LR</sub>. As described in the Frick et al. application, the sensor physically changes over time causing sensing errors, known as hysteresis. These errors are a common source of error in measuring the process variable condition by the industrial process control transmitter. The compensation capacitors C<sub>HR</sub>and C<sub>LR</sub>have a proportionately greater response to sensor hysteresis than the sensing capacitors C<sub>H</sub>and C<sub>L</sub>.</p>
+      <p id="p-00023-en">An input side of each capacitor C<sub>H</sub>, C<sub>L</sub>, C<sub>HR</sub>and C<sub>LR</sub>is coupled through switches<b>50</b>and<b>52</b>to the respective supplies V<sub>P</sub>and V<sub>N</sub>. The output sides of capacitors C<sub>HR</sub>and C<sub>LR</sub>are connected to respective inverter charge amplifiers circuits<b>54</b>and<b>56</b>, the outputs of which are connected to the output of the respective capacitor C<sub>H</sub>and C<sub>L</sub>at nodes H and L, respectively. Nodes H and L are connected through respective switches<b>58</b>and<b>62</b>to node X at the negative input of amplifier<b>60</b>, and through respective switches<b>64</b>and<b>66</b>to voltage source Vmid.</p>
+      <p id="p-00024-en">Amplifier<b>60</b>is an integrating amplifier that operates as an integrator amplifier for the first stage, or modulator stage, of sigma-delta capacitance-to-digital converter<b>1000</b>. Amplifier<b>60</b>provides an increasingly negative output for an increasing positive signal input at the negative input, and provides an increasing positive output for an increasing negative signal input at the negative input. The output of amplifier<b>60</b>is connected to the positive input of comparator<b>70</b>, whose output provides a digital output representing the capacitance ratio. The output of comparator<b>70</b>is also connected to switch control logic<b>72</b>to control operation of the switches.</p>
+      <p id="p-00025-en">Switch control logic<b>72</b>provides four switch logic signals Φ<sub>1</sub>, Φ<sub>2</sub>, y and {overscore (y)} (y-not), illustrated in FIG.<b>3</b>. Signals Φ<sub>1</sub>and Φ<sub>2</sub>are non-overlapping phase signals, whereas signals y and {overscore (y)} are complementary signals representing whether the circuit is operating in the positive or negative mode at a particular time. When operating in a positive mode, {overscore (y)} is high, whereas when operating in a negative mode, y is high.</p>
+      <p id="p-00026-en">In the positive mode of the circuit ({overscore (y)} high), switches<b>50</b>and<b>64</b>conduct during a first phase (Φ<sub>1</sub>) so the input sides of capacitors C<sub>H</sub>and C<sub>HR</sub>are at the positive voltage V<sub>P</sub>of the voltage supply. The output side of capacitor C<sub>H</sub>is at Vmid, which may be electrical ground, and the output side of capacitor C<sub>HR</sub>is at a voltage between V<sub>P</sub>and Vmid based on compensation capacitor(s) C<sub>G</sub>.</p>
+      <p id="p-00027-en">While {overscore (y)} is still high, during the second Φ<sub>2</sub>phase, switches<b>52</b>and<b>58</b>conduct and<b>50</b>and<b>64</b>are non-conducting. With V<sub>N</sub>at the input of capacitor C<sub>H</sub>, a negative charge representative of the capacitance value of capacitor C<sub>H</sub>is transferred to node H; with V<sub>N</sub>at the input of capacitor C<sub>HR</sub>, a negative charge representative of the capacitance value of capacitor C<sub>HR</sub>is transferred to the negative input of inverter amplifier<b>80</b>of charge amplifier circuit<b>54</b>. Capacitor(s) C<sub>G</sub>adjust the gain of amplifier<b>80</b>to set a constant K<sub>H</sub>based on the ratio of C<sub>G</sub>/C<sub>FH</sub>for charge amplifier<b>54</b>. Hence, the output of amplifier circuit<b>54</b>represents an adjusted inverted charge, —K<sub>H</sub>C<sub>HR</sub>, where K<sub>H</sub>is derived from the capacitor array C<sub>G</sub>. The representation of —K<sub>H</sub>C<sub>HR</sub>is summed with the representation of the charge on capacitor C<sub>H</sub>at node H. Switch<b>58</b>transfers the negative charge representation of C<sub>H</sub>—K<sub>H</sub>C<sub>HR</sub>from node H to node X at the negative input of amplifier<b>60</b>. Amplifier<b>60</b>integrates the signal such that the negative input produces a positive change to the signal at the output of amplifier<b>60</b>.</p>
+      <p id="p-00028-en">The circuit associated with capacitor C<sub>L</sub>and C<sub>LR</sub>operates in a similar manner during the phases while y is high to place a positive charge at the negative input of amplifier<b>60</b>, thereby stepping the output of amplifier<b>60</b>negatively.</p>
+      <p id="p-00029-en">The circuit is reset by operating switch<b>68</b>during a reset phase Φ<sub>R</sub>to discharge feedback capacitor C<sub>F</sub>. Resistor R<sub>2</sub>has a high resistance (e.g., 100 megaohms) in parallel with feedback capacitor C<sub>FN</sub>to discharge capacitor C<sub>FN</sub>over the RC time constant of resistor R<sub>2</sub>and capacitor C<sub>FN</sub>. The resistance of resistor R<sub>2</sub>must be large enough to minimally affect the transfer of charge to the integrator, yet small enough to effectively discharge capacitor C<sub>FN</sub>during resetting of the circuit. In practice, resistor R<b>2</b>was chosen high enough as to minimally impact the integration of the charge signal, and require resetting of the circuit over a considerably longer time period.</p>
+      <p id="p-00030-en">One problem associated with the circuit illustrated in<figref>FIG. 2</figref>is that operational amplifiers<b>80</b>have an input resistance R<sub>1</sub>of about 5,000 ohms. The input resistance of amplifiers<b>80</b>, coupled with the small current available to the amplifiers to settle the output voltage, introduces delays in integrator settling. These delays are illustrated at waveform Vc in<figref>FIG. 3</figref>which illustrates the slow settling of the output of amplifier<b>80</b>. More particularly, the long settling times between triggering a change in the Vc voltage and settling to the new voltage level resulted in shortened periods of settled Vc voltage, resulting in reduced slew currents. The slow integrator settling creates measurement error at high sampling frequencies and deprives the circuit of adequate power to operate other diagnostic circuits. Moreover, the distorted waveform output V<sub>C</sub>may adversely affect the integrator settling of the first stage integrator<b>60</b>of sigma-delta converter<b>1000</b>.</p>
+      <p id="p-00031-en">Another problem with the circuit illustrated in<figref>FIG. 2</figref>is that amplifiers<b>80</b>were implemented as external amplifiers, connected by terminal<b>82</b>to the respective compensation capacitor C<sub>HR</sub>or C<sub>LR</sub>, and by terminal<b>84</b>to gain capacitor array C<sub>G</sub>. The connections to external amplifiers<b>80</b>introduced additional leakage paths and noise sources for the circuit.</p>
+      <p id="p-00032-en">Another problem of the circuit of<figref>FIG. 2</figref>was that operational amplifiers<b>80</b>required the addition of two sample-and-hold amplifiers within amplifier<b>60</b>which added to the power consumption of the circuit, and diminished real estate (chip area) availability on the circuit boards.</p>
+      <p id="p-00033-en">It will be appreciated from the foregoing that the circuit shown in<figref>FIG. 2</figref>charges the sensing capacitor and its associated compensation capacitor to the same polarity, requiring that one of the charges (e.g., that on the compensation capacitor) be inverted to be subtracted from the other charge. The present invention eliminates the need for inversion, and hence the inverting amplifiers<b>80</b>, by charging the sensing and compensation capacitors oppositely. Moreover, the present invention eliminates the need for gain capacitor array C<sub>G</sub>by adjusting the charge voltage to the compensation capacitor.</p>
+      <p id="p-00034-en">
+        <figref>FIG. 4</figref>is a circuit diagram illustrating the structure and principles of operation of the three-phase excitation circuit according to the present invention for a capacitive sensor.<figref>FIG. 4</figref>illustrates the excitation circuit for one-half of the sensor, namely one of the capacitors C<sub>H</sub>of the differential pair and its corresponding compensation capacitor C<sub>HR</sub>. The circuit includes a charge circuit<b>101</b>that charges the sensor capacitors of sensor<b>103</b>for input to sigma-delta modulator<b>105</b>. Charge circuit<b>101</b>includes voltage sources V<sub>P</sub>, V<sub>N</sub>and V<sub>H</sub>coupled through respective switches<b>102</b>,<b>104</b>and<b>106</b>to one side of the capacitors of sensor<b>103</b>. Sensor<b>103</b>includes capacitor sensor C<sub>H</sub>and its companion compensation capacitor C<sub>HR</sub>. Conveniently, the output of the charge circuit may be connected to the conductive diaphragm of sensor<b>103</b>, and the opposite sides of sensor capacitors C<sub>H</sub>and C<sub>HR</sub>are coupled through switches<b>110</b>and<b>112</b>to voltage source Vmid and through respective switches<b>118</b>and<b>120</b>to node X at the input of circuit<b>105</b>. Circuit<b>105</b>is the first stage integrator circuit of a sigma-delta converter that converts the capacitance values to digital representations. The value of voltage source Vmid is preferably mid-way between the values of the V<sub>P</sub>and V<sub>N</sub>voltages. In one preferred form, voltage sources V<sub>P</sub>and V<sub>N</sub>have equal and opposite values at +5 volts and −5 volts, respectively, Vmid is electrically grounded and V<sub>H</sub>is an intermediate voltage between V<sub>P</sub>and Vmid.</p>
+      <p id="p-00035-en">Integrator<b>105</b>includes differential amplifier<b>126</b>having its positive input connected to Vmid and its negative input connected through capacitor C<sub>A</sub>to the output node X of sensor<b>103</b>. Switch<b>128</b>selectively couples the negative input of integrator<b>105</b>to Vmid, and switch<b>130</b>selectively couples the negative input of integrator<b>105</b>to one side of feedback capacitor C<sub>F</sub>. Switch<b>132</b>selectively couples the negative input of amplifier<b>126</b>to the one side of capacitor C<sub>F</sub>. The opposite side of feedback capacitor C<sub>F</sub>is connected to the output of amplifier<b>126</b>. Switch<b>134</b>is connected in parallel with feedback capacitor C<sub>F</sub>to reset the circuit.</p>
+      <p id="p-00036-en">
+        <figref>FIG. 5</figref>is a timing diagram for the three phases for operating the switches of the excitation circuit illustrated in FIG.<b>4</b>. More particularly, during a first phase Φ<sub>1</sub>, switches<b>102</b>,<b>110</b>,<b>128</b>and<b>132</b>are closed, or conducting, and the remaining switches are open, or non-conducting. During the second phase Φ<sub>2</sub>, switches<b>104</b>,<b>112</b>,<b>118</b>and<b>130</b>are closed, or conducting, and the remaining switches are open, or non-conducting. During the third phase, Φ<sub>3</sub>, switches<b>106</b>,<b>120</b>and<b>130</b>are closed, or conducting, and the remaining switches are open, or non-conducting.</p>
+      <p id="p-00037-en">
+        <figref>FIGS. 6-8</figref>illustrate the circuit of<figref>FIG. 4</figref>during each of the three phases. As shown in<figref>FIG. 6</figref>, during a first phase, when Φ<sub>1</sub>is high and switches<b>102</b>,<b>110</b>,<b>128</b>and<b>132</b>are conducting, a high positive voltage V<sub>P</sub>is provided to one side of sensor capacitor C<sub>H</sub>, while the other side is disconnected from node X and connected to Vmid. Based on the size of capacitor C<sub>H</sub>, which is based on the variable being sensed, a voltage ΔVo appears across capacitor C<sub>H</sub>, placing a negative charge representative of the voltage on the output side of the capacitor. At the same time, node X is connected to Vmid through switch<b>128</b>so that any offset in integrator<b>105</b>is stored in capacitor C<sub>A</sub>.</p>
+      <p id="p-00038-en">During the second phase of the operation of the circuit, illustrated in<figref>FIG. 7</figref>, Φ<sub>2</sub>is high, rendering switches<b>104</b>,<b>112</b>,<b>118</b>and<b>130</b>conductive, configuring the circuit as illustrated in FIG.<b>7</b>. Consequently, node X is disconnected from Vmid and couples capacitor C<sub>H</sub>to feedback capacitor C<sub>F</sub>. In this condition, the negative charge on capacitor C<sub>H</sub>is transferred to the feedback capacitor C<sub>F</sub>. Since feedback capacitor C<sub>F</sub>provides a negative feedback for amplifier<b>126</b>, amplifier<b>126</b>produces a positive step in its output voltage at output<b>136</b>. The output voltage, V<sub>Φ1</sub>, at output<b>136</b>is represented as<maths id="math-us-00001-en"><math><mrow><msub><mi>V</mi><mi>Φ1</mi></msub><mo>=</mo><mrow><mfrac><msub><mi>C</mi><mi>H</mi></msub><msub><mi>C</mi><mi>F</mi></msub></mfrac><mo>[!it!]</mo><mrow><mrow><mo>(</mo><mrow><mn>2</mn><mo>[!it!]</mo><mi>Δ</mi><mo>[!it!]</mo><mstyle><mtext> </mtext></mstyle><mo>[!it!]</mo><msub><mi>V</mi><mi>o</mi></msub></mrow><mo>)</mo></mrow><mo>.</mo></mrow></mrow></mrow></math><img he="N/A" wi="N/A" img-format="tif" id="emi-m00001-en" file="US06684711-20040203-M00001.TIF" img-content="math" alt="embedded image" /></maths></p>
+      <p id="p-00039-en">During this same period, a negative voltage V<sub>N</sub>is applied to compensation capacitor C<sub>HR</sub>to charge capacitor C<sub>HR</sub>with a positive charge at its output.</p>
+      <p id="p-00040-en">During the third phase, Φ<sub>3</sub>, the equivalent circuit is illustrated in<figref>FIG. 8</figref>with node X coupling compensation capacitor C<sub>HR</sub>and feedback capacitor C<sub>F</sub>. The positive charge on capacitor C<sub>HR</sub>is transferred to the feedback capacitor C<sub>F</sub>pumping a charge into the integrator, creating a negative step to the output voltage, V<sub>Φ2</sub>, at output<b>136</b>, represented by<maths id="math-us-00002-en"><math><mrow><msub><mi>V</mi><mi>Φ2</mi></msub><mo>=</mo><mrow><mrow><mo>-</mo><mfrac><msub><mi>C</mi><mi>HR</mi></msub><msub><mi>C</mi><mi>F</mi></msub></mfrac></mrow><mo>[!it!]</mo><mi>Δ</mi><mo>[!it!]</mo><mstyle><mtext> </mtext></mstyle><mo>[!it!]</mo><mrow><msub><mi>V</mi><mi>H</mi></msub><mo>.</mo></mrow></mrow></mrow></math><img he="N/A" wi="N/A" img-format="tif" id="emi-m00002-en" file="US06684711-20040203-M00002.TIF" img-content="math" alt="embedded image" /></maths></p>
+      <p id="p-00041-en">The output voltage, Vout, from the first stage<b>105</b>of the sigma-delta circuit is the sum of V<sub>Φ1</sub>and V<sub>Φ2</sub>and is represented by<maths id="math-us-00003-en"><math><mrow><mrow><msub><mi>V</mi><mi>out</mi></msub><mo>=</mo><mrow><mrow><mfrac><msub><mi>C</mi><mi>H</mi></msub><msub><mi>C</mi><mi>F</mi></msub></mfrac><mo>[!it!]</mo><mrow><mo>(</mo><mrow><mn>2</mn><mo>[!it!]</mo><mi>Δ</mi><mo>[!it!]</mo><mstyle><mtext> </mtext></mstyle><mo>[!it!]</mo><msub><mi>V</mi><mi>o</mi></msub></mrow><mo>)</mo></mrow></mrow><mo>-</mo><mrow><mfrac><msub><mi>C</mi><mi>HR</mi></msub><msub><mi>C</mi><mi>F</mi></msub></mfrac><mo>[!it!]</mo><mi>Δ</mi><mo>[!it!]</mo><mstyle><mtext> </mtext></mstyle><mo>[!it!]</mo><msub><mi>V</mi><mi>H</mi></msub></mrow></mrow></mrow><mo>,</mo></mrow></math><img he="N/A" wi="N/A" img-format="tif" id="emi-m00003-en" file="US06684711-20040203-M00003.TIF" img-content="math" alt="embedded image" /></maths></p>
+      <p id="p-00042-en">which may be represented as<maths id="math-us-00004-en"><math><mrow><mrow><msub><mi>V</mi><mi>out</mi></msub><mo>=</mo><mrow><mfrac><mrow><mn>2</mn><mo>[!it!]</mo><mi>Δ</mi><mo>[!it!]</mo><mstyle><mtext> </mtext></mstyle><mo>[!it!]</mo><msub><mi>V</mi><mi>o</mi></msub></mrow><msub><mi>C</mi><mi>F</mi></msub></mfrac><mo>[!af!]</mo><mrow><mo>[</mo><mrow><msub><mi>C</mi><mi>H</mi></msub><mo>-</mo><mrow><msub><mi>K</mi><mi>H</mi></msub><mo>[!it!]</mo><msub><mi>C</mi><mi>HR</mi></msub></mrow></mrow><mo>]</mo></mrow></mrow></mrow><mo>,</mo><mstyle><mtext>[!NewLine!]</mtext></mstyle><mo>[!it!]</mo><mrow><mrow><mi>where</mi><mo>[!it!]</mo><mstyle><mtext> </mtext></mstyle><mo>[!it!]</mo><msub><mi>K</mi><mi>H</mi></msub></mrow><mo>=</mo><mrow><mfrac><mrow><mi>Δ</mi><mo>[!it!]</mo><mstyle><mtext> </mtext></mstyle><mo>[!it!]</mo><msub><mi>V</mi><mi>H</mi></msub></mrow><mrow><mn>2</mn><mo>[!it!]</mo><mi>Δ</mi><mo>[!it!]</mo><mstyle><mtext> </mtext></mstyle><mo>[!it!]</mo><msub><mi>V</mi><mi>o</mi></msub></mrow></mfrac><mo>.</mo></mrow></mrow></mrow></math><img he="N/A" wi="N/A" img-format="tif" id="emi-m00004-en" file="US06684711-20040203-M00004.TIF" img-content="math" alt="embedded image" /></maths></p>
+      <p id="p-00043-en">It will be appreciated that K<sub>H</sub>may be set by establishing a value of voltage V<sub>H</sub>to meet factory calibration requirements. Therefore, where the circuit of<figref>FIG. 2</figref>established the gain for the compensation capacitor C<sub>HR</sub>by the capacitor array, the circuit of<figref>FIG. 4</figref>establishes the gain for compensation capacitor C<sub>HR</sub>by selecting a desired voltage V<sub>H</sub>. Consequently, during operation of the positive side of the charge circuit illustrated in<figref>FIG. 4</figref>, the voltage steps at the output of amplifier<b>126</b>are proportional to C<sub>H</sub>—K<sub>H</sub>C<sub>HR</sub>.</p>
+      <p id="p-00044-en">
+        <figref>FIG. 9</figref>illustrates the negative side of the charge circuit and sensor<b>101</b>and<b>103</b>and adds switch<b>108</b>coupled to the lower charge voltage V<sub>L</sub>, as well as the second half of the differential sensor C<sub>L</sub>and its corresponding compensation capacitor C<sub>LR</sub>. The output sides of capacitor C<sub>L</sub>and C<sub>LR</sub>are coupled through switches<b>114</b>and<b>116</b>to Vmid, previously described, and are coupled through switches<b>122</b>and<b>124</b>to compensator circuit<b>105</b>, previously described. When operating with the negative side of the sensor, switches<b>104</b>,<b>114</b>,<b>128</b>and<b>132</b>are conducting during phase<b>1</b>, Φ<sub>1</sub>, while the other switches are non-conducting. During the second phase, Φ<sub>2</sub>, switches<b>102</b>,<b>116</b>,<b>124</b>and<b>130</b>are conductive and the other switches non-conductive. During the third phase, Φ<sub>3</sub>, switches<b>108</b>,<b>124</b>and<b>130</b>are conductive and the other switches non-conductive.</p>
+      <p id="p-00045-en">The operation of the circuit illustrated in<figref>FIG. 9</figref>is essentially the same as that of<figref>FIG. 4</figref>, except that Vmid is higher than V<sub>L</sub>so that the circuit transfers a negative charge packet to the sensor and converter. Consequently, the positive and negative supply voltages V<sub>P</sub>and V<sub>N</sub>are operated oppositely so voltage V<sub>N</sub>provides the charging voltage to capacitor C<sub>L</sub>during the first phase Φ<sub>1</sub>and voltage V<sub>P</sub>provides the charging voltage to capacitor C<sub>LR</sub>during the second phase Φ<sub>2</sub>. Hence, during operation of the negative portion of the circuit illustrated in<figref>FIG. 9</figref>, the voltage steps at the output of amplifier<b>126</b>are proportional to C<sub>L</sub>—K<sub>L</sub>C<sub>LR</sub>.</p>
+      <p id="p-00046-en">
+        <figref>FIG. 10</figref>illustrates the entire transmitter circuit, including the circuit that is a composite of<figref>FIGS. 4 and 8</figref>, as well as sigma-delta circuit<b>1000</b>, with its modulator stage<b>105</b>and controller stage including comparator<b>70</b>. The output of sigma-delta circuit<b>1000</b>is supplied to digital processor<b>1002</b>which derives a standardized signal for transmission to a central receiving station via a two-wire communication system<b>1004</b>. Communication system<b>1004</b>is, for example a 4-20 milliAmpere (mA) communication system available from Rosemount Inc. of Eden Prairie, Minn.</p>
+      <p id="p-00047-en">
+        <figref>FIG. 11</figref>illustrates the timing diagram for<figref>FIG. 10</figref>, the signals being derived by switch control logic<b>72</b>coupled to the output of circuit<b>1000</b>. Signals Φ<sub>1</sub>, Φ<sub>2</sub>and Φ<sub>3</sub>are the same as illustrated in<figref>FIG. 4</figref>; signals y and {overscore (y)} control whether the circuit is operating on the positive or the negative side, {overscore (y)} being the complement of y. The negative side of the circuit operates when signal y is high and the positive side operates when signal {overscore (y)} is high. Hence, switches<b>110</b>,<b>112</b><b>118</b>and<b>120</b>are conducting when {overscore (y)} is high and switches<b>114</b>,<b>116</b><b>122</b>and<b>124</b>are conducting when y is high. Switch<b>102</b>conducts during the first phase when {overscore (y)} is high and during the second phase when y is high (Φ<sub>P</sub>={overscore (y)}Φ<sub>1</sub>+yΦ<sub>2</sub>), switch<b>104</b>conducts during the first phase when y is high and during the second phase when {overscore (y)} is high (Φ<sub>N</sub>={overscore (y)}Φ<sub>2</sub>+yΦ<sub>1</sub>), switch<b>106</b>conducts during the third phase when {overscore (y)} is high (Φ<sub>H</sub>={overscore (y)}Φ<sub>3</sub>) and switch<b>108</b>conducts during the third phase when y is high (Φ<sub>L</sub>=yΦ<sub>3</sub>).</p>
+      <p id="p-00048-en">Switch control circuit<b>72</b>provides signal outputs illustrated in<figref>FIG. 11</figref>representing the three phases Φ<sub>1</sub>, Φ<sub>2</sub>and Φ<sub>3</sub>, as well as the y and {overscore (y)} mode signals to operate the switches illustrated in<figref>FIG. 10</figref>during respective ones of six time periods, designated {overscore (y)}Φ<sub>1</sub>, {overscore (y)}Φ<sub>2</sub>, {overscore (y)}Φ<sub>3</sub>, yΦ<sub>1</sub>, yΦ<sub>2</sub>and yΦ<sub>3</sub>. Switch control logic<b>72</b>includes timing circuits that generate the Φ<sub>1</sub>, Φ<sub>2</sub>, Φ<sub>3</sub>, y and {overscore (y)} signals, as well as logic circuitry consisting of simple AND and OR gates to generate the proper phase relationships.</p>
+      <p id="p-00049-en">Offset capacitor C<sub>A</sub>serves to compensate for offset in differential amplifier<b>126</b>during operation of the circuit. More particularly, during the first phase (Φ<sub>1</sub>) of both modes, switches<b>128</b>and<b>132</b>are conducting, thereby storing a charge in capacitor C<sub>A</sub>representative of any voltage offset in amplifier<b>126</b>. During the second and third phases (Φ<sub>2</sub>and Φ<sub>3</sub>), the charge on feedback capacitor C<sub>F</sub>is adjusted by the output from the sensor through switch<b>130</b>so that the output of amplifier<b>126</b>represents the sensor output, compensated for offset of the amplifier.</p>
+      <p id="p-00050-en">To reset the circuit, switch<b>134</b>in parallel with feedback capacitor C<sub>F</sub>is operated to conduction during a reset phase ΦR to discharge feedback capacitor C<sub>F</sub>, thereby resetting the charge on capacitor C<sub>F</sub>.</p>
+      <p id="p-00051-en">The present invention thus provides a three-phase excitation circuit for an industrial process control transmitter that charges sensor capacitors and transfers charge representations to the integrator without introducing delays in integrator settling, and without measurement error at high sampling frequencies. The circuit of the present invention eliminates the need for external operational amplifiers that introduced leakage paths and noise sources. The circuit of the present invention eliminates the need for additional sample-and-hold amplifiers as required in prior circuits which require additional power consumption and diminish the availability of real estate on the circuit boards in the transmitter.</p>
+      <p id="p-00052-en">The compensation charge is based, in part, on the value of voltages V<sub>L</sub>and V<sub>H</sub>, which are calibrated at the factory and re-set in the field as desired. Using a digitally controlled voltage source for V<sub>L</sub>and V<sub>H</sub>, the gain adjustment of the charge transferred from compensation capacitors C<sub>LR</sub>and C<sub>HR</sub>may be digitally set and changed.</p>
+      <p id="p-00053-en">Although the present invention has been described with reference to preferred embodiments, workers skilled in the art will recognize that changes may be made in form and detail without departing from the spirit and scope of the invention.</p>
+    </detailed-desc>
+  </description>
+  <claims id="claims_eng" lang="eng" format="original" date-changed="20100409">
+    <claim num="1" id="clm-00001-en">
+      <claim-text>1. A pressure sensor having first and second capacitors each responsive to pressure and to sensor hysteresis, the sensor comprising:<claim-text>a charging circuit having a first charging level having a first polarity, a second charging level having a second polarity opposite the first polarity and third charging level that is intermediate the first and second charging levels;</claim-text><claim-text>a sensing circuit that is a sigma-delta capacitance-to-digital circuit providing a digital output representative of the pressure; and</claim-text><claim-text>a switch circuit selectively coupling the first and second capacitors to the charging circuit to charge the first and second capacitors, and selectively coupling the first and second capacitors to the sensing circuit to transfer charge from the first capacitor based on the first and second charging levels and to transfer charge from the second capacitor based on the second and third charging levels.</claim-text></claim-text>
+    </claim>
+    <claim num="2" id="clm-00002-en">
+      <claim-text>2. The pressure sensor of<claim-ref idref="clm-00001-en">claim 1</claim-ref>, wherein the switch circuit includes:<claim-text>a first switch operable to couple an input of the first capacitor to the first charging level;</claim-text><claim-text>a second switch operable to couple an output of the first capacitor to the sensing circuit and to couple inputs of the first and second capacitors to the second charging level;</claim-text><claim-text>a third switch operable to couple the input of the second capacitor to the third charging level and to couple an output of the second capacitor to the sensing circuit; and</claim-text><claim-text>a switch control responsive to the sensing circuit for operating the first, second and third switches in sequence.</claim-text></claim-text>
+    </claim>
+    <claim num="3" id="clm-00003-en">
+      <claim-text>3. The pressure sensor of<claim-ref idref="clm-00002-en">claim 2</claim-ref>, wherein the charging circuit supplies a fourth charging level that is midway between the first and second charging levels, the first switch being further operable to couple the output of the first capacitor to the fourth charging level.</claim-text>
+    </claim>
+    <claim num="4" id="clm-00004-en">
+      <claim-text>4. The pressure sensor of<claim-ref idref="clm-00003-en">claim 3</claim-ref>, wherein the second switch is further operable to couple the output of the second capacitor to the fourth charging level.</claim-text>
+    </claim>
+    <claim num="5" id="clm-00005-en">
+      <claim-text>5. The pressure sensor of<claim-ref idref="clm-00003-en">claim 3</claim-ref>, wherein the sensing circuit includes:<claim-text>an integrating amplifier having a first input connected to the fourth charging level, a second input and an output,</claim-text><claim-text>a feedback capacitor,</claim-text><claim-text>the first switch being further operable to couple the feedback capacitor between the amplifier output and the amplifier second input,</claim-text><claim-text>the second switch being further operable to couple the feedback capacitor between the amplifier output and the first capacitor, and</claim-text><claim-text>the third switch being further operable to couple the feedback capacitor between the amplifier output and the second capacitor.</claim-text></claim-text>
+    </claim>
+    <claim num="6" id="clm-00006-en">
+      <claim-text>6. The pressure sensor of<claim-ref idref="clm-00005-en">claim 5</claim-ref>, wherein the third charging level is between the first and fourth charging levels and the charging circuit supplies a fifth charging level that is between the second and fourth charging levels, the sensor further including a fourth capacitor,<claim-text>the switch control is responsive to the sensing circuit to operate the first, second and third switches during respective first and second sets of phases,</claim-text><claim-text>the first switch is operable during a first phase of the first set to couple the input of the first capacitor to the first charging level and is operable during the first phase of the second set to couple an input of the third capacitor to the second charging level,</claim-text><claim-text>the second switch is operable during a second phase of the first set to couple the output of the first capacitor to the sensing circuit and is operable during the second phase of the second set to couple an output of the third capacitor to the sensing circuit and to couple the fifth charging level to an input of the fourth capacitor, and</claim-text><claim-text>the third switch is operable during a third phase to couple the feedback capacitor between the amplifier output and the fourth capacitor.</claim-text></claim-text>
+    </claim>
+    <claim num="7" id="clm-00007-en">
+      <claim-text>7. The pressure sensor of<claim-ref idref="clm-00006-en">claim 6</claim-ref>, wherein<claim-text>the second switch is coupled to the feedback capacitor to couple the feedback capacitor between the amplifier output and the first capacitor during the second phase of the first set and to couple the feedback capacitor between the amplifier output and the third capacitor during the second phase of the second set, and</claim-text><claim-text>the third switch is coupled to the feedback capacitor to couple the feedback capacitor between the amplifier output and the second capacitor during the third phase of the first set and to couple the feedback capacitor between the amplifier output and the fourth capacitor during the third phase of the second set.</claim-text></claim-text>
+    </claim>
+    <claim num="8" id="clm-00008-en">
+      <claim-text>8. The pressure sensor of<claim-ref idref="clm-00001-en">claim 1</claim-ref>, including third and fourth capacitors responsive to pressure and to sensor hysteresis, and wherein the charging circuit has a fourth charging level that is intermediate the first and second charging levels, the switch circuit selectively coupling the third and fourth capacitors to the charging circuit to charge the third and fourth capacitors, and selectively coupling the third and fourth capacitors to the sensing circuit to transfer charge from the third capacitor based on the first and second charging levels and to transfer charge from the fourth capacitor based on the first and fourth charging levels.</claim-text>
+    </claim>
+    <claim num="9" id="clm-00009-en">
+      <claim-text>9. The pressure sensor of<claim-ref idref="clm-00008-en">claim 8</claim-ref>, wherein the switch circuit includes:<claim-text>a first switch operable to couple an input of the first capacitor to the first charging level;</claim-text><claim-text>a second switch operable to couple an output of the first capacitor to the sensing circuit and to couple inputs of the first and second capacitors to the second charging level;</claim-text><claim-text>a third switch operable to couple the input of the second capacitor to the third charging level and to couple an output of the second capacitor to the sensing circuit;</claim-text><claim-text>a fourth switch operable to couple an input of the third capacitor to the second charging level;</claim-text><claim-text>a fifth switch operable to couple an output of the third capacitor to the sensing circuit and to couple inputs of the third and fourth capacitors to the first charging level;</claim-text><claim-text>a sixth switch operable to couple an input of the fourth capacitor to the fourth charging level and an output of the fourth capacitor to the sensing circuit; and</claim-text><claim-text>a switch control responsive to the sensing circuit for operating the first, second, third, fourth, fifth and sixth switches in sequence.</claim-text></claim-text>
+    </claim>
+    <claim num="10" id="clm-00010-en">
+      <claim-text>10. The pressure sensor of<claim-ref idref="clm-00009-en">claim 9</claim-ref>, wherein the charge circuit supplies a fifth charging level that is midway between the first and second charging levels, the third charging level being between the first and fifth charging levels, and the fourth charging level being between the second and fifth charging levels, and the first switch is operable to couple the output of the first capacitor to the fourth charging level, and the fourth switch is operable to couple the output of the second capacitor to the fifth charging level.</claim-text>
+    </claim>
+    <claim num="11" id="clm-00011-en">
+      <claim-text>11. The pressure sensor of<claim-ref idref="clm-00010-en">claim 10</claim-ref>, wherein the second switch is further operable to couple the output of the second capacitor to the fifth charging level, and the fifth switch is operable to couple the output of the fourth capacitor to the fifth charging level.</claim-text>
+    </claim>
+    <claim num="12" id="clm-00012-en">
+      <claim-text>12. The pressure sensor of<claim-ref idref="clm-00001-en">claim 1</claim-ref>coupled to an industrial process control transmitter, further including a transmitter output circuit receiving the digital output and generating a standardized transmitter output adapted for coupling to a remote receiver.</claim-text>
+    </claim>
+    <claim num="13" id="clm-00013-en">
+      <claim-text>13. An industrial process control transmitter comprising:<claim-text>a pressure sensor having first and second capacitors each having a capacitance responsive to pressure and to sensor hysteresis;</claim-text><claim-text>a charging circuit having a first charging level having a first polarity, a second charging level having a second polarity opposite the first polarity and third charging level that is intermediate the first and second charging levels;</claim-text><claim-text>a sigma-delta capacitance-to-digital circuit providing a digital output representative of an analog input;</claim-text><claim-text>a switch circuit selectively coupling the first and second capacitors to the charging circuit to charge the first and second capacitors and selectively coupling the first and second capacitors to the capacitance-to-digital circuit to transfer an analog signal from the first capacitor based on the capacitance of the first capacitor and the first charging level and to transfer an analog signal from the second capacitor based on the capacitance of the second capacitor and the second and third charging levels; and</claim-text><claim-text>a transmitter output circuit responsive to the digital output to generate a standardized transmitter output adapted for coupling to a remote receiver.</claim-text></claim-text>
+    </claim>
+    <claim num="14" id="clm-00014-en">
+      <claim-text>14. The industrial process control transmitter of<claim-ref idref="clm-00013-en">claim 13</claim-ref>, wherein the switch circuit selectively couples the first capacitor to the capacitance-to-digital circuit so that the analog signal transferred from the first capacitor is based on the first and second charging levels.</claim-text>
+    </claim>
+    <claim num="15" id="clm-00015-en">
+      <claim-text>15. The industrial process control transmitter of<claim-ref idref="clm-00014-en">claim 14</claim-ref>, wherein the switch circuit includes:<claim-text>a first switch operable to couple an input of the first capacitor to the first charging level;</claim-text><claim-text>a second switch operable to couple an output of the first capacitor to the capacitance-to-digital circuit and to couple an input of the second capacitor to the second charging level;</claim-text><claim-text>a third switch operable to couple the input of the second capacitor to the third charging level and to couple an output of the second capacitor to the capacitance-to-digital circuit; and</claim-text><claim-text>a switch control responsive to the sensing circuit for operating the first, second and third switches in sequence.</claim-text></claim-text>
+    </claim>
+    <claim num="16" id="clm-00016-en">
+      <claim-text>16. The industrial process control transmitter of<claim-ref idref="clm-00014-en">claim 14</claim-ref>, wherein the pressure sensor includes third and fourth capacitors responsive to pressure and to sensor hysteresis, and wherein the capacitance-to-digital circuit has a fourth charging level that is intermediate the first and second charging levels, the switch circuit selectively coupling the third and fourth capacitors to the charging circuit to charge the third and fourth capacitors, and selectively coupling the third and fourth capacitors to the capacitance-to-digital circuit to transfer an analog signal from the third capacitor to the capacitance-to-digital circuit based on the first and second charging levels and to transfer an analog signal from the fourth capacitor to the capacitance-to-digital circuit based on the first and fourth charging levels.</claim-text>
+    </claim>
+    <claim num="17" id="clm-00017-en">
+      <claim-text>17. The industrial process control transmitter of<claim-ref idref="clm-00016-en">claim 16</claim-ref>, wherein the switch circuit includes:<claim-text>a first switch operable to couple an input of the first capacitor to the first charging level;</claim-text><claim-text>a second switch operable to couple an output of the first capacitor to the capacitance-to-digital circuit and to couple inputs of the first and second capacitors to the second charging level;</claim-text><claim-text>a third switch operable to couple the input of the second capacitor to the third charging level and to couple an output of the second capacitor to the capacitance-to-digital circuit;</claim-text><claim-text>a fourth switch operable to couple an input of the third capacitor to the second charging level;</claim-text><claim-text>a fifth switch operable to couple an output of the third capacitor to the capacitance-to-digital circuit and to couple inputs of the third and fourth capacitors to the first charging level;</claim-text><claim-text>a sixth switch operable to couple an input of the fourth capacitor to the fourth charging level and an output of the fourth capacitor to the capacitance-to-digital circuit; and</claim-text><claim-text>a switch control responsive to the sensing circuit for operating the first, second, third, fourth, fifth and sixth switches in sequence.</claim-text></claim-text>
+    </claim>
+    <claim num="18" id="clm-00018-en">
+      <claim-text>18. A process of operating a pressure sensor having first and second capacitors each responsive to pressure and to sensor hysteresis, the process comprising steps of:<claim-text>(a) charging the first capacitor to a first polarity during a first phase;</claim-text><claim-text>(b) pumping a charge on the first capacitor to a sigma-delta capacitance-to-digital circuit during a second phase that is mutually exclusive from the first phase;</claim-text><claim-text>(c) charging the second capacitor to a second polarity opposite the first polarity during the second phase; and</claim-text><claim-text>(d) pumping a charge on the second capacitor to the sigma-delta capacitance-to-digital circuit during a third phase that is mutually exclusive from the first and second phases.</claim-text></claim-text>
+    </claim>
+    <claim num="19" id="clm-00019-en">
+      <claim-text>19. The process of<claim-ref idref="clm-00018-en">claim 18</claim-ref>, wherein the sigma-delta capacitance-to-digital circuit includes an amplifier, and an offset capacitor coupled to an input of the amplifier to adjust for amplifier offset, the process further including the step of:<claim-text>(e) charging the offset capacitor to represent the amplifier offset during the first phase.</claim-text></claim-text>
+    </claim>
+    <claim num="20" id="clm-00020-en">
+      <claim-text>20. The process of<claim-ref idref="clm-00018-en">claim 18</claim-ref>, wherein pressure sensor further includes third and fourth capacitors responsive to pressure and to sensor hysteresis, and steps (a)-(d) are performed during a first set of first, second and third phases, the process further comprising steps of, during a second set of first, second and third phases:<claim-text>(e) charging the third capacitor to the second polarity during the first phase,</claim-text><claim-text>(f) pumping a charge on the second capacitor to the sigma-delta capacitance-to-digital circuit during the second phase,</claim-text><claim-text>(g) charging the fourth capacitor to the first polarity during the second phase, and</claim-text><claim-text>(h) pumping a charge on the fourth capacitor to the sigma-delta capacitance-to-digital circuit during the third phase.</claim-text></claim-text>
+    </claim>
+    <claim num="21" id="clm-00021-en">
+      <claim-text>21. The process of<claim-ref idref="clm-00020-en">claim 20</claim-ref>, wherein the sigma-delta capacitance-to-digital circuit includes an amplifier, and an offset capacitor coupled to an input of the amplifier to adjust for amplifier offset, the process further including the step of:<claim-text>(i) charging the offset capacitor to represent the amplifier offset during the first phases.</claim-text></claim-text>
+    </claim>
+  </claims>
+  <drawings id="drawings">
+    <figure id="fig-emi-d00000" num="2">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00000" file="US06684711-20040203-D00000.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00001" num="3">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00001" file="US06684711-20040203-D00001.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00002" num="4">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00002" file="US06684711-20040203-D00002.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00003" num="5">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00003" file="US06684711-20040203-D00003.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00004" num="6">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00004" file="US06684711-20040203-D00004.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00005" num="7">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00005" file="US06684711-20040203-D00005.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00006" num="8">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00006" file="US06684711-20040203-D00006.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00007" num="9">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00007" file="US06684711-20040203-D00007.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+  </drawings>
+</lexisnexis-patent-document>

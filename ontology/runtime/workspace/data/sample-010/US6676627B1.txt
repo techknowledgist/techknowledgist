@@ -1,0 +1,2582 @@
+
+   
+      
+         
+            US
+            6676627
+            B1
+            20040113
+         
+      
+      
+         
+            US
+            09417395
+            19991013
+         
+      
+      09
+      eng
+      eng
+      
+         
+            US
+            09417395
+            19991013
+         
+         
+            US
+            08349665
+            19941205
+         
+         
+            US
+            08006076
+            19930115
+         
+         
+            US
+            07563313
+            19900806
+         
+      
+      
+         
+            20040113
+         
+         
+            20040113
+         
+      
+      
+         
+             7A 61B  17/20   A
+            7
+            A
+            61
+            B
+            17
+            20
+            A
+         
+      
+      
+         
+            A61B  17/22        20060101C I20051008RMEP        
+            
+               20060101
+            
+            C
+            A
+            61
+            B
+            17
+            22
+            I
+            
+               20051008
+            
+            
+               EP
+            
+            R
+            M
+         
+         
+            A61B  17/22        20060101A I20051008RMEP        
+            
+               20060101
+            
+            A
+            A
+            61
+            B
+            17
+            22
+            I
+            
+               20051008
+            
+            
+               EP
+            
+            R
+            M
+         
+         
+            A61B  17/32        20060101C N20051008RMEP        
+            
+               20060101
+            
+            C
+            A
+            61
+            B
+            17
+            32
+            N
+            
+               20051008
+            
+            
+               EP
+            
+            R
+            M
+         
+         
+            A61B  17/32        20060101A N20051008RMEP        
+            
+               20060101
+            
+            A
+            A
+            61
+            B
+            17
+            32
+            N
+            
+               20051008
+            
+            
+               EP
+            
+            R
+            M
+         
+         
+            A61M   1/00        20060101C I20051008RMEP        
+            
+               20060101
+            
+            C
+            A
+            61
+            M
+            1
+            00
+            I
+            
+               20051008
+            
+            
+               EP
+            
+            R
+            M
+         
+         
+            A61M   1/00        20060101A I20051008RMEP        
+            
+               20060101
+            
+            A
+            A
+            61
+            M
+            1
+            00
+            I
+            
+               20051008
+            
+            
+               EP
+            
+            R
+            M
+         
+      
+      
+         US
+         
+            604/22
+            604
+            22
+         
+         
+            604/35
+            604
+            35
+         
+         
+            604/43
+            604
+            43
+         
+         
+            606/159
+            606
+            159
+         
+      
+      
+         
+            A61B 17/3203R
+            A
+            61
+            B
+            17
+            3203
+            
+               R  
+            
+         
+         
+            A61M  1/00T2
+            A
+            61
+            M
+            1
+            00
+            
+               T  
+               2  
+            
+         
+         
+            K61B 17:3203
+            K
+            61
+            B
+            17
+            3203
+         
+      
+      
+         
+            US
+            
+               604/22
+               604
+               22
+            
+         
+         
+            US
+            
+               604/43
+               604
+               43
+            
+         
+         
+            US
+            
+               604/35
+               604
+               35
+            
+         
+         
+            US
+            
+               604/27
+               604
+               27
+            
+         
+         
+            US
+            
+               604/48
+               604
+               48
+            
+         
+         
+            US
+            
+               604/118
+               604
+               118
+            
+         
+         
+            US
+            
+               604/119
+               604
+               119
+            
+         
+         
+            US
+            
+               604/19
+               604
+               19
+            
+         
+         
+            US
+            
+               604/264
+               604
+               264
+            
+         
+         
+            US
+            
+               606/127
+               606
+               127
+            
+         
+         
+            US
+            
+               606/128
+               606
+               128
+            
+         
+         
+            US
+            
+               606/159
+               606
+               159
+            
+         
+         
+            US
+            
+               606/190
+               606
+               190
+            
+         
+         
+            US
+            
+               606/167
+               606
+               167
+            
+         
+         
+            US
+            
+               606/170
+               606
+               170
+            
+         
+         
+            US
+            
+               606/194
+               606
+               194
+            
+         
+         
+            US
+            
+               606/180
+               606
+               180
+            
+         
+         
+            US
+            
+               134/167.C
+               134
+               167.C
+            
+         
+         
+            US
+            
+               134/168.C
+               134
+               168.C
+            
+         
+         
+            US
+            
+               134/167.R
+               134
+               167.R
+            
+         
+         
+            US
+            
+               134/172
+               134
+               172
+            
+         
+         
+            US
+            
+               433/96
+               433
+               96
+            
+         
+         
+            US
+            
+               239/214.15
+               239
+               214.15
+            
+         
+         
+            US
+            
+               604/523-527
+               604
+               523-527
+            
+         
+      
+      39
+      Crossflow thrombectomy catheter and system
+      
+         
+         
+         
+            
+               
+                  US
+                  4631052
+                  A
+                  Kensey
+                  19861223
+               
+               
+                  19841217
+               
+            
+         
+         
+            
+               
+                  US
+                  4950238
+                  A
+                  Sullivan
+                  19900821
+               
+               
+                  19890720
+               
+            
+         
+         
+            
+               
+                  US
+                  5086842
+                  A
+                  Cholet
+                  19920211
+               
+               
+                  19900907
+               
+            
+         
+         
+            
+               
+                  US
+                  5273526
+                  A
+                  Dance et al.
+                  19931228
+               
+               
+                  19910621
+               
+            
+         
+         
+            
+               
+                  US
+                  5318518
+                  A
+                  Plechinger et al.
+                  19940607
+               
+               
+                  19920807
+               
+            
+         
+         
+            
+               
+                  US
+                  5496267
+                  A
+                  Drasler et al.
+                  19960305
+               
+               
+                  19901108
+               
+            
+         
+         
+            
+               
+                  US
+                  5687714
+                  A
+                  Kolobow et al.
+                  19971118
+               
+               
+                  19951010
+               
+            
+         
+         
+            
+               
+                  US
+                  5713849
+                  A
+                  Bosma et al.
+                  19980203
+               
+               
+                  19950719
+               
+            
+         
+         
+            
+               
+                  US
+                  5928186
+                  A
+                  Homsma et al.
+                  19990727
+               
+               
+                  19970122
+               
+            
+         
+         
+            
+               
+                  US
+                  5964223
+                  A
+                  Baran
+                  19991012
+               
+               
+                  19970123
+               
+            
+         
+         
+            
+               
+                  US
+                  5989271
+                  A
+                  Bonnette et al.
+                  19991123
+               
+               
+                  19981109
+               
+            
+         
+         
+            
+               
+                  US
+                  6096001
+                  A
+                  Drasler et al.
+                  20000801
+               
+               
+                  19941208
+               
+            
+         
+         
+            
+               
+                  US
+                  6117150
+                  A
+                  Pingleton et al.
+                  20000912
+               
+               
+                  19980714
+               
+            
+         
+         
+            
+               
+                  US
+                  6128799
+                  A
+                  Nagata et al.
+                  20001010
+               
+               
+                  19960904
+               
+            
+         
+         
+            
+               
+                  US
+                  6258061
+                  B1
+                  Drasler et al.
+                  20010710
+               
+               
+                  19941208
+               
+            
+         
+         
+            
+               
+                  WO
+                  2007067662
+                  A2
+                  20070614
+               
+               
+                  20061205
+               
+            
+         
+         
+            
+               
+                  US
+                  7572244
+                  B2
+                  20090811
+               
+               
+                  20040802
+               
+            
+         
+         
+            
+               
+                  US
+                  7670327
+                  B2
+                  20100302
+               
+               
+                  20050413
+               
+            
+         
+         
+            
+               
+                  US
+                  7842010
+                  B2
+                  20101130
+               
+               
+                  20051205
+               
+            
+         
+         
+            
+               
+                  WO
+                  03000316
+                  A1
+                  20030103
+               
+               
+                  20020530
+               
+            
+         
+         
+            
+               
+                  US
+                  7935077
+                  B2
+                  20110503
+               
+               
+                  20050928
+               
+            
+         
+         
+            
+               
+                  US
+                  7963947
+                  B2
+                  20110621
+               
+               
+                  20080116
+               
+            
+         
+         
+            
+               
+                  US
+                  7996974
+                  B2
+                  20110816
+               
+               
+                  20080716
+               
+            
+         
+         
+            
+               
+                  US
+                  8012117
+                  B2
+                  20110906
+               
+               
+                  20070206
+               
+            
+         
+      
+      
+         
+            
+               
+                  
+                     US
+                     08/349665
+                     19941205
+                  
+                  GRANTED
+                  
+                     
+                        US
+                        6558366
+                        A
+                     
+                  
+               
+               
+                  
+                     US
+                     09/417395
+                  
+               
+            
+         
+         
+            
+               
+                  
+                     US
+                     08/006076
+                     19930115
+                  
+                  GRANTED
+                  
+                     
+                        US
+                        5370609
+                        A
+                     
+                  
+               
+               
+                  
+                     US
+                     08/349665
+                  
+               
+            
+         
+         
+            
+               
+                  
+                     US
+                     07/563313
+                     19900806
+                  
+                  ABANDONED
+               
+               
+                  
+                     US
+                     08/006076
+                  
+               
+            
+         
+      
+      
+         
+            
+               
+                  Possis Medical, Inc.
+                  02
+                  
+                     Minneapolis
+                     MN
+                  
+               
+            
+         
+         
+            
+               
+                  Bonnette, Michael J.
+                  
+                     Minneapolis
+                     MN
+                  
+               
+            
+            
+               
+                  Morris, John Edward
+                  
+                     Minneapolis
+                     MN
+                  
+               
+            
+            
+               
+                  Wiesel, Steven E.
+                  
+                     Montrose
+                     MN
+                  
+               
+            
+            
+               
+                  Bridgeman, John B.
+                  
+                     Minneapolis
+                     MN
+                  
+               
+            
+            
+               
+                  Kozak, Debra M.
+                  
+                     Forest Lake
+                     MN
+                  
+               
+            
+            
+               
+                  Beaupre, Rosemary C.
+                  
+                     Lino Lake
+                     MN
+                  
+               
+            
+            
+               
+                  Jenson, Mark L.
+                  
+                     Greenville
+                     MN
+                  
+               
+            
+            
+               
+                  Setum, Cindy M.
+                  
+                     Plymouth
+                     MN
+                  
+               
+            
+            
+               
+                  Dutcher, Robert C.
+                  
+                     Maple Grove
+                     MN
+                  
+               
+            
+         
+         
+            
+               
+                  Jaeger, Hugh D.
+               
+            
+         
+      
+      
+         
+            Casler
+            Brian L.
+            3763
+         
+         
+            Rodriguez
+            Cris L
+         
+      
+      
+         
+            
+               
+                  US
+                  6676627
+                  B1
+                  20040113
+               
+               
+                  19991013
+               
+            
+         
+         
+            
+               
+                  AU
+                  5738898
+                  A
+                  19980521
+               
+               
+                  19980302
+               
+            
+            
+               
+                  DK
+                  475573
+                  T3
+                  19951120
+               
+               
+                  19910802
+               
+            
+            
+               
+                  WO
+                  9410917
+                  A1
+                  19940526
+               
+               
+                  19931102
+               
+            
+            
+               
+                  DE
+                  69110806
+                  T2
+                  19951130
+               
+               
+                  19910802
+               
+            
+            
+               
+                  US
+                  5073398
+                  A
+                  19911217
+               
+               
+                  19900910
+               
+            
+            
+               
+                  US
+                  6471683
+                  B2
+                  20021029
+               
+               
+                  19941208
+               
+            
+            
+               
+                  JP
+                  3298015
+                  B2
+                  20020702
+               
+               
+                  19910806
+               
+            
+            
+               
+                  DE
+                  69117832
+                  D1
+                  19960418
+               
+               
+                  19910802
+               
+            
+            
+               
+                  DE
+                  69117832
+                  T2
+                  19961205
+               
+               
+                  19910802
+               
+            
+            
+               
+                  US
+                  5785675
+                  A
+                  19980728
+               
+               
+                  19941205
+               
+            
+            
+               
+                  US
+                  20010056257
+                  A1
+                  20011227
+               
+               
+                  19941208
+               
+            
+            
+               
+                  AU
+                  8163891
+                  A
+                  19920213
+               
+               
+                  19910805
+               
+            
+            
+               
+                  DK
+                  470781
+                  T3
+                  19960722
+               
+               
+                  19910802
+               
+            
+            
+               
+                  ES
+                  2073686
+                  T3
+                  19950816
+               
+               
+                  19910802
+               
+            
+            
+               
+                  EP
+                  470781
+                  B1
+                  19960313
+               
+               
+                  19910802
+               
+            
+            
+               
+                  EP
+                  470781
+                  A1
+                  19920212
+               
+               
+                  19910802
+               
+            
+            
+               
+                  EP
+                  475573
+                  B1
+                  19950628
+               
+               
+                  19910802
+               
+            
+            
+               
+                  EP
+                  475573
+                  A1
+                  19920318
+               
+               
+                  19910802
+               
+            
+            
+               
+                  JP
+                  2001161700
+                  A
+                  20010619
+               
+               
+                  20001012
+               
+            
+            
+               
+                  DE
+                  69110806
+                  D1
+                  19950803
+               
+               
+                  19910802
+               
+            
+            
+               
+                  US
+                  6764483
+                  B1
+                  20040720
+               
+               
+                  20010726
+               
+            
+            
+               
+                  US
+                  20010051811
+                  A1
+                  20011213
+               
+               
+                  20010816
+               
+            
+            
+               
+                  US
+                  6096001
+                  A
+                  20000801
+               
+               
+                  19941208
+               
+            
+            
+               
+                  AT
+                  124214
+                  T
+                  19950715
+               
+               
+                  19910802
+               
+            
+            
+               
+                  AU
+                  5666694
+                  A
+                  19940608
+               
+               
+                  19931102
+               
+            
+            
+               
+                  AU
+                  725925
+                  B2
+                  20001026
+               
+               
+                  19980302
+               
+            
+            
+               
+                  CA
+                  2048120
+                  A1
+                  19920207
+               
+               
+                  19910730
+               
+            
+            
+               
+                  CA
+                  2321221
+                  A1
+                  20010413
+               
+               
+                  20000927
+               
+            
+            
+               
+                  IE
+                  912763
+                  A1
+                  19920212
+               
+               
+                  19910802
+               
+            
+            
+               
+                  AT
+                  429177
+                  T
+                  20090515
+               
+               
+                  20001011
+               
+            
+            
+               
+                  EP
+                  1092396
+                  A2
+                  20010418
+               
+               
+                  20001011
+               
+            
+            
+               
+                  EP
+                  1092396
+                  A8
+                  20010829
+               
+               
+                  20001011
+               
+            
+            
+               
+                  EP
+                  1092396
+                  A3
+                  20020320
+               
+               
+                  20001011
+               
+            
+            
+               
+                  EP
+                  1092396
+                  A9
+                  20020703
+               
+               
+                  20001011
+               
+            
+            
+               
+                  JP
+                  06205784
+                  A
+                  19940726
+               
+               
+                  19910806
+               
+            
+            
+               
+                  US
+                  6926726
+                  B2
+                  20050809
+               
+               
+                  20030402
+               
+            
+            
+               
+                  US
+                  6945951
+                  B1
+                  20050920
+               
+               
+                  20010816
+               
+            
+            
+               
+                  US
+                  6984239
+                  B1
+                  20060110
+               
+               
+                  19941208
+               
+            
+            
+               
+                  US
+                  5370609
+                  A
+                  19941206
+               
+               
+                  19930115
+               
+            
+            
+               
+                  US
+                  6805684
+                  B2
+                  20041019
+               
+               
+                  20010816
+               
+            
+            
+               
+                  US
+                  6544209
+                  B1
+                  20030408
+               
+               
+                  19941208
+               
+            
+            
+               
+                  US
+                  6558366
+                  B1
+                  20030506
+               
+               
+                  19941205
+               
+            
+            
+               
+                  US
+                  6676627
+                  B1
+                  20040113
+               
+               
+                  19991013
+               
+            
+            
+               
+                  US
+                  20010051785
+                  A1
+                  20011213
+               
+               
+                  20010816
+               
+            
+            
+               
+                  US
+                  20040049149
+                  A1
+                  20040311
+               
+               
+                  20030402
+               
+            
+            
+               
+                  US
+                  6258061
+                  B1
+                  20010710
+               
+               
+                  19941208
+               
+            
+            
+               
+                  US
+                  6129697
+                  A
+                  20001010
+               
+               
+                  19941208
+               
+            
+            
+               
+                  US
+                  6719718
+                  B2
+                  20040413
+               
+               
+                  20010816
+               
+            
+            
+               
+                  AU
+                  6249600
+                  A
+                  20010426
+               
+               
+                  20001005
+               
+            
+            
+               
+                  AU
+                  8183294
+                  A
+                  19950223
+               
+               
+                  19941229
+               
+            
+            
+               
+                  ES
+                  2088468
+                  T3
+                  19960816
+               
+               
+                  19910802
+               
+            
+            
+               
+                  GR
+                  3017074
+                  T3
+                  19951130
+               
+               
+                  19950809
+               
+            
+            
+               
+                  EP
+                  1092396
+                  B1
+                  20090422
+               
+               
+                  20001011
+               
+            
+            
+               
+                  DE
+                  60042049
+                  D1
+                  20090604
+               
+               
+                  20001011
+               
+            
+         
+      
+   
+   
+      Cross stream thrombectomy catheter and system for fragmentation and removal of thrombus or other material from blood vessels or other body cavities. High velocity saline jets emitted from a toroidal loop jet emanator or other jet emanator in a catheter distal end entrain fluid through inflow orifices, and with flow resistances create a back-pressure which drives cross stream streams through outflow orifices in a radial direction and thence radially and circumferentially to apply normal and drag forces on thrombotic deposits or lesions in the blood vessel or other body cavity, thereby breaking apart and transporting thrombus particles to be entrained through the inflow orifices, whereupon the high velocity jets macerate the thrombus particles which then transit an exhaust lumen or recirculate again via the outflow orifices.
+   
+   
+      
+         
+            19991013
+         
+         AS
+         ASSIGNMENT
+         N
+          US     6676627B1
+         POSSIS MEDICAL, INC., MINNESOTA
+         ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNORS:BONNETTE, MICHAEL J.;MORRIS, JOHN EDWARD;WIESEL, STEVEN E.;AND OTHERS;REEL/FRAME:010337/0429
+         
+            19991012
+         
+      
+      
+         
+            20040518
+         
+         CC
+         CERTIFICATE OF CORRECTION
+         C
+          US     6676627B1
+      
+      
+         
+            20041123
+         
+         CC
+         CERTIFICATE OF CORRECTION
+         C
+          US     6676627B1
+      
+      
+         
+            20070315
+         
+         FPAY
+         +
+         FEE PAYMENT
+         N
+          US     6676627B1
+         4
+      
+      
+         
+            20090107
+         
+         AS
+         ASSIGNMENT
+         N
+          US     6676627B1
+         MEDRAD, INC., PENNSYLVANIA
+         MERGER;ASSIGNOR:POSSIS MEDICAL, INC.;REEL/FRAME:022062/0848
+         
+            20081209
+         
+      
+      
+         
+            20090107
+         
+         AS
+         ASSIGNMENT
+         N
+          US     6676627B1
+         MEDRAD, INC.,PENNSYLVANIA
+         MERGER;ASSIGNOR:POSSIS MEDICAL, INC.;US-ASSIGNMENT DATABASE UPDATED:20100515;REEL/FRAME:22062/848
+         
+            20081209
+         
+      
+      
+         
+            20110822
+         
+         REMI
+         MAINTENANCE FEE REMINDER MAILED
+         N
+          US     6676627B1
+      
+   
+   
+      
+         CROSS REFERENCES TO CO-PENDING APPLICATIONS
+         None.
+         This patent application is a continuation-in-part (CIP) of Ser. No. 08/349,665, filed Dec. 5, 1994, now U.S. Pat. No. 6,558,366, which is a divisional of Ser. No. 08/006,076, issued on Jan. 15, 1993, as U.S. Pat. No. 5,370,609, which is a continuation of Ser. No. 07/563,313, filed Aug. 6, 1990, now abandoned.
+      
+      
+         BACKGROUND OF THE INVENTION
+         1. Field of the Invention
+         The present invention relates to apparatus for use in treatment of the human body. More particularly, the present invention relates to an elongated device which may be a single catheter assembly or a multiple component catheter assembly and which is suitable for use through percutaneous or other access, for endoscopic procedures, or for intraoperative use in either open or limited access surgical procedures. Still more particularly, the present invention relates to an elongated device in the form of a waterjet thrombectomy catheter, hereinafter termed cross stream thrombectomy catheter, for fragmentation and removal of thrombus or other unwanted material from blood vessels or body cavities that uses high velocity saline (or other suitable fluid) jets to macerate the thrombus or other unwanted material. The elongated device bears certain similarities to known waterjet thrombectomy catheter constructions but differs therefrom in several material respects, a major distinction being in the provision of means which produce cross stream jets to create a recirculation flow pattern optimized for clearing a large cross section of mural thrombus or other similar material, the name cross stream thrombectomy catheter deriving from this major distinction. Further, the present invention also relates to a system constituted either by the combination of the elongated device with both pressurized fluid source means and exhaust regulation means or by the combination of the elongated device with only pressurized fluid source means.
+         2. Description of the Prior Art
+         Waterjet thrombectomy catheters have been described in which a distal-to-proximal-directed waterjet(s) flow(s) past a window, orifice or gap at the distal end of the catheter, reentering the catheter and pushing flow through an evacuation lumen. When placed in a vessel containing thrombus and activated, the high velocity jet(s) will entrain surrounding fluid and thrombus into the window, orifice or gap region, where the high shear forces of the jet(s) will macerate the thrombus. The macerated particles will be removed from the body by the pressure generated on the distal end of the evacuation lumen by the impingement of the high velocity waterjet(s).
+         A limitation of these waterjet thrombectomy catheters has been the inability to remove organized, wall-adherent thrombus from large vessels. In accordance with the present invention, a cross stream thrombectomy catheter is described which overcomes this limitation by optimizing the recirculation pattern at the tip of the catheter to increase the drag force exerted on the mural thrombus to break it free from the vessel wall and allow it to be removed by the catheter.
+         SUMMARY OF THE INVENTION
+         The thrombectomy effect of waterjet thrombectomy catheters has been described as using the Venturi effect to create suction at the tip of the catheter to draw thrombus into the waterjets where it is then macerated and evacuated through an exhaust lumen. However, when operating in a relatively large blood vessel, the fluid velocities in the vessel decrease rapidly as the distance from the jet increases, so that at the wall of the vessel there is a minimal amount of pressure gradient to push the thrombus towards the low pressure area of the catheter. Thus, a different force is needed to remove mural thrombus, and that source is fluid drag. Drag on a surface is proportionate to the velocity gradient at that surface. Thus, in order to maximize the drag force, the velocity gradient at the surface must be maximized.
+         The catheter described herein is provided with outflow means and inflow means and is designed to optimize the drag force on the surface of the vessel by synergistically utilizing inflows and outflows at the catheter tip to create a recirculation pattern. Since the blood vessel can be considered as an open system, the geometric arrangement of the outflow means and inflow means is critical to the maximization of the drag force at the wall of the vessel. Since the catheter is designed to be easily advanced axially through a blood vessel, and axial flows are more likely to dissipate before contributing greatly to recirculation, the flow vectors in the recirculation most important for creating efficient thrombectomy are in the circumferential and radial direction. Radial high velocity flow vectors are created by maximizing the flow through one or more outflow orifices where the one or more outflow orifices are designed to aim the flow perpendicular to the axis of the catheter. Circumferential high velocity flow vectors are created by the demand for entrained fluid by one or more inflow orifices and are supplied substantially from the one or more outflow orifices, with change in fluid flow direction near the vessel wall to return to the catheter.
+         In the preferred embodiment of the catheter, there is provided inflow means in the form of one or more inflow orifices located in an exhaust tubular means adjacent and proximal to a jet emanator means in the form of a toroidal loop jet emanator located distally on a jet body. One or more high velocity saline (or other suitable fluid) jets emanate from the toroidal loop jet emanator; these high velocity jet(s) entrain fluid, drawing flow into the inflow orifices, and can macerate thrombus drawn near the jet(s). One or more of the high velocity jets can be oriented to aid in the exhaust of macerated thrombotic material through the exhaust tubular means. Multiple inflow orifices may be formed around the circumference of the exhaust tubular means in a single axial plane. An oval-shaped inflow orifice in which the major axis lies parallel to the axis of the catheter is preferred to offer an inflow orifice as large as possible without compromising the area for inflow and the structure of the exhaust tubular means. There is also provided outflow means in the form of one or more outflow orifices located in the exhaust tubular means near the one or more inflow orifices. Multiple outflow orifices may be formed around the circumference of the exhaust tubular means in a single axial plane. Preferably, the outflow orifice(s) are located proximal to the inflow orifice(s). The outflow orifice(s) are usually located but not are limited to being located in close proximity to the inflow orifice(s). The size and quantity of the outflow orifices are determined to maximize the momentum leaving the outflow orifices while not compromising the structural integrity of the exhaust tubular means. The high velocity jets and entrained fluid create an internal pressure near the tip of the catheter. This internal pressure is partially “vented” by the outflow orifice(s). Too small of an area of the outflow orifice(s) will minimize the outflow flow rate and risk plugging of the orifice(s) by macerated thrombotic material, whereas too large of an outflow area will weaken the radial flow vector of the outflow and may reduce the ability of the catheter to exhaust the macerated thrombotic material by allowing the internal pressure at the tip to be reduced to the point that there is no driving force for the exhaust. An alternative embodiment can be made in which outflow and inflow orifices are located in the same axial plane, where the direction of flow through the orifices is determined by fluid mechanical factors, e.g., non-symmetric distributions of jets near the orifices. While single inflow and outflow orifices (or a combination inflow/outflow orifice) can be used, having multiple inflow and outflow orifices helps to create effective recirculation on all sides of the catheter, avoiding the problem of having a single orifice blocked by the vessel wall or being oriented away from the deposit.
+         Though not required for most applications, isolation means can be utilized, either incorporated into the catheter, or as a separate device, to isolate the portion of the blood vessel near the catheter tip during use. Isolation means can include balloons, filters, baskets, membranes, blood pressure modification, fluid flow control, or other occlusion devices such as are known in the art. Isolation means can limit passage of debris in the blood vessel, limit the flow of blood in the area of the catheter, or confine the recirculation area near the catheter tip.
+         The preferred operation mode of the device is such that the exhaust is regulated to be equivalent to the flow rate of the high velocity saline supply. Another embodiment of the device can be one in which no exhaust is designed in the catheter, so that it becomes one that macerates the thrombus into particles small enough to pass through the distal vasculature without significant blockage.
+         The preferred embodiment of the catheter also uses a radio-opaque marker coil aligned in a tapered and flexible tip assembly welded or otherwise suitably attached to the toroidal loop jet emanator at the distal end of the jet body. The radio-opaque marker coil is imbedded in the wall of the tapered and flexible tip in alignment with an exhaust lumen in the exhaust tubular means to provide structural integrity to the device so that the orientation of the jet(s) with respect to the inflow orifice(s) remains constant as the device is advanced and torqued in the anatomy. This tapered flexible radio-opaque marker coil tip can also be used as a flexible base in which a preferentially shaped tip can be mechanically or adhesively affixed so as to produce an atraumatic tip which could also aid in tracking and insertion.
+         Alternative embodiments of the present invention include jet emanator means having jet orifice(s) in a formed tubular passage, but the tubular passage is not formed into a toroidal loop as in the preferred embodiment. The formed tubular passage can be a metal tube bent into a “J”, “L” or “U” shape, or a manifold or other chamber with at least one orifice through which fluid emanates as jet(s). The key features of inflow orifice(s) through which fluid passes as it is entrained by the jet(s), and the outflow orifice(s) through which some of this entrained fluid flows, provides non-axial flow for increased recirculation, and drag again provides enhanced thrombus removal.
+         One significant aspect and feature of the present invention is a thrombectomy catheter having cross stream from one or more outflow orifices for recirculating, creating normal and drag forces, and displacing the thrombus off the vessel wall and into one or more inflow orifices and having high velocity jets for macerating the thrombus.
+         Another significant aspect and feature of the present invention is the flow of the outflow jet(s) in a radial direction followed by circumferential flow whereupon which entrained thrombotic particles enter the inflow orifice(s) to be further macerated and exhausted through an exhaust lumen.
+         An optional feature of the present invention is a tapered and flexible tube assembly secured to a toroidal loop jet emanator at one end of a hypo-tube to maintain orientation of a jetted solution in an exhaust lumen and with respect to the inflow orifice(s) as the device is advanced and torqued in the anatomy.
+         Another significant aspect and feature of the present invention is the entrainment of fluid by the high velocity jet(s) through one or more inflow orifices providing a source of additional flow and a localized region of higher pressure for driving flow outward through one or more outflow orifices. This flow, and the associated recirculation and drag forces, provide a synergistic effect which greatly increases the effectiveness of the device over what would be expected without the flow recirculation.
+         Another significant aspect and feature of the present invention is that the aforementioned flow via the outflow orifice(s) provides the enhanced effectiveness without the need for complicated, expensive, or space consuming additional components, tubings or passageways. The enhanced effectiveness resulting from inflow and outflow orifices, improved recirculation, and vessel wall drag can extend the useful range of the device; the greatly enhanced ability to remove blood vessel deposits can allow lower source pressures to be used than otherwise would be required; and improved function provides for useful application in larger vessels or cavities than would otherwise be practical, even with a small, flexible catheter.
+         Another significant aspect and feature of the present invention is that recirculation via the inflow orifice(s) provides improved function without damage to the vessel wall which could be caused by a large opening adjacent the jet(s) allowing the vessel wall to be pulled into the large opening. The device offers enhanced effectiveness without significant trauma to the vessel wall, even when operated at high pressures, with 10,000 cm/s to 25,000 cm/s jet velocities, for example.
+         Having thus described embodiments of the present invention, it is the principal object of the present invention to provide a cross stream thrombectomy catheter.
+      
+      
+         BRIEF DESCRIPTION OF THE DRAWINGS
+         Other objects of the present invention and many of the attendant advantages of the present invention will be readily appreciated as the same becomes better understood by reference to the following detailed description when considered in connection with the accompanying drawings, in which like reference numerals designate like parts throughout the figures thereof and wherein:
+         
+            FIG. 1Aillustrates in block diagram form a cross stream thrombectomy catheter system according to one embodiment of the present invention showing the interrelation of the various functional means thereof;
+         
+            FIG. 1Billustrates a side view of an elongated device in the from of a cross stream thrombectomy catheter with provision for exhaust;
+         
+            FIG. 2illustrates an exploded view in cross section of the distal end of the cross stream thrombectomy catheter;
+         
+            FIG. 3illustrates an assembled view in cross section of the distal end of the cross stream thrombectomy catheter;
+         
+            FIG. 4
+            aillustrates an isometric view of a toroidal loop jet emanator;
+         
+            FIG. 4
+            billustrates an isometric view of a semi-toroidal loop jet emanator;
+         
+            FIG. 4
+            cillustrates an isometric view of an L-shaped jet emanator;
+         
+            FIG. 4
+            dillustrates an isometric view of a J-shaped jet emanator having jet orifices located on the J-shaped proximal facing surface;
+         
+            FIG. 4
+            eillustrates an isometric view of a J-shaped jet emanator having a jet orifice located at the jet emanator extreme end;
+         
+            FIG. 4
+            fillustrates an isometric view of a J-shaped jet emanator having a necked-down portion and co-located orifice;
+         
+            FIG. 4
+            gillustrates an isometric view of a J-shaped jet emanator having an inserted tubular orifice member;
+         
+            FIG. 5illustrates a mode of operation view of the cross stream thrombectomy catheter positioned in a blood vessel, artery or the like at the site of a thrombotic deposit or lesion;
+         
+            FIG. 6illustrates the cross stream of saline jets from the outflow orifice(s) to the inflow orifice(s);
+         
+            FIG. 7, a first alternative embodiment, illustrates a side view showing the distal end of an exhaust tube having a single-opening dual-function orifice;
+         
+            FIG. 8illustrates a cross section view of the first alternative embodiment showing the distal end of the exhaust tube;
+         
+            FIG. 9, a second alternative embodiment, illustrates a cross section view showing the distal end of an exhaust tube having a tip with a proximally facing planar surface and also showing a single-orifice U-shaped jet emanator aligned with an inflow orifice located at the end of the exhaust tube;
+         
+            FIG. 10illustrates an end view of the second alternative embodiment shown inFIG. 9;
+         
+            FIG. 11illustrates a view of the tip at the distal end of the exhaust tube along line11—11ofFIG. 9;
+         
+            FIG. 12, a third alternative embodiment, illustrates a cross section view showing the distal end of an exhaust tube having a tip with a proximally facing curved surface and also showing a single-orifice U-shaped jet emanator aligned with an inflow orifice located at the end of the exhaust tube;
+         
+            FIG. 13illustrates an end view of the third alternative embodiment shown inFIG. 12;
+         
+            FIG. 14illustrates a view of the tip at the distal end of the exhaust tube along line14—14ofFIG. 12;
+         
+            FIG. 15, a fourth alternative embodiment, illustrates a cross section view showing the distal end of an exhaust tube and showing a toroidal loop jet emanator aligned to an inflow orifice located at the end of the exhaust tube;
+         
+            FIG. 16illustrates an end view of the fourth alternative embodiment shown inFIG. 15;
+         
+            FIG. 17illustrates a view of the tip at the distal end of the exhaust tube along line17—17ofFIG. 15;
+         
+            FIG. 18, a fifth alternative embodiment, illustrates a side view of an elongated device in the form of another cross stream thrombectomy catheter similar to that ofFIG. 1, but without exhaust provision; and,
+         
+            FIG. 19is a cross section view of the distal end of the cross stream thrombectomy catheter of FIG.18.
+      
+      
+         DETAILED DESCRIPTION OF THE PREFERRED EMBODIMENTS
+         
+            FIG. 1Aillustrates in block diagram form a cross stream thrombectomy catheter system according to one embodiment of the present invention showing the interrelation of the various functional means thereof for use in removing thrombus or other unwanted material from a body vessel or cavity.
+         The major components of the system include an elongated device in the form of a cross stream thrombectomy catheter, a pressurized fluid source means, and, optionally, an exhaust regulation means connected to a collection system (not shown).
+         The elongated device includes first and second tubular means each having a proximal end and a distal end. The first tubular means is in the form of a high pressure tubular means having pressurized fluid connection means providing a fluid connection permanently or detachably coupled to its proximal end and jet emanator means at its distal end, the pressurized fluid connection means being connectible to the pressurized fluid source means. The second tubular means is in the form of either an exhaust tubular means, as shown, or other tubular means (not shown inFIG. 1Abut described in detail in relation toFIGS. 18 and 19) which serves as an alternative to an exhaust tubular means in those instances when exhausting is not necessary or desired. When in the form of an exhaust tubular means, the second tubular means is usually associated with exhaust regulation means, although an exhaust regulation means is not essential. Whether in the form of an exhaust tubular means or other tubular means, the second tubular means includes outflow means and inflow means which in concert with high velocity jet(s) produced by the jet emanator means create cross stream jet(s) that establish a flow recirculation pattern.
+         The outflow means consists of one or more outflow orifices through which saline, blood or other fluid or a mixture thereof with macerated thrombus or other unwanted material debris flows from a region of higher pressure within the exhaust tubular means or other tubular means to outside the exhaust tubular means or other tubular means. The outflow orifices(s) are typically somewhat downstream from the high velocity region of the high velocity jet(s) where the velocities are lower and the mass flow rate is greater due to entrained fluid; and flow of fluid with or without macerated debris typically flows through the outflow orifice(s) with a component in the radial direction, creating cross stream jet(s). The outflow orifices may be round, elliptical, conical, slits, gaps between components, or other shape or design.
+         The inflow means consists of one or more inflow orifices through which the high velocity jet(s) draw in by fluid entrainment blood or other fluid from a body vessel or cavity, including thrombus or other unwanted material which may be present in the blood or other fluid. The inflow orifice(s) are typically near the high velocity region of the high velocity jet(s) where entrainment forces are great. The inflow orifices may be round, elliptical, conical, slits, gaps between components, or other shape or design.
+         The high pressure tubular means comprises an elongated structure having at least one passage or lumen along the length thereof suitable for passage of high pressure fluid. The elongated structure can be tubing with a circular or non-circular cross section and can be made of high strength polymeric material such as polyimide, metallic material such as stainless steel or titanium, or composite material such as fiber-reinforced material or a layered structure composed of layers of different materials.
+         The exhaust tubular means comprises an elongated structure having at least one passage or lumen along the length thereof suitable for passage of fluid and thrombus or other unwanted material debris. The elongated structure can be tubing with a circular or non-circular cross section and can be made of polymeric material such a polyethylene, polyester, polyurethane, or polyether block amide, high strength polymeric material such as polyimide, metallic material such as stainless steel or titanium, or composite material such as fiber-reinforced polymeric material or a layered structure composed of layers of different materials. Further, the elongated structure may have an attached structure near its distal end such as a chamber or manifold to accommodate the outflow means and the inflow means.
+         The other tubular means comprises an elongated structure having at least one passage or lumen along the length thereof suitable for passage of fluid. The elongated structure can be tubing with a circular or non-circular cross section or may resemble a shorter chamber such as a manifold, molded or constructed of multiple components. Suitable materials for the other tubular means are polymeric material such as polyethylene, polyester, or polyurethane, high strength polymeric material such as polyimide, metallic material such as stainless steel or titanium, or composite material such as fiber-reinforced polymeric material or a layered structure composed of layers of different materials.
+         If desired, isolation means (not shown) can be provided as part of the elongated device to isolate the region of the body vessel or cavity being treated, although this is not always required. Isolation means can include balloons, filters, baskets, membranes, blood pressure modification, fluid flow control, or other occlusion devices such as are known in the art. Isolation means can limit passage of debris in the blood vessel, limit the flow of blood in the area of the elongated device, or confine the recirculation area. Also if desired, additional tubular means can be provided for communication between the proximal end and the distal end of the elongated device, such as for passage of fluid or other material or for passage of devices such as guidewires, catheters, or imaging tools, or for actuation of isolation means, for inflation of a balloon, or for passage of medication or body fluids. The additional tubular means (not shown) comprises an elongated structure having at least one passage or lumen along the length thereof; for example, the elongated device can include a multiple-lumen tube, in which one lumen functions as the high pressure tubular means, a second lumen functions as the exhaust tubular means, and one or more additional lumens function as the additional tubular means which communicates between the proximal and distal ends of the elongated device.
+         The pressurized fluid source means includes fluid such as saline and one or more pumps or pressure intensifiers or pressurized fluid containers for delivering the fluid under pressure to the high pressure tubular means through the pressurized fluid connection means coupled to the proximal end thereof. The fluid can be provided at a single pressure or at multiple pressures, at variable or adjustable pressure, and at a steady flow or unsteady flow such as pulsatile flow.
+         The exhaust regulation means, when present, comprises structural components which increase, decrease, limit, or adjust the rate of flow of fluid and thrombus or other unwanted material debris along the exhaust tubular means and can be one or more pumps such as roller pumps or peristaltic pumps, clamps, restrictors, or other devices to influence the fluid flow rate. The exhaust regulation means can regulate exhaust at a predetermined or user-adjustable flow rate which can be correlated with or independent of the rate of flow of the pressurized fluid flowing along the high pressure tubular means. Further, the exhaust regulation means can have pressure measurement or flow rate measurement capabilities. The exhaust regulation means is connected to a suitable collection system (not shown).
+         The system is placed in operation by inserting the elongated device into a body vessel or cavity and advancing it to a site of thrombus or other unwanted material in the body vessel or cavity. Then the proximal end of the elongated device is connected to the pressurized fluid source means which provides pressurized saline (or other biologically compatible fluid) to the proximal end of the high pressure tubular means via the pressurized fluid connection means. At the distal end of the high pressure tubular means, pressurized saline (or other fluid) passes into the jet emanator means which produces high velocity saline (or other fluid) jet(s). The high velocity saline (or other fluid) jet(s) entrain blood or other fluid from the body vessel or cavity and draw it into the distal portion of the elongated device through the inflow means, carrying thrombus or other unwanted material from the body vessel or cavity along with the blood or other fluid. The high velocity saline (or other fluid) jet(s) together with the entrained blood or other fluid create a region of elevated pressure in the elongated device; this region of elevated pressure communicates with or is a part of the distal portion of the exhaust tubular means. The elevated pressure in the elevated pressure region drives fluid flow through the outflow means, creating cross stream jet(s) which have a radial component and may have circumferential and/or axial component(s) as well. The fluid in the elevated pressure region includes saline (or other fluid) from the high velocity jet(s) as well as the entrained blood or other fluid from the body vessel or cavity. The cross stream jet(s) impart normal and drag forces on thrombus or other unwanted material in the body vessel or cavity and greatly improve the effectiveness of the device in removing and breaking apart thrombus or other unwanted material which may be adhered to the body vessel or cavity, and form a recirculation pattern which further aids in drawing thrombus or other unwanted material towards the inflow means. The combination of outflow means, cross stream jet(s), recirculation pattern, inflow means, and high velocity jet(s) synergistically acts to provide for enhanced breakup and removal of thrombus or other unwanted material. The elevated pressure in the elevated pressure region can also aid in the transport of fluid and thrombus or other unwanted material debris through the exhaust tubular means. If desired, the rate of flow of fluid and thrombus or other unwanted material regulated by providing exhaust regulation means, although this is not always required.
+         
+            FIG. 1Billustrates a side view of an elongated device in the form of a cross stream thrombectomy catheter with exhaust provision10useful for the removal of thrombus. Externally visible components, or portions of components, of the cross stream thrombectomy catheter10include a manifold12, a hemostasis unit14secured in the proximal end of the manifold12, pressurized fluid connection means in the form of a threaded high pressure connection11and a Luer fitting16located at the proximal end of an angled manifold branch18extending from the manifold12for coupling to the pressurized fluid source means, a Luer connection20for coupling to exhaust regulation means located at the proximal end of another angled manifold branch22extending from the manifold branch18, a Luer fitting24secured to the distal end of the manifold12, a strain relief26secured to the distal end of the manifold12by the Luer fitting24, exhaust tubular means in the form of an exhaust tube28having a proximal end30secured to the manifold12by the strain relief26and Luer fitting24, outflow means in the form of one or more distally located outflow orifices32at the distal end38of the exhaust tube28, inflow means in the form of one or more distally located inflow orifices34at the distal end38of the exhaust tube28, and a tapered and flexible tip assembly36located at and aligned to and attached, as later described and illustrated, to the distal end of a jet emanator means in the form of a toroidal loop jet emanator residing in as well as being attached to the distal end38of the exhaust tube28.
+         
+            FIGS. 2 and 3illustrate an exploded view and an assembled view in cross section of the distal end38and other distally located components of the cross stream thrombectomy catheter10, respectively, where all numerals mentioned before correspond to those elements previously described. The primary two components of the cross stream thrombectomy catheter10are first and second tubular means, the first being a high pressure tubular means made of metal or high tensile strength polymer or composite material and shown in the form of a hypo-tube44formed into a jet body40, and the second being in the form of an exhaust tubular means made of a flexible polymer and shown in the form of an exhaust tube28having a centrally located exhaust lumen42. The jet body40is formed from a small hypo-tube44with a size range of 0.010 to 0.030 inch outer diameter. The distal portion of the hypo-tube44may be reduced to a small diameter as shown by reduction43(FIG. 2) to make the catheter more flexible by drawing the hypo-tube44through a die. The distal end of the hypo-tube44is then welded shut and the end formed into a toroidal loop jet emanator46or a jet emanator of other shape which will provide a surface in which proximally directed jet orifices60
+            a-60
+            n(FIG. 4
+            a), ranging from 0.001 to 0.010 inch in diameter, may be formed that will direct jetted saline or other body-compatible solution including mixtures of saline and medications or mixtures of saline and a contrast medium in a flow at or close to a path parallel to and in the opposite direction of the fluid flow in the interior of the hypo-tube44of the jet body40. Alternatively, the jet body40may be of a short length and connected to a more flexible polymeric tube45(FIG. 3) in lieu of having a jet body40which extends proximally for the majority of the distance to the manifold12. A radio-opaque marker coil48in the form of a stainless steel or platinum alloy coil, for example, may be adhered to the end of the jet body40and other components, as later described in detail.
+         The jet body40, which has a smaller axial profile than that of the exhaust lumen42, is inserted through and located within the exhaust lumen42. The exhaust lumen42is central to the exhaust tube28, which could also have multiple lumens, which has an outer diameter ranging from 0.030 to 0.150 inch, and which is also flexible and similar to the hypo-tube44in that it may be reduced to a smaller diameter to make the catheter more flexible by drawing through a die. The tapered and flexible tip assembly36includes a flexible plastic tapered tube37which encapsulates and surrounds the radio-opaque marker coil48, which has a closely wound portion54and a loosely wound portion56. Alternatively, the radio-opaque marker coil48can have uniform wind spacing, or can be omitted in favor of a polymeric tip.
+         A mechanical bond can be made between the distal tip of the jet body40at the junction of the toroidal loop jet emanator46and the exhaust lumen42. For example, thermal and partial melting of the tapered distal tip52of the polymer exhaust tube28partially encapsulates the toroidal loop jet emanator46or other distal shape of the jet body40. Thermal melting can also be incorporated to join the interior wall57of the exhaust tube28to the proximal area59of the tapered tube37whereby further heat transfer and melting can also encapsulate and join the closely wound portion54and the loosely wound portion56of the radio-opaque marker coil48to the interior wall58of the tapered tube37. In the alternative, an adhesive can also be incorporated to join the toroidal loop jet emanator46to the interior of the exhaust tube28and to the proximal portion of the closely wound spring portion54and to the proximal area59of the tapered tube37. Multiple inflow and outflow orifices can be formed anywhere as desired along the length of exhaust tube28, either before or after the loading of the jet body40, preferably in the distal portion, which as described below includes inflow and outflow orifices34and32, respectively. Although the preferred embodiment of the catheter is made with multiple outflow and inflow orifices32and34, a substantially equivalent catheter could be designed such that the catheter has only one extended orifice, but separate regions in that one orifice provide inflow and outflow of fluid. Preferably, the inflow and outflow orifices34and32are oval or round in shape, but they can be of other suitable geometric configuration or shape.
+         
+            FIGS. 4
+            athrough4
+            gillustrate jet emanator means which may be utilized at the end of and which are located at the distal end of the jet body40, each of which directs high velocity jet streams proximally along or near the longitudinal axis of the jet body40and the exhaust tube28. Each jet emanator means comprises a tubular structure through which pressurized fluid flows creating high velocity fluid jets which emanate from one or more orifices in the tubular structure. The tubular structure can be of straight, curved, L-shaped, J-shaped, U-shaped, helical, toroidal or semi-toroidal shape, or can be a chamber such as a manifold, and may be formed of a single component, such as a metal hypo-tube, or of multiple components, such as multiple hypo-tubes, welded manifold components, or molded manifold components. The tubular structure forming the jet emanator means may be formed as a unitary part of the high pressure tubular means such as by forming a metal hypo-tube into a toroidal shape, or one of the other shapes mentioned above, with a single orifice or multiple orifices produced by drilling or cutting. The orifices can be round, slits, or other shapes so that fluid flowing therethrough forms one or more discrete high velocity fluid jets or merges into combination jets. Alternatively, the tubular structure forming the jet emanator means may be a separate structure having any one of the aforementioned shapes and orifice constructions which is attached to the distal end of the high pressure tubular means. In either event, the tubular structure forming the jet emanator means is in fluid communication with the high pressure tubular means. In each figure, highly pressurized fluid(s) first passes through a lumen41enroute to the variously shaped and configured distally located jet emanator means located at the end of the jet body40.
+         
+            FIG. 4
+            aillustrates an isometric view of the toroidal loop jet emanator46, one jet emanator means of which may be utilized at the end of and which is located at the distal end of the jet body40, where all numerals mentioned before correspond to those elements previously described. Illustrated in particular are the plurality of proximally directed jet orifices60
+            a-60
+            nlocated on the proximal surface of the toroidal loop jet emanator46which direct high velocity jet streams proximally, as shown by dashed lines, along or near the longitudinal axis of the jet body40and the exhaust tube28. The toroidal loop jet emanator46includes a circular space50along the inner circumference to provide for and to accommodate alignment of and for passage along a guidewire, such as the guidewire51shown partially in FIG.5. Multiple jet orifices60
+            a-60
+            nlocated at points along the toroidal loop jet emanator46can advantageously direct high velocity jet streams on multiple sides of the guidewire51when it is positioned in the circular space50to avoid having guidewire51block inflow orifice(s)34or outflow orifice(s)32which could hamper the recirculation pattern, such as that shown inFIGS. 5 and 6.
+         
+            FIG. 4
+            billustrates an isometric view of a semi-toroidal loop jet emanator62, another jet emanator means of which may be utilized at the end of and which is located at the distal end of the jet body40, where all numerals mentioned before correspond to those elements previously described. Illustrated in particular are the plurality of proximally directed jet orifices64
+            a-64
+            nlocated on the proximal surface of the semi-toroidal loop jet emanator62which direct high velocity jet streams proximally, as shown by dashed lines, along or near the longitudinal axis of the jet body40and the exhaust tube28. The semi-toroidal loop jet emanator62includes a semi-circular space66along the inner circumference to provide for and to accommodate alignment of and for passage along a guidewire.
+         
+            FIG. 4
+            cillustrates an isometric view of an L-shaped jet emanator68, another jet emanator means of which may be utilized at the end of and which is located at the distal end of the jet body40, where all numerals mentioned before correspond to those elements previously described. Illustrated in particular is a proximally directed jet orifice70located on the proximal surface of the L-shaped jet emanator68which directs a high velocity jet stream proximally, as shown by a dashed line, along or near the longitudinal axis of the jet body40and the exhaust tube28.
+         
+            FIG. 4
+            dillustrates an isometric view of a J-shaped jet emanator72having jet orifices located on the J-shaped proximal facing curved surface, another jet emanator means of which may be utilized at the end of and which is located at the distal end of the jet body40, where all numerals mentioned before correspond to those elements previously described. The J-shaped jet emanator72and the jet body40and hypo-tube44align in a common plane. Illustrated in particular is a plurality of proximally directed jet orifices74
+            a-74
+            nlocated on the proximal curved surface of the J-shaped jet emanator72which direct high velocity jet streams proximally, as shown by dashed lines, along or near the longitudinal axis of the jet body40and the exhaust tube28.
+         
+            FIG. 4
+            eillustrates an isometric view of a J-shaped jet emanator75having a jet orifice located at the emanator end, being another jet emanator means of which may be utilized at the end of and which is located at the distal end of the jet body40, where all numerals mentioned before correspond to those elements previously described. The J-shaped jet emanator75and the jet body40and hypo-tube44align in a common plane. Illustrated in particular is a proximally directed jet orifice77located at the extreme end79of the J-shaped jet emanator75which directs a high velocity jet stream proximally, as shown by a dashed line, along or near the longitudinal axis of the jet body40and the exhaust tube28. The extreme end79preferably is first welded shut to form a dome or other suitably shaped structure which is drilled or bored to form the appropriately sized jet orifice77.
+         
+            FIG. 4
+            fillustrates an isometric view of a J-shaped jet emanator81having a necked-down region and co-located orifice, another jet emanator means of which may be utilized at the end of and which is located at the distal end of the jet body40, where all numerals mentioned before correspond to those elements previously described. The J-shaped jet emanator81and the jet body40and hypo-tube44and a necked-down portion89align in a common plane. Illustrated in particular is a proximally directed jet orifice83located at the extreme end87of the necked-down portion89of the J-shaped jet emanator81which directs a high velocity jet stream proximally, as shown by a dashed line, along or near the longitudinal axis of the jet body40and the exhaust tube28. The necked-down portion89is appropriately drawn, formed and/or sized to produce an appropriately sized jet orifice83.
+         
+            FIG. 4
+            gillustrates an isometric view of a J-shaped jet emanator91having an inserted tubular orifice member, another jet emanator means of which may be utilized at the end of and which is located at the distal end of the jet body40, where all numerals mentioned before correspond to those elements previously described. The J-shaped jet emanator91and the jet body40and hypo-tube44align in a common plane. The J-shaped jet emanator91includes a housing93which is part of and which extends proximally from the curved region of the J-shaped jet emanator91. The housing93accommodates within an appropriately sized tubular orifice member95which directs a high velocity jet stream proximally, as shown by a dashed line, along or near the longitudinal axis of the jet body40and the exhaust tube28.
+         Mode of Operation
+         
+            FIG. 5illustrates in cross section a mode of operation view of the cross stream thrombectomy catheter10with particular attention to the distal end38of the exhaust tube28positioned in a blood vessel76, artery or the like at the site of a thrombotic deposit or lesion78. High velocity jets80of saline (or other suitable fluid) are shown being emitted in a proximal direction from the toroidal loop jet emanator46. The semi-toroidal loop jet emanator62ofFIG. 4
+            b, L-shaped jet emanator68ofFIG. 4
+            c, the J-shaped jet emanator72ofFIG. 4
+            d, the J-shaped jet emanator75ofFIG. 4
+            e, the J-shaped jet emanator81ofFIG. 4
+            f, or the J-shaped emanator91ofFIG. 4
+            gcan be incorporated at the distal portion of the jet body40, as well as and as an alternative to the toroidal loop jet emanator46illustrated in this figure, to emanate or emit one or more high velocity jets80distally along or near the longitudinal axis of the jet body40and the exhaust tube28. The saline fluid of jet(s)80passes outwardly through the outflow orifice(s)32in a radial direction creating cross stream jet(s)82(lower velocity jet(s)) directed outwardly toward the wall of the blood vessel76and are influenced by the low pressure at the inflow orifice(s)34to cause the cross stream jet(s)82to flow circumferentially and distally to impinge on, provide drag forces on, and break up thrombotic deposits or lesions78and to, by entrainment, urge and carry along the particles of thrombotic deposits or lesions78through the inflow orifice(s)34, a relatively low pressure region, and into the exhaust lumen42. The entrainment through the inflow orifice(s)34is based on entrainment by the high velocity jet(s)80. The outflow is driven by internal pressure which is created by the high velocity jet(s)80and the fluid entrained through the inflow orifice(s)34. The enhanced clot removal is because of the recirculation pattern established between inflow and outflow orifices34and32, which creates a flow field that maximizes drag force on wall-adhered thrombus.
+         
+            FIG. 6illustrates in cross section the mode of operation view illustrating the cross stream jet(s)82(or stream(s)) and the recirculation pattern. For the purpose of clarity, the illustration shows the outflow orifice(s)32and the inflow orifice(s)34at the same station along the exhaust tube28. Shown in particular is the flow of the cross stream jet(s)82which flow outwardly in radial fashion from the outflow orifice(s)32to impinge thrombotic deposits or lesions78and to urge and carry macerated thrombotic deposits or lesion particles78to the inflow orifice(s)34where the particles of thrombotic deposits or lesions78are entrained by the high velocity jet(s)80(not shown) and carried away through the exhaust lumen42. Circumferential flow occurs along and substantially parallel to the inner boundary of the blood vessel76in a direction leading to the inflow orifice(s)34.
+         Mode of Operation
+         A manifold is attached to the tubular assembly on the proximal end to allow connection of the hypo-tube44of the jet body40to a 10 to 200 cc/min supply of saline (or other suitable fluid) at a back pressure in the range of approximately 150 psi to 50,000 psi, and to allow connection of exhaust lumen42to tubing attached to a collection system, preferably with exhaust regulation means involved to control the level of the exhaust. Suitable specific pressure ranges for the supply fluid can be approximately 150-500 psi, approximately 500-2,500 psi, or approximately 2,500-50,000 psi, depending on the particular situation involved.
+         The catheter is operated by injection with the high pressure saline supply through the threaded high pressure connection11. The saline flows through the jet body40and into the jet emanator means wherein, depending on the supply pressure, it exists in pressure ranges of approximately 50-350 psi, 350-850 psi, or 850-35,000 psi. The saline exits the jet orifice(s)60
+            a-60
+            nat a maximum instantaneous centerline velocity of approximately 2,000 to 30,000 cm/s, preferably 7,000 cm/s to 20,000 cm/s, and passes near at least one of the inflow orifice(s)34of the exhaust lumen42. Since the catheter is operated in liquid media within the body, the saline jet(s)80behave as submerged jet(s) in that their momentum is transferred to the surrounding fluid, a phenomena known as entrainment. Due to the geometry of the catheter, the entrained fluid is brought into the inflow orifice(s)34in flow rates of 1 to 20 times that of the high velocity saline exiting the jet orifices60
+            a-60
+            n.
+         
+         Once entrained fluid has entered the inflow orifice(s)34, the fluid will take the path of least resistance to exit the catheter. If the catheter were made with no outflow orifice(s)32and the exhaust lumen had no hydrodynamic resistance, all the entrained fluid would be exhausted out of the body through the exhaust lumen42and into the collection system. However, if there is significant amount of hydrodynamic resistance, either through pipe flow resistance in the exhaust lumen42or an exhaust regulation means, not all of the entrained fluid can be exhausted from the catheter. If there were no outflow orifice(s)32in the catheter, at least a portion of the inflow orifice(s)34will have fluid transported out of the catheter in order to maintain a mass balance of fluid in the catheter (all components of the catheter are incompressible or inelastic so that there is no accumulation of mass in the catheter).
+         The incorporation of outflow orifice(s)32in the catheter allows maintenance of the mass balance at the tip of the catheter without a requirement that a portion of the inflow orifice(s)34will have fluid transported out of the catheter. The benefit of removing the two-directional flow through the inflow orifice(s)34is that friction between the entrained fluid and fluid that is being transported out of the catheter has been eliminated. Thus, both of these flows will be increased by having the outflow orifice(s)32incorporated into the catheter to act to greatly enhance the thrombectomy effect of the catheter on organized mural thrombus.
+         
+            FIGS. 7 and 8illustrate a side view and a cross section view, respectively, of a first alternative embodiment showing distal end84of the exhaust tube28which can be incorporated into use with the first embodiment of and for use with the majority of the components of the cross stream thrombectomy catheter previously described, where all numerals mentioned before correspond to those elements previously described. Although the preferred embodiment of the catheter includes multiple outflow and inflow orifices32and34, a substantially equivalent catheter having one or more single opening dual function orifices85can be provided, each orifice85having separate regions such that one single opening orifice provides for inflow and outflow of fluid. Preferably, the orifice85is an elongated shape, but can be of other suitable geometric configuration or shape.FIG. 7illustrates an elongated and tapered orifice85having at one end a semi-circular distally located radiused inflow end86corresponding to the inflow orifice34and a semi-circular proximally located relatively smaller radiused outflow end88corresponding to the outflow orifice32opposing the radiused inflow end86. A cross stream thrombectomy catheter incorporating the distal end84of the exhaust tube28operates according to the teachings of the invention with the benefit of simpler and more easily accomplished construction which combines the inflow and outflow orifices into a single opening orifice. Although toroidal loop jet emanator46is shown in the embodiment, other jet emanators such the semi-toroidal loop jet emanator62ofFIG. 4
+            b, the L-shaped jet emanator68ofFIG. 4
+            c, the J-shaped jet emanator72ofFIG. 4
+            d, the J-shaped jet emanator75ofFIG. 4
+            e, the J-shaped jet emanator81ofFIG. 4
+            f, or the J-shaped jet emanator91ofFIG. 4
+            g, or other such suitable jet emanator or device can be incorporated into use with this embodiment of the present invention. Flow of the cross stream jet(s)82is illustrated in FIG.7.
+         
+            FIGS. 9 through 17illustrate second, third and fourth alternative embodiments of distal ends of the exhaust tube28where the inflow orifices are located at the extreme end of the exhaust lumen42of the exhaust tube28as an alternative to inflow orifice placement on the sidewall of the exhaust tube28as previously described, and where use of the tapered and flexible tip assembly36is not required. The distal ends are assigned different designator number references in allowance for differently located inflow or outflow orifices or other variances or combinations thereof at or near the distal ends.
+         
+            FIGS. 9 and 10, illustrate a cross section view and an end view, respectively, of a second alternative embodiment showing distal end90of the exhaust tube28which can be incorporated into use with the manifold12, the jet body40and the exhaust tube28with the exception of the tapered and flexible tip assembly36of the first embodiment and is intended for use with the majority of the components of the cross stream thrombectomy catheter previously described, where all numerals mentioned before correspond to those elements previously described. A tip92is located at or near the distal end of the jet body40and at the distal end90of the exhaust tube28. The tip92, which can be of metallic, polymeric or other suitable material, aligns and suitably secures to the distal end90of the exhaust tube28. The tip92includes a bore94which supports the jet body40. The jet body40extends distally beyond the bore94of the tip92and forms a U-shaped jet emanator96having a single centrally located jet orifice98, which is the end of the lumen41of the extended jet body40making up the U-shaped jet emanator96. The jet orifice98of the U-shaped jet emanator96is directed at an inflow orifice100aligned longitudinally and located in the tip92. A high velocity jet102of saline is emitted in a proximal direction from the jet orifice98and through the inflow orifice100. Fluid is entrained by the high velocity jet102and is thereby drawn through the inflow orifice100and driven into the exhaust lumen42and mixes with saline from the high velocity jet102. Part of this entrained fluid mixed with the saline from the high velocity jet102passes outwardly through the outflow orifice104in a radial direction creating a cross stream jet106(lower velocity jet) directed outwardly toward the wall of a blood vessel and is influenced by the low pressure at the inflow orifice100to cause the cross stream jet106to flow circumferentially and distally to impinge on, provide drag forces on, and break up thrombotic deposits or lesions and to, by entrainment, urge and carry along the thrombotic deposits or lesions through the inflow orifice100, a relatively low pressure region, and into the exhaust lumen42. The flow of fluid and thrombotic deposits through the inflow orifice100is based on entrainment by the high velocity jet102. The outflow through outflow orifice104is driven by internal pressure which is created by the high velocity jet102and the fluid entrained through the inflow orifice100. The enhanced clot removal is because of the recirculation pattern established between inflow and outflow orifices100and104, which creates a flow field that maximizes drag force on wall-adhered thrombus. Although a U-shaped jet emanator96is shown in the embodiment, other jet emanators such as the semi-toroidal loop jet emanator62ofFIG. 4
+            b, the L-shaped jet emanator68ofFIG. 4
+            c, the J-shaped jet emanator72ofFIG. 4
+            d, the J-shaped jet emanator75ofFIG. 4
+            e, the J-shaped jet emanator81ofFIG. 4
+            f, or the J-shaped jet emanator91ofFIG. 4
+            g, or other such suitable jet emanator or device can be incorporated into use with this embodiment of the present invention.
+         
+            FIG. 11illustrates a view of the tip92along line11—11ofFIG. 9, where all numerals correspond to those elements previously described.
+         
+            FIGS. 12 and 13illustrate a cross section view and an end view, respectively, of a third alternative embodiment which operates according to the teachings of the invention, and more specifically, according to the teachings ofFIGS. 9,10and11and which incorporates many of the components shown inFIGS. 9,10and11.FIGS. 12 and 13illustrate a tip108having similarities to tip92ofFIG. 9, but including an inwardly or proximally facing curved surface112. The curved surface112assists and promotes alignment of a guidewire through an inflow orifice110of the tip108. The distal end114of the exhaust tube28including the tip108can be incorporated into use with the manifold12, the jet body40and the exhaust tube28with the exception of the tapered and flexible tip assembly36of the first embodiment and is intended for use with the majority of the components of the cross stream thrombectomy catheter previously described, where all numerals mentioned before correspond to those elements previously described. The tip108is located at or near the distal end of the jet body40and at the distal end114of the exhaust tube28. The tip108, which can be of metallic, polymeric or other suitable material, aligns and suitably secures to the distal end114of the exhaust tube28. The tip108includes a bore115which supports the jet body40. As previously described, the jet body40extends distally beyond the bore115of the tip108to form the U-shaped jet emanator96having a single centrally located jet orifice98which is the end of the lumen41of the extended jet body40making up the U-shaped jet emanator96. The jet orifice98of the U-shaped jet emanator96is directed at an inflow orifice110aligned longitudinally and located in the tip108. A high velocity jet118of saline is emitted in a proximal direction from the jet orifice98and through the inflow orifice110to operate in a manner and fashion such as described forFIGS. 9,10and11. Although U-shaped jet emanator96is shown in the embodiment, other jet emanators such as the toroidal loop jet emanator46ofFIG. 4
+            a, the semi-toroidal loop jet emanator62ofFIG. 4
+            b, the L-shaped jet emanator68ofFIG. 4
+            c, the J-shaped jet emanator72ofFIG. 4
+            d, the J-shaped jet emanator75ofFIG. 4
+            e, the J-shaped jet emanator81ofFIG. 4
+            f, the J-shaped jet emanator91ofFIG. 4
+            g, or other such suitable jet emanator or device can be incorporated into use with this embodiment of the present invention.
+         
+            FIG. 14illustrates a view of the tip108along line14—14ofFIG. 12, where all numerals correspond to those elements previously described.
+         
+            FIGS. 15 and 16illustrate a cross section view and an end view, respectively, of a fourth alternative embodiment showing distal end122of the exhaust tube28which can be incorporated into use with the manifold12, the jet body40and the exhaust tube28with the exception of the tapered and flexible tip assembly36of the first embodiment and is intended for use with the majority of the components of the cross stream thrombectomy catheter previously described, where all numerals mentioned before correspond to those elements previously described. A tip124is located at or near the distal end of the jet body40and at the distal end122of the exhaust tube28. The tip124, which can be of metallic, polymeric or other suitable material, aligns and suitably secures to the distal end122of the exhaust tube28. The tip124includes a bore126which supports the jet body40. The jet body40extends distally beyond the bore126of the tip124and forms a toroidal loop jet emanator128having a plurality of proximally directed jet orifices130
+            a-130
+            n. The jet orifices130
+            a-130
+            nof the toroidal loop jet emanator128are directed at an inflow orifice132aligned longitudinally and located in the tip124. The high velocity jets134
+            a-134
+            nof saline are emitted in a proximal direction from the jet orifices130
+            a-130
+            nand through the inflow orifice132. Fluid, such as blood and thrombotic debris which may be near the tip124, is entrained by the high velocity jets134
+            a-134
+            nand is thereby drawn through inflow orifice132and acts in a manner and fashion such as described forFIGS. 9,10and11, such that cross stream jets106and recirculation pattern between the outflow orifice104and the inflow orifice132synergistically enhances thrombus removal.
+         
+            FIG. 17illustrates a view of the tip124along line17—17ofFIG. 15, where all numerals mentioned before correspond to those elements previously described. A circular space136along the inner circumference of the toroidal loop jet emanator128is provided to accommodate alignment and passage along a guidewire.
+         
+            FIG. 18, a fifth alternative embodiment, illustrates a side view of a cross stream thrombectomy catheter10A which is similar to the cross stream thrombectomy catheter10ofFIG. 1Bbut without exhaust provision, and therefore does not include the manifold branch22and Luer connection20which extend from manifold branch18. Also, in this fifth alternative embodiment the toroidal loop jet emanator of theFIG. 1Bembodiment is not employed, and since no exhaust provision is present, the second tubular means characterized by the exhaust tubular means in the form of the exhaust tube28of theFIG. 1Bembodiment is characterized by other tubular means in the form of a tube137which is similar to the exhaust tube28of theFIG. 1Bembodiment but which has a distal end138of different construction from that of the distal end38of the embodiment of FIG.1B. Devices of the fifth alternative embodiment operate and function similarly to those of theFIG. 1Bembodiment in that a recirculation pattern from outflow orifices34to inflow orifices32synergistically enhance clot breakup; however, this embodiment does not provide for removal of the thrombus debris through the catheter itself. If desired, thrombus debris can be removed from the body by separate means, such as a separate catheter or by chemical methods. In many cases, such thrombus debris removal would not be necessary since the enhanced clot breakup action of the device produces small debris which can be left in the body.
+         
+            FIG. 19depicts a cross section view of the distal end138of the tube137. All numerals appearing inFIGS. 18 and 19which have been mentioned before correspond to those elements previously described. Preferably, hypo-tube44is formed into jet body140which directs a single high velocity jet142distally past inflow orifice34. Alternatively, jet body140may be of a short length and connected to a more flexible polymeric tube similar to polymeric tube45of FIG.3. Fluid, such as blood and thrombotic debris which may be near distal end138, is entrained by the high velocity jet142and is thereby drawn through inflow orifice34. The fluid mixes with saline from the high velocity jet142, and thrombus is broken apart and pulverized by the high velocity jet142. The fluid mixed with saline from high velocity jet142creates an internal pressure near outflow orifice32, which creates cross stream jet(s)82and a recirculation pattern, as indicated, from outflow orifice32to inflow orifice34. The recirculation pattern includes radial and circumferential flow vectors, and can include axial flow vectors as well. The recirculation pattern creates a flow field that maximizes force on wall-adhered thrombus or lesion. A guidewire144is shown passing through the tapered and flexible tip assembly36and through the tube lumen143. This fifth alternative embodiment of the present invention is similar in many respects to the other embodiments, but does not provide for thrombus debris removal out of the body through the catheter. In this embodiment, the key features of inflow/outflow orifices and recirculation allow thrombus to be pulled into the high velocity jet(s) and to be broken up sufficiently so that they can pass downstream in the blood vessel without significant embolic complications. The recirculation can provide for repeated passage of thrombus fragments into the high velocity jets(s) so that maceration of the thrombus can occur. This embodiment may be particularly useful in treating venous thrombus or arteriovenous graft thrombosis, as examples, where moderately small thrombus fragment embolization is less likely to be of concern. In other situations, isolation means can be incorporated to prevent significant embolization. This embodiment has certain advantages over others, in that jet body140is simpler to fabricate, smaller in overall diameter, and less expensive than the more complex configurations, and the manifold12ofFIG. 18is simpler and less expensive than that shown in FIG.1B. Also, since there is no requirement for removal of debris through the catheter, tube137ofFIG. 18can be a smaller diameter than exhaust tube28of FIG.1B. The resulting device can then be a smaller diameter and less stiff, which offers advantages in allowing a smaller access for inserting the catheter into a patient and advancing it to the location of the thrombus. While the simple, single-jet jet body140is preferred in the fifth alternative embodiment, multiple jets and multiple inflow and outflow orifices can be used. For example, a jet body configuration similar to the semi-toroidal loop jet emanator62ofFIG. 4
+            bcould be used, provided that multiple jet orifices direct fluid jets distally past one or more inflow orifices. Multiple outflow orifices could be used as well, positioned farther from the jet(s) than the inflow orifice(s), or combination inflow/outflow orifice(s) similar to orifice(s)85ofFIGS. 7 and 8could be utilized.
+         Various modifications can be made to the present invention without departing from the apparent scope hereof.
+               
+                  
+                     
+                     
+                        
+                           
+                        
+                        
+                           THROMBECTOMY CATHETER AND SYSTEM PARTS LIST
+                        
+                        
+                           
+                        
+                     
+                     
+                        
+                           
+                        
+                     
+                  
+                  
+                     
+                     
+                     
+                     
+                        
+                           
+                            10
+                           cross stream thrombectomy catheter
+                        
+                        
+                           
+                            10A
+                           cross stream thrombectomy catheter
+                        
+                        
+                           
+                            11
+                           threaded high pressure connection
+                        
+                        
+                           
+                            12
+                           manifold
+                        
+                        
+                           
+                            14
+                           hemostasis unit
+                        
+                        
+                           
+                            16
+                           Luer fitting
+                        
+                        
+                           
+                            18
+                           manifold branch
+                        
+                        
+                           
+                            20
+                           Luer connection
+                        
+                        
+                           
+                            22
+                           manifold branch
+                        
+                        
+                           
+                            24
+                           Luer fitting
+                        
+                        
+                           
+                            26
+                           strain relief
+                        
+                        
+                           
+                            28
+                           exhaust tube
+                        
+                        
+                           
+                            30
+                           proximal end
+                        
+                        
+                           
+                            32
+                           outflow orifice
+                        
+                        
+                           
+                            34
+                           inflow orifice
+                        
+                        
+                           
+                            36
+                           tapered and flexible tip assembly
+                        
+                        
+                           
+                            37
+                           tapered tube
+                        
+                        
+                           
+                            38
+                           distal end
+                        
+                        
+                           
+                            40
+                           jet body
+                        
+                        
+                           
+                            41
+                           lumen
+                        
+                        
+                           
+                            42
+                           exhaust lumen
+                        
+                        
+                           
+                            43
+                           reduction
+                        
+                        
+                           
+                            44
+                           hypo-tube
+                        
+                        
+                           
+                            45
+                           polymeric tube
+                        
+                        
+                           
+                            46
+                           toroidal loop jet emanator
+                        
+                        
+                           
+                            48
+                           marker coil
+                        
+                        
+                           
+                            50
+                           circular space
+                        
+                        
+                           
+                            51
+                           guidewire
+                        
+                        
+                           
+                            52
+                           distal tip (of exhaust tube)
+                        
+                        
+                           
+                            54
+                           closely wound portion
+                        
+                        
+                           
+                            56
+                           loosely wound portion
+                        
+                        
+                           
+                            57
+                           interior wall
+                        
+                        
+                           
+                            58
+                           interior wall
+                        
+                        
+                           
+                            59
+                           proximal area
+                        
+                        
+                           
+                            60a-n
+                           jet orifices
+                        
+                        
+                           
+                            62
+                           semi-toroidal loop jet emanator
+                        
+                        
+                           
+                            64a-n
+                           jet orifices
+                        
+                        
+                           
+                            66
+                           semi-circular space
+                        
+                        
+                           
+                            68
+                           L-shaped jet emanator
+                        
+                        
+                           
+                            70
+                           jet orifice
+                        
+                        
+                           
+                            72
+                           J-shaped jet emanator
+                        
+                        
+                           
+                            74a-n
+                           jet orifices
+                        
+                        
+                           
+                            75
+                           J-shaped jet emanator
+                        
+                        
+                           
+                            76
+                           blood vessel
+                        
+                        
+                           
+                            77
+                           jet orifice
+                        
+                        
+                           
+                            78
+                           thrombotic deposit or lesion
+                        
+                        
+                           
+                            79
+                           extreme end
+                        
+                        
+                           
+                            80
+                           high velocity jets
+                        
+                        
+                           
+                            81
+                           J-shaped jet emanator
+                        
+                        
+                           
+                            82
+                           cross stream jets
+                        
+                        
+                           
+                            83
+                           jet orifice
+                        
+                        
+                           
+                            84
+                           distal end
+                        
+                        
+                           
+                            85
+                           orifice
+                        
+                        
+                           
+                            86
+                           inflow end
+                        
+                        
+                           
+                            87
+                           extreme end
+                        
+                        
+                           
+                            88
+                           outflow end
+                        
+                        
+                           
+                            89
+                           necked-down portion
+                        
+                        
+                           
+                            90
+                           distal end
+                        
+                        
+                           
+                            91
+                           J-shaped jet emanator
+                        
+                        
+                           
+                            92
+                           tip
+                        
+                        
+                           
+                            93
+                           housing
+                        
+                        
+                           
+                            94
+                           bore
+                        
+                        
+                           
+                            95
+                           orifice member
+                        
+                        
+                           
+                            96
+                           U-shaped jet emanator
+                        
+                        
+                           
+                            98
+                           jet orifice
+                        
+                        
+                           
+                           100
+                           inflow orifice
+                        
+                        
+                           
+                           102
+                           high velocity jet
+                        
+                        
+                           
+                           104
+                           outflow orifice
+                        
+                        
+                           
+                           106
+                           cross stream jet
+                        
+                        
+                           
+                           108
+                           tip
+                        
+                        
+                           
+                           110
+                           inflow orifice
+                        
+                        
+                           
+                           112
+                           curved surface
+                        
+                        
+                           
+                           114
+                           distal end
+                        
+                        
+                           
+                           115
+                           bore
+                        
+                        
+                           
+                           118
+                           high velocity jet
+                        
+                        
+                           
+                           122
+                           distal end
+                        
+                        
+                           
+                           124
+                           tip
+                        
+                        
+                           
+                           126
+                           bore
+                        
+                        
+                           
+                           128
+                           toroidal loop jet emanator
+                        
+                        
+                           
+                           130a-n
+                           jet orifices
+                        
+                        
+                           
+                           132
+                           inflow orifice
+                        
+                        
+                           
+                           134a-n
+                           high velocity jets
+                        
+                        
+                           
+                           136
+                           circular space
+                        
+                        
+                           
+                           137
+                           tube
+                        
+                        
+                           
+                           138
+                           distal end
+                        
+                        
+                           
+                           140
+                           jet body
+                        
+                        
+                           
+                           142
+                           jet
+                        
+                        
+                           
+                           143
+                           luinen
+                        
+                        
+                           
+                           144
+                           guidewire
+                        
+                        
+                           
+                           
+                        
+                     
+                  
+               
+            
+         
+      
+   
+   
+      
+         1. An elongated device for treatment of thrombus or other unwanted material in a vessel or cavity of a living body comprising:a. a proximal end and a distal end;
+            b. high pressure tubular means for conveying pressurized fluid from said proximal end to said distal end;
+            c. pressurized fluid connection means for connecting the proximal end of said high pressure tubular means to a source of pressurized fluid;
+            d. jet emanator means with at least one jet orifice for directing at least one high velocity fluid jet in the vicinity of said distal end, said jet emanator means being attached to and in fluid communication with said high pressure tubular means;
+            e. exhaust tubular means for conveying fluid from said distal end to said proximal end, at least one of said jet orifices directing at least one high velocity fluid jet into said exhaust tubular means, said exhaust tubular means providing for removal of fluid and thrombus or other unwanted material debris from the body vessel or cavity;
+            f. inflow means in said exhaust tubular means, oriented so that at least one high velocity fluid jet entrains and draws surrounding blood or other fluid from a body vessel or cavity through said inflow means and into said exhaust tubular means, and creating a region of elevated pressure in said exhaust tubular means;
+            g. outflow means in said exhaust tubular means, located at said region of elevated pressure, said outflow means thereby providing for passage of fluid out from said exhaust tubular means into a body vessel or cavity, creating one or more cross stream jets which provide force (normal and/or drag forces) which help to break thrombus or other unwanted material off the surface of a body vessel or cavity;
+            h. one or more of said high velocity jet(s) act to break apart thrombus or other unwanted material which has been entrained by said high velocity jet(s);
+            i. said high velocity jet(s), said inflow means, and said outflow means create a recirculation pattern so that fluid flows from said outflow means with radial flow vectors and circumferential and/or axial flow vectors to said inflow means and back into said exhaust tubular means, thereby providing enhanced removal of thrombus or other unwanted material off the surface of a body vessel or cavity, and macerating the thrombus or other unwanted material by action of said high velocity jet(s); and,
+            j. said elevated pressure in said exhaust tubular means aids in driving fluid and thrombus or unwanted material debris from said distal end to said proximal end through said exhaust tubular means.
+         
+      
+      
+         2. The device ofclaim 1, wherein high pressure fluid is provided in the range of approximately 150 to 500 psi.
+      
+      
+         3. The device ofclaim 1, wherein high pressure fluid is provided in the range of approximately 500 to 2500 psi.
+      
+      
+         4. The device ofclaim 1, wherein high pressure fluid is provided in the range of approximately 2500 to 50000 psi.
+      
+      
+         5. The device ofclaim 1, wherein high pressure fluid in said jet emanator means is in the range of 50 to 350 psi.
+      
+      
+         6. The device ofclaim 1, wherein high pressure fluid in said jet emanator means is in the range of 350 to 850 psi.
+      
+      
+         7. The device ofclaim 1, wherein high pressure fluid in said jet emanator means is in the range of 850 to 35000 psi.
+      
+      
+         8. The device ofclaim 1, wherein said high velocity jet(s) have maximum instantaneous centerline velocity of approximately 2,000 to 30,000 cm/s.
+      
+      
+         9. The device ofclaim 1, wherein said high velocity jet(s) have maximum instantaneous centerline velocity of approximately 7,000 to 20,000 cm/s.
+      
+      
+         10. The device ofclaim 1, further comprising another tubular means for passage of fluid or other material or for passage of devices such as guidewires, catheters, or imaging tools between said proximal end and said distal end.
+      
+      
+         11. The device ofclaim 1, further comprising pressurized fluid source means connectible to said pressurized fluid connection means, for providing pressurized fluid to said high pressure tubular means.
+      
+      
+         12. The device ofclaim 1, further comprising exhaust regulation means connected to said exhaust tubular means for regulation of the rate of removal of fluid and thrombus or other unwanted material debris from the body vessel or cavity.
+      
+      
+         13. A catheter comprising:a. a first tube having a proximal end and a distal end;
+            b. a second tube having a proximal end and a distal end, said first tube residing within and extending along the length of said second tube;
+            c. a jet body at said distal end of said first tube, said jet body including a jet emanator;
+            d. at least one outflow orifice and at least one inflow orifice formed in said second tube adjacent to said distal end thereof;
+            e. said jet emanator having at least one jet orifice directed toward said outflow and inflow orifices; and,
+            f. said jet emanator located with respect to said outflow orifice such that at least some fluid directed by said jet emanator passes through said at least one outflow orifice.
+         
+      
+      
+         14. The catheter as defined inclaim 13, wherein said at least one outflow orifice is located proximally of said at least one inflow orifice.
+      
+      
+         15. The catheter as defined inclaim 13, wherein said at least one outflow orifice comprises a plurality of orifices and said at least one inflow orifice comprises a plurality of orifices.
+      
+      
+         16. The catheter as defined inclaim 15, wherein all of said outflow orifices and all of said inflow orifices are positioned proximally of said at least one jet orifice.
+      
+      
+         17. The catheter as defined inclaim 15, wherein all of said outflow orifices are located proximally of all of said inflow orifices.
+      
+      
+         18. The catheter as defined inclaim 13, wherein said at least one jet orifice is located distally of said outflow and inflow orifices.
+      
+      
+         19. The catheter as defined inclaim 13, wherein said at least one jet orifice is located proximally of said outflow and inflow orifices.
+      
+      
+         20. The catheter as defined inclaim 13, wherein said at least one jet orifice comprises a plurality of jet orifices.
+      
+      
+         21. The catheter as defined inclaim 13, wherein said jet emanator is in the form of a toroidal loop.
+      
+      
+         22. The catheter as defined inclaim 13, wherein said jet emanator is in the form of a semi-toroidal loop.
+      
+      
+         23. The catheter as defined inclaim 13, wherein said jet emanator is L-shaped.
+      
+      
+         24. The catheter as defined inclaim 13, wherein said jet emanator is J-shaped.
+      
+      
+         25. The catheter as defined inclaim 24, wherein said at least one jet orifice is located in the curved portion of said J-shaped jet emanator.
+      
+      
+         26. The catheter as defined inclaim 24, wherein said at least one jet orifice is located at the extreme end of said J-shaped jet emanator.
+      
+      
+         27. The catheter as defined inclaim 24, wherein the extreme end of said J-shaped jet emanator includes a necked-down portion and said at least one jet orifice is located at the tip of said necked-down portion.
+      
+      
+         28. The catheter as defined inclaim 24, wherein said at least one jet orifice is defined by a tubular orifice member located at the extreme end of said J-shaped jet emanator.
+      
+      
+         29. The catheter as defined inclaim 13, wherein said at least one outflow orifice and said at least one inflow orifice are defined by separate regions of a single orifice.
+      
+      
+         30. The catheter as defined inclaim 13, further comprising a flexible tip assembly attached to said distal end of said second tube.
+      
+      
+         31. The catheter as defined inclaim 30, wherein said flexible tip assembly comprises a tapered tube housing a radio-opaque marker.
+      
+      
+         32. The catheter as defined inclaim 31, wherein said radio-opaque marker is a metal wire coil.
+      
+      
+         33. The catheter as defined inclaim 32, wherein said metal wire coil has a closely wound portion and a loosely wound portion.
+      
+      
+         34. The catheter as defined inclaim 13, wherein said jet emanator is located within said second tube at said distal end of said second tube.
+      
+      
+         35. The catheter as defined inclaim 13, wherein said jet emanator is located outside of said second tube beyond said distal end of said second tube.
+      
+      
+         36. The catheter as defined inclaim 13, wherein said second tube includes an exhaust lumen.
+      
+      
+         37. The catheter as defined inclaim 13, wherein said proximal ends of said first and second tubes are connected to a manifold.
+      
+      
+         38. The catheter ofclaim 13further wherein said at least one outflow orifice comprises a plurality of orifices.
+      
+      
+         39. A catheter comprising:a. a first tube having a proximal end and a distal end;
+            b. a second tube having a proximal end and a distal end, said first tube residing within and extending along the length of said second tube;
+            c. a jet body at said distal end of said first tube, said jet body including a jet emanator;
+            d. at least one outflow orifice and at least one inflow orifice formed in said second tube adjacent to said distal end thereof;
+            e. said jet emanator having at least one jet orifice directed toward said outflow and inflow orifices;
+            f. all of said outflow orifices are positioned proximally of said at least one jet orifice; and,
+            g. said jet emanator located with respect to said outflow orifices such that at least some fluid directed by said jet emanator passes through said at least one outflow orifice.
+         
+      
+   
+   
+      
+         
+      
+      
+         
+      
+      
+         
+      
+      
+         
+      
+      
+         
+      
+      
+         
+      
+      
+         
+      
+      
+         
+      
+      
+         
+      
+      
+         
+      
+      
+         
+      
+      
+         
+      
+      
+         
+      
+      
+         
+      
+      
+         
+      
+      
+         
+      
+      
+         
+      
+      
+         
+      
+      
+         
+      
+      
+         
+      
+      
+         
+      
+      
+         
+      
+      
+         
+      
+      
+         
+      
+      
+         
+      
+      
+         
+      
+      
+         
+      
+   

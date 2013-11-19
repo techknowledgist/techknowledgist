@@ -1,0 +1,912 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright ©2011 LexisNexis Univentio, The Netherlands. -->
+<lexisnexis-patent-document schema-version="1.08" date-produced="20110930" file="US6674661B1.xml" produced-by="LexisNexis-Univentio" lang="eng" date-changed="20110708" time-changed="033033">
+  <bibliographic-data lang="eng">
+    <publication-reference publ-type="Grant" publ-desc="Patent without a pre-grant publication">
+      <document-id>
+        <country>US</country>
+        <doc-number>6674661</doc-number>
+        <kind>B1</kind>
+        <date>20040106</date>
+      </document-id>
+    </publication-reference>
+    <application-reference appl-type="utility">
+      <document-id>
+        <country>US</country>
+        <doc-number>10350497</doc-number>
+        <date>20030123</date>
+      </document-id>
+    </application-reference>
+    <application-series-code>10</application-series-code>
+    <language-of-filing>eng</language-of-filing>
+    <language-of-publication>eng</language-of-publication>
+    <priority-claims date-changed="20070523">
+      <priority-claim sequence="1" kind="national">
+        <country>US</country>
+        <doc-number>10350497</doc-number>
+        <date>20030123</date>
+      </priority-claim>
+      <priority-claim sequence="2" kind="national">
+        <country>US</country>
+        <doc-number>09896055</doc-number>
+        <date>20010628</date>
+      </priority-claim>
+      <priority-claim sequence="3" kind="national">
+        <country>US</country>
+        <doc-number>09675574</doc-number>
+        <date>20000929</date>
+      </priority-claim>
+    </priority-claims>
+    <dates-of-public-availability date-changed="20090405">
+      <unexamined-printed-without-grant>
+        <date>20040106</date>
+      </unexamined-printed-without-grant>
+      <printed-with-grant>
+        <date>20040106</date>
+      </printed-with-grant>
+    </dates-of-public-availability>
+    <classification-ipc date-changed="20090405">
+      <main-classification>
+        <text> 7G 11C  17/10   A</text>
+        <edition>7</edition>
+        <section>G</section>
+        <class>11</class>
+        <subclass>C</subclass>
+        <main-group>17</main-group>
+        <subgroup>10</subgroup>
+        <qualifying-character>A</qualifying-character>
+      </main-classification>
+    </classification-ipc>
+    <classifications-ipcr date-changed="20090405">
+      <classification-ipcr sequence="1">
+        <text>H01L  21/70        20060101C I20051008RMEP        </text>
+        <ipc-version-indicator>
+          <date>20060101</date>
+        </ipc-version-indicator>
+        <classification-level>C</classification-level>
+        <section>H</section>
+        <class>01</class>
+        <subclass>L</subclass>
+        <main-group>21</main-group>
+        <subgroup>70</subgroup>
+        <classification-value>I</classification-value>
+        <action-date>
+          <date>20051008</date>
+        </action-date>
+        <generating-office>
+          <country>EP</country>
+        </generating-office>
+        <classification-status>R</classification-status>
+        <classification-data-source>M</classification-data-source>
+      </classification-ipcr>
+      <classification-ipcr sequence="2">
+        <text>H01L  21/8246      20060101A I20051008RMEP        </text>
+        <ipc-version-indicator>
+          <date>20060101</date>
+        </ipc-version-indicator>
+        <classification-level>A</classification-level>
+        <section>H</section>
+        <class>01</class>
+        <subclass>L</subclass>
+        <main-group>21</main-group>
+        <subgroup>8246</subgroup>
+        <classification-value>I</classification-value>
+        <action-date>
+          <date>20051008</date>
+        </action-date>
+        <generating-office>
+          <country>EP</country>
+        </generating-office>
+        <classification-status>R</classification-status>
+        <classification-data-source>M</classification-data-source>
+      </classification-ipcr>
+      <classification-ipcr sequence="3">
+        <text>H01L  27/112       20060101C I20051008RMEP        </text>
+        <ipc-version-indicator>
+          <date>20060101</date>
+        </ipc-version-indicator>
+        <classification-level>C</classification-level>
+        <section>H</section>
+        <class>01</class>
+        <subclass>L</subclass>
+        <main-group>27</main-group>
+        <subgroup>112</subgroup>
+        <classification-value>I</classification-value>
+        <action-date>
+          <date>20051008</date>
+        </action-date>
+        <generating-office>
+          <country>EP</country>
+        </generating-office>
+        <classification-status>R</classification-status>
+        <classification-data-source>M</classification-data-source>
+      </classification-ipcr>
+      <classification-ipcr sequence="4">
+        <text>H01L  27/112       20060101A I20051008RMEP        </text>
+        <ipc-version-indicator>
+          <date>20060101</date>
+        </ipc-version-indicator>
+        <classification-level>A</classification-level>
+        <section>H</section>
+        <class>01</class>
+        <subclass>L</subclass>
+        <main-group>27</main-group>
+        <subgroup>112</subgroup>
+        <classification-value>I</classification-value>
+        <action-date>
+          <date>20051008</date>
+        </action-date>
+        <generating-office>
+          <country>EP</country>
+        </generating-office>
+        <classification-status>R</classification-status>
+        <classification-data-source>M</classification-data-source>
+      </classification-ipcr>
+    </classifications-ipcr>
+    <classification-national date-changed="20090405">
+      <country>US</country>
+      <main-classification>
+        <text>365/104</text>
+        <class>365</class>
+        <subclass>104</subclass>
+      </main-classification>
+      <further-classification sequence="1">
+        <text>257/E21.666</text>
+        <class>257</class>
+        <subclass>E21.666</subclass>
+      </further-classification>
+      <further-classification sequence="2">
+        <text>257/E27.102</text>
+        <class>257</class>
+        <subclass>E27.102</subclass>
+      </further-classification>
+      <further-classification sequence="3">
+        <text>365/94</text>
+        <class>365</class>
+        <subclass>94</subclass>
+      </further-classification>
+      <further-classification sequence="4">
+        <text>365/103</text>
+        <class>365</class>
+        <subclass>103</subclass>
+      </further-classification>
+    </classification-national>
+    <classifications-ecla date-changed="20090405">
+      <classification-ecla sequence="1" classification-scheme="EC" country="EP">
+        <text>H01L 21/8246P</text>
+        <section>H</section>
+        <class>01</class>
+        <subclass>L</subclass>
+        <main-group>21</main-group>
+        <subgroup>8246</subgroup>
+        <additional-subgroups>
+          <additional-subgroup sequence="1">P  </additional-subgroup>
+        </additional-subgroups>
+      </classification-ecla>
+      <classification-ecla sequence="2" classification-scheme="EC" country="EP">
+        <text>H01L 27/112</text>
+        <section>H</section>
+        <class>01</class>
+        <subclass>L</subclass>
+        <main-group>27</main-group>
+        <subgroup>112</subgroup>
+      </classification-ecla>
+    </classifications-ecla>
+    <field-of-search date-changed="20070524">
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>257/390</text>
+          <class>257</class>
+          <subclass>390</subclass>
+        </main-classification>
+      </classification-national>
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>365/94</text>
+          <class>365</class>
+          <subclass>94</subclass>
+        </main-classification>
+      </classification-national>
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>365/96</text>
+          <class>365</class>
+          <subclass>96</subclass>
+        </main-classification>
+      </classification-national>
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>365/103</text>
+          <class>365</class>
+          <subclass>103</subclass>
+        </main-classification>
+      </classification-national>
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>365/104</text>
+          <class>365</class>
+          <subclass>104</subclass>
+        </main-classification>
+      </classification-national>
+    </field-of-search>
+    <number-of-claims>13</number-of-claims>
+    <invention-title id="title_eng" date-changed="20100418" lang="eng" format="original">Dense metal programmable ROM with the terminals of a programmed memory transistor being shorted together</invention-title>
+    <references-cited date-changed="20100629">
+      <patent-citations name="patcit" date-changed="20100409" />
+      <forward-citations name="fwdcit" date-changed="20100629" />
+      <citation srep-phase="o">
+        <patcit num="1">
+          <document-id>
+            <country>US</country>
+            <doc-number>5517061</doc-number>
+            <kind>A</kind>
+            <name>Azmanov</name>
+            <date>19960514</date>
+          </document-id>
+          <application-date>
+            <date>19950421</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="2">
+          <document-id>
+            <country>US</country>
+            <doc-number>5796239</doc-number>
+            <kind>A</kind>
+            <name>van Phuoc et al.</name>
+            <date>19980818</date>
+          </document-id>
+          <application-date>
+            <date>19970402</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="e">
+        <patcit num="3">
+          <document-id>
+            <country>US</country>
+            <doc-number>6525954</doc-number>
+            <kind>B2</kind>
+            <name>Becker</name>
+            <date>20030225</date>
+          </document-id>
+          <application-date>
+            <date>20010628</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="e">
+        <patcit num="4">
+          <document-id>
+            <country>US</country>
+            <doc-number>6542396</doc-number>
+            <kind>B1</kind>
+            <name>Becker</name>
+            <date>20030401</date>
+          </document-id>
+          <application-date>
+            <date>20000929</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="e">
+        <patcit num="5">
+          <document-id>
+            <country>US</country>
+            <doc-number>6569714</doc-number>
+            <kind>B2</kind>
+            <name>Becker</name>
+            <date>20030527</date>
+          </document-id>
+          <application-date>
+            <date>20010628</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation>
+        <fwdcit num="1">
+          <document-id>
+            <country>EP</country>
+            <doc-number>1691373</doc-number>
+            <kind>A1</kind>
+            <date>20060816</date>
+          </document-id>
+          <application-date>
+            <date>20060124</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+      <citation>
+        <fwdcit num="2">
+          <document-id>
+            <country>FR</country>
+            <doc-number>2881566</doc-number>
+            <kind>A1</kind>
+            <date>20060804</date>
+          </document-id>
+          <application-date>
+            <date>20050202</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+      <citation>
+        <fwdcit num="3">
+          <document-id>
+            <country>US</country>
+            <doc-number>7480166</doc-number>
+            <kind>B2</kind>
+            <date>20090120</date>
+          </document-id>
+          <application-date>
+            <date>20060530</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+      <citation>
+        <fwdcit num="4">
+          <document-id>
+            <country>US</country>
+            <doc-number>7400543</doc-number>
+            <kind>B2</kind>
+            <date>20080715</date>
+          </document-id>
+          <application-date>
+            <date>20031112</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+      <citation>
+        <fwdcit num="5">
+          <document-id>
+            <country>US</country>
+            <doc-number>7321153</doc-number>
+            <kind>B2</kind>
+            <date>20080122</date>
+          </document-id>
+          <application-date>
+            <date>20060126</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+      <citation>
+        <fwdcit num="6">
+          <document-id>
+            <country>US</country>
+            <doc-number>7075809</doc-number>
+            <kind>B2</kind>
+            <date>20060711</date>
+          </document-id>
+          <application-date>
+            <date>20040616</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+      <citation>
+        <fwdcit num="7">
+          <document-id>
+            <country>US</country>
+            <doc-number>6771528</doc-number>
+            <kind>B2</kind>
+            <date>20040803</date>
+          </document-id>
+          <application-date>
+            <date>20020228</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+      <citation>
+        <fwdcit num="8">
+          <document-id>
+            <country>US</country>
+            <doc-number>7746722</doc-number>
+            <kind>B2</kind>
+            <date>20100629</date>
+          </document-id>
+          <application-date>
+            <date>20080617</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+    </references-cited>
+    <related-documents date-changed="20100418">
+      <division>
+        <relation>
+          <parent-doc>
+            <document-id>
+              <country>US</country>
+              <doc-number>09/896055</doc-number>
+              <date>20010628</date>
+            </document-id>
+            <parent-status>GRANTED</parent-status>
+            <parent-grant-document>
+              <document-id>
+                <country>US</country>
+                <doc-number>6569714</doc-number>
+                <kind>A</kind>
+              </document-id>
+            </parent-grant-document>
+          </parent-doc>
+          <child-doc>
+            <document-id>
+              <country>US</country>
+              <doc-number>10/350497</doc-number>
+            </document-id>
+          </child-doc>
+        </relation>
+      </division>
+      <division>
+        <relation>
+          <parent-doc>
+            <document-id>
+              <country>US</country>
+              <doc-number>09/675574</doc-number>
+              <date>20000929</date>
+            </document-id>
+            <parent-status>GRANTED</parent-status>
+            <parent-grant-document>
+              <document-id>
+                <country>US</country>
+                <doc-number>6542396</doc-number>
+                <kind>A</kind>
+              </document-id>
+            </parent-grant-document>
+          </parent-doc>
+          <child-doc>
+            <document-id>
+              <country>US</country>
+              <doc-number>09/896055</doc-number>
+            </document-id>
+          </child-doc>
+        </relation>
+      </division>
+    </related-documents>
+    <parties date-changed="20100409">
+      <applicants>
+        <applicant sequence="1" app-type="applicant">
+          <addressbook lang="eng">
+            <orgname>Artisan Components, Inc.</orgname>
+            <role>02</role>
+            <address>
+              <city>Sunnyvale</city>
+              <state>CA</state>
+            </address>
+          </addressbook>
+        </applicant>
+      </applicants>
+      <inventors>
+        <inventor sequence="1">
+          <addressbook lang="eng">
+            <name>Becker, Scott T.</name>
+            <address>
+              <city>San Jose</city>
+              <state>CA</state>
+            </address>
+          </addressbook>
+        </inventor>
+      </inventors>
+      <agents>
+        <agent sequence="1" rep-type="attorney">
+          <addressbook lang="eng">
+            <name>Martine &amp; Penilla, LLP</name>
+          </addressbook>
+        </agent>
+      </agents>
+    </parties>
+    <examiners>
+      <primary-examiner>
+        <last-name>Tran</last-name>
+        <first-name>Andrew Q.</first-name>
+        <department>2824</department>
+      </primary-examiner>
+    </examiners>
+    <patent-family date-changed="20071122">
+      <main-family family-id="46891498">
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>6674661</doc-number>
+            <kind>B1</kind>
+            <date>20040106</date>
+          </document-id>
+          <application-date>
+            <date>20030123</date>
+          </application-date>
+        </family-member>
+      </main-family>
+      <complete-family family-id="3579684">
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>6674661</doc-number>
+            <kind>B1</kind>
+            <date>20040106</date>
+          </document-id>
+          <application-date>
+            <date>20030123</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>6525954</doc-number>
+            <kind>B2</kind>
+            <date>20030225</date>
+          </document-id>
+          <application-date>
+            <date>20010628</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>WO</country>
+            <doc-number>0229891</doc-number>
+            <kind>A1</kind>
+            <date>20020411</date>
+          </document-id>
+          <application-date>
+            <date>20010830</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>6542396</doc-number>
+            <kind>B1</kind>
+            <date>20030401</date>
+          </document-id>
+          <application-date>
+            <date>20000929</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>20020039812</doc-number>
+            <kind>A1</kind>
+            <date>20020404</date>
+          </document-id>
+          <application-date>
+            <date>20010628</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>TW</country>
+            <doc-number>521415</doc-number>
+            <kind>B</kind>
+            <date>20030221</date>
+          </document-id>
+          <application-date>
+            <date>20010904</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>6569714</doc-number>
+            <kind>B2</kind>
+            <date>20030527</date>
+          </document-id>
+          <application-date>
+            <date>20010628</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>20020039305</doc-number>
+            <kind>A1</kind>
+            <date>20020404</date>
+          </document-id>
+          <application-date>
+            <date>20010628</date>
+          </application-date>
+        </family-member>
+      </complete-family>
+    </patent-family>
+  </bibliographic-data>
+  <abstract id="abstr_eng" date-changed="20100409" lang="eng" format="original">
+    <p id="p-00001-en">A metal programmable ROM includes a memory cell array having a depth defined by a plurality of wordlines and a width defined by a plurality of bitlines. In addition, a group of memory cells are coupled between a bitline and a ground conection, with each memory cell in the memory cell group coupled to at least one other memory cell in the memory cell group. Finally, a programmed memory cell is defined by a memory cell transistor having its terminals shorted together.</p>
+  </abstract>
+  <legal-data date-changed="20110708">
+    <legal-event sequence="1">
+      <publication-date>
+        <date>20060515</date>
+      </publication-date>
+      <event-code-1>AS</event-code-1>
+      <legal-description>ASSIGNMENT</legal-description>
+      <status-identifier>C</status-identifier>
+      <docdb-publication-number> US     6674661B1</docdb-publication-number>
+      <new-owner>ARM PHYSICAL IP, INC., CALIFORNIA</new-owner>
+      <free-text-description>MERGER/CHANGE OF NAME;ASSIGNOR:ARTISAN COMPONENTS, INC.;REEL/FRAME:017619/0154</free-text-description>
+      <effective-date>
+        <date>20041223</date>
+      </effective-date>
+    </legal-event>
+    <legal-event sequence="2">
+      <publication-date>
+        <date>20070516</date>
+      </publication-date>
+      <event-code-1>AS</event-code-1>
+      <legal-description>ASSIGNMENT</legal-description>
+      <status-identifier>C</status-identifier>
+      <docdb-publication-number> US     6674661B1</docdb-publication-number>
+      <new-owner>ARM, INC., CALIFORNIA</new-owner>
+      <free-text-description>MERGER;ASSIGNOR:ARM PHYSICAL IP, INC.;REEL/FRAME:019323/0528</free-text-description>
+      <effective-date>
+        <date>20061218</date>
+      </effective-date>
+    </legal-event>
+    <legal-event sequence="3">
+      <publication-date>
+        <date>20070516</date>
+      </publication-date>
+      <event-code-1>AS</event-code-1>
+      <legal-description>ASSIGNMENT</legal-description>
+      <status-identifier>N</status-identifier>
+      <docdb-publication-number> US     6674661B1</docdb-publication-number>
+      <new-owner>ARM, INC.,CALIFORNIA</new-owner>
+      <free-text-description>MERGER;ASSIGNOR:ARM PHYSICAL IP, INC.;US-ASSIGNMENT DATABASE UPDATED:20100311;REEL/FRAME:19323/528</free-text-description>
+      <effective-date>
+        <date>20061218</date>
+      </effective-date>
+    </legal-event>
+    <legal-event sequence="4">
+      <publication-date>
+        <date>20070621</date>
+      </publication-date>
+      <event-code-1>FPAY</event-code-1>
+      <effect>+</effect>
+      <legal-description>FEE PAYMENT</legal-description>
+      <status-identifier>N</status-identifier>
+      <docdb-publication-number> US     6674661B1</docdb-publication-number>
+      <fee-payment-year>4</fee-payment-year>
+    </legal-event>
+    <legal-event sequence="5">
+      <publication-date>
+        <date>20110622</date>
+      </publication-date>
+      <event-code-1>FPAY</event-code-1>
+      <effect>+</effect>
+      <legal-description>FEE PAYMENT</legal-description>
+      <status-identifier>N</status-identifier>
+      <docdb-publication-number> US     6674661B1</docdb-publication-number>
+      <fee-payment-year>8</fee-payment-year>
+    </legal-event>
+  </legal-data>
+  <description id="descr_eng" lang="eng" format="original" date-changed="20100409">
+    <related-apps>
+      <heading level="2">CROSS REFERENCE TO RELATED APPLICATIONS</heading>
+      <p id="p-00002-en">This application is divisional of U.S. patent application Ser. No. 09/896,055 filed Jun. 28, 2001 and entitled “Method and Apparatus for a Dense Metal Programmable ROM”, now U.S. Pat. No. 6,569,714, which is a divisional of U.S. patent application Ser. No. 09/675,574 filed Sep. 29, 2000 and entitled “Method and Apparatus for a Dense Metal Programmable ROM”, now U.S. Pat. No. 6,542,396.</p>
+    </related-apps>
+    <summary>
+      <heading level="2">BACKGROUND OF THE INVENTION</heading>
+      <p id="p-00003-en">1. Field of the Invention</p>
+      <p id="p-00004-en">The present invention relates generally to integrated circuits, and more particularly, to apparatuses and methods for manufacturing dense metal programmable read only memory.</p>
+      <p id="p-00005-en">2. Description of the Related Art</p>
+      <p id="p-00006-en">Semiconductor memory devices are widely used in the manufacture of digital equipment, such as microprocessor systems. To store fixed, commonly used programs, microprocessor systems generally use Read Only Memory devices or “ROMs”, such as the basic input/output system (BIOS) ROM for computer systems.</p>
+      <p id="p-00007-en">Semiconductor ROMs are typically configured as an array memory cells, wherein each individual memory cell is coupled to both a wordline and a bitline. To select a particular memory cell during a read operation, memory accessing circuitry is commonly utilized. For example, memory access circuit components typically include addressing circuitry for selecting a memory cell, wordline drivers for driving a selected wordline, sense amplifiers for amplifying the signals read from the selected memory cell, and output buffers for driving data out of the memory.</p>
+      <p id="p-00008-en">
+        <figref>FIG. 1</figref>is a schematic diagram of a conventional diffusion programmable ROM cell array<b>10</b>. The diffusion programmable ROM cell array<b>10</b>includes a plurality of wordlines<b>12</b>, a plurality of bitlines<b>14</b>, and a plurality of memory cells<b>16</b>, each at the intersection of a wordline<b>12</b>and a bitline<b>14</b>. It should be noted that the wordlines<b>12</b>and bitlines<b>14</b>occupy different levels of the semiconductor, and thus do not physically intersect.</p>
+      <p id="p-00009-en">In use, the wordlines<b>12</b>function as addresses for memory cells<b>16</b>, while the bitlines<b>14</b>function as the output of the cell array<b>10</b>. When manufacturing the diffusion programmable ROM cell array<b>10</b>, each memory cell<b>16</b>is programmed to output either a logical “1” or a logical “0” when the wordline<b>12</b>addressing it is activated. Generally, a wordline<b>12</b>in a diffusion ROM is activated when it is asserted high. As described in greater detail subsequently, each memory cell<b>16</b>is programmed as a “1” cell or a “0” cell during manufacturing, depending on the desired functionality of the ROM.</p>
+      <p id="p-00010-en">During a memory read operation, the ROM receives a memory address of a desired memory location within the memory cell array<b>10</b>from an address bus. The memory address, or a portion thereof, is then forwarded to an address decoder, which decodes the address and asserts one of the wordlines<b>12</b>in the memory cell array<b>10</b>high, thus activating it, all other wordlines<b>12</b>remain low. Thereafter, depending on the programming of the ROM, each bitline<b>14</b>will output either a logical “1” or “0.” In effect, by programming the various memory cell locations of the ROM, each wordline<b>12</b>can be used to select a particular binary output combination from the bitlines<b>14</b>.</p>
+      <p id="p-00011-en">
+        <figref>FIG. 2</figref>is a schematic diagram showing a magnified view of a conventional diffusion programmable ROM cell array<b>18</b>. The conventional diffusion programmable ROM cell array<b>18</b>includes wordlines<b>12</b><i>a</i>and<b>12</b><i>b</i>, bitlines<b>14</b><i>a</i>and<b>14</b><i>b</i>, and memory cell transistors<b>16</b><i>a</i>-<b>16</b><i>d.</i></p>
+      <p id="p-00012-en">As shown in<figref>FIG. 2</figref>, each memory cell of the diffusion programmable ROM memory cell array is actually a transistor<b>16</b><i>a</i>-<b>16</b><i>d</i>. Further, the gate of each memory cell transistor<b>16</b><i>a</i>-<b>16</b><i>d</i>is coupled to a wordline<b>12</b><i>a</i>/<b>12</b><i>b</i>, and a first terminal of each memory cell transistor<b>16</b><i>a</i>-<b>16</b><i>d</i>is coupled to a bitline<b>14</b><i>a</i>/<b>14</b><i>b</i>. Finally, a second terminal of each memory cell transistor<b>16</b><i>a</i>-<b>16</b><i>d</i>is coupled to ground.</p>
+      <p id="p-00013-en">Initially, a precharge circuit is used to charge each bitline<b>14</b><i>a</i>/<b>14</b><i>b</i>high, such that a logic “1” is read out from each memory cell. Thereafter, depending on the programming of the memory cell array, each bitline<b>14</b><i>a</i>/<b>14</b><i>b</i>will either remain high or be drawn low when a particular wordline<b>12</b><i>a</i>/<b>12</b><i>b</i>is activated.</p>
+      <p id="p-00014-en">For example, memory cell transistor<b>16</b><i>a</i>functions such that when wordline<b>12</b><i>a</i>is low, memory cell transistor<b>16</b><i>a</i>is shut off, and therefore bitline<b>14</b><i>a</i>maintains its state, generally high. However, when wordline<b>12</b><i>a</i>is asserted high, memory cell transistor<b>16</b><i>a</i>turns on, allowing the bitline<b>14</b><i>a</i>to be drawn to ground, thus pulling the bitline<b>14</b><i>a</i>low. Since memory cell transistor<b>16</b><i>a</i>allows the bitline<b>14</b><i>a</i>to be drawn low, it is called a “0” cell.</p>
+      <p id="p-00015-en">For a memory cell to allow the bitline to remain high when the wordline<b>12</b>is asserted, it must be programmed as a “1” cell. In a diffusion programmable ROM, the memory cell transistor<b>16</b><i>a</i>-<b>16</b><i>d</i>is simply disabled to create a “1” cell. For example, memory cell transistor<b>16</b><i>d</i>has been disabled, illustrated by its non-connection to the bitline<b>14</b><i>b</i>. Thus, regardless of the state of the wordline<b>12</b><i>b</i>, the memory cell transistor<b>16</b><i>d</i>will not pull the bitline<b>14</b><i>b</i>low, and therefore the bitline<b>14</b><i>b</i>will maintain its state, which is generally high.</p>
+      <p id="p-00016-en">
+        <figref>FIG. 3A</figref>is an illustration showing a conventional diffusion programmable ROM memory cell<b>16</b><i>a</i>, programmed as a “0” cell. The “0” cell<b>16</b><i>a</i>includes a wordline<b>12</b>coupled to a diffusion layer<b>20</b>, a bitline contact<b>22</b>coupling the diffusion layer<b>20</b>to a bitline<b>14</b>, and a ground diffusion wire<b>24</b>that is coupled to ground.</p>
+      <p id="p-00017-en">As stated previously, initially the bitline<b>14</b>is charged high to a logical “1.” While the wordline<b>12</b>is low, the bitline<b>14</b>remains high because the diffusion layer<b>20</b>isolates the bitline contact<b>22</b>from the ground diffusion wire<b>24</b>. However, when the wordline<b>12</b>is asserted high, the bitline<b>14</b>is pulled low because the diffusion layer<b>20</b>becomes conductive when the wordline<b>12</b>is high. Specifically, asserting the wordline<b>12</b>high charges the diffusion layer<b>20</b>and causes it to conduct, creating a connection between the bitline contact<b>22</b>and the ground diffusion wire<b>24</b>. Since the bitline<b>14</b>is coupled to the bitline contact<b>22</b>, and thus to the ground diffusion wire<b>24</b>via the diffusion layer<b>20</b>, the bitline<b>14</b>is pulled low.</p>
+      <p id="p-00018-en">
+        <figref>FIG. 3B</figref>is an illustration showing a conventional diffusion programmable ROM memory cell<b>16</b><i>d</i>, programmed as a “1” cell. The “1” memory cell<b>16</b><i>d</i>includes a wordline<b>12</b>, a diffusion layer<b>20</b>separated into a first portion<b>26</b><i>a</i>and a second portion<b>26</b><i>b</i>, a bitline contact<b>22</b>coupling the first portion<b>26</b><i>a</i>of the diffusion layer<b>20</b>to a bitline<b>14</b>, and a ground diffusion wire<b>24</b>coupling the second portion<b>26</b><i>b</i>of the diffusion layer<b>20</b>to ground.</p>
+      <p id="p-00019-en">Similar to the “0” cell, the “1” memory cell<b>16</b><i>d</i>initially has the bitline<b>14</b>charged high to a logical “1.” While the wordline<b>12</b>is low, the bitline<b>14</b>remains high because the diffusion layer<b>20</b>isolates the bitline contact<b>22</b>from the ground diffusion wire<b>24</b>. However, unlike the “0” cell, the “1” cell allows the bitline<b>14</b>to remain high when the wordline<b>12</b>is asserted high. Specifically, since the diffusion layer<b>20</b>is removed from around the wordline<b>12</b>, the diffusion layer<b>20</b>is not charged when the wordline<b>12</b>is asserted high, and thus, a connection is not formed between the bitline contact<b>22</b>and the ground diffusion wire<b>24</b>. Hence, the bitline<b>14</b>is never pulled low in the “1” memory cell<b>16</b><i>b.</i></p>
+      <p id="p-00020-en">
+        <figref>FIG. 4</figref>is an illustration showing a conventional diffusion programmable ROM cell array<b>30</b>configuration, comprising two memory cells. The conventional diffusion programmable ROM cell array<b>30</b>includes a first memory cell<b>32</b>and a second memory cell<b>34</b>. The first memory cell<b>32</b>includes a first wordline<b>12</b><i>a</i>coupled to a diffusion layer<b>20</b>, a shared bitline contact<b>22</b>coupling a bitline<b>14</b>to the diffusion layer<b>20</b>, and a first ground diffusion wire<b>24</b><i>a</i>coupling the diffusion layer<b>20</b>to ground.</p>
+      <p id="p-00021-en">The second memory cell<b>34</b>shares the diffusion layer<b>20</b>with the first memory cell<b>32</b>, and includes a second wordline<b>12</b><i>b</i>coupled to the diffusion layer<b>20</b>. The second memory cell<b>34</b>also includes the shared bitline contact<b>22</b>, which couples the bitline<b>14</b>to the diffusion layer<b>20</b>, and a second ground diffusion wire<b>24</b><i>b</i>coupling the diffusion layer<b>20</b>to ground.</p>
+      <p id="p-00022-en">In operation, the first wordline<b>12</b><i>a</i>is utilized to address the first memory cell<b>32</b>, and the second wordline<b>12</b><i>b</i>is utilized to address the second memory cell<b>34</b>, both of which can affect the bitline<b>14</b>.</p>
+      <p id="p-00023-en">For the first memory cell<b>32</b>, the bitline<b>14</b>is initially charged high to a logical “1.” While the first wordline<b>12</b><i>a</i>is low, the bitline<b>14</b>maintains its state, usually high, because the diffusion layer<b>20</b>isolates the shared bitline contact<b>22</b>from the first ground diffusion wire<b>24</b><i>a</i>. However, when the first wordline<b>12</b><i>a</i>is asserted high, the bitline<b>14</b>is pulled low because the diffusion layer<b>20</b>becomes conductive between the shared bitline contact<b>22</b>and the first ground diffusion wire<b>24</b><i>a.</i></p>
+      <p id="p-00024-en">Specifically, asserting the first wordline<b>12</b><i>a</i>high charges the diffusion layer<b>20</b>between the shared bitline contact<b>22</b>and the first ground diffusion wire<b>24</b><i>a</i>and causes it to conduct, thus creating a connection between the shared bitline contact<b>22</b>and the first ground diffusion wire<b>24</b><i>a</i>. Since the bitline<b>14</b>is coupled to the shared bitline contact<b>22</b>, and therefore also to the first ground diffusion wire<b>24</b><i>a</i>via the diffusion layer<b>20</b>, the bitline<b>14</b>is pulled low.</p>
+      <p id="p-00025-en">The second memory cell<b>34</b>operates in a similar manner. Specifically, asserting the second wordline<b>12</b><i>b</i>high charges the diffusion layer<b>20</b>between the shared bitline contact<b>22</b>and the second ground diffusion wire<b>24</b><i>b</i>and causes it to conduct, thus creating a connection between the shared bitline contact<b>22</b>and the second ground diffusion wire<b>24</b><i>b</i>. Since the bitline<b>14</b>is coupled to the shared bitline contact<b>22</b>, and therefore also to the second ground diffusion wire<b>24</b><i>b</i>via the charged diffusion layer<b>20</b>, the bitline<b>14</b>is pulled low.</p>
+      <p id="p-00026-en">Today's semiconductor processes are complicated requiring dozens of steps, each taking up time and introducing materials handling and inventor factors. Further, customers require the turn-around time or cycle time to be kept as short as possible. However, since the code for data and programs stored in the ROM are fixed at the time of manufacture, a mistake in the ROM code results in wasted ROM wafers. For example, if the ROM includes program code, and a bug is later discovered in the program code, wafers containing ROMs are wasted if the wafers have already proceeded past the processing step required for programming the ROMs.</p>
+      <p id="p-00027-en">For this reason, programming should be done as late in the manufacturing process as possible. However, since the diffusion layer must be formed early in the manufacturing process, a diffusion programmable ROM must be programmed early in the manufacturing process. In response to this shortcoming, metal or via programmable ROMs were developed that allow late process programming.</p>
+      <p id="p-00028-en">
+        <figref>FIG. 5</figref>is an illustration showing a conventional via programmable ROM cell array<b>40</b>configuration, comprising two memory cells. The via programmable ROM cell array<b>40</b>includes a first memory cell<b>42</b>and a second memory cell<b>44</b>. The first memory cell<b>42</b>includes a first diffusion layer<b>20</b><i>a</i>coupled to a first wordline<b>12</b><i>a</i>, a first ground diffusion wire<b>24</b><i>a</i>, a first metal to diffusion contact<b>22</b><i>a</i>which couples a first m<b>1</b>pad<b>46</b><i>a</i>to the drain diffusion<b>20</b><i>a</i>of the first memory cell<b>42</b>, and a first m<b>2</b>to m<b>1</b>via<b>22</b><i>b</i>which couples the first m<b>1</b>pad<b>46</b><i>a</i>to the m<b>2</b>bitline<b>14</b>. Similarly, the second memory cell<b>44</b>includes a second diffusion layer<b>20</b><i>b</i>coupled to a second wordline<b>12</b><i>b</i>, a second ground diffusion wire<b>24</b><i>b</i>,a second diffusion contact<b>22</b><i>c</i>, a second m<b>1</b>pad<b>46</b><i>b</i>, and a second m<b>2</b>to m<b>1</b>via<b>22</b><i>d</i>which couples to the bitline<b>14</b>.</p>
+      <p id="p-00029-en">The via-programmable ROM cell array<b>40</b>operates similar to the diffusion programmable ROM cell array discussed previously. Specifically, in the first memory cell<b>42</b>, when the first wordline<b>12</b><i>a</i>is low, the first diffusion layer<b>20</b><i>a</i>is nonconductive, and therefore current cannot be conducted through the first m<b>2</b>to m<b>1</b>via<b>22</b><i>b</i>to the first m<b>1</b>pad<b>46</b><i>a</i>down through the first metal to diffusion contact<b>22</b><i>a</i>to the ground diffusion wire<b>24</b><i>a</i>. When the first wordline<b>12</b><i>a</i>is asserted high, the first diffusion layer<b>20</b><i>a</i>becomes charged and therefore conductive, thus forming a conduction path between the first metal to diffusion contact<b>22</b><i>a</i>and the first m<b>1</b>pad<b>46</b><i>a</i>and the first m<b>2</b>to m<b>1</b>via<b>22</b><i>b</i>and the diffusion ground wire<b>24</b><i>a</i>. Since the bitline<b>14</b>is coupled to first m<b>2</b>to m<b>1</b>via<b>22</b><i>b</i>via the first m<b>1</b>pad<b>46</b><i>a</i>and the first metal to diffusion contact<b>22</b><i>a</i>, the bitline<b>14</b>goes low, resulting in a logical “0.” The second memory cell<b>44</b>operates in a similar manner.</p>
+      <p id="p-00030-en">Both the first and second memory cells<b>42</b>and<b>44</b>are “0” cells because they allow the bitline<b>14</b>to go low when their corresponding wordline<b>12</b><i>a</i>/<b>12</b><i>b</i>is selected. To make a via programmable ROM memory cell a “1” cell, the bitline m<b>2</b>to m<b>1</b>via is removed. For example, removing the first bitline m<b>2</b>to m<b>1</b>via<b>22</b><i>b</i>will program the first memory cell<b>42</b>to a “1” cell.</p>
+      <p id="p-00031-en">Since the memory cells in a metal programmable ROM are programmed by altering a via layer rather than the diffusion layer, a via programmable ROM can be programmed later in the manufacturing process, when the via layers are formed. In this manner, production can be initiated on a wafer of via programmable ROMs, and held at a later stage in the manufacturing process. Micro-code for the ROMs can be upgraded with a minimal amount of time used to finish the wafers. Thus, via programmable ROMs provide greater flexibility than diffusion programmable ROMs.</p>
+      <p id="p-00032-en">However, as shown in<figref>FIG. 5</figref>, the bitline contacts<b>22</b><i>a</i>/<b>22</b><i>c</i>, m<b>1</b>pads<b>46</b><i>a</i>/<b>46</b><i>b</i>, and m<b>2</b>to m<b>1</b>vias<b>22</b><i>b</i>/<b>22</b><i>d</i>cannot be shared in the via programmable ROM memory cell array<b>40</b>. Hence, each memory cell<b>42</b>/<b>44</b>must be formed on a separate portion of diffusion, resulting in wasted space<b>50</b>. More particularly, the space<b>50</b>between the first m<b>1</b>pad<b>46</b><i>a</i>and the second m<b>1</b>pad<b>46</b><i>b</i>is wasted. Thus, conventional via programmable ROMs are less dense, and consequently larger, than conventional diffusion programmable ROMs.</p>
+      <p id="p-00033-en">As a result, semiconductor chip designers conventionally had to choose between the flexibility provided by metal programmable ROMs, and the density provided by diffusion programmable ROMs.</p>
+      <p id="p-00034-en">Further, there exist minimum size rules that restrict the minimum size of a piece of diffusion used in semiconductor manufacturing to a predetermined minimum diffusion size, as a result of manufacturing limitations of other semiconductor manufacturing processes. Thus, a transistor designed on a very small portion of diffusion will be restricted to using a larger diffusion size if the particular designed size of diffusion is smaller than the predetermined minimum diffusion size.</p>
+      <p id="p-00035-en">Thus, each “1” cell of a conventional diffusion programmable ROM requires two separate portions of diffusion, each being no smaller than the predetermined minimum diffusion size. Similarly, all memory cells of a conventional via programmable ROM are formed on separate portions of diffusion, each being no smaller than the predetermined minimum diffusion size. Thus, there is a minimum size to which conventional programmable ROMs may be designed.</p>
+      <p id="p-00036-en">In view of the forgoing, there is a need for improved methods for manufacturing a programmable ROM. The method provide the manufacturing flexibility of a via/metal programmable ROM, while providing the density of a diffusion programmable ROM.</p>
+      <heading level="2">SUMMARY OF THE INVENTION</heading>
+      <p id="p-00037-en">Broadly speaking, the present invention fills these needs by providing a dense metal programmable ROM using a NAND/NOR architecture. In one embodiment, a metal programmable ROM is disclosed. The metal programmable ROM includes a memory cell array having a depth that is defined by a plurality of wordlines and a width that is defined by a plurality of bitlines. In addition, a group of memory cells are coupled between a bitline and ground, with each memory cell in the memory cell group coupled to at least one other memory cell in the memory cell group. Finally, a programmed memory cell is included that is defined by a memory cell transistor having its terminals shorted together.</p>
+      <p id="p-00038-en">In another embodiment, the metal programmable ROM includes a memory cell array having a depth defined by a plurality of wordlines and a width defined by a plurality of bitlines, as in the first embodiment, and a group of transistors coupled to a subset of the wordlines. The group of transistors includes a first transistor having a first terminal coupled to a bitline, and a gate terminal coupled to one of the wordlines in the subset of wordlines. The group of transistors also includes a second transistor having a second terminal coupled to ground, and a second gate terminal coupled to another wordline of the subset of wordlines.</p>
+      <p id="p-00039-en">A method for manufacturing a metal programmable ROM is disclosed in yet a further embodiment. Initially, a group of memory cells are formed, with each memory cell connected to a corresponding wordline of the metal programmable ROM. Each of the memory cells in the memory cell group is then interconnected between a single bitline connection and the ground. Further, the memory cells are programmed by shorting a transistor associated with the programmed memory cell.</p>
+      <p id="p-00040-en">Configuring memory cell groups of the memory array in a NAND type arrangement allows the memory cells of the memory cell group to share one bitline contact. Advantageously, the contact sharing configuration of the present invention reduces the bitline load and allows for a denser cell array.</p>
+      <p id="p-00041-en">Further, groups of memory cells of the present invention are formed on a single portion of diffusion, and more than one memory cell group may occupy the single portion of diffusion. Thus, there are generally no concerns about minimum diffusion size. As a result, both “1” cell and “0” cell memory transistors may be made smaller than is possible with conventional via/metal programmable ROMs. Consequently, the dense metal programmable ROM of the present invention can be made smaller and denser than conventional via/metal programmable ROMs.</p>
+      <p id="p-00042-en">Moreover, the metal programmable ROM of the present invention is programmed at the metal layer, rather than the diffusion level. As a result, the present invention provides increased flexibility because the metal programmable ROM wafers may be held at the metal level, thus allowing for quicker production parts after a design code change.</p>
+    </summary>
+    <description-of-drawings>
+      <p id="p-00043-en">Other aspects and advantages of the invention will become apparent from the following detailed description, taken in conjunction with the accompanying drawings, illustrating by way of example the principles of the invention.</p>
+      <heading level="2">BRIEF DESCRIPTION OF THE DRAWINGS</heading>
+      <p id="p-00044-en">The invention, together with further advantages thereof, may best be understood by reference to the following description taken in conjunction with the accompanying drawings in which:</p>
+      <p id="p-00045-en">
+        <figref>FIG. 1</figref>is a schematic diagram of a conventional diffusion programmable ROM memory cell array;</p>
+      <p id="p-00046-en">
+        <figref>FIG. 2</figref>is a schematic diagram showing a magnified view of a conventional diffusion programmable ROM memory cell array;</p>
+      <p id="p-00047-en">
+        <figref>FIG. 3A</figref>is an illustration showing a conventional diffusion programmable ROM memory cell, programmed as a “0” cell;</p>
+      <p id="p-00048-en">
+        <figref>FIG. 3B</figref>is an illustration showing a conventional diffusion programmable ROM memory cell, programmed as a “1” cell;</p>
+      <p id="p-00049-en">
+        <figref>FIG. 4</figref>is an illustration showing a conventional diffusion programmable ROM memory cell array configuration comprising two memory cells;</p>
+      <p id="p-00050-en">
+        <figref>FIG. 5</figref>is an illustration showing a conventional via programmable ROM memory cell array configuration comprising two memory cells;</p>
+      <p id="p-00051-en">
+        <figref>FIG. 6</figref>is a schematic diagram of a metal programmable ROM memory cell array, in accordance with an embodiment of the present invention;</p>
+      <p id="p-00052-en">
+        <figref>FIG. 7</figref>is a schematic diagram showing a memory cell group of a metal programmable ROM memory cell array, in accordance with an embodiment of the present invention;</p>
+      <p id="p-00053-en">
+        <figref>FIG. 8</figref>is an illustration showing an exemplary memory cell group of a metal programmable ROM memory cell array, in accordance with an embodiment of the present invention;</p>
+      <p id="p-00054-en">
+        <figref>FIG. 9</figref>is a schematic diagram showing an exemplary programmed memory cell group of a metal programmable ROM cell array having a programmed “0” cell, in accordance with an embodiment of the present invention;</p>
+      <p id="p-00055-en">
+        <figref>FIG. 10</figref>is an illustration showing an exemplary programmed memory cell group of a metal programmable ROM cell array having a programmed “0” cell, in accordance with an embodiment of the present invention;</p>
+      <p id="p-00056-en">
+        <figref>FIG. 11</figref>shows a metal programmable ROM memory cell array having two memory cell groups, in accordance with an embodiment of the present invention;</p>
+      <p id="p-00057-en">
+        <figref>FIG. 12</figref>is an illustration showing a side view of a memory cell group of metal programmable ROM, in accordance with an embodiment of the present invention; and</p>
+      <p id="p-00058-en">
+        <figref>FIG. 13</figref>is a flowchart showing a method for manufacturing a metal programmable ROM, in accordance with an embodiment of the present invention.</p>
+    </description-of-drawings>
+    <detailed-desc>
+      <heading level="2">DETAILED DESCRIPTION OF THE PREFERRED EMBODIMENTS</heading>
+      <p id="p-00059-en">The present invention provides method for designing a metal programmable ROM based on a NAND/NOR architecture. Advantageously, the metal programmable ROM of the present invention provides the programming flexibility of metal programmable ROMs, while preserving the high density provided by diffusion programmable ROMs. In the following description, numerous specific details are set forth in order to provide a thorough understanding of the present invention. It will be apparent, however, to one skilled in the art that the present invention may be practiced without some or all of these details. In other instances, well known process steps have not been described in detail in order not to unnecessarily obscure the present invention.</p>
+      <p id="p-00060-en">
+        <figref>FIGS. 1-5</figref>have been described in terms of the prior art.<figref>FIG. 6</figref>is a schematic diagram of a metal programmable ROM memory cell array<b>100</b>, in accordance with an embodiment of the present invention. The metal programmable ROM memory cell array<b>100</b>includes a plurality of wordlines<b>102</b>, a plurality of bitlines<b>104</b>, and a plurality of memory cells<b>106</b>, each at the intersection of a wordline<b>102</b>and a bitline<b>104</b>. It should be noted that the wordlines<b>102</b>and bitlines<b>104</b>occupy different levels of the semiconductor, and thus do not physically intersect.</p>
+      <p id="p-00061-en">In use, the wordlines<b>102</b>function as addresses for the memory cells<b>106</b>, while the bitlines<b>104</b>function as the output of the memory cell array<b>100</b>. When manufacturing the metal programmable ROM memory cell array<b>100</b>, the memory cells<b>106</b>are programmed to output either a logical “1” or a logical “0” on a corresponding bitline<b>104</b>, depending on which wordline<b>102</b>is selected. As described in greater detail subsequently, each memory cell<b>106</b>is programmed as either a “1” cell or a “0” cell during manufacturing process, depending on the desired functionality of the ROM.</p>
+      <p id="p-00062-en">During a memory read operation, the metal programmable ROM receives a memory address of a desired memory location within the memory cell array<b>100</b>from an address bus. The entire memory address, or a portion thereof, is then forwarded to an address decoder, which decodes the address and selects one of the wordlines<b>102</b>. Thereafter, depending on the programming of the metal programmable ROM, each bitline<b>104</b>will output either a logical “1” or a logical “0.” By programming the various memory cell locations<b>106</b>, each wordline<b>102</b>can be used to select a particular binary output combination of the bitlines<b>104</b>.</p>
+      <p id="p-00063-en">
+        <figref>FIG. 7</figref>is a schematic diagram showing a memory cell group<b>108</b>of a metal programmable ROM cell array, in accordance with an embodiment of the present invention. The memory cell group<b>108</b>includes a bitline<b>104</b>, and a plurality of wordlines<b>102</b><i>a</i>-<b>102</b><i>d</i>, each coupled to a gate terminal of a memory cell transistor<b>106</b><i>a</i>-<b>106</b><i>d</i>, each having a gate, a first terminal, and a second terminal. As with<figref>FIG. 6</figref>, the wordlines<b>102</b><i>a</i>-<b>102</b><i>d</i>and the bitline<b>104</b>occupy different levels of the semiconductor, and thus do not physically intersect.</p>
+      <p id="p-00064-en">As shown in<figref>FIG. 7</figref>, a first terminal of transistor<b>106</b><i>a</i>is coupled to the bitline<b>104</b>via bitline contact<b>110</b>, the second terminal of transistor<b>106</b><i>a</i>is coupled to a first terminal of transistor<b>106</b><i>b</i>, and the gate of transistor<b>106</b><i>a</i>is coupled to wordline<b>102</b><i>a</i>. The second terminal of transistor<b>106</b><i>b</i>is coupled to a first terminal of transistor<b>106</b><i>c</i>, and the gate of transistor<b>106</b><i>b</i>is coupled to wordline<b>102</b><i>b</i>. Further, the second terminal of transistor<b>106</b><i>c</i>is coupled to a first terminal of transistor<b>106</b><i>d</i>, while the gate of transistor<b>106</b><i>c</i>is coupled to wordline<b>102</b><i>c</i>. Finally, the second terminal of transistor<b>106</b><i>d</i>is coupled to a virtual ground<b>112</b>, while the gate of transistor<b>106</b><i>d</i>is coupled to wordline<b>102</b><i>d.</i></p>
+      <p id="p-00065-en">For each memory cell transistor<b>106</b><i>a</i>-<b>106</b><i>d</i>, when the corresponding wordline<b>102</b><i>a</i>-<b>102</b><i>d</i>coupled to its gate is asserted high, the transistor conducts, allowing current to flow from its first terminal to its second terminal. When the corresponding wordline<b>102</b><i>a</i>-<b>102</b><i>d</i>coupled to its gate is pulled low, the transistor turns off, thus preventing current flowing from its first terminal to its second terminal.</p>
+      <p id="p-00066-en">With this in mind, it can be seen that current will flow from the bitline<b>104</b>through the bitline contact<b>110</b>to the virtual ground<b>112</b>only when all the transistors<b>106</b><i>a</i>-<b>106</b><i>d</i>are on. Hence, all the wordlines<b>102</b><i>a</i>-<b>102</b><i>d</i>coupled to the memory cell group<b>108</b>must be asserted high for the bitline<b>104</b>to be pulled low since all the memory cell transistors<b>106</b><i>a</i>-<b>106</b><i>d</i>are on only when all the corresponding wordlines<b>102</b><i>a</i>-<b>102</b><i>d</i>are high. Therefore, the memory cell group<b>108</b>functions similar to a four-input NAND gate, where the wordlines<b>102</b><i>a</i>-<b>102</b><i>d</i>are the inputs and the bitline<b>104</b>is the output. Advantageously, configuring the memory cell group<b>108</b>of the metal programmable ROM array in a NAND gate type arrangement allows the memory cell group<b>108</b>to share the bitline contact<b>110</b>and the virtual ground<b>112</b>, discussed in greater detail next with reference to FIG.<b>8</b>.</p>
+      <p id="p-00067-en">
+        <figref>FIG. 8</figref>is an illustration showing an exemplary memory cell group<b>150</b>of a metal programmable memory cell array, in accordance with an embodiment of the present invention. The memory cell group<b>150</b>includes a bitline<b>104</b>, a plurality of polysilicon wordlines<b>102</b><i>a</i>-<b>102</b><i>d</i>coupled to a diffusion layer<b>120</b>, a plurality of metal pads<b>122</b><i>a</i>-<b>122</b><i>d</i>also coupled to the diffusion layer<b>120</b>, and a bitline contact<b>110</b>coupling the bitline<b>104</b>to the first metal pad<b>122</b><i>a</i>. In addition, the memory cell group<b>150</b>includes a group virtual ground<b>112</b>coupled to the diffusion layer<b>120</b>. It will be noted that the polysilicon wordlines<b>102</b><i>a</i>-<b>102</b><i>d</i>, the metal pads<b>122</b><i>a</i>-<b>122</b><i>d</i>, and the bitline<b>104</b>are all formed on different levels of the substrate, and therefore do not physically interact except through contact vias, such as the bitline contact<b>110</b>.</p>
+      <p id="p-00068-en">Formed on corresponding gate oxide lines, the polysilicon wordlines<b>102</b><i>a</i>-<b>102</b><i>d</i>combined with the diffusion layer<b>120</b>to form memory cell transistors<b>106</b><i>a</i>-<b>106</b><i>d</i>. The metal pads<b>122</b><i>a</i>-<b>122</b><i>d</i>function as connections between the terminals of the memory cell transistors<b>106</b><i>a</i>-<b>106</b><i>d</i>for programming purposes, discussed in greater detail later. Further, the first metal pad<b>122</b><i>a</i>forms connection between a first terminal of the first memory cell transistor<b>106</b><i>a</i>and the bitline<b>104</b>via the bitline contact<b>110</b>. Finally, the second terminal of memory cell transistor<b>106</b><i>d</i>is coupled to the group virtual ground<b>112</b>. It will be noted that although only four memory cell transistors are shown in the memory cell group<b>150</b>of<figref>FIG. 8</figref>, any number of memory cell transistors may be included in a single memory cell group as desired by the ROM designer.</p>
+      <p id="p-00069-en">As described in greater detail subsequently, each memory cell group<b>150</b>is associated with a group virtual ground<b>112</b>. The group virtual ground<b>112</b>is an addressable ground that may be individually enabled. In this manner, when a memory cell of a particular memory cell group is addressed, the associated group virtual ground<b>112</b>is enabled. All other group virtual grounds in the metal programmable memory cell array are then disabled.</p>
+      <p id="p-00070-en">The wordlines<b>102</b><i>a</i>-<b>102</b><i>d</i>coupled to the memory cell group<b>150</b>form the gates of transistors<b>106</b><i>a</i>-<b>106</b><i>d</i>. Thus, when a wordline<b>102</b><i>a</i>-<b>102</b><i>d</i>is asserted high, the corresponding memory cell transistor<b>106</b><i>a</i>-<b>106</b><i>d</i>conducts, allowing current to flow from its first terminal to its second terminal. When a wordline<b>102</b><i>a</i>-<b>102</b><i>d</i>is pulled low, the corresponding memory cell transistor<b>106</b><i>a</i>-<b>106</b><i>d</i>turns off, thus preventing current flowing between its terminals.</p>
+      <p id="p-00071-en">Thus, current will flow from the bitline<b>104</b>through the bitline contact<b>110</b>and metal pad<b>122</b><i>a</i>to the group virtual ground<b>112</b>only when all the memory cell transistors<b>106</b><i>a</i>-<b>106</b><i>d</i>are on. Hence, all the wordlines<b>102</b><i>a</i>-<b>102</b><i>d</i>coupled to the memory cell group<b>150</b>must be asserted high for the bitline<b>104</b>to be pulled low because all the memory cell transistors<b>106</b><i>a</i>-<b>106</b><i>d</i>are on only when all the wordlines<b>102</b><i>a</i>-<b>102</b><i>d</i>, which form the memory cell transistor gates, are asserted high.</p>
+      <p id="p-00072-en">As stated previously, the memory cell group<b>150</b>functions similar to a four-input NAND gate, where the wordlines<b>102</b><i>a</i>-<b>102</b><i>d</i>are the inputs and the bitline<b>104</b>is the output. Advantageously, configuring the memory cell group<b>150</b>of the metal programmable ROM array in a NAND gate type arrangement allows the memory cell group<b>150</b>to share one bitline contact<b>110</b>. This contact sharing configuration of the present invention reduces the bitline load and allows for a denser cell array, as discussed in greater detail subsequently.</p>
+      <p id="p-00073-en">In operation, the present invention uses an address decoder to decode a received memory address into a wordline selection. However, unlike conventional ROMs, the present invention does not assert the selected wordline high.</p>
+      <p id="p-00074-en">In the present invention, wordlines forming the memory cell transistors<b>106</b><i>a</i>-<b>106</b><i>d</i>of a memory cell group<b>150</b>form a wordline subset of all the wordlines in the metal programmable ROM cell array. When a particular wordline is selected in the present invention, the selected wordline is pulled low, while all non-selected wordlines in the same wordline subset as the selected wordline are asserted high. Further, all wordlines outside the wordline subset of the memory cell group<b>150</b>are pulled low.</p>
+      <p id="p-00075-en">For example, in<figref>FIG. 8</figref>the wordlines<b>102</b><i>a</i>-<b>102</b><i>d</i>form the wordline subset for the memory cell group<b>150</b>. If wordline<b>102</b><i>b</i>is selected it is pulled low, while the nonselected wordlines<b>102</b><i>a</i>,<b>102</b><i>c</i>, and<b>102</b><i>d</i>are asserted high. Further, all other wordlines in the metal programmable cell array are pulled low, since they are not in the same wordline subset as the selected wordline<b>102</b><i>b.</i></p>
+      <p id="p-00076-en">Preferably, only one wordline is selected at any one time. As a result, the memory cell group<b>150</b>shown in<figref>FIG. 8</figref>allows the bitline<b>104</b>to remain high regardless of which wordline is selected. Specifically, all the wordlines<b>102</b><i>a</i>-<b>102</b><i>d</i>of memory cell group<b>150</b>must be high in order for the bitline<b>104</b>to be pulled low. However, if one of the wordlines<b>102</b><i>a</i>-<b>102</b><i>d</i>in the memory cell group<b>150</b>is selected it will be pulled low. Further, if none of the wordlines<b>102</b><i>a</i>-<b>102</b><i>d</i>in the memory cell group<b>150</b>is selected all the wordlines<b>102</b><i>a</i>-<b>102</b><i>d</i>in the memory cell group<b>150</b>will be pulled low.</p>
+      <p id="p-00077-en">Thus, the memory cell transistors<b>106</b><i>a</i>-<b>106</b><i>d</i>described thus far have been shown in “1” cell format. Specifically, each memory cell transistor<b>106</b><i>a</i>-<b>106</b><i>d</i>of the memory cell group<b>150</b>shown in<figref>FIG. 8</figref>allows the bitline<b>104</b>to remain high when the corresponding wordline<b>102</b><i>a</i>-<b>102</b><i>d</i>is selected. To add further functionality to a memory cell group, particular memory cells may be programmed to “0” cell format. As discussed previously, a “0” cell allows the bitline to be pulled low when the corresponding wordline is selected.</p>
+      <p id="p-00078-en">
+        <figref>FIG. 9</figref>is a schematic diagram showing an exemplary programmed memory cell group<b>200</b>of a metal programmable ROM cell array having a programmed “0” cell, in accordance with an embodiment of the present invention. The programmed memory cell group<b>200</b>includes a bitline<b>104</b>, and a plurality of wordlines<b>102</b><i>a</i>-<b>102</b><i>d</i>, each coupled to a gate terminal of a memory cell transistor<b>106</b><i>a</i>-<b>106</b><i>d</i>each having a gate, and first and second terminals. The programmed memory cell group<b>200</b>also includes a group virtual ground<b>112</b>, and a transistor shorting component<b>202</b>coupling the first and second terminals of memory cell transistor<b>106</b><i>b</i>. As with<figref>FIG. 7</figref>, the wordlines<b>102</b><i>a</i>-<b>102</b><i>d</i>and the bitline<b>104</b>occupy different levels of the semiconductor, and thus do not physically intersect.</p>
+      <p id="p-00079-en">As shown in<figref>FIG. 9</figref>, a first terminal of transistor<b>106</b><i>a</i>is coupled to the bitline<b>104</b>via bitline contact<b>110</b>, the second terminal of transistor<b>106</b><i>a</i>is coupled to a first terminal of transistor<b>106</b><i>b</i>, and the gate of transistor<b>106</b><i>a</i>is coupled to wordline<b>102</b><i>a</i>. The second terminal of transistor<b>106</b><i>b</i>is coupled to a first terminal of transistor<b>106</b><i>c</i>, and the gate of transistor<b>106</b><i>b</i>is coupled to wordline<b>102</b><i>b</i>. Further, the second terminal of transistor<b>106</b><i>c</i>is coupled to a first terminal of transistor<b>106</b><i>d</i>, while the gate of transistor<b>106</b><i>c</i>is coupled to wordline<b>102</b><i>c</i>. Finally, the second terminal of transistor<b>106</b><i>d</i>is coupled to the group virtual ground<b>112</b>, while the gate of transistor<b>106</b><i>d</i>is coupled to wordline<b>102</b><i>d.</i></p>
+      <p id="p-00080-en">In the present invention, to program a memory cell to a “0” cell configuration the corresponding memory cell transistor is shorted. Specifically, a transistor shorting component<b>202</b>is coupled to both terminals of the memory cell transistor. In the exemplary programmed memory cell group<b>200</b>memory cell transistor<b>106</b><i>b</i>has been programmed to a “0” cell transistor by having a transistor shorting component<b>202</b>coupled to its first and second terminal, thus shorting memory cell transistor<b>106</b><i>b</i>. As programmed, memory cell transistor<b>106</b><i>b</i>will allow current to flow from its first terminal to its second terminal via the transistor shorting component<b>202</b>, regardless of the state of the corresponding wordline<b>102</b><i>b</i>. Thus, when wordline<b>102</b><i>b</i>is low and consequently memory cell transistor<b>106</b><i>b</i>is off, current will still flow between the first and second terminals of memory cell transistor<b>106</b><i>b</i>via the shorting component<b>202</b>.</p>
+      <p id="p-00081-en">Programming memory cell transistor<b>106</b><i>b</i>in “0” cell configuration causes the bitline<b>104</b>to be pulled low when wordline<b>102</b><i>b</i>is selected. Specifically, wordline<b>102</b><i>b</i>is pulled low when it is selected, and wordlines<b>102</b><i>a</i>,<b>102</b><i>c</i>, and<b>102</b><i>d</i>are all asserted high. Asserting wordlines<b>102</b><i>a</i>,<b>102</b><i>c</i>, and<b>102</b><i>d</i>high allows current to flow between the terminals of each transistor, as discussed above. Further, current flows between the terminals of memory cell transistor<b>106</b><i>b</i>regardless of the state of wordline<b>102</b><i>b</i>. As a result, when wordline<b>102</b><i>b</i>is selected current is allowed to flow from the bitline<b>104</b>to the bitline contact<b>110</b>and then through transistors<b>106</b><i>a</i>-<b>106</b><i>d</i>to the group virtual ground<b>112</b>. As stated previously, when a wordline coupled to a memory cell of the memory cell group is selected, the corresponding group virtual ground<b>112</b>is enabled. Otherwise, the group virtual ground<b>112</b>is disabled.</p>
+      <p id="p-00082-en">
+        <figref>FIG. 10</figref>is an illustration showing an exemplary programmed memory cell group<b>250</b>of a metal programmable ROM cell array having a programmed “0” cell, in accordance with an embodiment of the present invention. The memory cell group<b>250</b>includes a bitline<b>104</b>, a plurality of polysilicon wordlines<b>102</b><i>a</i>-<b>102</b><i>d</i>coupled to a diffusion layer<b>120</b>forming memory cell transistors<b>106</b><i>a</i>-<b>106</b><i>d</i>, a plurality of metal pads<b>122</b><i>a</i>-<b>122</b><i>d</i>also coupled to the diffusion layer<b>120</b>, and a bitline contact<b>110</b>coupling the bitline<b>104</b>to the first metal pad<b>122</b><i>a</i>. Further, the memory cell group<b>150</b>includes a group virtual ground<b>112</b>coupled to the diffusion layer<b>120</b>. In addition, a transistor shorting component<b>202</b>couples metal pad<b>122</b><i>b</i>to metal pad<b>122</b><i>c</i>, shorting memory cell transistor<b>106</b><i>b.</i></p>
+      <p id="p-00083-en">As previously stated, the polysilicon wordlines<b>102</b><i>a</i>-<b>102</b><i>d</i>, the metal pads<b>122</b><i>a</i>-<b>122</b><i>d</i>, and the bitline<b>104</b>are all formed on different levels of the substrate, and therefore do not physically interact except through vias having contacts, such as the bitline contact<b>110</b>. Further, although only four memory cell transistors are shown in the memory cell group<b>250</b>of<figref>FIG. 10</figref>, any number of memory cell transistors may be included in a single memory cell group as desired by the ROM designer.</p>
+      <p id="p-00084-en">As stated previously, to program a “0” cell in the present invention, the corresponding memory cell transistor is shorted. In the memory cell group<b>250</b>of<figref>FIG. 10</figref>, memory cell transistor<b>106</b><i>b</i>is programmed to a “0” cell by shorting its terminals together. Specifically, metal pad<b>122</b><i>b</i>and metal pad<b>122</b><i>c</i>are coupled to the first and second terminals of memory cell transistor<b>106</b><i>a</i>by a contact via to the diffusion layer<b>120</b>. Metal pads<b>122</b><i>b</i>and<b>122</b><i>c</i>are also coupled to each other using a transistor shorting component<b>202</b>. Preferably the metal pads<b>122</b><i>a</i>-<b>122</b><i>d</i>are formed on the same metal layer as the transistor shorting component<b>202</b>. Therefore, the transistor shorting component<b>202</b>can be formed from the same conductive material as used to form the metal pads, or any other conductive material. If made from the same conductive material as used to form the metal pads<b>122</b><i>a</i>-<b>122</b><i>d</i>, the transistor shorting component<b>202</b>, metal pad<b>122</b><i>b</i>, and metal pad<b>122</b><i>c</i>can be formed as a single line of metal.</p>
+      <p id="p-00085-en">As programmed, memory cell transistor<b>106</b><i>b</i>will allow current to flow from its first terminal to its second terminal via the transistor shorting component<b>202</b>and metal pads<b>122</b><i>b</i>and<b>122</b><i>c</i>, regardless of the state of the corresponding wordline<b>102</b><i>b</i>. Thus, when wordline<b>102</b><i>b</i>is low and consequently memory cell transistor<b>106</b><i>b</i>is off, current will still flow between the first and second terminals of memory cell transistor<b>106</b><i>b</i>via the shorting component<b>202</b>and metal pads<b>122</b><i>b</i>and<b>122</b><i>c.</i></p>
+      <p id="p-00086-en">Programming memory cell transistor<b>106</b><i>b</i>in “0” cell configuration causes the bitline<b>104</b>to be pulled low when wordline<b>102</b><i>b</i>is selected. Specifically, wordline<b>102</b><i>b</i>is pulled low when it is selected, and wordlines<b>102</b><i>a</i>,<b>102</b><i>c</i>, and<b>102</b><i>d</i>are all asserted high.</p>
+      <p id="p-00087-en">As discussed above, asserting wordlines<b>102</b><i>a</i>,<b>102</b><i>c</i>, and<b>102</b><i>d</i>high allows current to flow between the terminals of each transistor. Further, current flows between the terminals of memory cell transistor<b>106</b><i>b</i>regardless of the state of wordline<b>102</b><i>b</i>. As a result, when wordline<b>102</b><i>b</i>is selected, and thus pulled low, current is allowed to flow from the bitline<b>104</b>through the bitline contact<b>110</b>to the first metal pad<b>122</b><i>a</i>and then through transistors<b>106</b><i>a</i>-<b>106</b><i>d</i>to the group virtual ground<b>112</b>. As stated previously, when a wordline coupled to a memory cell of the memory cell group is selected, the corresponding group virtual ground<b>112</b>is enabled. Otherwise, the group virtual ground<b>112</b>is disabled.</p>
+      <p id="p-00088-en">
+        <figref>FIG. 11</figref>shows a metal programmable ROM memory cell array<b>300</b>having two memory cell groups, in accordance with an embodiment of the present invention. The metal programmable cell array<b>300</b>includes a bitline<b>104</b>, a first memory cell group<b>302</b>, and a second memory cell group<b>304</b>. Both the first memory cell group<b>302</b>and the second memory cell group<b>304</b>are formed on a single diffusion layer portion<b>120</b>.</p>
+      <p id="p-00089-en">The first memory cell group<b>302</b>includes a plurality of polysilicon wordlines<b>102</b><i>a</i>-<b>102</b><i>d</i>coupled to the diffusion layer<b>120</b>forming memory cell transistors<b>106</b><i>a</i>-<b>106</b><i>d</i>. In addition, the first memory cell group<b>302</b>includes a plurality of metal pads<b>122</b><i>a</i>-<b>122</b><i>d</i>also coupled to the diffusion layer<b>120</b>, and a shared bitline contact<b>110</b>coupling the bitline<b>104</b>to the first shared metal pad<b>122</b><i>a</i>. In addition, the memory cell group<b>302</b>includes a first group virtual ground<b>112</b><i>a</i>coupled to the diffusion layer<b>120</b>.</p>
+      <p id="p-00090-en">Similarly, the second memory cell group<b>304</b>includes a plurality of polysilicon wordlines<b>102</b><i>e</i>-<b>102</b><i>h</i>coupled to the diffusion layer<b>120</b>forming memory cell transistors<b>106</b><i>e</i>-<b>106</b><i>h</i>. In addition, the second memory cell group<b>304</b>includes the first shared metal pad<b>122</b><i>a</i>and a plurality of metal pads<b>122</b><i>e</i>-<b>122</b><i>g</i>coupled to the diffusion layer<b>120</b>, and the shared bitline contact<b>110</b>coupling the bitline<b>104</b>to the first shared metal pad<b>122</b><i>a</i>. In addition, the second memory cell group<b>304</b>includes a second group virtual ground<b>112</b><i>b</i>coupled to the diffusion layer<b>120</b>. It should be noted that each memory cell group can include any number of transistors. Thus, memory cell groups can be designed to include two, four, eight, or sixteen transistors, or any other number of transistors as desired by the ROM designer.</p>
+      <p id="p-00091-en">The metal programmable ROM memory cell array<b>300</b>operates as described previously with respect to<figref>FIGS. 7-10</figref>. In particular, wordlines<b>102</b><i>a</i>-<b>102</b><i>d</i>form a first wordline subset associated with the first memory cell group<b>302</b>, and wordlines<b>102</b><i>e</i>-<b>102</b><i>g</i>form a second wordline subset associated with the second memory cell group<b>304</b>. Selecting a wordline in the first wordline subset will enable the first group virtual ground<b>112</b><i>a</i>, while selecting a wordline in the second wordline subset will enable the second group virtual ground<b>112</b><i>b</i>. Enabling each group virtual ground<b>112</b><i>a</i>/<b>112</b><i>b</i>only when its associated memory cell group<b>302</b>/<b>304</b>is active prevents the bitline<b>104</b>from being automatically pulled down by a neighboring memory cell group having all group cells programmed as “0” cells, shorting the bitline contact directly to ground. For example, if memory cell transistors<b>106</b><i>a</i>-<b>106</b><i>d</i>are all programmed to “0” cells, the bitline<b>104</b>will always be shorted to the first group virtual ground<b>112</b><i>a</i>. Consequently, the bitline<b>104</b>will be pulled every time the first group virtual ground<b>112</b><i>a</i>is enabled, thus it is only enabled when one of wordlines<b>102</b><i>a</i>-<b>102</b><i>d</i>are selected.</p>
+      <p id="p-00092-en">In this manner, the present invention allows memory cell groups to share bitline contacts, which greatly reduces the bitline load as compared to conventional ROMs. For example, the configuration of<figref>FIG. 11</figref>allows eight memory cells to share the same bitline contact. As shown previously, a conventional diffusion programmable ROM only allows two transistors to share a bitline contact, and a conventional metal programmable ROM does not allow any bitline contact sharing.</p>
+      <p id="p-00093-en">Moreover, the metal programmable ROM of the present invention is generally denser than conventional programmable ROMs. Because of the limitations of other semiconductor manufacturing processes, there exist minimum size rules that restrict the size of a piece of diffusion used in semiconductor manufacturing to a predetermined minimum diffusion size. Thus, if a transistor can be designed on a particular size of diffusion, it will be restricted to a larger size of diffusion if the particular design size is smaller than the predetermined minimum diffusion size.</p>
+      <p id="p-00094-en">As discussed previously, each “1” cell in a conventional diffusion programmable ROM requires two separate portions of diffusion, each being no smaller than the predetermined minimum diffusion size. Similarly, all memory cells of a conventional metal programmable ROM are formed on separate portions of diffusion, each being no smaller than the predetermined minimum diffusion size.</p>
+      <p id="p-00095-en">In contrast, groups of memory cells of the present invention are formed on a single portion of diffusion, and more than one memory cell group may occupy a single portion of diffusion, as shown in FIG.<b>11</b>. Thus, there are generally no concerns about minimum diffusion size in the present invention. As a result, both “1” cell and “0” cell memory transistors may be made small than is possible with conventional programmable ROMs. Consequently the metal programmable ROM of the present invention can be made smaller and denser than conventional programmable ROMs.</p>
+      <p id="p-00096-en">
+        <figref>FIG. 12</figref>is an illustration showing a side view of a memory cell group<b>400</b>of a metal programmable ROM memory cell array, in accordance with an embodiment of the present invention. The memory cell group<b>400</b>includes a diffusion layer<b>120</b>and polysilicon wordlines<b>102</b><i>a</i>-<b>102</b><i>d</i>formed on gate oxide to create transistor gates for memory cell transistors<b>106</b><i>a</i>-<b>106</b><i>d</i>. A first dielectric layer<b>402</b>is formed over the memory cell transistors<b>106</b><i>a</i>-<b>106</b><i>d</i>, and transistor contact vias<b>404</b>are formed in the first dielectric layer<b>402</b>to provide contacts to the transistor terminals. Metal pads<b>122</b><i>a</i>-<b>122</b><i>d</i>are formed over the first dielectric layer<b>402</b>above the transistor contact vias<b>404</b>. If a “0” cell is desired, a transistor shorting component<b>202</b>can be formed coupling the metal pads that are connected to terminals of the “0” cell memory transistor.</p>
+      <p id="p-00097-en">In addition, a group virtual ground<b>112</b>is formed over the first dielectric layer<b>402</b>above a transistor contact via<b>404</b>. A second dielectric layer<b>406</b>is formed above the metal pads<b>122</b><i>a</i>-<b>122</b><i>d</i>, the group virtual ground<b>112</b>, and any transistor shorting components<b>202</b>. A bitline contact<b>408</b>via is formed in the second dielectric layer<b>406</b>above the first metal pad<b>122</b><i>a</i>. Finally, a bitline<b>104</b>is formed above the second dielectric layer<b>406</b>coupled to the first metal pad through the bitline contact<b>408</b>.</p>
+      <p id="p-00098-en">Each memory cell transistor<b>106</b><i>a</i>-<b>106</b><i>d</i>includes a first terminal<b>410</b>and a second terminal<b>412</b>. As shown in<figref>FIG. 12</figref>, the memory cell transistors<b>106</b><i>a</i>-<b>106</b><i>d</i>are coupled together via their terminals. In addition, the first terminal of memory cell transistor<b>106</b><i>a</i>is coupled to the bitline<b>104</b>through a contact via<b>404</b>, the first metal pad<b>122</b><i>a</i>, and bitline contact<b>408</b>. Finally, the second terminal of memory cell transistor<b>106</b><i>d</i>is coupled to the group virtual ground<b>112</b>through a contact via<b>404</b>.</p>
+      <p id="p-00099-en">As previously stated, a “0” cell is programmed by shorting the terminals of the memory cell transistor of the “0” cell. For example, in<figref>FIG. 12</figref>memory cell transistor<b>106</b><i>b</i>is programmed as a “0” cell. In particular, the first<b>410</b>and second<b>412</b>terminals of memory cell transistor<b>106</b><i>b</i>are coupled to metal pads<b>122</b><i>b</i>and<b>122</b><i>c</i>through contact vias<b>404</b>. The transistor shorting component<b>202</b>couples metal pad<b>122</b><i>b</i>to metal pad<b>122</b><i>c</i>, thus coupling the first<b>410</b>and second<b>412</b>terminals of memory cell transistor<b>106</b><i>b</i>together. Hence, current will flow from the first terminal<b>410</b>to the second terminal<b>412</b>of memory cell transistor<b>106</b><i>b</i>regardless of the state of the associated wordline<b>102</b><i>b</i>. In all other cases, current will flow from the first terminal to the second terminal of a memory cell transistor<b>106</b><i>a</i>,<b>106</b><i>c</i>, and<b>106</b><i>d</i>only when its gate terminal, which is its associated wordline<b>102</b><i>a</i>/<b>102</b><i>c</i>/<b>102</b><i>d</i>, is high.</p>
+      <p id="p-00100-en">
+        <figref>FIG. 13</figref>is a flowchart showing a method<b>500</b>for manufacturing a metal programmable ROM, in accordance with an embodiment of the present invention. In an initial operation<b>502</b>, preprocess operations are performed. Preprocess operations include micro-code design, determining the number of memory cells per memory cell group and other preprocess operations that will be apparent to those skilled in the art.</p>
+      <p id="p-00101-en">In a memory cell forming operation<b>504</b>, a group of memory cells are formed, wherein each memory cell of the group is connected to a corresponding wordline. After determining the number of memory cells per memory cell group, a memory cell transistor is formed for each memory cell using a polysilicon wordline and gate oxide. The wordlines for the memory cell array form the actual gates of the memory cell transistors, with the diffusion layer forming the memory cell transistor terminals. Preferably, the memory cell transistors are coupled together in series.</p>
+      <p id="p-00102-en">Next, the memory cells are interconnected between a single bitline and the ground, in operation<b>506</b>. After the memory cell transistors are formed, a dielectric layer is formed over the memory cell transistors and contact vias are formed over the memory cell transistor terminals. Metal pads are then formed above contact vias in the dielectric layer, along with any transistor shorting components, discussed in greater detail next. Another dielectric layer is then formed over the metal pads, and a bitline contact via is formed in the second dielectric layer above a first metal pad.</p>
+      <p id="p-00103-en">A bitline is then formed above the second dielectric layer, coupled to the first memory cell transistor through the bitline contact, first metal pad, and the contact via in the first dielectric layer. In addition, a group virtual ground is formed over the contact via above the second terminal of the last memory cell transistor in the memory cell group. In this manner, the memory cells are interconnected between a single bitline and ground.</p>
+      <p id="p-00104-en">In a programming operation<b>508</b>, the memory cells are programmed by shorting a transistor associated with each programmed memory cell. Since all memory cells theoretically are initially configured in a “1” cell format, programming a memory cell generally refers to configuring the memory cell to a “0” cell format. However, in some embodiments, programming can refer to configuring a memory cell into a “1” cell format.</p>
+      <p id="p-00105-en">To program a memory cell to a “0” cell, the terminals of the memory cell transistor are shorted together. Typically, this is accomplished by coupling together the metal pads<b>122</b><i>a</i>-<b>122</b><i>d</i>that are coupled to the terminals of the “0” cell memory transistor with a transistor shorting component. If the transistor shorting component is formed of the same material as the metal pads, this can be accomplished by simply forming a single metal line coupling the contact vias above the terminals of the “0” cell memory transistor.</p>
+      <p id="p-00106-en">For example, in referring to<figref>FIG. 12</figref>, memory cell transistor<b>106</b><i>b</i>is configured as a “0” cell transistor. In one embodiment, metal pad<b>122</b><i>b</i>, metal pad<b>122</b><i>c</i>, and the transistor shortening component<b>202</b>are formed as a single line of metal formed across the contact vias<b>404</b>above the first<b>410</b>and second<b>412</b>terminals of memory cell transistor<b>106</b><i>b.</i></p>
+      <p id="p-00107-en">Referring back to<figref>FIG. 13</figref>, post process operations are performed in operation<b>510</b>. Post process operations include forming and programming other memory cell groups in the metal programmable ROM memory cell array, and other post process operations that will be apparent to those skilled in the art. Advantageously, the metal programmable ROM of the present invention is programmed at the metal layer, rather than the diffusion level. As a result, the present invention provides increased flexibility because metal programmable ROM wafers may be held at the metal level, allowing for quick production of parts after a design change was received.</p>
+      <p id="p-00108-en">Although the foregoing invention has been described in some detail for purposes of clarity of understanding, it will be apparent that certain changes and modifications may be practiced within the scope of the appended claims. Accordingly, the present embodiments are to be considered as illustrative and not restrictive, and the invention is not to be limited to the details given herein, but may be modified within the scope and equivalents of the appended claims.</p>
+    </detailed-desc>
+  </description>
+  <claims id="claims_eng" lang="eng" format="original" date-changed="20100409">
+    <claim num="1" id="clm-00001-en">
+      <claim-text>1. A metal programmable ROM, comprising:<claim-text>a group of memory cells, wherein each memory cell is connected to a corresponding wordline, and wherein each of the memory cells in the group of memory cells is interconnected between a single bitline connection and a ground conection; and</claim-text><claim-text>a programmed memory cell associated with the group of memory cells, wherein the programmed memory cell includes a shorted transistor.</claim-text></claim-text>
+    </claim>
+    <claim num="2" id="clm-00002-en">
+      <claim-text>2. A metal programmable ROM as recited in<claim-ref idref="clm-00001-en">claim 1</claim-ref>, wherein each memory cell includes a transistor having a first terminal, a second terminal, and a gate coupled to a wordline corresponding to the memory cell.</claim-text>
+    </claim>
+    <claim num="3" id="clm-00003-en">
+      <claim-text>3. A metal programmable ROM as recited in<claim-ref idref="clm-00002-en">claim 2</claim-ref>, wherein a first memory cell of the group of memory cells includes a first transistor having a first terminal and a second terminal, wherein the first terminal is coupled to the bitline.</claim-text>
+    </claim>
+    <claim num="4" id="clm-00004-en">
+      <claim-text>4. A metal programmable ROM as recited in<claim-ref idref="clm-00001-en">claim 1</claim-ref>, wherein the programmed memory cell is a “0” cell.</claim-text>
+    </claim>
+    <claim num="5" id="clm-00005-en">
+      <claim-text>5. A metal programmable ROM as recited in<claim-ref idref="clm-00001-en">claim 1</claim-ref>, wherein a metal containing material couples the terminals of the shorted transistor.</claim-text>
+    </claim>
+    <claim num="6" id="clm-00006-en">
+      <claim-text>6. A metal programmable ROM, comprising:<claim-text>a group of memory cells, wherein each memory cell is connected to a corresponding wordline, and wherein each of the memory cells in the group of memory cells is interconnected between a single bitline connection and a ground conection; and</claim-text><claim-text>a programmed memory cell associated with the group of memory cells, wherein the programmed memory cell includes a shorted transistor, and wherein read operations are performed by pulling a selected wordline coupled to a memory cell in the group of memory cells low, and asserting all other wordlines coupled to memory cells in the group of memory cells high.</claim-text></claim-text>
+    </claim>
+    <claim num="7" id="clm-00007-en">
+      <claim-text>7. A metal programmable ROM as recited in<claim-ref idref="clm-00001-en">claim 1</claim-ref>, wherein each memory cell includes a transistor having a first terminal, a second terminal, and a gate coupled to a wordline corresponding to the memory cell.</claim-text>
+    </claim>
+    <claim num="8" id="clm-00008-en">
+      <claim-text>8. A metal programmable ROM as recited in<claim-ref idref="clm-00007-en">claim 7</claim-ref>, wherein a first memory cell of the group of memory cells includes a first transistor having a first terminal and a second terminal, wherein the first terminal is coupled to the bitline.</claim-text>
+    </claim>
+    <claim num="9" id="clm-00009-en">
+      <claim-text>9. A metal programmable ROM, comprising:<claim-text>a group of memory cells, wherein each memory cell is connected to a corresponding wordline, and wherein each of the memory cells in the group of memory cells is interconnected between a single bitline connection and a ground conection,</claim-text><claim-text>wherein read operations are performed by pulling a selected wordline coupled to a memory cell in the group of memory cells low, and asserting all other wordlines coupled to memory cells in the group of memory cells high.</claim-text></claim-text>
+    </claim>
+    <claim num="10" id="clm-00010-en">
+      <claim-text>10. A metal programmable ROM as recited in<claim-ref idref="clm-00009-en">claim 9</claim-ref>, wherein each memory cell includes a transistor having a first terminal, a second terminal, and a gate coupled to a wordline corresponding to the memory cell.</claim-text>
+    </claim>
+    <claim num="11" id="clm-00011-en">
+      <claim-text>11. A metal programmable ROM as recited in<claim-ref idref="clm-00010-en">claim 10</claim-ref>, wherein a first memory cell of the group of memory cells includes a first transistor having a first terminal and a second terminal, wherein the first terminal is coupled to the bitline.</claim-text>
+    </claim>
+    <claim num="12" id="clm-00012-en">
+      <claim-text>12. A metal programmable ROM as recited in<claim-ref idref="clm-00009-en">claim 9</claim-ref>, further including a programmed memory cell associated with the group of memory cells, wherein the programmed memory cell includes a shorted transistor, and wherein the programmed memory cell is a “0” cell.</claim-text>
+    </claim>
+    <claim num="13" id="clm-00013-en">
+      <claim-text>13. A metal programmable ROM as recited in<claim-ref idref="clm-00012-en">claim 12</claim-ref>, wherein a metal containing material couples the terminals of the shorted transistor.</claim-text>
+    </claim>
+  </claims>
+  <drawings id="drawings">
+    <figure id="fig-emi-d00000" num="2">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00000" file="US06674661-20040106-D00000.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00001" num="3">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00001" file="US06674661-20040106-D00001.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00002" num="4">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00002" file="US06674661-20040106-D00002.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00003" num="5">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00003" file="US06674661-20040106-D00003.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00004" num="6">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00004" file="US06674661-20040106-D00004.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00005" num="7">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00005" file="US06674661-20040106-D00005.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00006" num="8">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00006" file="US06674661-20040106-D00006.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00007" num="9">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00007" file="US06674661-20040106-D00007.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00008" num="10">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00008" file="US06674661-20040106-D00008.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00009" num="11">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00009" file="US06674661-20040106-D00009.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00010" num="12">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00010" file="US06674661-20040106-D00010.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00011" num="13">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00011" file="US06674661-20040106-D00011.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+  </drawings>
+</lexisnexis-patent-document>

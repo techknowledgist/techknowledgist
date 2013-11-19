@@ -1,0 +1,748 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright ©2011 LexisNexis Univentio, The Netherlands. -->
+<lexisnexis-patent-document schema-version="1.08" date-produced="20110930" file="US6672019B1.xml" produced-by="LexisNexis-Univentio" lang="eng" date-changed="20110902" time-changed="060626">
+  <bibliographic-data lang="eng">
+    <publication-reference publ-type="Grant" publ-desc="Patent without a pre-grant publication">
+      <document-id>
+        <country>US</country>
+        <doc-number>6672019</doc-number>
+        <kind>B1</kind>
+        <date>20040106</date>
+      </document-id>
+    </publication-reference>
+    <application-reference appl-type="utility">
+      <document-id>
+        <country>US</country>
+        <doc-number>10175386</doc-number>
+        <date>20020620</date>
+      </document-id>
+    </application-reference>
+    <application-series-code>10</application-series-code>
+    <language-of-filing>eng</language-of-filing>
+    <language-of-publication>eng</language-of-publication>
+    <priority-claims date-changed="20090405">
+      <priority-claim sequence="1" kind="national">
+        <country>DE</country>
+        <doc-number>19962547</doc-number>
+        <kind>A</kind>
+        <date>19991223</date>
+      </priority-claim>
+      <priority-claim sequence="1" data-format="epodoc">
+        <doc-number>US20020175386</doc-number>
+      </priority-claim>
+      <priority-claim sequence="2" data-format="epodoc">
+        <doc-number>DE19991062547</doc-number>
+      </priority-claim>
+    </priority-claims>
+    <dates-of-public-availability date-changed="20090405">
+      <unexamined-printed-without-grant>
+        <date>20040106</date>
+      </unexamined-printed-without-grant>
+      <printed-with-grant>
+        <date>20040106</date>
+      </printed-with-grant>
+    </dates-of-public-availability>
+    <classification-ipc date-changed="20100810">
+      <main-classification>
+        <text> 7E 01F   9/00   A</text>
+        <edition>7</edition>
+        <section>E</section>
+        <class>01</class>
+        <subclass>F</subclass>
+        <main-group>9</main-group>
+        <subgroup>00</subgroup>
+        <qualifying-character>A</qualifying-character>
+      </main-classification>
+      <further-classification sequence="1">
+        <text> 7E 04H   6/42   B</text>
+        <edition>7</edition>
+        <section>E</section>
+        <class>04</class>
+        <subclass>H</subclass>
+        <main-group>6</main-group>
+        <subgroup>42</subgroup>
+        <qualifying-character>B</qualifying-character>
+      </further-classification>
+    </classification-ipc>
+    <classifications-ipcr date-changed="20100810">
+      <classification-ipcr sequence="1">
+        <text>E01D  19/00        20060101C I20051008RMEP        </text>
+        <ipc-version-indicator>
+          <date>20060101</date>
+        </ipc-version-indicator>
+        <classification-level>C</classification-level>
+        <section>E</section>
+        <class>01</class>
+        <subclass>D</subclass>
+        <main-group>19</main-group>
+        <subgroup>00</subgroup>
+        <classification-value>I</classification-value>
+        <action-date>
+          <date>20051008</date>
+        </action-date>
+        <generating-office>
+          <country>EP</country>
+        </generating-office>
+        <classification-status>R</classification-status>
+        <classification-data-source>M</classification-data-source>
+      </classification-ipcr>
+      <classification-ipcr sequence="2">
+        <text>E01D  19/08        20060101A I20051008RMEP        </text>
+        <ipc-version-indicator>
+          <date>20060101</date>
+        </ipc-version-indicator>
+        <classification-level>A</classification-level>
+        <section>E</section>
+        <class>01</class>
+        <subclass>D</subclass>
+        <main-group>19</main-group>
+        <subgroup>08</subgroup>
+        <classification-value>I</classification-value>
+        <action-date>
+          <date>20051008</date>
+        </action-date>
+        <generating-office>
+          <country>EP</country>
+        </generating-office>
+        <classification-status>R</classification-status>
+        <classification-data-source>M</classification-data-source>
+      </classification-ipcr>
+      <classification-ipcr sequence="3">
+        <text>E04H   6/08        20060101C I20051008RMEP        </text>
+        <ipc-version-indicator>
+          <date>20060101</date>
+        </ipc-version-indicator>
+        <classification-level>C</classification-level>
+        <section>E</section>
+        <class>04</class>
+        <subclass>H</subclass>
+        <main-group>6</main-group>
+        <subgroup>08</subgroup>
+        <classification-value>I</classification-value>
+        <action-date>
+          <date>20051008</date>
+        </action-date>
+        <generating-office>
+          <country>EP</country>
+        </generating-office>
+        <classification-status>R</classification-status>
+        <classification-data-source>M</classification-data-source>
+      </classification-ipcr>
+      <classification-ipcr sequence="4">
+        <text>E04H   6/10        20060101A I20051008RMEP        </text>
+        <ipc-version-indicator>
+          <date>20060101</date>
+        </ipc-version-indicator>
+        <classification-level>A</classification-level>
+        <section>E</section>
+        <class>04</class>
+        <subclass>H</subclass>
+        <main-group>6</main-group>
+        <subgroup>10</subgroup>
+        <classification-value>I</classification-value>
+        <action-date>
+          <date>20051008</date>
+        </action-date>
+        <generating-office>
+          <country>EP</country>
+        </generating-office>
+        <classification-status>R</classification-status>
+        <classification-data-source>M</classification-data-source>
+      </classification-ipcr>
+    </classifications-ipcr>
+    <classification-national date-changed="20100810">
+      <country>US</country>
+      <main-classification>
+        <text>52/174</text>
+        <class>52</class>
+        <subclass>174</subclass>
+      </main-classification>
+    </classification-national>
+    <classifications-ecla date-changed="20100810">
+      <classification-ecla sequence="1" classification-scheme="EC" country="EP">
+        <text>E01D 19/08C</text>
+        <section>E</section>
+        <class>01</class>
+        <subclass>D</subclass>
+        <main-group>19</main-group>
+        <subgroup>08</subgroup>
+        <additional-subgroups>
+          <additional-subgroup sequence="1">C  </additional-subgroup>
+        </additional-subgroups>
+      </classification-ecla>
+      <classification-ecla sequence="2" classification-scheme="EC" country="EP">
+        <text>E04H  6/10</text>
+        <section>E</section>
+        <class>04</class>
+        <subclass>H</subclass>
+        <main-group>6</main-group>
+        <subgroup>10</subgroup>
+      </classification-ecla>
+    </classifications-ecla>
+    <field-of-search date-changed="20070524">
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>52/174</text>
+          <class>52</class>
+          <subclass>174</subclass>
+        </main-classification>
+      </classification-national>
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>52/175</text>
+          <class>52</class>
+          <subclass>175</subclass>
+        </main-classification>
+      </classification-national>
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>52/573.1</text>
+          <class>52</class>
+          <subclass>573.1</subclass>
+        </main-classification>
+      </classification-national>
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>52/302.1</text>
+          <class>52</class>
+          <subclass>302.1</subclass>
+        </main-classification>
+      </classification-national>
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>52/302.3</text>
+          <class>52</class>
+          <subclass>302.3</subclass>
+        </main-classification>
+      </classification-national>
+    </field-of-search>
+    <number-of-claims>8</number-of-claims>
+    <invention-title id="title_eng" date-changed="20100418" lang="eng" format="original">Multi-storey parking garage</invention-title>
+    <references-cited date-changed="20110405">
+      <patent-citations name="patcit" date-changed="20100409" />
+      <forward-citations name="fwdcit" date-changed="20110405" />
+      <citation srep-phase="e">
+        <patcit num="1">
+          <document-id>
+            <country>US</country>
+            <doc-number>4279109</doc-number>
+            <kind>A</kind>
+            <name>Madl, Jr.</name>
+            <date>19810721</date>
+          </document-id>
+          <application-date>
+            <date>19790525</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="e">
+        <patcit num="2">
+          <document-id>
+            <country>US</country>
+            <doc-number>4604841</doc-number>
+            <kind>A</kind>
+            <name>Barnoff et al.</name>
+            <date>19860812</date>
+          </document-id>
+          <application-date>
+            <date>19830401</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="e">
+        <patcit num="3">
+          <document-id>
+            <country>US</country>
+            <doc-number>4637181</doc-number>
+            <kind>A</kind>
+            <name>Cohen</name>
+            <date>19870120</date>
+          </document-id>
+          <application-date>
+            <date>19830601</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="e">
+        <patcit num="4">
+          <document-id>
+            <country>US</country>
+            <doc-number>5025522</doc-number>
+            <kind>A</kind>
+            <name>Eshew et al.</name>
+            <date>19910625</date>
+          </document-id>
+          <application-date>
+            <date>19900125</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="e">
+        <patcit num="5">
+          <document-id>
+            <country>US</country>
+            <doc-number>5056286</doc-number>
+            <kind>A</kind>
+            <name>Bokor</name>
+            <date>19911015</date>
+          </document-id>
+          <application-date>
+            <date>19890929</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="e">
+        <patcit num="6">
+          <document-id>
+            <country>US</country>
+            <doc-number>5311629</doc-number>
+            <kind>A</kind>
+            <name>Smith</name>
+            <date>19940517</date>
+          </document-id>
+          <application-date>
+            <date>19920803</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="e">
+        <patcit num="7">
+          <document-id>
+            <country>US</country>
+            <doc-number>5486392</doc-number>
+            <kind>A</kind>
+            <name>Green</name>
+            <date>19960123</date>
+          </document-id>
+          <application-date>
+            <date>19940705</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="e">
+        <patcit num="8">
+          <document-id>
+            <country>US</country>
+            <doc-number>5715636</doc-number>
+            <kind>A</kind>
+            <name>Taylor</name>
+            <date>19980210</date>
+          </document-id>
+          <application-date>
+            <date>19951115</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="e">
+        <patcit num="9">
+          <document-id>
+            <country>US</country>
+            <doc-number>5822947</doc-number>
+            <kind>A</kind>
+            <name>Tarrant</name>
+            <date>19981020</date>
+          </document-id>
+          <application-date>
+            <date>19951229</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="10">
+          <document-id>
+            <country>US</country>
+            <doc-number>5826381</doc-number>
+            <kind>A</kind>
+            <name>Sasaki</name>
+            <date>19981027</date>
+          </document-id>
+          <application-date>
+            <date>19960628</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="e">
+        <patcit num="11">
+          <document-id>
+            <country>US</country>
+            <doc-number>6253514</doc-number>
+            <kind>B1</kind>
+            <name>Jobe et al.</name>
+            <date>20010703</date>
+          </document-id>
+          <application-date>
+            <date>19990607</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="12">
+          <document-id>
+            <country>DE</country>
+            <doc-number>298 06 840</doc-number>
+            <date>19981000</date>
+          </document-id>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="13">
+          <document-id>
+            <country>WO</country>
+            <doc-number>WO 99 45 220</doc-number>
+            <date>19991000</date>
+          </document-id>
+        </patcit>
+      </citation>
+      <citation>
+        <fwdcit num="1">
+          <document-id>
+            <country>US</country>
+            <doc-number>D0599019</doc-number>
+            <kind>S</kind>
+            <date>20090825</date>
+          </document-id>
+          <application-date>
+            <date>20080310</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+      <citation>
+        <fwdcit num="2">
+          <document-id>
+            <country>US</country>
+            <doc-number>7234281</doc-number>
+            <kind>B2</kind>
+            <date>20070626</date>
+          </document-id>
+          <application-date>
+            <date>20060123</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+      <citation>
+        <fwdcit num="3">
+          <document-id>
+            <country>US</country>
+            <doc-number>7918891</doc-number>
+            <kind>B1</kind>
+            <date>20110405</date>
+          </document-id>
+          <application-date>
+            <date>20050329</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+    </references-cited>
+    <parties date-changed="20100409">
+      <applicants>
+        <applicant sequence="1" app-type="applicant">
+          <addressbook lang="eng">
+            <orgname>Vollack Parkhaus AG</orgname>
+            <role>03</role>
+            <address>
+              <city>Karlsruhe</city>
+              <country>DE</country>
+            </address>
+          </addressbook>
+        </applicant>
+      </applicants>
+      <inventors>
+        <inventor sequence="1">
+          <addressbook lang="eng">
+            <name>Wenz, Jürgen Otto</name>
+            <address>
+              <city>Remchingen</city>
+              <country>DE</country>
+            </address>
+          </addressbook>
+        </inventor>
+      </inventors>
+      <agents>
+        <agent sequence="1" rep-type="attorney">
+          <addressbook lang="eng">
+            <name>Vincent, Paul</name>
+          </addressbook>
+        </agent>
+      </agents>
+    </parties>
+    <examiners>
+      <primary-examiner>
+        <last-name>Baxter</last-name>
+        <first-name>Gwendolyn</first-name>
+        <department>3632</department>
+      </primary-examiner>
+    </examiners>
+    <patent-family date-changed="20100810">
+      <main-family family-id="138763592">
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>6672019</doc-number>
+            <kind>B1</kind>
+            <date>20040106</date>
+          </document-id>
+          <application-date>
+            <date>20020620</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>20030233795</doc-number>
+            <kind>A1</kind>
+            <date>20031225</date>
+          </document-id>
+          <application-date>
+            <date>20020620</date>
+          </application-date>
+        </family-member>
+      </main-family>
+      <complete-family family-id="138763589">
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>20030233795</doc-number>
+            <kind>A1</kind>
+            <date>20031225</date>
+          </document-id>
+          <application-date>
+            <date>20020620</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>DE</country>
+            <doc-number>50015255</doc-number>
+            <kind>D1</kind>
+            <date>20080821</date>
+          </document-id>
+          <application-date>
+            <date>20001221</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>EP</country>
+            <doc-number>1111160</doc-number>
+            <kind>A3</kind>
+            <date>20030319</date>
+          </document-id>
+          <application-date>
+            <date>20001221</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>EP</country>
+            <doc-number>1111160</doc-number>
+            <kind>A2</kind>
+            <date>20010627</date>
+          </document-id>
+          <application-date>
+            <date>20001221</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>AT</country>
+            <doc-number>400715</doc-number>
+            <kind>T</kind>
+            <date>20080715</date>
+          </document-id>
+          <application-date>
+            <date>20001221</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>ES</country>
+            <doc-number>2308961</doc-number>
+            <kind>T3</kind>
+            <date>20081216</date>
+          </document-id>
+          <application-date>
+            <date>20001221</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>DE</country>
+            <doc-number>19962547</doc-number>
+            <kind>A1</kind>
+            <date>20010913</date>
+          </document-id>
+          <application-date>
+            <date>19991223</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>6672019</doc-number>
+            <kind>B1</kind>
+            <date>20040106</date>
+          </document-id>
+          <application-date>
+            <date>20020620</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>EP</country>
+            <doc-number>1111160</doc-number>
+            <kind>B1</kind>
+            <date>20080709</date>
+          </document-id>
+          <application-date>
+            <date>20001221</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>DK</country>
+            <doc-number>1111160</doc-number>
+            <kind>T3</kind>
+            <date>20081110</date>
+          </document-id>
+          <application-date>
+            <date>20001221</date>
+          </application-date>
+        </family-member>
+      </complete-family>
+    </patent-family>
+  </bibliographic-data>
+  <abstract id="abstr_eng" date-changed="20100409" lang="eng" format="original">
+    <p id="p-00001-en">A multi-storey parking garage which can be reassembled comprises a skeleton support structure with vertical supports, substantially horizontal ceiling beams and a plurality of floor plates which are supported on the ceiling beams for forming a passable surface, wherein a gap formed between neighboring floor plates extends above a ceiling beam in the longitudinal direction thereof. The floor plates are disposed on the ceiling beams with the interposition of a groove-shaped profiled body, in particular of an elastic plastic material. The profiled body extends in the longitudinal direction of the gap below same and serves for accepting and draining liquid dropping onto the floor plates.</p>
+  </abstract>
+  <legal-data date-changed="20110902">
+    <legal-event sequence="1">
+      <publication-date>
+        <date>20020620</date>
+      </publication-date>
+      <event-code-1>AS</event-code-1>
+      <legal-description>ASSIGNMENT</legal-description>
+      <status-identifier>N</status-identifier>
+      <docdb-publication-number> US     6672019B1</docdb-publication-number>
+      <new-owner>PAG PARKHAUS AG, GERMANY</new-owner>
+      <free-text-description>ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNOR:WENZ, JURGEN;REEL/FRAME:013039/0169</free-text-description>
+      <effective-date>
+        <date>20020618</date>
+      </effective-date>
+    </legal-event>
+    <legal-event sequence="2">
+      <publication-date>
+        <date>20020812</date>
+      </publication-date>
+      <event-code-1>AS</event-code-1>
+      <legal-description>ASSIGNMENT</legal-description>
+      <status-identifier>N</status-identifier>
+      <docdb-publication-number> US     6672019B1</docdb-publication-number>
+      <new-owner>VOLLACK PARKHAUS AG, GERMANY</new-owner>
+      <free-text-description>ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNOR:WENZ, JURGEN;REEL/FRAME:012975/0291</free-text-description>
+      <effective-date>
+        <date>20020710</date>
+      </effective-date>
+    </legal-event>
+    <legal-event sequence="3">
+      <publication-date>
+        <date>20070621</date>
+      </publication-date>
+      <event-code-1>FPAY</event-code-1>
+      <effect>+</effect>
+      <legal-description>FEE PAYMENT</legal-description>
+      <status-identifier>N</status-identifier>
+      <docdb-publication-number> US     6672019B1</docdb-publication-number>
+      <fee-payment-year>4</fee-payment-year>
+    </legal-event>
+    <legal-event sequence="4">
+      <publication-date>
+        <date>20110815</date>
+      </publication-date>
+      <event-code-1>REMI</event-code-1>
+      <legal-description>MAINTENANCE FEE REMINDER MAILED</legal-description>
+      <status-identifier>N</status-identifier>
+      <docdb-publication-number> US     6672019B1</docdb-publication-number>
+    </legal-event>
+  </legal-data>
+  <description id="descr_eng" lang="eng" format="original" date-changed="20100409">
+    <summary>
+      <p id="p-00002-en">This application is related to DE 199 62 547 filed Dec. 23, 1999 the complete disclosure of which is hereby incorporated by reference.</p>
+      <heading level="2">BACKGROUND OF THE INVENTION</heading>
+      <p id="p-00003-en">The invention concerns a multi-storey parking garage which can be reassembled, comprising a skeleton support structure with vertical supports, substantially horizontal ceiling beams and a plurality of floor plates which are supported on the ceiling beams for forming a passable surface, wherein a gap formed between neighboring floor plates extends above a ceiling beam in the longitudinal direction thereof.</p>
+      <p id="p-00004-en">Multi-storey parking garages are conventionally produced substantially from concrete by forming supports and ceilings of concrete between concrete supports produced at the building site or delivered as a finished part to serve as a parking and driving surface. Multi-storey parking garages of this type are appropriate for stationary buildings intended for permanent use although production of site-mixed concrete components requires corresponding weather conditions and the concrete, due to its large weight, results in structural components which are relatively large and heavy for a given load capacity.</p>
+      <p id="p-00005-en">DE 298 09 011 U1 discloses a multi-storey parking garage for reassembly whose support structure consists of a steel skeleton with vertical supports and horizontal ceiling beams. Floor plates of steel, concrete or of a steel-concrete composite construction are mounted to the steel frame structure by disposing them on the ceiling beams and screwing them to the respective ceiling beam. To prevent liquid and other soiling matter entering from the upper side of the floor plates of a ceiling level from reaching the vehicles on the ceiling level below, a layer of sheet metal pieces is disposed onto the ceiling beams below the floor plates and are also screwed to the ceiling beams.</p>
+      <p id="p-00006-en">Leaks often occur in the vicinity of the mounting locations, i.e. at the screw holes where the mounting screw penetrates through the sheet metal and the upper flange of the ceiling beam and are difficult or impossible to seal. Water, fuel, oil or other liquids can therefore drip onto the underlying vehicles.</p>
+      <p id="p-00007-en">DE 298 06 840 U1 describes a similar multi-storey parking garage for reassembly wherein the floor plates are disposed such that the gaps or joints formed between neighboring floor plates extend above a ceiling beam in the longitudinal direction thereof. Elastic joint sealings are inserted into the gaps and joints to seal same. The floor plates are mutually tensioned in the plane of the plates using special tensioning members, thereby also loading the joint sealings. Although this produces improved sealing between the gaps and joints of adjacent floor plates, such a multi-storey parking garage for reassembly requires a great degree of assembly effort thereby causing it to be generally uneconomical.</p>
+      <p id="p-00008-en">Moreover, the acoustical insulation between the floor plates and the ceiling beams is disadvantageously unacceptable or can only be achieved at great expense.</p>
+      <p id="p-00009-en">It is the underlying purpose of the invention to produce a multi-storey parking garage for reassembly of the above-mentioned kind with which these problems are eliminated and which has floor plates disposed on the ceiling beams in a sealing and acoustically insulating fashion.</p>
+      <heading level="2">SUMMARY OF THE INVENTION</heading>
+      <p id="p-00010-en">This object is achieved in accordance with the invention in a multi-storey parking garage for reassembly in that the floor plates are disposed onto the ceiling beams by interposing a groove-shaped profiled body, wherein the profiled body extends below and in the longitudinal direction of the gap.</p>
+      <p id="p-00011-en">The floor plates which are each individually formed as liquid-tight partial surfaces are not directly supported on the respective ceiling beam. The groove-shaped profiled body is interposed to provide acoustical insulation, sealing and drainage of liquids.</p>
+      <p id="p-00012-en">Liquid accumulating on the upper side of a floor plate can flow to the edge thereof and drop down through the gap formed between neighboring floor plates. The groove-shaped profiled body is disposed below this gap and receives the dropping liquid to divert it, within its groove in the longitudinal direction. This prevents the liquid from reaching an underlying level of the multi-storey parking garage.</p>
+      <p id="p-00013-en">The profiled body is preferably formed of an elastic plastic material to effect acoustical separation between the floor plate and the ceiling beam and to also seal these structural components.</p>
+      <p id="p-00014-en">In a preferred embodiment of the invention, the ceiling beam has an I-shaped profile and the groove-shaped profiled body is disposed at its lower side on the upper flange of the ceiling beam, preferably across its entire surface. The profiled body can be glued onto the ceiling beam for exact positioning thereof. The profiled body preferably has a U-shaped cross-section which is open towards the top, wherein an edge region of a floor plate is disposed on the upper side of each U-shaped leg of the profiled body. Sealing between the floor plate and the profiled body and between the profiled body and the ceiling beam can be provided through the natural weight of the floor plate. However, a tensioning device is preferably additionally provided between the floor plate and the ceiling beam for tensioning the floor plate against the profiled body. The tensioning device accepts transverse loads which tend to lift the floor plate from the ceiling beam.</p>
+      <p id="p-00015-en">Reliable drainage of the liquid reaching the groove-shaped profiled body can be achieved if the ceiling beam and hence also the groove-shaped profiled body are slightly inclined in the longitudinal direction. The liquid is discharged to a discharge system at the end of the groove-shaped profiled body in a conventional fashion.</p>
+      <p id="p-00016-en">If the groove-shaped profiled body must be examined or cleaned of foreign bodies accumulated therein, appropriate maintenance work can be carried out between the gap formed between the neighboring floor plates. Towards this end, the gap has a width of between approximately 15 mm and 30 mm.</p>
+    </summary>
+    <description-of-drawings>
+      <p id="p-00017-en">Further details and features of the invention can be extracted from the following description of an embodiment with reference to the drawing.</p>
+      <heading level="2">BRIEF DESCRIPTION OF THE DRAWING</heading>
+      <p id="p-00018-en">
+        <figref>FIG. 1</figref>shows a vertical section through floor plates mounted on a ceiling beam; and</p>
+      <p id="p-00019-en">
+        <figref>FIG. 2</figref>shows a vertical section through a plurality of floor plates mounted on ceiling beams.</p>
+    </description-of-drawings>
+    <detailed-desc>
+      <heading level="2">DESCRIPTION OF THE PREFERRED EMBODIMENT</heading>
+      <p id="p-00020-en">A skeleton support structure of a multi-storey parking garage for reassembly comprises several parallel, substantially horizontal support beams<b>11</b>, of which only one is shown by way of example in the figure. The ceiling beam<b>11</b>has an I-shaped profile with an upper flange<b>11</b><i>a</i>, a vertical bar<b>11</b><i>b</i>and a lower flange<b>11</b><i>c</i>. A groove-shaped profiled body<b>16</b>is disposed on the upper side of the upper flange<b>11</b><i>a</i>of the ceiling beam<b>11</b>and has a U-shaped cross-section which is open towards the top and which is made from an elastic plastic material, in particular an elastomer. The profiled body<b>16</b>extends in the longitudinal direction of the ceiling beam<b>11</b>and is preferably produced as a continuous, gap-free structural component.</p>
+      <p id="p-00021-en">Bores<b>20</b>are formed in the upper flange<b>11</b><i>a</i>of the ceiling beam<b>11</b>beside the profiled body<b>16</b>.</p>
+      <p id="p-00022-en">A floor plate<b>12</b>comprises a support layer<b>13</b>preferably formed as a steel sheet whose upper side is provided with a protective layer or coating<b>14</b>which extends to the side surfaces of the support layer<b>13</b>. The lower side of the floor plate<b>12</b>has reinforcements<b>15</b>(only schematically shown) and several downwardly projecting, threaded bolts<b>17</b>which are welded to the floor plate<b>12</b>close to its edge region.</p>
+      <p id="p-00023-en">For mounting, the floor plate<b>12</b>is disposed with its edge region on the upper side of a U-shaped leg<b>16</b><i>a</i>of the groove-shaped profiled body<b>16</b>and the threaded bolt<b>17</b>is introduced into the bore<b>20</b>of the upper flange<b>11</b><i>a</i>of the ceiling beam<b>11</b>such that it projects downwardly from same. The floor plate<b>12</b>is then tensioned in the direction of the upper flange<b>11</b><i>a</i>by means of a spacer<b>18</b>and a nut<b>19</b>, whereby pressure is exerted on the U-shaped leg<b>16</b><i>a</i>of the profiled body<b>16</b>.</p>
+      <p id="p-00024-en">As seen in the figure, a gap<b>21</b>formed between neighboring floor plates<b>12</b>is disposed above the groove-shaped profiled body<b>16</b>and extends in its longitudinal direction such that water or other liquid reaching the gap<b>21</b>is accepted and drained by the profiled body<b>16</b>. To support drainage, the ceiling beam<b>11</b>and also the profiled body<b>16</b>are slightly inclined in the longitudinal direction, i.e. perpendicular to the plane of the drawing.</p>
+      <p id="p-00025-en">
+        <figref>FIG. 2</figref>shows a vertical section corresponding to<figref>FIG. 1</figref>but for a plurality of floor plates<b>12</b>mounted to a plurality of ceiling beams<b>11</b>. The horizontal ceiling beams<b>11</b>seal on vertical supports<b>30</b>to define a skeletal support structure.</p>
+    </detailed-desc>
+  </description>
+  <claims id="claims_eng" lang="eng" format="original" date-changed="20100409">
+    <claim num="1" id="clm-00001-en">
+      <claim-text>1. A multi-storey parking garage, the parking garage comprising:<claim-text>substantially vertical supports;</claim-text><claim-text>substantially horizontal ceiling beams seated on said vertical supports to define a skeletal support structure;</claim-text><claim-text>a plurality of groove-shaped, profiled bodies, each of said profiled bodies seating on an associated one of said ceiling beams and extending substantially along a longitudinal travel of said associated ceiling beam; and</claim-text><claim-text>a plurality of floor plates supported on said profiled bodies for forming a passable surface, said floor plates defining gaps between neighboring floor plates, said gaps disposed directly above an associated one of said profiled bodies and extending along said longitudinal travel of an associated supporting one of said ceiling beams.</claim-text></claim-text>
+    </claim>
+    <claim num="2" id="clm-00002-en">
+      <claim-text>2. The multi-storey parking garage of<claim-ref idref="clm-00001-en">claim 1</claim-ref>, wherein each of said ceiling beams has an I-shaped cross-section, each of said profiled bodies being supported at a lower side thereof to seat on an upper flange of said associated ceiling beam.</claim-text>
+    </claim>
+    <claim num="3" id="clm-00003-en">
+      <claim-text>3. The multi-storey parking garage of<claim-ref idref="clm-00001-en">claim 1</claim-ref>, wherein each of said profiled bodies consists essentially of an elastic plastic material.</claim-text>
+    </claim>
+    <claim num="4" id="clm-00004-en">
+      <claim-text>4. The multi-storey parking garage of<claim-ref idref="clm-00001-en">claim 1</claim-ref>, wherein each of said profiled bodies has a U-shaped cross-section, wherein each of said gaps is disposed above a central portion of said U-shaped cross-section.</claim-text>
+    </claim>
+    <claim num="5" id="clm-00005-en">
+      <claim-text>5. The multi-storey parking garage of<claim-ref idref="clm-00004-en">claim 4</claim-ref>, wherein an edge region of each of said floor plates seats on an, upper side of a leg of one of said profiled bodies.</claim-text>
+    </claim>
+    <claim num="6" id="clm-00006-en">
+      <claim-text>6. The multi-storey parking garage of<claim-ref idref="clm-00001-en">claim 1</claim-ref>, further comprising a plurality of tensioning devices, each of said tensioning devices cooperating with one of said floor plates and an associated one of said ceiling beams to tension said one of said floor plates to an associated one of said profiled bodies.</claim-text>
+    </claim>
+    <claim num="7" id="clm-00007-en">
+      <claim-text>7. The multi-storey parking garage of<claim-ref idref="clm-00001-en">claim 1</claim-ref>, wherein each of said ceiling beams and each of said profiled bodies is inclined in said longitudinal direction.</claim-text>
+    </claim>
+    <claim num="8" id="clm-00008-en">
+      <claim-text>8. The multi-storey parking garage of<claim-ref idref="clm-00001-en">claim 1</claim-ref>, wherein each of said gaps has a width of between 15 mm and 30 mm.</claim-text>
+    </claim>
+  </claims>
+  <drawings id="drawings">
+    <figure id="fig-emi-d00000" num="2">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00000" file="US06672019-20040106-D00000.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00001" num="3">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00001" file="US06672019-20040106-D00001.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00002" num="4">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00002" file="US06672019-20040106-D00002.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+  </drawings>
+</lexisnexis-patent-document>

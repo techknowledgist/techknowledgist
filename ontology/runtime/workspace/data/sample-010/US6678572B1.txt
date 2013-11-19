@@ -1,0 +1,4633 @@
+
+   
+      
+         
+            US
+            6678572
+            B1
+            20040113
+         
+      
+      
+         
+            US
+            09521026
+            20000307
+         
+      
+      09
+      eng
+      eng
+      
+         
+            US
+            09336275
+            19990618
+         
+         
+            US
+            60114422
+            19981231
+         
+      
+      
+         
+            20040113
+         
+         
+            20040113
+         
+      
+      
+         
+             7G 06F  19/00   A
+            7
+            G
+            06
+            F
+            19
+            00
+            A
+         
+      
+      
+         
+            G05B  19/418       20060101A I20051008RMEP        
+            
+               20060101
+            
+            A
+            G
+            05
+            B
+            19
+            418
+            I
+            
+               20051008
+            
+            
+               EP
+            
+            R
+            M
+         
+         
+            G06F  19/00        20060101A I20051110RMEP        
+            
+               20060101
+            
+            A
+            G
+            06
+            F
+            19
+            00
+            I
+            
+               20051110
+            
+            
+               EP
+            
+            R
+            M
+         
+         
+            H01L  21/00        20060101A I20051110RMEP        
+            
+               20060101
+            
+            A
+            H
+            01
+            L
+            21
+            00
+            I
+            
+               20051110
+            
+            
+               EP
+            
+            R
+            M
+         
+         
+            H01L  21/02        20060101ALI20051220RMJP        
+            
+               20060101
+            
+            A
+            H
+            01
+            L
+            21
+            02
+            L
+            I
+            
+               20051220
+            
+            
+               JP
+            
+            R
+            M
+         
+      
+      
+         US
+         
+            700/121
+            700
+            121
+         
+         
+            700/100
+            700
+            100
+         
+      
+      
+         
+            G05B 19/418P
+            G
+            05
+            B
+            19
+            418
+            
+               P  
+            
+         
+      
+      
+         
+            US
+            
+               700/121
+               700
+               121
+            
+         
+         
+            US
+            
+               700/99
+               700
+               99
+            
+         
+         
+            US
+            
+               700/100
+               700
+               100
+            
+         
+         
+            US
+            
+               700/101
+               700
+               101
+            
+         
+         
+            US
+            
+               700/102
+               700
+               102
+            
+         
+      
+      8
+      Recipe cascading in a wafer processing system
+      
+         
+         
+         
+         
+            
+               
+                  US
+                  5136222
+                  A
+                  Yamamoto et al.
+                  19920804
+               
+               
+                  19901009
+               
+            
+         
+         
+            
+               
+                  US
+                  5226118
+                  A
+                  Baker et al.
+                  19930706
+               
+               
+                  19910129
+               
+            
+         
+         
+            
+               
+                  US
+                  5305221
+                  A
+                  Atherton
+                  19940419
+               
+               
+                  19900504
+               
+            
+         
+         
+            
+               
+                  US
+                  5375061
+                  A
+                  Hara et al.
+                  19941220
+               
+               
+                  19911127
+               
+            
+         
+         
+            
+               
+                  US
+                  5428555
+                  A
+                  Starkey et al.
+                  19950627
+               
+               
+                  19930420
+               
+            
+         
+         
+            
+               
+                  US
+                  5444632
+                  A
+                  Kline et al.
+                  19950822
+               
+               
+                  19940428
+               
+            
+         
+         
+            
+               
+                  US
+                  5591299
+                  A
+                  Seaton et al.
+                  19970107
+               
+               
+                  19950428
+               
+            
+         
+         
+            
+               
+                  US
+                  5612886
+                  A
+                  Weng
+                  19970318
+               
+               
+                  19950512
+               
+            
+         
+         
+            
+               
+                  US
+                  5696689
+                  A
+                  Okumura et al.
+                  19971209
+               
+               
+                  19951127
+               
+            
+         
+         
+            
+               
+                  US
+                  5754780
+                  A
+                  Asakawa et al.
+                  19980519
+               
+               
+                  19950119
+               
+            
+         
+         
+            
+               
+                  US
+                  5764520
+                  A
+                  Robinson et al.
+                  19980609
+               
+               
+                  19950705
+               
+            
+         
+         
+            
+               
+                  US
+                  5801945
+                  A
+                  Comer
+                  19980901
+               
+               
+                  19960628
+               
+            
+         
+         
+            
+               
+                  US
+                  5826236
+                  A
+                  Narimatsu et al.
+                  19981020
+               
+               
+                  19951208
+               
+            
+         
+         
+            
+               
+                  US
+                  5838565
+                  A
+                  Hsieh et al.
+                  19981117
+               
+               
+                  19970515
+               
+            
+         
+         
+            
+               
+                  US
+                  5841659
+                  A
+                  Tanaka et al.
+                  19981124
+               
+               
+                  19970604
+               
+            
+         
+         
+            
+               
+                  US
+                  5841660
+                  A
+                  Robinson et al.
+                  19981124
+               
+               
+                  19960220
+               
+            
+         
+         
+            
+               
+                  US
+                  5841677
+                  A
+                  Yang et al.
+                  19981124
+               
+               
+                  19970521
+               
+            
+         
+         
+            
+               
+                  US
+                  5855681
+                  A
+                  Maydan et al.
+                  19990105
+               
+               
+                  19961118
+               
+            
+         
+         
+            
+               
+                  US
+                  5858863
+                  A
+                  Yokoyama et al.
+                  19990112
+               
+               
+                  19960927
+               
+            
+         
+         
+            
+               
+                  US
+                  5914879
+                  A
+                  Wang et al.
+                  19990622
+               
+               
+                  19970304
+               
+            
+         
+         
+            
+               
+                  US
+                  5928389
+                  A
+                  Jevtic
+                  19990727
+               
+               
+                  19961021
+               
+            
+         
+         
+            
+               
+                  US
+                  5943230
+                  A
+                  Rinnen et al.
+                  19990824
+               
+               
+                  19961219
+               
+            
+         
+         
+            
+               
+                  US
+                  5950170
+                  A
+                  Pan et al.
+                  19990907
+               
+               
+                  19970411
+               
+            
+         
+         
+            
+               
+                  US
+                  5975740
+                  A
+                  Lin et al.
+                  19991102
+               
+               
+                  19960528
+               
+            
+         
+         
+            
+               
+                  US
+                  5980591
+                  A
+                  Akimoto et al.
+                  19991109
+               
+               
+                  19970822
+               
+            
+         
+         
+            
+               
+                  US
+                  6122566
+                  A
+                  Nguyen et al.
+                  20000919
+               
+               
+                  19980303
+               
+            
+         
+         
+            
+               
+                  US
+                  6122621
+                  A
+                  Shimada
+                  20000919
+               
+               
+                  19970908
+               
+            
+         
+         
+            
+               
+                  US
+                  6201999
+                  B1
+                  Jevtic
+                  20010313
+               
+               
+                  19970609
+               
+            
+         
+         
+            
+               
+                  US
+                  6298274
+                  B1
+                  Inoue
+                  20011002
+               
+               
+                  19990901
+               
+            
+         
+         
+            
+               
+                  US
+                  6336204
+                  B1
+                  Jevtic
+                  20020101
+               
+               
+                  19980507
+               
+            
+         
+         
+            
+               
+                  US
+                  6360132
+                  B2
+                  Lin et al.
+                  20020319
+               
+               
+                  20010105
+               
+            
+         
+         
+            
+               
+                  US
+                  6408220
+                  B1
+                  Nulman
+                  20020618
+               
+               
+                  19990601
+               
+            
+         
+         
+            
+               
+                  US
+                  6418356
+                  B1
+                  Oh
+                  20020709
+               
+               
+                  19990618
+               
+            
+         
+         
+            
+               
+                  EP
+                  0 800 203
+                  19971000
+               
+            
+         
+         
+            
+               
+                  EP
+                  0 837 494
+                  19980400
+               
+            
+         
+         
+            
+               
+                  WO
+                  98 57358
+                  19981200
+               
+            
+         
+         
+            
+               
+                  WO
+                  99 64940
+                  19991200
+               
+            
+         
+         
+            
+               
+                  WO
+                  00 41048
+                  20000700
+               
+            
+         
+         
+            
+               Gertz M W et al: “A Human-Machine Interface for Distributed Virtual Laboratories”, IEEE Robotics & Automation Magazine, US, IEEE Service Center, Piscataway, NJ, vol. 1, NR. 4, pp. 5-13 XP000487137 ISSN: 1070-9932. Dec. 1994.
+            
+         
+         
+            
+               
+                  US
+                  7195407
+                  B2
+                  20070327
+               
+               
+                  20060505
+               
+            
+         
+         
+            
+               
+                  US
+                  7625824
+                  B2
+                  20091201
+               
+               
+                  20060526
+               
+            
+         
+         
+            
+               
+                  US
+                  7651306
+                  B2
+                  20100126
+               
+               
+                  20051222
+               
+            
+         
+         
+            
+               
+                  US
+                  7522968
+                  B2
+                  20090421
+               
+               
+                  20070710
+               
+            
+         
+         
+            
+               
+                  US
+                  7357842
+                  B2
+                  20080415
+               
+               
+                  20050422
+               
+            
+         
+         
+            
+               
+                  US
+                  7068351
+                  B2
+                  20060627
+               
+               
+                  20040220
+               
+            
+         
+         
+            
+               
+                  US
+                  7694647
+                  B2
+                  20100413
+               
+               
+                  20060719
+               
+            
+         
+         
+            
+               
+                  US
+                  7699021
+                  B2
+                  20100420
+               
+               
+                  20060130
+               
+            
+         
+         
+            
+               
+                  US
+                  7743728
+                  B2
+                  20100629
+               
+               
+                  20080421
+               
+            
+         
+         
+            
+               
+                  US
+                  7798764
+                  B2
+                  20100921
+               
+               
+                  20061027
+               
+            
+         
+         
+            
+               
+                  US
+                  7819079
+                  B2
+                  20101026
+               
+               
+                  20060908
+               
+            
+         
+         
+            
+               
+                  US
+                  7925377
+                  B2
+                  20110412
+               
+               
+                  20060719
+               
+            
+         
+         
+            
+               
+                  US
+                  7959403
+                  B2
+                  20110614
+               
+               
+                  20070828
+               
+            
+         
+         
+            
+               
+                  US
+                  7988399
+                  B2
+                  20110802
+               
+               
+                  20081029
+               
+            
+         
+         
+            
+               
+                  US
+                  8019467
+                  B2
+                  20110913
+               
+               
+                  20070710
+               
+            
+         
+      
+      
+         
+            
+               
+                  
+                     US
+                     09/336275
+                     19990618
+                  
+                  ABANDONED
+               
+               
+                  
+                     US
+                     09/521026
+                  
+               
+            
+         
+         
+            
+               US
+               60/114422
+               19981231
+            
+         
+         
+            
+               US
+               33627599
+               A
+               19990618
+            
+         
+      
+      
+         
+            
+               
+                  ASML Holdings, N.V.
+                  03
+                  
+                     Veldhoven
+                     NL
+                  
+               
+            
+         
+         
+            
+               
+                  Oh, Hilario
+                  
+                     Rochester Hills
+                     MI
+                  
+               
+            
+         
+      
+      
+         
+            Patel
+            Ramesh
+            2121
+         
+         
+            Gain
+            Edward F.
+         
+      
+      
+         
+            
+               
+                  US
+                  6678572
+                  B1
+                  20040113
+               
+               
+                  20000307
+               
+            
+         
+         
+            
+               
+                  JP
+                  4621698
+                  B2
+                  20110126
+               
+               
+                  20070208
+               
+            
+            
+               
+                  EP
+                  1264332
+                  A1
+                  20021211
+               
+               
+                  20000616
+               
+            
+            
+               
+                  EP
+                  1141801
+                  B1
+                  20050817
+               
+               
+                  19991201
+               
+            
+            
+               
+                  EP
+                  1141801
+                  A1
+                  20011010
+               
+               
+                  19991201
+               
+            
+            
+               
+                  WO
+                  0041048
+                  A1
+                  20000713
+               
+               
+                  19991201
+               
+            
+            
+               
+                  WO
+                  0167493
+                  A1
+                  20010913
+               
+               
+                  20000616
+               
+            
+            
+               
+                  EP
+                  1188097
+                  A2
+                  20020320
+               
+               
+                  20000623
+               
+            
+            
+               
+                  WO
+                  0079356
+                  A2
+                  20001228
+               
+               
+                  20000623
+               
+            
+            
+               
+                  US
+                  6865437
+                  B1
+                  20050308
+               
+               
+                  20000623
+               
+            
+            
+               
+                  US
+                  6952622
+                  B2
+                  20051004
+               
+               
+                  20031014
+               
+            
+            
+               
+                  US
+                  7052919
+                  B2
+                  20060530
+               
+               
+                  20031014
+               
+            
+            
+               
+                  US
+                  6694218
+                  B2
+                  20040217
+               
+               
+                  20020614
+               
+            
+            
+               
+                  US
+                  6418356
+                  B1
+                  20020709
+               
+               
+                  19990618
+               
+            
+            
+               
+                  JP
+                  4733011
+                  B9
+                  20110428
+               
+               
+                  20061228
+               
+            
+            
+               
+                  EP
+                  1188097
+                  B1
+                  20060308
+               
+               
+                  20000623
+               
+            
+            
+               
+                  US
+                  6768930
+                  B2
+                  20040727
+               
+               
+                  20030218
+               
+            
+            
+               
+                  AT
+                  302438
+                  T
+                  20050915
+               
+               
+                  19991201
+               
+            
+            
+               
+                  AT
+                  320033
+                  T
+                  20060315
+               
+               
+                  20000623
+               
+            
+            
+               
+                  AU
+                  3108500
+                  A
+                  20000724
+               
+               
+                  19991201
+               
+            
+            
+               
+                  JP
+                  2007165913
+                  A
+                  20070628
+               
+               
+                  20061228
+               
+            
+            
+               
+                  JP
+                  2007208269
+                  A
+                  20070816
+               
+               
+                  20070208
+               
+            
+            
+               
+                  JP
+                  2007214550
+                  A
+                  20070823
+               
+               
+                  20061228
+               
+            
+            
+               
+                  JP
+                  2007214551
+                  A
+                  20070823
+               
+               
+                  20061228
+               
+            
+            
+               
+                  JP
+                  3987725
+                  B2
+                  20071010
+               
+               
+                  20000616
+               
+            
+            
+               
+                  JP
+                  2007281490
+                  A
+                  20071025
+               
+               
+                  20070423
+               
+            
+            
+               
+                  JP
+                  2007305988
+                  A
+                  20071122
+               
+               
+                  20070501
+               
+            
+            
+               
+                  SG
+                  143963
+                  A1
+                  20080729
+               
+               
+                  20000616
+               
+            
+            
+               
+                  KR
+                  1020030007454
+                  A
+                  20030123
+               
+               
+                  20020907
+               
+            
+            
+               
+                  KR
+                  1020010101334
+                  A
+                  20011114
+               
+               
+                  20010629
+               
+            
+            
+               
+                  JP
+                  4733011
+                  B2
+                  20110727
+               
+               
+                  20061228
+               
+            
+            
+               
+                  WO
+                  0079356
+                  A3
+                  20010809
+               
+               
+                  20000623
+               
+            
+            
+               
+                  JP
+                  2002534789
+                  T
+                  20021015
+               
+               
+                  19991201
+               
+            
+            
+               
+                  JP
+                  2003502877
+                  T
+                  20030121
+               
+               
+                  20000623
+               
+            
+            
+               
+                  JP
+                  2003526916
+                  T
+                  20030909
+               
+               
+                  20000616
+               
+            
+            
+               
+                  DE
+                  60026527
+                  D1
+                  20060504
+               
+               
+                  20000623
+               
+            
+            
+               
+                  DE
+                  69926798
+                  D1
+                  20050922
+               
+               
+                  19991201
+               
+            
+            
+               
+                  DE
+                  69926798
+                  T2
+                  20060914
+               
+               
+                  19991201
+               
+            
+            
+               
+                  DE
+                  60026527
+                  T2
+                  20061019
+               
+               
+                  20000623
+               
+            
+            
+               
+                  US
+                  6678572
+                  B1
+                  20040113
+               
+               
+                  20000307
+               
+            
+            
+               
+                  US
+                  20020059015
+                  A1
+                  20020516
+               
+               
+                  19990618
+               
+            
+            
+               
+                  US
+                  20030028282
+                  A1
+                  20030206
+               
+               
+                  20020614
+               
+            
+            
+               
+                  US
+                  20030154001
+                  A1
+                  20030814
+               
+               
+                  20030218
+               
+            
+            
+               
+                  US
+                  20040078109
+                  A1
+                  20040422
+               
+               
+                  20031014
+               
+            
+            
+               
+                  US
+                  20040087187
+                  A1
+                  20040506
+               
+               
+                  20031014
+               
+            
+            
+               
+                  AU
+                  5636600
+                  A
+                  20010109
+               
+               
+                  20000623
+               
+            
+            
+               
+                  AU
+                  5747600
+                  A
+                  20010917
+               
+               
+                  20000616
+               
+            
+            
+               
+                  KR
+                  100731822
+                  B1
+                  20070625
+               
+               
+                  20020907
+               
+            
+            
+               
+                  JP
+                  3987725
+                  B9
+                  20070720
+               
+               
+                  20000616
+               
+            
+            
+               
+                  JP
+                  4621698
+                  B9
+                  20101105
+               
+               
+                  20070208
+               
+            
+            
+               
+                  KR
+                  100508679
+                  B1
+                  20050817
+               
+               
+                  20010629
+               
+            
+         
+      
+   
+   
+      The invention allows a cluster tool to change from a first recipe to a second recipe, while preserving periodicity and ensuring that there are no delays at critical points. This procedure is referred to as recipe cascading. Cascading involves emptying a first lot of wafers off a cluster tool and populating the cluster tool with another lot of wafers, serially and simultaneously. The procedure is performed with no delays incurred at critical process steps; and with no additional robots and process modules other than those called for by the recipe and throughput requirements of the entering and the exiting lots. The entering lot may also have different recipes and throughput requirements from the exiting lot. A program residing on a computer determines a schedule for the cluster tool which enables recipe cascading. The program may use a genetic algorithm to determine the schedule, or any other optimization technique.
+   
+   
+      
+         
+            20000710
+         
+         AS
+         ASSIGNMENT
+         N
+          US     6678572B1
+         SILICON VALLEY GROUP, INC., CALIFORNIA
+         ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNOR:OH, HILARIO;REEL/FRAME:010903/0163
+         
+            20000612
+         
+      
+      
+         
+            20031125
+         
+         AS
+         ASSIGNMENT
+         N
+          US     6678572B1
+         ASML HOLDING N.V., NETHERLANDS
+         ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNOR:ASML USA INC.;REEL/FRAME:014724/0721
+         
+            20030909
+         
+      
+      
+         
+            20070706
+         
+         FPAY
+         +
+         FEE PAYMENT
+         N
+          US     6678572B1
+         4
+      
+      
+         
+            20080808
+         
+         AS
+         ASSIGNMENT
+         C
+          US     6678572B1
+         ASML US, INC., ARIZONA
+         CHANGE OF NAME;ASSIGNOR:SILICON VALLEY GROUP, INC.;REEL/FRAME:021360/0168
+         
+            20011101
+         
+      
+      
+         
+            20080808
+         
+         AS
+         ASSIGNMENT
+         C
+          US     6678572B1
+         ASML US, INC., ARIZONA
+         MERGER;ASSIGNOR:ASML US, LLC;REEL/FRAME:021360/0092
+         
+            20021231
+         
+      
+      
+         
+            20080808
+         
+         AS
+         ASSIGNMENT
+         C
+          US     6678572B1
+         ASML US, INC., ARIZONA
+         MERGER;ASSIGNOR:SVG LITHOGRAPHY SYSTEMS, INC.;REEL/FRAME:021360/0189
+         
+            20011231
+         
+      
+      
+         
+            20080808
+         
+         AS
+         ASSIGNMENT
+         C
+          US     6678572B1
+         ASML US, LLC, ARIZONA
+         CHANGE OF NAME;ASSIGNOR:ASML US, INC.;REEL/FRAME:021360/0088
+         
+            20021004
+         
+      
+      
+         
+            20081121
+         
+         AS
+         ASSIGNMENT
+         N
+          US     6678572B1
+         ASML HOLDING N.V., NETHERLANDS
+         ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNOR:ASML US, INC.;REEL/FRAME:021872/0047
+         
+            20030909
+         
+      
+      
+         
+            20110708
+         
+         FPAY
+         +
+         FEE PAYMENT
+         N
+          US     6678572B1
+         8
+      
+   
+   
+      
+         This application is a continuation-in-part of U.S. patent application No. 09/336,275, filed Jun. 18, 1999 now abandoned, which is a continuation-in-part of U.S. patent application No. 60/114,422, filed Dec. 31, 1998, both of which are herein incorporated by reference in their entirety.
+      
+      
+         BACKGROUND OF THE INVENTION
+         1. Field of the Invention
+         This invention relates to the field of wafer processing. In particular, the invention relates to scheduling techniques for wafer cluster tools.
+         2. Description of the Related Art
+         In the process of manufacturing a semiconductor device such as an integrated circuit, numerous steps of micro-fabrication are performed to form a device. These steps are performed serially on the individual items of manufacture in individual modules; the items of manufacture are transferred between modules by transport mechanisms such as robots. In order to achieve desirable throughput, reliability, and fabrication quality, several conditions must be met:
+         1) The delivery and removal of the substrate to and from the process modules, as well as the transportation of the wafer between modules, must be accomplished in a timely manner. This timely delivery and removal of substrate is achieved when the flow of substrate is maintained in a periodic and synchronized manner. If periodicity and synchronization are not maintained, the process results will be inconsistent from substrate to substrate, and the expected throughput may be reduced.
+         2) It is desirable to transport the substrate in similar process flow paths to avoid inconsistency in process results due to variations in the process history of the substrates.
+         3) It is imperative to ensure that the articles of manufacture do not spend any pre-process or post-process time idling in modules where critical processes are performed. The addition of pre-process or post-process time in these modules degrades not only the throughput but also the process results. For example, in an IC fabrication system, if a substrate is not immediately transferred from the spin coat module to a bake module to thermally cure a photo-resist film layer, the resulting film thickness will be unpredictable. If it is impossible to totally eliminate pre-process and/or post-process times, they should be rendered as brief as possible, and any variations in these times cannot be allowed.
+         The inability to meet any or all of the above conditions come from the failure to resolve transport conflicts. Conflicts are situations wherein separate modules demand a robot within a time span insufficient for the robot to service these modules
+         One conventional solution to the concerns listed above is the addition of extra process modules and transportation resources. However, the size limitations and geometrical constraints of a track system limit the possibility of resolving the above difficulties by adding additional process modules or transportation resources.
+         The addition of dedicated transfer arms to transfer substrates between adjacent modules (hereinafter called Inter Bay Transfer Arms, or IBTAs) is another method used to improve throughput and eliminate some of the pre-process and/or post-process times. However, the addition of IBTAs also has serious drawbacks. Dedicated transfer arms complicate the tool and increase its cost, constrain the position of the modules, and cannot be used everywhere in the tool. As a result, the tasks of managing the substrate flow in the track system while maintaining both high throughput and quality and resolving all transport conflicts become unmanageable.
+         Another conventional solution is to assign a set of substrate transport priority rules. Prior to any robot move, the control system, also referred to as the software scheduler, verifies the status of substrates in different modules and makes transfer priority decisions based on these rules. However, to achieve high throughputs, the scheduler may generate undesirable, unpredictable and variable pre-process and post-process times in critical modules, and the substrates may also be forced to follow different flow paths to complete their process cycle.
+         Heretofore, the requirements of conflict resolution, synchronization, quality, and path consistency referred to above have not been fully met. What is needed is a solution that simultaneously addresses all of these requirements.
+         SUMMARY OF THE INVENTION
+         An embodiment of the invention allows a cluster tool to change from a first recipe to a second recipe, while preserving periodicity and ensuring that there are no delays at critical points. This procedure is referred to as recipe cascading. Cascading involves emptying a first lot of wafers off a cluster tool and populating the cluster tool with another lot of wafers, serially and simultaneously. The procedure is performed with no delays incurred at critical process steps; and with no additional robots and process modules other than those called for by the recipe and throughput requirements of the entering and the exiting lots. The entering lot may also have different recipe and throughput requirements from the exiting lot.
+         An embodiment of the invention includes a method for processing wafers which comprises loading a first plurality of wafers into a wafer cluster tool individually at intervals delimited by a first sending period, wherein the first plurality of wafers are processed according to a first recipe; and loading a second plurality of wafers into the cluster tool at intervals delimited by a second sending period, wherein the second plurality of wafers are processed according to a second recipe. In embodiments of the invention, the cluster tool has a transition period, during which the cluster tool processes one or more wafers from the first plurality of wafers according to the first recipe and one or more wafers from the second plurality of wafers according to the second recipe.
+         Embodiments of the invention also include a computer program for scheduling the wafer processing system. The computer program includes resources for scheduling the wafer processing system during a first time period, wherein a first plurality of wafers is processed during the first time period according to a first recipe; resources for scheduling the wafer processing system during a second time period, wherein a second plurality of wafers is processed during the second time period according to a second recipe; and resources for scheduling the wafer processing system during a third time period, wherein a third plurality of wafers is processed during the third time period, such that one or more wafers from the third plurality are processed according to the first recipe, and one or more wafers from the third plurality are processed according to the second recipe. In embodiments of the invention, the computer program resides on a server coupled to the wafer processing system. In embodiments of the invention, the computer program uses a genetic algorithm to schedule the wafer processing system. In some embodiments, the computer program uses another optimization technique to schedule the wafer processing system.
+      
+      
+         BRIEF DESCRIPTION OF THE FIGURES
+         
+            FIG. 1is a time line illustrating the points at which wafers are loaded into a cluster tool, wherein the points are separated by intervals of one sending period.
+         
+            FIG. 2illustrates the relative and absolute pick-up times of three wafers at a process i, as well as the mantissas of the pick-up times, wherein the pick-up times are normalized in terms of the sending period.
+         
+            FIG. 3illustrates the various modules and transportation modules in the cluster tool.
+         
+            FIG. 4is a graph and corresponding table illustrating the module paths in the cluster tool.
+         
+            FIG. 5is a table illustrating the recipe of a cluster tool.
+         
+            FIG. 6is a graph and corresponding table of module pick-up times which arise in a sending period, wherein the sending period is broken into 6 sub-intervals, as there are six possible robot moves within a single sending period.
+         
+            FIG. 7is a graph and corresponding table illustrating conflicts that arise between processes for access to robots, wherein conflicts are indicated when two modules assigned to a robot have pick-up demands within a single period.
+         
+            FIG. 8is a graph and accompanying tables and matrices, which illustrate the insertion of queues to eliminate conflicts between modules for access to robots.
+         
+            FIG. 9illustrates recipes and recipe times in a cluster tool.
+         
+            FIG. 10illustrates wafer flow in steady state in a cluster tool.
+         
+            FIG. 11illustrates a transition period, in which the cluster tool processes an entering lot and an exiting lot.
+         
+            FIG. 12illustrates the timing of the first wafer of the entering lot in the cluster tool according to an embodiment of the invention.
+      
+      
+         DETAILED DESCRIPTION
+         Synchronized, Conflict Resolving Schedulers
+         An aspect of the present invention comprises a method for maximizing throughput and quality in a manufacturing system by scheduling events in the system in a periodic, predictable fashion which eliminates conflicts for system resources. An example of such a manufacturing system comprises a series of process steps 1, . . . , N, which are performed consecutively on individual units of manufacture. The individual process steps of the system are conducted in “modules”, or “process chambers”, and the series of steps is listed in a “recipe”. The manufacturing system also includes resources for transporting the units of manufacture between modules in the series; these resources may include robots.
+         Conflicts may result between processes in the system when separate modules demand a robot within a time span which is insufficient for the robot to service these modules. Additionally, it is desirable to schedule the system in a manner which exhibits periodicity, so that events in the system are synchronized to occur at periodic, predictable intervals. An embodiment of the present invention includes a technique of selectively scheduling delays in various steps of the manufacturing process in order to eliminate all such conflicts, as well enforce periodicity, without degrading throughput or quality of the system.
+         An Example of Conflict-Resolving Synchronization: Wafer Cluster Tools
+         An example of the type of manufacturing system described above is a wafer cluster tool. In a wafer cluster tool, the modules comprise process chambers, which are organized around a group of wafer transporting resources, or robots, to perform a sequence of process steps on the wafer. A wafer enters and exits the tool through a buffer called a load port. Once a robot retrieves a wafer from a load port, the wafer is transported sequentially through the series of modules specified in a recipe. The time period defined by a wafer's entrance to a module and the wafer's exit from the module is referred to as a module process time. This process time includes the time actually spent processing the wafer in the module as well as the overhead time required to prepare the wafer for processing and pick up.
+         (note that though the wafer cluster tool is described above as passing an individual wafer between modules, it will be apparent to one skilled in the art that the present invention is equally applicable to a wafer cluster tool in which a discrete set of wafers is passed between modules.)
+         In certain modules of the cluster tool, a delay in picking up the processed wafer may adversely affect on-wafer results; such modules are identified as “critical process modules,” as they cannot tolerate delays. The module whose process time is longest amongst all modules in the cluster tool is identified as the “gating module”; the process time at this module determines the throughput of the cluster tool. Because the gating module determines the throughput of the cluster tool, it too cannot tolerate delays. The recipe for a wafer cluster tool lists the modules in sequential order, alongside their respective process times. The time required by a robot to transport a wafer between two modules is referred to as its transport time.
+         Wafer Flow Management in the Cluster Tool
+         Wafer flow management, i.e., the orchestration of wafer processing and wafer transporting in a cluster tool, determines both the throughput and the on-wafer results delivered by the system. Effective wafer flow management requires the simultaneous satisfaction of the following two conditions: a wafer which was just processed in the sending module and is now ready to move should do so when (1) the receiving module in which the wafer will subsequently be processed is empty; and (2) the robot assigned to transport wafers between those modules is available. In the prior art, condition (1) was satisfied by providing additional redundant modules. Such a solution, however, compromises condition (2) in two ways: (a) it results in an inadequate number of robots serving too many modules or (b) two or more modules may compete simultaneously for the service of a robot.
+         When the two conditions listed above are compromised, delays in wafer pick-up result. If such delays occur at critical process modules, they adversely affect on-wafer results. And if such delays occur at the gating module, they slow down throughput. As such, it is imperative that the transport conditions listed above are guaranteed with respect to critical process modules and the gating module. In case (a) wherein more handling is required than the robots could provide, adding more robots can mitigate the situation. However, in case (b), the problem resides in the timing of the robot service request. While adding more robots can also alleviate case (b), this is an inadequate solution.
+         Since the recipe prescribed for the cluster tool determines the timings of the robot service request, a fundamental solution to resolving the two conditions can arise from altering the wafer recipe to synchronize with wafer transport. A scheduling algorithm described herein performs such synchronization.
+         This scheduler described herein can be encoded in software executed by a computer, wherein the computer comprises a memory for storing the software, and a CPU for executing the software. In an embodiment of the present invention, the scheduler may be used off-line from the manufacturing system to generate a pre-determined schedule for the system. Alternatively, the computer may be coupled to the manufacturing system so that the scheduler can update the operation of the system in real-time.
+         Synchronizing Wafer Flow in the Cluster Tool
+         In an embodiment of the present invention, wafer flow is synchronized by sending individual wafers through the cluster tool at a constant rate. This rate, referred to as the tool's “sending rate”, is expressed in number of wafers per hour, and paces the wafer flow with a periodicity equal to (3600/sending rate) seconds. This period, referred to as the sending period of the cluster tool, is the heartbeat of the system. Individual wafer units are introduced to the system at intervals of one sending period. And in order to synchronize the cluster tool, all process and transport times are measured in units of sending period. Furthermore, to ensure that the same tasks can be repeated in succeeding periods, the robots in the cluster tool are scheduled to accomplish all service requests, hereafter referred to as “tasks”, within a single sending period. As such, the synchronization of the cluster tool requires a determination of 1) the total number of tasks that are performed within a sending period and 2) the exact moment within a sending period that these tasks arise. These moments shall hereafter be referred to as the “timings” of the respective tasks.
+         The concepts of sending periods and synchronization are illustrated in FIG.1. The timeline100has an origin102, which denotes the moment when the first wafer is loaded into the cluster tool. The timeline100is demarcated in units of one sending period110. Each demarcation104
+            106
+            108indicates, respectively, the times at which the second, third, and fourth wafers are loaded into the cluster tool.
+         A principal characteristic of synchronization is periodicity: the present invention ensures that for each task i, i=1, . . . , n, the pick-up times for any wafer undergoing that task are identical. Thus each task i in the cluster tool can be associated with a relative pick-up time denoted Ti, where Tiis normalized in units of the sending period.FIG. 2depicts this feature of periodicity. Three wafers, wafer1
+            208, wafer2
+            210, and wafer3
+            212are depicted on the vertical axis202. The horizontal line depicts the TIME axis200. The origin of this axis201indicates the time at which wafer1is loaded into the cluster tool. The relative pick-up times Tiat task i200are identical for each wafer. Because the wafers themselves are introduced at intervals of one sending period, the actual pick-up times are separated by units of one sending period.
+         
+            FIG. 2also illustrates a distinction between relative and “actual” or “absolute” pick-up times. The relative pick-up time of a process i is denoted by Ti
+            204. Since the relative pick-up time is measured from the time a wafer is introduced into the wafer cluster tool, the relative pick-up time is identical for each wafer, wafer1
+            208, wafer2
+            210, and wafer3
+            212. The absolute pick-up time214is measured from the moment the first wafer was loaded into the cluster tool201. Since the wafers are introduced at intervals of one sending period, it follows that for any wafer no. w, the absolute pick-up time of wafer w at module i is
+         (w−1)+T
+            i
+         
+         This period (w−1) is illustrated in the figure216.
+         Another parameter which is critical in synchronization is designated by the symbol τi. The fraction π=Ti−INT (Ti), where INT (Ti) is a function that rounds Tidown to the nearest integer, is the fraction of Tithat has elapsed since the beginning of the current sending period. These parameters206are also illustrated in FIG.2. Since the Tivalues are identical for each wafer, and since the wafers are inserted at intervals of one sending period, the values of τi
+            206are identical for each wafer. These fractions, τ, i=1, 2, 3. . . N comprise the timings of the tasks the robots must accomplish within a sending period.
+         The number of tasks N and the timings of these tasks constitute the load of the transport. Since Tiis the accumulation up to the ith module of the process times pj, j=1, 2, 3. . . i; and the robot transport times tj, j=1, 2, 3. . . i−1, it follows that for any wafer, the relative pick-up time at module i is:
+               
+                  
+                     
+                        
+                           
+                              T
+                              
+                                 i
+                                 [!it!]
+                                 
+                                     
+                                 
+                              
+                           
+                           =
+                           
+                              
+                                 
+                                    [!Sum!]
+                                    
+                                       j
+                                       =
+                                       1
+                                    
+                                    i
+                                 
+                                 [!it!]
+                                 
+                                     
+                                 
+                                 [!it!]
+                                 
+                                    p
+                                    j
+                                 
+                              
+                              +
+                              
+                                 
+                                    [!Sum!]
+                                    
+                                       j
+                                       =
+                                       1
+                                    
+                                    
+                                       i
+                                       -
+                                       1
+                                    
+                                 
+                                 [!it!]
+                                 
+                                     
+                                 
+                                 [!it!]
+                                 
+                                    t
+                                    j
+                                 
+                              
+                           
+                        
+                        ;
+                        
+                            
+                        
+                        [!it!]
+                        
+                           i
+                           =
+                           1
+                        
+                     
+                     ,
+                     2
+                     ,
+                     
+                        3
+                        [!it!]
+                        
+                            
+                        
+                        [!it!]
+                        …
+                        [!it!]
+                        
+                            
+                        
+                        [!it!]
+                        N
+                     
+                  
+               
+               
+            
+         
+         It also follows that the timing of the tasks, τ=1, 2, 3. . . N; is
+               
+                  
+                     
+                        
+                           
+                              
+                                 
+                                    
+                                       
+                                          τ
+                                          i
+                                       
+                                       =
+                                       
+                                          
+                                             T
+                                             i
+                                          
+                                          -
+                                          
+                                             INT
+                                             [!af!]
+                                             
+                                                (
+                                                
+                                                   T
+                                                   i
+                                                
+                                                )
+                                             
+                                          
+                                       
+                                    
+                                 
+                              
+                              
+                                 
+                                    
+                                       
+                                          
+                                             =
+                                             
+                                                
+                                                   
+                                                      [!Sum!]
+                                                      
+                                                         j
+                                                         =
+                                                         1
+                                                      
+                                                      i
+                                                   
+                                                   [!it!]
+                                                   
+                                                       
+                                                   
+                                                   [!it!]
+                                                   
+                                                      p
+                                                      j
+                                                   
+                                                
+                                                +
+                                                
+                                                   
+                                                      [!Sum!]
+                                                      
+                                                         j
+                                                         =
+                                                         1
+                                                      
+                                                      
+                                                         i
+                                                         -
+                                                         1
+                                                      
+                                                   
+                                                   [!it!]
+                                                   
+                                                       
+                                                   
+                                                   [!it!]
+                                                   
+                                                      t
+                                                      j
+                                                   
+                                                
+                                                -
+                                                
+                                                   INT
+                                                   [!af!]
+                                                   
+                                                      (
+                                                      
+                                                         
+                                                            
+                                                               [!Sum!]
+                                                               
+                                                                  j
+                                                                  =
+                                                                  1
+                                                               
+                                                               i
+                                                            
+                                                            [!it!]
+                                                            
+                                                                
+                                                            
+                                                            [!it!]
+                                                            
+                                                               p
+                                                               j
+                                                            
+                                                         
+                                                         +
+                                                         
+                                                            
+                                                               [!Sum!]
+                                                               
+                                                                  j
+                                                                  =
+                                                                  1
+                                                               
+                                                               
+                                                                  i
+                                                                  -
+                                                                  1
+                                                               
+                                                            
+                                                            [!it!]
+                                                            
+                                                                
+                                                            
+                                                            [!it!]
+                                                            
+                                                               t
+                                                               j
+                                                            
+                                                         
+                                                      
+                                                      )
+                                                   
+                                                
+                                             
+                                          
+                                          ;
+                                          
+                                              
+                                          
+                                          [!it!]
+                                          
+                                             i
+                                             =
+                                             1
+                                          
+                                       
+                                       ,
+                                       2
+                                       ,
+                                       
+                                          3
+                                          [!it!]
+                                          
+                                              
+                                          
+                                          [!it!]
+                                          …
+                                          [!it!]
+                                          
+                                              
+                                          
+                                          [!it!]
+                                          N
+                                       
+                                    
+                                 
+                              
+                           
+                        
+                        
+                           
+                              (
+                              1
+                              )
+                           
+                        
+                     
+                  
+               
+               
+            
+         
+         Since transport times tjare fixed for a given cluster tool, it is apparent from Equation (1) that the timing of robot task τiis dependent solely on the process times pias prescribed by the recipe.
+         Periodicity and Wafer Identification
+         The property of periodicity also enables the identification of wafers in the cluster tool. As elaborated infra, the synchronized scheduler ensures that 1) the wafers are loaded into the cluster tool in sequential order at intervals of one sending period, and 2) each wafer loaded into the cluster tool undergoes identical events at the same times, as measured relative to the moment they are loaded. A consequence of these two conditions is that wafers enter and depart each module in the cluster tool in the order they were originally loaded, at intervals of one sending period. As such, each wafer in a module can be identified simply by tracking the order in which they entered or exited that module. This feature of the synchronized scheduler is referred to as wafer identification, or wafer “tagging”.
+         Tagging and Module Paths
+         In an embodiment of the present invention, each wafer loaded into the cluster tool follows a particular “module path”, i.e., a particular set of modules which correspond to the processes in the cluster tool. This feature of the present invention is illustrated in FIG.4. In this embodiment, each process in the cluster tool has one or more modules associated with it, wherein the wafers are processed. The modules for each process are ordered in a sequence such that when wafers arrive at that process, they are placed in the corresponding modules in the sequential order (for e.g., if a process has two corresponding modules, the first wafer in the system goes to the first module, the second wafer goes to the second module, the third wafer enters the first module, the fourth wafer enters the second module, etc.) As a consequence, the total number of module paths that a wafer may follow is constrained to the least common multiple of the number of modules corresponding to each process.
+         The embodiment described above is illustrated by example in FIG.4.FIG. 4shows a sequence of process steps, VP400, VPC402, CT404, SB406, SBC408, PEB410, PEBC412, DEV414, HB416, HBC418. A symbol of a process step appears for each module corresponding to the process step. For instance, the process CT404has three modules, and corresponding, the symbol of CT appears three times404. Above each process step is the number of modules for that process step420.
+         In this example, the least common multiple of the number of modules is: LCM(2,2,3,3,3,3,3,4,2,2)=12
+         Hence, the recipe for the cluster tool prescribes twelve module paths, which are listed422. Each column in the table422lists the module number for that process step in the respective module path. As there are twelve possible paths, every twelfth wafer follows the same module path. As such, by identifying a wafer and the order in which it was loaded into the tool, the present invention enables the determination of the module path followed by the wafer.
+         Adding Queues to Eliminate Conflicts for Transportation Resources
+         If a recipe gives rise to simultaneous, competing service requests for particular robots, it would be desirable to resolve the conflicts not by adding more robots, but rather by modifying the recipe itself. One convenient scheme to modify the recipe is to introduce deliberate delays, hereafter called queues qj, to the non-critical process steps in order to achieve timing which resolves conflicts without compromising the throughput or on-wafer results delivered by the tool. Such a scheme, used in conjunction with Equation (1), is the basis for the “synchronous algorithm.” To recap, a recipe as originally prescribed may introduce competing service requests which result in delays at critical process and gating steps, thereby degrading the wafer quality and throughput of the single-wafer cluster tool. The aim of “synchronous algorithm” is to insert intentional delays at non-critical process steps in order to ensure that no delays occur at critical process steps or gating steps, and thereby ensure guarantees of throughput and wafer quality.
+         Solving for the Queues
+         We shall now demonstrate how to solve for the delays, or qj. Let τ be the timing of robot tasks as dictated by a prescribed recipe per Equation (1). By adding queues qjto the process time pjto modify the recipe, the new timing τi* is given by:
+               
+                  
+                     
+                        
+                           
+                              
+                                 
+                                    
+                                       
+                                          τ
+                                          i
+                                          *
+                                       
+                                       =
+                                       
+                                          
+                                             
+                                                [!Sum!]
+                                                
+                                                   j
+                                                   =
+                                                   1
+                                                
+                                                i
+                                             
+                                             [!it!]
+                                             
+                                                 
+                                             
+                                             [!it!]
+                                             
+                                                (
+                                                
+                                                   
+                                                      p
+                                                      j
+                                                   
+                                                   +
+                                                   
+                                                      q
+                                                      j
+                                                   
+                                                
+                                                )
+                                             
+                                          
+                                          +
+                                          
+                                             
+                                                [!Sum!]
+                                                
+                                                   j
+                                                   =
+                                                   1
+                                                
+                                                
+                                                   i
+                                                   -
+                                                   1
+                                                
+                                             
+                                             [!it!]
+                                             
+                                                 
+                                             
+                                             [!it!]
+                                             
+                                                t
+                                                j
+                                             
+                                          
+                                          -
+                                          
+                                             INT
+                                             [!af!]
+                                             
+                                                (
+                                                
+                                                   
+                                                      
+                                                         [!Sum!]
+                                                         
+                                                            j
+                                                            =
+                                                            1
+                                                         
+                                                         i
+                                                      
+                                                      [!it!]
+                                                      
+                                                          
+                                                      
+                                                      [!it!]
+                                                      
+                                                         (
+                                                         
+                                                            
+                                                               p
+                                                               j
+                                                            
+                                                            +
+                                                            
+                                                               q
+                                                               j
+                                                            
+                                                         
+                                                         )
+                                                      
+                                                   
+                                                   +
+                                                   
+                                                      
+                                                         [!Sum!]
+                                                         
+                                                            j
+                                                            =
+                                                            1
+                                                         
+                                                         
+                                                            i
+                                                            -
+                                                            1
+                                                         
+                                                      
+                                                      [!it!]
+                                                      
+                                                          
+                                                      
+                                                      [!it!]
+                                                      
+                                                         t
+                                                         j
+                                                      
+                                                   
+                                                
+                                                )
+                                             
+                                          
+                                       
+                                    
+                                 
+                              
+                              
+                                 
+                                    
+                                       =
+                                       
+                                          
+                                             τ
+                                             i
+                                          
+                                          +
+                                          
+                                             
+                                                [!Sum!]
+                                                
+                                                   j
+                                                   =
+                                                   1
+                                                
+                                                i
+                                             
+                                             [!it!]
+                                             
+                                                 
+                                             
+                                             [!it!]
+                                             
+                                                q
+                                                j
+                                             
+                                          
+                                          -
+                                          
+                                             INT
+                                             [!af!]
+                                             
+                                                (
+                                                
+                                                   
+                                                      
+                                                         [!Sum!]
+                                                         
+                                                            j
+                                                            =
+                                                            1
+                                                         
+                                                         i
+                                                      
+                                                      [!it!]
+                                                      
+                                                          
+                                                      
+                                                      [!it!]
+                                                      
+                                                         (
+                                                         
+                                                            
+                                                               p
+                                                               j
+                                                            
+                                                            +
+                                                            
+                                                               q
+                                                               j
+                                                            
+                                                         
+                                                         )
+                                                      
+                                                   
+                                                   +
+                                                   
+                                                      
+                                                         [!Sum!]
+                                                         
+                                                            j
+                                                            =
+                                                            1
+                                                         
+                                                         
+                                                            i
+                                                            -
+                                                            1
+                                                         
+                                                      
+                                                      [!it!]
+                                                      
+                                                          
+                                                      
+                                                      [!it!]
+                                                      
+                                                         t
+                                                         j
+                                                      
+                                                   
+                                                
+                                                )
+                                             
+                                          
+                                          +
+                                          
+                                             INT
+                                             [!af!]
+                                             
+                                                (
+                                                
+                                                   
+                                                      
+                                                         [!Sum!]
+                                                         
+                                                            j
+                                                            =
+                                                            1
+                                                         
+                                                         i
+                                                      
+                                                      [!it!]
+                                                      
+                                                          
+                                                      
+                                                      [!it!]
+                                                      
+                                                         p
+                                                         j
+                                                      
+                                                   
+                                                   +
+                                                   
+                                                      
+                                                         [!Sum!]
+                                                         
+                                                            j
+                                                            =
+                                                            1
+                                                         
+                                                         
+                                                            i
+                                                            -
+                                                            1
+                                                         
+                                                      
+                                                      [!it!]
+                                                      
+                                                          
+                                                      
+                                                      [!it!]
+                                                      
+                                                         t
+                                                         j
+                                                      
+                                                   
+                                                
+                                                )
+                                             
+                                          
+                                       
+                                    
+                                 
+                              
+                           
+                        
+                        
+                           
+                              (
+                              2
+                              )
+                           
+                        
+                     
+                  
+               
+               
+            
+         
+         The objective is to find a set of queues qito be inserted at the non-critical process steps such that the time interval between any two modules k and m, k=1, 2, 3, . . . N; and m=k, k+1, . . . , N, where module k and module m are assigned to have their wafers picked up by the same robot, is greater than the transport time of the robot. This would allow for time intervals sufficient for the robot to service all modules and thus avoid having to serve more than one module at a given time. However, the queues so derived must also be small enough to avoid excessive idling of modules. And there should be no queues at critical process modules or the gating module.
+         The set of queues will be solved for using Equation (2). This yields a system of linear equations
+               
+                  
+                     
+                        
+                           (
+                           
+                              
+                                 τ
+                                 i
+                                 *
+                              
+                              -
+                              
+                                 τ
+                                 i
+                              
+                           
+                           )
+                        
+                        =
+                        
+                           
+                              [!Sum!]
+                              
+                                 i
+                                 =
+                                 1
+                              
+                              N
+                           
+                           [!it!]
+                           
+                               
+                           
+                           [!it!]
+                           
+                              
+                                 a
+                                 
+                                    i
+                                    [!it!]
+                                    
+                                        
+                                    
+                                    [!it!]
+                                    j
+                                 
+                              
+                              [!it!]
+                              
+                                 q
+                                 j
+                              
+                           
+                        
+                     
+                     ;
+                  
+               
+               
+            
+         
+         where aijis a lower triangular matrix with aij=0, for i<j; and aij=1, for i≧j:
+               
+                  
+                     
+                        
+                           
+                              
+                                 [
+                                 
+                                    
+                                       
+                                          
+                                             
+                                                τ
+                                                1
+                                                *
+                                             
+                                             -
+                                             
+                                                τ
+                                                1
+                                             
+                                          
+                                       
+                                    
+                                    
+                                       
+                                          
+                                             
+                                                τ
+                                                2
+                                                *
+                                             
+                                             -
+                                             
+                                                τ
+                                                2
+                                             
+                                          
+                                       
+                                    
+                                    
+                                       
+                                          
+                                             
+                                                τ
+                                                3
+                                                *
+                                             
+                                             -
+                                             
+                                                τ
+                                                3
+                                             
+                                          
+                                       
+                                    
+                                    
+                                       
+                                          
+                                             
+                                                τ
+                                                4
+                                                *
+                                             
+                                             -
+                                             
+                                                τ
+                                                4
+                                             
+                                          
+                                       
+                                    
+                                    
+                                       
+                                          [!ctdot!]
+                                       
+                                    
+                                    
+                                       
+                                          
+                                             
+                                                τ
+                                                
+                                                   N
+                                                   -
+                                                   1
+                                                
+                                                *
+                                             
+                                             -
+                                             
+                                                τ
+                                                
+                                                   N
+                                                   -
+                                                   1
+                                                
+                                             
+                                          
+                                       
+                                    
+                                    
+                                       
+                                          
+                                             
+                                                τ
+                                                N
+                                                *
+                                             
+                                             -
+                                             
+                                                τ
+                                                N
+                                             
+                                          
+                                       
+                                    
+                                 
+                                 ]
+                              
+                              =
+                              
+                                 
+                                    [
+                                    
+                                       
+                                          
+                                             1
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                       
+                                       
+                                          
+                                             1
+                                          
+                                          
+                                             1
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                       
+                                       
+                                          
+                                             1
+                                          
+                                          
+                                             1
+                                          
+                                          
+                                             1
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                       
+                                       
+                                          
+                                             1
+                                          
+                                          
+                                             1
+                                          
+                                          
+                                             1
+                                          
+                                          
+                                             1
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                       
+                                       
+                                          
+                                             [!ctdot!]
+                                          
+                                          
+                                             [!ctdot!]
+                                          
+                                          
+                                             [!ctdot!]
+                                          
+                                          
+                                             [!ctdot!]
+                                          
+                                          
+                                             [!ctdot!]
+                                          
+                                          
+                                             [!ctdot!]
+                                          
+                                          
+                                             [!ctdot!]
+                                          
+                                          
+                                             [!ctdot!]
+                                          
+                                       
+                                       
+                                          
+                                             1
+                                          
+                                          
+                                             1
+                                          
+                                          
+                                             1
+                                          
+                                          
+                                             1
+                                          
+                                          
+                                             1
+                                          
+                                          
+                                             1
+                                          
+                                          
+                                             1
+                                          
+                                          
+                                             0
+                                          
+                                       
+                                       
+                                          
+                                             1
+                                          
+                                          
+                                             1
+                                          
+                                          
+                                             1
+                                          
+                                          
+                                             1
+                                          
+                                          
+                                             1
+                                          
+                                          
+                                             1
+                                          
+                                          
+                                             1
+                                          
+                                          
+                                             1
+                                          
+                                       
+                                    
+                                    ]
+                                 
+                                 ×
+                                 
+                                    [
+                                    
+                                       
+                                          
+                                             
+                                                q
+                                                1
+                                             
+                                          
+                                       
+                                       
+                                          
+                                             
+                                                q
+                                                2
+                                             
+                                          
+                                       
+                                       
+                                          
+                                             
+                                                q
+                                                3
+                                             
+                                          
+                                       
+                                       
+                                          
+                                             
+                                                q
+                                                4
+                                             
+                                          
+                                       
+                                       
+                                          
+                                             [!ctdot!]
+                                          
+                                       
+                                       
+                                          
+                                             
+                                                q
+                                                
+                                                   N
+                                                   -
+                                                   1
+                                                
+                                             
+                                          
+                                       
+                                       
+                                          
+                                             
+                                                q
+                                                N
+                                             
+                                          
+                                       
+                                    
+                                    ]
+                                 
+                              
+                           
+                        
+                        
+                           
+                              (
+                              3
+                              )
+                           
+                        
+                     
+                  
+               
+               
+            
+         
+         The constraint that no delays should occur at critical modules is now applied to Equation (3). For example if module #3 and #4 are critical, Equation (3) should be modified to the linear equations as shown below.
+               
+                  
+                     
+                        
+                           
+                              
+                                 [
+                                 
+                                    
+                                       
+                                          
+                                             
+                                                τ
+                                                1
+                                                *
+                                             
+                                             -
+                                             
+                                                τ
+                                                1
+                                             
+                                          
+                                       
+                                    
+                                    
+                                       
+                                          
+                                             
+                                                τ
+                                                2
+                                                *
+                                             
+                                             -
+                                             
+                                                τ
+                                                2
+                                             
+                                          
+                                       
+                                    
+                                    
+                                       
+                                          0
+                                       
+                                    
+                                    
+                                       
+                                          0
+                                       
+                                    
+                                    
+                                       
+                                          [!ctdot!]
+                                       
+                                    
+                                    
+                                       
+                                          [!ctdot!]
+                                       
+                                    
+                                    
+                                       
+                                          
+                                             
+                                                τ
+                                                
+                                                   N
+                                                   -
+                                                   1
+                                                
+                                                *
+                                             
+                                             -
+                                             
+                                                τ
+                                                
+                                                   N
+                                                   -
+                                                   1
+                                                
+                                             
+                                          
+                                       
+                                    
+                                    
+                                       
+                                          
+                                             
+                                                τ
+                                                N
+                                                *
+                                             
+                                             -
+                                             
+                                                τ
+                                                N
+                                             
+                                          
+                                       
+                                    
+                                 
+                                 ]
+                              
+                              =
+                              
+                                 
+                                    [
+                                    
+                                       
+                                          
+                                             1
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                       
+                                       
+                                          
+                                             1
+                                          
+                                          
+                                             1
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                       
+                                       
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             1
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                       
+                                       
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             1
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                       
+                                       
+                                          
+                                             [!ctdot!]
+                                          
+                                          
+                                             [!ctdot!]
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             [!ctdot!]
+                                          
+                                          
+                                             [!ctdot!]
+                                          
+                                          
+                                             [!ctdot!]
+                                          
+                                          
+                                             [!ctdot!]
+                                          
+                                       
+                                       
+                                          
+                                             [!ctdot!]
+                                          
+                                          
+                                             [!ctdot!]
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             [!ctdot!]
+                                          
+                                          
+                                             [!ctdot!]
+                                          
+                                          
+                                             [!ctdot!]
+                                          
+                                          
+                                             [!ctdot!]
+                                          
+                                       
+                                       
+                                          
+                                             1
+                                          
+                                          
+                                             1
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             1
+                                          
+                                          
+                                             1
+                                          
+                                          
+                                             1
+                                          
+                                          
+                                             0
+                                          
+                                       
+                                       
+                                          
+                                             1
+                                          
+                                          
+                                             1
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             1
+                                          
+                                          
+                                             1
+                                          
+                                          
+                                             1
+                                          
+                                          
+                                             1
+                                          
+                                       
+                                    
+                                    ]
+                                 
+                                 ×
+                                 
+                                    [
+                                    
+                                       
+                                          
+                                             
+                                                q
+                                                1
+                                             
+                                          
+                                       
+                                       
+                                          
+                                             
+                                                q
+                                                2
+                                             
+                                          
+                                       
+                                       
+                                          
+                                             
+                                                q
+                                                3
+                                             
+                                          
+                                       
+                                       
+                                          
+                                             
+                                                q
+                                                4
+                                             
+                                          
+                                       
+                                       
+                                          
+                                             [!ctdot!]
+                                          
+                                       
+                                       
+                                          
+                                             [!ctdot!]
+                                          
+                                       
+                                       
+                                          
+                                             
+                                                q
+                                                
+                                                   N
+                                                   -
+                                                   1
+                                                
+                                             
+                                          
+                                       
+                                       
+                                          
+                                             
+                                                q
+                                                N
+                                             
+                                          
+                                       
+                                    
+                                    ]
+                                 
+                              
+                           
+                        
+                        
+                           
+                              (
+                              4
+                              )
+                           
+                        
+                     
+                  
+               
+               
+            
+         
+         In Equation (4) above, the timings τias prescribed by the original recipe are known. The target timings τi* are set to values which eliminate conflicts between all modules using the same robot, as described earlier. Thus LHS of Equation (4) are known values. The vector qiis then solved for by pre-multiplying (τi*—τi) with the inverse of the modified constraint matrix as shown in Equation (5) below. Adding this set of qito the corresponding module process time piwill synchronize wafer transport with wafer process.
+               
+                  
+                     
+                        
+                           
+                              
+                                 [
+                                 
+                                    
+                                       
+                                          
+                                             q
+                                             1
+                                          
+                                       
+                                    
+                                    
+                                       
+                                          
+                                             q
+                                             2
+                                          
+                                       
+                                    
+                                    
+                                       
+                                          
+                                             q
+                                             3
+                                          
+                                       
+                                    
+                                    
+                                       
+                                          
+                                             q
+                                             4
+                                          
+                                       
+                                    
+                                    
+                                       
+                                          [!ctdot!]
+                                       
+                                    
+                                    
+                                       
+                                          [!ctdot!]
+                                       
+                                    
+                                    
+                                       
+                                          
+                                             q
+                                             
+                                                N
+                                                -
+                                                1
+                                             
+                                          
+                                       
+                                    
+                                    
+                                       
+                                          
+                                             q
+                                             N
+                                          
+                                       
+                                    
+                                 
+                                 ]
+                              
+                              =
+                              
+                                 
+                                    [
+                                    
+                                       
+                                          
+                                             1
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                       
+                                       
+                                          
+                                             1
+                                          
+                                          
+                                             1
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                       
+                                       
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             1
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                       
+                                       
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             1
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                       
+                                       
+                                          
+                                             [!ctdot!]
+                                          
+                                          
+                                             [!ctdot!]
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             [!ctdot!]
+                                          
+                                          
+                                             [!ctdot!]
+                                          
+                                          
+                                             [!ctdot!]
+                                          
+                                          
+                                             [!ctdot!]
+                                          
+                                       
+                                       
+                                          
+                                             [!ctdot!]
+                                          
+                                          
+                                             [!ctdot!]
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             [!ctdot!]
+                                          
+                                          
+                                             [!ctdot!]
+                                          
+                                          
+                                             [!ctdot!]
+                                          
+                                          
+                                             [!ctdot!]
+                                          
+                                       
+                                       
+                                          
+                                             1
+                                          
+                                          
+                                             1
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             1
+                                          
+                                          
+                                             1
+                                          
+                                          
+                                             1
+                                          
+                                          
+                                             0
+                                          
+                                       
+                                       
+                                          
+                                             1
+                                          
+                                          
+                                             1
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             0
+                                          
+                                          
+                                             1
+                                          
+                                          
+                                             1
+                                          
+                                          
+                                             1
+                                          
+                                          
+                                             1
+                                          
+                                       
+                                    
+                                    ]
+                                 
+                                 ×
+                                 
+                                    [
+                                    
+                                       
+                                          
+                                             
+                                                
+                                                   τ
+                                                   1
+                                                   *
+                                                
+                                                -
+                                                
+                                                   τ
+                                                   1
+                                                
+                                             
+                                          
+                                       
+                                       
+                                          
+                                             
+                                                
+                                                   τ
+                                                   2
+                                                   *
+                                                
+                                                -
+                                                
+                                                   τ
+                                                   2
+                                                
+                                             
+                                          
+                                       
+                                       
+                                          
+                                             0
+                                          
+                                       
+                                       
+                                          
+                                             0
+                                          
+                                       
+                                       
+                                          
+                                             [!ctdot!]
+                                          
+                                       
+                                       
+                                          
+                                             [!ctdot!]
+                                          
+                                       
+                                       
+                                          
+                                             
+                                                
+                                                   τ
+                                                   
+                                                      N
+                                                      -
+                                                      1
+                                                   
+                                                   *
+                                                
+                                                -
+                                                
+                                                   τ
+                                                   
+                                                      N
+                                                      -
+                                                      1
+                                                   
+                                                
+                                             
+                                          
+                                       
+                                       
+                                          
+                                             
+                                                
+                                                   τ
+                                                   N
+                                                   *
+                                                
+                                                -
+                                                
+                                                   τ
+                                                   N
+                                                
+                                             
+                                          
+                                       
+                                    
+                                    ]
+                                 
+                              
+                           
+                        
+                        
+                           
+                              (
+                              5
+                              )
+                           
+                        
+                     
+                  
+               
+               
+            
+         
+         An Application of the Synchronous Algorithm
+         Specific embodiments of the invention will now be further described by the following, nonlimiting example which will serve to illustrate in some detail various features of significance. The example is intended merely to facilitate an understanding of ways in which the invention may be practiced and to further enable those of skill in the art to practice the invention. Accordingly, the example should not be construed as limiting the scope of the invention.
+         The synchronization of wafer transport with wafer process in a cluster tool will now be illustrated using a specific example of a cluster tool.FIG. 3is a schematic for a conceptual plan view of a wafer processing apparatus. The resist coating and developing modules are identified as CT300and DEV302respectively. Also shown inFIG. 3are the different bake modules vapor prime (VP)304, soft bake (SB)306, post exposure bake (PEB)308, and hard bake (HB)310, as well as their corresponding chill modules. The arrows connecting adjacent bake and chill modules represent the inter bay transfer arms, IBTAs312, that transfer the substrate between these modules. As a result, the locations of these bake modules constrain the location of their corresponding chill plate. The cassette end station (CES) robot314shown in the figure transfers substrates from and to the cassette end station. The stepper interface (SI) robot316transfers substrate from and to the stepper interface. The I/O module318is a buffer zone for the substrate transported to the stepper interface if and when it becomes necessary. The main robot320is the means to transport the substrate between all other modules such as vapor prime chill (VPC) to resist coat (CT.)
+         
+            FIG. 4is a schematic for the wafer process flow. As can be seen from the schematic, when the transport means is the IBTA the substrate will have only one option in the flow diagram. This is the case when the substrate is transported from a vapor prime bake400to vapor prime chill402. However, when the transport means is the main robot the substrate could have several options. For example, when a substrate is removed from a resist coat module404, it can be transported to any of the soft bake modules406shown in FIG.4.
+         The Synchronization Algorithm
+         We will now demonstrate the application of the synchronization algorithm to this cluster tool as a series of four steps:
+         Step 1 Input The Recipe And Throughput Requirement. This discussion refers to FIG.5. This step commences by inserting the recipe in a table500. The first two columns502list the process steps in sequential order. The sending period, also referred to as the “system takt time” is also noted504. Cycle times, also known as module takt times, are then calculated for each module in the “Module type” column502to ensure each module takt time is less than the system takt time. The module takt time for each process step is listed in a column506. If not, redundant modules are added to reduce module takt time. As will be clear to one skilled in the art, for each process step:
+         No. Modules Required=INT (Module takt time/System takt time)
+         In this example, most modules require one additional redundant module. The number of modules required for each process step is listed in a column508.
+         Step 2 Determine The Load of The Wafer Transport. As defined earlier, the “load” of a robot refers to the number of moves it is scheduled to make as well as the times allotted for the robot to perform these moves, as measured from the beginning of the current sending period. The determination of the robot load is depicted in the table600in FIG.6. This cluster apparatus of this example has twelve process steps. The timings of the twelve corresponding robot moves are determined as follows. Counting the time from the moment the wafer leaves the load port (cassette), cumulate the process times of each module and transport times up to the module of interest. For example, for the module code-named VP602(hereafter all modules are coded), it is (62+6)=68 sec; for module VPC604, it is (68+65+5)=138 sec. The actual timings in seconds for all robot moves are listed in a column marked “Actual”606. To determine the relative pick-up times Ti, the actual times are divided by the actual sending period. For example, dividing the actual pick-up times of VP and VPC by the actual sending period of 45 sec results, respectively, in normalized pick-up times 1.511 and 3.067. The normalized pick-up times for each of the twelve process steps are listed under the column “TiNormalized”608.
+         Subtracting the integer portion of the Tivalues results in the τivalues, i.e., the available time the respective modules have to be served by robots, as measured from the beginning of sending period, and expressed in units of one sending period. To illustrate, the τivalues of VP and VPC are 0.511 and 0.067, which indicates that VP must be serviced within 0.511 intervals of one sending period, and VPC must be serviced within 0.067 intervals of one sending period. The list of normalized τivalues are listed in a column610. The diagram612is a pictorial representation of the load: a total of twelve moves and the time they have to be served within a sending period.FIG. 7shows the same information from another perspective. Since the robot transport times are around 5 & 6 seconds, the number of moves one robot can make within a sending period of 45 sec is (45/6)˜7; say 6 moves to be on the conservative side. Thus 6 vertical lines are drawn in the graph700. When the times the modules have to be served by a robot fall within one interval, such as SBC702, DEV704, HB706, and Cassette708, all of which fall into one interval710, it means that they are competing for the same move of the robot at a given time. To elaborate, if there are two or more tasks which use one robot, and if the τ values of these tasks fall into one of the 6 intervals, it means that there is insufficient time for the robot to service each of the two or more robots.
+         These “conflicts” between the tasks for use of the robots are resolved as described in the subsequent steps.
+         Step 3 Allocate The Transport Load. The first step to resolve conflicts in the manufacturing system is to allocate the load equally among robots in order to achieve a balanced transport load. Although conflicts are recipe dependent, assigning fewer loads per robot still reduces the chance for conflict. However, the possibility of balancing the load is dependent on the layout of the modules relative to robots. Poor layout limits accessibility to modules by robots and makes balanced loads difficult to attain. In this example, the layout is such that two robots, CES and SI, can each only serve two modules, leaving the bulk of the load to the main robot C-1 and three dedicated robots known as IBTA (Inter Bay Transfer Arm). The best allocation of transport load, under the constraints of the layout, is as shown in FIG.7. Six modules, VPC712, CT714, SBC716, PEBC718, DEV720, and HB722are allocated to the main robot C-1 with three of them, SBC, DEV and HB competing for one move of the robot, as discussed earlier. These conflicts will be resolved by queuing as demonstrated in the next step.
+         Step 4 Queuing For Synchronization. The information in the table800ofFIG. 8is a summary of load allocation from Step 3. Only the six modules served by main robot C-1, i.e., VPC802, CT804, SBC806, PEBC808, DEV810, and HB812, need to be considered for queuing. The remaining modules should not experience conflicts since each has dedicated robot, i.e., an IBTA, serving them. In the Target Column814, the target timing profile is set for the 6 modules. For each of the modules listed in the table, a corresponding value is set for τ*, where τ* is an updated value for τ which eliminates conflicts between tasks for robots. Since only 3 of these 6 modules, SBC806, DEV810, and HB812are in conflict, only two, DEV and HB, need to have timing targets different from the original values for τ prescribed by the recipe. The timing targets are listed in a column814, and are set such that the timing interval between any pair of the 6 modules is larger than robot transport time (=6/45˜0.1333). The differences between the target and the originally prescribed timing profiles are referred to as the gaps and are computed the column816. These are shown pictorially in the graph818adjacent to the table. Another objective of the “synchronous algorithm” is to ensure that no delays are introduced at critical process steps. In this example, critical process steps are step 3804, step 4806, and step 7809. No queues should be added to modules corresponding to these steps, i.e., the target timing for these modules should be the same as the prescribed values. The gaps computed in the Gap column816may now be substituted in to Equation (3) to solve for the queues that will close these gaps. However, to ensure zero delays at the critical process modules, the matrix818relating gaps and queues must be modified per Equation (4) to generate a modified matrix820. Pre-multiplying the gaps from the Gap column816with the inverse of the modified matrix822produces the queues needed to close the gap824. The solution for the queues is transferred to a Que Column826. The solution, which is in units of the sending period, is converted to actual time in an Actual Que Column828.
+         Step 5 Check The Solution. The queues determined in Step 4 are now added to the module processing time of the original recipe. This is to verify if conflicts have been resolved. This is in fact the case as shown in the figure.
+         Robot Assignment
+         Another aspect of the scheduling problem, which merits automation, is the assignment of robots to modules. For example, in step three listed above, a recipe was chosen which assigned a single robot between each pair of consecutive models; this allocation is shown in the recipe listed in FIG.7. The allocation was chosen amongst many possible allocations.
+         In general, there is a need for an algorithm that determines an optimal robot assignment prior to the determination of queues. The need for such an algorithm will be demonstrated in the following example. Suppose we have a simplified track system, consisting of three modules, labeled Mod1, Mod2and Mod3. Suppose we have two robots, Robot1and Robot2, both of which can service all three modules. Let the sending period be designated by the variable SP. Suppose τ1=0.0, τ2=0.6, τ3=0.7, in units of the sending period, and suppose the robots can move in 0.3, in units of SP. There are four possible robot allocations:
+               
+                  
+                     
+                     
+                     
+                     
+                        
+                           
+                        
+                        
+                           Assignment
+                           Mod1 to Mod 2
+                           Mod2 to Mod3
+                        
+                        
+                           
+                        
+                     
+                     
+                        
+                           1.
+                           Robot1
+                           Robot1
+                        
+                        
+                           2.
+                           Robot2
+                           Robot2
+                        
+                        
+                           3.
+                           Robot1
+                           Robot2
+                        
+                        
+                           4.
+                           Robot2
+                           Robot1
+                        
+                        
+                           
+                        
+                     
+                  
+               
+            
+         
+         Upon inspection, only assignments3and4are viable. In assignments1and2, the time interval between τ2=0.6 and τ3=0.7 is 0.1 sending periods, which is less than the 0.3 sending periods required for a robot to move. Hence the optimal allocations are, in this case, assignment #3 and #4; as the time intervals between the values have sufficient distance, this robot assignment obviates the need to insert delays. Other criteria may also enter into the determination of an optimal robot assignment, for instance, balancing loads, increasing throughput. An algorithm is necessary which would determine, in cases more complicated than the simplified example above, an optimal robot assignment.
+         One method of performing such an assignment is simply an exhaustive technique: generate all possible robot assignments, and determine the validity of each assignment, i.e., ensure that all modules assigned to a robot differ sufficiently in their τ values to permit the robot to service them. The assignments thus generated may also be selected on additional criteria, such as load balancing.
+         Solving for Updated Timings (τ*)
+         Another feature of the synchronization that merits automation is the derivation of the updated timings, given by τ*. To elaborate, in step 4 of the algorithm outlined earlier, the algorithm was fed updated values of τ*, where for any two modules which shared a robot, the respective τ* values differed by enough time to allow the robot to move between them. There is a need for an automated method of deriving these τ* values. One such technique is as follows:
+         For each robot with a conflict, take the τ value for each of its modules.
+         For each combination of these τ values, sort the τ values from lowest to highest. For each sorted list of τ values:
+         Proceed sequentially through the τ values, from lowest to highest.
+         Determine the difference between the given τ value and the one that precedes it
+         If the difference is less than the time allotted for the robot to move, increment the τ value sufficiently.
+         Go to next τ value. When this algorithm finds an updated set of τ values for a given robot that eliminates conflicts, these become τ* values. It can be proven that if a conflict-free group of τ* values exist, the algorithm outlined above will find it.
+         Genetic Algorithms
+         The synchronization, robot assignment, and derivation problems can also be solved by use of a genetic algorithm (GA). A GA is an iterative process that starts out with an initial population of genes, which encode possible states of the problem. This population is systematically improved with each iteration, through a process of selective breeding. To perform selective breeding, the GA needs to a) define the characteristics of a species, and b) judge a species' fitness.
+         Characteristics of a Species
+         A specie is characterized by n genes. For our problem, we use two types of genes, one to represent the robot assignment, and the other, a queue segment. Consider the example used in the description of the earlier algorithm. The robot assignment will range from 1 to 4, indicating which robot will work on a particular module. Queue segment is also an integer indicating how many “time zones”, i.e., robot move periods, are to be added to a module's arrival time in order to avoid conflict in robot assignment. In our earlier example, the modules arrive in six different time zones, as shown inFIG. 6
+            612. If a time zone sees the arrival of, for instance, five modules, a conflict results. The addition of a queue segment to one of the modules will push the arrival time to the next time zone and hence resolve the conflict.
+         Fitness of a Species
+         We can measure fitness by the reciprocal of a species ‘badness’. In turn, badness can be measured by a weighted sum of the degree of conflict and the number of added queue segments. An ideal species is one that has no added segments, and results in no conflict in robot assignment.
+         To derive the fitness function, we scan each time zone and count the number of redundant assignments for each robot. The results are summed for all robots and all time zones. Call this sum s. We proceed to count the number of added queue segments, and call it t. The fitness function is then
+               
+                  
+                     
+                        
+                           f
+                           [!it!]
+                           
+                              (
+                              
+                                 s
+                                 ,
+                                 t
+                              
+                              )
+                           
+                        
+                        =
+                        
+                           1
+                           
+                              (
+                              
+                                 1
+                                 +
+                                 
+                                    
+                                       w
+                                       1
+                                    
+                                    [!it!]
+                                    s
+                                 
+                                 +
+                                 
+                                    
+                                       w
+                                       2
+                                    
+                                    [!it!]
+                                    t
+                                 
+                              
+                              )
+                           
+                        
+                     
+                     ;
+                  
+               
+               
+            
+         
+         where the weights wiand w2are assigned according to the relative importance of s over t.
+         Recipe Cascading
+         An embodiment of the invention allows the cluster tool to change from a first recipe to a second recipe, while preserving periodicity, and ensuring that there are no delays at critical points. This procedure is referred to as recipe cascading. Cascading involves emptying a first lot of wafers, hereafter called the exiting lot, off a cluster tool, and simultaneously and serially populating the cluster tool with another lot of wafers, hereafter called the entering lot. The procedure will be performed with no delays incurred at critical process steps; and with no additional robots and process modules other than those called for by the recipe and throughput requirements of the entering and the exiting lots. The entering lot may also have different recipe and throughput requirements from the exiting lot.
+         Notation
+         The following parameters will be employed in our discussion of recipe cascading:
+         mex=number of process steps, superscript (en, ex) hereafter denotes entering or exiting lot.
+         nex=number of exiting wafers to fully empty, or of enter wafers to fully populate the cluster tool.
+         SPi
+            ex=Send period of the ith wafer which is the time interval between the launching of the (i−1)th and ith wafer.
+         SP*
+            ex=Send period of the wafers during steady state.
+         SP1st,j
+            en=The delay in the launching of the 1st wafer of the entering lot to accommodate the change-over at the jth process module of the exiting lot.
+         COj=Time it takes to change the jth process module of the exiting lot over to a new setting.
+         Tijk
+            in=The arrival time of the ith wafer at the jth module transported by the kth robot.
+         Tijk
+            out=The departure time of the ith wafer from the jth module transported by the kth robot
+         pj
+            ex=Process time of jth process step of the exiting lot.
+         tj
+            ex=Transport time between (j−1)th and jth process step of the exiting lot.
+         qij
+            ex=queues added to the ith wafer at the jth process step of the exiting lot.
+         Nature of Recipe Cascading
+         
+            FIG. 9illustrates a typical recipe900. It specifies the process and transport tasks and the timing of each task to be performed on a wafer as the wafer goes through a cluster tool. To satisfy throughput requirement, succeeding wafers are sent through the cluster tool at a constant send period, as illustrated in FIG.10. This send period SP1000is given by
+               
+                  
+                     
+                        S
+                        [!it!]
+                        
+                            
+                        
+                        [!it!]
+                        P
+                     
+                     =
+                     
+                        3600
+                        
+                           W
+                           [!it!]
+                           
+                               
+                           
+                           [!it!]
+                           P
+                           [!it!]
+                           
+                               
+                           
+                           [!it!]
+                           H
+                        
+                     
+                  
+               
+               
+            
+         
+         where WPH is the throughput requirement in wafer per hour.
+         By the nth wafer, the cluster tool will be fully populated with wafers. For every wafer exiting the cluster tool, there is a wafer entering to replenish it. All process and transport tasks performed on the wafers occur in a periodic fashion, the periodicity being delimited by the send period. When the system reaches this stage, it is said to be in steady state. The number of wafers n required to fully populate the cluster tool and ramp up to a steady periodic state is given by the expression
+               
+                  
+                     
+                        
+                           
+                              
+                                 n
+                                 =
+                                 
+                                    1
+                                    +
+                                    
+                                       INT
+                                       [!af!]
+                                       
+                                          (
+                                          
+                                             π
+                                             
+                                                S
+                                                [!it!]
+                                                
+                                                    
+                                                
+                                                [!it!]
+                                                P
+                                             
+                                          
+                                          )
+                                       
+                                    
+                                 
+                              
+                              ;
+                           
+                        
+                        
+                           
+                              (
+                              A
+                              )
+                           
+                        
+                     
+                  
+               
+               
+            
+         
+         where π is the total process and transport time performed on a wafer as indicated inFIG. 9
+            902. The symbol INT(*) denotes a function that rounds a number down to the nearest integer. The above equation also applies for the number of wafers for a lot to ramp down from a steady state and fully empty out the cluster tool. In the steady state, every wafer has identical process and transport tasks performed on it at identical time intervals. There is therefore no need to keep track of the movement of wafers inside the cluster tool.
+         During the recipe cascading, however, the wafers are in transition from the steady state of the exiting lot to the steady state of the entering lot, as illustrated in FIG.11. During the transition, some wafers will be processed and transported according to the recipe and send period prescribed for the exiting lot; others, will be processed and transported according to the recipe prescribed for the entering lot. Periodicity therefore can not be maintained. “Conflicts” will occur. “Conflicts” refer to two situations. In one situation called process conflict, two wafers have to be processed sequentially by the same process module within an interval shorter than the process time of that step. In the other situation called transport conflict, two wafers have to be transported sequentially by the same robot within an interval shorter than the robot transport time.
+         One solution to conflicts is to add more modules and robots. This solution is costly and not practical. Another solution is to devise a set of priority rule and implement “if-then” algorithm to react to the conflicts. Because of its combinatorial nature, this solution generates huge combination of outcomes that eventually lead to chaos and unpredictability. The fundamental solution is to eliminate conflicts completely through proper timing in launching wafers of the entering lot and insertion of intentional delays at the non-critical process steps of both the exiting and entering lot. This is the principle behind recipe cascading described herein.
+         Procedure
+         Step 1: Estimate the number of wafers in transition. During transition, the exiting lot is emptying while the entering lot is populating the cluster tool. The number of wafers involved in the transition can be estimated by using Equation (A). The algorithm for the estimation is as follows.
+         πex=0
+         For i=1, 2. . . mex
+         
+         πex=πex+pi
+            ex+ti
+            ex
+         
+         Next i
+         nex=INT(πex/SP*
+            ex)
+         πen=0
+         For i=1, 2. . . nen
+         
+         πen=πen+pi
+            en+ti
+            en
+         
+         Next i
+         nen=INT(πen/SP*
+            en)
+         Step 2: Estimate the lower bound of “delay”. The timing of launching the wafers of the entering lot is a primary variable responsible for conflict occurrence. Therefore proper timing of the launches is important. Additionally, the timing of launching the first wafer, hereafter called the “delay”, should be such that it provides the time needed to change a process module over to a new setting called for by the entering lot. So that when the first wafer of the entering lot arrives, the change over is complete and the process module is ready to accept it. There will be as many “delays” as the number of module change over called for by the recipe of the entering lot. The maximum of them is the lower bound of the delay. Any amount of delay contemplated for conflict resolution must be greater than the lower bound. Referring toFIG. 12, the lower bound can be derived as follows.
+               
+                  
+                     
+                        
+                           
+                              
+                                 
+                                    
+                                       SP
+                                       
+                                          
+                                             1
+                                             [!it!]
+                                             
+                                                 
+                                             
+                                             [!it!]
+                                             st
+                                          
+                                          ,
+                                          j
+                                       
+                                       en
+                                    
+                                    +
+                                    
+                                       
+                                          [!Sum!]
+                                          
+                                             l
+                                             =
+                                             1
+                                          
+                                          
+                                             j
+                                             -
+                                             1
+                                          
+                                       
+                                       [!it!]
+                                       
+                                           
+                                       
+                                       [!it!]
+                                       
+                                          (
+                                          
+                                             
+                                                p
+                                                l
+                                                en
+                                             
+                                             +
+                                             
+                                                t
+                                                l
+                                                en
+                                             
+                                          
+                                          )
+                                       
+                                    
+                                 
+                                 =
+                                 
+                                    
+                                       CO
+                                       j
+                                    
+                                    +
+                                    
+                                       
+                                          [!Sum!]
+                                          
+                                             l
+                                             =
+                                             1
+                                          
+                                          j
+                                       
+                                       [!it!]
+                                       
+                                           
+                                       
+                                       [!it!]
+                                       
+                                          (
+                                          
+                                             
+                                                p
+                                                l
+                                                ex
+                                             
+                                             +
+                                             
+                                                t
+                                                l
+                                                ex
+                                             
+                                          
+                                          )
+                                       
+                                    
+                                 
+                              
+                              [!it!]
+                              
+                                 [!NewLine!]
+                              
+                              [!it!]
+                              
+                                 
+                                    SP
+                                    
+                                       
+                                          1
+                                          [!it!]
+                                          
+                                              
+                                          
+                                          [!it!]
+                                          st
+                                       
+                                       ,
+                                       j
+                                    
+                                    en
+                                 
+                                 =
+                                 
+                                    
+                                       CO
+                                       j
+                                    
+                                    +
+                                    
+                                       
+                                          [!Sum!]
+                                          
+                                             l
+                                             =
+                                             1
+                                          
+                                          j
+                                       
+                                       [!it!]
+                                       
+                                           
+                                       
+                                       [!it!]
+                                       
+                                          (
+                                          
+                                             
+                                                p
+                                                l
+                                                ex
+                                             
+                                             +
+                                             
+                                                t
+                                                l
+                                                ex
+                                             
+                                          
+                                          )
+                                       
+                                    
+                                    -
+                                    
+                                       
+                                          [!Sum!]
+                                          
+                                             l
+                                             =
+                                             1
+                                          
+                                          
+                                             j
+                                             -
+                                             1
+                                          
+                                       
+                                       [!it!]
+                                       
+                                           
+                                       
+                                       [!it!]
+                                       
+                                          (
+                                          
+                                             
+                                                p
+                                                l
+                                                en
+                                             
+                                             +
+                                             
+                                                t
+                                                l
+                                                en
+                                             
+                                          
+                                          )
+                                       
+                                    
+                                 
+                              
+                              [!it!]
+                              
+                                 [!NewLine!]
+                              
+                              [!it!]
+                              
+                                 SP
+                                 
+                                    
+                                       1
+                                       [!it!]
+                                       
+                                           
+                                       
+                                       [!it!]
+                                       st
+                                    
+                                    [!it!]
+                                    
+                                       ,
+                                       *
+                                    
+                                 
+                                 en
+                              
+                              =
+                              
+                                 max
+                                 [!af!]
+                                 
+                                    (
+                                    
+                                       
+                                          SP
+                                          
+                                             
+                                                1
+                                                [!it!]
+                                                st
+                                             
+                                             ,
+                                             1
+                                          
+                                          en
+                                       
+                                       ,
+                                       
+                                          SP
+                                          
+                                             
+                                                1
+                                                [!it!]
+                                                st
+                                             
+                                             ,
+                                             2
+                                          
+                                          en
+                                       
+                                       ,
+                                       
+                                          SP
+                                          
+                                             
+                                                1
+                                                [!it!]
+                                                st
+                                             
+                                             ,
+                                             3
+                                          
+                                          en
+                                       
+                                       ,
+                                       
+                                          …
+                                          [!it!]
+                                          
+                                              
+                                          
+                                          [!it!]
+                                          
+                                             SP
+                                             
+                                                
+                                                   1
+                                                   [!it!]
+                                                   st
+                                                
+                                                ,
+                                                j
+                                             
+                                             en
+                                          
+                                       
+                                       ,
+                                       
+                                           
+                                       
+                                       [!it!]
+                                       
+                                          j
+                                          =
+                                          1
+                                       
+                                       ,
+                                       2
+                                       ,
+                                       
+                                          …
+                                          [!it!]
+                                          
+                                              
+                                          
+                                          [!it!]
+                                          
+                                             m
+                                             en
+                                          
+                                       
+                                       ,
+                                    
+                                    )
+                                 
+                              
+                           
+                        
+                        
+                           
+                              (
+                              B
+                              )
+                           
+                        
+                     
+                  
+               
+               
+            
+         
+         The following is the algorithm for estimating the lower bound of delay per Equation (B)
+         For j=1, 2. . . men
+         
+         SP1st,j
+            en=COj
+         
+         For l=1, 2. . . j
+         
+            SP
+            1st,j
+            en
+            =SP
+            1st,j
+            en+(p
+            l
+            ex
+            +t
+            l
+            ex)−(p
+            l
+            en
+            +t
+            l
+            en)
+         next l
+         
+            SP
+            1st,j
+            en
+            =SP
+            1st,j
+            en−(p
+            j
+            en
+            +t
+            j
+            en)
+         next j
+         SP1st,*
+            en=max(SP1st,1
+            en, SP1st,2
+            en, SP1st,3
+            en, SP1st,j
+            en, j=1, 2. . . men,)
+         Step 3: Track the movement of wafers in transition. The movement of wafers in transition can be tracked. The arrival time Tijk
+            inof the ith wafer at the jth module transported by the kth robot is the departure time Ti(j−1)k
+            outfrom the prior (j−1)th process module plus the transport time tjfrom the (j−1)th to the jth module:
+         
+            T
+            ijk
+            in
+            =T
+            i(j−1)k
+            out
+            +t
+            j  (C)
+         In turn, the departure time from the jth module is the arrival time plus the processing time and queues deliberately inserted for conflict resolution:
+         
+            T
+            ijk
+            out
+            =T
+            ijk
+            in
+            +p
+            j
+            +q
+            ij  (D)
+         The recursive formulae of Equations (C) and (D) above permit one to map out the movement of the wafers in transition. Thus, measuring time from when the last wafer of the exiting lot is launched and transition begun, seeFIG. 11, the arrival and departure of a wafer at a process module can be calculated per the algorithm below. The arrival and departure times outside of the transition are not considered and therefore marked with large negative values. For wafers of the exiting lot, see FIG.11:
+         For i=1, 2. . . nex
+         
+         Tijk
+            in=−∝
+         Sum=0
+         For j=1, 2. . . mex
+         
+         Sum=Sum+p
+            j
+            ex
+            +q
+            ij
+            ex  (E)
+         
+            T
+            ijk
+            out=Sum−(n
+            ex
+            −i)*SP
+            *
+            ex
+         
+         if j=mex, go to out
+         
+            T
+            i(j=1)k
+            in
+            =T
+            ijk
+            out
+            +t
+            j
+            ex
+         
+         if (T
+            i(j+1)k
+            in≦0,−∝,T
+            i(j−1)k
+            in)
+         if (T
+            ijk
+            out≦0,−∝T
+            ijk
+            out)
+         out: next j
+         next i
+         For wafers of the entering lot,
+         Sum=0
+         Fori=(n
+            ex+1), (n
+            ex+2), . . . (n
+            ex−1+n
+            en), (n
+            ex
+            +n
+            en)
+         Sum=Sum+SP
+            i−n
+            
+               ex
+            
+            en(Note:SP
+            1
+            en≡delay)  (F)
+         Psum=Sum
+         For j=1, 2. . . men
+         
+         Psum=Psum+p
+            j
+            en
+            +q
+            ij
+            en
+            +t
+            j
+            en  (G)
+         
+            T
+            ijk
+            out=Psum−t
+            j
+            en
+         
+         if j=men, go to out1
+         
+         
+            T
+            i(j+1)k
+            in
+            =t
+            j
+            en
+         
+         Out1: next j
+         next i
+         Step 4: Identify conflicts. Having determined the arrival time Tijk
+            inand the departure time Tijk
+            out, one can check for conflicts. A process conflict occurs when a process module at the jth process step is called on to process sequentially a pair of wafer, the mth and the nth, within a time interval shorter than the process time. In other words, the nth wafer arrives before the mth wafer departs from the module. Thus conflict occurs if the following is true:
+         OR{AND[(T
+            mjk
+            out
+            ≧T
+            njk
+            out),(T
+            njk
+            out
+            ≧T
+            mjk
+            in)], AND[(T
+            mjk
+            out
+            ≦T
+            njk
+            out),(T
+            mjk
+            out
+            ≧T
+            njk
+            in)]}
+         By using above logic statement to examine all possible combination of (m,n) pairs for all process steps, all process conflicts may be identified:
+         For j=1 to (mex+men)
+         For m=1 to (nex+nen)
+         For n=1 to m−1
+         Conflict if
+         OR{AND[(T
+            mjk
+            out
+            ≧T
+            njk
+            out),(T
+            njk
+            out
+            ≧T
+            mjk
+            in)], AND[(T
+            mjk
+            out
+            ≦T
+            njk
+            out),(T
+            mjk
+            out
+            ≧T
+            njk
+            in)]}=TRUE
+         next m
+         next n
+         Similarly, a transport conflict occurs when a robot, the kth robot, is called on to transport sequentially two wafers, the mth and the nth, within a time interval shorter than the transport time. In other words, the time interval between the arrival of the mth wafer and the departure of the nth wafer is shorter than the transport time. Thus transport conflict occurs if the following is true:
+         OR[|T
+            mjk
+            out
+            −T
+            njk
+            out
+            |<g,|T
+            mjk
+            out
+            −T
+            njk
+            in
+            |<g,|T
+            mjk
+            in
+            −T
+            njk
+            out
+            |<g,|T
+            mjk
+            in
+            −T
+            njk
+            in
+            |<g]
+         
+         In the above, the symbol |*| denotes absolute value and “g” is the time allocated for the robot to make one transport move. The time “g” is greater or equal to the transport time of the robot. By using above logic statement to examine all possible combination of (m,n) pairs for all process steps, all transport conflicts may be determined:
+         For j=1 to (mex+men)
+         For m=1 to (nex+nen)
+         For n=1 to m−1
+         Conflict if
+         OR[|T
+            mjk
+            out
+            −T
+            njk
+            out
+            |<g,|T
+            mjk
+            out
+            −T
+            njk
+            in
+            |<g,|T
+            mjk
+            in
+            −T
+            njk
+            out
+            |<g,|T
+            mjk
+            in
+            −T
+            njk
+            in
+            |<g]=TRUE
+         
+         next m
+         next n
+         Step 5: Resolve conflict through proper queuing and launching. Note that in Equations (E) through (G), there are three yet undetermined variables used in the calculation of arrival and departure time of a wafer at a process module by a particular robot. These are the intentional delays called queues qij
+            ex, qij
+            enand the timing of launching the wafer of the entering lot SPj
+            en. Optimization procedures are used to find the best combination of these three variables such that there is no conflict and the total queues is minimized. Genetic Algorithms are one such optimization procedure. Others will be apparent to one skilled in the art.
+         The foregoing description of various embodiments of the invention has been presented for purposes of illustration and description. It is not intended to limit the invention to the precise forms disclosed. Many modifications and equivalent arrangements will be apparent.
+      
+   
+   
+      
+         1. A method for wafer processing comprising:loading a first plurality of wafers into a wafer cluster tool, wherein the first plurality of wafers are loaded into the cluster tool individually at intervals delimited by a first sending period, and each wafer of the first plurality of wafers is processed according to a first recipe, the first recipe including
+            a first sequence of process steps
+            a first plurality of process times, wherein each process step in the first sequence of process steps has a corresponding process time in the first plurality of process times;
+            loading a second plurality of wafers into a wafer cluster tool, wherein the second plurality of wafers are loaded into the cluster tool individually at intervals delimited by a second sending period, and each wafer in the second plurality of wafers is processed according to a second recipe, the second recipe including
+            a second sequence of process steps;
+            a second plurality of process times, wherein each process step in the second sequence of process steps has a corresponding process time in the second plurality of process times;
+         
+         wherein the cluster tool has a transition period, during which the cluster tool processes one or more wafers from the first plurality of wafers according to the first recipe and one or more wafers from the second plurality of wafers according to the second recipe.
+      
+      
+         2. The method ofclaim 1, wherein the first and second sequences of process steps are identical.
+      
+      
+         3. The method ofclaim 2, wherein the first sending period and the second sending period are equal.
+      
+      
+         4. The method ofclaim 2, wherein the first and second plurality of wafers are processed in a wafer cluster tool.
+      
+      
+         5. The method ofclaim 4, wherein the wafer cluster tool includes a plurality of processing chambers.
+      
+      
+         6. The method ofclaim 5, wherein each process step from the first sequence of process steps is performed in a processing chamber from the plurality of processing chambers.
+      
+      
+         7. The method ofclaim 6, wherein each wafer of the first plurality of wafers is released from the wafer cluster tool at intervals delimited by the first sending period.
+      
+      
+         8. The method ofclaim 7, wherein each wafer of the second plurality of wafers is released from the wafer cluster tool at intervals delimited by a second sending period.
+      
+   
+   
+      
+         
+      
+      
+         
+      
+      
+         
+      
+      
+         
+      
+      
+         
+      
+      
+         
+      
+      
+         
+      
+      
+         
+      
+      
+         
+      
+      
+         
+      
+      
+         
+      
+      
+         
+      
+      
+         
+      
+   
