@@ -64,6 +64,7 @@ import os, sys, shutil, getopt, codecs, random
 
 import config
 import putils
+import textwrap
 
 script_path = os.path.abspath(sys.argv[0])
 script_dir = os.path.dirname(script_path)
@@ -262,8 +263,12 @@ def _add_file_data_to_annotation_file(output_fh, fd):
     # TODO: may want to make sure that sentences without terms are included for
     # reference, in that case, use the list of (section, tokens) pairs in
     # fg.tags as well as fd.get_term_instances_dictionary()
+    output_fh.write("# %s\n" % fd.get_title())
+    output_fh.write("#\n")
+    for abstract_line in textwrap.wrap(fd.get_abstract(), 80):
+        output_fh.write("#   %s\n" % abstract_line)
+    output_fh.write("\n")
     instances = []
-    # TODO: also need to get the title
     for term in fd.get_terms():
         # all stuff lives in the Term object
         term_obj = fd.get_term(term)
