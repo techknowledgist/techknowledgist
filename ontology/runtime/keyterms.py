@@ -21,7 +21,20 @@ facts in the fact file, both from the generic structural parsing by BAE:
     STRUCTURE TYPE="ABSTRACT" START=10475 END=11178
     
 Results are printed to a set of files in this directory, they all have the
-prefix 'iclassify'. Most usable may be iclassify.MaxEnt.label.merged.tab, which
+prefix 'iclassify':
+
+    iclassify.info - some minimal info about the completed run
+    iclassify.mallet - input file for the mallet classifier
+    iclassify.MaxEnt.out - output file of the cassifier
+    iclassify.MaxEnt.stderr - messages from the classifier
+
+    iclassify.MaxEnt.label - condensed verison of classifier output
+    iclassify.MaxEnt.label.cat - minimal keyterm information
+    iclassify.MaxEnt.label.merged - keyterms per document
+    iclassify.MaxEnt.label.merged.tab - tabbed version of the previous
+    iclassify.MaxEnt.label.relations.tab - relations between terms
+
+Most usable for the inventions may be iclassify.MaxEnt.label.merged.tab, which
 has five columns:
 
     9999    6674661 US6674661B1.txt i       dense metal programmable rom
@@ -45,20 +58,60 @@ has five columns:
 The first column is the year of the patent, which is actually taken from the
 directory structure and which defaults to 9999 if that structure is not
 available. The year is followed by the patent id and the basename of the file
-processed. The fourth column has the type of the term: i (invention), t
-(invention type), ct (contextual term), ca (component/attribute).
+processed. The fourth column has the type of the term: i for invention, t for
+invention type, ct for contextual term, and ca for component/attribute.
 
 More human-readable results are in iclassify.MaxEnt.label.merged, which has
 a paragraph for each file and also includes the title of the patent:
-    
-   [9999 US6674661B1.txt]
-   title: Dense metal programmable ROM with the terminals of a programmed ...
-   invention type: 
-   invention descriptors: dense metal programmable rom, metal programmable rom
-   contextual terms: terminals, memory transistor, depth, wordlines, width, ...
-   components/attributes: memory cell array, memory cells, ground conection, ...
 
-Runtime result on the set of 200 sample files provided by BAE: 16 seconds.
+    [9999 US6674661B1.txt]
+    title: Dense metal programmable ROM with the terminals of a programmed ...
+    invention type:
+    invention descriptors: dense metal programmable rom, metal programmable rom
+    contextual terms: terminals, memory transistor, depth, wordlines, width, ...
+    components/attributes: memory cell array, memory cells, ground conection, ...
+
+Note that the files contain several abbreviations for term types, not just the
+four mentioned above (i, t, ct, ca):
+
+    o - other terms
+    r - (not sure what this is)
+    c - same as ca
+    m - same as ct
+
+The file iclassify.MaxEnt.label.relations.tab contains relations between
+terms. There are now three types of relations that are extracted:
+
+    i-ca   relation between invention and a component/attribute
+    i-ct   relation between an invention and a contextual term
+    ca-ca  two terms that are both components/attributes of the same invention
+
+The file itself has three columns, the relation type, the first term and the
+second term. Here are the relations for patent US6672019B1:
+
+    i-ca    multi-storey parking garage     ceiling beams
+    i-ca    multi-storey parking garage     floor plates
+    i-ca    multi-storey parking garage     passable surface
+    i-ca    multi-storey parking garage     skeleton support structure
+    i-ct    multi-storey parking garage     body
+    i-ct    multi-storey parking garage     ceiling beam
+    i-ct    multi-storey parking garage     elastic plastic material
+    i-ct    multi-storey parking garage     end
+    i-ct    multi-storey parking garage     gap
+    i-ct    multi-storey parking garage     horizontal ceiling beams
+    i-ct    multi-storey parking garage     interposition
+    i-ct    multi-storey parking garage     longitudinal direction
+    i-ct    multi-storey parking garage     supports
+    ca-ca   ceiling beams   floor plates
+    ca-ca   ceiling beams   passable surface
+    ca-ca   ceiling beams   skeleton support structure
+    ca-ca   floor plates    passable surface
+    ca-ca   floor plates    skeleton support structure
+    ca-ca   passable surface        skeleton support structure
+
+Runtime performance on the set of 200 sample files provided by BAE:
+
+    16 seconds
 
 """
 
@@ -76,8 +129,12 @@ from utils.docstructure.main import Parser
 from ontology.creation import txt2tag, tag2chunk
 from ontology.classifier.run_iclassify import add_phr_feats_file
 from ontology.classifier.run_iclassify import patent_invention_classify
-from ontology.classifier.run_iclassify import merge_scores
-from ontology.classifier.run_iclassify import generate_tab_format
+from ontology.classifier.run_iclassify import process_label_file
+from ontology.utils.git import get_git_commit
+
+
+# the model used by this invention classifier
+MODEL = '../classifier/data/models/inventions-standard-20130713/'
 
 
 def process(filelist):
@@ -95,9 +152,9 @@ def process(filelist):
         tag_file = os.path.join('workspace/tmp', basename + '.tag')
         chk_file = os.path.join('workspace/tmp', basename + '.chk')
         chk_files.append(chk_file)
-        run_xml2txt(infile, txt_file)
-        run_txt2tag(txt_file, tag_file, tagger)
-        run_tag2chk(tag_file, chk_file)
+        #run_xml2txt(infile, txt_file)
+        #run_txt2tag(txt_file, tag_file, tagger)
+        #run_tag2chk(tag_file, chk_file)
     run_classifier(chk_files)
     cleanup()
     if VERBOSE:
@@ -144,25 +201,6 @@ def parse_fact_line(fields):
             # values, for example for title strings
             pass
     return (fact_class, fact_type, start, end)
-        
-def run_xml2txt_OLD(infile, txt_file):
-    fact_file = infile + '.fact'
-    fh_in = codecs.open(infile)
-    fh_out = codecs.open(txt_file, 'w')
-    text = fh_in.read()
-    for line in open(fact_file):
-        tag, begin, end = line.split()
-        if tag == 'title':
-            begin = int(begin) + 274
-            end = int(end) + 274
-            title = text[begin:end]
-        if tag == 'abstract':
-            begin = int(begin) + 648
-            end = int(end) + 648
-            abstract = text[begin:end]
-    fh_out.write("FH_TITLE:\n%s\n" % title.strip())
-    fh_out.write("FH_ABSTRACT:\n%s\nEND\n" % abstract.strip())
-
 
 def run_txt2tag(txt_file, tag_file, tagger):
     txt2tag.tag(txt_file, tag_file, tagger)
@@ -180,33 +218,31 @@ def cleanup():
         for f in filelist:
             os.remove(os.path.join(tmp_dir, f))
 
-
 def run_classifier(chk_files):
     mallet_file = os.path.join('workspace', 'tmp', 'iclassify.mallet')
     with codecs.open(mallet_file, "w", encoding='utf-8') as s_mallet:
         for chk_file in chk_files:
             add_phr_feats_file(chk_file, s_mallet)
-    patent_invention_classify(
-        '../classifier/data/models/inventions-standard-20130713/',
-        'workspace/tmp',
-        verbose=VERBOSE)
+    patent_invention_classify(MODEL, 'workspace/tmp', verbose=VERBOSE)
     corpus = 'workspace/tmp'
     label_file='iclassify.MaxEnt.label'
     classification = 'workspace/tmp'
+    create_info_file(classification)
     command = "cat %s/%s | egrep -v '^name' | egrep '\|.*\|' | python %s > %s/%s" \
               % (classification, 'iclassify.MaxEnt.out', '../classifier/invention_top_scores.py',
                  classification, label_file)
-    if VERBOSE:
-        print '$', command
+    if VERBOSE: print '$', command
     subprocess.call(command, shell=True)
-    # creates the .cat and .merged files
-    merge_scores(corpus, classification, label_file, runtime=True, verbose=False)
-    generate_tab_format(classification, VERBOSE)
+    process_label_file(corpus, classification, label_file, VERBOSE)
+    # move the results from the temporary workspace directory
     command = "mv %s/iclassify* ." % classification
-    if VERBOSE:
-        print '$', command
     subprocess.call(command, shell=True)
-    #os.rename(os.path.join(classification, label_file + '.merged'), 'results.txt')
+
+def create_info_file(classification):
+    with open(os.path.join(classification, 'iclassify.info'), 'w') as fh:
+        fh.write("$ python %s\n\n" % ' '.join(sys.argv))
+        fh.write("classification        =  %s\n" % classification)
+        fh.write("git_commit            =  %s\n" % get_git_commit())
 
 
 

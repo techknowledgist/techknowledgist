@@ -3,8 +3,7 @@
 Script to create annotation files. The input is assumed to be: (i) a corpus from
 which to cull the data, (ii) a file list with filenames from the corpus, (iii)
 a name of the annotation set created, and (iv) a marker that indicates what kind
-of annotation files are created (now only --technologies, with a stump method
-for --inventions).
+of annotation files are created (now only --technologies and --inventions).
 
 There are two options that indicate the main mode of the script: one for
 technologies and one for inventions:
@@ -261,8 +260,8 @@ def annotate_inventions(name, rconfig, filelist, chunks):
 
 def _add_file_data_to_annotation_file(output_fh, fd):
     # TODO: may want to make sure that sentences without terms are included for
-    # reference, in that case, use the list of(section, tokens) pair in fg.tags
-    # as well as fd.get_term_instances_dictionary()
+    # reference, in that case, use the list of (section, tokens) pairs in
+    # fg.tags as well as fd.get_term_instances_dictionary()
     instances = []
     # TODO: also need to get the title
     for term in fd.get_terms():
