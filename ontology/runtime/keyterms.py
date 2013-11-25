@@ -180,7 +180,7 @@ def update_directories():
                 print "WARNING: not a directory: '%s'" % dir
                 print "         ontology.creation.config.%s not updated" % var
                 print "         ontology.classifier.config.%s not updated" % var
-        except AttributeError:
+        except KeyError:
             pass
     #print 'MALLET_DIR:', ontology.classifier.config.MALLET_DIR
     #exit()
