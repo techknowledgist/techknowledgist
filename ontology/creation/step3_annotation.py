@@ -1,8 +1,8 @@
 """
 
 Script to create annotation files. The input is assumed to be: (i) a corpus from
-which to cull the data, (ii) a file list with filenames from the corpus, (iii)
-a name of the annotation set created, and (iv) a marker that indicates what kind
+which to cull the data, (ii) a file list with filenames from the corpus, (iii) a
+name of the annotation set created, and (iv) a marker that indicates what kind
 of annotation files are created (now only --technologies and --inventions).
 
 There are two options that indicate the main mode of the script: one for
@@ -30,9 +30,9 @@ Options:
    --pipeline FILENAME - the kind of pipeline that is expected for the input
        data, defaults to default-pipeline.txt
 
-   --filelist FILENAME - this is a file inside of CORPUS_DIRECTORY/config which creates
-       a list of filenames in the corpus, the annotation file are taken from
-       these files
+   --filelist FILENAME - this is a file inside of CORPUS_DIRECTORY/config which
+       creates a list of filenames in the corpus, the annotation file are taken
+       from these files
 
    --name STRING - the name for the annotation set, this will be used as a
        directory name inside CORPUS_DIRECTORY/data/t0_annotation
@@ -251,8 +251,8 @@ def annotate_inventions(name, rconfig, filelist, chunks):
     # add the content of the general info file as a preface
     with open(os.path.join(dirname, 'annotate.info.general.txt')) as fh:
         for line in fh:
-            output_fh.write("# %s" % line)
-        output_fh.write("\n\n")
+            output_fh.write("# %s\n" % line.rstrip())
+        output_fh.write("#\n")
 
     for i in range(len(tag_files)):
         fd = FileData(tag_files[i], feat_files[i])
@@ -265,9 +265,9 @@ def _add_file_data_to_annotation_file(output_fh, fd):
     # fg.tags as well as fd.get_term_instances_dictionary()
     output_fh.write("# %s\n" % fd.get_title())
     output_fh.write("#\n")
-    for abstract_line in textwrap.wrap(fd.get_abstract(), 80):
+    for abstract_line in textwrap.wrap(fd.get_abstract(), 76):
         output_fh.write("#   %s\n" % abstract_line)
-    output_fh.write("\n")
+    output_fh.write("#\n")
     instances = []
     for term in fd.get_terms():
         # all stuff lives in the Term object
@@ -282,7 +282,7 @@ def _add_file_data_to_annotation_file(output_fh, fd):
                 "\t%s\t%s\t%s\t%s <np>%s</np> %s\n" % \
                     (inst.id, inst.year, inst.term,
                      inst.context_left(), inst.context_token(), inst.context_right()))
-    output_fh.write("\n")
+    output_fh.write("#\n")
 
 
 def annotate_something(name, rconfig, filelist, chunks):
