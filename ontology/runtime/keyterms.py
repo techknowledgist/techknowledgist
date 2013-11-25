@@ -19,7 +19,7 @@ facts in the fact file, both from the generic structural parsing by BAE:
 
     STRUCTURE TYPE="TITLE" START=3302 END=3329
     STRUCTURE TYPE="ABSTRACT" START=10475 END=11178
-    
+
 Results are printed to a set of files in this directory, they all have the
 prefix 'iclassify':
 
@@ -138,6 +138,7 @@ MODEL = '../classifier/data/models/inventions-standard-20130713/'
 
 
 def process(filelist):
+    update_directories()
     t1 = time.time()
     infiles = [ f.strip() for f in open(filelist).readlines()]#[:10]
     chk_files = []
@@ -152,14 +153,38 @@ def process(filelist):
         tag_file = os.path.join('workspace/tmp', basename + '.tag')
         chk_file = os.path.join('workspace/tmp', basename + '.chk')
         chk_files.append(chk_file)
-        #run_xml2txt(infile, txt_file)
-        #run_txt2tag(txt_file, tag_file, tagger)
-        #run_tag2chk(tag_file, chk_file)
+        run_xml2txt(infile, txt_file)
+        run_txt2tag(txt_file, tag_file, tagger)
+        run_tag2chk(tag_file, chk_file)
     run_classifier(chk_files)
     cleanup()
     if VERBOSE:
         print "Time elapsed: %f" % (time.time() - t1)
         
+def update_directories():
+    """Updates the MALLET_DIR and STANFORD_TAGGER_DIR paths in the module
+    ontology.creation.config with the values in the local module named
+    ontology.runtime.config."""
+    # TODO: this a bit of a hack and I would like to have a better way to deal
+    # with all the directory settings.
+    import config
+    import ontology.creation.config
+    import ontology.classifier.config
+    for var in ('MALLET_DIR', 'STANFORD_TAGGER_DIR'):
+        try:
+            dir = config.__dict__[var]
+            if os.path.isdir(dir):
+                ontology.creation.config.__dict__[var] = dir
+                ontology.classifier.config.__dict__[var] = dir
+            else:
+                print "WARNING: not a directory: '%s'" % dir
+                print "         ontology.creation.config.%s not updated" % var
+                print "         ontology.classifier.config.%s not updated" % var
+        except AttributeError:
+            pass
+    #print 'MALLET_DIR:', ontology.classifier.config.MALLET_DIR
+    #exit()
+
 def run_xml2txt(infile, outfile):
     text_file = infile + '.txt'
     fact_file = infile + '.fact'
