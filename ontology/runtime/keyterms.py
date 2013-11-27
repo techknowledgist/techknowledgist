@@ -131,6 +131,7 @@ from ontology.classifier.run_iclassify import add_phr_feats_file
 from ontology.classifier.run_iclassify import patent_invention_classify
 from ontology.classifier.run_iclassify import process_label_file
 from ontology.utils.git import get_git_commit
+from ontology.runtime.utils.text import parse_fact_line
 
 
 # the model used by this invention classifier
@@ -211,25 +212,8 @@ def run_xml2txt(infile, outfile):
     fh_out.write("FH_TITLE:\n%s\n" % title.strip())
     fh_out.write("FH_ABSTRACT:\n%s\nEND\n" % abstract.strip())
 
-def parse_fact_line(fields):
-    fact_class = fields.pop(0)
-    fact_type, start, end = None, None, None
-    for keyval in fields:
-        try:
-            key, val = keyval.split('=')
-            val = val.strip('"')
-            if key == 'TYPE': fact_type = val
-            if key == 'START': start = int(val)
-            if key == 'END': end = int(val)
-        except ValueError:
-            # this happens when more complicated fact lines have spaces in the
-            # values, for example for title strings
-            pass
-    return (fact_class, fact_type, start, end)
-
 def run_txt2tag(txt_file, tag_file, tagger):
     txt2tag.tag(txt_file, tag_file, tagger)
-
 
 def run_tag2chk(tag_file, chk_file):
     tag2chunk.Doc(tag_file, chk_file, '9999', 'en',
