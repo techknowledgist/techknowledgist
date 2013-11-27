@@ -38,6 +38,8 @@ To test:
 # [(1000,)]
 
 
+>>>  tdb = terms_db.TermsDB("/home/j/anick/temp/fuse/", "cs_terms_db")
+
 NOTE:  Some terms containing / will have \\/ in their strings.  This could cause a problem if we are looking for
 the string without the escape chars.  We might want to remove the \\ from all terms before loading into the db.
 
@@ -53,6 +55,7 @@ import config
 import log
 import math
 from collections import defaultdict
+# For the next import, PYTHONPATH should include ../..
 from ontology.utils.file import get_year_and_docid, open_input_file
 from operator import itemgetter, attrgetter
 
@@ -1598,7 +1601,9 @@ class TermCache():
     # d_cohort maps from cohort term (in a given year) to its frequency.
     def get_cohort(self, term_str, year, attr):
         print "[get_cohort]term_str: %s, year: %i" % (term_str, year)
+        d_cohort = {}
         key = (term_str, year)
+        pdb.set_trace()
         if self.d_cohorts.has_key(key):
             d_cohort = self.d_cohorts[key]
         else:
@@ -1727,4 +1732,11 @@ class GrowthInfo:
             index += 1
         print "[growth]first_doc_index: %i, first_abs_index: %i" % (self.first_doc_index, self.first_abs_index)
 
-
+# terms_db.growthInfo4file()
+def growthInfo4file():
+    db = TermsDB("/home/j/anick/temp/fuse/", "cs_terms_db") 
+    file = "/home/j/anick/temp/fuse/bae/join_terms.sorted.3"
+    s_file = open_input_file(file)
+    for term in s_file:
+        gi = GrowthInfo(term, db)
+    s_file.close()

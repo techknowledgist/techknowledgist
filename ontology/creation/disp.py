@@ -349,7 +349,7 @@ class DispData():
                 l_row.append(make_header([disp_type, attr]))
 
         header_row = terms_db.list2tsv(l_row)
-        print "header row: %s" % header_row
+        #print "header row: %s" % header_row
         s_out.write("%s\n" % terms_db.list2tsv(l_row)) 
 
         # loop over all terms
@@ -368,14 +368,64 @@ class DispData():
         
             s_out.write("%s\n" % terms_db.list2tsv(l_row)) 
 
+    # process terms from a file
+    def process_from_file(self, filespec, ):
+        s_input = codecs.open(filespec, encoding='utf-8')
+        for line in s_input:
+            term = line.strip()
+            print "Processing: %s" % term
+            self.process(term)
+        print "Processing completed"
+        s_input.close()
 
-def test(db):
-    dd = DispData(db, 1997, 2003) 
-    dd.process("usb controller")
-    dd.process("emails")
+# dd = disp.test(db)
+
+# positive examples (terms whch appear in docs in 1998 and reach abstract count of 10 by 2003)
+def test_1(db):
+    dd = DispData(db, 1997, 2003,  "/home/j/anick/temp/fuse/tsv/test") 
+    #dd.process("usb controller")
+    #dd.process("emails")
+    dd.process_from_file("/home/j/anick/temp/fuse/growth_97-03_Agt10.from98.train.terms")
     dd.store_derived_data()
-    dd.write_yearly_tsv(2003)
+    for year in range(1997, 2004):
+        dd.write_yearly_tsv(year)
     return(dd)
+
+
+# negative examples (terms appearing in 1998 with at least abstract count of 4 but that did not become prominent by 2003)
+def test_0(db):
+    dd = DispData(db, 1997, 2003,  "/home/j/anick/temp/fuse/tsv/test_0") 
+    #dd.process("usb controller")
+    #dd.process("emails")
+    dd.process_from_file("/home/j/anick/temp/fuse/growth_97-03_Alt10.from98.Agt4.random.200.train.terms")
+    dd.store_derived_data()
+    for year in range(1997, 2004):
+        dd.write_yearly_tsv(year)
+    return(dd)
+
+# create the output directory before running
+# db = terms_db.TermsDB("/home/j/anick/temp/fuse/", "cs_terms_db")
+# disp.test_bae_mini(db)
+def test_bae_mini(db):
+    dd = DispData(db, 1997, 2003,  "/home/j/anick/temp/fuse/tsv/test_bae_mini") 
+    #dd.process("usb controller")
+    #dd.process("emails")
+    dd.process_from_file("/home/j/anick/temp/fuse/bae/join_terms.sorted")
+    dd.store_derived_data()
+    for year in range(1997, 2004):
+        dd.write_yearly_tsv(year)
+    return(dd)
+
+def test_bae_mini_3(db):
+    dd = DispData(db, 1997, 2003,  "/home/j/anick/temp/fuse/tsv/test_bae_mini_3") 
+    #dd.process("usb controller")
+    #dd.process("emails")
+    dd.process_from_file("/home/j/anick/temp/fuse/bae/join_terms.sorted.3")
+    dd.store_derived_data()
+    for year in range(1997, 2004):
+        dd.write_yearly_tsv(year)
+    return(dd)
+
 
 """
 keys for d_term
