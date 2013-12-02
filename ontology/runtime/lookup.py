@@ -1,6 +1,16 @@
+"""
+
+$ python lookup.py --verbose workspace/data/list-010.txt
+$ python lookup.py workspace/data/list-010.txt
+
+
+"""
+
+
 import os, sys, codecs, time, sqlite3
 
 from utils.text import parse_fact_line, build_section_tree, DocNode
+from utils.tokenizer import Tokenizer
 
 
 SECTIONS = ('TITLE', 'ABSTRACT', 'SUMMARY',
@@ -9,8 +19,22 @@ SECTIONS = ('TITLE', 'ABSTRACT', 'SUMMARY',
 
 LOOKUP_SECTIONS = ('TITLE', 'SECTITLE', 'TEXT')
 
-
 TERMS_DATABASE = None
+
+
+
+# tokens that start a chunk
+STARTS_CHUNK = [ 'the', 'a', 'an' ]
+
+# tokens that are never in a chunk
+NOT_IN_CHUNK = [
+    '.', ',', '?', '!', '"', "'", '', '(', ')', '[', ']', '#', '%',
+    'in', 'of', 'over', 'under', 'on', '', '',
+    'and', 'or', 'but', 'therefore', 'hence', 'although',
+    ]
+
+STARTS_CHUNK = dict.fromkeys(STARTS_CHUNK, True)
+NOT_IN_CHUNK = dict.fromkeys(NOT_IN_CHUNK, True)
 
 
 def process(filelist):
@@ -24,7 +48,7 @@ def process(filelist):
         fact_file = infile + '.fact'
         term_file = infile + '.terms'
         process_file(text_file, fact_file, term_file)
-        break
+        #break
     if VERBOSE: print "Time elapsed: %f" % (time.time() - t1)
 
 
@@ -48,42 +72,65 @@ def process_file(text_file, fact_file, terms_file):
     #tree.pp()
 
     t1 = time.time()
-    yes, no = 0, 0
+    count = 0
     for start, end, ftype in sections:
         if ftype in LOOKUP_SECTIONS:
+            count += 1
+            #if count > 2: break
             result = lookup(doc, ftype, start, end, fh_terms)
-            if result:
-                yes += 1
-            else:
-                no += 1
-    print "yes: %d, no: %d" % (yes, no)
-    t2 = time.time()
     if VERBOSE:
-        print "lookup time: %f" % (t2 - t1)
+        print "lookup time: %f" % (time.time() - t1)
 
 
 def lookup(doc, ftype, start, end, fh_terms):
     global TERMS_DATABASE
     text = doc[start:end]
+    #print_section(ftype, start, end, text, print_text=False)
+    chunked_text = chunk_text(text)
     tokens = text.split()
     fh_terms.write("%s %s %s\n" % (ftype, start, end))
     fh_terms.write("%s\n\n" % text)
-    #if ftype == 'TITLE' or ftype == 'SECTITLE':
-    #    print ftype, start, end, '-', text
-    #else:
-    #    print ftype, start, end
     for t in tokens:
         TERMS_DATABASE.exists(t)
 
+def print_section(ftype, start, end, text, print_text=False):
+    if VERBOSE:
+        if ftype == 'TITLE' or ftype == 'SECTITLE':
+            print_text = True
+        ptext = '- ' + text if print_text else ''
+        print ftype, start, end, ptext
 
-def initialize_term_db(in_memory=True, verbose=True):
+def chunk_text(text):
+    """Simple version of chunker, just tokenization and perhaps a few little
+    tricks like putting chunk boundaries at punctuation or at some words that
+    are known to not occur in chunks (hopefully some function words, which
+    actually makes sense for the current version of the chunker, which does not
+    include any determiners, prepositions or conjunctions)."""
+    for t in text.split():
+        if t[-1] in ['.',',', '?', '!']: t = t[:-1]
+        STARTS_CHUNK.get(t)
+        NOT_IN_CHUNK.get(t)
+    return
+    tokenizer = Tokenizer(text)
+    sentences = tokenizer.tokenize_text().as_string().strip().split("\n")
+    #print "\n".join(sentences)
+    for sentence in sentences:
+        chunked_sentence = chunk_sentence(sentence)
 
+def chunk_sentence(sentence):
+    pass
+
+
+def initialize_term_db(in_memory=True, verbose=True, empty=False):
+    """Initializes TERMS_DATABASE by putting in some object that understands the
+    exists() method."""
     global TERMS_DATABASE
-
     if TERMS_DATABASE is not None:
         return
     t1 = time.time()
-    if in_memory:
+    if empty:
+        TERMS_DATABASE = EmptyDB()
+    elif in_memory:
         TERMS_DATABASE = HashTermDB('workspace/terms/source-split')
     else:
         TERMS_DATABASE = SqliteTermDB('workspace/terms/db')
@@ -91,6 +138,12 @@ def initialize_term_db(in_memory=True, verbose=True):
     if verbose:
         print "loading time: %f" % (t2 - t1)
 
+
+
+class EmptyDB(object):
+    """Place holder database."""
+    def exists(self, term):
+        return False
 
 
 class SqliteTermDB(object):
@@ -126,7 +179,7 @@ class SqliteTermDB(object):
 
 class HashTermDB(object):
 
-    """Interface to the lists with terms."""
+    """Interface to the lists with terms. Loads all terms into memory"""
 
     def __init__(self, db_path):
         self.path = db_path
@@ -176,7 +229,8 @@ if __name__ == '__main__':
         VERBOSE = True
         filelist = sys.argv[2]
 
-    initialize_term_db(in_memory=True, verbose=VERBOSE)
+    initialize_term_db(empty=True, verbose=VERBOSE)
+    #initialize_term_db(in_memory=True, verbose=VERBOSE)
     #initialize_term_db(in_memory=False, verbose=VERBOSE)
     #test_db()
 
