@@ -1,0 +1,2872 @@
+
+   
+      
+         
+            US
+            6684711
+            B2
+            20040203
+         
+      
+      
+         
+            US
+            09939079
+            20010823
+         
+      
+      09
+      eng
+      eng
+      
+         
+            US
+            09939079
+            20010823
+         
+      
+      
+         
+            20040203
+         
+         
+            20040203
+         
+      
+      
+         335
+      
+      
+         
+             7G 01L   9/12   A
+            7
+            G
+            01
+            L
+            9
+            12
+            A
+         
+      
+      
+         
+            G01L   9/12        20060101A I20051008RMEP        
+            
+               20060101
+            
+            A
+            G
+            01
+            L
+            9
+            12
+            I
+            
+               20051008
+            
+            
+               EP
+            
+            R
+            M
+         
+      
+      
+         US
+         
+            73/724
+            73
+            724
+         
+         
+            73/700
+            73
+            700
+         
+         
+            73/715
+            73
+            715
+         
+         
+            73/718
+            73
+            718
+         
+         
+            361/283.1
+            361
+            283.1
+         
+         
+            361/283.2
+            361
+            283.2
+         
+         
+            361/283.3
+            361
+            283.3
+         
+         
+            361/283.4
+            361
+            283.4
+         
+      
+      
+         
+            G01L  9/12
+            G
+            01
+            L
+            9
+            12
+         
+      
+      
+         
+            US
+            
+               73/700-756
+               73
+               700-756
+            
+         
+         
+            US
+            
+               361/283.1-283.4
+               361
+               283.1-283.4
+            
+         
+      
+      21
+      Three-phase excitation circuit for compensated capacitor industrial process control transmitters
+      
+         
+         
+         
+         
+            
+               
+                  US
+                  3701280
+                  A
+                  Stroman
+                  19721031
+               
+               
+                  19700318
+               
+            
+         
+         
+            
+               
+                  US
+                  3968694
+                  A
+                  Clark
+                  19760713
+               
+               
+                  19750421
+               
+            
+         
+         
+            
+               
+                  US
+                  4120206
+                  A
+                  Rud, Jr.
+                  19781017
+               
+               
+                  19770117
+               
+            
+         
+         
+            
+               
+                  US
+                  4125027
+                  A
+                  Clark
+                  19781114
+               
+               
+                  19771104
+               
+            
+         
+         
+            
+               
+                  US
+                  4238825
+                  A
+                  Geery
+                  19801209
+               
+               
+                  19781002
+               
+            
+         
+         
+            
+               
+                  US
+                  4250490
+                  A
+                  Dahlke
+                  19810210
+               
+               
+                  19790119
+               
+            
+         
+         
+            
+               
+                  US
+                  4287501
+                  A
+                  Tominaga et al.
+                  19810901
+               
+               
+                  19800104
+               
+            
+         
+         
+            
+               
+                  US
+                  4414634
+                  A
+                  Louis et al.
+                  19831108
+               
+               
+                  19810717
+               
+            
+         
+         
+            
+               
+                  US
+                  4419898
+                  A
+                  Zanker et al.
+                  19831213
+               
+               
+                  19811015
+               
+            
+         
+         
+            
+               
+                  US
+                  4446730
+                  A
+                  Smith
+                  19840508
+               
+               
+                  19820426
+               
+            
+         
+         
+            
+               
+                  US
+                  4455875
+                  A
+                  Guimard et al.
+                  19840626
+               
+               
+                  19811222
+               
+            
+         
+         
+            
+               
+                  US
+                  4485673
+                  A
+                  Stern
+                  19841204
+               
+               
+                  19810513
+               
+            
+         
+         
+            
+               
+                  US
+                  4528855
+                  A
+                  Singh
+                  19850716
+               
+               
+                  19840702
+               
+            
+         
+         
+            
+               
+                  US
+                  4562744
+                  A
+                  Hall et al.
+                  19860107
+               
+               
+                  19840504
+               
+            
+         
+         
+            
+               
+                  US
+                  4598381
+                  A
+                  Cucci
+                  19860701
+               
+               
+                  19830324
+               
+            
+         
+         
+            
+               
+                  US
+                  4602344
+                  A
+                  Ferretti et al.
+                  19860722
+               
+               
+                  19841025
+               
+            
+         
+         
+            
+               
+                  US
+                  D287827
+                  S
+                  Broden
+                  19870100
+               
+            
+         
+         
+            
+               
+                  US
+                  4644797
+                  A
+                  Ichikawa et al.
+                  19870224
+               
+               
+                  19850711
+               
+            
+         
+         
+            
+               
+                  US
+                  4653330
+                  A
+                  Hedtke
+                  19870331
+               
+               
+                  19850715
+               
+            
+         
+         
+            
+               
+                  US
+                  4677841
+                  A
+                  Kennedy
+                  19870707
+               
+               
+                  19860306
+               
+            
+         
+         
+            
+               
+                  US
+                  4745810
+                  A
+                  Pierce et al.
+                  19880524
+               
+               
+                  19860915
+               
+            
+         
+         
+            
+               
+                  US
+                  D296995
+                  S
+                  Lee
+                  19880800
+               
+            
+         
+         
+            
+               
+                  US
+                  D297314
+                  S
+                  Hedtke
+                  19880800
+               
+            
+         
+         
+            
+               
+                  US
+                  D297315
+                  S
+                  Pierce et al.
+                  19880800
+               
+            
+         
+         
+            
+               
+                  US
+                  4783659
+                  A
+                  Frick
+                  19881108
+               
+               
+                  19871224
+               
+            
+         
+         
+            
+               
+                  US
+                  4791352
+                  A
+                  Frick et al.
+                  19881213
+               
+               
+                  19860717
+               
+            
+         
+         
+            
+               
+                  US
+                  4798089
+                  A
+                  Frick et al.
+                  19890117
+               
+               
+                  19870312
+               
+            
+         
+         
+            
+               
+                  US
+                  4818994
+                  A
+                  Orth et al.
+                  19890404
+               
+               
+                  19871022
+               
+            
+         
+         
+            
+               
+                  US
+                  4825704
+                  A
+                  Aoshima et al.
+                  19890502
+               
+               
+                  19870824
+               
+            
+         
+         
+            
+               
+                  US
+                  4833922
+                  A
+                  Frick et al.
+                  19890530
+               
+               
+                  19870601
+               
+            
+         
+         
+            
+               
+                  US
+                  4850227
+                  A
+                  Luettgen et al.
+                  19890725
+               
+               
+                  19871222
+               
+            
+         
+         
+            
+               
+                  US
+                  4866989
+                  A
+                  Lawless
+                  19890919
+               
+               
+                  19881107
+               
+            
+         
+         
+            
+               
+                  US
+                  4881412
+                  A
+                  Northedge
+                  19891121
+               
+               
+                  19880804
+               
+            
+         
+         
+            
+               
+                  US
+                  4930353
+                  A
+                  Kato et al.
+                  19900605
+               
+               
+                  19890731
+               
+            
+         
+         
+            
+               
+                  US
+                  4958938
+                  A
+                  Schwartz et al.
+                  19900925
+               
+               
+                  19890605
+               
+            
+         
+         
+            
+               
+                  US
+                  4970898
+                  A
+                  Walish et al.
+                  19901120
+               
+               
+                  19890920
+               
+            
+         
+         
+            
+               
+                  US
+                  4980675
+                  A
+                  Meisenheimer, Jr.
+                  19901225
+               
+               
+                  19900109
+               
+            
+         
+         
+            
+               
+                  US
+                  5000047
+                  A
+                  Kato et al.
+                  19910319
+               
+               
+                  19890228
+               
+            
+         
+         
+            
+               
+                  US
+                  D317266
+                  S
+                  Broden et al.
+                  19910600
+               
+            
+         
+         
+            
+               
+                  US
+                  D317269
+                  S
+                  Selg
+                  19910600
+               
+            
+         
+         
+            
+               
+                  US
+                  D318432
+                  S
+                  Broden et al.
+                  19910700
+               
+            
+         
+         
+            
+               
+                  US
+                  5028746
+                  A
+                  Petrich
+                  19910702
+               
+               
+                  19890831
+               
+            
+         
+         
+            
+               
+                  US
+                  5035140
+                  A
+                  Daniels et al.
+                  19910730
+               
+               
+                  19881103
+               
+            
+         
+         
+            
+               
+                  US
+                  5058437
+                  A
+                  Chaumont et al.
+                  19911022
+               
+               
+                  19890922
+               
+            
+         
+         
+            
+               
+                  US
+                  5060108
+                  A
+                  Baker et al.
+                  19911022
+               
+               
+                  19900125
+               
+            
+         
+         
+            
+               
+                  US
+                  5070732
+                  A
+                  Duncan et al.
+                  19911210
+               
+               
+                  19890912
+               
+            
+         
+         
+            
+               
+                  US
+                  5083091
+                  A
+                  Frick et al.
+                  19920121
+               
+               
+                  19880330
+               
+            
+         
+         
+            
+               
+                  US
+                  5087871
+                  A
+                  Losel
+                  19920211
+               
+               
+                  19901002
+               
+            
+         
+         
+            
+               
+                  US
+                  5094109
+                  A
+                  Dean et al.
+                  19920310
+               
+               
+                  19901206
+               
+            
+         
+         
+            
+               
+                  US
+                  D329619
+                  S
+                  Cartwright
+                  19920900
+               
+            
+         
+         
+            
+               
+                  US
+                  5142914
+                  A
+                  Kusakabe et al.
+                  19920901
+               
+               
+                  19901029
+               
+            
+         
+         
+            
+               
+                  US
+                  5157972
+                  A
+                  Broden et al.
+                  19921027
+               
+               
+                  19910329
+               
+            
+         
+         
+            
+               
+                  US
+                  5162725
+                  A
+                  Hodson et al.
+                  19921110
+               
+               
+                  19910820
+               
+            
+         
+         
+            
+               
+                  US
+                  5187474
+                  A
+                  Kielb et al.
+                  19930216
+               
+               
+                  19880428
+               
+            
+         
+         
+            
+               
+                  US
+                  5227782
+                  A
+                  Nelson
+                  19930713
+               
+               
+                  19910814
+               
+            
+         
+         
+            
+               
+                  US
+                  5236202
+                  A
+                  Krouth et al.
+                  19930817
+               
+               
+                  19910923
+               
+            
+         
+         
+            
+               
+                  US
+                  5245333
+                  A
+                  Anderson et al.
+                  19930914
+               
+               
+                  19910925
+               
+            
+         
+         
+            
+               
+                  US
+                  5248167
+                  A
+                  Petrich et al.
+                  19930928
+               
+               
+                  19920707
+               
+            
+         
+         
+            
+               
+                  US
+                  D342456
+                  S
+                  Miller et al.
+                  19931200
+               
+            
+         
+         
+            
+               
+                  US
+                  5287746
+                  A
+                  Broden
+                  19940222
+               
+               
+                  19920414
+               
+            
+         
+         
+            
+               
+                  US
+                  5353200
+                  A
+                  Bodin et al.
+                  19941004
+               
+               
+                  19930224
+               
+            
+         
+         
+            
+               
+                  US
+                  5369386
+                  A
+                  Alden et al.
+                  19941129
+               
+               
+                  19921113
+               
+            
+         
+         
+            
+               
+                  US
+                  5377547
+                  A
+                  Kusakabe et al.
+                  19950103
+               
+               
+                  19930910
+               
+            
+         
+         
+            
+               
+                  US
+                  5381355
+                  A
+                  Birangi et al.
+                  19950110
+               
+               
+                  19931217
+               
+            
+         
+         
+            
+               
+                  US
+                  D358784
+                  S
+                  Templin, Jr. et al.
+                  19950500
+               
+            
+         
+         
+            
+               
+                  US
+                  5436824
+                  A
+                  Royner et al.
+                  19950725
+               
+               
+                  19921210
+               
+            
+         
+         
+            
+               
+                  US
+                  5448180
+                  A
+                  Kienzler et al.
+                  19950905
+               
+               
+                  19930916
+               
+            
+         
+         
+            
+               
+                  US
+                  5469150
+                  A
+                  Sitte
+                  19951121
+               
+               
+                  19941227
+               
+            
+         
+         
+            
+               
+                  US
+                  5471885
+                  A
+                  Wagner
+                  19951205
+               
+               
+                  19930811
+               
+            
+         
+         
+            
+               
+                  US
+                  D366000
+                  S
+                  Karas et al.
+                  19960100
+               
+            
+         
+         
+            
+               
+                  US
+                  D366218
+                  S
+                  Price et al.
+                  19960100
+               
+            
+         
+         
+            
+               
+                  US
+                  5495768
+                  A
+                  Louwagie et al.
+                  19960305
+               
+               
+                  19940720
+               
+            
+         
+         
+            
+               
+                  US
+                  5498079
+                  A
+                  Price
+                  19960312
+               
+               
+                  19941223
+               
+            
+         
+         
+            
+               
+                  US
+                  5524333
+                  A
+                  Hogue et al.
+                  19960611
+               
+               
+                  19950310
+               
+            
+         
+         
+            
+               
+                  US
+                  5524492
+                  A
+                  Frick et al.
+                  19960611
+               
+               
+                  19951003
+               
+            
+         
+         
+            
+               
+                  US
+                  5546804
+                  A
+                  Johnson et al.
+                  19960820
+               
+               
+                  19940811
+               
+            
+         
+         
+            
+               
+                  US
+                  5600782
+                  A
+                  Thomson
+                  19970204
+               
+               
+                  19941011
+               
+            
+         
+         
+            
+               
+                  US
+                  5606513
+                  A
+                  Louwagie et al.
+                  19970225
+               
+               
+                  19940609
+               
+            
+         
+         
+            
+               
+                  US
+                  5656782
+                  A
+                  Powell, II et al.
+                  19970812
+               
+               
+                  19950524
+               
+            
+         
+         
+            
+               
+                  US
+                  5665899
+                  A
+                  Willcox
+                  19970909
+               
+               
+                  19960223
+               
+            
+         
+         
+            
+               
+                  US
+                  5668322
+                  A
+                  Broden
+                  19970916
+               
+               
+                  19960613
+               
+            
+         
+         
+            
+               
+                  US
+                  5670722
+                  A
+                  Moser et al.
+                  19970923
+               
+               
+                  19961009
+               
+            
+         
+         
+            
+               
+                  US
+                  5710552
+                  A
+                  McCoy et al.
+                  19980120
+               
+               
+                  19950606
+               
+            
+         
+         
+            
+               
+                  US
+                  5754596
+                  A
+                  Bischoff et al.
+                  19980519
+               
+               
+                  19960319
+               
+            
+         
+         
+            
+               
+                  US
+                  5764928
+                  A
+                  Lanctot
+                  19980609
+               
+               
+                  19970205
+               
+            
+         
+         
+            
+               
+                  US
+                  5823228
+                  A
+                  Chou
+                  19981020
+               
+               
+                  19970205
+               
+            
+         
+         
+            
+               
+                  US
+                  5870695
+                  A
+                  Brown et al.
+                  19990209
+               
+               
+                  19970224
+               
+            
+         
+         
+            
+               
+                  US
+                  5899962
+                  A
+                  Louwagie et al.
+                  19990504
+               
+               
+                  19970131
+               
+            
+         
+         
+            
+               
+                  US
+                  5920016
+                  A
+                  Broden
+                  19990706
+               
+               
+                  19970915
+               
+            
+         
+         
+            
+               
+                  US
+                  5948988
+                  A
+                  Bodin
+                  19990907
+               
+               
+                  19980527
+               
+            
+         
+         
+            
+               
+                  US
+                  5954526
+                  A
+                  Smith
+                  19990921
+               
+               
+                  19961004
+               
+            
+         
+         
+            
+               
+                  US
+                  5955684
+                  A
+                  Gravel et al.
+                  19990921
+               
+               
+                  19970106
+               
+            
+         
+         
+            
+               
+                  US
+                  5973942
+                  A
+                  Nelson et al.
+                  19991026
+               
+               
+                  19980710
+               
+            
+         
+         
+            
+               
+                  US
+                  5988206
+                  A
+                  Bare et al.
+                  19991123
+               
+               
+                  19980312
+               
+            
+         
+         
+            
+               
+                  US
+                  6005500
+                  A
+                  Gaboury et al.
+                  19991221
+               
+               
+                  19970606
+               
+            
+         
+         
+            
+               
+                  US
+                  6006338
+                  A
+                  Longsdorf et al.
+                  19991221
+               
+               
+                  19970709
+               
+            
+         
+         
+            
+               
+                  US
+                  6038927
+                  A
+                  Karas
+                  20000321
+               
+               
+                  19961203
+               
+            
+         
+         
+            
+               
+                  US
+                  6050145
+                  A
+                  Olson et al.
+                  20000418
+               
+               
+                  19970710
+               
+            
+         
+         
+            
+               
+                  US
+                  6059254
+                  A
+                  Sundet et al.
+                  20000509
+               
+               
+                  19970327
+               
+            
+         
+         
+            
+               
+                  US
+                  6105437
+                  A
+                  Klug et al.
+                  20000822
+               
+               
+                  19981007
+               
+            
+         
+         
+            
+               
+                  US
+                  6111888
+                  A
+                  Green et al.
+                  20000829
+               
+               
+                  19970527
+               
+            
+         
+         
+            
+               
+                  US
+                  6115831
+                  A
+                  Hanf et al.
+                  20000905
+               
+               
+                  19970326
+               
+            
+         
+         
+            
+               
+                  US
+                  6123585
+                  A
+                  Hussong et al.
+                  20000926
+               
+               
+                  19991015
+               
+            
+         
+         
+            
+               
+                  US
+                  6140952
+                  A
+                  Gaboury
+                  20001031
+               
+               
+                  19981221
+               
+            
+         
+         
+            
+               
+                  US
+                  6216172
+                  B1
+                  Kolblin et al.
+                  20010410
+               
+               
+                  19980326
+               
+            
+         
+         
+            
+               
+                  US
+                  6233532
+                  B1
+                  Boudreau et al.
+                  20010515
+               
+               
+                  19980114
+               
+            
+         
+         
+            
+               
+                  US
+                  6285964
+                  B1
+                  Babel et al.
+                  20010904
+               
+               
+                  19981214
+               
+            
+         
+         
+            
+               
+                  US
+                  6295875
+                  B1
+                  Frick et al.
+                  20011002
+               
+               
+                  19990514
+               
+            
+         
+         
+            
+               
+                  DE
+                  34 41 648
+                  19871200
+               
+            
+         
+         
+            
+               
+                  DE
+                  G 91 09 176
+                  19911000
+               
+            
+         
+         
+            
+               
+                  DE
+                  197 45 244
+                  19980400
+               
+            
+         
+         
+            
+               
+                  DE
+                  299 03 260
+                  20000500
+               
+            
+         
+         
+            
+               
+                  EP
+                  0 063 685
+                  19821100
+               
+            
+         
+         
+            
+               
+                  EP
+                  0 167 941
+                  19850600
+               
+            
+         
+         
+            
+               
+                  EP
+                  0 214 801
+                  19870300
+               
+            
+         
+         
+            
+               
+                  EP
+                  0 223 300
+                  19870500
+               
+            
+         
+         
+            
+               
+                  EP
+                  0 268 742
+                  19880600
+               
+            
+         
+         
+            
+               
+                  EP
+                  0 903 651
+                  19990300
+               
+            
+         
+         
+            
+               
+                  JP
+                  2000121470
+                  A
+                  20000428
+               
+               
+                  19981016
+               
+            
+         
+         
+            
+               
+                  WO
+                  WO 88/01417
+                  19880200
+               
+            
+         
+         
+            
+               
+                  WO
+                  WO 89/02578
+                  19890300
+               
+            
+         
+         
+            
+               
+                  WO
+                  WO 89/04089
+                  19890500
+               
+            
+         
+         
+            
+               
+                  WO
+                  WO 90/15975
+                  19901200
+               
+            
+         
+         
+            
+               
+                  WO
+                  WO 91/18266
+                  19911100
+               
+            
+         
+         
+            
+               
+                  WO
+                  WO 96/34264
+                  19961000
+               
+            
+         
+         
+            
+               
+                  WO
+                  WO 98/48489
+                  19981000
+               
+            
+         
+         
+            
+               
+                  WO
+                  WO 00/23776
+                  20000400
+               
+            
+         
+         
+            
+               U.S. patent application Ser. No. 09/671,495, Behm et al., filed Sep. 27, 2000.
+            
+         
+         
+            
+               U.S. patent application Ser. No. 09/519,781, Neslon et al., filed Mar. 7, 2000.
+            
+         
+         
+            
+               U.S. patent application Ser. No. 09/520,292, Davis et al., filed Mar. 7, 2000.
+            
+         
+         
+            
+               U.S. patent application Ser. No. 09/519,912, Nelson et al., filed Mar. 7, 2000.
+            
+         
+         
+            
+               U.S. patent application Ser. No. 09/672,338, Nelson et al., filed Sep. 28, 2000.
+            
+         
+         
+            
+               U.S. patent application Ser. No. 09/638,181, Roper et al., filed Jul. 31, 2000.
+            
+         
+         
+            
+               U.S. patent application Ser. No. 09/571,111, Westfield et al., filed May 15, 2000.
+            
+         
+         
+            
+               U.S. patent application Ser. No. 09/564,506, Nord et al., filed May 4, 2000.
+            
+         
+         
+            
+               U.S. patent application Ser. No. 09/667,289, Westfield et al., filed Sep. 22, 2000.
+            
+         
+         
+            
+               U.S. patent application Ser. No. 09/667,399, Behm et al., filed Sep. 21, 2000.
+            
+         
+         
+            
+               U.S. patent application Ser. No. 09/671,130, Fandrey et al., filed Sep. 27, 2000.
+            
+         
+         
+            
+               U.S. patent application Ser. No. 29/120,531, Fandrey et al., filed Mar. 21, 2000.
+            
+         
+         
+            
+               U.S. patent application Ser. No. 29/120,544, Fandrey et al., filed Mar. 21, 2000.
+            
+         
+         
+            
+               U.S. patent application Ser. No. 29/120,538, Fandrey et al., filed Mar. 21, 2000.
+            
+         
+         
+            
+               U.S. patent application Ser. No. 29/120,552, Fandrey et al., filed Mar. 21, 2000.
+            
+         
+         
+            
+               U.S. patent application Ser. No. 29/120,537, Fandrey et al., filed Mar. 21, 2000.
+            
+         
+         
+            
+               U.S. patent application Ser. No. 29/120,553, Fandrey et al., filed Mar. 21, 2000.
+            
+         
+         
+            
+               Product Data Sheet No: 00813-0100-4378, “Model 751 Field Signal Indicator”, by Rosemount Inc., Eden Prairie, Minnesota, (1997).
+            
+         
+         
+            
+               Product Data Sheet No: 00813-0100-4731, “APEX™ Radar Gauge”, by Rosemount Inc., Eden Prairie, Minnesota, (1998).
+            
+         
+         
+            
+               Product Data Sheet No: 00813-0100-4640, “Model 3201 Hydrostatic Interface Unit”, from the Rosemount Comprehensive Product Catalog, published 1998, by Rosemount Inc., Eden Prairie, Minnesota.
+            
+         
+         
+            
+               Product Data Sheet No: 00813-0100-4003, “Model 8800A”, by Rosemount Inc., Eden Prairie, Minnesota, (1998).
+            
+         
+         
+            
+               Product Data Sheet No: 00813-0100-4773, “Model 8742C—Magnetic Flowmeter Transmitter with FOUNDATION™ Fieldbus”, from the Rosemount Comprehensive Product Catalog, published 1998, by Rosemount Inc., Eden Prairie, Minnesota.
+            
+         
+         
+            
+               “Rosemount Model 8732C Magnetic Flowmeter Transmitter”, by Rosemount Inc., Eden Prairie, Minnesota, (1998).
+            
+         
+         
+            
+               Product Data Sheet No: 00813-0100-4263, “Model 44 Alphaline® Temperature Transmitters”, by Rosemount Inc., Eden Prairie, Minnesota, (1997).
+            
+         
+         
+            
+               Product Data Sheet No: 00813-0100-4769, “Model 3244MV Multivariable Temperature Transmitter with FOUNDATION™ Fieldbus”, by Rosemount Inc., Eden Prairie, Minnesota, (1998).
+            
+         
+         
+            
+               Product Data Sheet No: 00813-0100-4724, “Models 3144 and 3244MV Smart Temperature Transmitters”, by Rosemount Inc., Eden Prairie, Minnesota, (1998).
+            
+         
+         
+            
+               Product Data Sheet No: 00813-0100-4738, “Model 3095FB Multivariable™ Transmitter with Modbus™ Protocol”, by Rosemount Inc., Eden Prairie, Minnesota, (1996, 1997).
+            
+         
+         
+            
+               Product Data Sheet No: 00813-0100-4001, “Model 3051 Digital Pressure Transmitter for Pressure, Flow, and Level Measurement”, by Rosemount Inc., Eden Prairie, Minnesota, (1998).
+            
+         
+         
+            
+               Product Data Sheet No: 00813-0100-4698, “Model 2090F Sanitary Pressure Transmitter”, by Rosemount Inc., Eden Prairie, Minnesota, (1998).
+            
+         
+         
+            
+               Product Data Sheet No: 00813-0100-4690, “Model 2088 Economical Smart Pressure Transmitter”, by Rosemount Inc., Eden Prairie, Minnesota, (1998).
+            
+         
+         
+            
+               Product Data Sheet No: 00813-0100-4592, “Model 2024 Differential Pressure Transmitter”, by Rosemount Inc., Eden Prairie, Minnesota, (1987-1995).
+            
+         
+         
+            
+               Product Data Sheet No: 00813-0100-4360, “Model 1151 Alphaline® Pressure Transmitters”, by Rosemount Inc., Eden Prairie, Minnesota, (1998).
+            
+         
+         
+            
+               Product Data Sheet No: 00813-0100-4458, “Model 1135F Pressure-to-Current Converter”, by Rosemount Inc., Eden Prairie, Minnesota, (1983, 1986, 1994).
+            
+         
+         
+            
+               “Single Chip Senses Pressure and Temperature,”Machine Design, 64 (1992) May 21, No. 10.
+            
+         
+         
+            
+               Brochure: “Reduce Unaccounted-For Natural Gas with High-Accuracy Pressure Transmitters,” Rosemount Inc. Measurement Division, Eden Prairie, Minnesota, ADS 3073, 5/91, pp. 1-4.
+            
+         
+         
+            
+               Technical Information Bulletin, “Liquid Level Transmitter Model DB40RL Sanitary SensorDeltapilot,” Endress+ Hauser, Greenwood, Indiana, 9/92, pp. 1-8.
+            
+         
+         
+            
+               “The Digitisation of Field Instruments” W. Van Der Bijl,Journal A, vol. 32, No. 3, 1991, pp. 62-65.
+            
+         
+         
+            
+               Specification Summary, “TELETRANS™ 3508-30A Smart Differential Pressure Transmitter,” (undated) Bristol Babcock, Inc., Watertown, CT, 06795.
+            
+         
+         
+            
+               Specification Summary, “TELETRANS™ 3508-10A Smart Pressure Transmitter,” (undated) Bristol Babcock, Inc., Watertown, CT, 06795.
+            
+         
+         
+            
+               Specification Summary, “AccuRate Advanced Gas Flow Computer, Model GFC 3308,” (undated) Bristol Babcock, Inc., Watertown, CT, 06795.
+            
+         
+         
+            
+               Product Data Sheet PDS 4640, “Model 3201 Hydrostatic Interface Unit,” Mar. 1992, Rosemount Inc., Eden Prairie, MN 55344.
+            
+         
+         
+            
+               Product Data Sheet PDS 4638, “Model 3001CL Flush-Mount Hydrostatic Pressure Transmitter,” Jul. 1992, Rosemount Inc., Eden Prairie, MN 55344.
+            
+         
+         
+            
+               “Flow Measurement,”Handbook of Fluid Dynamics, V. Streeter, Editor-in-chief, published by McGraw-Hill Book Company, Inc. 1961, pp. 14-4 to 14-15.
+            
+         
+         
+            
+               “Precise Computerized In-Line Compressible Flow Metering,”Flow—Its Measurement and Control in Science and Industry, vol. 1, Part 2, Edited by R. Wendt, Jr., Published by American Institute of Physics et al, (undated) pp. 539-540.
+            
+         
+         
+            
+               “A Systems Approach,” Dr. C. Ikoku,Natural Gas Engineering, PennWell Books, (undated) pp. 256-257.
+            
+         
+         
+            
+               “Methods for Volume Measurement Using Tank-Gauging Devices Can Be Error Prone,” F. Berto,The Advantages of Hydrostatic Tank Gauging Systems, undated reprint fromOil&Gas Journal.
+            
+         
+         
+            
+               “Hydrostatic Tank Gauging—Technology Whose Time Has Come,” J. Berto,Rosemount Measurement Division Product Feature, undated reprint from INTECH.
+            
+         
+         
+            
+               “Pressure Sensors Gauge Tank level and Fluid Density,”Rosemount Measurement Division Product Feature, undated reprint fromPrepared Foods(Copyrighted 1991 by Gorman Publishing Company).
+            
+         
+         
+            
+               “Low Cost Electronic Flow Measurement System,”Tech Profile, May 1993, Gas Research Institute, Chicago, IL.
+            
+         
+         
+            
+               “Development of an Integrated EFM Device for Orifice Meter Custody Transfer Applications,” S.D. Nieberle et al.,American Gas Association Distribution/Transmission Conference&Exhibit, May 19, 1993.
+            
+         
+         
+            
+               Advertisement, AccuRate Model 3308 Integral Smart DP/P/T Transmitter, (undated) Bristol Babcock, Inc., Watertown, CT 06795.
+            
+         
+         
+            
+               Advertisement, Model 3508 DP Transmitter,Control Engineering, Dec. 1992, Bristol Babcock, Inc., Watertown, CT 06795.
+            
+         
+         
+            
+               “Smart Transmitters Tear Up The Market,” C. Polsonetti,INTECH, Jul. 1993, pp. 42-45.
+            
+         
+         
+            
+               “MicroLAN Design Guide”, Dallas Semiconductor, Tech Brief No. 1, (undated).
+            
+         
+         
+            
+               “Bosch CAN Specification Version 2.0”, by Robert Bosch GmbH, pp. 1-68 including pp. -1-and -2-, (Sep. 1991).
+            
+         
+         
+            
+               Product Data Sheet No. 00813-0100-4001, “Digital Pressure Transmitter for Pressure, Flow, and Level Measurement”, by Rosemount Inc., (1998).
+            
+         
+         
+            
+               “Claudius Ptolemy (100?-170? AD)”,M&C News, 7 pages, (Apr. 1994).
+            
+         
+         
+            
+               American National Standard , “Hydraulic Fluid Power-Solenoid Piloted Industrial Valves-Interface Dimensions for Electrical Connectors”, National Fluid Power Association, Inc., 10 pages, (Aug. 1981).
+            
+         
+         
+            
+               2 pages downloaded from http://www.interlinkbt.com/PRODUCT/IBT—PROD/DN/CN-DM—PN/EURO-DP.HTM dated Sep. 15, 2000.
+            
+         
+         
+            
+               4 pages downloaded from http://www.interlinkbt.com/PRODUCT/IBT—PROD/dn/EUR-CON/euro-fwc.htm dated Sep. 15, 2000.
+            
+         
+         
+            
+               3 pages from TURK Cable Standards, by Turk, Inc., Minneapolis, Minnesota.
+            
+         
+         
+            
+               “Notification of Transmittal of the International Search Report or Declaration” for International application Ser. No. PCT/US00/26561.
+            
+         
+         
+            
+               “Notification of Transmittal of the International Search Report or Declaration” for International application Ser. No. PCT/US00/26488.
+            
+         
+         
+            
+               “Notification of Transmittal of the International Search Report or Declaration” for International application Ser. No. PCT/US00/26563.
+            
+         
+         
+            
+               U.S. patent application Ser. No. 09/862,762, Wang, filed May 21, 2001.
+            
+         
+         
+            
+               U.S. patent application Ser. No. 09/867,961, Fandrey et al., filed May 30, 2001.
+            
+         
+         
+            
+               
+                  US
+                  7528755
+                  B2
+                  20090505
+               
+               
+                  20070906
+               
+            
+         
+         
+            
+               
+                  US
+                  7319421
+                  B2
+                  20080115
+               
+               
+                  20060126
+               
+            
+         
+         
+            
+               
+                  US
+                  7324029
+                  B2
+                  20080129
+               
+               
+                  20060126
+               
+            
+         
+         
+            
+               
+                  US
+                  7295131
+                  B2
+                  20071113
+               
+               
+                  20050107
+               
+            
+         
+         
+            
+               
+                  US
+                  6970126
+                  B1
+                  20051129
+               
+               
+                  20040625
+               
+            
+         
+         
+            
+               
+                  US
+                  6873277
+                  B1
+                  20050329
+               
+               
+                  20030919
+               
+            
+         
+         
+            
+               
+                  US
+                  7817073
+                  B2
+                  20101019
+               
+               
+                  20070615
+               
+            
+         
+      
+      
+         
+            
+               US
+               20030056597
+               A1
+               20030327
+            
+         
+      
+      
+         
+            
+               
+                  Rosemount Inc.
+                  02
+                  
+                     Eden Prairie
+                     MN
+                  
+               
+            
+         
+         
+            
+               
+                  Wang, Rongtai
+                  
+                     Edina
+                     MN
+                  
+               
+            
+         
+         
+            
+               
+                  Westman, Champlin & Kelly
+               
+            
+         
+      
+      
+         
+            Lefkowitz
+            Edward
+            2855
+         
+         
+            Jenkins
+            Jermaine L
+         
+      
+      
+         
+            
+               
+                  US
+                  6684711
+                  B2
+                  20040203
+               
+               
+                  20010823
+               
+            
+            
+               
+                  US
+                  20030056597
+                  A1
+                  20030327
+               
+               
+                  20010823
+               
+            
+         
+         
+            
+               
+                  US
+                  6684711
+                  B2
+                  20040203
+               
+               
+                  20010823
+               
+            
+            
+               
+                  US
+                  20030056597
+                  A1
+                  20030327
+               
+               
+                  20010823
+               
+            
+         
+      
+   
+   
+      A capacitor industrial process control transmitter includes a three-phase excitation circuit to charge a sensing capacitor and a compensation capacitor of the transmitter and transfer charges to an integrator. The sensing capacitor is charged during the first phase. During the second phase, the voltage to the sensing capacitor is reversed, and the charge on the sensing capacitor is pumped to the integrator. Also, the compensation capacitor is charged with the reversed voltage during the second phase. During the third phase, the voltage to the compensation capacitor is changed, and the charge on the compensation capacitor is pumped to the integrator.
+   
+   
+      
+         
+            20010823
+         
+         AS
+         ASSIGNMENT
+         N
+          US     6684711B2
+         ROSEMOUNT INC., MINNESOTA
+         ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNOR:WANG, RONGTAI;REEL/FRAME:012122/0804
+         
+            20010816
+         
+      
+      
+         
+            20050322
+         
+         CC
+         CERTIFICATE OF CORRECTION
+         C
+          US     6684711B2
+      
+      
+         
+            20070705
+         
+         FPAY
+         +
+         FEE PAYMENT
+         N
+          US     6684711B2
+         4
+      
+      
+         
+            20110802
+         
+         FPAY
+         +
+         FEE PAYMENT
+         N
+          US     6684711B2
+         8
+      
+   
+   
+      
+         FIELD OF THE INVENTION
+         The present invention is related generally to industrial process control transmitters, and particularly to a sensor excitation circuit for use in such transmitters.
+         BACKGROUND OF THE INVENTION
+         Industrial process control transmitters are used to measure process variables in field locations and provide standardized transmission signals as a function of the measured variable. The term “process variable” refers to a physical or chemical state of matter or conversion of energy, such as pressure, temperature, flow, conductivity, pH, and other properties. Process control transmitters are often operated in hazardous field environments to measure these variables and are connected by two-wire communication lines to a central or control station.
+         One such transmitter is described in U.S. application Ser. No. 09/312,411 filed May 14, 1999 by Roger L. Frick and David A. Broden for “Pressure Sensor for a Pressure Transmitter”, and assigned to the same assignee as the present invention. The Frick et al. transmitter employs a capacitive sensor having a deflectable sensing diaphragm and three or more capacitor electrodes forming separate capacitors with the diaphragm. Two of the capacitors are primary sensing capacitors that are arranged differentially so that the capacitances of the primary sensing capacitors change oppositely in proportion to the process variable. The third (and fourth, if used) capacitor is a compensation capacitor that provides signals representing certain offset errors associated with one or both of the primary sensing capacitors.
+         The Frick et al. transmitter includes a sigma-delta converter that acts as a capacitance-to-digital converter. An excitation circuit provides a charge packet to the capacitors of the sensor, which are charged by an amount based on the capacitance value of the capacitor. The charge is transferred to an integrator/amplifier of the sigma-delta converter to derive a signal representative of sensor capacitance. The signal is processed and a standardized transmission signal is transmitted to the central control station via the two-wire communication lines.
+         The excitation circuit of the Frick et al. application is operated such that each capacitor is charged by a charging voltage during a first phase and the charge is transferred to the integrator/amplifier during a second phase. The sensing capacitors and compensation capacitors are charged by the same charging voltage, necessitating the use of an inverting amplifier to invert one of the charges so that it may be subtracted from the other charge. The inverting amplifier introduces noise into the signal and consumes power.
+         SUMMARY OF THE INVENTION
+         The present invention is directed to a technique permitting the sensing and compensation capacitors to be charged oppositely so the need for a separate inverting amplifier is eliminated.
+         In accordance with the present invention, an industrial process control transmitter has a capacitive sensor with at least one sensing capacitor and at least one compensation capacitor. The sensing capacitor is charged with a first polarity during a first phase and the charge on the sensing capacitor is pumped to a sigma-delta capacitance-to-digital circuit during a second phase, mutually distinct from the first phase. The compensation capacitor is charged with a second polarity during the second phase and the charge on the second capacitor is pumped to the sigma-delta capacitance-to-digital circuit during a third phase.
+         In one form of the invention, the capacitive sensor includes a second sensing capacitor that is charged during the third phase.
+         A switch circuit selectively couples the sensing capacitors to a charging circuit to charge the sensor capacitors, and selectively couples the sensing capacitors to the sigma-delta circuit. The charge transferred is based on the charging level to the respective capacitor. A transmitter output circuit receives a digital output from the sigma-delta circuit and generates a standardized transmitter output for coupling to a remote receiver.
+      
+      
+         BRIEF DESCRIPTION OF THE DRAWINGS
+         
+            FIG. 1is a block diagram of an industrial process control transmitter employing a sensor excitation circuit according to the present invention.
+         
+            FIG. 2is a circuit diagram illustrating the excitation and sigma-delta compensation circuit described in the Frick et al. application.
+         
+            FIG. 3is a timing diagram for the circuit illustrated in FIG.2.
+         
+            FIG. 4is a circuit diagram of a portion of a three-phase excitation circuit illustrating the principles of the present invention.
+         
+            FIG. 5is a timing diagram for the circuit portion illustrated in FIG.4.
+         
+            FIGS. 6-8are equivalents of the circuit portion illustrated inFIG. 4for each of the three phases.
+         
+            FIG. 9is a circuit diagram of another portion of a three-phase excitation circuit.
+         
+            FIG. 10is a circuit diagram of a three-phase excitation circuit according to the present invention.
+         
+            FIG. 11is a timing diagram for the circuit illustrated in FIG.10.
+      
+      
+         DETAILED DESCRIPTION OF THE PREFERRED EMBODIMENTS
+         The principal problem addressed by the present invention is that the prior amplifiers that inverted the charges from the compensation capacitors required considerable power. The power requirements of prior inverting amplifiers adversely affected performance, and left insufficient power available for other purposes, such as for diagnostic circuits. The present invention separately charges the sensing capacitors and compensation capacitors at the levels and polarities necessary for summing for the sigma-delta circuit, without the need for inverting amplifiers. Consequently, power requirements are reduced.
+         
+            FIG. 1is a block diagram of an industrial process control transmitter900having a sigma-delta circuit1000arranged to receive signals representative of a pressure from charge circuit902that charges pressure sensitive capacitors of sensor904. Charges on the capacitors are representative of pressure, and of sensor hysteresis, and are transferred to circuit1000by charge circuit902. Circuit1000converts the charges to digital signals which are processed by processor1002and input to transceiver1004which provides a standardized transmission signal in a protocol designed for transmission to central control station1006by a two-wire communication link1008. Additionally, control station1006may send signals to remote industrial process control transmitter900by communication link1008which are received through transceiver1004to provide control to transmitter900in a manner well known in the art.
+         
+            FIG. 2is a circuit diagram illustrating the excitation circuit and sigma-delta circuit1000of an industrial process control transmitter described in the Frick et al. application. The capacitive sensor is schematically represented as sensing capacitors CHand CLand compensation capacitors CHRand CLR. As described in the Frick et al. application, the sensor physically changes over time causing sensing errors, known as hysteresis. These errors are a common source of error in measuring the process variable condition by the industrial process control transmitter. The compensation capacitors CHRand CLRhave a proportionately greater response to sensor hysteresis than the sensing capacitors CHand CL.
+         An input side of each capacitor CH, CL, CHRand CLRis coupled through switches50and52to the respective supplies VPand VN. The output sides of capacitors CHRand CLRare connected to respective inverter charge amplifiers circuits54and56, the outputs of which are connected to the output of the respective capacitor CHand CLat nodes H and L, respectively. Nodes H and L are connected through respective switches58and62to node X at the negative input of amplifier60, and through respective switches64and66to voltage source Vmid.
+         Amplifier60is an integrating amplifier that operates as an integrator amplifier for the first stage, or modulator stage, of sigma-delta capacitance-to-digital converter1000. Amplifier60provides an increasingly negative output for an increasing positive signal input at the negative input, and provides an increasing positive output for an increasing negative signal input at the negative input. The output of amplifier60is connected to the positive input of comparator70, whose output provides a digital output representing the capacitance ratio. The output of comparator70is also connected to switch control logic72to control operation of the switches.
+         Switch control logic72provides four switch logic signals Φ1, Φ2, y and {overscore (y)} (y-not), illustrated in FIG.3. Signals Φ1and Φ2are non-overlapping phase signals, whereas signals y and {overscore (y)} are complementary signals representing whether the circuit is operating in the positive or negative mode at a particular time. When operating in a positive mode, {overscore (y)} is high, whereas when operating in a negative mode, y is high.
+         In the positive mode of the circuit ({overscore (y)} high), switches50and64conduct during a first phase (Φ1) so the input sides of capacitors CHand CHRare at the positive voltage VPof the voltage supply. The output side of capacitor CHis at Vmid, which may be electrical ground, and the output side of capacitor CHRis at a voltage between VPand Vmid based on compensation capacitor(s) CG.
+         While {overscore (y)} is still high, during the second Φ2phase, switches52and58conduct and50and64are non-conducting. With VNat the input of capacitor CH, a negative charge representative of the capacitance value of capacitor CHis transferred to node H; with VNat the input of capacitor CHR, a negative charge representative of the capacitance value of capacitor CHRis transferred to the negative input of inverter amplifier80of charge amplifier circuit54. Capacitor(s) CGadjust the gain of amplifier80to set a constant KHbased on the ratio of CG/CFHfor charge amplifier54. Hence, the output of amplifier circuit54represents an adjusted inverted charge, —KHCHR, where KHis derived from the capacitor array CG. The representation of —KHCHRis summed with the representation of the charge on capacitor CHat node H. Switch58transfers the negative charge representation of CH—KHCHRfrom node H to node X at the negative input of amplifier60. Amplifier60integrates the signal such that the negative input produces a positive change to the signal at the output of amplifier60.
+         The circuit associated with capacitor CLand CLRoperates in a similar manner during the phases while y is high to place a positive charge at the negative input of amplifier60, thereby stepping the output of amplifier60negatively.
+         The circuit is reset by operating switch68during a reset phase ΦRto discharge feedback capacitor CF. Resistor R2has a high resistance (e.g., 100 megaohms) in parallel with feedback capacitor CFNto discharge capacitor CFNover the RC time constant of resistor R2and capacitor CFN. The resistance of resistor R2must be large enough to minimally affect the transfer of charge to the integrator, yet small enough to effectively discharge capacitor CFNduring resetting of the circuit. In practice, resistor R2was chosen high enough as to minimally impact the integration of the charge signal, and require resetting of the circuit over a considerably longer time period.
+         One problem associated with the circuit illustrated inFIG. 2is that operational amplifiers80have an input resistance R1of about 5,000 ohms. The input resistance of amplifiers80, coupled with the small current available to the amplifiers to settle the output voltage, introduces delays in integrator settling. These delays are illustrated at waveform Vc inFIG. 3which illustrates the slow settling of the output of amplifier80. More particularly, the long settling times between triggering a change in the Vc voltage and settling to the new voltage level resulted in shortened periods of settled Vc voltage, resulting in reduced slew currents. The slow integrator settling creates measurement error at high sampling frequencies and deprives the circuit of adequate power to operate other diagnostic circuits. Moreover, the distorted waveform output VCmay adversely affect the integrator settling of the first stage integrator60of sigma-delta converter1000.
+         Another problem with the circuit illustrated inFIG. 2is that amplifiers80were implemented as external amplifiers, connected by terminal82to the respective compensation capacitor CHRor CLR, and by terminal84to gain capacitor array CG. The connections to external amplifiers80introduced additional leakage paths and noise sources for the circuit.
+         Another problem of the circuit ofFIG. 2was that operational amplifiers80required the addition of two sample-and-hold amplifiers within amplifier60which added to the power consumption of the circuit, and diminished real estate (chip area) availability on the circuit boards.
+         It will be appreciated from the foregoing that the circuit shown inFIG. 2charges the sensing capacitor and its associated compensation capacitor to the same polarity, requiring that one of the charges (e.g., that on the compensation capacitor) be inverted to be subtracted from the other charge. The present invention eliminates the need for inversion, and hence the inverting amplifiers80, by charging the sensing and compensation capacitors oppositely. Moreover, the present invention eliminates the need for gain capacitor array CGby adjusting the charge voltage to the compensation capacitor.
+         
+            FIG. 4is a circuit diagram illustrating the structure and principles of operation of the three-phase excitation circuit according to the present invention for a capacitive sensor.FIG. 4illustrates the excitation circuit for one-half of the sensor, namely one of the capacitors CHof the differential pair and its corresponding compensation capacitor CHR. The circuit includes a charge circuit101that charges the sensor capacitors of sensor103for input to sigma-delta modulator105. Charge circuit101includes voltage sources VP, VNand VHcoupled through respective switches102,104and106to one side of the capacitors of sensor103. Sensor103includes capacitor sensor CHand its companion compensation capacitor CHR. Conveniently, the output of the charge circuit may be connected to the conductive diaphragm of sensor103, and the opposite sides of sensor capacitors CHand CHRare coupled through switches110and112to voltage source Vmid and through respective switches118and120to node X at the input of circuit105. Circuit105is the first stage integrator circuit of a sigma-delta converter that converts the capacitance values to digital representations. The value of voltage source Vmid is preferably mid-way between the values of the VPand VNvoltages. In one preferred form, voltage sources VPand VNhave equal and opposite values at +5 volts and −5 volts, respectively, Vmid is electrically grounded and VHis an intermediate voltage between VPand Vmid.
+         Integrator105includes differential amplifier126having its positive input connected to Vmid and its negative input connected through capacitor CAto the output node X of sensor103. Switch128selectively couples the negative input of integrator105to Vmid, and switch130selectively couples the negative input of integrator105to one side of feedback capacitor CF. Switch132selectively couples the negative input of amplifier126to the one side of capacitor CF. The opposite side of feedback capacitor CFis connected to the output of amplifier126. Switch134is connected in parallel with feedback capacitor CFto reset the circuit.
+         
+            FIG. 5is a timing diagram for the three phases for operating the switches of the excitation circuit illustrated in FIG.4. More particularly, during a first phase Φ1, switches102,110,128and132are closed, or conducting, and the remaining switches are open, or non-conducting. During the second phase Φ2, switches104,112,118and130are closed, or conducting, and the remaining switches are open, or non-conducting. During the third phase, Φ3, switches106,120and130are closed, or conducting, and the remaining switches are open, or non-conducting.
+         
+            FIGS. 6-8illustrate the circuit ofFIG. 4during each of the three phases. As shown inFIG. 6, during a first phase, when Φ1is high and switches102,110,128and132are conducting, a high positive voltage VPis provided to one side of sensor capacitor CH, while the other side is disconnected from node X and connected to Vmid. Based on the size of capacitor CH, which is based on the variable being sensed, a voltage ΔVo appears across capacitor CH, placing a negative charge representative of the voltage on the output side of the capacitor. At the same time, node X is connected to Vmid through switch128so that any offset in integrator105is stored in capacitor CA.
+         During the second phase of the operation of the circuit, illustrated inFIG. 7, Φ2is high, rendering switches104,112,118and130conductive, configuring the circuit as illustrated in FIG.7. Consequently, node X is disconnected from Vmid and couples capacitor CHto feedback capacitor CF. In this condition, the negative charge on capacitor CHis transferred to the feedback capacitor CF. Since feedback capacitor CFprovides a negative feedback for amplifier126, amplifier126produces a positive step in its output voltage at output136. The output voltage, VΦ1, at output136is represented as
+               
+                  
+                     
+                        V
+                        Φ1
+                     
+                     =
+                     
+                        
+                           
+                              C
+                              H
+                           
+                           
+                              C
+                              F
+                           
+                        
+                        [!it!]
+                        
+                           
+                              (
+                              
+                                 2
+                                 [!it!]
+                                 Δ
+                                 [!it!]
+                                 
+                                     
+                                 
+                                 [!it!]
+                                 
+                                    V
+                                    o
+                                 
+                              
+                              )
+                           
+                           .
+                        
+                     
+                  
+               
+               
+            
+         
+         During this same period, a negative voltage VNis applied to compensation capacitor CHRto charge capacitor CHRwith a positive charge at its output.
+         During the third phase, Φ3, the equivalent circuit is illustrated inFIG. 8with node X coupling compensation capacitor CHRand feedback capacitor CF. The positive charge on capacitor CHRis transferred to the feedback capacitor CFpumping a charge into the integrator, creating a negative step to the output voltage, VΦ2, at output136, represented by
+               
+                  
+                     
+                        V
+                        Φ2
+                     
+                     =
+                     
+                        
+                           -
+                           
+                              
+                                 C
+                                 HR
+                              
+                              
+                                 C
+                                 F
+                              
+                           
+                        
+                        [!it!]
+                        Δ
+                        [!it!]
+                        
+                            
+                        
+                        [!it!]
+                        
+                           
+                              V
+                              H
+                           
+                           .
+                        
+                     
+                  
+               
+               
+            
+         
+         The output voltage, Vout, from the first stage105of the sigma-delta circuit is the sum of VΦ1and VΦ2and is represented by
+               
+                  
+                     
+                        
+                           V
+                           out
+                        
+                        =
+                        
+                           
+                              
+                                 
+                                    C
+                                    H
+                                 
+                                 
+                                    C
+                                    F
+                                 
+                              
+                              [!it!]
+                              
+                                 (
+                                 
+                                    2
+                                    [!it!]
+                                    Δ
+                                    [!it!]
+                                    
+                                        
+                                    
+                                    [!it!]
+                                    
+                                       V
+                                       o
+                                    
+                                 
+                                 )
+                              
+                           
+                           -
+                           
+                              
+                                 
+                                    C
+                                    HR
+                                 
+                                 
+                                    C
+                                    F
+                                 
+                              
+                              [!it!]
+                              Δ
+                              [!it!]
+                              
+                                  
+                              
+                              [!it!]
+                              
+                                 V
+                                 H
+                              
+                           
+                        
+                     
+                     ,
+                  
+               
+               
+            
+         
+         which may be represented as
+               
+                  
+                     
+                        
+                           V
+                           out
+                        
+                        =
+                        
+                           
+                              
+                                 2
+                                 [!it!]
+                                 Δ
+                                 [!it!]
+                                 
+                                     
+                                 
+                                 [!it!]
+                                 
+                                    V
+                                    o
+                                 
+                              
+                              
+                                 C
+                                 F
+                              
+                           
+                           [!af!]
+                           
+                              [
+                              
+                                 
+                                    C
+                                    H
+                                 
+                                 -
+                                 
+                                    
+                                       K
+                                       H
+                                    
+                                    [!it!]
+                                    
+                                       C
+                                       HR
+                                    
+                                 
+                              
+                              ]
+                           
+                        
+                     
+                     ,
+                     
+                        [!NewLine!]
+                     
+                     [!it!]
+                     
+                        
+                           where
+                           [!it!]
+                           
+                               
+                           
+                           [!it!]
+                           
+                              K
+                              H
+                           
+                        
+                        =
+                        
+                           
+                              
+                                 Δ
+                                 [!it!]
+                                 
+                                     
+                                 
+                                 [!it!]
+                                 
+                                    V
+                                    H
+                                 
+                              
+                              
+                                 2
+                                 [!it!]
+                                 Δ
+                                 [!it!]
+                                 
+                                     
+                                 
+                                 [!it!]
+                                 
+                                    V
+                                    o
+                                 
+                              
+                           
+                           .
+                        
+                     
+                  
+               
+               
+            
+         
+         It will be appreciated that KHmay be set by establishing a value of voltage VHto meet factory calibration requirements. Therefore, where the circuit ofFIG. 2established the gain for the compensation capacitor CHRby the capacitor array, the circuit ofFIG. 4establishes the gain for compensation capacitor CHRby selecting a desired voltage VH. Consequently, during operation of the positive side of the charge circuit illustrated inFIG. 4, the voltage steps at the output of amplifier126are proportional to CH—KHCHR.
+         
+            FIG. 9illustrates the negative side of the charge circuit and sensor101and103and adds switch108coupled to the lower charge voltage VL, as well as the second half of the differential sensor CLand its corresponding compensation capacitor CLR. The output sides of capacitor CLand CLRare coupled through switches114and116to Vmid, previously described, and are coupled through switches122and124to compensator circuit105, previously described. When operating with the negative side of the sensor, switches104,114,128and132are conducting during phase1, Φ1, while the other switches are non-conducting. During the second phase, Φ2, switches102,116,124and130are conductive and the other switches non-conductive. During the third phase, Φ3, switches108,124and130are conductive and the other switches non-conductive.
+         The operation of the circuit illustrated inFIG. 9is essentially the same as that ofFIG. 4, except that Vmid is higher than VLso that the circuit transfers a negative charge packet to the sensor and converter. Consequently, the positive and negative supply voltages VPand VNare operated oppositely so voltage VNprovides the charging voltage to capacitor CLduring the first phase Φ1and voltage VPprovides the charging voltage to capacitor CLRduring the second phase Φ2. Hence, during operation of the negative portion of the circuit illustrated inFIG. 9, the voltage steps at the output of amplifier126are proportional to CL—KLCLR.
+         
+            FIG. 10illustrates the entire transmitter circuit, including the circuit that is a composite ofFIGS. 4 and 8, as well as sigma-delta circuit1000, with its modulator stage105and controller stage including comparator70. The output of sigma-delta circuit1000is supplied to digital processor1002which derives a standardized signal for transmission to a central receiving station via a two-wire communication system1004. Communication system1004is, for example a 4-20 milliAmpere (mA) communication system available from Rosemount Inc. of Eden Prairie, Minn.
+         
+            FIG. 11illustrates the timing diagram forFIG. 10, the signals being derived by switch control logic72coupled to the output of circuit1000. Signals Φ1, Φ2and Φ3are the same as illustrated inFIG. 4; signals y and {overscore (y)} control whether the circuit is operating on the positive or the negative side, {overscore (y)} being the complement of y. The negative side of the circuit operates when signal y is high and the positive side operates when signal {overscore (y)} is high. Hence, switches110,112
+            118and120are conducting when {overscore (y)} is high and switches114,116
+            122and124are conducting when y is high. Switch102conducts during the first phase when {overscore (y)} is high and during the second phase when y is high (ΦP={overscore (y)}Φ1+yΦ2), switch104conducts during the first phase when y is high and during the second phase when {overscore (y)} is high (ΦN={overscore (y)}Φ2+yΦ1), switch106conducts during the third phase when {overscore (y)} is high (ΦH={overscore (y)}Φ3) and switch108conducts during the third phase when y is high (ΦL=yΦ3).
+         Switch control circuit72provides signal outputs illustrated inFIG. 11representing the three phases Φ1, Φ2and Φ3, as well as the y and {overscore (y)} mode signals to operate the switches illustrated inFIG. 10during respective ones of six time periods, designated {overscore (y)}Φ1, {overscore (y)}Φ2, {overscore (y)}Φ3, yΦ1, yΦ2and yΦ3. Switch control logic72includes timing circuits that generate the Φ1, Φ2, Φ3, y and {overscore (y)} signals, as well as logic circuitry consisting of simple AND and OR gates to generate the proper phase relationships.
+         Offset capacitor CAserves to compensate for offset in differential amplifier126during operation of the circuit. More particularly, during the first phase (Φ1) of both modes, switches128and132are conducting, thereby storing a charge in capacitor CArepresentative of any voltage offset in amplifier126. During the second and third phases (Φ2and Φ3), the charge on feedback capacitor CFis adjusted by the output from the sensor through switch130so that the output of amplifier126represents the sensor output, compensated for offset of the amplifier.
+         To reset the circuit, switch134in parallel with feedback capacitor CFis operated to conduction during a reset phase ΦR to discharge feedback capacitor CF, thereby resetting the charge on capacitor CF.
+         The present invention thus provides a three-phase excitation circuit for an industrial process control transmitter that charges sensor capacitors and transfers charge representations to the integrator without introducing delays in integrator settling, and without measurement error at high sampling frequencies. The circuit of the present invention eliminates the need for external operational amplifiers that introduced leakage paths and noise sources. The circuit of the present invention eliminates the need for additional sample-and-hold amplifiers as required in prior circuits which require additional power consumption and diminish the availability of real estate on the circuit boards in the transmitter.
+         The compensation charge is based, in part, on the value of voltages VLand VH, which are calibrated at the factory and re-set in the field as desired. Using a digitally controlled voltage source for VLand VH, the gain adjustment of the charge transferred from compensation capacitors CLRand CHRmay be digitally set and changed.
+         Although the present invention has been described with reference to preferred embodiments, workers skilled in the art will recognize that changes may be made in form and detail without departing from the spirit and scope of the invention.
+      
+   
+   
+      
+         1. A pressure sensor having first and second capacitors each responsive to pressure and to sensor hysteresis, the sensor comprising:a charging circuit having a first charging level having a first polarity, a second charging level having a second polarity opposite the first polarity and third charging level that is intermediate the first and second charging levels;
+            a sensing circuit that is a sigma-delta capacitance-to-digital circuit providing a digital output representative of the pressure; and
+            a switch circuit selectively coupling the first and second capacitors to the charging circuit to charge the first and second capacitors, and selectively coupling the first and second capacitors to the sensing circuit to transfer charge from the first capacitor based on the first and second charging levels and to transfer charge from the second capacitor based on the second and third charging levels.
+         
+      
+      
+         2. The pressure sensor ofclaim 1, wherein the switch circuit includes:a first switch operable to couple an input of the first capacitor to the first charging level;
+            a second switch operable to couple an output of the first capacitor to the sensing circuit and to couple inputs of the first and second capacitors to the second charging level;
+            a third switch operable to couple the input of the second capacitor to the third charging level and to couple an output of the second capacitor to the sensing circuit; and
+            a switch control responsive to the sensing circuit for operating the first, second and third switches in sequence.
+         
+      
+      
+         3. The pressure sensor ofclaim 2, wherein the charging circuit supplies a fourth charging level that is midway between the first and second charging levels, the first switch being further operable to couple the output of the first capacitor to the fourth charging level.
+      
+      
+         4. The pressure sensor ofclaim 3, wherein the second switch is further operable to couple the output of the second capacitor to the fourth charging level.
+      
+      
+         5. The pressure sensor ofclaim 3, wherein the sensing circuit includes:an integrating amplifier having a first input connected to the fourth charging level, a second input and an output,
+            a feedback capacitor,
+            the first switch being further operable to couple the feedback capacitor between the amplifier output and the amplifier second input,
+            the second switch being further operable to couple the feedback capacitor between the amplifier output and the first capacitor, and
+            the third switch being further operable to couple the feedback capacitor between the amplifier output and the second capacitor.
+         
+      
+      
+         6. The pressure sensor ofclaim 5, wherein the third charging level is between the first and fourth charging levels and the charging circuit supplies a fifth charging level that is between the second and fourth charging levels, the sensor further including a fourth capacitor,the switch control is responsive to the sensing circuit to operate the first, second and third switches during respective first and second sets of phases,
+            the first switch is operable during a first phase of the first set to couple the input of the first capacitor to the first charging level and is operable during the first phase of the second set to couple an input of the third capacitor to the second charging level,
+            the second switch is operable during a second phase of the first set to couple the output of the first capacitor to the sensing circuit and is operable during the second phase of the second set to couple an output of the third capacitor to the sensing circuit and to couple the fifth charging level to an input of the fourth capacitor, and
+            the third switch is operable during a third phase to couple the feedback capacitor between the amplifier output and the fourth capacitor.
+         
+      
+      
+         7. The pressure sensor ofclaim 6, whereinthe second switch is coupled to the feedback capacitor to couple the feedback capacitor between the amplifier output and the first capacitor during the second phase of the first set and to couple the feedback capacitor between the amplifier output and the third capacitor during the second phase of the second set, and
+            the third switch is coupled to the feedback capacitor to couple the feedback capacitor between the amplifier output and the second capacitor during the third phase of the first set and to couple the feedback capacitor between the amplifier output and the fourth capacitor during the third phase of the second set.
+         
+      
+      
+         8. The pressure sensor ofclaim 1, including third and fourth capacitors responsive to pressure and to sensor hysteresis, and wherein the charging circuit has a fourth charging level that is intermediate the first and second charging levels, the switch circuit selectively coupling the third and fourth capacitors to the charging circuit to charge the third and fourth capacitors, and selectively coupling the third and fourth capacitors to the sensing circuit to transfer charge from the third capacitor based on the first and second charging levels and to transfer charge from the fourth capacitor based on the first and fourth charging levels.
+      
+      
+         9. The pressure sensor ofclaim 8, wherein the switch circuit includes:a first switch operable to couple an input of the first capacitor to the first charging level;
+            a second switch operable to couple an output of the first capacitor to the sensing circuit and to couple inputs of the first and second capacitors to the second charging level;
+            a third switch operable to couple the input of the second capacitor to the third charging level and to couple an output of the second capacitor to the sensing circuit;
+            a fourth switch operable to couple an input of the third capacitor to the second charging level;
+            a fifth switch operable to couple an output of the third capacitor to the sensing circuit and to couple inputs of the third and fourth capacitors to the first charging level;
+            a sixth switch operable to couple an input of the fourth capacitor to the fourth charging level and an output of the fourth capacitor to the sensing circuit; and
+            a switch control responsive to the sensing circuit for operating the first, second, third, fourth, fifth and sixth switches in sequence.
+         
+      
+      
+         10. The pressure sensor ofclaim 9, wherein the charge circuit supplies a fifth charging level that is midway between the first and second charging levels, the third charging level being between the first and fifth charging levels, and the fourth charging level being between the second and fifth charging levels, and the first switch is operable to couple the output of the first capacitor to the fourth charging level, and the fourth switch is operable to couple the output of the second capacitor to the fifth charging level.
+      
+      
+         11. The pressure sensor ofclaim 10, wherein the second switch is further operable to couple the output of the second capacitor to the fifth charging level, and the fifth switch is operable to couple the output of the fourth capacitor to the fifth charging level.
+      
+      
+         12. The pressure sensor ofclaim 1coupled to an industrial process control transmitter, further including a transmitter output circuit receiving the digital output and generating a standardized transmitter output adapted for coupling to a remote receiver.
+      
+      
+         13. An industrial process control transmitter comprising:a pressure sensor having first and second capacitors each having a capacitance responsive to pressure and to sensor hysteresis;
+            a charging circuit having a first charging level having a first polarity, a second charging level having a second polarity opposite the first polarity and third charging level that is intermediate the first and second charging levels;
+            a sigma-delta capacitance-to-digital circuit providing a digital output representative of an analog input;
+            a switch circuit selectively coupling the first and second capacitors to the charging circuit to charge the first and second capacitors and selectively coupling the first and second capacitors to the capacitance-to-digital circuit to transfer an analog signal from the first capacitor based on the capacitance of the first capacitor and the first charging level and to transfer an analog signal from the second capacitor based on the capacitance of the second capacitor and the second and third charging levels; and
+            a transmitter output circuit responsive to the digital output to generate a standardized transmitter output adapted for coupling to a remote receiver.
+         
+      
+      
+         14. The industrial process control transmitter ofclaim 13, wherein the switch circuit selectively couples the first capacitor to the capacitance-to-digital circuit so that the analog signal transferred from the first capacitor is based on the first and second charging levels.
+      
+      
+         15. The industrial process control transmitter ofclaim 14, wherein the switch circuit includes:a first switch operable to couple an input of the first capacitor to the first charging level;
+            a second switch operable to couple an output of the first capacitor to the capacitance-to-digital circuit and to couple an input of the second capacitor to the second charging level;
+            a third switch operable to couple the input of the second capacitor to the third charging level and to couple an output of the second capacitor to the capacitance-to-digital circuit; and
+            a switch control responsive to the sensing circuit for operating the first, second and third switches in sequence.
+         
+      
+      
+         16. The industrial process control transmitter ofclaim 14, wherein the pressure sensor includes third and fourth capacitors responsive to pressure and to sensor hysteresis, and wherein the capacitance-to-digital circuit has a fourth charging level that is intermediate the first and second charging levels, the switch circuit selectively coupling the third and fourth capacitors to the charging circuit to charge the third and fourth capacitors, and selectively coupling the third and fourth capacitors to the capacitance-to-digital circuit to transfer an analog signal from the third capacitor to the capacitance-to-digital circuit based on the first and second charging levels and to transfer an analog signal from the fourth capacitor to the capacitance-to-digital circuit based on the first and fourth charging levels.
+      
+      
+         17. The industrial process control transmitter ofclaim 16, wherein the switch circuit includes:a first switch operable to couple an input of the first capacitor to the first charging level;
+            a second switch operable to couple an output of the first capacitor to the capacitance-to-digital circuit and to couple inputs of the first and second capacitors to the second charging level;
+            a third switch operable to couple the input of the second capacitor to the third charging level and to couple an output of the second capacitor to the capacitance-to-digital circuit;
+            a fourth switch operable to couple an input of the third capacitor to the second charging level;
+            a fifth switch operable to couple an output of the third capacitor to the capacitance-to-digital circuit and to couple inputs of the third and fourth capacitors to the first charging level;
+            a sixth switch operable to couple an input of the fourth capacitor to the fourth charging level and an output of the fourth capacitor to the capacitance-to-digital circuit; and
+            a switch control responsive to the sensing circuit for operating the first, second, third, fourth, fifth and sixth switches in sequence.
+         
+      
+      
+         18. A process of operating a pressure sensor having first and second capacitors each responsive to pressure and to sensor hysteresis, the process comprising steps of:(a) charging the first capacitor to a first polarity during a first phase;
+            (b) pumping a charge on the first capacitor to a sigma-delta capacitance-to-digital circuit during a second phase that is mutually exclusive from the first phase;
+            (c) charging the second capacitor to a second polarity opposite the first polarity during the second phase; and
+            (d) pumping a charge on the second capacitor to the sigma-delta capacitance-to-digital circuit during a third phase that is mutually exclusive from the first and second phases.
+         
+      
+      
+         19. The process ofclaim 18, wherein the sigma-delta capacitance-to-digital circuit includes an amplifier, and an offset capacitor coupled to an input of the amplifier to adjust for amplifier offset, the process further including the step of:(e) charging the offset capacitor to represent the amplifier offset during the first phase.
+         
+      
+      
+         20. The process ofclaim 18, wherein pressure sensor further includes third and fourth capacitors responsive to pressure and to sensor hysteresis, and steps (a)-(d) are performed during a first set of first, second and third phases, the process further comprising steps of, during a second set of first, second and third phases:(e) charging the third capacitor to the second polarity during the first phase,
+            (f) pumping a charge on the second capacitor to the sigma-delta capacitance-to-digital circuit during the second phase,
+            (g) charging the fourth capacitor to the first polarity during the second phase, and
+            (h) pumping a charge on the fourth capacitor to the sigma-delta capacitance-to-digital circuit during the third phase.
+         
+      
+      
+         21. The process ofclaim 20, wherein the sigma-delta capacitance-to-digital circuit includes an amplifier, and an offset capacitor coupled to an input of the amplifier to adjust for amplifier offset, the process further including the step of:(i) charging the offset capacitor to represent the amplifier offset during the first phases.
+         
+      
+   
+   
+      
+         
+      
+      
+         
+      
+      
+         
+      
+      
+         
+      
+      
+         
+      
+      
+         
+      
+      
+         
+      
+      
+         
+      
+   

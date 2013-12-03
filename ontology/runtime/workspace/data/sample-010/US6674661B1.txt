@@ -1,0 +1,1302 @@
+
+   
+      
+         
+            US
+            6674661
+            B1
+            20040106
+         
+      
+      
+         
+            US
+            10350497
+            20030123
+         
+      
+      10
+      eng
+      eng
+      
+         
+            US
+            10350497
+            20030123
+         
+         
+            US
+            09896055
+            20010628
+         
+         
+            US
+            09675574
+            20000929
+         
+      
+      
+         
+            20040106
+         
+         
+            20040106
+         
+      
+      
+         
+             7G 11C  17/10   A
+            7
+            G
+            11
+            C
+            17
+            10
+            A
+         
+      
+      
+         
+            H01L  21/70        20060101C I20051008RMEP        
+            
+               20060101
+            
+            C
+            H
+            01
+            L
+            21
+            70
+            I
+            
+               20051008
+            
+            
+               EP
+            
+            R
+            M
+         
+         
+            H01L  21/8246      20060101A I20051008RMEP        
+            
+               20060101
+            
+            A
+            H
+            01
+            L
+            21
+            8246
+            I
+            
+               20051008
+            
+            
+               EP
+            
+            R
+            M
+         
+         
+            H01L  27/112       20060101C I20051008RMEP        
+            
+               20060101
+            
+            C
+            H
+            01
+            L
+            27
+            112
+            I
+            
+               20051008
+            
+            
+               EP
+            
+            R
+            M
+         
+         
+            H01L  27/112       20060101A I20051008RMEP        
+            
+               20060101
+            
+            A
+            H
+            01
+            L
+            27
+            112
+            I
+            
+               20051008
+            
+            
+               EP
+            
+            R
+            M
+         
+      
+      
+         US
+         
+            365/104
+            365
+            104
+         
+         
+            257/E21.666
+            257
+            E21.666
+         
+         
+            257/E27.102
+            257
+            E27.102
+         
+         
+            365/94
+            365
+            94
+         
+         
+            365/103
+            365
+            103
+         
+      
+      
+         
+            H01L 21/8246P
+            H
+            01
+            L
+            21
+            8246
+            
+               P  
+            
+         
+         
+            H01L 27/112
+            H
+            01
+            L
+            27
+            112
+         
+      
+      
+         
+            US
+            
+               257/390
+               257
+               390
+            
+         
+         
+            US
+            
+               365/94
+               365
+               94
+            
+         
+         
+            US
+            
+               365/96
+               365
+               96
+            
+         
+         
+            US
+            
+               365/103
+               365
+               103
+            
+         
+         
+            US
+            
+               365/104
+               365
+               104
+            
+         
+      
+      13
+      Dense metal programmable ROM with the terminals of a programmed memory transistor being shorted together
+      
+         
+         
+         
+            
+               
+                  US
+                  5517061
+                  A
+                  Azmanov
+                  19960514
+               
+               
+                  19950421
+               
+            
+         
+         
+            
+               
+                  US
+                  5796239
+                  A
+                  van Phuoc et al.
+                  19980818
+               
+               
+                  19970402
+               
+            
+         
+         
+            
+               
+                  US
+                  6525954
+                  B2
+                  Becker
+                  20030225
+               
+               
+                  20010628
+               
+            
+         
+         
+            
+               
+                  US
+                  6542396
+                  B1
+                  Becker
+                  20030401
+               
+               
+                  20000929
+               
+            
+         
+         
+            
+               
+                  US
+                  6569714
+                  B2
+                  Becker
+                  20030527
+               
+               
+                  20010628
+               
+            
+         
+         
+            
+               
+                  EP
+                  1691373
+                  A1
+                  20060816
+               
+               
+                  20060124
+               
+            
+         
+         
+            
+               
+                  FR
+                  2881566
+                  A1
+                  20060804
+               
+               
+                  20050202
+               
+            
+         
+         
+            
+               
+                  US
+                  7480166
+                  B2
+                  20090120
+               
+               
+                  20060530
+               
+            
+         
+         
+            
+               
+                  US
+                  7400543
+                  B2
+                  20080715
+               
+               
+                  20031112
+               
+            
+         
+         
+            
+               
+                  US
+                  7321153
+                  B2
+                  20080122
+               
+               
+                  20060126
+               
+            
+         
+         
+            
+               
+                  US
+                  7075809
+                  B2
+                  20060711
+               
+               
+                  20040616
+               
+            
+         
+         
+            
+               
+                  US
+                  6771528
+                  B2
+                  20040803
+               
+               
+                  20020228
+               
+            
+         
+         
+            
+               
+                  US
+                  7746722
+                  B2
+                  20100629
+               
+               
+                  20080617
+               
+            
+         
+      
+      
+         
+            
+               
+                  
+                     US
+                     09/896055
+                     20010628
+                  
+                  GRANTED
+                  
+                     
+                        US
+                        6569714
+                        A
+                     
+                  
+               
+               
+                  
+                     US
+                     10/350497
+                  
+               
+            
+         
+         
+            
+               
+                  
+                     US
+                     09/675574
+                     20000929
+                  
+                  GRANTED
+                  
+                     
+                        US
+                        6542396
+                        A
+                     
+                  
+               
+               
+                  
+                     US
+                     09/896055
+                  
+               
+            
+         
+      
+      
+         
+            
+               
+                  Artisan Components, Inc.
+                  02
+                  
+                     Sunnyvale
+                     CA
+                  
+               
+            
+         
+         
+            
+               
+                  Becker, Scott T.
+                  
+                     San Jose
+                     CA
+                  
+               
+            
+         
+         
+            
+               
+                  Martine & Penilla, LLP
+               
+            
+         
+      
+      
+         
+            Tran
+            Andrew Q.
+            2824
+         
+      
+      
+         
+            
+               
+                  US
+                  6674661
+                  B1
+                  20040106
+               
+               
+                  20030123
+               
+            
+         
+         
+            
+               
+                  US
+                  6674661
+                  B1
+                  20040106
+               
+               
+                  20030123
+               
+            
+            
+               
+                  US
+                  6525954
+                  B2
+                  20030225
+               
+               
+                  20010628
+               
+            
+            
+               
+                  WO
+                  0229891
+                  A1
+                  20020411
+               
+               
+                  20010830
+               
+            
+            
+               
+                  US
+                  6542396
+                  B1
+                  20030401
+               
+               
+                  20000929
+               
+            
+            
+               
+                  US
+                  20020039812
+                  A1
+                  20020404
+               
+               
+                  20010628
+               
+            
+            
+               
+                  TW
+                  521415
+                  B
+                  20030221
+               
+               
+                  20010904
+               
+            
+            
+               
+                  US
+                  6569714
+                  B2
+                  20030527
+               
+               
+                  20010628
+               
+            
+            
+               
+                  US
+                  20020039305
+                  A1
+                  20020404
+               
+               
+                  20010628
+               
+            
+         
+      
+   
+   
+      A metal programmable ROM includes a memory cell array having a depth defined by a plurality of wordlines and a width defined by a plurality of bitlines. In addition, a group of memory cells are coupled between a bitline and a ground conection, with each memory cell in the memory cell group coupled to at least one other memory cell in the memory cell group. Finally, a programmed memory cell is defined by a memory cell transistor having its terminals shorted together.
+   
+   
+      
+         
+            20060515
+         
+         AS
+         ASSIGNMENT
+         C
+          US     6674661B1
+         ARM PHYSICAL IP, INC., CALIFORNIA
+         MERGER/CHANGE OF NAME;ASSIGNOR:ARTISAN COMPONENTS, INC.;REEL/FRAME:017619/0154
+         
+            20041223
+         
+      
+      
+         
+            20070516
+         
+         AS
+         ASSIGNMENT
+         C
+          US     6674661B1
+         ARM, INC., CALIFORNIA
+         MERGER;ASSIGNOR:ARM PHYSICAL IP, INC.;REEL/FRAME:019323/0528
+         
+            20061218
+         
+      
+      
+         
+            20070516
+         
+         AS
+         ASSIGNMENT
+         N
+          US     6674661B1
+         ARM, INC.,CALIFORNIA
+         MERGER;ASSIGNOR:ARM PHYSICAL IP, INC.;US-ASSIGNMENT DATABASE UPDATED:20100311;REEL/FRAME:19323/528
+         
+            20061218
+         
+      
+      
+         
+            20070621
+         
+         FPAY
+         +
+         FEE PAYMENT
+         N
+          US     6674661B1
+         4
+      
+      
+         
+            20110622
+         
+         FPAY
+         +
+         FEE PAYMENT
+         N
+          US     6674661B1
+         8
+      
+   
+   
+      
+         CROSS REFERENCE TO RELATED APPLICATIONS
+         This application is divisional of U.S. patent application Ser. No. 09/896,055 filed Jun. 28, 2001 and entitled “Method and Apparatus for a Dense Metal Programmable ROM”, now U.S. Pat. No. 6,569,714, which is a divisional of U.S. patent application Ser. No. 09/675,574 filed Sep. 29, 2000 and entitled “Method and Apparatus for a Dense Metal Programmable ROM”, now U.S. Pat. No. 6,542,396.
+      
+      
+         BACKGROUND OF THE INVENTION
+         1. Field of the Invention
+         The present invention relates generally to integrated circuits, and more particularly, to apparatuses and methods for manufacturing dense metal programmable read only memory.
+         2. Description of the Related Art
+         Semiconductor memory devices are widely used in the manufacture of digital equipment, such as microprocessor systems. To store fixed, commonly used programs, microprocessor systems generally use Read Only Memory devices or “ROMs”, such as the basic input/output system (BIOS) ROM for computer systems.
+         Semiconductor ROMs are typically configured as an array memory cells, wherein each individual memory cell is coupled to both a wordline and a bitline. To select a particular memory cell during a read operation, memory accessing circuitry is commonly utilized. For example, memory access circuit components typically include addressing circuitry for selecting a memory cell, wordline drivers for driving a selected wordline, sense amplifiers for amplifying the signals read from the selected memory cell, and output buffers for driving data out of the memory.
+         
+            FIG. 1is a schematic diagram of a conventional diffusion programmable ROM cell array10. The diffusion programmable ROM cell array10includes a plurality of wordlines12, a plurality of bitlines14, and a plurality of memory cells16, each at the intersection of a wordline12and a bitline14. It should be noted that the wordlines12and bitlines14occupy different levels of the semiconductor, and thus do not physically intersect.
+         In use, the wordlines12function as addresses for memory cells16, while the bitlines14function as the output of the cell array10. When manufacturing the diffusion programmable ROM cell array10, each memory cell16is programmed to output either a logical “1” or a logical “0” when the wordline12addressing it is activated. Generally, a wordline12in a diffusion ROM is activated when it is asserted high. As described in greater detail subsequently, each memory cell16is programmed as a “1” cell or a “0” cell during manufacturing, depending on the desired functionality of the ROM.
+         During a memory read operation, the ROM receives a memory address of a desired memory location within the memory cell array10from an address bus. The memory address, or a portion thereof, is then forwarded to an address decoder, which decodes the address and asserts one of the wordlines12in the memory cell array10high, thus activating it, all other wordlines12remain low. Thereafter, depending on the programming of the ROM, each bitline14will output either a logical “1” or “0.” In effect, by programming the various memory cell locations of the ROM, each wordline12can be used to select a particular binary output combination from the bitlines14.
+         
+            FIG. 2is a schematic diagram showing a magnified view of a conventional diffusion programmable ROM cell array18. The conventional diffusion programmable ROM cell array18includes wordlines12
+            aand12
+            b, bitlines14
+            aand14
+            b, and memory cell transistors16
+            a-16
+            d.
+         
+         As shown inFIG. 2, each memory cell of the diffusion programmable ROM memory cell array is actually a transistor16
+            a-16
+            d. Further, the gate of each memory cell transistor16
+            a-16
+            dis coupled to a wordline12
+            a/12
+            b, and a first terminal of each memory cell transistor16
+            a-16
+            dis coupled to a bitline14
+            a/14
+            b. Finally, a second terminal of each memory cell transistor16
+            a-16
+            dis coupled to ground.
+         Initially, a precharge circuit is used to charge each bitline14
+            a/14
+            bhigh, such that a logic “1” is read out from each memory cell. Thereafter, depending on the programming of the memory cell array, each bitline14
+            a/14
+            bwill either remain high or be drawn low when a particular wordline12
+            a/12
+            bis activated.
+         For example, memory cell transistor16
+            afunctions such that when wordline12
+            ais low, memory cell transistor16
+            ais shut off, and therefore bitline14
+            amaintains its state, generally high. However, when wordline12
+            ais asserted high, memory cell transistor16
+            aturns on, allowing the bitline14
+            ato be drawn to ground, thus pulling the bitline14
+            alow. Since memory cell transistor16
+            aallows the bitline14
+            ato be drawn low, it is called a “0” cell.
+         For a memory cell to allow the bitline to remain high when the wordline12is asserted, it must be programmed as a “1” cell. In a diffusion programmable ROM, the memory cell transistor16
+            a-16
+            dis simply disabled to create a “1” cell. For example, memory cell transistor16
+            dhas been disabled, illustrated by its non-connection to the bitline14
+            b. Thus, regardless of the state of the wordline12
+            b, the memory cell transistor16
+            dwill not pull the bitline14
+            blow, and therefore the bitline14
+            bwill maintain its state, which is generally high.
+         
+            FIG. 3Ais an illustration showing a conventional diffusion programmable ROM memory cell16
+            a, programmed as a “0” cell. The “0” cell16
+            aincludes a wordline12coupled to a diffusion layer20, a bitline contact22coupling the diffusion layer20to a bitline14, and a ground diffusion wire24that is coupled to ground.
+         As stated previously, initially the bitline14is charged high to a logical “1.” While the wordline12is low, the bitline14remains high because the diffusion layer20isolates the bitline contact22from the ground diffusion wire24. However, when the wordline12is asserted high, the bitline14is pulled low because the diffusion layer20becomes conductive when the wordline12is high. Specifically, asserting the wordline12high charges the diffusion layer20and causes it to conduct, creating a connection between the bitline contact22and the ground diffusion wire24. Since the bitline14is coupled to the bitline contact22, and thus to the ground diffusion wire24via the diffusion layer20, the bitline14is pulled low.
+         
+            FIG. 3Bis an illustration showing a conventional diffusion programmable ROM memory cell16
+            d, programmed as a “1” cell. The “1” memory cell16
+            dincludes a wordline12, a diffusion layer20separated into a first portion26
+            aand a second portion26
+            b, a bitline contact22coupling the first portion26
+            aof the diffusion layer20to a bitline14, and a ground diffusion wire24coupling the second portion26
+            bof the diffusion layer20to ground.
+         Similar to the “0” cell, the “1” memory cell16
+            dinitially has the bitline14charged high to a logical “1.” While the wordline12is low, the bitline14remains high because the diffusion layer20isolates the bitline contact22from the ground diffusion wire24. However, unlike the “0” cell, the “1” cell allows the bitline14to remain high when the wordline12is asserted high. Specifically, since the diffusion layer20is removed from around the wordline12, the diffusion layer20is not charged when the wordline12is asserted high, and thus, a connection is not formed between the bitline contact22and the ground diffusion wire24. Hence, the bitline14is never pulled low in the “1” memory cell16
+            b.
+         
+         
+            FIG. 4is an illustration showing a conventional diffusion programmable ROM cell array30configuration, comprising two memory cells. The conventional diffusion programmable ROM cell array30includes a first memory cell32and a second memory cell34. The first memory cell32includes a first wordline12
+            acoupled to a diffusion layer20, a shared bitline contact22coupling a bitline14to the diffusion layer20, and a first ground diffusion wire24
+            acoupling the diffusion layer20to ground.
+         The second memory cell34shares the diffusion layer20with the first memory cell32, and includes a second wordline12
+            bcoupled to the diffusion layer20. The second memory cell34also includes the shared bitline contact22, which couples the bitline14to the diffusion layer20, and a second ground diffusion wire24
+            bcoupling the diffusion layer20to ground.
+         In operation, the first wordline12
+            ais utilized to address the first memory cell32, and the second wordline12
+            bis utilized to address the second memory cell34, both of which can affect the bitline14.
+         For the first memory cell32, the bitline14is initially charged high to a logical “1.” While the first wordline12
+            ais low, the bitline14maintains its state, usually high, because the diffusion layer20isolates the shared bitline contact22from the first ground diffusion wire24
+            a. However, when the first wordline12
+            ais asserted high, the bitline14is pulled low because the diffusion layer20becomes conductive between the shared bitline contact22and the first ground diffusion wire24
+            a.
+         
+         Specifically, asserting the first wordline12
+            ahigh charges the diffusion layer20between the shared bitline contact22and the first ground diffusion wire24
+            aand causes it to conduct, thus creating a connection between the shared bitline contact22and the first ground diffusion wire24
+            a. Since the bitline14is coupled to the shared bitline contact22, and therefore also to the first ground diffusion wire24
+            avia the diffusion layer20, the bitline14is pulled low.
+         The second memory cell34operates in a similar manner. Specifically, asserting the second wordline12
+            bhigh charges the diffusion layer20between the shared bitline contact22and the second ground diffusion wire24
+            band causes it to conduct, thus creating a connection between the shared bitline contact22and the second ground diffusion wire24
+            b. Since the bitline14is coupled to the shared bitline contact22, and therefore also to the second ground diffusion wire24
+            bvia the charged diffusion layer20, the bitline14is pulled low.
+         Today's semiconductor processes are complicated requiring dozens of steps, each taking up time and introducing materials handling and inventor factors. Further, customers require the turn-around time or cycle time to be kept as short as possible. However, since the code for data and programs stored in the ROM are fixed at the time of manufacture, a mistake in the ROM code results in wasted ROM wafers. For example, if the ROM includes program code, and a bug is later discovered in the program code, wafers containing ROMs are wasted if the wafers have already proceeded past the processing step required for programming the ROMs.
+         For this reason, programming should be done as late in the manufacturing process as possible. However, since the diffusion layer must be formed early in the manufacturing process, a diffusion programmable ROM must be programmed early in the manufacturing process. In response to this shortcoming, metal or via programmable ROMs were developed that allow late process programming.
+         
+            FIG. 5is an illustration showing a conventional via programmable ROM cell array40configuration, comprising two memory cells. The via programmable ROM cell array40includes a first memory cell42and a second memory cell44. The first memory cell42includes a first diffusion layer20
+            acoupled to a first wordline12
+            a, a first ground diffusion wire24
+            a, a first metal to diffusion contact22
+            awhich couples a first m1pad46
+            ato the drain diffusion20
+            aof the first memory cell42, and a first m2to m1via22
+            bwhich couples the first m1pad46
+            ato the m2bitline14. Similarly, the second memory cell44includes a second diffusion layer20
+            bcoupled to a second wordline12
+            b, a second ground diffusion wire24
+            b,a second diffusion contact22
+            c, a second m1pad46
+            b, and a second m2to m1via22
+            dwhich couples to the bitline14.
+         The via-programmable ROM cell array40operates similar to the diffusion programmable ROM cell array discussed previously. Specifically, in the first memory cell42, when the first wordline12
+            ais low, the first diffusion layer20
+            ais nonconductive, and therefore current cannot be conducted through the first m2to m1via22
+            bto the first m1pad46
+            adown through the first metal to diffusion contact22
+            ato the ground diffusion wire24
+            a. When the first wordline12
+            ais asserted high, the first diffusion layer20
+            abecomes charged and therefore conductive, thus forming a conduction path between the first metal to diffusion contact22
+            aand the first m1pad46
+            aand the first m2to m1via22
+            band the diffusion ground wire24
+            a. Since the bitline14is coupled to first m2to m1via22
+            bvia the first m1pad46
+            aand the first metal to diffusion contact22
+            a, the bitline14goes low, resulting in a logical “0.” The second memory cell44operates in a similar manner.
+         Both the first and second memory cells42and44are “0” cells because they allow the bitline14to go low when their corresponding wordline12
+            a/12
+            bis selected. To make a via programmable ROM memory cell a “1” cell, the bitline m2to m1via is removed. For example, removing the first bitline m2to m1via22
+            bwill program the first memory cell42to a “1” cell.
+         Since the memory cells in a metal programmable ROM are programmed by altering a via layer rather than the diffusion layer, a via programmable ROM can be programmed later in the manufacturing process, when the via layers are formed. In this manner, production can be initiated on a wafer of via programmable ROMs, and held at a later stage in the manufacturing process. Micro-code for the ROMs can be upgraded with a minimal amount of time used to finish the wafers. Thus, via programmable ROMs provide greater flexibility than diffusion programmable ROMs.
+         However, as shown inFIG. 5, the bitline contacts22
+            a/22
+            c, m1pads46
+            a/46
+            b, and m2to m1vias22
+            b/22
+            dcannot be shared in the via programmable ROM memory cell array40. Hence, each memory cell42/44must be formed on a separate portion of diffusion, resulting in wasted space50. More particularly, the space50between the first m1pad46
+            aand the second m1pad46
+            bis wasted. Thus, conventional via programmable ROMs are less dense, and consequently larger, than conventional diffusion programmable ROMs.
+         As a result, semiconductor chip designers conventionally had to choose between the flexibility provided by metal programmable ROMs, and the density provided by diffusion programmable ROMs.
+         Further, there exist minimum size rules that restrict the minimum size of a piece of diffusion used in semiconductor manufacturing to a predetermined minimum diffusion size, as a result of manufacturing limitations of other semiconductor manufacturing processes. Thus, a transistor designed on a very small portion of diffusion will be restricted to using a larger diffusion size if the particular designed size of diffusion is smaller than the predetermined minimum diffusion size.
+         Thus, each “1” cell of a conventional diffusion programmable ROM requires two separate portions of diffusion, each being no smaller than the predetermined minimum diffusion size. Similarly, all memory cells of a conventional via programmable ROM are formed on separate portions of diffusion, each being no smaller than the predetermined minimum diffusion size. Thus, there is a minimum size to which conventional programmable ROMs may be designed.
+         In view of the forgoing, there is a need for improved methods for manufacturing a programmable ROM. The method provide the manufacturing flexibility of a via/metal programmable ROM, while providing the density of a diffusion programmable ROM.
+         SUMMARY OF THE INVENTION
+         Broadly speaking, the present invention fills these needs by providing a dense metal programmable ROM using a NAND/NOR architecture. In one embodiment, a metal programmable ROM is disclosed. The metal programmable ROM includes a memory cell array having a depth that is defined by a plurality of wordlines and a width that is defined by a plurality of bitlines. In addition, a group of memory cells are coupled between a bitline and ground, with each memory cell in the memory cell group coupled to at least one other memory cell in the memory cell group. Finally, a programmed memory cell is included that is defined by a memory cell transistor having its terminals shorted together.
+         In another embodiment, the metal programmable ROM includes a memory cell array having a depth defined by a plurality of wordlines and a width defined by a plurality of bitlines, as in the first embodiment, and a group of transistors coupled to a subset of the wordlines. The group of transistors includes a first transistor having a first terminal coupled to a bitline, and a gate terminal coupled to one of the wordlines in the subset of wordlines. The group of transistors also includes a second transistor having a second terminal coupled to ground, and a second gate terminal coupled to another wordline of the subset of wordlines.
+         A method for manufacturing a metal programmable ROM is disclosed in yet a further embodiment. Initially, a group of memory cells are formed, with each memory cell connected to a corresponding wordline of the metal programmable ROM. Each of the memory cells in the memory cell group is then interconnected between a single bitline connection and the ground. Further, the memory cells are programmed by shorting a transistor associated with the programmed memory cell.
+         Configuring memory cell groups of the memory array in a NAND type arrangement allows the memory cells of the memory cell group to share one bitline contact. Advantageously, the contact sharing configuration of the present invention reduces the bitline load and allows for a denser cell array.
+         Further, groups of memory cells of the present invention are formed on a single portion of diffusion, and more than one memory cell group may occupy the single portion of diffusion. Thus, there are generally no concerns about minimum diffusion size. As a result, both “1” cell and “0” cell memory transistors may be made smaller than is possible with conventional via/metal programmable ROMs. Consequently, the dense metal programmable ROM of the present invention can be made smaller and denser than conventional via/metal programmable ROMs.
+         Moreover, the metal programmable ROM of the present invention is programmed at the metal layer, rather than the diffusion level. As a result, the present invention provides increased flexibility because the metal programmable ROM wafers may be held at the metal level, thus allowing for quicker production parts after a design code change.
+      
+      
+         Other aspects and advantages of the invention will become apparent from the following detailed description, taken in conjunction with the accompanying drawings, illustrating by way of example the principles of the invention.
+         BRIEF DESCRIPTION OF THE DRAWINGS
+         The invention, together with further advantages thereof, may best be understood by reference to the following description taken in conjunction with the accompanying drawings in which:
+         
+            FIG. 1is a schematic diagram of a conventional diffusion programmable ROM memory cell array;
+         
+            FIG. 2is a schematic diagram showing a magnified view of a conventional diffusion programmable ROM memory cell array;
+         
+            FIG. 3Ais an illustration showing a conventional diffusion programmable ROM memory cell, programmed as a “0” cell;
+         
+            FIG. 3Bis an illustration showing a conventional diffusion programmable ROM memory cell, programmed as a “1” cell;
+         
+            FIG. 4is an illustration showing a conventional diffusion programmable ROM memory cell array configuration comprising two memory cells;
+         
+            FIG. 5is an illustration showing a conventional via programmable ROM memory cell array configuration comprising two memory cells;
+         
+            FIG. 6is a schematic diagram of a metal programmable ROM memory cell array, in accordance with an embodiment of the present invention;
+         
+            FIG. 7is a schematic diagram showing a memory cell group of a metal programmable ROM memory cell array, in accordance with an embodiment of the present invention;
+         
+            FIG. 8is an illustration showing an exemplary memory cell group of a metal programmable ROM memory cell array, in accordance with an embodiment of the present invention;
+         
+            FIG. 9is a schematic diagram showing an exemplary programmed memory cell group of a metal programmable ROM cell array having a programmed “0” cell, in accordance with an embodiment of the present invention;
+         
+            FIG. 10is an illustration showing an exemplary programmed memory cell group of a metal programmable ROM cell array having a programmed “0” cell, in accordance with an embodiment of the present invention;
+         
+            FIG. 11shows a metal programmable ROM memory cell array having two memory cell groups, in accordance with an embodiment of the present invention;
+         
+            FIG. 12is an illustration showing a side view of a memory cell group of metal programmable ROM, in accordance with an embodiment of the present invention; and
+         
+            FIG. 13is a flowchart showing a method for manufacturing a metal programmable ROM, in accordance with an embodiment of the present invention.
+      
+      
+         DETAILED DESCRIPTION OF THE PREFERRED EMBODIMENTS
+         The present invention provides method for designing a metal programmable ROM based on a NAND/NOR architecture. Advantageously, the metal programmable ROM of the present invention provides the programming flexibility of metal programmable ROMs, while preserving the high density provided by diffusion programmable ROMs. In the following description, numerous specific details are set forth in order to provide a thorough understanding of the present invention. It will be apparent, however, to one skilled in the art that the present invention may be practiced without some or all of these details. In other instances, well known process steps have not been described in detail in order not to unnecessarily obscure the present invention.
+         
+            FIGS. 1-5have been described in terms of the prior art.FIG. 6is a schematic diagram of a metal programmable ROM memory cell array100, in accordance with an embodiment of the present invention. The metal programmable ROM memory cell array100includes a plurality of wordlines102, a plurality of bitlines104, and a plurality of memory cells106, each at the intersection of a wordline102and a bitline104. It should be noted that the wordlines102and bitlines104occupy different levels of the semiconductor, and thus do not physically intersect.
+         In use, the wordlines102function as addresses for the memory cells106, while the bitlines104function as the output of the memory cell array100. When manufacturing the metal programmable ROM memory cell array100, the memory cells106are programmed to output either a logical “1” or a logical “0” on a corresponding bitline104, depending on which wordline102is selected. As described in greater detail subsequently, each memory cell106is programmed as either a “1” cell or a “0” cell during manufacturing process, depending on the desired functionality of the ROM.
+         During a memory read operation, the metal programmable ROM receives a memory address of a desired memory location within the memory cell array100from an address bus. The entire memory address, or a portion thereof, is then forwarded to an address decoder, which decodes the address and selects one of the wordlines102. Thereafter, depending on the programming of the metal programmable ROM, each bitline104will output either a logical “1” or a logical “0.” By programming the various memory cell locations106, each wordline102can be used to select a particular binary output combination of the bitlines104.
+         
+            FIG. 7is a schematic diagram showing a memory cell group108of a metal programmable ROM cell array, in accordance with an embodiment of the present invention. The memory cell group108includes a bitline104, and a plurality of wordlines102
+            a-102
+            d, each coupled to a gate terminal of a memory cell transistor106
+            a-106
+            d, each having a gate, a first terminal, and a second terminal. As withFIG. 6, the wordlines102
+            a-102
+            dand the bitline104occupy different levels of the semiconductor, and thus do not physically intersect.
+         As shown inFIG. 7, a first terminal of transistor106
+            ais coupled to the bitline104via bitline contact110, the second terminal of transistor106
+            ais coupled to a first terminal of transistor106
+            b, and the gate of transistor106
+            ais coupled to wordline102
+            a. The second terminal of transistor106
+            bis coupled to a first terminal of transistor106
+            c, and the gate of transistor106
+            bis coupled to wordline102
+            b. Further, the second terminal of transistor106
+            cis coupled to a first terminal of transistor106
+            d, while the gate of transistor106
+            cis coupled to wordline102
+            c. Finally, the second terminal of transistor106
+            dis coupled to a virtual ground112, while the gate of transistor106
+            dis coupled to wordline102
+            d.
+         
+         For each memory cell transistor106
+            a-106
+            d, when the corresponding wordline102
+            a-102
+            dcoupled to its gate is asserted high, the transistor conducts, allowing current to flow from its first terminal to its second terminal. When the corresponding wordline102
+            a-102
+            dcoupled to its gate is pulled low, the transistor turns off, thus preventing current flowing from its first terminal to its second terminal.
+         With this in mind, it can be seen that current will flow from the bitline104through the bitline contact110to the virtual ground112only when all the transistors106
+            a-106
+            dare on. Hence, all the wordlines102
+            a-102
+            dcoupled to the memory cell group108must be asserted high for the bitline104to be pulled low since all the memory cell transistors106
+            a-106
+            dare on only when all the corresponding wordlines102
+            a-102
+            dare high. Therefore, the memory cell group108functions similar to a four-input NAND gate, where the wordlines102
+            a-102
+            dare the inputs and the bitline104is the output. Advantageously, configuring the memory cell group108of the metal programmable ROM array in a NAND gate type arrangement allows the memory cell group108to share the bitline contact110and the virtual ground112, discussed in greater detail next with reference to FIG.8.
+         
+            FIG. 8is an illustration showing an exemplary memory cell group150of a metal programmable memory cell array, in accordance with an embodiment of the present invention. The memory cell group150includes a bitline104, a plurality of polysilicon wordlines102
+            a-102
+            dcoupled to a diffusion layer120, a plurality of metal pads122
+            a-122
+            dalso coupled to the diffusion layer120, and a bitline contact110coupling the bitline104to the first metal pad122
+            a. In addition, the memory cell group150includes a group virtual ground112coupled to the diffusion layer120. It will be noted that the polysilicon wordlines102
+            a-102
+            d, the metal pads122
+            a-122
+            d, and the bitline104are all formed on different levels of the substrate, and therefore do not physically interact except through contact vias, such as the bitline contact110.
+         Formed on corresponding gate oxide lines, the polysilicon wordlines102
+            a-102
+            dcombined with the diffusion layer120to form memory cell transistors106
+            a-106
+            d. The metal pads122
+            a-122
+            dfunction as connections between the terminals of the memory cell transistors106
+            a-106
+            dfor programming purposes, discussed in greater detail later. Further, the first metal pad122
+            aforms connection between a first terminal of the first memory cell transistor106
+            aand the bitline104via the bitline contact110. Finally, the second terminal of memory cell transistor106
+            dis coupled to the group virtual ground112. It will be noted that although only four memory cell transistors are shown in the memory cell group150ofFIG. 8, any number of memory cell transistors may be included in a single memory cell group as desired by the ROM designer.
+         As described in greater detail subsequently, each memory cell group150is associated with a group virtual ground112. The group virtual ground112is an addressable ground that may be individually enabled. In this manner, when a memory cell of a particular memory cell group is addressed, the associated group virtual ground112is enabled. All other group virtual grounds in the metal programmable memory cell array are then disabled.
+         The wordlines102
+            a-102
+            dcoupled to the memory cell group150form the gates of transistors106
+            a-106
+            d. Thus, when a wordline102
+            a-102
+            dis asserted high, the corresponding memory cell transistor106
+            a-106
+            dconducts, allowing current to flow from its first terminal to its second terminal. When a wordline102
+            a-102
+            dis pulled low, the corresponding memory cell transistor106
+            a-106
+            dturns off, thus preventing current flowing between its terminals.
+         Thus, current will flow from the bitline104through the bitline contact110and metal pad122
+            ato the group virtual ground112only when all the memory cell transistors106
+            a-106
+            dare on. Hence, all the wordlines102
+            a-102
+            dcoupled to the memory cell group150must be asserted high for the bitline104to be pulled low because all the memory cell transistors106
+            a-106
+            dare on only when all the wordlines102
+            a-102
+            d, which form the memory cell transistor gates, are asserted high.
+         As stated previously, the memory cell group150functions similar to a four-input NAND gate, where the wordlines102
+            a-102
+            dare the inputs and the bitline104is the output. Advantageously, configuring the memory cell group150of the metal programmable ROM array in a NAND gate type arrangement allows the memory cell group150to share one bitline contact110. This contact sharing configuration of the present invention reduces the bitline load and allows for a denser cell array, as discussed in greater detail subsequently.
+         In operation, the present invention uses an address decoder to decode a received memory address into a wordline selection. However, unlike conventional ROMs, the present invention does not assert the selected wordline high.
+         In the present invention, wordlines forming the memory cell transistors106
+            a-106
+            dof a memory cell group150form a wordline subset of all the wordlines in the metal programmable ROM cell array. When a particular wordline is selected in the present invention, the selected wordline is pulled low, while all non-selected wordlines in the same wordline subset as the selected wordline are asserted high. Further, all wordlines outside the wordline subset of the memory cell group150are pulled low.
+         For example, inFIG. 8the wordlines102
+            a-102
+            dform the wordline subset for the memory cell group150. If wordline102
+            bis selected it is pulled low, while the nonselected wordlines102
+            a,102
+            c, and102
+            dare asserted high. Further, all other wordlines in the metal programmable cell array are pulled low, since they are not in the same wordline subset as the selected wordline102
+            b.
+         
+         Preferably, only one wordline is selected at any one time. As a result, the memory cell group150shown inFIG. 8allows the bitline104to remain high regardless of which wordline is selected. Specifically, all the wordlines102
+            a-102
+            dof memory cell group150must be high in order for the bitline104to be pulled low. However, if one of the wordlines102
+            a-102
+            din the memory cell group150is selected it will be pulled low. Further, if none of the wordlines102
+            a-102
+            din the memory cell group150is selected all the wordlines102
+            a-102
+            din the memory cell group150will be pulled low.
+         Thus, the memory cell transistors106
+            a-106
+            ddescribed thus far have been shown in “1” cell format. Specifically, each memory cell transistor106
+            a-106
+            dof the memory cell group150shown inFIG. 8allows the bitline104to remain high when the corresponding wordline102
+            a-102
+            dis selected. To add further functionality to a memory cell group, particular memory cells may be programmed to “0” cell format. As discussed previously, a “0” cell allows the bitline to be pulled low when the corresponding wordline is selected.
+         
+            FIG. 9is a schematic diagram showing an exemplary programmed memory cell group200of a metal programmable ROM cell array having a programmed “0” cell, in accordance with an embodiment of the present invention. The programmed memory cell group200includes a bitline104, and a plurality of wordlines102
+            a-102
+            d, each coupled to a gate terminal of a memory cell transistor106
+            a-106
+            deach having a gate, and first and second terminals. The programmed memory cell group200also includes a group virtual ground112, and a transistor shorting component202coupling the first and second terminals of memory cell transistor106
+            b. As withFIG. 7, the wordlines102
+            a-102
+            dand the bitline104occupy different levels of the semiconductor, and thus do not physically intersect.
+         As shown inFIG. 9, a first terminal of transistor106
+            ais coupled to the bitline104via bitline contact110, the second terminal of transistor106
+            ais coupled to a first terminal of transistor106
+            b, and the gate of transistor106
+            ais coupled to wordline102
+            a. The second terminal of transistor106
+            bis coupled to a first terminal of transistor106
+            c, and the gate of transistor106
+            bis coupled to wordline102
+            b. Further, the second terminal of transistor106
+            cis coupled to a first terminal of transistor106
+            d, while the gate of transistor106
+            cis coupled to wordline102
+            c. Finally, the second terminal of transistor106
+            dis coupled to the group virtual ground112, while the gate of transistor106
+            dis coupled to wordline102
+            d.
+         
+         In the present invention, to program a memory cell to a “0” cell configuration the corresponding memory cell transistor is shorted. Specifically, a transistor shorting component202is coupled to both terminals of the memory cell transistor. In the exemplary programmed memory cell group200memory cell transistor106
+            bhas been programmed to a “0” cell transistor by having a transistor shorting component202coupled to its first and second terminal, thus shorting memory cell transistor106
+            b. As programmed, memory cell transistor106
+            bwill allow current to flow from its first terminal to its second terminal via the transistor shorting component202, regardless of the state of the corresponding wordline102
+            b. Thus, when wordline102
+            bis low and consequently memory cell transistor106
+            bis off, current will still flow between the first and second terminals of memory cell transistor106
+            bvia the shorting component202.
+         Programming memory cell transistor106
+            bin “0” cell configuration causes the bitline104to be pulled low when wordline102
+            bis selected. Specifically, wordline102
+            bis pulled low when it is selected, and wordlines102
+            a,102
+            c, and102
+            dare all asserted high. Asserting wordlines102
+            a,102
+            c, and102
+            dhigh allows current to flow between the terminals of each transistor, as discussed above. Further, current flows between the terminals of memory cell transistor106
+            bregardless of the state of wordline102
+            b. As a result, when wordline102
+            bis selected current is allowed to flow from the bitline104to the bitline contact110and then through transistors106
+            a-106
+            dto the group virtual ground112. As stated previously, when a wordline coupled to a memory cell of the memory cell group is selected, the corresponding group virtual ground112is enabled. Otherwise, the group virtual ground112is disabled.
+         
+            FIG. 10is an illustration showing an exemplary programmed memory cell group250of a metal programmable ROM cell array having a programmed “0” cell, in accordance with an embodiment of the present invention. The memory cell group250includes a bitline104, a plurality of polysilicon wordlines102
+            a-102
+            dcoupled to a diffusion layer120forming memory cell transistors106
+            a-106
+            d, a plurality of metal pads122
+            a-122
+            dalso coupled to the diffusion layer120, and a bitline contact110coupling the bitline104to the first metal pad122
+            a. Further, the memory cell group150includes a group virtual ground112coupled to the diffusion layer120. In addition, a transistor shorting component202couples metal pad122
+            bto metal pad122
+            c, shorting memory cell transistor106
+            b.
+         
+         As previously stated, the polysilicon wordlines102
+            a-102
+            d, the metal pads122
+            a-122
+            d, and the bitline104are all formed on different levels of the substrate, and therefore do not physically interact except through vias having contacts, such as the bitline contact110. Further, although only four memory cell transistors are shown in the memory cell group250ofFIG. 10, any number of memory cell transistors may be included in a single memory cell group as desired by the ROM designer.
+         As stated previously, to program a “0” cell in the present invention, the corresponding memory cell transistor is shorted. In the memory cell group250ofFIG. 10, memory cell transistor106
+            bis programmed to a “0” cell by shorting its terminals together. Specifically, metal pad122
+            band metal pad122
+            care coupled to the first and second terminals of memory cell transistor106
+            aby a contact via to the diffusion layer120. Metal pads122
+            band122
+            care also coupled to each other using a transistor shorting component202. Preferably the metal pads122
+            a-122
+            dare formed on the same metal layer as the transistor shorting component202. Therefore, the transistor shorting component202can be formed from the same conductive material as used to form the metal pads, or any other conductive material. If made from the same conductive material as used to form the metal pads122
+            a-122
+            d, the transistor shorting component202, metal pad122
+            b, and metal pad122
+            ccan be formed as a single line of metal.
+         As programmed, memory cell transistor106
+            bwill allow current to flow from its first terminal to its second terminal via the transistor shorting component202and metal pads122
+            band122
+            c, regardless of the state of the corresponding wordline102
+            b. Thus, when wordline102
+            bis low and consequently memory cell transistor106
+            bis off, current will still flow between the first and second terminals of memory cell transistor106
+            bvia the shorting component202and metal pads122
+            band122
+            c.
+         
+         Programming memory cell transistor106
+            bin “0” cell configuration causes the bitline104to be pulled low when wordline102
+            bis selected. Specifically, wordline102
+            bis pulled low when it is selected, and wordlines102
+            a,102
+            c, and102
+            dare all asserted high.
+         As discussed above, asserting wordlines102
+            a,102
+            c, and102
+            dhigh allows current to flow between the terminals of each transistor. Further, current flows between the terminals of memory cell transistor106
+            bregardless of the state of wordline102
+            b. As a result, when wordline102
+            bis selected, and thus pulled low, current is allowed to flow from the bitline104through the bitline contact110to the first metal pad122
+            aand then through transistors106
+            a-106
+            dto the group virtual ground112. As stated previously, when a wordline coupled to a memory cell of the memory cell group is selected, the corresponding group virtual ground112is enabled. Otherwise, the group virtual ground112is disabled.
+         
+            FIG. 11shows a metal programmable ROM memory cell array300having two memory cell groups, in accordance with an embodiment of the present invention. The metal programmable cell array300includes a bitline104, a first memory cell group302, and a second memory cell group304. Both the first memory cell group302and the second memory cell group304are formed on a single diffusion layer portion120.
+         The first memory cell group302includes a plurality of polysilicon wordlines102
+            a-102
+            dcoupled to the diffusion layer120forming memory cell transistors106
+            a-106
+            d. In addition, the first memory cell group302includes a plurality of metal pads122
+            a-122
+            dalso coupled to the diffusion layer120, and a shared bitline contact110coupling the bitline104to the first shared metal pad122
+            a. In addition, the memory cell group302includes a first group virtual ground112
+            acoupled to the diffusion layer120.
+         Similarly, the second memory cell group304includes a plurality of polysilicon wordlines102
+            e-102
+            hcoupled to the diffusion layer120forming memory cell transistors106
+            e-106
+            h. In addition, the second memory cell group304includes the first shared metal pad122
+            aand a plurality of metal pads122
+            e-122
+            gcoupled to the diffusion layer120, and the shared bitline contact110coupling the bitline104to the first shared metal pad122
+            a. In addition, the second memory cell group304includes a second group virtual ground112
+            bcoupled to the diffusion layer120. It should be noted that each memory cell group can include any number of transistors. Thus, memory cell groups can be designed to include two, four, eight, or sixteen transistors, or any other number of transistors as desired by the ROM designer.
+         The metal programmable ROM memory cell array300operates as described previously with respect toFIGS. 7-10. In particular, wordlines102
+            a-102
+            dform a first wordline subset associated with the first memory cell group302, and wordlines102
+            e-102
+            gform a second wordline subset associated with the second memory cell group304. Selecting a wordline in the first wordline subset will enable the first group virtual ground112
+            a, while selecting a wordline in the second wordline subset will enable the second group virtual ground112
+            b. Enabling each group virtual ground112
+            a/112
+            bonly when its associated memory cell group302/304is active prevents the bitline104from being automatically pulled down by a neighboring memory cell group having all group cells programmed as “0” cells, shorting the bitline contact directly to ground. For example, if memory cell transistors106
+            a-106
+            dare all programmed to “0” cells, the bitline104will always be shorted to the first group virtual ground112
+            a. Consequently, the bitline104will be pulled every time the first group virtual ground112
+            ais enabled, thus it is only enabled when one of wordlines102
+            a-102
+            dare selected.
+         In this manner, the present invention allows memory cell groups to share bitline contacts, which greatly reduces the bitline load as compared to conventional ROMs. For example, the configuration ofFIG. 11allows eight memory cells to share the same bitline contact. As shown previously, a conventional diffusion programmable ROM only allows two transistors to share a bitline contact, and a conventional metal programmable ROM does not allow any bitline contact sharing.
+         Moreover, the metal programmable ROM of the present invention is generally denser than conventional programmable ROMs. Because of the limitations of other semiconductor manufacturing processes, there exist minimum size rules that restrict the size of a piece of diffusion used in semiconductor manufacturing to a predetermined minimum diffusion size. Thus, if a transistor can be designed on a particular size of diffusion, it will be restricted to a larger size of diffusion if the particular design size is smaller than the predetermined minimum diffusion size.
+         As discussed previously, each “1” cell in a conventional diffusion programmable ROM requires two separate portions of diffusion, each being no smaller than the predetermined minimum diffusion size. Similarly, all memory cells of a conventional metal programmable ROM are formed on separate portions of diffusion, each being no smaller than the predetermined minimum diffusion size.
+         In contrast, groups of memory cells of the present invention are formed on a single portion of diffusion, and more than one memory cell group may occupy a single portion of diffusion, as shown in FIG.11. Thus, there are generally no concerns about minimum diffusion size in the present invention. As a result, both “1” cell and “0” cell memory transistors may be made small than is possible with conventional programmable ROMs. Consequently the metal programmable ROM of the present invention can be made smaller and denser than conventional programmable ROMs.
+         
+            FIG. 12is an illustration showing a side view of a memory cell group400of a metal programmable ROM memory cell array, in accordance with an embodiment of the present invention. The memory cell group400includes a diffusion layer120and polysilicon wordlines102
+            a-102
+            dformed on gate oxide to create transistor gates for memory cell transistors106
+            a-106
+            d. A first dielectric layer402is formed over the memory cell transistors106
+            a-106
+            d, and transistor contact vias404are formed in the first dielectric layer402to provide contacts to the transistor terminals. Metal pads122
+            a-122
+            dare formed over the first dielectric layer402above the transistor contact vias404. If a “0” cell is desired, a transistor shorting component202can be formed coupling the metal pads that are connected to terminals of the “0” cell memory transistor.
+         In addition, a group virtual ground112is formed over the first dielectric layer402above a transistor contact via404. A second dielectric layer406is formed above the metal pads122
+            a-122
+            d, the group virtual ground112, and any transistor shorting components202. A bitline contact408via is formed in the second dielectric layer406above the first metal pad122
+            a. Finally, a bitline104is formed above the second dielectric layer406coupled to the first metal pad through the bitline contact408.
+         Each memory cell transistor106
+            a-106
+            dincludes a first terminal410and a second terminal412. As shown inFIG. 12, the memory cell transistors106
+            a-106
+            dare coupled together via their terminals. In addition, the first terminal of memory cell transistor106
+            ais coupled to the bitline104through a contact via404, the first metal pad122
+            a, and bitline contact408. Finally, the second terminal of memory cell transistor106
+            dis coupled to the group virtual ground112through a contact via404.
+         As previously stated, a “0” cell is programmed by shorting the terminals of the memory cell transistor of the “0” cell. For example, inFIG. 12memory cell transistor106
+            bis programmed as a “0” cell. In particular, the first410and second412terminals of memory cell transistor106
+            bare coupled to metal pads122
+            band122
+            cthrough contact vias404. The transistor shorting component202couples metal pad122
+            bto metal pad122
+            c, thus coupling the first410and second412terminals of memory cell transistor106
+            btogether. Hence, current will flow from the first terminal410to the second terminal412of memory cell transistor106
+            bregardless of the state of the associated wordline102
+            b. In all other cases, current will flow from the first terminal to the second terminal of a memory cell transistor106
+            a,106
+            c, and106
+            donly when its gate terminal, which is its associated wordline102
+            a/102
+            c/102
+            d, is high.
+         
+            FIG. 13is a flowchart showing a method500for manufacturing a metal programmable ROM, in accordance with an embodiment of the present invention. In an initial operation502, preprocess operations are performed. Preprocess operations include micro-code design, determining the number of memory cells per memory cell group and other preprocess operations that will be apparent to those skilled in the art.
+         In a memory cell forming operation504, a group of memory cells are formed, wherein each memory cell of the group is connected to a corresponding wordline. After determining the number of memory cells per memory cell group, a memory cell transistor is formed for each memory cell using a polysilicon wordline and gate oxide. The wordlines for the memory cell array form the actual gates of the memory cell transistors, with the diffusion layer forming the memory cell transistor terminals. Preferably, the memory cell transistors are coupled together in series.
+         Next, the memory cells are interconnected between a single bitline and the ground, in operation506. After the memory cell transistors are formed, a dielectric layer is formed over the memory cell transistors and contact vias are formed over the memory cell transistor terminals. Metal pads are then formed above contact vias in the dielectric layer, along with any transistor shorting components, discussed in greater detail next. Another dielectric layer is then formed over the metal pads, and a bitline contact via is formed in the second dielectric layer above a first metal pad.
+         A bitline is then formed above the second dielectric layer, coupled to the first memory cell transistor through the bitline contact, first metal pad, and the contact via in the first dielectric layer. In addition, a group virtual ground is formed over the contact via above the second terminal of the last memory cell transistor in the memory cell group. In this manner, the memory cells are interconnected between a single bitline and ground.
+         In a programming operation508, the memory cells are programmed by shorting a transistor associated with each programmed memory cell. Since all memory cells theoretically are initially configured in a “1” cell format, programming a memory cell generally refers to configuring the memory cell to a “0” cell format. However, in some embodiments, programming can refer to configuring a memory cell into a “1” cell format.
+         To program a memory cell to a “0” cell, the terminals of the memory cell transistor are shorted together. Typically, this is accomplished by coupling together the metal pads122
+            a-122
+            dthat are coupled to the terminals of the “0” cell memory transistor with a transistor shorting component. If the transistor shorting component is formed of the same material as the metal pads, this can be accomplished by simply forming a single metal line coupling the contact vias above the terminals of the “0” cell memory transistor.
+         For example, in referring toFIG. 12, memory cell transistor106
+            bis configured as a “0” cell transistor. In one embodiment, metal pad122
+            b, metal pad122
+            c, and the transistor shortening component202are formed as a single line of metal formed across the contact vias404above the first410and second412terminals of memory cell transistor106
+            b.
+         
+         Referring back toFIG. 13, post process operations are performed in operation510. Post process operations include forming and programming other memory cell groups in the metal programmable ROM memory cell array, and other post process operations that will be apparent to those skilled in the art. Advantageously, the metal programmable ROM of the present invention is programmed at the metal layer, rather than the diffusion level. As a result, the present invention provides increased flexibility because metal programmable ROM wafers may be held at the metal level, allowing for quick production of parts after a design change was received.
+         Although the foregoing invention has been described in some detail for purposes of clarity of understanding, it will be apparent that certain changes and modifications may be practiced within the scope of the appended claims. Accordingly, the present embodiments are to be considered as illustrative and not restrictive, and the invention is not to be limited to the details given herein, but may be modified within the scope and equivalents of the appended claims.
+      
+   
+   
+      
+         1. A metal programmable ROM, comprising:a group of memory cells, wherein each memory cell is connected to a corresponding wordline, and wherein each of the memory cells in the group of memory cells is interconnected between a single bitline connection and a ground conection; and
+            a programmed memory cell associated with the group of memory cells, wherein the programmed memory cell includes a shorted transistor.
+         
+      
+      
+         2. A metal programmable ROM as recited inclaim 1, wherein each memory cell includes a transistor having a first terminal, a second terminal, and a gate coupled to a wordline corresponding to the memory cell.
+      
+      
+         3. A metal programmable ROM as recited inclaim 2, wherein a first memory cell of the group of memory cells includes a first transistor having a first terminal and a second terminal, wherein the first terminal is coupled to the bitline.
+      
+      
+         4. A metal programmable ROM as recited inclaim 1, wherein the programmed memory cell is a “0” cell.
+      
+      
+         5. A metal programmable ROM as recited inclaim 1, wherein a metal containing material couples the terminals of the shorted transistor.
+      
+      
+         6. A metal programmable ROM, comprising:a group of memory cells, wherein each memory cell is connected to a corresponding wordline, and wherein each of the memory cells in the group of memory cells is interconnected between a single bitline connection and a ground conection; and
+            a programmed memory cell associated with the group of memory cells, wherein the programmed memory cell includes a shorted transistor, and wherein read operations are performed by pulling a selected wordline coupled to a memory cell in the group of memory cells low, and asserting all other wordlines coupled to memory cells in the group of memory cells high.
+         
+      
+      
+         7. A metal programmable ROM as recited inclaim 1, wherein each memory cell includes a transistor having a first terminal, a second terminal, and a gate coupled to a wordline corresponding to the memory cell.
+      
+      
+         8. A metal programmable ROM as recited inclaim 7, wherein a first memory cell of the group of memory cells includes a first transistor having a first terminal and a second terminal, wherein the first terminal is coupled to the bitline.
+      
+      
+         9. A metal programmable ROM, comprising:a group of memory cells, wherein each memory cell is connected to a corresponding wordline, and wherein each of the memory cells in the group of memory cells is interconnected between a single bitline connection and a ground conection,
+            wherein read operations are performed by pulling a selected wordline coupled to a memory cell in the group of memory cells low, and asserting all other wordlines coupled to memory cells in the group of memory cells high.
+         
+      
+      
+         10. A metal programmable ROM as recited inclaim 9, wherein each memory cell includes a transistor having a first terminal, a second terminal, and a gate coupled to a wordline corresponding to the memory cell.
+      
+      
+         11. A metal programmable ROM as recited inclaim 10, wherein a first memory cell of the group of memory cells includes a first transistor having a first terminal and a second terminal, wherein the first terminal is coupled to the bitline.
+      
+      
+         12. A metal programmable ROM as recited inclaim 9, further including a programmed memory cell associated with the group of memory cells, wherein the programmed memory cell includes a shorted transistor, and wherein the programmed memory cell is a “0” cell.
+      
+      
+         13. A metal programmable ROM as recited inclaim 12, wherein a metal containing material couples the terminals of the shorted transistor.
+      
+   
+   
+      
+         
+      
+      
+         
+      
+      
+         
+      
+      
+         
+      
+      
+         
+      
+      
+         
+      
+      
+         
+      
+      
+         
+      
+      
+         
+      
+      
+         
+      
+      
+         
+      
+      
+         
+      
+   

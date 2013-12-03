@@ -1,0 +1,2030 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright ©2011 LexisNexis Univentio, The Netherlands. -->
+<lexisnexis-patent-document schema-version="1.08" date-produced="20110930" file="US6676627B1.xml" produced-by="LexisNexis-Univentio" lang="eng" date-changed="20110912" time-changed="063533">
+  <bibliographic-data lang="eng">
+    <publication-reference publ-type="Grant" publ-desc="Patent without a pre-grant publication">
+      <document-id>
+        <country>US</country>
+        <doc-number>6676627</doc-number>
+        <kind>B1</kind>
+        <date>20040113</date>
+      </document-id>
+    </publication-reference>
+    <application-reference appl-type="utility">
+      <document-id>
+        <country>US</country>
+        <doc-number>09417395</doc-number>
+        <date>19991013</date>
+      </document-id>
+    </application-reference>
+    <application-series-code>09</application-series-code>
+    <language-of-filing>eng</language-of-filing>
+    <language-of-publication>eng</language-of-publication>
+    <priority-claims date-changed="20070523">
+      <priority-claim sequence="1" kind="national">
+        <country>US</country>
+        <doc-number>09417395</doc-number>
+        <date>19991013</date>
+      </priority-claim>
+      <priority-claim sequence="2" kind="national">
+        <country>US</country>
+        <doc-number>08349665</doc-number>
+        <date>19941205</date>
+      </priority-claim>
+      <priority-claim sequence="3" kind="national">
+        <country>US</country>
+        <doc-number>08006076</doc-number>
+        <date>19930115</date>
+      </priority-claim>
+      <priority-claim sequence="4" kind="national">
+        <country>US</country>
+        <doc-number>07563313</doc-number>
+        <date>19900806</date>
+      </priority-claim>
+    </priority-claims>
+    <dates-of-public-availability date-changed="20090405">
+      <unexamined-printed-without-grant>
+        <date>20040113</date>
+      </unexamined-printed-without-grant>
+      <printed-with-grant>
+        <date>20040113</date>
+      </printed-with-grant>
+    </dates-of-public-availability>
+    <classification-ipc date-changed="20090708">
+      <main-classification>
+        <text> 7A 61B  17/20   A</text>
+        <edition>7</edition>
+        <section>A</section>
+        <class>61</class>
+        <subclass>B</subclass>
+        <main-group>17</main-group>
+        <subgroup>20</subgroup>
+        <qualifying-character>A</qualifying-character>
+      </main-classification>
+    </classification-ipc>
+    <classifications-ipcr date-changed="20090708">
+      <classification-ipcr sequence="1">
+        <text>A61B  17/22        20060101C I20051008RMEP        </text>
+        <ipc-version-indicator>
+          <date>20060101</date>
+        </ipc-version-indicator>
+        <classification-level>C</classification-level>
+        <section>A</section>
+        <class>61</class>
+        <subclass>B</subclass>
+        <main-group>17</main-group>
+        <subgroup>22</subgroup>
+        <classification-value>I</classification-value>
+        <action-date>
+          <date>20051008</date>
+        </action-date>
+        <generating-office>
+          <country>EP</country>
+        </generating-office>
+        <classification-status>R</classification-status>
+        <classification-data-source>M</classification-data-source>
+      </classification-ipcr>
+      <classification-ipcr sequence="2">
+        <text>A61B  17/22        20060101A I20051008RMEP        </text>
+        <ipc-version-indicator>
+          <date>20060101</date>
+        </ipc-version-indicator>
+        <classification-level>A</classification-level>
+        <section>A</section>
+        <class>61</class>
+        <subclass>B</subclass>
+        <main-group>17</main-group>
+        <subgroup>22</subgroup>
+        <classification-value>I</classification-value>
+        <action-date>
+          <date>20051008</date>
+        </action-date>
+        <generating-office>
+          <country>EP</country>
+        </generating-office>
+        <classification-status>R</classification-status>
+        <classification-data-source>M</classification-data-source>
+      </classification-ipcr>
+      <classification-ipcr sequence="3">
+        <text>A61B  17/32        20060101C N20051008RMEP        </text>
+        <ipc-version-indicator>
+          <date>20060101</date>
+        </ipc-version-indicator>
+        <classification-level>C</classification-level>
+        <section>A</section>
+        <class>61</class>
+        <subclass>B</subclass>
+        <main-group>17</main-group>
+        <subgroup>32</subgroup>
+        <classification-value>N</classification-value>
+        <action-date>
+          <date>20051008</date>
+        </action-date>
+        <generating-office>
+          <country>EP</country>
+        </generating-office>
+        <classification-status>R</classification-status>
+        <classification-data-source>M</classification-data-source>
+      </classification-ipcr>
+      <classification-ipcr sequence="4">
+        <text>A61B  17/32        20060101A N20051008RMEP        </text>
+        <ipc-version-indicator>
+          <date>20060101</date>
+        </ipc-version-indicator>
+        <classification-level>A</classification-level>
+        <section>A</section>
+        <class>61</class>
+        <subclass>B</subclass>
+        <main-group>17</main-group>
+        <subgroup>32</subgroup>
+        <classification-value>N</classification-value>
+        <action-date>
+          <date>20051008</date>
+        </action-date>
+        <generating-office>
+          <country>EP</country>
+        </generating-office>
+        <classification-status>R</classification-status>
+        <classification-data-source>M</classification-data-source>
+      </classification-ipcr>
+      <classification-ipcr sequence="5">
+        <text>A61M   1/00        20060101C I20051008RMEP        </text>
+        <ipc-version-indicator>
+          <date>20060101</date>
+        </ipc-version-indicator>
+        <classification-level>C</classification-level>
+        <section>A</section>
+        <class>61</class>
+        <subclass>M</subclass>
+        <main-group>1</main-group>
+        <subgroup>00</subgroup>
+        <classification-value>I</classification-value>
+        <action-date>
+          <date>20051008</date>
+        </action-date>
+        <generating-office>
+          <country>EP</country>
+        </generating-office>
+        <classification-status>R</classification-status>
+        <classification-data-source>M</classification-data-source>
+      </classification-ipcr>
+      <classification-ipcr sequence="6">
+        <text>A61M   1/00        20060101A I20051008RMEP        </text>
+        <ipc-version-indicator>
+          <date>20060101</date>
+        </ipc-version-indicator>
+        <classification-level>A</classification-level>
+        <section>A</section>
+        <class>61</class>
+        <subclass>M</subclass>
+        <main-group>1</main-group>
+        <subgroup>00</subgroup>
+        <classification-value>I</classification-value>
+        <action-date>
+          <date>20051008</date>
+        </action-date>
+        <generating-office>
+          <country>EP</country>
+        </generating-office>
+        <classification-status>R</classification-status>
+        <classification-data-source>M</classification-data-source>
+      </classification-ipcr>
+    </classifications-ipcr>
+    <classification-national date-changed="20090708">
+      <country>US</country>
+      <main-classification>
+        <text>604/22</text>
+        <class>604</class>
+        <subclass>22</subclass>
+      </main-classification>
+      <further-classification sequence="1">
+        <text>604/35</text>
+        <class>604</class>
+        <subclass>35</subclass>
+      </further-classification>
+      <further-classification sequence="2">
+        <text>604/43</text>
+        <class>604</class>
+        <subclass>43</subclass>
+      </further-classification>
+      <further-classification sequence="3">
+        <text>606/159</text>
+        <class>606</class>
+        <subclass>159</subclass>
+      </further-classification>
+    </classification-national>
+    <classifications-ecla date-changed="20090708">
+      <classification-ecla sequence="1" classification-scheme="EC" country="EP">
+        <text>A61B 17/3203R</text>
+        <section>A</section>
+        <class>61</class>
+        <subclass>B</subclass>
+        <main-group>17</main-group>
+        <subgroup>3203</subgroup>
+        <additional-subgroups>
+          <additional-subgroup sequence="1">R  </additional-subgroup>
+        </additional-subgroups>
+      </classification-ecla>
+      <classification-ecla sequence="2" classification-scheme="EC" country="EP">
+        <text>A61M  1/00T2</text>
+        <section>A</section>
+        <class>61</class>
+        <subclass>M</subclass>
+        <main-group>1</main-group>
+        <subgroup>00</subgroup>
+        <additional-subgroups>
+          <additional-subgroup sequence="1">T  </additional-subgroup>
+          <additional-subgroup sequence="2">2  </additional-subgroup>
+        </additional-subgroups>
+      </classification-ecla>
+      <classification-ecla sequence="1" classification-scheme="ICO" country="EP">
+        <text>K61B 17:3203</text>
+        <section>K</section>
+        <class>61</class>
+        <subclass>B</subclass>
+        <main-group>17</main-group>
+        <subgroup>3203</subgroup>
+      </classification-ecla>
+    </classifications-ecla>
+    <field-of-search date-changed="20070524">
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>604/22</text>
+          <class>604</class>
+          <subclass>22</subclass>
+        </main-classification>
+      </classification-national>
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>604/43</text>
+          <class>604</class>
+          <subclass>43</subclass>
+        </main-classification>
+      </classification-national>
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>604/35</text>
+          <class>604</class>
+          <subclass>35</subclass>
+        </main-classification>
+      </classification-national>
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>604/27</text>
+          <class>604</class>
+          <subclass>27</subclass>
+        </main-classification>
+      </classification-national>
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>604/48</text>
+          <class>604</class>
+          <subclass>48</subclass>
+        </main-classification>
+      </classification-national>
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>604/118</text>
+          <class>604</class>
+          <subclass>118</subclass>
+        </main-classification>
+      </classification-national>
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>604/119</text>
+          <class>604</class>
+          <subclass>119</subclass>
+        </main-classification>
+      </classification-national>
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>604/19</text>
+          <class>604</class>
+          <subclass>19</subclass>
+        </main-classification>
+      </classification-national>
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>604/264</text>
+          <class>604</class>
+          <subclass>264</subclass>
+        </main-classification>
+      </classification-national>
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>606/127</text>
+          <class>606</class>
+          <subclass>127</subclass>
+        </main-classification>
+      </classification-national>
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>606/128</text>
+          <class>606</class>
+          <subclass>128</subclass>
+        </main-classification>
+      </classification-national>
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>606/159</text>
+          <class>606</class>
+          <subclass>159</subclass>
+        </main-classification>
+      </classification-national>
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>606/190</text>
+          <class>606</class>
+          <subclass>190</subclass>
+        </main-classification>
+      </classification-national>
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>606/167</text>
+          <class>606</class>
+          <subclass>167</subclass>
+        </main-classification>
+      </classification-national>
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>606/170</text>
+          <class>606</class>
+          <subclass>170</subclass>
+        </main-classification>
+      </classification-national>
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>606/194</text>
+          <class>606</class>
+          <subclass>194</subclass>
+        </main-classification>
+      </classification-national>
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>606/180</text>
+          <class>606</class>
+          <subclass>180</subclass>
+        </main-classification>
+      </classification-national>
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>134/167.C</text>
+          <class>134</class>
+          <subclass>167.C</subclass>
+        </main-classification>
+      </classification-national>
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>134/168.C</text>
+          <class>134</class>
+          <subclass>168.C</subclass>
+        </main-classification>
+      </classification-national>
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>134/167.R</text>
+          <class>134</class>
+          <subclass>167.R</subclass>
+        </main-classification>
+      </classification-national>
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>134/172</text>
+          <class>134</class>
+          <subclass>172</subclass>
+        </main-classification>
+      </classification-national>
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>433/96</text>
+          <class>433</class>
+          <subclass>96</subclass>
+        </main-classification>
+      </classification-national>
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>239/214.15</text>
+          <class>239</class>
+          <subclass>214.15</subclass>
+        </main-classification>
+      </classification-national>
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>604/523-527</text>
+          <class>604</class>
+          <subclass>523-527</subclass>
+        </main-classification>
+      </classification-national>
+    </field-of-search>
+    <number-of-claims>39</number-of-claims>
+    <invention-title id="title_eng" date-changed="20100418" lang="eng" format="original">Crossflow thrombectomy catheter and system</invention-title>
+    <references-cited date-changed="20110906">
+      <patent-citations name="patcit" date-changed="20100409" />
+      <forward-citations name="fwdcit" date-changed="20110906" />
+      <citation srep-phase="e">
+        <patcit num="1">
+          <document-id>
+            <country>US</country>
+            <doc-number>4631052</doc-number>
+            <kind>A</kind>
+            <name>Kensey</name>
+            <date>19861223</date>
+          </document-id>
+          <application-date>
+            <date>19841217</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="e">
+        <patcit num="2">
+          <document-id>
+            <country>US</country>
+            <doc-number>4950238</doc-number>
+            <kind>A</kind>
+            <name>Sullivan</name>
+            <date>19900821</date>
+          </document-id>
+          <application-date>
+            <date>19890720</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="e">
+        <patcit num="3">
+          <document-id>
+            <country>US</country>
+            <doc-number>5086842</doc-number>
+            <kind>A</kind>
+            <name>Cholet</name>
+            <date>19920211</date>
+          </document-id>
+          <application-date>
+            <date>19900907</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="e">
+        <patcit num="4">
+          <document-id>
+            <country>US</country>
+            <doc-number>5273526</doc-number>
+            <kind>A</kind>
+            <name>Dance et al.</name>
+            <date>19931228</date>
+          </document-id>
+          <application-date>
+            <date>19910621</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="e">
+        <patcit num="5">
+          <document-id>
+            <country>US</country>
+            <doc-number>5318518</doc-number>
+            <kind>A</kind>
+            <name>Plechinger et al.</name>
+            <date>19940607</date>
+          </document-id>
+          <application-date>
+            <date>19920807</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="e">
+        <patcit num="6">
+          <document-id>
+            <country>US</country>
+            <doc-number>5496267</doc-number>
+            <kind>A</kind>
+            <name>Drasler et al.</name>
+            <date>19960305</date>
+          </document-id>
+          <application-date>
+            <date>19901108</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="e">
+        <patcit num="7">
+          <document-id>
+            <country>US</country>
+            <doc-number>5687714</doc-number>
+            <kind>A</kind>
+            <name>Kolobow et al.</name>
+            <date>19971118</date>
+          </document-id>
+          <application-date>
+            <date>19951010</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="e">
+        <patcit num="8">
+          <document-id>
+            <country>US</country>
+            <doc-number>5713849</doc-number>
+            <kind>A</kind>
+            <name>Bosma et al.</name>
+            <date>19980203</date>
+          </document-id>
+          <application-date>
+            <date>19950719</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="e">
+        <patcit num="9">
+          <document-id>
+            <country>US</country>
+            <doc-number>5928186</doc-number>
+            <kind>A</kind>
+            <name>Homsma et al.</name>
+            <date>19990727</date>
+          </document-id>
+          <application-date>
+            <date>19970122</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="e">
+        <patcit num="10">
+          <document-id>
+            <country>US</country>
+            <doc-number>5964223</doc-number>
+            <kind>A</kind>
+            <name>Baran</name>
+            <date>19991012</date>
+          </document-id>
+          <application-date>
+            <date>19970123</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="e">
+        <patcit num="11">
+          <document-id>
+            <country>US</country>
+            <doc-number>5989271</doc-number>
+            <kind>A</kind>
+            <name>Bonnette et al.</name>
+            <date>19991123</date>
+          </document-id>
+          <application-date>
+            <date>19981109</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="e">
+        <patcit num="12">
+          <document-id>
+            <country>US</country>
+            <doc-number>6096001</doc-number>
+            <kind>A</kind>
+            <name>Drasler et al.</name>
+            <date>20000801</date>
+          </document-id>
+          <application-date>
+            <date>19941208</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="e">
+        <patcit num="13">
+          <document-id>
+            <country>US</country>
+            <doc-number>6117150</doc-number>
+            <kind>A</kind>
+            <name>Pingleton et al.</name>
+            <date>20000912</date>
+          </document-id>
+          <application-date>
+            <date>19980714</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="e">
+        <patcit num="14">
+          <document-id>
+            <country>US</country>
+            <doc-number>6128799</doc-number>
+            <kind>A</kind>
+            <name>Nagata et al.</name>
+            <date>20001010</date>
+          </document-id>
+          <application-date>
+            <date>19960904</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="e">
+        <patcit num="15">
+          <document-id>
+            <country>US</country>
+            <doc-number>6258061</doc-number>
+            <kind>B1</kind>
+            <name>Drasler et al.</name>
+            <date>20010710</date>
+          </document-id>
+          <application-date>
+            <date>19941208</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation>
+        <fwdcit num="1">
+          <document-id>
+            <country>WO</country>
+            <doc-number>2007067662</doc-number>
+            <kind>A2</kind>
+            <date>20070614</date>
+          </document-id>
+          <application-date>
+            <date>20061205</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+      <citation>
+        <fwdcit num="2">
+          <document-id>
+            <country>US</country>
+            <doc-number>7572244</doc-number>
+            <kind>B2</kind>
+            <date>20090811</date>
+          </document-id>
+          <application-date>
+            <date>20040802</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+      <citation>
+        <fwdcit num="3">
+          <document-id>
+            <country>US</country>
+            <doc-number>7670327</doc-number>
+            <kind>B2</kind>
+            <date>20100302</date>
+          </document-id>
+          <application-date>
+            <date>20050413</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+      <citation>
+        <fwdcit num="4">
+          <document-id>
+            <country>US</country>
+            <doc-number>7842010</doc-number>
+            <kind>B2</kind>
+            <date>20101130</date>
+          </document-id>
+          <application-date>
+            <date>20051205</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+      <citation>
+        <fwdcit num="5">
+          <document-id>
+            <country>WO</country>
+            <doc-number>03000316</doc-number>
+            <kind>A1</kind>
+            <date>20030103</date>
+          </document-id>
+          <application-date>
+            <date>20020530</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+      <citation>
+        <fwdcit num="6">
+          <document-id>
+            <country>US</country>
+            <doc-number>7935077</doc-number>
+            <kind>B2</kind>
+            <date>20110503</date>
+          </document-id>
+          <application-date>
+            <date>20050928</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+      <citation>
+        <fwdcit num="7">
+          <document-id>
+            <country>US</country>
+            <doc-number>7963947</doc-number>
+            <kind>B2</kind>
+            <date>20110621</date>
+          </document-id>
+          <application-date>
+            <date>20080116</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+      <citation>
+        <fwdcit num="8">
+          <document-id>
+            <country>US</country>
+            <doc-number>7996974</doc-number>
+            <kind>B2</kind>
+            <date>20110816</date>
+          </document-id>
+          <application-date>
+            <date>20080716</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+      <citation>
+        <fwdcit num="9">
+          <document-id>
+            <country>US</country>
+            <doc-number>8012117</doc-number>
+            <kind>B2</kind>
+            <date>20110906</date>
+          </document-id>
+          <application-date>
+            <date>20070206</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+    </references-cited>
+    <related-documents date-changed="20100418">
+      <continuation-in-part>
+        <relation>
+          <parent-doc>
+            <document-id>
+              <country>US</country>
+              <doc-number>08/349665</doc-number>
+              <date>19941205</date>
+            </document-id>
+            <parent-status>GRANTED</parent-status>
+            <parent-grant-document>
+              <document-id>
+                <country>US</country>
+                <doc-number>6558366</doc-number>
+                <kind>A</kind>
+              </document-id>
+            </parent-grant-document>
+          </parent-doc>
+          <child-doc>
+            <document-id>
+              <country>US</country>
+              <doc-number>09/417395</doc-number>
+            </document-id>
+          </child-doc>
+        </relation>
+      </continuation-in-part>
+      <division>
+        <relation>
+          <parent-doc>
+            <document-id>
+              <country>US</country>
+              <doc-number>08/006076</doc-number>
+              <date>19930115</date>
+            </document-id>
+            <parent-status>GRANTED</parent-status>
+            <parent-grant-document>
+              <document-id>
+                <country>US</country>
+                <doc-number>5370609</doc-number>
+                <kind>A</kind>
+              </document-id>
+            </parent-grant-document>
+          </parent-doc>
+          <child-doc>
+            <document-id>
+              <country>US</country>
+              <doc-number>08/349665</doc-number>
+            </document-id>
+          </child-doc>
+        </relation>
+      </division>
+      <continuation>
+        <relation>
+          <parent-doc>
+            <document-id>
+              <country>US</country>
+              <doc-number>07/563313</doc-number>
+              <date>19900806</date>
+            </document-id>
+            <parent-status>ABANDONED</parent-status>
+          </parent-doc>
+          <child-doc>
+            <document-id>
+              <country>US</country>
+              <doc-number>08/006076</doc-number>
+            </document-id>
+          </child-doc>
+        </relation>
+      </continuation>
+    </related-documents>
+    <parties date-changed="20100409">
+      <applicants>
+        <applicant sequence="1" app-type="applicant">
+          <addressbook lang="eng">
+            <orgname>Possis Medical, Inc.</orgname>
+            <role>02</role>
+            <address>
+              <city>Minneapolis</city>
+              <state>MN</state>
+            </address>
+          </addressbook>
+        </applicant>
+      </applicants>
+      <inventors>
+        <inventor sequence="1">
+          <addressbook lang="eng">
+            <name>Bonnette, Michael J.</name>
+            <address>
+              <city>Minneapolis</city>
+              <state>MN</state>
+            </address>
+          </addressbook>
+        </inventor>
+        <inventor sequence="2">
+          <addressbook lang="eng">
+            <name>Morris, John Edward</name>
+            <address>
+              <city>Minneapolis</city>
+              <state>MN</state>
+            </address>
+          </addressbook>
+        </inventor>
+        <inventor sequence="3">
+          <addressbook lang="eng">
+            <name>Wiesel, Steven E.</name>
+            <address>
+              <city>Montrose</city>
+              <state>MN</state>
+            </address>
+          </addressbook>
+        </inventor>
+        <inventor sequence="4">
+          <addressbook lang="eng">
+            <name>Bridgeman, John B.</name>
+            <address>
+              <city>Minneapolis</city>
+              <state>MN</state>
+            </address>
+          </addressbook>
+        </inventor>
+        <inventor sequence="5">
+          <addressbook lang="eng">
+            <name>Kozak, Debra M.</name>
+            <address>
+              <city>Forest Lake</city>
+              <state>MN</state>
+            </address>
+          </addressbook>
+        </inventor>
+        <inventor sequence="6">
+          <addressbook lang="eng">
+            <name>Beaupre, Rosemary C.</name>
+            <address>
+              <city>Lino Lake</city>
+              <state>MN</state>
+            </address>
+          </addressbook>
+        </inventor>
+        <inventor sequence="7">
+          <addressbook lang="eng">
+            <name>Jenson, Mark L.</name>
+            <address>
+              <city>Greenville</city>
+              <state>MN</state>
+            </address>
+          </addressbook>
+        </inventor>
+        <inventor sequence="8">
+          <addressbook lang="eng">
+            <name>Setum, Cindy M.</name>
+            <address>
+              <city>Plymouth</city>
+              <state>MN</state>
+            </address>
+          </addressbook>
+        </inventor>
+        <inventor sequence="9">
+          <addressbook lang="eng">
+            <name>Dutcher, Robert C.</name>
+            <address>
+              <city>Maple Grove</city>
+              <state>MN</state>
+            </address>
+          </addressbook>
+        </inventor>
+      </inventors>
+      <agents>
+        <agent sequence="1" rep-type="attorney">
+          <addressbook lang="eng">
+            <name>Jaeger, Hugh D.</name>
+          </addressbook>
+        </agent>
+      </agents>
+    </parties>
+    <examiners>
+      <primary-examiner>
+        <last-name>Casler</last-name>
+        <first-name>Brian L.</first-name>
+        <department>3763</department>
+      </primary-examiner>
+      <assistant-examiner>
+        <last-name>Rodriguez</last-name>
+        <first-name>Cris L</first-name>
+      </assistant-examiner>
+    </examiners>
+    <patent-family date-changed="20090607">
+      <main-family family-id="125527600">
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>6676627</doc-number>
+            <kind>B1</kind>
+            <date>20040113</date>
+          </document-id>
+          <application-date>
+            <date>19991013</date>
+          </application-date>
+        </family-member>
+      </main-family>
+      <complete-family family-id="123551620">
+        <family-member>
+          <document-id>
+            <country>AU</country>
+            <doc-number>5738898</doc-number>
+            <kind>A</kind>
+            <date>19980521</date>
+          </document-id>
+          <application-date>
+            <date>19980302</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>DK</country>
+            <doc-number>475573</doc-number>
+            <kind>T3</kind>
+            <date>19951120</date>
+          </document-id>
+          <application-date>
+            <date>19910802</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>WO</country>
+            <doc-number>9410917</doc-number>
+            <kind>A1</kind>
+            <date>19940526</date>
+          </document-id>
+          <application-date>
+            <date>19931102</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>DE</country>
+            <doc-number>69110806</doc-number>
+            <kind>T2</kind>
+            <date>19951130</date>
+          </document-id>
+          <application-date>
+            <date>19910802</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>5073398</doc-number>
+            <kind>A</kind>
+            <date>19911217</date>
+          </document-id>
+          <application-date>
+            <date>19900910</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>6471683</doc-number>
+            <kind>B2</kind>
+            <date>20021029</date>
+          </document-id>
+          <application-date>
+            <date>19941208</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>JP</country>
+            <doc-number>3298015</doc-number>
+            <kind>B2</kind>
+            <date>20020702</date>
+          </document-id>
+          <application-date>
+            <date>19910806</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>DE</country>
+            <doc-number>69117832</doc-number>
+            <kind>D1</kind>
+            <date>19960418</date>
+          </document-id>
+          <application-date>
+            <date>19910802</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>DE</country>
+            <doc-number>69117832</doc-number>
+            <kind>T2</kind>
+            <date>19961205</date>
+          </document-id>
+          <application-date>
+            <date>19910802</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>5785675</doc-number>
+            <kind>A</kind>
+            <date>19980728</date>
+          </document-id>
+          <application-date>
+            <date>19941205</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>20010056257</doc-number>
+            <kind>A1</kind>
+            <date>20011227</date>
+          </document-id>
+          <application-date>
+            <date>19941208</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>AU</country>
+            <doc-number>8163891</doc-number>
+            <kind>A</kind>
+            <date>19920213</date>
+          </document-id>
+          <application-date>
+            <date>19910805</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>DK</country>
+            <doc-number>470781</doc-number>
+            <kind>T3</kind>
+            <date>19960722</date>
+          </document-id>
+          <application-date>
+            <date>19910802</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>ES</country>
+            <doc-number>2073686</doc-number>
+            <kind>T3</kind>
+            <date>19950816</date>
+          </document-id>
+          <application-date>
+            <date>19910802</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>EP</country>
+            <doc-number>470781</doc-number>
+            <kind>B1</kind>
+            <date>19960313</date>
+          </document-id>
+          <application-date>
+            <date>19910802</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>EP</country>
+            <doc-number>470781</doc-number>
+            <kind>A1</kind>
+            <date>19920212</date>
+          </document-id>
+          <application-date>
+            <date>19910802</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>EP</country>
+            <doc-number>475573</doc-number>
+            <kind>B1</kind>
+            <date>19950628</date>
+          </document-id>
+          <application-date>
+            <date>19910802</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>EP</country>
+            <doc-number>475573</doc-number>
+            <kind>A1</kind>
+            <date>19920318</date>
+          </document-id>
+          <application-date>
+            <date>19910802</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>JP</country>
+            <doc-number>2001161700</doc-number>
+            <kind>A</kind>
+            <date>20010619</date>
+          </document-id>
+          <application-date>
+            <date>20001012</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>DE</country>
+            <doc-number>69110806</doc-number>
+            <kind>D1</kind>
+            <date>19950803</date>
+          </document-id>
+          <application-date>
+            <date>19910802</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>6764483</doc-number>
+            <kind>B1</kind>
+            <date>20040720</date>
+          </document-id>
+          <application-date>
+            <date>20010726</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>20010051811</doc-number>
+            <kind>A1</kind>
+            <date>20011213</date>
+          </document-id>
+          <application-date>
+            <date>20010816</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>6096001</doc-number>
+            <kind>A</kind>
+            <date>20000801</date>
+          </document-id>
+          <application-date>
+            <date>19941208</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>AT</country>
+            <doc-number>124214</doc-number>
+            <kind>T</kind>
+            <date>19950715</date>
+          </document-id>
+          <application-date>
+            <date>19910802</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>AU</country>
+            <doc-number>5666694</doc-number>
+            <kind>A</kind>
+            <date>19940608</date>
+          </document-id>
+          <application-date>
+            <date>19931102</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>AU</country>
+            <doc-number>725925</doc-number>
+            <kind>B2</kind>
+            <date>20001026</date>
+          </document-id>
+          <application-date>
+            <date>19980302</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>CA</country>
+            <doc-number>2048120</doc-number>
+            <kind>A1</kind>
+            <date>19920207</date>
+          </document-id>
+          <application-date>
+            <date>19910730</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>CA</country>
+            <doc-number>2321221</doc-number>
+            <kind>A1</kind>
+            <date>20010413</date>
+          </document-id>
+          <application-date>
+            <date>20000927</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>IE</country>
+            <doc-number>912763</doc-number>
+            <kind>A1</kind>
+            <date>19920212</date>
+          </document-id>
+          <application-date>
+            <date>19910802</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>AT</country>
+            <doc-number>429177</doc-number>
+            <kind>T</kind>
+            <date>20090515</date>
+          </document-id>
+          <application-date>
+            <date>20001011</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>EP</country>
+            <doc-number>1092396</doc-number>
+            <kind>A2</kind>
+            <date>20010418</date>
+          </document-id>
+          <application-date>
+            <date>20001011</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>EP</country>
+            <doc-number>1092396</doc-number>
+            <kind>A8</kind>
+            <date>20010829</date>
+          </document-id>
+          <application-date>
+            <date>20001011</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>EP</country>
+            <doc-number>1092396</doc-number>
+            <kind>A3</kind>
+            <date>20020320</date>
+          </document-id>
+          <application-date>
+            <date>20001011</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>EP</country>
+            <doc-number>1092396</doc-number>
+            <kind>A9</kind>
+            <date>20020703</date>
+          </document-id>
+          <application-date>
+            <date>20001011</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>JP</country>
+            <doc-number>06205784</doc-number>
+            <kind>A</kind>
+            <date>19940726</date>
+          </document-id>
+          <application-date>
+            <date>19910806</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>6926726</doc-number>
+            <kind>B2</kind>
+            <date>20050809</date>
+          </document-id>
+          <application-date>
+            <date>20030402</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>6945951</doc-number>
+            <kind>B1</kind>
+            <date>20050920</date>
+          </document-id>
+          <application-date>
+            <date>20010816</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>6984239</doc-number>
+            <kind>B1</kind>
+            <date>20060110</date>
+          </document-id>
+          <application-date>
+            <date>19941208</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>5370609</doc-number>
+            <kind>A</kind>
+            <date>19941206</date>
+          </document-id>
+          <application-date>
+            <date>19930115</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>6805684</doc-number>
+            <kind>B2</kind>
+            <date>20041019</date>
+          </document-id>
+          <application-date>
+            <date>20010816</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>6544209</doc-number>
+            <kind>B1</kind>
+            <date>20030408</date>
+          </document-id>
+          <application-date>
+            <date>19941208</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>6558366</doc-number>
+            <kind>B1</kind>
+            <date>20030506</date>
+          </document-id>
+          <application-date>
+            <date>19941205</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>6676627</doc-number>
+            <kind>B1</kind>
+            <date>20040113</date>
+          </document-id>
+          <application-date>
+            <date>19991013</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>20010051785</doc-number>
+            <kind>A1</kind>
+            <date>20011213</date>
+          </document-id>
+          <application-date>
+            <date>20010816</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>20040049149</doc-number>
+            <kind>A1</kind>
+            <date>20040311</date>
+          </document-id>
+          <application-date>
+            <date>20030402</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>6258061</doc-number>
+            <kind>B1</kind>
+            <date>20010710</date>
+          </document-id>
+          <application-date>
+            <date>19941208</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>6129697</doc-number>
+            <kind>A</kind>
+            <date>20001010</date>
+          </document-id>
+          <application-date>
+            <date>19941208</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>6719718</doc-number>
+            <kind>B2</kind>
+            <date>20040413</date>
+          </document-id>
+          <application-date>
+            <date>20010816</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>AU</country>
+            <doc-number>6249600</doc-number>
+            <kind>A</kind>
+            <date>20010426</date>
+          </document-id>
+          <application-date>
+            <date>20001005</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>AU</country>
+            <doc-number>8183294</doc-number>
+            <kind>A</kind>
+            <date>19950223</date>
+          </document-id>
+          <application-date>
+            <date>19941229</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>ES</country>
+            <doc-number>2088468</doc-number>
+            <kind>T3</kind>
+            <date>19960816</date>
+          </document-id>
+          <application-date>
+            <date>19910802</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>GR</country>
+            <doc-number>3017074</doc-number>
+            <kind>T3</kind>
+            <date>19951130</date>
+          </document-id>
+          <application-date>
+            <date>19950809</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>EP</country>
+            <doc-number>1092396</doc-number>
+            <kind>B1</kind>
+            <date>20090422</date>
+          </document-id>
+          <application-date>
+            <date>20001011</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>DE</country>
+            <doc-number>60042049</doc-number>
+            <kind>D1</kind>
+            <date>20090604</date>
+          </document-id>
+          <application-date>
+            <date>20001011</date>
+          </application-date>
+        </family-member>
+      </complete-family>
+    </patent-family>
+  </bibliographic-data>
+  <abstract id="abstr_eng" date-changed="20100409" lang="eng" format="original">
+    <p id="p-00001-en">Cross stream thrombectomy catheter and system for fragmentation and removal of thrombus or other material from blood vessels or other body cavities. High velocity saline jets emitted from a toroidal loop jet emanator or other jet emanator in a catheter distal end entrain fluid through inflow orifices, and with flow resistances create a back-pressure which drives cross stream streams through outflow orifices in a radial direction and thence radially and circumferentially to apply normal and drag forces on thrombotic deposits or lesions in the blood vessel or other body cavity, thereby breaking apart and transporting thrombus particles to be entrained through the inflow orifices, whereupon the high velocity jets macerate the thrombus particles which then transit an exhaust lumen or recirculate again via the outflow orifices.</p>
+  </abstract>
+  <legal-data date-changed="20110909">
+    <legal-event sequence="1">
+      <publication-date>
+        <date>19991013</date>
+      </publication-date>
+      <event-code-1>AS</event-code-1>
+      <legal-description>ASSIGNMENT</legal-description>
+      <status-identifier>N</status-identifier>
+      <docdb-publication-number> US     6676627B1</docdb-publication-number>
+      <new-owner>POSSIS MEDICAL, INC., MINNESOTA</new-owner>
+      <free-text-description>ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNORS:BONNETTE, MICHAEL J.;MORRIS, JOHN EDWARD;WIESEL, STEVEN E.;AND OTHERS;REEL/FRAME:010337/0429</free-text-description>
+      <effective-date>
+        <date>19991012</date>
+      </effective-date>
+    </legal-event>
+    <legal-event sequence="2">
+      <publication-date>
+        <date>20040518</date>
+      </publication-date>
+      <event-code-1>CC</event-code-1>
+      <legal-description>CERTIFICATE OF CORRECTION</legal-description>
+      <status-identifier>C</status-identifier>
+      <docdb-publication-number> US     6676627B1</docdb-publication-number>
+    </legal-event>
+    <legal-event sequence="3">
+      <publication-date>
+        <date>20041123</date>
+      </publication-date>
+      <event-code-1>CC</event-code-1>
+      <legal-description>CERTIFICATE OF CORRECTION</legal-description>
+      <status-identifier>C</status-identifier>
+      <docdb-publication-number> US     6676627B1</docdb-publication-number>
+    </legal-event>
+    <legal-event sequence="4">
+      <publication-date>
+        <date>20070315</date>
+      </publication-date>
+      <event-code-1>FPAY</event-code-1>
+      <effect>+</effect>
+      <legal-description>FEE PAYMENT</legal-description>
+      <status-identifier>N</status-identifier>
+      <docdb-publication-number> US     6676627B1</docdb-publication-number>
+      <fee-payment-year>4</fee-payment-year>
+    </legal-event>
+    <legal-event sequence="5">
+      <publication-date>
+        <date>20090107</date>
+      </publication-date>
+      <event-code-1>AS</event-code-1>
+      <legal-description>ASSIGNMENT</legal-description>
+      <status-identifier>N</status-identifier>
+      <docdb-publication-number> US     6676627B1</docdb-publication-number>
+      <new-owner>MEDRAD, INC., PENNSYLVANIA</new-owner>
+      <free-text-description>MERGER;ASSIGNOR:POSSIS MEDICAL, INC.;REEL/FRAME:022062/0848</free-text-description>
+      <effective-date>
+        <date>20081209</date>
+      </effective-date>
+    </legal-event>
+    <legal-event sequence="6">
+      <publication-date>
+        <date>20090107</date>
+      </publication-date>
+      <event-code-1>AS</event-code-1>
+      <legal-description>ASSIGNMENT</legal-description>
+      <status-identifier>N</status-identifier>
+      <docdb-publication-number> US     6676627B1</docdb-publication-number>
+      <new-owner>MEDRAD, INC.,PENNSYLVANIA</new-owner>
+      <free-text-description>MERGER;ASSIGNOR:POSSIS MEDICAL, INC.;US-ASSIGNMENT DATABASE UPDATED:20100515;REEL/FRAME:22062/848</free-text-description>
+      <effective-date>
+        <date>20081209</date>
+      </effective-date>
+    </legal-event>
+    <legal-event sequence="7">
+      <publication-date>
+        <date>20110822</date>
+      </publication-date>
+      <event-code-1>REMI</event-code-1>
+      <legal-description>MAINTENANCE FEE REMINDER MAILED</legal-description>
+      <status-identifier>N</status-identifier>
+      <docdb-publication-number> US     6676627B1</docdb-publication-number>
+    </legal-event>
+  </legal-data>
+  <description id="descr_eng" lang="eng" format="original" date-changed="20100409">
+    <related-apps>
+      <heading level="2">CROSS REFERENCES TO CO-PENDING APPLICATIONS</heading>
+      <p id="p-00002-en">None.</p>
+      <p id="p-00003-en">This patent application is a continuation-in-part (CIP) of Ser. No. 08/349,665, filed Dec. 5, 1994, now U.S. Pat. No. 6,558,366, which is a divisional of Ser. No. 08/006,076, issued on Jan. 15, 1993, as U.S. Pat. No. 5,370,609, which is a continuation of Ser. No. 07/563,313, filed Aug. 6, 1990, now abandoned.</p>
+    </related-apps>
+    <summary>
+      <heading level="2">BACKGROUND OF THE INVENTION</heading>
+      <p id="p-00004-en">1. Field of the Invention</p>
+      <p id="p-00005-en">The present invention relates to apparatus for use in treatment of the human body. More particularly, the present invention relates to an elongated device which may be a single catheter assembly or a multiple component catheter assembly and which is suitable for use through percutaneous or other access, for endoscopic procedures, or for intraoperative use in either open or limited access surgical procedures. Still more particularly, the present invention relates to an elongated device in the form of a waterjet thrombectomy catheter, hereinafter termed cross stream thrombectomy catheter, for fragmentation and removal of thrombus or other unwanted material from blood vessels or body cavities that uses high velocity saline (or other suitable fluid) jets to macerate the thrombus or other unwanted material. The elongated device bears certain similarities to known waterjet thrombectomy catheter constructions but differs therefrom in several material respects, a major distinction being in the provision of means which produce cross stream jets to create a recirculation flow pattern optimized for clearing a large cross section of mural thrombus or other similar material, the name cross stream thrombectomy catheter deriving from this major distinction. Further, the present invention also relates to a system constituted either by the combination of the elongated device with both pressurized fluid source means and exhaust regulation means or by the combination of the elongated device with only pressurized fluid source means.</p>
+      <p id="p-00006-en">2. Description of the Prior Art</p>
+      <p id="p-00007-en">Waterjet thrombectomy catheters have been described in which a distal-to-proximal-directed waterjet(s) flow(s) past a window, orifice or gap at the distal end of the catheter, reentering the catheter and pushing flow through an evacuation lumen. When placed in a vessel containing thrombus and activated, the high velocity jet(s) will entrain surrounding fluid and thrombus into the window, orifice or gap region, where the high shear forces of the jet(s) will macerate the thrombus. The macerated particles will be removed from the body by the pressure generated on the distal end of the evacuation lumen by the impingement of the high velocity waterjet(s).</p>
+      <p id="p-00008-en">A limitation of these waterjet thrombectomy catheters has been the inability to remove organized, wall-adherent thrombus from large vessels. In accordance with the present invention, a cross stream thrombectomy catheter is described which overcomes this limitation by optimizing the recirculation pattern at the tip of the catheter to increase the drag force exerted on the mural thrombus to break it free from the vessel wall and allow it to be removed by the catheter.</p>
+      <heading level="2">SUMMARY OF THE INVENTION</heading>
+      <p id="p-00009-en">The thrombectomy effect of waterjet thrombectomy catheters has been described as using the Venturi effect to create suction at the tip of the catheter to draw thrombus into the waterjets where it is then macerated and evacuated through an exhaust lumen. However, when operating in a relatively large blood vessel, the fluid velocities in the vessel decrease rapidly as the distance from the jet increases, so that at the wall of the vessel there is a minimal amount of pressure gradient to push the thrombus towards the low pressure area of the catheter. Thus, a different force is needed to remove mural thrombus, and that source is fluid drag. Drag on a surface is proportionate to the velocity gradient at that surface. Thus, in order to maximize the drag force, the velocity gradient at the surface must be maximized.</p>
+      <p id="p-00010-en">The catheter described herein is provided with outflow means and inflow means and is designed to optimize the drag force on the surface of the vessel by synergistically utilizing inflows and outflows at the catheter tip to create a recirculation pattern. Since the blood vessel can be considered as an open system, the geometric arrangement of the outflow means and inflow means is critical to the maximization of the drag force at the wall of the vessel. Since the catheter is designed to be easily advanced axially through a blood vessel, and axial flows are more likely to dissipate before contributing greatly to recirculation, the flow vectors in the recirculation most important for creating efficient thrombectomy are in the circumferential and radial direction. Radial high velocity flow vectors are created by maximizing the flow through one or more outflow orifices where the one or more outflow orifices are designed to aim the flow perpendicular to the axis of the catheter. Circumferential high velocity flow vectors are created by the demand for entrained fluid by one or more inflow orifices and are supplied substantially from the one or more outflow orifices, with change in fluid flow direction near the vessel wall to return to the catheter.</p>
+      <p id="p-00011-en">In the preferred embodiment of the catheter, there is provided inflow means in the form of one or more inflow orifices located in an exhaust tubular means adjacent and proximal to a jet emanator means in the form of a toroidal loop jet emanator located distally on a jet body. One or more high velocity saline (or other suitable fluid) jets emanate from the toroidal loop jet emanator; these high velocity jet(s) entrain fluid, drawing flow into the inflow orifices, and can macerate thrombus drawn near the jet(s). One or more of the high velocity jets can be oriented to aid in the exhaust of macerated thrombotic material through the exhaust tubular means. Multiple inflow orifices may be formed around the circumference of the exhaust tubular means in a single axial plane. An oval-shaped inflow orifice in which the major axis lies parallel to the axis of the catheter is preferred to offer an inflow orifice as large as possible without compromising the area for inflow and the structure of the exhaust tubular means. There is also provided outflow means in the form of one or more outflow orifices located in the exhaust tubular means near the one or more inflow orifices. Multiple outflow orifices may be formed around the circumference of the exhaust tubular means in a single axial plane. Preferably, the outflow orifice(s) are located proximal to the inflow orifice(s). The outflow orifice(s) are usually located but not are limited to being located in close proximity to the inflow orifice(s). The size and quantity of the outflow orifices are determined to maximize the momentum leaving the outflow orifices while not compromising the structural integrity of the exhaust tubular means. The high velocity jets and entrained fluid create an internal pressure near the tip of the catheter. This internal pressure is partially “vented” by the outflow orifice(s). Too small of an area of the outflow orifice(s) will minimize the outflow flow rate and risk plugging of the orifice(s) by macerated thrombotic material, whereas too large of an outflow area will weaken the radial flow vector of the outflow and may reduce the ability of the catheter to exhaust the macerated thrombotic material by allowing the internal pressure at the tip to be reduced to the point that there is no driving force for the exhaust. An alternative embodiment can be made in which outflow and inflow orifices are located in the same axial plane, where the direction of flow through the orifices is determined by fluid mechanical factors, e.g., non-symmetric distributions of jets near the orifices. While single inflow and outflow orifices (or a combination inflow/outflow orifice) can be used, having multiple inflow and outflow orifices helps to create effective recirculation on all sides of the catheter, avoiding the problem of having a single orifice blocked by the vessel wall or being oriented away from the deposit.</p>
+      <p id="p-00012-en">Though not required for most applications, isolation means can be utilized, either incorporated into the catheter, or as a separate device, to isolate the portion of the blood vessel near the catheter tip during use. Isolation means can include balloons, filters, baskets, membranes, blood pressure modification, fluid flow control, or other occlusion devices such as are known in the art. Isolation means can limit passage of debris in the blood vessel, limit the flow of blood in the area of the catheter, or confine the recirculation area near the catheter tip.</p>
+      <p id="p-00013-en">The preferred operation mode of the device is such that the exhaust is regulated to be equivalent to the flow rate of the high velocity saline supply. Another embodiment of the device can be one in which no exhaust is designed in the catheter, so that it becomes one that macerates the thrombus into particles small enough to pass through the distal vasculature without significant blockage.</p>
+      <p id="p-00014-en">The preferred embodiment of the catheter also uses a radio-opaque marker coil aligned in a tapered and flexible tip assembly welded or otherwise suitably attached to the toroidal loop jet emanator at the distal end of the jet body. The radio-opaque marker coil is imbedded in the wall of the tapered and flexible tip in alignment with an exhaust lumen in the exhaust tubular means to provide structural integrity to the device so that the orientation of the jet(s) with respect to the inflow orifice(s) remains constant as the device is advanced and torqued in the anatomy. This tapered flexible radio-opaque marker coil tip can also be used as a flexible base in which a preferentially shaped tip can be mechanically or adhesively affixed so as to produce an atraumatic tip which could also aid in tracking and insertion.</p>
+      <p id="p-00015-en">Alternative embodiments of the present invention include jet emanator means having jet orifice(s) in a formed tubular passage, but the tubular passage is not formed into a toroidal loop as in the preferred embodiment. The formed tubular passage can be a metal tube bent into a “J”, “L” or “U” shape, or a manifold or other chamber with at least one orifice through which fluid emanates as jet(s). The key features of inflow orifice(s) through which fluid passes as it is entrained by the jet(s), and the outflow orifice(s) through which some of this entrained fluid flows, provides non-axial flow for increased recirculation, and drag again provides enhanced thrombus removal.</p>
+      <p id="p-00016-en">One significant aspect and feature of the present invention is a thrombectomy catheter having cross stream from one or more outflow orifices for recirculating, creating normal and drag forces, and displacing the thrombus off the vessel wall and into one or more inflow orifices and having high velocity jets for macerating the thrombus.</p>
+      <p id="p-00017-en">Another significant aspect and feature of the present invention is the flow of the outflow jet(s) in a radial direction followed by circumferential flow whereupon which entrained thrombotic particles enter the inflow orifice(s) to be further macerated and exhausted through an exhaust lumen.</p>
+      <p id="p-00018-en">An optional feature of the present invention is a tapered and flexible tube assembly secured to a toroidal loop jet emanator at one end of a hypo-tube to maintain orientation of a jetted solution in an exhaust lumen and with respect to the inflow orifice(s) as the device is advanced and torqued in the anatomy.</p>
+      <p id="p-00019-en">Another significant aspect and feature of the present invention is the entrainment of fluid by the high velocity jet(s) through one or more inflow orifices providing a source of additional flow and a localized region of higher pressure for driving flow outward through one or more outflow orifices. This flow, and the associated recirculation and drag forces, provide a synergistic effect which greatly increases the effectiveness of the device over what would be expected without the flow recirculation.</p>
+      <p id="p-00020-en">Another significant aspect and feature of the present invention is that the aforementioned flow via the outflow orifice(s) provides the enhanced effectiveness without the need for complicated, expensive, or space consuming additional components, tubings or passageways. The enhanced effectiveness resulting from inflow and outflow orifices, improved recirculation, and vessel wall drag can extend the useful range of the device; the greatly enhanced ability to remove blood vessel deposits can allow lower source pressures to be used than otherwise would be required; and improved function provides for useful application in larger vessels or cavities than would otherwise be practical, even with a small, flexible catheter.</p>
+      <p id="p-00021-en">Another significant aspect and feature of the present invention is that recirculation via the inflow orifice(s) provides improved function without damage to the vessel wall which could be caused by a large opening adjacent the jet(s) allowing the vessel wall to be pulled into the large opening. The device offers enhanced effectiveness without significant trauma to the vessel wall, even when operated at high pressures, with 10,000 cm/s to 25,000 cm/s jet velocities, for example.</p>
+      <p id="p-00022-en">Having thus described embodiments of the present invention, it is the principal object of the present invention to provide a cross stream thrombectomy catheter.</p>
+    </summary>
+    <description-of-drawings>
+      <heading level="2">BRIEF DESCRIPTION OF THE DRAWINGS</heading>
+      <p id="p-00023-en">Other objects of the present invention and many of the attendant advantages of the present invention will be readily appreciated as the same becomes better understood by reference to the following detailed description when considered in connection with the accompanying drawings, in which like reference numerals designate like parts throughout the figures thereof and wherein:</p>
+      <p id="p-00024-en">
+        <figref>FIG. 1A</figref>illustrates in block diagram form a cross stream thrombectomy catheter system according to one embodiment of the present invention showing the interrelation of the various functional means thereof;</p>
+      <p id="p-00025-en">
+        <figref>FIG. 1B</figref>illustrates a side view of an elongated device in the from of a cross stream thrombectomy catheter with provision for exhaust;</p>
+      <p id="p-00026-en">
+        <figref>FIG. 2</figref>illustrates an exploded view in cross section of the distal end of the cross stream thrombectomy catheter;</p>
+      <p id="p-00027-en">
+        <figref>FIG. 3</figref>illustrates an assembled view in cross section of the distal end of the cross stream thrombectomy catheter;</p>
+      <p id="p-00028-en">
+        <figref>FIG. 4</figref>
+        <i>a</i>illustrates an isometric view of a toroidal loop jet emanator;</p>
+      <p id="p-00029-en">
+        <figref>FIG. 4</figref>
+        <i>b</i>illustrates an isometric view of a semi-toroidal loop jet emanator;</p>
+      <p id="p-00030-en">
+        <figref>FIG. 4</figref>
+        <i>c</i>illustrates an isometric view of an L-shaped jet emanator;</p>
+      <p id="p-00031-en">
+        <figref>FIG. 4</figref>
+        <i>d</i>illustrates an isometric view of a J-shaped jet emanator having jet orifices located on the J-shaped proximal facing surface;</p>
+      <p id="p-00032-en">
+        <figref>FIG. 4</figref>
+        <i>e</i>illustrates an isometric view of a J-shaped jet emanator having a jet orifice located at the jet emanator extreme end;</p>
+      <p id="p-00033-en">
+        <figref>FIG. 4</figref>
+        <i>f</i>illustrates an isometric view of a J-shaped jet emanator having a necked-down portion and co-located orifice;</p>
+      <p id="p-00034-en">
+        <figref>FIG. 4</figref>
+        <i>g</i>illustrates an isometric view of a J-shaped jet emanator having an inserted tubular orifice member;</p>
+      <p id="p-00035-en">
+        <figref>FIG. 5</figref>illustrates a mode of operation view of the cross stream thrombectomy catheter positioned in a blood vessel, artery or the like at the site of a thrombotic deposit or lesion;</p>
+      <p id="p-00036-en">
+        <figref>FIG. 6</figref>illustrates the cross stream of saline jets from the outflow orifice(s) to the inflow orifice(s);</p>
+      <p id="p-00037-en">
+        <figref>FIG. 7</figref>, a first alternative embodiment, illustrates a side view showing the distal end of an exhaust tube having a single-opening dual-function orifice;</p>
+      <p id="p-00038-en">
+        <figref>FIG. 8</figref>illustrates a cross section view of the first alternative embodiment showing the distal end of the exhaust tube;</p>
+      <p id="p-00039-en">
+        <figref>FIG. 9</figref>, a second alternative embodiment, illustrates a cross section view showing the distal end of an exhaust tube having a tip with a proximally facing planar surface and also showing a single-orifice U-shaped jet emanator aligned with an inflow orifice located at the end of the exhaust tube;</p>
+      <p id="p-00040-en">
+        <figref>FIG. 10</figref>illustrates an end view of the second alternative embodiment shown in<figref>FIG. 9</figref>;</p>
+      <p id="p-00041-en">
+        <figref>FIG. 11</figref>illustrates a view of the tip at the distal end of the exhaust tube along line<b>11</b>—<b>11</b>of<figref>FIG. 9</figref>;</p>
+      <p id="p-00042-en">
+        <figref>FIG. 12</figref>, a third alternative embodiment, illustrates a cross section view showing the distal end of an exhaust tube having a tip with a proximally facing curved surface and also showing a single-orifice U-shaped jet emanator aligned with an inflow orifice located at the end of the exhaust tube;</p>
+      <p id="p-00043-en">
+        <figref>FIG. 13</figref>illustrates an end view of the third alternative embodiment shown in<figref>FIG. 12</figref>;</p>
+      <p id="p-00044-en">
+        <figref>FIG. 14</figref>illustrates a view of the tip at the distal end of the exhaust tube along line<b>14</b>—<b>14</b>of<figref>FIG. 12</figref>;</p>
+      <p id="p-00045-en">
+        <figref>FIG. 15</figref>, a fourth alternative embodiment, illustrates a cross section view showing the distal end of an exhaust tube and showing a toroidal loop jet emanator aligned to an inflow orifice located at the end of the exhaust tube;</p>
+      <p id="p-00046-en">
+        <figref>FIG. 16</figref>illustrates an end view of the fourth alternative embodiment shown in<figref>FIG. 15</figref>;</p>
+      <p id="p-00047-en">
+        <figref>FIG. 17</figref>illustrates a view of the tip at the distal end of the exhaust tube along line<b>17</b>—<b>17</b>of<figref>FIG. 15</figref>;</p>
+      <p id="p-00048-en">
+        <figref>FIG. 18</figref>, a fifth alternative embodiment, illustrates a side view of an elongated device in the form of another cross stream thrombectomy catheter similar to that of<figref>FIG. 1</figref>, but without exhaust provision; and,</p>
+      <p id="p-00049-en">
+        <figref>FIG. 19</figref>is a cross section view of the distal end of the cross stream thrombectomy catheter of FIG.<b>18</b>.</p>
+    </description-of-drawings>
+    <detailed-desc>
+      <heading level="2">DETAILED DESCRIPTION OF THE PREFERRED EMBODIMENTS</heading>
+      <p id="p-00050-en">
+        <figref>FIG. 1A</figref>illustrates in block diagram form a cross stream thrombectomy catheter system according to one embodiment of the present invention showing the interrelation of the various functional means thereof for use in removing thrombus or other unwanted material from a body vessel or cavity.</p>
+      <p id="p-00051-en">The major components of the system include an elongated device in the form of a cross stream thrombectomy catheter, a pressurized fluid source means, and, optionally, an exhaust regulation means connected to a collection system (not shown).</p>
+      <p id="p-00052-en">The elongated device includes first and second tubular means each having a proximal end and a distal end. The first tubular means is in the form of a high pressure tubular means having pressurized fluid connection means providing a fluid connection permanently or detachably coupled to its proximal end and jet emanator means at its distal end, the pressurized fluid connection means being connectible to the pressurized fluid source means. The second tubular means is in the form of either an exhaust tubular means, as shown, or other tubular means (not shown in<figref>FIG. 1A</figref>but described in detail in relation to<figref>FIGS. 18 and 19</figref>) which serves as an alternative to an exhaust tubular means in those instances when exhausting is not necessary or desired. When in the form of an exhaust tubular means, the second tubular means is usually associated with exhaust regulation means, although an exhaust regulation means is not essential. Whether in the form of an exhaust tubular means or other tubular means, the second tubular means includes outflow means and inflow means which in concert with high velocity jet(s) produced by the jet emanator means create cross stream jet(s) that establish a flow recirculation pattern.</p>
+      <p id="p-00053-en">The outflow means consists of one or more outflow orifices through which saline, blood or other fluid or a mixture thereof with macerated thrombus or other unwanted material debris flows from a region of higher pressure within the exhaust tubular means or other tubular means to outside the exhaust tubular means or other tubular means. The outflow orifices(s) are typically somewhat downstream from the high velocity region of the high velocity jet(s) where the velocities are lower and the mass flow rate is greater due to entrained fluid; and flow of fluid with or without macerated debris typically flows through the outflow orifice(s) with a component in the radial direction, creating cross stream jet(s). The outflow orifices may be round, elliptical, conical, slits, gaps between components, or other shape or design.</p>
+      <p id="p-00054-en">The inflow means consists of one or more inflow orifices through which the high velocity jet(s) draw in by fluid entrainment blood or other fluid from a body vessel or cavity, including thrombus or other unwanted material which may be present in the blood or other fluid. The inflow orifice(s) are typically near the high velocity region of the high velocity jet(s) where entrainment forces are great. The inflow orifices may be round, elliptical, conical, slits, gaps between components, or other shape or design.</p>
+      <p id="p-00055-en">The high pressure tubular means comprises an elongated structure having at least one passage or lumen along the length thereof suitable for passage of high pressure fluid. The elongated structure can be tubing with a circular or non-circular cross section and can be made of high strength polymeric material such as polyimide, metallic material such as stainless steel or titanium, or composite material such as fiber-reinforced material or a layered structure composed of layers of different materials.</p>
+      <p id="p-00056-en">The exhaust tubular means comprises an elongated structure having at least one passage or lumen along the length thereof suitable for passage of fluid and thrombus or other unwanted material debris. The elongated structure can be tubing with a circular or non-circular cross section and can be made of polymeric material such a polyethylene, polyester, polyurethane, or polyether block amide, high strength polymeric material such as polyimide, metallic material such as stainless steel or titanium, or composite material such as fiber-reinforced polymeric material or a layered structure composed of layers of different materials. Further, the elongated structure may have an attached structure near its distal end such as a chamber or manifold to accommodate the outflow means and the inflow means.</p>
+      <p id="p-00057-en">The other tubular means comprises an elongated structure having at least one passage or lumen along the length thereof suitable for passage of fluid. The elongated structure can be tubing with a circular or non-circular cross section or may resemble a shorter chamber such as a manifold, molded or constructed of multiple components. Suitable materials for the other tubular means are polymeric material such as polyethylene, polyester, or polyurethane, high strength polymeric material such as polyimide, metallic material such as stainless steel or titanium, or composite material such as fiber-reinforced polymeric material or a layered structure composed of layers of different materials.</p>
+      <p id="p-00058-en">If desired, isolation means (not shown) can be provided as part of the elongated device to isolate the region of the body vessel or cavity being treated, although this is not always required. Isolation means can include balloons, filters, baskets, membranes, blood pressure modification, fluid flow control, or other occlusion devices such as are known in the art. Isolation means can limit passage of debris in the blood vessel, limit the flow of blood in the area of the elongated device, or confine the recirculation area. Also if desired, additional tubular means can be provided for communication between the proximal end and the distal end of the elongated device, such as for passage of fluid or other material or for passage of devices such as guidewires, catheters, or imaging tools, or for actuation of isolation means, for inflation of a balloon, or for passage of medication or body fluids. The additional tubular means (not shown) comprises an elongated structure having at least one passage or lumen along the length thereof; for example, the elongated device can include a multiple-lumen tube, in which one lumen functions as the high pressure tubular means, a second lumen functions as the exhaust tubular means, and one or more additional lumens function as the additional tubular means which communicates between the proximal and distal ends of the elongated device.</p>
+      <p id="p-00059-en">The pressurized fluid source means includes fluid such as saline and one or more pumps or pressure intensifiers or pressurized fluid containers for delivering the fluid under pressure to the high pressure tubular means through the pressurized fluid connection means coupled to the proximal end thereof. The fluid can be provided at a single pressure or at multiple pressures, at variable or adjustable pressure, and at a steady flow or unsteady flow such as pulsatile flow.</p>
+      <p id="p-00060-en">The exhaust regulation means, when present, comprises structural components which increase, decrease, limit, or adjust the rate of flow of fluid and thrombus or other unwanted material debris along the exhaust tubular means and can be one or more pumps such as roller pumps or peristaltic pumps, clamps, restrictors, or other devices to influence the fluid flow rate. The exhaust regulation means can regulate exhaust at a predetermined or user-adjustable flow rate which can be correlated with or independent of the rate of flow of the pressurized fluid flowing along the high pressure tubular means. Further, the exhaust regulation means can have pressure measurement or flow rate measurement capabilities. The exhaust regulation means is connected to a suitable collection system (not shown).</p>
+      <p id="p-00061-en">The system is placed in operation by inserting the elongated device into a body vessel or cavity and advancing it to a site of thrombus or other unwanted material in the body vessel or cavity. Then the proximal end of the elongated device is connected to the pressurized fluid source means which provides pressurized saline (or other biologically compatible fluid) to the proximal end of the high pressure tubular means via the pressurized fluid connection means. At the distal end of the high pressure tubular means, pressurized saline (or other fluid) passes into the jet emanator means which produces high velocity saline (or other fluid) jet(s). The high velocity saline (or other fluid) jet(s) entrain blood or other fluid from the body vessel or cavity and draw it into the distal portion of the elongated device through the inflow means, carrying thrombus or other unwanted material from the body vessel or cavity along with the blood or other fluid. The high velocity saline (or other fluid) jet(s) together with the entrained blood or other fluid create a region of elevated pressure in the elongated device; this region of elevated pressure communicates with or is a part of the distal portion of the exhaust tubular means. The elevated pressure in the elevated pressure region drives fluid flow through the outflow means, creating cross stream jet(s) which have a radial component and may have circumferential and/or axial component(s) as well. The fluid in the elevated pressure region includes saline (or other fluid) from the high velocity jet(s) as well as the entrained blood or other fluid from the body vessel or cavity. The cross stream jet(s) impart normal and drag forces on thrombus or other unwanted material in the body vessel or cavity and greatly improve the effectiveness of the device in removing and breaking apart thrombus or other unwanted material which may be adhered to the body vessel or cavity, and form a recirculation pattern which further aids in drawing thrombus or other unwanted material towards the inflow means. The combination of outflow means, cross stream jet(s), recirculation pattern, inflow means, and high velocity jet(s) synergistically acts to provide for enhanced breakup and removal of thrombus or other unwanted material. The elevated pressure in the elevated pressure region can also aid in the transport of fluid and thrombus or other unwanted material debris through the exhaust tubular means. If desired, the rate of flow of fluid and thrombus or other unwanted material regulated by providing exhaust regulation means, although this is not always required.</p>
+      <p id="p-00062-en">
+        <figref>FIG. 1B</figref>illustrates a side view of an elongated device in the form of a cross stream thrombectomy catheter with exhaust provision<b>10</b>useful for the removal of thrombus. Externally visible components, or portions of components, of the cross stream thrombectomy catheter<b>10</b>include a manifold<b>12</b>, a hemostasis unit<b>14</b>secured in the proximal end of the manifold<b>12</b>, pressurized fluid connection means in the form of a threaded high pressure connection<b>11</b>and a Luer fitting<b>16</b>located at the proximal end of an angled manifold branch<b>18</b>extending from the manifold<b>12</b>for coupling to the pressurized fluid source means, a Luer connection<b>20</b>for coupling to exhaust regulation means located at the proximal end of another angled manifold branch<b>22</b>extending from the manifold branch<b>18</b>, a Luer fitting<b>24</b>secured to the distal end of the manifold<b>12</b>, a strain relief<b>26</b>secured to the distal end of the manifold<b>12</b>by the Luer fitting<b>24</b>, exhaust tubular means in the form of an exhaust tube<b>28</b>having a proximal end<b>30</b>secured to the manifold<b>12</b>by the strain relief<b>26</b>and Luer fitting<b>24</b>, outflow means in the form of one or more distally located outflow orifices<b>32</b>at the distal end<b>38</b>of the exhaust tube<b>28</b>, inflow means in the form of one or more distally located inflow orifices<b>34</b>at the distal end<b>38</b>of the exhaust tube<b>28</b>, and a tapered and flexible tip assembly<b>36</b>located at and aligned to and attached, as later described and illustrated, to the distal end of a jet emanator means in the form of a toroidal loop jet emanator residing in as well as being attached to the distal end<b>38</b>of the exhaust tube<b>28</b>.</p>
+      <p id="p-00063-en">
+        <figref>FIGS. 2 and 3</figref>illustrate an exploded view and an assembled view in cross section of the distal end<b>38</b>and other distally located components of the cross stream thrombectomy catheter<b>10</b>, respectively, where all numerals mentioned before correspond to those elements previously described. The primary two components of the cross stream thrombectomy catheter<b>10</b>are first and second tubular means, the first being a high pressure tubular means made of metal or high tensile strength polymer or composite material and shown in the form of a hypo-tube<b>44</b>formed into a jet body<b>40</b>, and the second being in the form of an exhaust tubular means made of a flexible polymer and shown in the form of an exhaust tube<b>28</b>having a centrally located exhaust lumen<b>42</b>. The jet body<b>40</b>is formed from a small hypo-tube<b>44</b>with a size range of 0.010 to 0.030 inch outer diameter. The distal portion of the hypo-tube<b>44</b>may be reduced to a small diameter as shown by reduction<b>43</b>(<figref>FIG. 2</figref>) to make the catheter more flexible by drawing the hypo-tube<b>44</b>through a die. The distal end of the hypo-tube<b>44</b>is then welded shut and the end formed into a toroidal loop jet emanator<b>46</b>or a jet emanator of other shape which will provide a surface in which proximally directed jet orifices<b>60</b><i>a</i>-<b>60</b><i>n</i>(<figref>FIG. 4</figref><i>a</i>), ranging from 0.001 to 0.010 inch in diameter, may be formed that will direct jetted saline or other body-compatible solution including mixtures of saline and medications or mixtures of saline and a contrast medium in a flow at or close to a path parallel to and in the opposite direction of the fluid flow in the interior of the hypo-tube<b>44</b>of the jet body<b>40</b>. Alternatively, the jet body<b>40</b>may be of a short length and connected to a more flexible polymeric tube<b>45</b>(<figref>FIG. 3</figref>) in lieu of having a jet body<b>40</b>which extends proximally for the majority of the distance to the manifold<b>12</b>. A radio-opaque marker coil<b>48</b>in the form of a stainless steel or platinum alloy coil, for example, may be adhered to the end of the jet body<b>40</b>and other components, as later described in detail.</p>
+      <p id="p-00064-en">The jet body<b>40</b>, which has a smaller axial profile than that of the exhaust lumen<b>42</b>, is inserted through and located within the exhaust lumen<b>42</b>. The exhaust lumen<b>42</b>is central to the exhaust tube<b>28</b>, which could also have multiple lumens, which has an outer diameter ranging from 0.030 to 0.150 inch, and which is also flexible and similar to the hypo-tube<b>44</b>in that it may be reduced to a smaller diameter to make the catheter more flexible by drawing through a die. The tapered and flexible tip assembly<b>36</b>includes a flexible plastic tapered tube<b>37</b>which encapsulates and surrounds the radio-opaque marker coil<b>48</b>, which has a closely wound portion<b>54</b>and a loosely wound portion<b>56</b>. Alternatively, the radio-opaque marker coil<b>48</b>can have uniform wind spacing, or can be omitted in favor of a polymeric tip.</p>
+      <p id="p-00065-en">A mechanical bond can be made between the distal tip of the jet body<b>40</b>at the junction of the toroidal loop jet emanator<b>46</b>and the exhaust lumen<b>42</b>. For example, thermal and partial melting of the tapered distal tip<b>52</b>of the polymer exhaust tube<b>28</b>partially encapsulates the toroidal loop jet emanator<b>46</b>or other distal shape of the jet body<b>40</b>. Thermal melting can also be incorporated to join the interior wall<b>57</b>of the exhaust tube<b>28</b>to the proximal area<b>59</b>of the tapered tube<b>37</b>whereby further heat transfer and melting can also encapsulate and join the closely wound portion<b>54</b>and the loosely wound portion<b>56</b>of the radio-opaque marker coil<b>48</b>to the interior wall<b>58</b>of the tapered tube<b>37</b>. In the alternative, an adhesive can also be incorporated to join the toroidal loop jet emanator<b>46</b>to the interior of the exhaust tube<b>28</b>and to the proximal portion of the closely wound spring portion<b>54</b>and to the proximal area<b>59</b>of the tapered tube<b>37</b>. Multiple inflow and outflow orifices can be formed anywhere as desired along the length of exhaust tube<b>28</b>, either before or after the loading of the jet body<b>40</b>, preferably in the distal portion, which as described below includes inflow and outflow orifices<b>34</b>and<b>32</b>, respectively. Although the preferred embodiment of the catheter is made with multiple outflow and inflow orifices<b>32</b>and<b>34</b>, a substantially equivalent catheter could be designed such that the catheter has only one extended orifice, but separate regions in that one orifice provide inflow and outflow of fluid. Preferably, the inflow and outflow orifices<b>34</b>and<b>32</b>are oval or round in shape, but they can be of other suitable geometric configuration or shape.</p>
+      <p id="p-00066-en">
+        <figref>FIGS. 4</figref>
+        <i>a</i>through<b>4</b><i>g</i>illustrate jet emanator means which may be utilized at the end of and which are located at the distal end of the jet body<b>40</b>, each of which directs high velocity jet streams proximally along or near the longitudinal axis of the jet body<b>40</b>and the exhaust tube<b>28</b>. Each jet emanator means comprises a tubular structure through which pressurized fluid flows creating high velocity fluid jets which emanate from one or more orifices in the tubular structure. The tubular structure can be of straight, curved, L-shaped, J-shaped, U-shaped, helical, toroidal or semi-toroidal shape, or can be a chamber such as a manifold, and may be formed of a single component, such as a metal hypo-tube, or of multiple components, such as multiple hypo-tubes, welded manifold components, or molded manifold components. The tubular structure forming the jet emanator means may be formed as a unitary part of the high pressure tubular means such as by forming a metal hypo-tube into a toroidal shape, or one of the other shapes mentioned above, with a single orifice or multiple orifices produced by drilling or cutting. The orifices can be round, slits, or other shapes so that fluid flowing therethrough forms one or more discrete high velocity fluid jets or merges into combination jets. Alternatively, the tubular structure forming the jet emanator means may be a separate structure having any one of the aforementioned shapes and orifice constructions which is attached to the distal end of the high pressure tubular means. In either event, the tubular structure forming the jet emanator means is in fluid communication with the high pressure tubular means. In each figure, highly pressurized fluid(s) first passes through a lumen<b>41</b>enroute to the variously shaped and configured distally located jet emanator means located at the end of the jet body<b>40</b>.</p>
+      <p id="p-00067-en">
+        <figref>FIG. 4</figref>
+        <i>a</i>illustrates an isometric view of the toroidal loop jet emanator<b>46</b>, one jet emanator means of which may be utilized at the end of and which is located at the distal end of the jet body<b>40</b>, where all numerals mentioned before correspond to those elements previously described. Illustrated in particular are the plurality of proximally directed jet orifices<b>60</b><i>a</i>-<b>60</b><i>n</i>located on the proximal surface of the toroidal loop jet emanator<b>46</b>which direct high velocity jet streams proximally, as shown by dashed lines, along or near the longitudinal axis of the jet body<b>40</b>and the exhaust tube<b>28</b>. The toroidal loop jet emanator<b>46</b>includes a circular space<b>50</b>along the inner circumference to provide for and to accommodate alignment of and for passage along a guidewire, such as the guidewire<b>51</b>shown partially in FIG.<b>5</b>. Multiple jet orifices<b>60</b><i>a</i>-<b>60</b><i>n</i>located at points along the toroidal loop jet emanator<b>46</b>can advantageously direct high velocity jet streams on multiple sides of the guidewire<b>51</b>when it is positioned in the circular space<b>50</b>to avoid having guidewire<b>51</b>block inflow orifice(s)<b>34</b>or outflow orifice(s)<b>32</b>which could hamper the recirculation pattern, such as that shown in<figref>FIGS. 5 and 6</figref>.</p>
+      <p id="p-00068-en">
+        <figref>FIG. 4</figref>
+        <i>b</i>illustrates an isometric view of a semi-toroidal loop jet emanator<b>62</b>, another jet emanator means of which may be utilized at the end of and which is located at the distal end of the jet body<b>40</b>, where all numerals mentioned before correspond to those elements previously described. Illustrated in particular are the plurality of proximally directed jet orifices<b>64</b><i>a</i>-<b>64</b><i>n</i>located on the proximal surface of the semi-toroidal loop jet emanator<b>62</b>which direct high velocity jet streams proximally, as shown by dashed lines, along or near the longitudinal axis of the jet body<b>40</b>and the exhaust tube<b>28</b>. The semi-toroidal loop jet emanator<b>62</b>includes a semi-circular space<b>66</b>along the inner circumference to provide for and to accommodate alignment of and for passage along a guidewire.</p>
+      <p id="p-00069-en">
+        <figref>FIG. 4</figref>
+        <i>c</i>illustrates an isometric view of an L-shaped jet emanator<b>68</b>, another jet emanator means of which may be utilized at the end of and which is located at the distal end of the jet body<b>40</b>, where all numerals mentioned before correspond to those elements previously described. Illustrated in particular is a proximally directed jet orifice<b>70</b>located on the proximal surface of the L-shaped jet emanator<b>68</b>which directs a high velocity jet stream proximally, as shown by a dashed line, along or near the longitudinal axis of the jet body<b>40</b>and the exhaust tube<b>28</b>.</p>
+      <p id="p-00070-en">
+        <figref>FIG. 4</figref>
+        <i>d</i>illustrates an isometric view of a J-shaped jet emanator<b>72</b>having jet orifices located on the J-shaped proximal facing curved surface, another jet emanator means of which may be utilized at the end of and which is located at the distal end of the jet body<b>40</b>, where all numerals mentioned before correspond to those elements previously described. The J-shaped jet emanator<b>72</b>and the jet body<b>40</b>and hypo-tube<b>44</b>align in a common plane. Illustrated in particular is a plurality of proximally directed jet orifices<b>74</b><i>a</i>-<b>74</b><i>n</i>located on the proximal curved surface of the J-shaped jet emanator<b>72</b>which direct high velocity jet streams proximally, as shown by dashed lines, along or near the longitudinal axis of the jet body<b>40</b>and the exhaust tube<b>28</b>.</p>
+      <p id="p-00071-en">
+        <figref>FIG. 4</figref>
+        <i>e</i>illustrates an isometric view of a J-shaped jet emanator<b>75</b>having a jet orifice located at the emanator end, being another jet emanator means of which may be utilized at the end of and which is located at the distal end of the jet body<b>40</b>, where all numerals mentioned before correspond to those elements previously described. The J-shaped jet emanator<b>75</b>and the jet body<b>40</b>and hypo-tube<b>44</b>align in a common plane. Illustrated in particular is a proximally directed jet orifice<b>77</b>located at the extreme end<b>79</b>of the J-shaped jet emanator<b>75</b>which directs a high velocity jet stream proximally, as shown by a dashed line, along or near the longitudinal axis of the jet body<b>40</b>and the exhaust tube<b>28</b>. The extreme end<b>79</b>preferably is first welded shut to form a dome or other suitably shaped structure which is drilled or bored to form the appropriately sized jet orifice<b>77</b>.</p>
+      <p id="p-00072-en">
+        <figref>FIG. 4</figref>
+        <i>f</i>illustrates an isometric view of a J-shaped jet emanator<b>81</b>having a necked-down region and co-located orifice, another jet emanator means of which may be utilized at the end of and which is located at the distal end of the jet body<b>40</b>, where all numerals mentioned before correspond to those elements previously described. The J-shaped jet emanator<b>81</b>and the jet body<b>40</b>and hypo-tube<b>44</b>and a necked-down portion<b>89</b>align in a common plane. Illustrated in particular is a proximally directed jet orifice<b>83</b>located at the extreme end<b>87</b>of the necked-down portion<b>89</b>of the J-shaped jet emanator<b>81</b>which directs a high velocity jet stream proximally, as shown by a dashed line, along or near the longitudinal axis of the jet body<b>40</b>and the exhaust tube<b>28</b>. The necked-down portion<b>89</b>is appropriately drawn, formed and/or sized to produce an appropriately sized jet orifice<b>83</b>.</p>
+      <p id="p-00073-en">
+        <figref>FIG. 4</figref>
+        <i>g</i>illustrates an isometric view of a J-shaped jet emanator<b>91</b>having an inserted tubular orifice member, another jet emanator means of which may be utilized at the end of and which is located at the distal end of the jet body<b>40</b>, where all numerals mentioned before correspond to those elements previously described. The J-shaped jet emanator<b>91</b>and the jet body<b>40</b>and hypo-tube<b>44</b>align in a common plane. The J-shaped jet emanator<b>91</b>includes a housing<b>93</b>which is part of and which extends proximally from the curved region of the J-shaped jet emanator<b>91</b>. The housing<b>93</b>accommodates within an appropriately sized tubular orifice member<b>95</b>which directs a high velocity jet stream proximally, as shown by a dashed line, along or near the longitudinal axis of the jet body<b>40</b>and the exhaust tube<b>28</b>.</p>
+      <heading level="2">Mode of Operation</heading>
+      <p id="p-00074-en">
+        <figref>FIG. 5</figref>illustrates in cross section a mode of operation view of the cross stream thrombectomy catheter<b>10</b>with particular attention to the distal end<b>38</b>of the exhaust tube<b>28</b>positioned in a blood vessel<b>76</b>, artery or the like at the site of a thrombotic deposit or lesion<b>78</b>. High velocity jets<b>80</b>of saline (or other suitable fluid) are shown being emitted in a proximal direction from the toroidal loop jet emanator<b>46</b>. The semi-toroidal loop jet emanator<b>62</b>of<figref>FIG. 4</figref><i>b</i>, L-shaped jet emanator<b>68</b>of<figref>FIG. 4</figref><i>c</i>, the J-shaped jet emanator<b>72</b>of<figref>FIG. 4</figref><i>d</i>, the J-shaped jet emanator<b>75</b>of<figref>FIG. 4</figref><i>e</i>, the J-shaped jet emanator<b>81</b>of<figref>FIG. 4</figref><i>f</i>, or the J-shaped emanator<b>91</b>of<figref>FIG. 4</figref><i>g</i>can be incorporated at the distal portion of the jet body<b>40</b>, as well as and as an alternative to the toroidal loop jet emanator<b>46</b>illustrated in this figure, to emanate or emit one or more high velocity jets<b>80</b>distally along or near the longitudinal axis of the jet body<b>40</b>and the exhaust tube<b>28</b>. The saline fluid of jet(s)<b>80</b>passes outwardly through the outflow orifice(s)<b>32</b>in a radial direction creating cross stream jet(s)<b>82</b>(lower velocity jet(s)) directed outwardly toward the wall of the blood vessel<b>76</b>and are influenced by the low pressure at the inflow orifice(s)<b>34</b>to cause the cross stream jet(s)<b>82</b>to flow circumferentially and distally to impinge on, provide drag forces on, and break up thrombotic deposits or lesions<b>78</b>and to, by entrainment, urge and carry along the particles of thrombotic deposits or lesions<b>78</b>through the inflow orifice(s)<b>34</b>, a relatively low pressure region, and into the exhaust lumen<b>42</b>. The entrainment through the inflow orifice(s)<b>34</b>is based on entrainment by the high velocity jet(s)<b>80</b>. The outflow is driven by internal pressure which is created by the high velocity jet(s)<b>80</b>and the fluid entrained through the inflow orifice(s)<b>34</b>. The enhanced clot removal is because of the recirculation pattern established between inflow and outflow orifices<b>34</b>and<b>32</b>, which creates a flow field that maximizes drag force on wall-adhered thrombus.</p>
+      <p id="p-00075-en">
+        <figref>FIG. 6</figref>illustrates in cross section the mode of operation view illustrating the cross stream jet(s)<b>82</b>(or stream(s)) and the recirculation pattern. For the purpose of clarity, the illustration shows the outflow orifice(s)<b>32</b>and the inflow orifice(s)<b>34</b>at the same station along the exhaust tube<b>28</b>. Shown in particular is the flow of the cross stream jet(s)<b>82</b>which flow outwardly in radial fashion from the outflow orifice(s)<b>32</b>to impinge thrombotic deposits or lesions<b>78</b>and to urge and carry macerated thrombotic deposits or lesion particles<b>78</b>to the inflow orifice(s)<b>34</b>where the particles of thrombotic deposits or lesions<b>78</b>are entrained by the high velocity jet(s)<b>80</b>(not shown) and carried away through the exhaust lumen<b>42</b>. Circumferential flow occurs along and substantially parallel to the inner boundary of the blood vessel<b>76</b>in a direction leading to the inflow orifice(s)<b>34</b>.</p>
+      <heading level="2">Mode of Operation</heading>
+      <p id="p-00076-en">A manifold is attached to the tubular assembly on the proximal end to allow connection of the hypo-tube<b>44</b>of the jet body<b>40</b>to a 10 to 200 cc/min supply of saline (or other suitable fluid) at a back pressure in the range of approximately 150 psi to 50,000 psi, and to allow connection of exhaust lumen<b>42</b>to tubing attached to a collection system, preferably with exhaust regulation means involved to control the level of the exhaust. Suitable specific pressure ranges for the supply fluid can be approximately 150-500 psi, approximately 500-2,500 psi, or approximately 2,500-50,000 psi, depending on the particular situation involved.</p>
+      <p id="p-00077-en">The catheter is operated by injection with the high pressure saline supply through the threaded high pressure connection<b>11</b>. The saline flows through the jet body<b>40</b>and into the jet emanator means wherein, depending on the supply pressure, it exists in pressure ranges of approximately 50-350 psi, 350-850 psi, or 850-35,000 psi. The saline exits the jet orifice(s)<b>60</b><i>a</i>-<b>60</b><i>n</i>at a maximum instantaneous centerline velocity of approximately 2,000 to 30,000 cm/s, preferably 7,000 cm/s to 20,000 cm/s, and passes near at least one of the inflow orifice(s)<b>34</b>of the exhaust lumen<b>42</b>. Since the catheter is operated in liquid media within the body, the saline jet(s)<b>80</b>behave as submerged jet(s) in that their momentum is transferred to the surrounding fluid, a phenomena known as entrainment. Due to the geometry of the catheter, the entrained fluid is brought into the inflow orifice(s)<b>34</b>in flow rates of 1 to 20 times that of the high velocity saline exiting the jet orifices<b>60</b><i>a</i>-<b>60</b><i>n.</i></p>
+      <p id="p-00078-en">Once entrained fluid has entered the inflow orifice(s)<b>34</b>, the fluid will take the path of least resistance to exit the catheter. If the catheter were made with no outflow orifice(s)<b>32</b>and the exhaust lumen had no hydrodynamic resistance, all the entrained fluid would be exhausted out of the body through the exhaust lumen<b>42</b>and into the collection system. However, if there is significant amount of hydrodynamic resistance, either through pipe flow resistance in the exhaust lumen<b>42</b>or an exhaust regulation means, not all of the entrained fluid can be exhausted from the catheter. If there were no outflow orifice(s)<b>32</b>in the catheter, at least a portion of the inflow orifice(s)<b>34</b>will have fluid transported out of the catheter in order to maintain a mass balance of fluid in the catheter (all components of the catheter are incompressible or inelastic so that there is no accumulation of mass in the catheter).</p>
+      <p id="p-00079-en">The incorporation of outflow orifice(s)<b>32</b>in the catheter allows maintenance of the mass balance at the tip of the catheter without a requirement that a portion of the inflow orifice(s)<b>34</b>will have fluid transported out of the catheter. The benefit of removing the two-directional flow through the inflow orifice(s)<b>34</b>is that friction between the entrained fluid and fluid that is being transported out of the catheter has been eliminated. Thus, both of these flows will be increased by having the outflow orifice(s)<b>32</b>incorporated into the catheter to act to greatly enhance the thrombectomy effect of the catheter on organized mural thrombus.</p>
+      <p id="p-00080-en">
+        <figref>FIGS. 7 and 8</figref>illustrate a side view and a cross section view, respectively, of a first alternative embodiment showing distal end<b>84</b>of the exhaust tube<b>28</b>which can be incorporated into use with the first embodiment of and for use with the majority of the components of the cross stream thrombectomy catheter previously described, where all numerals mentioned before correspond to those elements previously described. Although the preferred embodiment of the catheter includes multiple outflow and inflow orifices<b>32</b>and<b>34</b>, a substantially equivalent catheter having one or more single opening dual function orifices<b>85</b>can be provided, each orifice<b>85</b>having separate regions such that one single opening orifice provides for inflow and outflow of fluid. Preferably, the orifice<b>85</b>is an elongated shape, but can be of other suitable geometric configuration or shape.<figref>FIG. 7</figref>illustrates an elongated and tapered orifice<b>85</b>having at one end a semi-circular distally located radiused inflow end<b>86</b>corresponding to the inflow orifice<b>34</b>and a semi-circular proximally located relatively smaller radiused outflow end<b>88</b>corresponding to the outflow orifice<b>32</b>opposing the radiused inflow end<b>86</b>. A cross stream thrombectomy catheter incorporating the distal end<b>84</b>of the exhaust tube<b>28</b>operates according to the teachings of the invention with the benefit of simpler and more easily accomplished construction which combines the inflow and outflow orifices into a single opening orifice. Although toroidal loop jet emanator<b>46</b>is shown in the embodiment, other jet emanators such the semi-toroidal loop jet emanator<b>62</b>of<figref>FIG. 4</figref><i>b</i>, the L-shaped jet emanator<b>68</b>of<figref>FIG. 4</figref><i>c</i>, the J-shaped jet emanator<b>72</b>of<figref>FIG. 4</figref><i>d</i>, the J-shaped jet emanator<b>75</b>of<figref>FIG. 4</figref><i>e</i>, the J-shaped jet emanator<b>81</b>of<figref>FIG. 4</figref><i>f</i>, or the J-shaped jet emanator<b>91</b>of<figref>FIG. 4</figref><i>g</i>, or other such suitable jet emanator or device can be incorporated into use with this embodiment of the present invention. Flow of the cross stream jet(s)<b>82</b>is illustrated in FIG.<b>7</b>.</p>
+      <p id="p-00081-en">
+        <figref>FIGS. 9 through 17</figref>illustrate second, third and fourth alternative embodiments of distal ends of the exhaust tube<b>28</b>where the inflow orifices are located at the extreme end of the exhaust lumen<b>42</b>of the exhaust tube<b>28</b>as an alternative to inflow orifice placement on the sidewall of the exhaust tube<b>28</b>as previously described, and where use of the tapered and flexible tip assembly<b>36</b>is not required. The distal ends are assigned different designator number references in allowance for differently located inflow or outflow orifices or other variances or combinations thereof at or near the distal ends.</p>
+      <p id="p-00082-en">
+        <figref>FIGS. 9 and 10</figref>, illustrate a cross section view and an end view, respectively, of a second alternative embodiment showing distal end<b>90</b>of the exhaust tube<b>28</b>which can be incorporated into use with the manifold<b>12</b>, the jet body<b>40</b>and the exhaust tube<b>28</b>with the exception of the tapered and flexible tip assembly<b>36</b>of the first embodiment and is intended for use with the majority of the components of the cross stream thrombectomy catheter previously described, where all numerals mentioned before correspond to those elements previously described. A tip<b>92</b>is located at or near the distal end of the jet body<b>40</b>and at the distal end<b>90</b>of the exhaust tube<b>28</b>. The tip<b>92</b>, which can be of metallic, polymeric or other suitable material, aligns and suitably secures to the distal end<b>90</b>of the exhaust tube<b>28</b>. The tip<b>92</b>includes a bore<b>94</b>which supports the jet body<b>40</b>. The jet body<b>40</b>extends distally beyond the bore<b>94</b>of the tip<b>92</b>and forms a U-shaped jet emanator<b>96</b>having a single centrally located jet orifice<b>98</b>, which is the end of the lumen<b>41</b>of the extended jet body<b>40</b>making up the U-shaped jet emanator<b>96</b>. The jet orifice<b>98</b>of the U-shaped jet emanator<b>96</b>is directed at an inflow orifice<b>100</b>aligned longitudinally and located in the tip<b>92</b>. A high velocity jet<b>102</b>of saline is emitted in a proximal direction from the jet orifice<b>98</b>and through the inflow orifice<b>100</b>. Fluid is entrained by the high velocity jet<b>102</b>and is thereby drawn through the inflow orifice<b>100</b>and driven into the exhaust lumen<b>42</b>and mixes with saline from the high velocity jet<b>102</b>. Part of this entrained fluid mixed with the saline from the high velocity jet<b>102</b>passes outwardly through the outflow orifice<b>104</b>in a radial direction creating a cross stream jet<b>106</b>(lower velocity jet) directed outwardly toward the wall of a blood vessel and is influenced by the low pressure at the inflow orifice<b>100</b>to cause the cross stream jet<b>106</b>to flow circumferentially and distally to impinge on, provide drag forces on, and break up thrombotic deposits or lesions and to, by entrainment, urge and carry along the thrombotic deposits or lesions through the inflow orifice<b>100</b>, a relatively low pressure region, and into the exhaust lumen<b>42</b>. The flow of fluid and thrombotic deposits through the inflow orifice<b>100</b>is based on entrainment by the high velocity jet<b>102</b>. The outflow through outflow orifice<b>104</b>is driven by internal pressure which is created by the high velocity jet<b>102</b>and the fluid entrained through the inflow orifice<b>100</b>. The enhanced clot removal is because of the recirculation pattern established between inflow and outflow orifices<b>100</b>and<b>104</b>, which creates a flow field that maximizes drag force on wall-adhered thrombus. Although a U-shaped jet emanator<b>96</b>is shown in the embodiment, other jet emanators such as the semi-toroidal loop jet emanator<b>62</b>of<figref>FIG. 4</figref><i>b</i>, the L-shaped jet emanator<b>68</b>of<figref>FIG. 4</figref><i>c</i>, the J-shaped jet emanator<b>72</b>of<figref>FIG. 4</figref><i>d</i>, the J-shaped jet emanator<b>75</b>of<figref>FIG. 4</figref><i>e</i>, the J-shaped jet emanator<b>81</b>of<figref>FIG. 4</figref><i>f</i>, or the J-shaped jet emanator<b>91</b>of<figref>FIG. 4</figref><i>g</i>, or other such suitable jet emanator or device can be incorporated into use with this embodiment of the present invention.</p>
+      <p id="p-00083-en">
+        <figref>FIG. 11</figref>illustrates a view of the tip<b>92</b>along line<b>11</b>—<b>11</b>of<figref>FIG. 9</figref>, where all numerals correspond to those elements previously described.</p>
+      <p id="p-00084-en">
+        <figref>FIGS. 12 and 13</figref>illustrate a cross section view and an end view, respectively, of a third alternative embodiment which operates according to the teachings of the invention, and more specifically, according to the teachings of<figref>FIGS. 9</figref>,<b>10</b>and<b>11</b>and which incorporates many of the components shown in<figref>FIGS. 9</figref>,<b>10</b>and<b>11</b>.<figref>FIGS. 12 and 13</figref>illustrate a tip<b>108</b>having similarities to tip<b>92</b>of<figref>FIG. 9</figref>, but including an inwardly or proximally facing curved surface<b>112</b>. The curved surface<b>112</b>assists and promotes alignment of a guidewire through an inflow orifice<b>110</b>of the tip<b>108</b>. The distal end<b>114</b>of the exhaust tube<b>28</b>including the tip<b>108</b>can be incorporated into use with the manifold<b>12</b>, the jet body<b>40</b>and the exhaust tube<b>28</b>with the exception of the tapered and flexible tip assembly<b>36</b>of the first embodiment and is intended for use with the majority of the components of the cross stream thrombectomy catheter previously described, where all numerals mentioned before correspond to those elements previously described. The tip<b>108</b>is located at or near the distal end of the jet body<b>40</b>and at the distal end<b>114</b>of the exhaust tube<b>28</b>. The tip<b>108</b>, which can be of metallic, polymeric or other suitable material, aligns and suitably secures to the distal end<b>114</b>of the exhaust tube<b>28</b>. The tip<b>108</b>includes a bore<b>115</b>which supports the jet body<b>40</b>. As previously described, the jet body<b>40</b>extends distally beyond the bore<b>115</b>of the tip<b>108</b>to form the U-shaped jet emanator<b>96</b>having a single centrally located jet orifice<b>98</b>which is the end of the lumen<b>41</b>of the extended jet body<b>40</b>making up the U-shaped jet emanator<b>96</b>. The jet orifice<b>98</b>of the U-shaped jet emanator<b>96</b>is directed at an inflow orifice<b>110</b>aligned longitudinally and located in the tip<b>108</b>. A high velocity jet<b>118</b>of saline is emitted in a proximal direction from the jet orifice<b>98</b>and through the inflow orifice<b>110</b>to operate in a manner and fashion such as described for<figref>FIGS. 9</figref>,<b>10</b>and<b>11</b>. Although U-shaped jet emanator<b>96</b>is shown in the embodiment, other jet emanators such as the toroidal loop jet emanator<b>46</b>of<figref>FIG. 4</figref><i>a</i>, the semi-toroidal loop jet emanator<b>62</b>of<figref>FIG. 4</figref><i>b</i>, the L-shaped jet emanator<b>68</b>of<figref>FIG. 4</figref><i>c</i>, the J-shaped jet emanator<b>72</b>of<figref>FIG. 4</figref><i>d</i>, the J-shaped jet emanator<b>75</b>of<figref>FIG. 4</figref><i>e</i>, the J-shaped jet emanator<b>81</b>of<figref>FIG. 4</figref><i>f</i>, the J-shaped jet emanator<b>91</b>of<figref>FIG. 4</figref><i>g</i>, or other such suitable jet emanator or device can be incorporated into use with this embodiment of the present invention.</p>
+      <p id="p-00085-en">
+        <figref>FIG. 14</figref>illustrates a view of the tip<b>108</b>along line<b>14</b>—<b>14</b>of<figref>FIG. 12</figref>, where all numerals correspond to those elements previously described.</p>
+      <p id="p-00086-en">
+        <figref>FIGS. 15 and 16</figref>illustrate a cross section view and an end view, respectively, of a fourth alternative embodiment showing distal end<b>122</b>of the exhaust tube<b>28</b>which can be incorporated into use with the manifold<b>12</b>, the jet body<b>40</b>and the exhaust tube<b>28</b>with the exception of the tapered and flexible tip assembly<b>36</b>of the first embodiment and is intended for use with the majority of the components of the cross stream thrombectomy catheter previously described, where all numerals mentioned before correspond to those elements previously described. A tip<b>124</b>is located at or near the distal end of the jet body<b>40</b>and at the distal end<b>122</b>of the exhaust tube<b>28</b>. The tip<b>124</b>, which can be of metallic, polymeric or other suitable material, aligns and suitably secures to the distal end<b>122</b>of the exhaust tube<b>28</b>. The tip<b>124</b>includes a bore<b>126</b>which supports the jet body<b>40</b>. The jet body<b>40</b>extends distally beyond the bore<b>126</b>of the tip<b>124</b>and forms a toroidal loop jet emanator<b>128</b>having a plurality of proximally directed jet orifices<b>130</b><i>a</i>-<b>130</b><i>n</i>. The jet orifices<b>130</b><i>a</i>-<b>130</b><i>n</i>of the toroidal loop jet emanator<b>128</b>are directed at an inflow orifice<b>132</b>aligned longitudinally and located in the tip<b>124</b>. The high velocity jets<b>134</b><i>a</i>-<b>134</b><i>n</i>of saline are emitted in a proximal direction from the jet orifices<b>130</b><i>a</i>-<b>130</b><i>n</i>and through the inflow orifice<b>132</b>. Fluid, such as blood and thrombotic debris which may be near the tip<b>124</b>, is entrained by the high velocity jets<b>134</b><i>a</i>-<b>134</b><i>n</i>and is thereby drawn through inflow orifice<b>132</b>and acts in a manner and fashion such as described for<figref>FIGS. 9</figref>,<b>10</b>and<b>11</b>, such that cross stream jets<b>106</b>and recirculation pattern between the outflow orifice<b>104</b>and the inflow orifice<b>132</b>synergistically enhances thrombus removal.</p>
+      <p id="p-00087-en">
+        <figref>FIG. 17</figref>illustrates a view of the tip<b>124</b>along line<b>17</b>—<b>17</b>of<figref>FIG. 15</figref>, where all numerals mentioned before correspond to those elements previously described. A circular space<b>136</b>along the inner circumference of the toroidal loop jet emanator<b>128</b>is provided to accommodate alignment and passage along a guidewire.</p>
+      <p id="p-00088-en">
+        <figref>FIG. 18</figref>, a fifth alternative embodiment, illustrates a side view of a cross stream thrombectomy catheter<b>10</b>A which is similar to the cross stream thrombectomy catheter<b>10</b>of<figref>FIG. 1B</figref>but without exhaust provision, and therefore does not include the manifold branch<b>22</b>and Luer connection<b>20</b>which extend from manifold branch<b>18</b>. Also, in this fifth alternative embodiment the toroidal loop jet emanator of the<figref>FIG. 1B</figref>embodiment is not employed, and since no exhaust provision is present, the second tubular means characterized by the exhaust tubular means in the form of the exhaust tube<b>28</b>of the<figref>FIG. 1B</figref>embodiment is characterized by other tubular means in the form of a tube<b>137</b>which is similar to the exhaust tube<b>28</b>of the<figref>FIG. 1B</figref>embodiment but which has a distal end<b>138</b>of different construction from that of the distal end<b>38</b>of the embodiment of FIG.<b>1</b>B. Devices of the fifth alternative embodiment operate and function similarly to those of the<figref>FIG. 1B</figref>embodiment in that a recirculation pattern from outflow orifices<b>34</b>to inflow orifices<b>32</b>synergistically enhance clot breakup; however, this embodiment does not provide for removal of the thrombus debris through the catheter itself. If desired, thrombus debris can be removed from the body by separate means, such as a separate catheter or by chemical methods. In many cases, such thrombus debris removal would not be necessary since the enhanced clot breakup action of the device produces small debris which can be left in the body.</p>
+      <p id="p-00089-en">
+        <figref>FIG. 19</figref>depicts a cross section view of the distal end<b>138</b>of the tube<b>137</b>. All numerals appearing in<figref>FIGS. 18 and 19</figref>which have been mentioned before correspond to those elements previously described. Preferably, hypo-tube<b>44</b>is formed into jet body<b>140</b>which directs a single high velocity jet<b>142</b>distally past inflow orifice<b>34</b>. Alternatively, jet body<b>140</b>may be of a short length and connected to a more flexible polymeric tube similar to polymeric tube<b>45</b>of FIG.<b>3</b>. Fluid, such as blood and thrombotic debris which may be near distal end<b>138</b>, is entrained by the high velocity jet<b>142</b>and is thereby drawn through inflow orifice<b>34</b>. The fluid mixes with saline from the high velocity jet<b>142</b>, and thrombus is broken apart and pulverized by the high velocity jet<b>142</b>. The fluid mixed with saline from high velocity jet<b>142</b>creates an internal pressure near outflow orifice<b>32</b>, which creates cross stream jet(s)<b>82</b>and a recirculation pattern, as indicated, from outflow orifice<b>32</b>to inflow orifice<b>34</b>. The recirculation pattern includes radial and circumferential flow vectors, and can include axial flow vectors as well. The recirculation pattern creates a flow field that maximizes force on wall-adhered thrombus or lesion. A guidewire<b>144</b>is shown passing through the tapered and flexible tip assembly<b>36</b>and through the tube lumen<b>143</b>. This fifth alternative embodiment of the present invention is similar in many respects to the other embodiments, but does not provide for thrombus debris removal out of the body through the catheter. In this embodiment, the key features of inflow/outflow orifices and recirculation allow thrombus to be pulled into the high velocity jet(s) and to be broken up sufficiently so that they can pass downstream in the blood vessel without significant embolic complications. The recirculation can provide for repeated passage of thrombus fragments into the high velocity jets(s) so that maceration of the thrombus can occur. This embodiment may be particularly useful in treating venous thrombus or arteriovenous graft thrombosis, as examples, where moderately small thrombus fragment embolization is less likely to be of concern. In other situations, isolation means can be incorporated to prevent significant embolization. This embodiment has certain advantages over others, in that jet body<b>140</b>is simpler to fabricate, smaller in overall diameter, and less expensive than the more complex configurations, and the manifold<b>12</b>of<figref>FIG. 18</figref>is simpler and less expensive than that shown in FIG.<b>1</b>B. Also, since there is no requirement for removal of debris through the catheter, tube<b>137</b>of<figref>FIG. 18</figref>can be a smaller diameter than exhaust tube<b>28</b>of FIG.<b>1</b>B. The resulting device can then be a smaller diameter and less stiff, which offers advantages in allowing a smaller access for inserting the catheter into a patient and advancing it to the location of the thrombus. While the simple, single-jet jet body<b>140</b>is preferred in the fifth alternative embodiment, multiple jets and multiple inflow and outflow orifices can be used. For example, a jet body configuration similar to the semi-toroidal loop jet emanator<b>62</b>of<figref>FIG. 4</figref><i>b</i>could be used, provided that multiple jet orifices direct fluid jets distally past one or more inflow orifices. Multiple outflow orifices could be used as well, positioned farther from the jet(s) than the inflow orifice(s), or combination inflow/outflow orifice(s) similar to orifice(s)<b>85</b>of<figref>FIGS. 7 and 8</figref>could be utilized.</p>
+      <p id="p-00090-en">Various modifications can be made to the present invention without departing from the apparent scope hereof.<tables id="table-us-00001-en"><table frame="none" colsep="0" rowsep="0"><tgroup cols="1" colsep="0" rowsep="0" align="left"><colspec colname="1" colwidth="217pt" align="center" /><thead><row><entry namest="1" nameend="1" align="center" rowsep="1" /></row><row><entry>THROMBECTOMY CATHETER AND SYSTEM PARTS LIST</entry></row><row><entry namest="1" nameend="1" align="center" rowsep="1" /></row></thead><tbody valign="top"><row><entry /></row></tbody></tgroup><tgroup cols="3" colsep="0" rowsep="0" align="left"><colspec colname="offset" colwidth="28pt" align="left" /><colspec colname="1" colwidth="49pt" align="left" /><colspec colname="2" colwidth="140pt" align="left" /><tbody valign="top"><row><entry /><entry> 10</entry><entry>cross stream thrombectomy catheter</entry></row><row><entry /><entry> 10A</entry><entry>cross stream thrombectomy catheter</entry></row><row><entry /><entry> 11</entry><entry>threaded high pressure connection</entry></row><row><entry /><entry> 12</entry><entry>manifold</entry></row><row><entry /><entry> 14</entry><entry>hemostasis unit</entry></row><row><entry /><entry> 16</entry><entry>Luer fitting</entry></row><row><entry /><entry> 18</entry><entry>manifold branch</entry></row><row><entry /><entry> 20</entry><entry>Luer connection</entry></row><row><entry /><entry> 22</entry><entry>manifold branch</entry></row><row><entry /><entry> 24</entry><entry>Luer fitting</entry></row><row><entry /><entry> 26</entry><entry>strain relief</entry></row><row><entry /><entry> 28</entry><entry>exhaust tube</entry></row><row><entry /><entry> 30</entry><entry>proximal end</entry></row><row><entry /><entry> 32</entry><entry>outflow orifice</entry></row><row><entry /><entry> 34</entry><entry>inflow orifice</entry></row><row><entry /><entry> 36</entry><entry>tapered and flexible tip assembly</entry></row><row><entry /><entry> 37</entry><entry>tapered tube</entry></row><row><entry /><entry> 38</entry><entry>distal end</entry></row><row><entry /><entry> 40</entry><entry>jet body</entry></row><row><entry /><entry> 41</entry><entry>lumen</entry></row><row><entry /><entry> 42</entry><entry>exhaust lumen</entry></row><row><entry /><entry> 43</entry><entry>reduction</entry></row><row><entry /><entry> 44</entry><entry>hypo-tube</entry></row><row><entry /><entry> 45</entry><entry>polymeric tube</entry></row><row><entry /><entry> 46</entry><entry>toroidal loop jet emanator</entry></row><row><entry /><entry> 48</entry><entry>marker coil</entry></row><row><entry /><entry> 50</entry><entry>circular space</entry></row><row><entry /><entry> 51</entry><entry>guidewire</entry></row><row><entry /><entry> 52</entry><entry>distal tip (of exhaust tube)</entry></row><row><entry /><entry> 54</entry><entry>closely wound portion</entry></row><row><entry /><entry> 56</entry><entry>loosely wound portion</entry></row><row><entry /><entry> 57</entry><entry>interior wall</entry></row><row><entry /><entry> 58</entry><entry>interior wall</entry></row><row><entry /><entry> 59</entry><entry>proximal area</entry></row><row><entry /><entry> 60a-n</entry><entry>jet orifices</entry></row><row><entry /><entry> 62</entry><entry>semi-toroidal loop jet emanator</entry></row><row><entry /><entry> 64a-n</entry><entry>jet orifices</entry></row><row><entry /><entry> 66</entry><entry>semi-circular space</entry></row><row><entry /><entry> 68</entry><entry>L-shaped jet emanator</entry></row><row><entry /><entry> 70</entry><entry>jet orifice</entry></row><row><entry /><entry> 72</entry><entry>J-shaped jet emanator</entry></row><row><entry /><entry> 74a-n</entry><entry>jet orifices</entry></row><row><entry /><entry> 75</entry><entry>J-shaped jet emanator</entry></row><row><entry /><entry> 76</entry><entry>blood vessel</entry></row><row><entry /><entry> 77</entry><entry>jet orifice</entry></row><row><entry /><entry> 78</entry><entry>thrombotic deposit or lesion</entry></row><row><entry /><entry> 79</entry><entry>extreme end</entry></row><row><entry /><entry> 80</entry><entry>high velocity jets</entry></row><row><entry /><entry> 81</entry><entry>J-shaped jet emanator</entry></row><row><entry /><entry> 82</entry><entry>cross stream jets</entry></row><row><entry /><entry> 83</entry><entry>jet orifice</entry></row><row><entry /><entry> 84</entry><entry>distal end</entry></row><row><entry /><entry> 85</entry><entry>orifice</entry></row><row><entry /><entry> 86</entry><entry>inflow end</entry></row><row><entry /><entry> 87</entry><entry>extreme end</entry></row><row><entry /><entry> 88</entry><entry>outflow end</entry></row><row><entry /><entry> 89</entry><entry>necked-down portion</entry></row><row><entry /><entry> 90</entry><entry>distal end</entry></row><row><entry /><entry> 91</entry><entry>J-shaped jet emanator</entry></row><row><entry /><entry> 92</entry><entry>tip</entry></row><row><entry /><entry> 93</entry><entry>housing</entry></row><row><entry /><entry> 94</entry><entry>bore</entry></row><row><entry /><entry> 95</entry><entry>orifice member</entry></row><row><entry /><entry> 96</entry><entry>U-shaped jet emanator</entry></row><row><entry /><entry> 98</entry><entry>jet orifice</entry></row><row><entry /><entry>100</entry><entry>inflow orifice</entry></row><row><entry /><entry>102</entry><entry>high velocity jet</entry></row><row><entry /><entry>104</entry><entry>outflow orifice</entry></row><row><entry /><entry>106</entry><entry>cross stream jet</entry></row><row><entry /><entry>108</entry><entry>tip</entry></row><row><entry /><entry>110</entry><entry>inflow orifice</entry></row><row><entry /><entry>112</entry><entry>curved surface</entry></row><row><entry /><entry>114</entry><entry>distal end</entry></row><row><entry /><entry>115</entry><entry>bore</entry></row><row><entry /><entry>118</entry><entry>high velocity jet</entry></row><row><entry /><entry>122</entry><entry>distal end</entry></row><row><entry /><entry>124</entry><entry>tip</entry></row><row><entry /><entry>126</entry><entry>bore</entry></row><row><entry /><entry>128</entry><entry>toroidal loop jet emanator</entry></row><row><entry /><entry>130a-n</entry><entry>jet orifices</entry></row><row><entry /><entry>132</entry><entry>inflow orifice</entry></row><row><entry /><entry>134a-n</entry><entry>high velocity jets</entry></row><row><entry /><entry>136</entry><entry>circular space</entry></row><row><entry /><entry>137</entry><entry>tube</entry></row><row><entry /><entry>138</entry><entry>distal end</entry></row><row><entry /><entry>140</entry><entry>jet body</entry></row><row><entry /><entry>142</entry><entry>jet</entry></row><row><entry /><entry>143</entry><entry>luinen</entry></row><row><entry /><entry>144</entry><entry>guidewire</entry></row><row><entry /><entry namest="offset" nameend="2" align="center" rowsep="1" /></row></tbody></tgroup></table></tables></p>
+    </detailed-desc>
+  </description>
+  <claims id="claims_eng" lang="eng" format="original" date-changed="20100409">
+    <claim num="1" id="clm-00001-en">
+      <claim-text>1. An elongated device for treatment of thrombus or other unwanted material in a vessel or cavity of a living body comprising:<claim-text>a. a proximal end and a distal end;</claim-text><claim-text>b. high pressure tubular means for conveying pressurized fluid from said proximal end to said distal end;</claim-text><claim-text>c. pressurized fluid connection means for connecting the proximal end of said high pressure tubular means to a source of pressurized fluid;</claim-text><claim-text>d. jet emanator means with at least one jet orifice for directing at least one high velocity fluid jet in the vicinity of said distal end, said jet emanator means being attached to and in fluid communication with said high pressure tubular means;</claim-text><claim-text>e. exhaust tubular means for conveying fluid from said distal end to said proximal end, at least one of said jet orifices directing at least one high velocity fluid jet into said exhaust tubular means, said exhaust tubular means providing for removal of fluid and thrombus or other unwanted material debris from the body vessel or cavity;</claim-text><claim-text>f. inflow means in said exhaust tubular means, oriented so that at least one high velocity fluid jet entrains and draws surrounding blood or other fluid from a body vessel or cavity through said inflow means and into said exhaust tubular means, and creating a region of elevated pressure in said exhaust tubular means;</claim-text><claim-text>g. outflow means in said exhaust tubular means, located at said region of elevated pressure, said outflow means thereby providing for passage of fluid out from said exhaust tubular means into a body vessel or cavity, creating one or more cross stream jets which provide force (normal and/or drag forces) which help to break thrombus or other unwanted material off the surface of a body vessel or cavity;</claim-text><claim-text>h. one or more of said high velocity jet(s) act to break apart thrombus or other unwanted material which has been entrained by said high velocity jet(s);</claim-text><claim-text>i. said high velocity jet(s), said inflow means, and said outflow means create a recirculation pattern so that fluid flows from said outflow means with radial flow vectors and circumferential and/or axial flow vectors to said inflow means and back into said exhaust tubular means, thereby providing enhanced removal of thrombus or other unwanted material off the surface of a body vessel or cavity, and macerating the thrombus or other unwanted material by action of said high velocity jet(s); and,</claim-text><claim-text>j. said elevated pressure in said exhaust tubular means aids in driving fluid and thrombus or unwanted material debris from said distal end to said proximal end through said exhaust tubular means.</claim-text></claim-text>
+    </claim>
+    <claim num="2" id="clm-00002-en">
+      <claim-text>2. The device of<claim-ref idref="clm-00001-en">claim 1</claim-ref>, wherein high pressure fluid is provided in the range of approximately 150 to 500 psi.</claim-text>
+    </claim>
+    <claim num="3" id="clm-00003-en">
+      <claim-text>3. The device of<claim-ref idref="clm-00001-en">claim 1</claim-ref>, wherein high pressure fluid is provided in the range of approximately 500 to 2500 psi.</claim-text>
+    </claim>
+    <claim num="4" id="clm-00004-en">
+      <claim-text>4. The device of<claim-ref idref="clm-00001-en">claim 1</claim-ref>, wherein high pressure fluid is provided in the range of approximately 2500 to 50000 psi.</claim-text>
+    </claim>
+    <claim num="5" id="clm-00005-en">
+      <claim-text>5. The device of<claim-ref idref="clm-00001-en">claim 1</claim-ref>, wherein high pressure fluid in said jet emanator means is in the range of 50 to 350 psi.</claim-text>
+    </claim>
+    <claim num="6" id="clm-00006-en">
+      <claim-text>6. The device of<claim-ref idref="clm-00001-en">claim 1</claim-ref>, wherein high pressure fluid in said jet emanator means is in the range of 350 to 850 psi.</claim-text>
+    </claim>
+    <claim num="7" id="clm-00007-en">
+      <claim-text>7. The device of<claim-ref idref="clm-00001-en">claim 1</claim-ref>, wherein high pressure fluid in said jet emanator means is in the range of 850 to 35000 psi.</claim-text>
+    </claim>
+    <claim num="8" id="clm-00008-en">
+      <claim-text>8. The device of<claim-ref idref="clm-00001-en">claim 1</claim-ref>, wherein said high velocity jet(s) have maximum instantaneous centerline velocity of approximately 2,000 to 30,000 cm/s.</claim-text>
+    </claim>
+    <claim num="9" id="clm-00009-en">
+      <claim-text>9. The device of<claim-ref idref="clm-00001-en">claim 1</claim-ref>, wherein said high velocity jet(s) have maximum instantaneous centerline velocity of approximately 7,000 to 20,000 cm/s.</claim-text>
+    </claim>
+    <claim num="10" id="clm-00010-en">
+      <claim-text>10. The device of<claim-ref idref="clm-00001-en">claim 1</claim-ref>, further comprising another tubular means for passage of fluid or other material or for passage of devices such as guidewires, catheters, or imaging tools between said proximal end and said distal end.</claim-text>
+    </claim>
+    <claim num="11" id="clm-00011-en">
+      <claim-text>11. The device of<claim-ref idref="clm-00001-en">claim 1</claim-ref>, further comprising pressurized fluid source means connectible to said pressurized fluid connection means, for providing pressurized fluid to said high pressure tubular means.</claim-text>
+    </claim>
+    <claim num="12" id="clm-00012-en">
+      <claim-text>12. The device of<claim-ref idref="clm-00001-en">claim 1</claim-ref>, further comprising exhaust regulation means connected to said exhaust tubular means for regulation of the rate of removal of fluid and thrombus or other unwanted material debris from the body vessel or cavity.</claim-text>
+    </claim>
+    <claim num="13" id="clm-00013-en">
+      <claim-text>13. A catheter comprising:<claim-text>a. a first tube having a proximal end and a distal end;</claim-text><claim-text>b. a second tube having a proximal end and a distal end, said first tube residing within and extending along the length of said second tube;</claim-text><claim-text>c. a jet body at said distal end of said first tube, said jet body including a jet emanator;</claim-text><claim-text>d. at least one outflow orifice and at least one inflow orifice formed in said second tube adjacent to said distal end thereof;</claim-text><claim-text>e. said jet emanator having at least one jet orifice directed toward said outflow and inflow orifices; and,</claim-text><claim-text>f. said jet emanator located with respect to said outflow orifice such that at least some fluid directed by said jet emanator passes through said at least one outflow orifice.</claim-text></claim-text>
+    </claim>
+    <claim num="14" id="clm-00014-en">
+      <claim-text>14. The catheter as defined in<claim-ref idref="clm-00013-en">claim 13</claim-ref>, wherein said at least one outflow orifice is located proximally of said at least one inflow orifice.</claim-text>
+    </claim>
+    <claim num="15" id="clm-00015-en">
+      <claim-text>15. The catheter as defined in<claim-ref idref="clm-00013-en">claim 13</claim-ref>, wherein said at least one outflow orifice comprises a plurality of orifices and said at least one inflow orifice comprises a plurality of orifices.</claim-text>
+    </claim>
+    <claim num="16" id="clm-00016-en">
+      <claim-text>16. The catheter as defined in<claim-ref idref="clm-00015-en">claim 15</claim-ref>, wherein all of said outflow orifices and all of said inflow orifices are positioned proximally of said at least one jet orifice.</claim-text>
+    </claim>
+    <claim num="17" id="clm-00017-en">
+      <claim-text>17. The catheter as defined in<claim-ref idref="clm-00015-en">claim 15</claim-ref>, wherein all of said outflow orifices are located proximally of all of said inflow orifices.</claim-text>
+    </claim>
+    <claim num="18" id="clm-00018-en">
+      <claim-text>18. The catheter as defined in<claim-ref idref="clm-00013-en">claim 13</claim-ref>, wherein said at least one jet orifice is located distally of said outflow and inflow orifices.</claim-text>
+    </claim>
+    <claim num="19" id="clm-00019-en">
+      <claim-text>19. The catheter as defined in<claim-ref idref="clm-00013-en">claim 13</claim-ref>, wherein said at least one jet orifice is located proximally of said outflow and inflow orifices.</claim-text>
+    </claim>
+    <claim num="20" id="clm-00020-en">
+      <claim-text>20. The catheter as defined in<claim-ref idref="clm-00013-en">claim 13</claim-ref>, wherein said at least one jet orifice comprises a plurality of jet orifices.</claim-text>
+    </claim>
+    <claim num="21" id="clm-00021-en">
+      <claim-text>21. The catheter as defined in<claim-ref idref="clm-00013-en">claim 13</claim-ref>, wherein said jet emanator is in the form of a toroidal loop.</claim-text>
+    </claim>
+    <claim num="22" id="clm-00022-en">
+      <claim-text>22. The catheter as defined in<claim-ref idref="clm-00013-en">claim 13</claim-ref>, wherein said jet emanator is in the form of a semi-toroidal loop.</claim-text>
+    </claim>
+    <claim num="23" id="clm-00023-en">
+      <claim-text>23. The catheter as defined in<claim-ref idref="clm-00013-en">claim 13</claim-ref>, wherein said jet emanator is L-shaped.</claim-text>
+    </claim>
+    <claim num="24" id="clm-00024-en">
+      <claim-text>24. The catheter as defined in<claim-ref idref="clm-00013-en">claim 13</claim-ref>, wherein said jet emanator is J-shaped.</claim-text>
+    </claim>
+    <claim num="25" id="clm-00025-en">
+      <claim-text>25. The catheter as defined in<claim-ref idref="clm-00024-en">claim 24</claim-ref>, wherein said at least one jet orifice is located in the curved portion of said J-shaped jet emanator.</claim-text>
+    </claim>
+    <claim num="26" id="clm-00026-en">
+      <claim-text>26. The catheter as defined in<claim-ref idref="clm-00024-en">claim 24</claim-ref>, wherein said at least one jet orifice is located at the extreme end of said J-shaped jet emanator.</claim-text>
+    </claim>
+    <claim num="27" id="clm-00027-en">
+      <claim-text>27. The catheter as defined in<claim-ref idref="clm-00024-en">claim 24</claim-ref>, wherein the extreme end of said J-shaped jet emanator includes a necked-down portion and said at least one jet orifice is located at the tip of said necked-down portion.</claim-text>
+    </claim>
+    <claim num="28" id="clm-00028-en">
+      <claim-text>28. The catheter as defined in<claim-ref idref="clm-00024-en">claim 24</claim-ref>, wherein said at least one jet orifice is defined by a tubular orifice member located at the extreme end of said J-shaped jet emanator.</claim-text>
+    </claim>
+    <claim num="29" id="clm-00029-en">
+      <claim-text>29. The catheter as defined in<claim-ref idref="clm-00013-en">claim 13</claim-ref>, wherein said at least one outflow orifice and said at least one inflow orifice are defined by separate regions of a single orifice.</claim-text>
+    </claim>
+    <claim num="30" id="clm-00030-en">
+      <claim-text>30. The catheter as defined in<claim-ref idref="clm-00013-en">claim 13</claim-ref>, further comprising a flexible tip assembly attached to said distal end of said second tube.</claim-text>
+    </claim>
+    <claim num="31" id="clm-00031-en">
+      <claim-text>31. The catheter as defined in<claim-ref idref="clm-00030-en">claim 30</claim-ref>, wherein said flexible tip assembly comprises a tapered tube housing a radio-opaque marker.</claim-text>
+    </claim>
+    <claim num="32" id="clm-00032-en">
+      <claim-text>32. The catheter as defined in<claim-ref idref="clm-00031-en">claim 31</claim-ref>, wherein said radio-opaque marker is a metal wire coil.</claim-text>
+    </claim>
+    <claim num="33" id="clm-00033-en">
+      <claim-text>33. The catheter as defined in<claim-ref idref="clm-00032-en">claim 32</claim-ref>, wherein said metal wire coil has a closely wound portion and a loosely wound portion.</claim-text>
+    </claim>
+    <claim num="34" id="clm-00034-en">
+      <claim-text>34. The catheter as defined in<claim-ref idref="clm-00013-en">claim 13</claim-ref>, wherein said jet emanator is located within said second tube at said distal end of said second tube.</claim-text>
+    </claim>
+    <claim num="35" id="clm-00035-en">
+      <claim-text>35. The catheter as defined in<claim-ref idref="clm-00013-en">claim 13</claim-ref>, wherein said jet emanator is located outside of said second tube beyond said distal end of said second tube.</claim-text>
+    </claim>
+    <claim num="36" id="clm-00036-en">
+      <claim-text>36. The catheter as defined in<claim-ref idref="clm-00013-en">claim 13</claim-ref>, wherein said second tube includes an exhaust lumen.</claim-text>
+    </claim>
+    <claim num="37" id="clm-00037-en">
+      <claim-text>37. The catheter as defined in<claim-ref idref="clm-00013-en">claim 13</claim-ref>, wherein said proximal ends of said first and second tubes are connected to a manifold.</claim-text>
+    </claim>
+    <claim num="38" id="clm-00038-en">
+      <claim-text>38. The catheter of<claim-ref idref="clm-00013-en">claim 13</claim-ref>further wherein said at least one outflow orifice comprises a plurality of orifices.</claim-text>
+    </claim>
+    <claim num="39" id="clm-00039-en">
+      <claim-text>39. A catheter comprising:<claim-text>a. a first tube having a proximal end and a distal end;</claim-text><claim-text>b. a second tube having a proximal end and a distal end, said first tube residing within and extending along the length of said second tube;</claim-text><claim-text>c. a jet body at said distal end of said first tube, said jet body including a jet emanator;</claim-text><claim-text>d. at least one outflow orifice and at least one inflow orifice formed in said second tube adjacent to said distal end thereof;</claim-text><claim-text>e. said jet emanator having at least one jet orifice directed toward said outflow and inflow orifices;</claim-text><claim-text>f. all of said outflow orifices are positioned proximally of said at least one jet orifice; and,</claim-text><claim-text>g. said jet emanator located with respect to said outflow orifices such that at least some fluid directed by said jet emanator passes through said at least one outflow orifice.</claim-text></claim-text>
+    </claim>
+  </claims>
+  <drawings id="drawings">
+    <figure id="fig-emi-d00000" num="2">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00000" file="US06676627-20040113-D00000.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00001" num="3">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00001" file="US06676627-20040113-D00001.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00002" num="4">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00002" file="US06676627-20040113-D00002.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00003" num="5">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00003" file="US06676627-20040113-D00003.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00004" num="6">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00004" file="US06676627-20040113-D00004.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00005" num="7">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00005" file="US06676627-20040113-D00005.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00006" num="8">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00006" file="US06676627-20040113-D00006.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00007" num="9">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00007" file="US06676627-20040113-D00007.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00008" num="10">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00008" file="US06676627-20040113-D00008.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00009" num="11">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00009" file="US06676627-20040113-D00009.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00010" num="12">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00010" file="US06676627-20040113-D00010.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00011" num="13">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00011" file="US06676627-20040113-D00011.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00012" num="14">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00012" file="US06676627-20040113-D00012.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00013" num="15">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00013" file="US06676627-20040113-D00013.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00014" num="16">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00014" file="US06676627-20040113-D00014.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00015" num="17">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00015" file="US06676627-20040113-D00015.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00016" num="18">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00016" file="US06676627-20040113-D00016.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00017" num="19">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00017" file="US06676627-20040113-D00017.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00018" num="20">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00018" file="US06676627-20040113-D00018.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00019" num="21">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00019" file="US06676627-20040113-D00019.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00020" num="22">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00020" file="US06676627-20040113-D00020.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00021" num="23">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00021" file="US06676627-20040113-D00021.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00022" num="24">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00022" file="US06676627-20040113-D00022.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00023" num="25">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00023" file="US06676627-20040113-D00023.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00024" num="26">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00024" file="US06676627-20040113-D00024.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00025" num="27">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00025" file="US06676627-20040113-D00025.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00026" num="28">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00026" file="US06676627-20040113-D00026.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+  </drawings>
+</lexisnexis-patent-document>

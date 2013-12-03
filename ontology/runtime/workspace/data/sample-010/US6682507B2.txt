@@ -1,0 +1,956 @@
+
+   
+      
+         
+            US
+            6682507
+            B2
+            20040127
+         
+      
+      
+         
+            US
+            10079368
+            20020220
+         
+      
+      10
+      eng
+      eng
+      
+         
+            US20020079368
+         
+      
+      
+         
+            20040127
+         
+         
+            20040127
+         
+      
+      
+         
+             7A 61M   5/32   A
+            7
+            A
+            61
+            M
+            5
+            32
+            A
+         
+      
+      
+         
+            A61M   1/28        20060101C N20051008RMEP        
+            
+               20060101
+            
+            C
+            A
+            61
+            M
+            1
+            28
+            N
+            
+               20051008
+            
+            
+               EP
+            
+            R
+            M
+         
+         
+            A61M   1/28        20060101A N20051008RMEP        
+            
+               20060101
+            
+            A
+            A
+            61
+            M
+            1
+            28
+            N
+            
+               20051008
+            
+            
+               EP
+            
+            R
+            M
+         
+         
+            A61M  39/00        20060101C I20051008RMEP        
+            
+               20060101
+            
+            C
+            A
+            61
+            M
+            39
+            00
+            I
+            
+               20051008
+            
+            
+               EP
+            
+            R
+            M
+         
+         
+            A61M  39/18        20060101A I20051008RMEP        
+            
+               20060101
+            
+            A
+            A
+            61
+            M
+            39
+            18
+            I
+            
+               20051008
+            
+            
+               EP
+            
+            R
+            M
+         
+      
+      
+         US
+         
+            604/179
+            604
+            179
+         
+      
+      
+         
+            A61M 39/18
+            A
+            61
+            M
+            39
+            18
+         
+         
+            K61M  1:28C
+            K
+            61
+            M
+            1
+            28
+            
+               C  
+            
+         
+      
+      
+         
+            US
+            
+               604/179
+               604
+               179
+            
+         
+         
+            US
+            
+               604/174
+               604
+               174
+            
+         
+         
+            US
+            
+               604/345
+               604
+               345
+            
+         
+         
+            US
+            
+               604/29
+               604
+               29
+            
+         
+         
+            US
+            
+               604/533
+               604
+               533
+            
+         
+         
+            US
+            
+               604/180
+               604
+               180
+            
+         
+         
+            US
+            
+               604/183
+               604
+               183
+            
+         
+         
+            US
+            
+               128/DIG.6
+               128
+               DIG.6
+            
+         
+         
+            US
+            
+               383/210
+               383
+               210
+            
+         
+      
+      27
+      User wearable device having sterile environment for connecting peritoneal dialysis tubes
+      
+         
+         
+            
+               
+                  US
+                  3472369
+                  A
+                  Schuster
+                  19691014
+               
+               
+                  19670623
+               
+            
+         
+         
+            
+               
+                  US
+                  4582508
+                  A
+                  Pavelka
+                  19860415
+               
+               
+                  19840927
+               
+            
+         
+         
+            
+               
+                  US
+                  4767405
+                  A
+                  Lokken
+                  19880830
+               
+               
+                  19870403
+               
+            
+         
+         
+            
+               
+                  US
+                  4799923
+                  A
+                  Campbell
+                  19890124
+               
+               
+                  19860915
+               
+            
+         
+         
+            
+               
+                  US
+                  4955867
+                  A
+                  Endo
+                  19900911
+               
+               
+                  19890512
+               
+            
+         
+         
+            
+               
+                  US
+                  5425719
+                  A
+                  Lessing, Jr.
+                  19950620
+               
+               
+                  19930527
+               
+            
+         
+         
+            
+               
+                  US
+                  5468229
+                  A
+                  Chandler
+                  19951121
+               
+               
+                  19941102
+               
+            
+         
+         
+            
+               
+                  US
+                  5496282
+                  A
+                  Militzer et al.
+                  19960305
+               
+               
+                  19941212
+               
+            
+         
+         
+            
+               
+                  US
+                  5671983
+                  A
+                  Miller et al.
+                  19970930
+               
+               
+                  19951219
+               
+            
+         
+         
+            
+               
+                  US
+                  5688248
+                  A
+                  Lessing, Jr.
+                  19971118
+               
+               
+                  19960502
+               
+            
+         
+         
+            
+               
+                  US
+                  5758660
+                  A
+                  Lokken
+                  19980602
+               
+               
+                  19961212
+               
+            
+         
+         
+            
+               
+                  US
+                  5843132
+                  A
+                  Ilvento
+                  19981201
+               
+               
+                  19961007
+               
+            
+         
+         
+            
+               
+                  US
+                  5853396
+                  A
+                  Bennes et al.
+                  19981229
+               
+               
+                  19960724
+               
+            
+         
+         
+            
+               
+                  US
+                  6027489
+                  A
+                  Galato
+                  20000222
+               
+               
+                  19971211
+               
+            
+         
+         
+            
+               
+                  US
+                  6126639
+                  A
+                  Sutherland et al.
+                  20001003
+               
+               
+                  19981119
+               
+            
+         
+         
+            
+               
+                  FR
+                  0807449
+                  A1
+                  19961100
+               
+            
+         
+      
+      
+         
+            
+               US
+               20030158528
+               A1
+               20030821
+            
+         
+      
+      
+         
+            
+               
+                  Doug's Kangaroo Pouch, LLC
+                  02
+                  
+                     Flint
+                     MI
+                  
+               
+            
+         
+         
+            
+               
+                  Irish, Douglas H.
+                  
+                     Mt. Morris
+                     MI
+                  
+               
+            
+         
+         
+            
+               
+                  Brooks Kushman P.C.
+               
+            
+         
+      
+      
+         
+            Hayes
+            Michael J.
+            3763
+         
+         
+            Kontos
+            Lina R
+         
+      
+      
+         
+            
+               
+                  US
+                  6682507
+                  B2
+                  20040127
+               
+               
+                  20020220
+               
+            
+            
+               
+                  CA
+                  2476674
+                  A1
+                  20030904
+               
+               
+                  20030206
+               
+            
+            
+               
+                  WO
+                  03071921
+                  A3
+                  20030904
+               
+               
+                  20030206
+               
+            
+            
+               
+                  US
+                  20030158528
+                  A1
+                  20030821
+               
+               
+                  20020220
+               
+            
+            
+               
+                  AU
+                  2003209081
+                  A8
+                  20030909
+               
+               
+                  20030206
+               
+            
+            
+               
+                  AU
+                  2003209081
+                  A1
+                  20030909
+               
+               
+                  20030206
+               
+            
+            
+               
+                  WO
+                  03071921
+                  A2
+                  20030904
+               
+               
+                  20030206
+               
+            
+         
+         
+            
+               
+                  CA
+                  2476674
+                  A1
+                  20030904
+               
+               
+                  20030206
+               
+            
+            
+               
+                  US
+                  20030158528
+                  A1
+                  20030821
+               
+               
+                  20020220
+               
+            
+            
+               
+                  US
+                  6682507
+                  B2
+                  20040127
+               
+               
+                  20020220
+               
+            
+            
+               
+                  US
+                  20040148108
+                  A1
+                  20040729
+               
+               
+                  20040115
+               
+            
+            
+               
+                  AU
+                  2003209081
+                  A8
+                  20030909
+               
+               
+                  20030206
+               
+            
+            
+               
+                  AU
+                  2003209081
+                  A1
+                  20030909
+               
+               
+                  20030206
+               
+            
+            
+               
+                  WO
+                  03071921
+                  A3
+                  20030904
+               
+               
+                  20030206
+               
+            
+            
+               
+                  WO
+                  03071921
+                  A2
+                  20030904
+               
+               
+                  20030206
+               
+            
+         
+      
+   
+   
+      A user wearable device for providing a sterile environment for connecting a user's catheter to a fill-drain tube for performing an exchange of used and fresh peritoneal dialysis fluid includes a pouch. The pouch has exposeable openings for inserting the catheter and a fill-drain tube into the interior of the pouch from the exterior of the pouch. The user connects the catheter to the fill-drain tube within the interior of the pouch for draining and feeding dialysis fluid in a sterile environment. Hand covering elements in communication with the exterior of the pouch are disposed internal to the pouch such that the user can insert his hands into the hand covering elements and connect the catheter to the fill-drain tube within the interior of the pouch. The hand covering elements enable the user to manipulate the catheter and the fill-drain tube from a non-sterile environment external to the pouch.
+   
+   
+      
+         
+            20020220
+         
+         AS
+         ASSIGNMENT
+         N
+          US     6682507B2
+         DOUG'S KANGAROO POUCH, LLC, MICHIGAN
+         ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNOR:IRISH, DOUGLAS H.;REEL/FRAME:012620/0824
+         
+            20020220
+         
+      
+      
+         
+            20040504
+         
+         CC
+         CERTIFICATE OF CORRECTION
+         C
+          US     6682507B2
+      
+      
+         
+            20070723
+         
+         FPAY
+         +
+         FEE PAYMENT
+         N
+          US     6682507B2
+         4
+      
+      
+         
+            20110905
+         
+         REMI
+         MAINTENANCE FEE REMINDER MAILED
+         N
+          US     6682507B2
+      
+   
+   
+      
+         BACKGROUND OF THE INVENTION
+         1. Field of the Invention
+         The present invention relates generally to continuous ambulatory peritoneal dialysis (CAPD) methods and systems and, more particularly, to a user wearable device such as a pouch or bag which provides a sterile environment for connecting a catheter to a fill-drain tube for feeding and draining dialysis fluid.
+         2. Background Art
+         Continuous ambulatory peritoneal dialysis (CAPD) is a method for performing dialysis for users with kidney failure. CAPD occurs in the user's peritoneal cavity using dialysis fluid. CAPD functions the same way kidneys do by constantly cleansing the blood as long as there is dialysis fluid in the peritoneal cavity. The dialysis fluid is left in the peritoneal cavity for several hours to collect waste from the blood. The used dialysis fluid is then drained from the peritoneal cavity into a drain bag. Fresh dialysis fluid from a fill bag is then supplied into the peritoneal cavity for the process to start over.
+         In order to exchange used and fresh dialysis fluid in the peritoneal cavity, a catheter tube (catheter) is permanently attached to the user. An interior end of the catheter is surgically inserted through the user's abdomen into the user's peritoneal cavity. An exterior end of the catheter extends out about four inches from the user's abdomen. The user connects the exterior end of the catheter to the fill bag via a fill-drain tube for receiving fresh dialysis fluid into the user's peritoneal cavity. Similarly, the user connects the exterior end of the catheter tube to the drain bag via the fill-drain tube for draining used dialysis fluid from the user's peritoneal cavity. Once the draining and filling operations are completed, the user disconnects the catheter from the fill-drain tube and seals the catheter.
+         The user must repeatedly exchange used and fresh dialysis fluid about four times a day for CAPD. Each exchange encompasses connecting the exterior end of the catheter tube to the fill-drain tube. A problem with each exchange is that the user must make the connections such that no germs or bacteria are introduced into the catheter tube. Germs or bacteria introduced into the catheter can enter the peritoneal cavity and cause infection. Repeated infections scar the peritoneal cavity and cause pain to the user.
+         In order to ensure that no germs or bacteria are introduced into the catheter, the user must perform what is known as the “aseptic technique” for making the connection between the catheter and the fill-drain tube. The aseptic connection technique includes making the connection between the catheter and the fill-drain tube in a closed environment such as a room. All doors, windows, and vents in the room must be closed and all fans in the room turned off in order to keep the air movement in the room at a minimum. The room should also be void of family activity and pets and occur in a spare bedroom or the like. In general, the aseptic connection technique requires appropriate environmental conditions which limit the mobility and flexibility of the user and require limitations on space resources.
+         What is needed is a portable device which effectively consolidates the size of a typical closed environment such as a spare bedroom into a much smaller size. Such a portable device would provide a sterile environment for connecting the catheter to the fill-drain tube for an exchange of used and fresh dialysis fluid even when the user is located in an environment unsuitable for the aseptic connection technique. As a result, a user wearing such a portable device while situated within a hostile environment, such as room where the windows are open or on a boat in a lake, could connect the dialysis tubes in order to perform an exchange in a sterile environment thereby satisfying the aseptic connection technique.
+         SUMMARY OF THE INVENTION
+         Accordingly, it is an object of the present invention to provide a user wearable portable device such as a pouch or bag which provides a sterile environment for connecting the user's catheter to a fill-drain tube for performing an exchange of used and fresh dialysis fluid.
+         It is another object of the present invention to provide a user wearable pouch which provides a sterile environment for connecting the user's catheter to a fill-drain tube for performing an exchange of used and fresh dialysis fluid.
+         It is a further object of the present invention to provide a user wearable pouch having openings for inserting the user's catheter and a fill-drain tube into the interior of the pouch such that the user can connect the catheter to the fill-drain tube within the interior of the pouch for draining and feeding dialysis fluid in a sterile environment.
+         It is still another object of the present invention to provide a user wearable pouch having covered openings for inserting the user's catheter and a fill-drain tube into the interior of the pouch and having internally disposed hand covering elements in communication with the exterior of the pouch such that the user can insert his hands into the hand covering elements and connect the catheter to the fill-drain tube within the interior of the pouch for performing an exchange of used and fresh dialysis fluid in a sterile environment.
+         It is still a further object of the present invention to provide a user wearable pouch having covered openings for inserting a user's catheter and a fill-drain tube into respective sleeves extending into the interior of the pouch such that the user can expose the catheter and the fill-drain tube from the respective sleeves within the interior of the pouch and connect the catheter to the fill-drain tube within the interior of the pouch for performing an exchange of used and fresh dialysis fluid in a sterile environment.
+         It is still yet another object of the present invention to provide a user wearable pouch having a sterile interior operable for receiving a catheter and a fill-drain tube from sources exterior to the pouch such that the user can connect the catheter and the fill-drain tube in a sterile environment.
+         It is still yet a further object of the present invention to provide a user wearable pouch having internally disposed hand covering elements for enabling the user to insert his hands into the hand covering elements and connect the user's catheter to a fill-drain tube in the sterile interior of the pouch while manipulating the catheter and the fill-drain tube from a non-sterile environment external to the pouch.
+         Yet, it is still another object of the present invention to provide a peritoneal dialysis system having a user wearable pouch which provides a sterile environment for connecting the user's catheter to a fill-drain tube connected to a fill bag and a drain bag for performing an exchange of used and fresh dialysis fluid.
+         Yet, it is a further object of the present invention for providing a method for performing an exchange of used and fresh dialysis fluid by connecting a user's catheter to a fill-drain tube within the interior of a user wearable portable device.
+         In carrying out the above objects and other objects, the present invention provides a user wearable device for connecting a catheter of the user to a fill-drain tube for performing an exchange of dialysis fluid. The device includes a pouch having an interior formed by connected front and back sides. The front side of the pouch has an exposeable opening for inserting a fill-drain tube into the interior of the pouch. The back side of the pouch has an exposeable opening for inserting a catheter into the interior of the pouch.
+         The device may include at least one internally disposed hand covering element in communication with the exterior of the pouch for receiving at least one of the user's hands in order to enable the user to connect the catheter to the fill-drain tube within the interior of the pouch for performing an exchange of dialysis fluid. The at least one internally disposed hand covering element may include a pair of mittens.
+         A fill-drain tube sleeve extending into the interior of the pouch for receiving the fill-drain tube when the fill-drain tube is inserted into the interior of the pouch may be connected to the exposeable opening of the front side of the pouch. A catheter sleeve extending into the interior of the pouch for receiving the catheter when the catheter is inserted into the interior of the pouch may be connected to the exposeable opening of the back side of the pouch. The exposeable openings may each include a peel away seal.
+         Attachment means may be connected to the pouch for attaching the pouch to the user. The attachment means may include a pair of strings connected to at least one of the front and back sides of the pouch for attaching the pouch around the user. The attachment means may include an adhesive attached to the back side of the pouch. The adhesive may be positioned around the exposeable opening of the back side of the pouch.
+         At least one of the pouch, the at least one internally disposed hand covering element, the fill-drain tube sleeve, and the catheter sleeve may be plastic and may be of a different color than any of the other elements. A catheter clamp may be connected to one of the front and back sides of the pouch within the interior of the pouch.
+         Further, in carrying out the above objects and other objects, the present invention provides a user wearable device for connecting an external end of a catheter connected to a user to a first end of a fill-drain tube connected at a second end to a fill bag and a drain bag for performing an exchange of dialysis fluid. The device includes a pouch having a closed interior, a first exposeable opening for inserting a first end of a fill-drain tube from an exterior of the pouch into the interior of the pouch, and a second exposeable opening for inserting an external end of a catheter of a user from the exterior of the pouch into the interior of the pouch. The device further includes a pair of hand covering elements in communication with the exterior of the pouch and internally disposed into the interior of the pouch for receiving the hands of the user in order to enable the user to connect the external end of the catheter to the first end of the fill-drain tube within the interior of the pouch for performing an exchange of dialysis fluid.
+         Also, in carrying out the above objects and other objects, the present invention provides a peritoneal dialysis system for a user having a catheter. The system includes a fill bag for feeding dialysis fluid, a drain bag for draining dialysis fluid, and a fill-drain tube connected at a first end by a Y connection to the fill bag and the drain bag. The system further includes a user wearable device having a closed pouch. The pouch has a first exposeable opening for inserting a second end of the fill-drain tube into the pouch and a second exposeable opening for inserting a catheter of a user wearing the pouch into the pouch in order to enable the catheter and the second end of the fill-drain tube to be connected together within the pouch by manipulation from outside of the pouch.
+         Still further, in carrying out the above objects and other objects, the present invention provides a method for performing an exchange of used and fresh dialysis fluid on a user having a catheter. The method includes providing a closed pouch having a first exposeable opening and a second exposeable opening. A catheter of the user is then inserted into pouch through the first exposeable opening. A fill-drain tube is then inserted into the pouch through the second exposeable opening. The catheter and the fill-drain tube are then connected together in the pouch by manipulation of the catheter and the fill-drain tube from outside of the pouch.
+         The method may further include attaching the pouch to the user after the catheter is inserted into the pouch through the first exposeable opening. The pouch may be attached to the user by using an adhesive positioned around the first exposeable opening on the outside of the pouch and then attaching the adhesive to the user around the catheter.
+         The method may also include connecting the catheter to the fill-drain tube by using a pair of hand covering elements in communication with the exterior of the pouch and internally disposed into the interior of the pouch for receiving the hands of the user.
+         The pouch may further include a catheter clamp in the pouch. The method may further include clamping the catheter with the catheter clamp prior to connecting the catheter to the fill-drain tube and removing the catheter clamp from the catheter after connecting the catheter to the fill-drain tube.
+         The advantages accruing to the present invention are numerous. For instance, the present invention provides a disposable and portable accessory that reduces the risk of peritonitis due to environmental contaminants carried in the air; increases the flexibility of scheduling exchanges outside of the traditional aspectic environment such as a spare bedroom thereby increasing the user's mobility; provides a safe, pathogenic-free environment for dialysis fluid exchanges; and increases the desirability of peritoneal dialysis as a method of treating renal disease.
+         In essence, the present invention provides for the flexibility of doing a safe dialysis fluid exchange at any time in any environment setting. For example, users of the present invention do not need to worry about the surrounding environmental conditions for performing a safe dialysis fluid exchange (i.e., closed room with no other people in the room, ventilation system off, window closed, clean surface to lay supplies on, and antibacterial hand washing). This enables users to not want to skip treatment because of an event keeping the user away from a set location for performing a dialysis exchange or in the case where the surrounding environmental conditions are adverse. The present invention further reduces the need for setting aside a location such as a room dedicated to having the appropriate environmental conditions.
+      
+      
+         BRIEF DESCRIPTION OF THE DRAWINGS
+         
+            FIG. 1illustrates a user having a catheter extending out from the user's abdomen;
+         
+            FIG. 2illustrates the exchange of used dialysis fluid from the peritoneal cavity of the user and fresh dialysis fluid into the peritoneal cavity of the user via a user wearable device in accordance with the present invention;
+         
+            FIG. 3illustrates a perspective cut-away view of the user wearable device which has a sealed interior for connecting the user's catheter to a fill-drain tube for feeding and draining dialysis fluid in accordance with the present invention;
+         
+            FIG. 4illustrates the front side of the user wearable device facing away from the user showing in phantom the elements in the interior of the device;
+         
+            FIG. 5illustrates the first exposeable opening on the front side of the user wearable device for receiving a fill-drain tube;
+         
+            FIG. 6illustrates the second exposeable opening on the back side of the user wearable device facing towards the user for receiving an external end of a user's catheter;
+         
+            FIG. 7illustrates the user's hands inserted into mittens which are in communication with the exterior of the user wearable device and are internally disposed within the interior of the user wearable device for connecting the user's catheter to the fill-drain tube within the interior of the user wearable device while the user is wearing the user wearable device;
+         
+            FIG. 8illustrates the end of the catheter sleeve of the user wearable device being torn to expose the external end of the user's catheter;
+         
+            FIG. 9illustrates the external end of the user's catheter being clamped by a clamping device disposed in the interior of the user wearable device; and
+         
+            FIG. 10illustrates a safety cap attachable to the user's abdomen for covering the user's catheter after completion of an exchange of used and fresh dialysis fluid.
+      
+      
+         DETAILED DESCRIPTION OF THE PREFERRED EMBODIMENT(S)
+         Referring now toFIGS. 1 and 2, a continuous ambulatory peritoneal dialysis (CAPD) user10having a catheter tube (catheter)12is shown. Catheter12is permanently attached to the abdomen14of user10. An internal end16of catheter12is surgically inserted through abdomen14of user10into the user's peritoneal cavity18. An external end20of catheter12extends externally out from abdomen14of user10.
+         User10uses catheter12to exchange used dialysis fluid in peritoneal cavity18for fresh dialysis fluid. User10connects external end20of catheter12to a first end23of a fill-drain tube22. A Y connector24connects a second end25of fill-drain tube22to a fill bag26and a drain bag28. Fill bag26contains fresh dialysis fluid for insertion into peritoneal cavity18of user10. Drain bag28is used to contain used dialysis fluid drained from peritoneal cavity18of user10.
+         In order to perform CAPD, user10connects external end20of catheter12to drain bag28via fill-drain tube22for draining used dialysis fluid from user's peritoneal cavity18. The used dialysis fluid drains from user's peritoneal cavity18into drain bag28in the direction of the arrow pointing to the drain bag shown in FIG.2. Once the used dialysis fluid is drained from user's peritoneal cavity18, user10connects external end20of catheter12to fill bag26via fill-drain tube22for receiving fresh dialysis fluid into the user's peritoneal cavity. The fresh dialysis fluid fills from fill bag26into user's peritoneal cavity18in the direction of the arrow pointing away from the fill bag shown in FIG.2. Once the draining and filling operations are completed, user10disconnects external end20of catheter12from fill-drain tube22and seals the external end of the catheter. The fresh dialysis fluid is then left in user's peritoneal cavity18to clean the user's body and the process starts over once the fresh dialysis fluid becomes used.
+         As described above, user10is required to use the aseptic technique for making the connection between external end20of catheter12and first end23of fill-drain tube22, i.e., connecting the catheter to the fill-drain tube. This means that catheter12and fill-drain tube22must be connected together in a sterile environment.
+         Referring now toFIGS. 3,4,5,6, and7, with continual reference toFIGS. 1 and 2, a user wearable device30which provides a sterile environment for connecting catheter12to fill-drain tube22is shown. In general, device30is a closed pouch or bag made of plastic or the like. Preferably, the plastic is the type of plastic typically used for medical and sterile applications. Of course, other types of material instead of plastic may be used for making pouch30.
+         Pouch30includes a front side32and a back side34connected together around their edges to form an interior36within the internal sides of the front and back sides. Front side32and back side34isolate interior36from environmental conditions external to pouch30such as contaminants carried by air flow, moisture, etc. As a result of being shielded from external environmental conditions, interior36provides a closed, sterile environment. In use, user10connects catheter12to fill-drain tube22in the closed, sterile environment provided by interior36thereby satisfying the aseptic connection technique for the exchange of used and fresh dialysis fluid as described with reference to FIG.2.
+         Pouch30is intended to be worn around user's abdomen14as shown inFIG. 7with front side32facing away from the user's abdomen and back side34facing towards the user's abdomen for performing an exchange of dialysis fluid. Front side32of pouch30includes a first exposeable opening38. A first peel away covering element40such as a peel away seal covers first exposeable opening38. User10peels first covering element40to expose first opening38. User10then inserts first end23of fill-drain tube22through first opening38into interior36of pouch30. Back side34of pouch30includes a second exposeable opening42. A second peel away covering element44such as a peel away seal covers second exposeable opening42. User10peels second covering element44to expose second opening42. User10then inserts external end20of catheter12through second opening42into interior36of pouch30. From the exterior of pouch30, user10then clamps and manipulates catheter12and fill-drain tube22within interior36of the pouch to connect external end20of the catheter to first end23of the fill-drain tube.FIG. 3best illustrates the connection between external end20of catheter12and first end23of fill-drain tube22within interior36of pouch30.
+         In order to enable user10to manipulate catheter12and fill-drain tube22from the exterior of pouch30, the pouch further includes a pair of hand covering elements46. Hand covering elements46such as mittens, gloves, or the like are formed between front side32and back side34of pouch30. Hand covering elements46are in communication with the exterior of pouch30and are internally disposed into interior36of the pouch for receiving the hands48of user10(shown best in FIG.7). User10inserts his hands48into hand covering elements46in order to manipulate catheter12and fill-drain tube22contained within interior36of pouch30from the outside of the pouch in order to connect them together.
+         Pouch30also includes a fill-drain tube sleeve50connected to first exposeable opening38of front side32. Fill-drain tube sleeve50extends from first exposeable opening38into interior36of pouch30. Fill-drain tube sleeve50receives fill-drain tube22when the fill-drain tube is inserted through first exposeable opening38. Similarly, pouch30further includes a catheter sleeve52connected to second exposeable opening42of back side34. Catheter sleeve52extends from second exposeable opening42into interior36of pouch30. Catheter sleeve52receives catheter12when the catheter is inserted through second exposeable opening42.
+         Fill-drain tube sleeve50and catheter sleeve52extend from respective openings38and42towards one another within the middle portion of interior36of pouch30. Fill-drain tube sleeve50and catheter sleeve52direct inserted fill-drain tube22and catheter12towards one another within the middle portion of interior36of pouch30. Fill-drain tube sleeve50and catheter sleeve52are each sealed at their ends away from openings38and42by respective tear away elements54. Tear away elements54are each connected by a perforation line56to the ends of fill-drain tube sleeve50and catheter sleeve52.
+         User10tears away each tear away element54along its perforation line56to expose the ends of tubes (fill-drain and catheter) from their respective sleeves50and52within the middle portion of interior36of pouch30. For instance, as shown inFIG. 8, tear away element54is torn along its perforation line56from catheter sleeve52to expose external end20of catheter12. Similarly, tear away element54is torn along its perforation line56from fill-drain tube sleeve50to expose first end23of fill-drain tube22. User10then uses hand covering elements46to manipulate from outside of pouch30the exposed first end23of fill-drain tube22and the exposed external end20of catheter12contained within interior36of pouch30to connect them together within the interior of the pouch. Instead of being provided with perforation lines56, each element54may be configured to fold up and over the exterior surface of the ends of sleeves50and52and then be sealed down with a seal onto the exterior surfaces of the sleeve ends.
+         Pouch30further includes a clamping device58for clamping external end20of catheter12during an exchange of used and fresh dialysis fluid. Clamping device58is contained within interior36of pouch30and is connected to one of the interior sides of front side32and back side34. As best shown inFIG. 9, user10uses clamping device58to clamp catheter12as is typically done for performing CAPD. As is the case for the connection between catheter12and fill-drain tube22, user10uses hand covering elements46to manipulate clamping device58from the outside of pouch30.
+         In operation for performing a standard peritoneal dialysis exchange, user10clamps catheter12with clamping device58before the catheter is connected to fill-drain tube22to close the catheter. User10then opens fill bag26to allow some fresh dialysis fluid to fill from the fill bag into drain bag28. User10then clamps off fill bag26with a fill bag clamping device to stop fresh dialysis fluid from feeding from the fill bag. User10then removes clamping device48to open the catheter in order to allow used dialysis fluid from peritoneal cavity18to drain into drain bag28. Once the used dialysis fluid is drained, user10clamps off drain bag with a drain bag clamping device to prevent fluid from flowing into the drain bag and then removes the fill bag clamping device from fill bag26to allow fresh dialysis fluid to flow from the fill bag into the user's peritoneal cavity18via catheter12.
+         Prior to use, interior36of pouch30provides a closed, sterile environment as first and second openings38and42are covered or sealed by respective covering elements40and44and the ends of sleeves50and52are sealed by respective tear away elements54. During use, the closed, sterile environment provided by interior36of pouch30is left intact as only openings38and42are exposed to allow insertion of fill-drain tube22and catheter12into respective sleeves50and52. Once inserted through openings38and42, fill-drain tube22and catheter12effectively act as covering elements40and44and shield interior36of pouch30from external environmental conditions. After fill-drain tube22and catheter12are inserted into their respective sleeves50and52into interior36of pouch30, then tear away elements54are torn away from the sleeves to expose the ends of fill-drain tube and catheter within the interior of the pouch. Thus, during the entire usage of pouch30, interior36of pouch30provides a closed, sterile environment for effecting a connection between catheter12and fill-drain tube20.
+         As shown best inFIG. 7, pouch30is intended to be worn by user10. To this end, pouch30includes a pair of apron strings60or the like. Apron strings60are connected on opposing ends of pouch30to at least one of front side32and back side34and preferably connected to back side34. Apron strings60are tied around user's abdomen14in order for the user to wear pouch30. Back side34of pouch30may also include a breathable, mesh type fabric or plastic to provide a comfortable fit of the pouch with user's abdomen14.
+         Pouch30is configured such that second opening42is aligned with the exit point of catheter12from user's abdomen14when the pouch is worn by user10. This provides a comfortable and snug fit with user10and also uses the user's body to effectively seal second opening42when exposed. To this end, a medical type adhesive pad62is positioned around second opening42on back side34of pouch30. Second covering element44covers adhesive pad62until the second covering element is peeled away.
+         In order to assist use of pouch30, the elements of the pouch may be colored differently. For instance, front and back sides32and34may have a transparent color whereas elements contained within interior of pouch30such as sleeves50and52may be colored (same or different colors) to assist user10in recognizing the sleeves.
+         Further, in helping prevent infection of the exit point of catheter12on user's abdomen14, a catheter safety cap80in accordance with the present invention may be provided. Safety cap80snaps on and off a ring attached to the user's abdomen14. The ring includes a medical type adhesive for attaching around the exit point of catheter12on user's abdomen14. User10snaps safety cap80on the ring to cover catheter12and the exit point of the catheter upon completion of an exchange of used and fresh dialysis fluid. In use, safety cap80prevents germs from traveling along catheter12through the exit point into user's peritoneal cavity.
+         In essence, the user wearable device or pouch30functions as a sterile, pathogenic-free environment for containing catheter12protruding from the user's abdomen14, fill-drain tube22, and any clamping devices58necessary during the hook-up phase of a peritoneal dialysis fluid exchange. Pouch30allows user10to manipulate the elements12,22,58, etc., contained within interior36of the pouch from outside of the pouch in order to complete the peritoneal dialysis connections in any environmental setting.
+         Thus it is apparent that there has been provided, in accordance with the present invention, a user wearable device such as a pouch which provides a sterile environment for connecting a catheter to a fill-drain tube for feeding and draining dialysis fluid that fully satisfies the objects, aims, and advantages set forth above. While the present invention has been described in conjunction with specific embodiments thereof, it is evident that many alternatives, modifications, and variations will be apparent to those skilled in the art in light of the foregoing description. Accordingly, it is intended to embrace all such alternatives, modifications, and variations as fall within the spirit and broad scope of the appended claims.
+      
+   
+   
+      
+         1. A device intended to be worn by a user for connecting a catheter of the user to a fill-drain tube for performing an exchange of dialysis fluid, the device comprising:a pouch having an interior formed by connected front and back sides, the front side of the pouch having an exposeable opening for inserting a fill-drain tube into the interior of the pouch, the back side of the pouch having an exposeable opening far inserting a catheter into the interior of the pouch; and
+            a catheter clamp connected to one of the front and back sides of the pouch within the interior of the pouch.
+         
+      
+      
+         2. The device ofclaim 1further comprising:at least one internally disposed hand covering element in communication with the exterior of the pouch for receiving at least one of the user's hands in order to enable the user to connect the catheter to the fill-drain tube within the interior of the pouch for performing an exchange of dialysis fluid.
+         
+      
+      
+         3. The device ofclaim 2wherein:the at least one internally disposed hand covering element includes a pair of mittens.
+         
+      
+      
+         4. A device intended to be worn by a user for connecting a catheter of the user to a fill-drain tube for performing an exchange of dialysis fluid, the device comprising:a pouch having an interior formed by connected front and back sides, the front side of the pouch having an exposeable opening for inserting a fill-drain tube into the interior of the pouch, the back side of the pouch having an exposeable opening for inserting a catheter into the interior of the pouch; and
+            a fill-drain tube sleeve connected to the exposeable opening of the from side of the pouch and extending into the interior of the pouch for receiving the fill-drain tube when the fin-drain tube is inserted into the interior of the pouch.
+         
+      
+      
+         5. The device ofclaim 1further comprising:a catheter sleeve connected to the exposeable opening of the back side of the pouch and extending into the interior of the pouch for receiving the catheter when the catheter is inserted into the interior of the pouch.
+         
+      
+      
+         6. The device ofclaim 1wherein:the exposeable openings of the front and back sides of the pouch include peel away seals.
+         
+      
+      
+         7. The device ofclaim 1further comprising:attachment means connected to the pouch for attaching the pouch to the user.
+         
+      
+      
+         8. The device ofclaim 7wherein:the attachment means include a pair of strings connected to at least one of the front and back sides of the pouch for attaching the pouch to the user.
+         
+      
+      
+         9. The device ofclaim 7wherein:the attachment means include an adhesive attached to the back side of the pouch.
+         
+      
+      
+         10. The device ofclaim 9wherein:the adhesive is positioned around the exposeable opening of the back side of the pouch.
+         
+      
+      
+         11. The device ofclaim 1wherein:the exposeable openings each include a peel away covering element.
+         
+      
+      
+         12. The device ofclaim 1wherein:the pouch includes plastic.
+         
+      
+      
+         13. A peritoneal dialysis system for a user having a catheter the system comprising:a fill bag for feeding dialysis fluid;
+            a drain bag for draining dialysis fluid;
+            a fill-drain tube connected at a first end by a Y connection to the fill bag and the drain bag; and
+            a user wearable device having a closed pouch, the pouch having a first exposeable opening for inserting a second end of the fill-drain tube into the pouch and a second exposeable opening for inserting a catheter of a user wearing the pouch into the pouch in order to enable the catheter and the second end of the fill-drain tube to be connected together within the pouch by manipulation from outside of the pouch, the pouch further having a catheter clamp connected to the pouch within the interior of the pouch.
+         
+      
+      
+         14. A device intended to be worn by a user for connecting a catheter connected to a user to a fill-drain tube for performing an exchange of dialysis fluid, the device comprising:a pouch having a closed interior, a first exposeable opening for inserting a fill-drain tube from an exterior of the pouch into the interior of the pouch, and a second exposeable opening for inserting a catheter of a user from the exterior of the pouch into the interior of the pouch;
+            an internally disposed hand covering element in communication with the exterior of the pouch for receiving a hand of the user in order to enable the user to connect the catheter to the fill-drain tube within the interior of the pouch for performing an exchange of dialysis fluid;
+            a fill-drain tube sleeve connected to the first exposeable opening and extending into the interior of the pouch for receiving the fill-drain tube when the fill-drain tube is inserted into the interior of the pouch; and
+            a catheter sleeve connected to the second exposeable opening and extending into the interior of the pouch for receiving the catheter when the catheter is inserted into the interior of the pouch.
+         
+      
+      
+         15. The device ofclaim 14further comprising:an adhesive positioned around the periphery of the second exposeable opening for attaching the pouch to the user by attaching the second exposeable opening to the user's abdomen around the catheter connected to the user.
+         
+      
+      
+         16. The device ofclaim 14wherein:at least one of the pouch, the hand covering element, the fill-drain tube, and the catheter sleeve is colored differently.
+         
+      
+      
+         17. The device ofclaim 14further comprising:a catheter clamp positioned within the interior of the pouch for clamping the catheter.
+         
+      
+      
+         18. The device ofclaim 14wherein:the pouch and the hand covering element are colored differently.
+         
+      
+      
+         19. The device ofclaim 14wherein:the first and second exposeable openings each include respective peel away covering elements.
+         
+      
+      
+         20. A device intended to be worn by a user for connecting an external end of a catheter connected to a user to a first end of a fill-drain tube connected at a second end to a fill bag and a drain bag for performing an exchange of dialysis fluid, the device comprising:a pouch having a closed interior, a first exposeable opening for inserting a first end of a fill-drain tube from an exterior of the pouch into the interior of the pouch, and a second exposeable opening for inserting an external end of a catheter of a user from the exterior of the pouch into the interior of the pouch;
+            a pair of band covering elements in communication with the exterior of the pouch and internally disposed into the interior of the pouch for receiving the hands of the user in order to enable the user to connect the external end of the catheter to the first end of the fill-drain tube within the interior of the pouch for performing an exchange of dialysis fluid;
+            a fill-drain tube sleeve connected to the first exposeable opening and extending into the interior of the pouch far receiving the first end of the fill-drain tube when the first end of the fill-drain tube is inserted into the interior of the pouch; and
+            a catheter sleeve connected to the second exposeable opening and extending into the interior of the pouch for receiving the external end of the catheter when the external end of the catheter is inserted into the interior of the pouch.
+         
+      
+      
+         21. A method for performing an exchange of used and fresh dialysis fluid on a user having a catheter, the method comprising:providing a closed pouch having a first exposeable opening and a second exposeable opening, the closed pouch having a catheter clamp connected to the pouch within the interior of the pouch;
+            inserting a catheter of the user into pouch through the first exposeable opening;
+            inserting a fill-drain tube into the pouch through the second exposeable opening;
+            connecting the catheter to the fill-drain tube in the pouch by manipulation of the catheter and the fill-drain tube from outside of the pouch; and
+            clamping the catheter with the catheter clamp prior to connecting the catheter to the fill-drain tube.
+         
+      
+      
+         22. The method ofclaim 21further comprising:attaching the pouch to the user after the catheter is inserted into the pouch through the first exposeable opening.
+         
+      
+      
+         23. The method ofclaim 22wherein:attaching the to the user includes using an adhesive positioned around the first exposeable opening on the outside of the pouch and attaching the adhesive to the user around the catheter.
+         
+      
+      
+         24. The method ofclaim 21wherein:connecting fill-drain tube includes using a pair of hand covering elements in communication with the exterior of the pouch and internally disposed into the interior of the pouch for receiving the hands of the user.
+         
+      
+      
+         25. The method ofclaim 21further comprising:exposing the first exposeable opening prior to inserting the catheter into the pouch through the first exposeable opening.
+         
+      
+      
+         26. The method ofclaim 21further comprising:exposing the second exposeable opening prior to inserting the fill-drain tube into the pouch through the second exposeable opening.
+         
+      
+      
+         27. The method ofclaim 21further comprising:removing the catheter clamp from the catheter after connecting the catheter to the till-drain tube.
+         
+      
+   
+   
+      
+         
+      
+      
+         
+      
+      
+         
+      
+      
+         
+      
+      
+         
+      
+   

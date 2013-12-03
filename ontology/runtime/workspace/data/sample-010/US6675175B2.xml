@@ -1,0 +1,914 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright ©2011 LexisNexis Univentio, The Netherlands. -->
+<lexisnexis-patent-document schema-version="1.08" date-produced="20110930" file="US6675175B2.xml" produced-by="LexisNexis-Univentio" lang="eng" date-changed="20110513" time-changed="035912">
+  <bibliographic-data lang="eng">
+    <publication-reference publ-type="Grant" publ-desc="Patent with a pre-grant publication">
+      <document-id>
+        <country>US</country>
+        <doc-number>6675175</doc-number>
+        <kind>B2</kind>
+        <date>20040106</date>
+      </document-id>
+    </publication-reference>
+    <application-reference appl-type="utility">
+      <document-id>
+        <country>US</country>
+        <doc-number>09253671</doc-number>
+        <date>19990219</date>
+      </document-id>
+    </application-reference>
+    <application-series-code>09</application-series-code>
+    <language-of-filing>eng</language-of-filing>
+    <language-of-publication>eng</language-of-publication>
+    <priority-claims date-changed="20070523">
+      <priority-claim sequence="1" kind="national">
+        <country>US</country>
+        <doc-number>09253671</doc-number>
+        <date>19990219</date>
+      </priority-claim>
+    </priority-claims>
+    <dates-of-public-availability date-changed="20090405">
+      <unexamined-printed-without-grant>
+        <date>20040106</date>
+      </unexamined-printed-without-grant>
+      <printed-with-grant>
+        <date>20040106</date>
+      </printed-with-grant>
+    </dates-of-public-availability>
+    <term-of-grant>
+      <us-term-extension>56</us-term-extension>
+    </term-of-grant>
+    <classification-ipc date-changed="20100925">
+      <main-classification>
+        <text> 7G 06F  17/30   A</text>
+        <edition>7</edition>
+        <section>G</section>
+        <class>06</class>
+        <subclass>F</subclass>
+        <main-group>17</main-group>
+        <subgroup>30</subgroup>
+        <qualifying-character>A</qualifying-character>
+      </main-classification>
+    </classification-ipc>
+    <classifications-ipcr date-changed="20100925">
+      <classification-ipcr sequence="1">
+        <text>G06F  17/30        20060101C I20051008RMEP        </text>
+        <ipc-version-indicator>
+          <date>20060101</date>
+        </ipc-version-indicator>
+        <classification-level>C</classification-level>
+        <section>G</section>
+        <class>06</class>
+        <subclass>F</subclass>
+        <main-group>17</main-group>
+        <subgroup>30</subgroup>
+        <classification-value>I</classification-value>
+        <action-date>
+          <date>20051008</date>
+        </action-date>
+        <generating-office>
+          <country>EP</country>
+        </generating-office>
+        <classification-status>R</classification-status>
+        <classification-data-source>M</classification-data-source>
+      </classification-ipcr>
+      <classification-ipcr sequence="2">
+        <text>G06F  17/30        20060101A I20051008RMEP        </text>
+        <ipc-version-indicator>
+          <date>20060101</date>
+        </ipc-version-indicator>
+        <classification-level>A</classification-level>
+        <section>G</section>
+        <class>06</class>
+        <subclass>F</subclass>
+        <main-group>17</main-group>
+        <subgroup>30</subgroup>
+        <classification-value>I</classification-value>
+        <action-date>
+          <date>20051008</date>
+        </action-date>
+        <generating-office>
+          <country>EP</country>
+        </generating-office>
+        <classification-status>R</classification-status>
+        <classification-data-source>M</classification-data-source>
+      </classification-ipcr>
+    </classifications-ipcr>
+    <classification-national date-changed="20100925">
+      <country>US</country>
+      <main-classification>
+        <text>1/1</text>
+        <class>1</class>
+        <subclass>1</subclass>
+      </main-classification>
+      <further-classification sequence="1">
+        <text>707/999.008</text>
+        <class>707</class>
+        <subclass>999.008</subclass>
+      </further-classification>
+      <further-classification sequence="2">
+        <text>707/999.009</text>
+        <class>707</class>
+        <subclass>999.009</subclass>
+      </further-classification>
+      <further-classification sequence="3">
+        <text>707/999.2</text>
+        <class>707</class>
+        <subclass>999.2</subclass>
+      </further-classification>
+      <further-classification sequence="4">
+        <text>707/999.202</text>
+        <class>707</class>
+        <subclass>999.202</subclass>
+      </further-classification>
+      <further-classification sequence="5">
+        <text>707/E17.007</text>
+        <class>707</class>
+        <subclass>E17.007</subclass>
+      </further-classification>
+      <further-classification sequence="6">
+        <text>709/213</text>
+        <class>709</class>
+        <subclass>213</subclass>
+      </further-classification>
+      <further-classification sequence="7">
+        <text>709/248</text>
+        <class>709</class>
+        <subclass>248</subclass>
+      </further-classification>
+      <further-classification sequence="8">
+        <text>711/112</text>
+        <class>711</class>
+        <subclass>112</subclass>
+      </further-classification>
+    </classification-national>
+    <classifications-ecla date-changed="20100925">
+      <classification-ecla sequence="1" classification-scheme="EC" country="EP">
+        <text>G06F 17/30C</text>
+        <section>G</section>
+        <class>06</class>
+        <subclass>F</subclass>
+        <main-group>17</main-group>
+        <subgroup>30</subgroup>
+        <additional-subgroups>
+          <additional-subgroup sequence="1">C  </additional-subgroup>
+        </additional-subgroups>
+      </classification-ecla>
+    </classifications-ecla>
+    <field-of-search date-changed="20070524">
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>707/1</text>
+          <class>707</class>
+          <subclass>1</subclass>
+        </main-classification>
+      </classification-national>
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>707/8</text>
+          <class>707</class>
+          <subclass>8</subclass>
+        </main-classification>
+      </classification-national>
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>707/9</text>
+          <class>707</class>
+          <subclass>9</subclass>
+        </main-classification>
+      </classification-national>
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>707/200</text>
+          <class>707</class>
+          <subclass>200</subclass>
+        </main-classification>
+      </classification-national>
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>707/205</text>
+          <class>707</class>
+          <subclass>205</subclass>
+        </main-classification>
+      </classification-national>
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>709/248</text>
+          <class>709</class>
+          <subclass>248</subclass>
+        </main-classification>
+      </classification-national>
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>709/213</text>
+          <class>709</class>
+          <subclass>213</subclass>
+        </main-classification>
+      </classification-national>
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>711/111</text>
+          <class>711</class>
+          <subclass>111</subclass>
+        </main-classification>
+      </classification-national>
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>711/112</text>
+          <class>711</class>
+          <subclass>112</subclass>
+        </main-classification>
+      </classification-national>
+    </field-of-search>
+    <number-of-claims>16</number-of-claims>
+    <invention-title id="title_eng" date-changed="20100418" lang="eng" format="original">Method and system for sharing catalogs in a multiprocessing system utilizing a shared processor</invention-title>
+    <references-cited date-changed="20110920">
+      <patent-citations name="patcit" date-changed="20100409" />
+      <non-patent-citations name="nplcit" date-changed="20100409" />
+      <forward-citations name="fwdcit" date-changed="20110920" />
+      <citation srep-phase="e">
+        <patcit num="1">
+          <document-id>
+            <country>US</country>
+            <doc-number>4408273</doc-number>
+            <kind>A</kind>
+            <name>Plow</name>
+            <date>19831004</date>
+          </document-id>
+          <application-date>
+            <date>19800527</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="2">
+          <document-id>
+            <country>US</country>
+            <doc-number>5077658</doc-number>
+            <kind>A</kind>
+            <name>Bendert et al.</name>
+            <date>19911231</date>
+          </document-id>
+          <application-date>
+            <date>19900921</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="e">
+        <patcit num="3">
+          <document-id>
+            <country>US</country>
+            <doc-number>5193168</doc-number>
+            <kind>A</kind>
+            <name>Corrigan et al.</name>
+            <date>19930309</date>
+          </document-id>
+          <application-date>
+            <date>19910904</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="4">
+          <document-id>
+            <country>US</country>
+            <doc-number>5247649</doc-number>
+            <kind>A</kind>
+            <name>Bandoh</name>
+            <date>19930921</date>
+          </document-id>
+          <application-date>
+            <date>19920824</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="5">
+          <document-id>
+            <country>US</country>
+            <doc-number>5287473</doc-number>
+            <kind>A</kind>
+            <name>Mohan et al.</name>
+            <date>19940215</date>
+          </document-id>
+          <application-date>
+            <date>19901214</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="e">
+        <patcit num="6">
+          <document-id>
+            <country>US</country>
+            <doc-number>5317739</doc-number>
+            <kind>A</kind>
+            <name>Elko et al.</name>
+            <date>19940531</date>
+          </document-id>
+          <application-date>
+            <date>19920330</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="e">
+        <patcit num="7">
+          <document-id>
+            <country>US</country>
+            <doc-number>5339427</doc-number>
+            <kind>A</kind>
+            <name>Elko et al.</name>
+            <date>19940816</date>
+          </document-id>
+          <application-date>
+            <date>19920330</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="e">
+        <patcit num="8">
+          <document-id>
+            <country>US</country>
+            <doc-number>5465359</doc-number>
+            <kind>A</kind>
+            <name>Allen et al.</name>
+            <date>19951107</date>
+          </document-id>
+          <application-date>
+            <date>19931101</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="9">
+          <document-id>
+            <country>US</country>
+            <doc-number>5493668</doc-number>
+            <kind>A</kind>
+            <name>Elko et al.</name>
+            <date>19960220</date>
+          </document-id>
+          <application-date>
+            <date>19920330</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="10">
+          <document-id>
+            <country>US</country>
+            <doc-number>5530829</doc-number>
+            <kind>A</kind>
+            <name>Beardsley et al.</name>
+            <date>19960625</date>
+          </document-id>
+          <application-date>
+            <date>19921217</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="11">
+          <document-id>
+            <country>US</country>
+            <doc-number>5537574</doc-number>
+            <kind>A</kind>
+            <name>Elko et al.</name>
+            <date>19960716</date>
+          </document-id>
+          <application-date>
+            <date>19920330</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="12">
+          <document-id>
+            <country>US</country>
+            <doc-number>5546579</doc-number>
+            <kind>A</kind>
+            <name>Josten et al.</name>
+            <date>19960813</date>
+          </document-id>
+          <application-date>
+            <date>19940502</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="13">
+          <document-id>
+            <country>US</country>
+            <doc-number>5664155</doc-number>
+            <kind>A</kind>
+            <name>Elko et al.</name>
+            <date>19970902</date>
+          </document-id>
+          <application-date>
+            <date>19950607</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="14">
+          <document-id>
+            <country>US</country>
+            <doc-number>5752264</doc-number>
+            <kind>A</kind>
+            <name>Blake et al.</name>
+            <date>19980512</date>
+          </document-id>
+          <application-date>
+            <date>19960815</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="e">
+        <patcit num="15">
+          <document-id>
+            <country>US</country>
+            <doc-number>5758334</doc-number>
+            <kind>A</kind>
+            <name>Knight, III et al.</name>
+            <date>19980526</date>
+          </document-id>
+          <application-date>
+            <date>19950705</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="e">
+        <patcit num="16">
+          <document-id>
+            <country>US</country>
+            <doc-number>5813032</doc-number>
+            <kind>A</kind>
+            <name>Bhargava et al.</name>
+            <date>19980922</date>
+          </document-id>
+          <application-date>
+            <date>19970327</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="e">
+        <patcit num="17">
+          <document-id>
+            <country>US</country>
+            <doc-number>5848241</doc-number>
+            <kind>A</kind>
+            <name>Misinai et al.</name>
+            <date>19981208</date>
+          </document-id>
+          <application-date>
+            <date>19970109</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="e">
+        <patcit num="18">
+          <document-id>
+            <country>US</country>
+            <doc-number>6002883</doc-number>
+            <kind>A</kind>
+            <name>Goldrian</name>
+            <date>19991214</date>
+          </document-id>
+          <application-date>
+            <date>19960814</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="e">
+        <patcit num="19">
+          <document-id>
+            <country>US</country>
+            <doc-number>6105098</doc-number>
+            <kind>A</kind>
+            <name>Ninose et al.</name>
+            <date>20000815</date>
+          </document-id>
+          <application-date>
+            <date>19980825</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="1">
+          <text>“ICF Catalog Sharing Protocol at Record Key Granularity,”IBM Technical Disclosure Bulletin, vol. 35, No. 4B, Sep. 1992, 290.</text>
+        </nplcit>
+      </citation>
+      <citation>
+        <fwdcit num="1">
+          <document-id>
+            <country>US</country>
+            <doc-number>7624127</doc-number>
+            <kind>B2</kind>
+            <date>20091124</date>
+          </document-id>
+          <application-date>
+            <date>20061108</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+      <citation>
+        <fwdcit num="2">
+          <document-id>
+            <country>US</country>
+            <doc-number>7502957</doc-number>
+            <kind>B2</kind>
+            <date>20090310</date>
+          </document-id>
+          <application-date>
+            <date>20050909</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+      <citation>
+        <fwdcit num="3">
+          <document-id>
+            <country>US</country>
+            <doc-number>7457985</doc-number>
+            <kind>B2</kind>
+            <date>20081125</date>
+          </document-id>
+          <application-date>
+            <date>20050909</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+      <citation>
+        <fwdcit num="4">
+          <document-id>
+            <country>US</country>
+            <doc-number>7464105</doc-number>
+            <kind>B2</kind>
+            <date>20081209</date>
+          </document-id>
+          <application-date>
+            <date>20050706</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+      <citation>
+        <fwdcit num="5">
+          <document-id>
+            <country>US</country>
+            <doc-number>7752497</doc-number>
+            <kind>B2</kind>
+            <date>20100706</date>
+          </document-id>
+          <application-date>
+            <date>20080909</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+      <citation>
+        <fwdcit num="6">
+          <document-id>
+            <country>US</country>
+            <doc-number>7765429</doc-number>
+            <kind>B2</kind>
+            <date>20100727</date>
+          </document-id>
+          <application-date>
+            <date>20090127</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+      <citation>
+        <fwdcit num="7">
+          <document-id>
+            <country>US</country>
+            <doc-number>7930308</doc-number>
+            <kind>B2</kind>
+            <date>20110419</date>
+          </document-id>
+          <application-date>
+            <date>20081107</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+      <citation>
+        <fwdcit num="8">
+          <document-id>
+            <country>US</country>
+            <doc-number>7996585</doc-number>
+            <kind>B2</kind>
+            <date>20110809</date>
+          </document-id>
+          <application-date>
+            <date>20050909</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+      <citation>
+        <fwdcit num="9">
+          <document-id>
+            <country>US</country>
+            <doc-number>8024519</doc-number>
+            <kind>B2</kind>
+            <date>20110920</date>
+          </document-id>
+          <application-date>
+            <date>20080922</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+    </references-cited>
+    <related-documents date-changed="20100409">
+      <related-publication>
+        <document-id>
+          <country>US</country>
+          <doc-number>20020023070</doc-number>
+          <kind>A1</kind>
+          <date>20020221</date>
+        </document-id>
+      </related-publication>
+    </related-documents>
+    <parties date-changed="20100409">
+      <applicants>
+        <applicant sequence="1" app-type="applicant">
+          <addressbook lang="eng">
+            <orgname>International Business Machines Corporation</orgname>
+            <role>02</role>
+            <address>
+              <city>Armonk</city>
+              <state>NY</state>
+            </address>
+          </addressbook>
+        </applicant>
+      </applicants>
+      <inventors>
+        <inventor sequence="1">
+          <addressbook lang="eng">
+            <name>Branch, Stephen Merritt</name>
+            <address>
+              <city>Morgan Hill</city>
+              <state>CA</state>
+            </address>
+          </addressbook>
+        </inventor>
+        <inventor sequence="2">
+          <addressbook lang="eng">
+            <name>Choi, Patricia Driscoll</name>
+            <address>
+              <city>San Jose</city>
+              <state>CA</state>
+            </address>
+          </addressbook>
+        </inventor>
+        <inventor sequence="3">
+          <addressbook lang="eng">
+            <name>Daray, Jr., Edward H.</name>
+            <address>
+              <city>Saratoga</city>
+              <state>CA</state>
+            </address>
+          </addressbook>
+        </inventor>
+        <inventor sequence="4">
+          <addressbook lang="eng">
+            <name>Thomen, Mark Edward</name>
+            <address>
+              <city>San Jose</city>
+              <state>CA</state>
+            </address>
+          </addressbook>
+        </inventor>
+      </inventors>
+      <agents>
+        <agent sequence="1" rep-type="attorney">
+          <addressbook lang="eng">
+            <name>Sawyer Law Group LLP</name>
+          </addressbook>
+        </agent>
+      </agents>
+    </parties>
+    <examiners>
+      <primary-examiner>
+        <last-name>Breene</last-name>
+        <first-name>John</first-name>
+        <department>2177</department>
+      </primary-examiner>
+      <assistant-examiner>
+        <last-name>Pham</last-name>
+        <first-name>Khanh B.</first-name>
+      </assistant-examiner>
+    </examiners>
+    <patent-family date-changed="20080810">
+      <main-family family-id="112852481">
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>20020023070</doc-number>
+            <kind>A1</kind>
+            <date>20020221</date>
+          </document-id>
+          <application-date>
+            <date>19990219</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>6675175</doc-number>
+            <kind>B2</kind>
+            <date>20040106</date>
+          </document-id>
+          <application-date>
+            <date>19990219</date>
+          </application-date>
+        </family-member>
+      </main-family>
+      <complete-family family-id="112851795">
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>20020023070</doc-number>
+            <kind>A1</kind>
+            <date>20020221</date>
+          </document-id>
+          <application-date>
+            <date>19990219</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>6675175</doc-number>
+            <kind>B2</kind>
+            <date>20040106</date>
+          </document-id>
+          <application-date>
+            <date>19990219</date>
+          </application-date>
+        </family-member>
+      </complete-family>
+    </patent-family>
+  </bibliographic-data>
+  <abstract id="abstr_eng" date-changed="20100409" lang="eng" format="original">
+    <p id="p-00001-en">A method and system for sharing a catalog in a multiprocessor system is disclosed. The multiprocessor system includes a plurality of host systems. The method and system comprises storing a copy of an entire volume data record of the catalog in a processor. Thereafter, the method and system comprises reading sharing information of the catalog from the processor to the appropriate host system when the appropriate host system needs access to the catalog. For example, in a S/390 parallel processor system an enhanced catalog sharing system (ECS) is utilized in conjunction with the catalogs. In this type of system, a copy of the entire data VSAM volume record (VVR) for an ECS-active catalog is stored in a coupling facility processor. This processor is accessed using components of the S/390 product. When an ECS-active host system needs access to an ECS-active catalog, the sharing information is read in from the coupling facility processor instead of a DASD volume. If the shared catalog request involves an update to the ECS-active catalog, the (VVR) in the coupling facility is updated; no writes are performed to DASD for updates to the sharing subcell. By storing the sharing control data on a shared processor, the I/O operations and the disk lock outs are eliminated, dramatically decreasing elapsed time for a shared catalog request and increasing the availability of the disk device. This results in a significant performance improvement, with shared catalog performance approaching that of unshared catalogs.</p>
+  </abstract>
+  <legal-data date-changed="20110513">
+    <legal-event sequence="1">
+      <publication-date>
+        <date>19990722</date>
+      </publication-date>
+      <event-code-1>AS</event-code-1>
+      <legal-description>ASSIGNMENT</legal-description>
+      <status-identifier>N</status-identifier>
+      <docdb-publication-number> US     6675175B2</docdb-publication-number>
+      <new-owner>INTERNATIONAL BUSINESS MACHINES CORPORATION, NEW Y</new-owner>
+      <free-text-description>ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNORS:BRANCH, STEPHEN MERRITT;CHOI, PATRICIA DRISCOLL;DARAY, EDWARD H. JR.;AND OTHERS;REEL/FRAME:010108/0886;SIGNING DATES FROM 19990223 TO 19990303</free-text-description>
+    </legal-event>
+    <legal-event sequence="2">
+      <publication-date>
+        <date>20070629</date>
+      </publication-date>
+      <event-code-1>FPAY</event-code-1>
+      <effect>+</effect>
+      <legal-description>FEE PAYMENT</legal-description>
+      <status-identifier>N</status-identifier>
+      <docdb-publication-number> US     6675175B2</docdb-publication-number>
+      <fee-payment-year>4</fee-payment-year>
+    </legal-event>
+    <legal-event sequence="3">
+      <publication-date>
+        <date>20110413</date>
+      </publication-date>
+      <event-code-1>FPAY</event-code-1>
+      <effect>+</effect>
+      <legal-description>FEE PAYMENT</legal-description>
+      <status-identifier>N</status-identifier>
+      <docdb-publication-number> US     6675175B2</docdb-publication-number>
+      <fee-payment-year>8</fee-payment-year>
+    </legal-event>
+  </legal-data>
+  <description id="descr_eng" lang="eng" format="original" date-changed="20100409">
+    <summary>
+      <heading level="2">FIELD OF THE INVENTION</heading>
+      <p id="p-00002-en">The present invention relates generally to catalogs in multiple data processing systems and more particularly to the sharing of catalogs in such a system.</p>
+      <heading level="2">BACKGROUND OF THE INVENTION</heading>
+      <p id="p-00003-en">In today's information technology industry, customers desire systems that have better performance and cost improvements over their current systems, while permitting continued use of their existing applications. High availability is also important given today's rising mobile workforce and ability for global connectivity through the Internet. Current processing system designs for information technology applications must provide scalable, granular growth, and continuous application availability. Clustering technology, such as IBM Corporation's S/390 Parallel Sysplex, has been developed to achieve these design needs.</p>
+      <p id="p-00004-en">A cluster arrangement links individual data processing systems in a manner that creates a single, powerful system, which can support numerous users simultaneously. A cluster offers high availability and excellent scalability. If one system/node in the cluster fails, the other systems in the cluster continue to run.</p>
+      <p id="p-00005-en">In such a multiprocessor system, catalogs typically are used to categorize data. Typically, in cluster arrangements such as IBM's S/390, an integrated catalog facility (ICF) structure is utilized to support shared catalogs. A catalog is a data set which contains information about other data sets. It provides users with the ability to locate a data set by name, without knowing where the data set resides. By cataloging data sets, users will need to know less about the storage setup. Thus, data can be moved from one device to another, without requiring a change in statements which refer to an existing data set.</p>
+      <p id="p-00006-en">Cataloging data sets simplifies backup and recovery procedures. Catalogs are the central information point for VSAM data sets: all VSAM data sets must be cataloged. In addition, all SMS-managed data sets must be cataloged.</p>
+      <p id="p-00007-en">In conventional systems, an ICF Catalog component supports shared catalogs by maintaining a local system cache of recently accessed catalog records in main memory on each system and a list of catalog updates in what is called a “sharing subcell” in the data VSAM Volume Record (VVR) contained in the VSAM Volume Data Set (VVDS) on a DASD memory subsystem. Whenever a request is made to a shared catalog, the Catalog component must read the sharing subcell from the DASD memory subsystem, to verify the currency of the locally cached records on that system.</p>
+      <p id="p-00008-en">The local DASD subsystem is updated from the change information contained in the sharing subcell. If a catalog request involves a modification to the catalog, this information is written to the sharing subcell on the DASD subsystem. Significant overhead in terms of cross-system communication and long-duration I/O activity occurs for each such catalog request. Field experience indicates the elapsed time to process a request against a shared catalog can be up to five times longer than the same request against an unshared catalog.</p>
+      <p id="p-00009-en">In order for a system to access this data, the disk must be locked out from all other systems while the I/O operation executes. This approach is time-consuming and also makes the disk unavailable to other systems for relatively long periods of time. Accordingly, what is needed is a system and method which overcomes the above-mentioned problems. The present invention addresses such a need.</p>
+      <heading level="2">SUMMARY OF THE INVENTION</heading>
+      <p id="p-00010-en">A method and system for sharing a catalog in a multiprocessor system is disclosed. The multiprocessor system includes a plurality of host systems. The method and system comprises storing an entire volume data record for the catalog in a shared processor. Thereafter, the method and system comprises reading sharing information of the catalog from the processor to the appropriate host system when the appropriate host system needs access to the catalog.</p>
+      <p id="p-00011-en">For example, in a S/390 parallel processor system an enhanced catalog sharing system (ECS) is utilized in conjunction with the catalogs. In this type of system, the entire data VSAM volume record (VVR) for an ECS-active catalog is stored in a coupling facility processor. This processor is accessed using components of the S/390 product. When an ECS-active host system needs access to an ECS-active catalog, the sharing information is read in from the coupling facility processor instead of a DASD volume. If the shared catalog request involves an update to the ECS-active catalog, the (VVR) in the coupling facility is updated; no writes are performed to DASD for updates to the sharing subcell.</p>
+      <p id="p-00012-en">By storing the sharing control data on a shared processor, the I/O operations and the disk lock outs are eliminated, dramatically decreasing elapsed time for a shared catalog request and increasing the availability of the disk device. This results in a significant performance improvement, with shared catalog performance approaching that of unshared catalogs.</p>
+    </summary>
+    <description-of-drawings>
+      <heading level="2">BRIEF DESCRIPTION OF THE DRAWINGS</heading>
+      <p id="p-00013-en">
+        <figref>FIG. 1</figref>illustrates a block diagram representation of an arrangement of multiple data processing systems.</p>
+      <p id="p-00014-en">
+        <figref>FIG. 2</figref>illustrates a possible relationship between two basic catalog structures (BCSs) and three VSAM volume data sets (VVDs).</p>
+      <p id="p-00015-en">
+        <figref>FIG. 3</figref>is a flow chart of the operation of a system in accordance with the present invention.</p>
+    </description-of-drawings>
+    <detailed-desc>
+      <heading level="2">DETAILED DESCRIPTION</heading>
+      <p id="p-00016-en">The present invention relates to data sharing through the use of catalogs in a multiprocessing system arrangement. The following description is presented to enable one of ordinary skill in the art to make and use the invention and is provided in the context of a patent application and its requirements. Various modifications to the preferred embodiment and the generic principles and features described herein will be readily apparent to those skilled in the art. Thus, the present invention is not intended to be limited to the embodiment shown but is to be accorded the widest scope consistent with the principles and features described herein.</p>
+      <p id="p-00017-en">It should be appreciated that the following discussion refers to an S/390 parallel sysplex arrangement. This is meant as illustrative of a preferred embodiment, the features of which are applicable in other substantially equivalent arrangements of multiple systems in which catalogs are shared. Thus, the following discussion is meant as illustrative and not restrictive of the aspects of the present invention.</p>
+      <p id="p-00018-en">The present invention provides for enhanced catalog sharing (ECS) by utilizing a processor for storing an entire data volume record. In so doing the host computers can access the processor directly rather than having to obtain the information from a DASD memory subsystem. This results in a significant performance improvement.</p>
+      <p id="p-00019-en">To more fully understand the operation of the present invention in the context of a multiprocessing system, refer now to FIG.<b>1</b>.<figref>FIG. 1</figref>illustrates a cluster arrangement, e.g., a parallel sysplex system. Multiple host systems<b>10</b>, e.g., System<b>1</b>to System N, are included in the sysplex, where each system<b>10</b>has one or more computing processors<b>12</b>and memory with local caches<b>14</b>. By way of example, the System/390 Parallel Sysplex from IBM Corporation, Armonk, N.Y., is an example of a set of S/390 systems connected together by a clustering technology. An instance of the operating system, OS/390, runs on each system of the sysplex. Each of the systems access DASD (direct access storage device)<b>20</b>that is shared among the systems. The clustered system support enables large business applications to be spread across the multiple systems with dynamic workload balancing, which yields a wide range of application capacity scaling and extremely high application availability across planned and unplanned outage of individual systems. The load-balancing and availability features of parallel sysplex result in an application running on one system at one point in time and then run on another system at another point in time. To help facilitate the activity, the systems<b>10</b>are each coupled to an external time reference component<b>16</b>and a coupling facility<b>18</b>. Connections to DASD subsystems<b>20</b>are facilitated through a dynamic switch<b>22</b>.</p>
+      <p id="p-00020-en">In such a multiprocessor system, catalogs typically are used to categorize data. Typically, in cluster arrangements such as IBM's S/390, an integrated catalog facility (ICF) structure is utilized to support shared catalogs. A catalog is a data set which contains information about other data sets. It provides users with the ability to locate a data set by name, without knowing where the data set resides. By cataloging data sets, users will need to know less about the storage setup. Thus, data can be moved from one device to another, without requiring a change in statements which refer to an existing data set.</p>
+      <p id="p-00021-en">Typically a catalog is utilized to locate data sets in the multiprocessor system. An ICF catalog includes two separate kinds of data sets: a basic catalog structure (BCS); and a VSAM volume data set (VVDS). The BCS can be considered<u>the</u>catalog, whereas the VVDS can be considered an extension of the volume table of contents (VTOC).</p>
+      <p id="p-00022-en">The basic catalog structure is a VSAM key-sequenced data set. It uses the data set name of entries to store and retrieve data set information. For VSAM data sets, the BCS contains volume, security, ownership, and association information. For non-VSAM data sets, the BCS contains volume, ownership, and association information.</p>
+      <p id="p-00023-en">The VSAM volume data set is a VSAM entry-sequenced data set. A VVDS resides on every volume which contains a VSAM or a storage management subsystem (SMS) managed data set cataloged in an ICF catalog. It contains the data set characteristics, extent information, and the volume-related information of the VSAM data sets cataloged in the BCS. If the SMS is utilized, the VVDS also contains data set characteristics and volume-related information for the SMS managed data sets on the volume.</p>
+      <p id="p-00024-en">The Volume Table of Contents (VTOC) and the VTOC index are system data sets which maintain extent and allocation information for a volume. The VTOC is used to find empty space for new allocations and to locate non-VSAM data sets. For all VSAM data sets, and for SMS-managed non-VSAM data sets, the VTOC is used to obtain information not kept in the VVDS.</p>
+      <p id="p-00025-en">VVDS records for VSAM data sets are called “VSAM volume records” (VVRs). Those for SMS-managed non-VSAM data sets are called “non-VSAM volume records” (NVRs). If a non-VSAM data set spans volumes, its NVR is in the VVD of the data set's first volume. Since a BCS is a VSAM data set, it also has a VVR in the VVDS.</p>
+      <p id="p-00026-en">Every ICF catalog includes one BCS and one or more VVDSs. A BCS does not “own” a VVDS: more than one BCS can have entries for a single VVDS. Every VVDS which is connected to a BCS has an entry in the BCS.</p>
+      <p id="p-00027-en">For example,<figref>FIG. 2</figref>shows a possible relationship between two BCSs and three VVDSs on three disk volumes. “BCS.A” has entries for data sets residing on each of the three volumes. “BCS.C” has entries for data sets residing on volumes B and C. Since each volume has data sets cataloged in an integrated catalog facility catalog, each volume contains a VVDS.</p>
+      <p id="p-00028-en">BCS.A resides on volume A with VVDS.A. Both the VVDS and the BCS have entires for each other. All three VVDSs are cataloged in BCS.A. BCS.C, residing on volume C, contains entries for VVDS.C and VVDS.B. VVDS has entries for all VSAM and SMS-managed data sets on its volume, whereas a BCS can have entries for data sets residing on any volume.</p>
+      <p id="p-00029-en">Information about a data set is also contained in the VTOC of the volume on which the data set resides, even if the data set is cataloged. To successfully perform all possible operations on a cataloged data set using the catalog, all three elements, the VVDS, BCS, and VTOC, must be synchronized. That is, any equivalent information contained in the BCS and VVDS entries for the data set, and the VTOC DSCB for the data set, must be the same.</p>
+      <p id="p-00030-en">Cataloging data sets simplifies backup and recovery procedures. Catalogs are the central information point for VSAM data sets: all VSAM data sets must be cataloged. In addition, all SMS-managed data sets must be cataloged.</p>
+      <p id="p-00031-en">In conventional IBM multiprocessor systems, an ICF Catalog component supports shared catalogs by maintaining a local system cache of recently accessed catalog records in main memory of that system and a list of catalog updates in what is called a “sharing subcell” in the data VSAM Volume Record (VVR) contained in the VVDS on one of the DASD memory subsystems<b>10</b>. Whenever a request is made to a shared catalog, the catalog component must read the sharing subcell from the one of the DASD memory subsystems<b>10</b>to ensure the locally cached BCS records are still valid on the local system.</p>
+      <p id="p-00032-en">The one DASD subsystem<b>10</b>is updated from the change information contained in the “sharing subcell”. If a catalog request involves a modification to the catalog, this information is written to the sharing subcell on the one DASD subsystem<b>10</b>. Significant overhead in terms of cross-system communication and long-duration I/O activity occurs for each such catalog request. Field experience indicates the elapsed time to process a request against a shared catalog can be up to five times longer than the same request against an unshared catalog.</p>
+      <p id="p-00033-en">In order for a system to access this data, the disk on the one DASD subsystem<b>10</b>must be locked out from all other systems while the I/O operation executes. This approach is time-consuming and also makes the disk unavailable to other systems for relatively long periods of time.</p>
+      <p id="p-00034-en">The present invention provides for enhanced catalog sharing (ECS) by utilizing a processor for storing an entire data volume record. The processor contains control data for catalogs being shared among host systems. The processor also allows for cross-notification between systems when changes occur to the catalog control data. In so doing the host computers can access the processor directly rather than having to obtain the information from a DASD memory subsystem. This results in a significant performance improvement.</p>
+      <p id="p-00035-en">To more particularly describe the present invention, refer to the following discussion.<figref>FIG. 3</figref>is a flow chart of the operation of the system and method in accordance with the present invention. First, an entire volume data record of the catalog is stored in a processor, via step<b>102</b>. Thereafter, sharing information of data records from the processor is read to the appropriate host system when the appropriate host system needs access to the catalog, via step<b>104</b>.</p>
+      <p id="p-00036-en">In this embodiment the processor<b>19</b>which stores the data record is the coupling facility<b>18</b>. It should be understood that the processor could be in another area of the multiprocessor system, the key feature being that the Systems<b>10</b>can access the processor directly.</p>
+      <p id="p-00037-en">When utilizing the system of<figref>FIG. 1</figref>, the present invention allows for the storage of the entire data VVR for an ECS-active catalog, in the coupling facility processor<b>19</b>. The VVR is accessed using the components of the host systems<b>10</b>. When an ECS-active catalog is to be accessed by one of the Systems<b>10</b>the sharing information is read in from the coupling facility instead of DASD. If the shared catalog request involves an update to the ECS-active catalog, the VVR in the coupling facility<b>18</b>is updated; no writes are performed to the DASD subsystem for updates to the sharing subcell. This results in a significant performance improvement, with shared catalog performance approaching that of unshared catalogs.</p>
+      <p id="p-00038-en">The present invention provides for enhanced catalog sharing (ECS) by utilizing a processor for storing an entire data volume record. In so doing the host computers can access the processor directly rather than having to obtain the information from a DASD memory subsystem. The use of processor eliminates the need to perform I/O to the disk to track, record, or communicate these changes. Accordingly, a significant performance improvement is realized over conventional catalog sharing systems.</p>
+      <p id="p-00039-en">Although the present invention has been described in accordance with the embodiments shown, one of ordinary skill in the art will readily recognize that there could be variations to the embodiments and those variations would be within the spirit and scope of the present invention. Accordingly, many modifications may be made by one of ordinary skill in the art without departing from the spirit and scope of the appended claims.</p>
+    </detailed-desc>
+  </description>
+  <claims id="claims_eng" lang="eng" format="original" date-changed="20100409">
+    <claim num="1" id="clm-00001-en">
+      <claim-text>1. A method for sharing a catalog of a data set in a multiprocessor system, the multiprocessor system including a plurality of host systems and a plurality of direct access storage device (DASD) subsystems, comprising the steps of:<claim-text>(a) storing a copy of an entire data volume record of the catalog in a coupling facility, wherein the catalog is shared by the plurality of host systems, wherein the data volume record includes catalog updates, wherein the data volume record in the coupling facility is updated with the catalog updates responsive to a shared catalog request from a first host system if the shared catalog request involves a catalog update, and wherein the coupling facility is detached from the plurality of DASD subsystems; and</claim-text><claim-text>(b) reading the catalog updates directly from the data volume record in the coupling facility to a first host system of the plurality of host systems when the first host system needs access to the catalog, wherein the catalog updates are not stored in the DASD subsystems, wherein access to the plurality of DASD subsystems is eliminated.</claim-text></claim-text>
+    </claim>
+    <claim num="2" id="clm-00002-en">
+      <claim-text>2. The method of<claim-ref idref="clm-00001-en">claim 1</claim-ref>wherein a multiprocessor system comprises a parallel multiprocessing system.</claim-text>
+    </claim>
+    <claim num="3" id="clm-00003-en">
+      <claim-text>3. The method of<claim-ref idref="clm-00001-en">claim 1</claim-ref>wherein a multiprocessor system includes a plurality of direct access storage device (DASD) subsystems.</claim-text>
+    </claim>
+    <claim num="4" id="clm-00004-en">
+      <claim-text>4. The method of<claim-ref idref="clm-00003-en">claim 3</claim-ref>wherein the volume data record comprises a virtual storage access method (VSAM) volume data record (VVR).</claim-text>
+    </claim>
+    <claim num="5" id="clm-00005-en">
+      <claim-text>5. The method of<claim-ref idref="clm-00004-en">claim 4</claim-ref>which includes the step of (c) updating the VVR responsive to a shared catalog request from one of the host subsystems.</claim-text>
+    </claim>
+    <claim num="6" id="clm-00006-en">
+      <claim-text>6. A system for sharing a catalog of a data set in a multiprocessor system, the multiprocessor system including a plurality of host systems and a plurality of direct access storage device (DASD) subsystems, comprising:<claim-text>means for storing a copy of an entire data volume record of the catalog in a coupling facility, wherein the catalog is shared by the plurality of host systems, wherein the data volume record includes catalog updates, wherein the data volume record in the coupling facility is updated with the catalog updates responsive to a shared catalog request from a first host system if the shared catalog request involves a catalog update, and wherein the coupling facility is detached from the plurality of DASD subsystems; and</claim-text><claim-text>means for reading the catalog updates directly from the data volume record in the coupling facility to the appropriate host system when the appropriate host system needs access to the catalog, wherein the catalog updates are not stored in the DASD subsystems, wherein access to the plurality of DASD subsystems is eliminated.</claim-text></claim-text>
+    </claim>
+    <claim num="7" id="clm-00007-en">
+      <claim-text>7. The system of<claim-ref idref="clm-00006-en">claim 6</claim-ref>wherein a multiprocessor system comprises a parallel multiprocessing system.</claim-text>
+    </claim>
+    <claim num="8" id="clm-00008-en">
+      <claim-text>8. The system of<claim-ref idref="clm-00006-en">claim 6</claim-ref>wherein a multiprocessor system includes a plurality of direct access storage device (DASD) subsystems.</claim-text>
+    </claim>
+    <claim num="9" id="clm-00009-en">
+      <claim-text>9. The system of<claim-ref idref="clm-00008-en">claim 8</claim-ref>wherein the volume data record comprises a virtual storage access method (VSAM) volume data record (VVR).</claim-text>
+    </claim>
+    <claim num="10" id="clm-00010-en">
+      <claim-text>10. The system of<claim-ref idref="clm-00009-en">claim 9</claim-ref>which includes means for updating the VVR responsive to a shared catalog request from one of the host subsystems.</claim-text>
+    </claim>
+    <claim num="11" id="clm-00011-en">
+      <claim-text>11. A method for sharing a catalog of a data set in a multiprocessor system, the multiprocessor system including a plurality of host systems and a plurality of direct access storage device (DASD) subsystems, the method comprising the steps of:<claim-text>(a) providing a dynamic switch for coupling the plurality of host systems to the plurality of DASD subsystems;</claim-text><claim-text>(b) storing a copy of an entire data volume record of the catalog in a coupling facility, wherein the catalog is shared by the plurality of host systems, wherein the data volume record includes catalog updates, wherein the data volume record in the coupling facility is updated with the catalog updates responsive to a shared catalog request from a first host system if the shared catalog request involves a catalog update, and wherein the coupling facility is detached from the plurality of DASD subsystems; and</claim-text><claim-text>(c) reading the catalog updates directly from the data volume record in the coupling facility to the appropriate host system when the appropriate host system needs access to the catalog, wherein the catalog updates are not stored in the DASD subsystems, wherein access to the plurality of DASD subsystems is eliminated.</claim-text></claim-text>
+    </claim>
+    <claim num="12" id="clm-00012-en">
+      <claim-text>12. A system for sharing a catalog of a data set in a multiprocessor system, the multiprocessor system including a plurality of host systems, the system comprising:<claim-text>a plurality of direct access storage device (DASD) subsystems;</claim-text><claim-text>a dynamic switch coupling the plurality of host systems to the plurality of DASD subsystems;</claim-text><claim-text>means for storing a copy of an entire data volume record of the catalog in a coupling facility, wherein the catalog is shared by the plurality of host systems, wherein the data volume record includes catalog updates, wherein the data volume record in the coupling facility is updated with the catalog updates responsive to a shared catalog request from a first host system if the shared catalog request involves a catalog update, wherein the coupling facility is detached from the plurality of DASD subsystems; and</claim-text><claim-text>means for reading the catalog updates directly from the data volume record in the coupling facility to the appropriate host system when the appropriate host system needs access to the catalog, and wherein the catalog updates are not stored in the DASD subsystems, wherein access to the plurality of DASD subsystems is eliminated.</claim-text></claim-text>
+    </claim>
+    <claim num="13" id="clm-00013-en">
+      <claim-text>13. The method of<claim-ref idref="clm-00001-en">claim 1</claim-ref>further comprising the step of (c) determining if the data volume record in the coupling facility has been updated by one of the host systems of the plurality of host systems.</claim-text>
+    </claim>
+    <claim num="14" id="clm-00014-en">
+      <claim-text>14. The method of<claim-ref idref="clm-00006-en">claim 6</claim-ref>further comprising means for determining if the data volume record in the coupling facility has been updated by one of the host systems of the plurality of host systems.</claim-text>
+    </claim>
+    <claim num="15" id="clm-00015-en">
+      <claim-text>15. The method of<claim-ref idref="clm-00011-en">claim 11</claim-ref>further comprising the step of (d) determining if the data volume record in the coupling facility has been updated by one of the host systems of the plurality of host systems.</claim-text>
+    </claim>
+    <claim num="16" id="clm-00016-en">
+      <claim-text>16. The method of<claim-ref idref="clm-00012-en">claim 12</claim-ref>further comprising means for determining if the data volume record in the coupling facility has been updated by one of the host systems of the plurality of host systems.</claim-text>
+    </claim>
+  </claims>
+  <drawings id="drawings">
+    <figure id="fig-emi-d00000" num="2">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00000" file="US06675175-20040106-D00000.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00001" num="3">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00001" file="US06675175-20040106-D00001.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00002" num="4">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00002" file="US06675175-20040106-D00002.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00003" num="5">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00003" file="US06675175-20040106-D00003.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+  </drawings>
+</lexisnexis-patent-document>

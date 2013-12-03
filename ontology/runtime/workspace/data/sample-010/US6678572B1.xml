@@ -1,0 +1,2036 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright ©2011 LexisNexis Univentio, The Netherlands. -->
+<lexisnexis-patent-document schema-version="1.08" date-produced="20110930" file="US6678572B1.xml" produced-by="LexisNexis-Univentio" lang="eng" date-changed="20110722" time-changed="015232">
+  <bibliographic-data lang="eng">
+    <publication-reference publ-type="Grant" publ-desc="Patent without a pre-grant publication">
+      <document-id>
+        <country>US</country>
+        <doc-number>6678572</doc-number>
+        <kind>B1</kind>
+        <date>20040113</date>
+      </document-id>
+    </publication-reference>
+    <application-reference appl-type="utility">
+      <document-id>
+        <country>US</country>
+        <doc-number>09521026</doc-number>
+        <date>20000307</date>
+      </document-id>
+    </application-reference>
+    <application-series-code>09</application-series-code>
+    <language-of-filing>eng</language-of-filing>
+    <language-of-publication>eng</language-of-publication>
+    <priority-claims date-changed="20080807">
+      <priority-claim sequence="1" kind="national">
+        <country>US</country>
+        <doc-number>09336275</doc-number>
+        <date>19990618</date>
+      </priority-claim>
+      <priority-claim sequence="2" kind="national">
+        <country>US</country>
+        <doc-number>60114422</doc-number>
+        <date>19981231</date>
+      </priority-claim>
+    </priority-claims>
+    <dates-of-public-availability date-changed="20090405">
+      <unexamined-printed-without-grant>
+        <date>20040113</date>
+      </unexamined-printed-without-grant>
+      <printed-with-grant>
+        <date>20040113</date>
+      </printed-with-grant>
+    </dates-of-public-availability>
+    <classification-ipc date-changed="20110322">
+      <main-classification>
+        <text> 7G 06F  19/00   A</text>
+        <edition>7</edition>
+        <section>G</section>
+        <class>06</class>
+        <subclass>F</subclass>
+        <main-group>19</main-group>
+        <subgroup>00</subgroup>
+        <qualifying-character>A</qualifying-character>
+      </main-classification>
+    </classification-ipc>
+    <classifications-ipcr date-changed="20110322">
+      <classification-ipcr sequence="1">
+        <text>G05B  19/418       20060101A I20051008RMEP        </text>
+        <ipc-version-indicator>
+          <date>20060101</date>
+        </ipc-version-indicator>
+        <classification-level>A</classification-level>
+        <section>G</section>
+        <class>05</class>
+        <subclass>B</subclass>
+        <main-group>19</main-group>
+        <subgroup>418</subgroup>
+        <classification-value>I</classification-value>
+        <action-date>
+          <date>20051008</date>
+        </action-date>
+        <generating-office>
+          <country>EP</country>
+        </generating-office>
+        <classification-status>R</classification-status>
+        <classification-data-source>M</classification-data-source>
+      </classification-ipcr>
+      <classification-ipcr sequence="2">
+        <text>G06F  19/00        20060101A I20051110RMEP        </text>
+        <ipc-version-indicator>
+          <date>20060101</date>
+        </ipc-version-indicator>
+        <classification-level>A</classification-level>
+        <section>G</section>
+        <class>06</class>
+        <subclass>F</subclass>
+        <main-group>19</main-group>
+        <subgroup>00</subgroup>
+        <classification-value>I</classification-value>
+        <action-date>
+          <date>20051110</date>
+        </action-date>
+        <generating-office>
+          <country>EP</country>
+        </generating-office>
+        <classification-status>R</classification-status>
+        <classification-data-source>M</classification-data-source>
+      </classification-ipcr>
+      <classification-ipcr sequence="3">
+        <text>H01L  21/00        20060101A I20051110RMEP        </text>
+        <ipc-version-indicator>
+          <date>20060101</date>
+        </ipc-version-indicator>
+        <classification-level>A</classification-level>
+        <section>H</section>
+        <class>01</class>
+        <subclass>L</subclass>
+        <main-group>21</main-group>
+        <subgroup>00</subgroup>
+        <classification-value>I</classification-value>
+        <action-date>
+          <date>20051110</date>
+        </action-date>
+        <generating-office>
+          <country>EP</country>
+        </generating-office>
+        <classification-status>R</classification-status>
+        <classification-data-source>M</classification-data-source>
+      </classification-ipcr>
+      <classification-ipcr sequence="4">
+        <text>H01L  21/02        20060101ALI20051220RMJP        </text>
+        <ipc-version-indicator>
+          <date>20060101</date>
+        </ipc-version-indicator>
+        <classification-level>A</classification-level>
+        <section>H</section>
+        <class>01</class>
+        <subclass>L</subclass>
+        <main-group>21</main-group>
+        <subgroup>02</subgroup>
+        <symbol-position>L</symbol-position>
+        <classification-value>I</classification-value>
+        <action-date>
+          <date>20051220</date>
+        </action-date>
+        <generating-office>
+          <country>JP</country>
+        </generating-office>
+        <classification-status>R</classification-status>
+        <classification-data-source>M</classification-data-source>
+      </classification-ipcr>
+    </classifications-ipcr>
+    <classification-national date-changed="20110322">
+      <country>US</country>
+      <main-classification>
+        <text>700/121</text>
+        <class>700</class>
+        <subclass>121</subclass>
+      </main-classification>
+      <further-classification sequence="1">
+        <text>700/100</text>
+        <class>700</class>
+        <subclass>100</subclass>
+      </further-classification>
+    </classification-national>
+    <classifications-ecla date-changed="20110322">
+      <classification-ecla sequence="1" classification-scheme="EC" country="EP">
+        <text>G05B 19/418P</text>
+        <section>G</section>
+        <class>05</class>
+        <subclass>B</subclass>
+        <main-group>19</main-group>
+        <subgroup>418</subgroup>
+        <additional-subgroups>
+          <additional-subgroup sequence="1">P  </additional-subgroup>
+        </additional-subgroups>
+      </classification-ecla>
+    </classifications-ecla>
+    <field-of-search date-changed="20070524">
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>700/121</text>
+          <class>700</class>
+          <subclass>121</subclass>
+        </main-classification>
+      </classification-national>
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>700/99</text>
+          <class>700</class>
+          <subclass>99</subclass>
+        </main-classification>
+      </classification-national>
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>700/100</text>
+          <class>700</class>
+          <subclass>100</subclass>
+        </main-classification>
+      </classification-national>
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>700/101</text>
+          <class>700</class>
+          <subclass>101</subclass>
+        </main-classification>
+      </classification-national>
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>700/102</text>
+          <class>700</class>
+          <subclass>102</subclass>
+        </main-classification>
+      </classification-national>
+    </field-of-search>
+    <number-of-claims>8</number-of-claims>
+    <invention-title id="title_eng" date-changed="20100418" lang="eng" format="original">Recipe cascading in a wafer processing system</invention-title>
+    <references-cited date-changed="20110913">
+      <patent-citations name="patcit" date-changed="20100409" />
+      <non-patent-citations name="nplcit" date-changed="20100409" />
+      <forward-citations name="fwdcit" date-changed="20110913" />
+      <citation srep-phase="o">
+        <patcit num="1">
+          <document-id>
+            <country>US</country>
+            <doc-number>5136222</doc-number>
+            <kind>A</kind>
+            <name>Yamamoto et al.</name>
+            <date>19920804</date>
+          </document-id>
+          <application-date>
+            <date>19901009</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="2">
+          <document-id>
+            <country>US</country>
+            <doc-number>5226118</doc-number>
+            <kind>A</kind>
+            <name>Baker et al.</name>
+            <date>19930706</date>
+          </document-id>
+          <application-date>
+            <date>19910129</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="3">
+          <document-id>
+            <country>US</country>
+            <doc-number>5305221</doc-number>
+            <kind>A</kind>
+            <name>Atherton</name>
+            <date>19940419</date>
+          </document-id>
+          <application-date>
+            <date>19900504</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="e">
+        <patcit num="4">
+          <document-id>
+            <country>US</country>
+            <doc-number>5375061</doc-number>
+            <kind>A</kind>
+            <name>Hara et al.</name>
+            <date>19941220</date>
+          </document-id>
+          <application-date>
+            <date>19911127</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="5">
+          <document-id>
+            <country>US</country>
+            <doc-number>5428555</doc-number>
+            <kind>A</kind>
+            <name>Starkey et al.</name>
+            <date>19950627</date>
+          </document-id>
+          <application-date>
+            <date>19930420</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="6">
+          <document-id>
+            <country>US</country>
+            <doc-number>5444632</doc-number>
+            <kind>A</kind>
+            <name>Kline et al.</name>
+            <date>19950822</date>
+          </document-id>
+          <application-date>
+            <date>19940428</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="7">
+          <document-id>
+            <country>US</country>
+            <doc-number>5591299</doc-number>
+            <kind>A</kind>
+            <name>Seaton et al.</name>
+            <date>19970107</date>
+          </document-id>
+          <application-date>
+            <date>19950428</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="8">
+          <document-id>
+            <country>US</country>
+            <doc-number>5612886</doc-number>
+            <kind>A</kind>
+            <name>Weng</name>
+            <date>19970318</date>
+          </document-id>
+          <application-date>
+            <date>19950512</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="e">
+        <patcit num="9">
+          <document-id>
+            <country>US</country>
+            <doc-number>5696689</doc-number>
+            <kind>A</kind>
+            <name>Okumura et al.</name>
+            <date>19971209</date>
+          </document-id>
+          <application-date>
+            <date>19951127</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="10">
+          <document-id>
+            <country>US</country>
+            <doc-number>5754780</doc-number>
+            <kind>A</kind>
+            <name>Asakawa et al.</name>
+            <date>19980519</date>
+          </document-id>
+          <application-date>
+            <date>19950119</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="e">
+        <patcit num="11">
+          <document-id>
+            <country>US</country>
+            <doc-number>5764520</doc-number>
+            <kind>A</kind>
+            <name>Robinson et al.</name>
+            <date>19980609</date>
+          </document-id>
+          <application-date>
+            <date>19950705</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="12">
+          <document-id>
+            <country>US</country>
+            <doc-number>5801945</doc-number>
+            <kind>A</kind>
+            <name>Comer</name>
+            <date>19980901</date>
+          </document-id>
+          <application-date>
+            <date>19960628</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="e">
+        <patcit num="13">
+          <document-id>
+            <country>US</country>
+            <doc-number>5826236</doc-number>
+            <kind>A</kind>
+            <name>Narimatsu et al.</name>
+            <date>19981020</date>
+          </document-id>
+          <application-date>
+            <date>19951208</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="14">
+          <document-id>
+            <country>US</country>
+            <doc-number>5838565</doc-number>
+            <kind>A</kind>
+            <name>Hsieh et al.</name>
+            <date>19981117</date>
+          </document-id>
+          <application-date>
+            <date>19970515</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="e">
+        <patcit num="15">
+          <document-id>
+            <country>US</country>
+            <doc-number>5841659</doc-number>
+            <kind>A</kind>
+            <name>Tanaka et al.</name>
+            <date>19981124</date>
+          </document-id>
+          <application-date>
+            <date>19970604</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="e">
+        <patcit num="16">
+          <document-id>
+            <country>US</country>
+            <doc-number>5841660</doc-number>
+            <kind>A</kind>
+            <name>Robinson et al.</name>
+            <date>19981124</date>
+          </document-id>
+          <application-date>
+            <date>19960220</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="17">
+          <document-id>
+            <country>US</country>
+            <doc-number>5841677</doc-number>
+            <kind>A</kind>
+            <name>Yang et al.</name>
+            <date>19981124</date>
+          </document-id>
+          <application-date>
+            <date>19970521</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="e">
+        <patcit num="18">
+          <document-id>
+            <country>US</country>
+            <doc-number>5855681</doc-number>
+            <kind>A</kind>
+            <name>Maydan et al.</name>
+            <date>19990105</date>
+          </document-id>
+          <application-date>
+            <date>19961118</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="19">
+          <document-id>
+            <country>US</country>
+            <doc-number>5858863</doc-number>
+            <kind>A</kind>
+            <name>Yokoyama et al.</name>
+            <date>19990112</date>
+          </document-id>
+          <application-date>
+            <date>19960927</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="20">
+          <document-id>
+            <country>US</country>
+            <doc-number>5914879</doc-number>
+            <kind>A</kind>
+            <name>Wang et al.</name>
+            <date>19990622</date>
+          </document-id>
+          <application-date>
+            <date>19970304</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="e">
+        <patcit num="21">
+          <document-id>
+            <country>US</country>
+            <doc-number>5928389</doc-number>
+            <kind>A</kind>
+            <name>Jevtic</name>
+            <date>19990727</date>
+          </document-id>
+          <application-date>
+            <date>19961021</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="e">
+        <patcit num="22">
+          <document-id>
+            <country>US</country>
+            <doc-number>5943230</doc-number>
+            <kind>A</kind>
+            <name>Rinnen et al.</name>
+            <date>19990824</date>
+          </document-id>
+          <application-date>
+            <date>19961219</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="e">
+        <patcit num="23">
+          <document-id>
+            <country>US</country>
+            <doc-number>5950170</doc-number>
+            <kind>A</kind>
+            <name>Pan et al.</name>
+            <date>19990907</date>
+          </document-id>
+          <application-date>
+            <date>19970411</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="e">
+        <patcit num="24">
+          <document-id>
+            <country>US</country>
+            <doc-number>5975740</doc-number>
+            <kind>A</kind>
+            <name>Lin et al.</name>
+            <date>19991102</date>
+          </document-id>
+          <application-date>
+            <date>19960528</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="e">
+        <patcit num="25">
+          <document-id>
+            <country>US</country>
+            <doc-number>5980591</doc-number>
+            <kind>A</kind>
+            <name>Akimoto et al.</name>
+            <date>19991109</date>
+          </document-id>
+          <application-date>
+            <date>19970822</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="26">
+          <document-id>
+            <country>US</country>
+            <doc-number>6122566</doc-number>
+            <kind>A</kind>
+            <name>Nguyen et al.</name>
+            <date>20000919</date>
+          </document-id>
+          <application-date>
+            <date>19980303</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="e">
+        <patcit num="27">
+          <document-id>
+            <country>US</country>
+            <doc-number>6122621</doc-number>
+            <kind>A</kind>
+            <name>Shimada</name>
+            <date>20000919</date>
+          </document-id>
+          <application-date>
+            <date>19970908</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="e">
+        <patcit num="28">
+          <document-id>
+            <country>US</country>
+            <doc-number>6201999</doc-number>
+            <kind>B1</kind>
+            <name>Jevtic</name>
+            <date>20010313</date>
+          </document-id>
+          <application-date>
+            <date>19970609</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="29">
+          <document-id>
+            <country>US</country>
+            <doc-number>6298274</doc-number>
+            <kind>B1</kind>
+            <name>Inoue</name>
+            <date>20011002</date>
+          </document-id>
+          <application-date>
+            <date>19990901</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="30">
+          <document-id>
+            <country>US</country>
+            <doc-number>6336204</doc-number>
+            <kind>B1</kind>
+            <name>Jevtic</name>
+            <date>20020101</date>
+          </document-id>
+          <application-date>
+            <date>19980507</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="31">
+          <document-id>
+            <country>US</country>
+            <doc-number>6360132</doc-number>
+            <kind>B2</kind>
+            <name>Lin et al.</name>
+            <date>20020319</date>
+          </document-id>
+          <application-date>
+            <date>20010105</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="32">
+          <document-id>
+            <country>US</country>
+            <doc-number>6408220</doc-number>
+            <kind>B1</kind>
+            <name>Nulman</name>
+            <date>20020618</date>
+          </document-id>
+          <application-date>
+            <date>19990601</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="e">
+        <patcit num="33">
+          <document-id>
+            <country>US</country>
+            <doc-number>6418356</doc-number>
+            <kind>B1</kind>
+            <name>Oh</name>
+            <date>20020709</date>
+          </document-id>
+          <application-date>
+            <date>19990618</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="34">
+          <document-id>
+            <country>EP</country>
+            <doc-number>0 800 203</doc-number>
+            <date>19971000</date>
+          </document-id>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="35">
+          <document-id>
+            <country>EP</country>
+            <doc-number>0 837 494</doc-number>
+            <date>19980400</date>
+          </document-id>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="36">
+          <document-id>
+            <country>WO</country>
+            <doc-number>98 57358</doc-number>
+            <date>19981200</date>
+          </document-id>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="37">
+          <document-id>
+            <country>WO</country>
+            <doc-number>99 64940</doc-number>
+            <date>19991200</date>
+          </document-id>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="38">
+          <document-id>
+            <country>WO</country>
+            <doc-number>00 41048</doc-number>
+            <date>20000700</date>
+          </document-id>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="1">
+          <text>Gertz M W et al: “A Human-Machine Interface for Distributed Virtual Laboratories”, IEEE Robotics &amp; Automation Magazine, US, IEEE Service Center, Piscataway, NJ, vol. 1, NR. 4, pp. 5-13 XP000487137 ISSN: 1070-9932. Dec. 1994.</text>
+        </nplcit>
+      </citation>
+      <citation>
+        <fwdcit num="1">
+          <document-id>
+            <country>US</country>
+            <doc-number>7195407</doc-number>
+            <kind>B2</kind>
+            <date>20070327</date>
+          </document-id>
+          <application-date>
+            <date>20060505</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+      <citation>
+        <fwdcit num="2">
+          <document-id>
+            <country>US</country>
+            <doc-number>7625824</doc-number>
+            <kind>B2</kind>
+            <date>20091201</date>
+          </document-id>
+          <application-date>
+            <date>20060526</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+      <citation>
+        <fwdcit num="3">
+          <document-id>
+            <country>US</country>
+            <doc-number>7651306</doc-number>
+            <kind>B2</kind>
+            <date>20100126</date>
+          </document-id>
+          <application-date>
+            <date>20051222</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+      <citation>
+        <fwdcit num="4">
+          <document-id>
+            <country>US</country>
+            <doc-number>7522968</doc-number>
+            <kind>B2</kind>
+            <date>20090421</date>
+          </document-id>
+          <application-date>
+            <date>20070710</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+      <citation>
+        <fwdcit num="5">
+          <document-id>
+            <country>US</country>
+            <doc-number>7357842</doc-number>
+            <kind>B2</kind>
+            <date>20080415</date>
+          </document-id>
+          <application-date>
+            <date>20050422</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+      <citation>
+        <fwdcit num="6">
+          <document-id>
+            <country>US</country>
+            <doc-number>7068351</doc-number>
+            <kind>B2</kind>
+            <date>20060627</date>
+          </document-id>
+          <application-date>
+            <date>20040220</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+      <citation>
+        <fwdcit num="7">
+          <document-id>
+            <country>US</country>
+            <doc-number>7694647</doc-number>
+            <kind>B2</kind>
+            <date>20100413</date>
+          </document-id>
+          <application-date>
+            <date>20060719</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+      <citation>
+        <fwdcit num="8">
+          <document-id>
+            <country>US</country>
+            <doc-number>7699021</doc-number>
+            <kind>B2</kind>
+            <date>20100420</date>
+          </document-id>
+          <application-date>
+            <date>20060130</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+      <citation>
+        <fwdcit num="9">
+          <document-id>
+            <country>US</country>
+            <doc-number>7743728</doc-number>
+            <kind>B2</kind>
+            <date>20100629</date>
+          </document-id>
+          <application-date>
+            <date>20080421</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+      <citation>
+        <fwdcit num="10">
+          <document-id>
+            <country>US</country>
+            <doc-number>7798764</doc-number>
+            <kind>B2</kind>
+            <date>20100921</date>
+          </document-id>
+          <application-date>
+            <date>20061027</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+      <citation>
+        <fwdcit num="11">
+          <document-id>
+            <country>US</country>
+            <doc-number>7819079</doc-number>
+            <kind>B2</kind>
+            <date>20101026</date>
+          </document-id>
+          <application-date>
+            <date>20060908</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+      <citation>
+        <fwdcit num="12">
+          <document-id>
+            <country>US</country>
+            <doc-number>7925377</doc-number>
+            <kind>B2</kind>
+            <date>20110412</date>
+          </document-id>
+          <application-date>
+            <date>20060719</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+      <citation>
+        <fwdcit num="13">
+          <document-id>
+            <country>US</country>
+            <doc-number>7959403</doc-number>
+            <kind>B2</kind>
+            <date>20110614</date>
+          </document-id>
+          <application-date>
+            <date>20070828</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+      <citation>
+        <fwdcit num="14">
+          <document-id>
+            <country>US</country>
+            <doc-number>7988399</doc-number>
+            <kind>B2</kind>
+            <date>20110802</date>
+          </document-id>
+          <application-date>
+            <date>20081029</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+      <citation>
+        <fwdcit num="15">
+          <document-id>
+            <country>US</country>
+            <doc-number>8019467</doc-number>
+            <kind>B2</kind>
+            <date>20110913</date>
+          </document-id>
+          <application-date>
+            <date>20070710</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+    </references-cited>
+    <related-documents date-changed="20110322">
+      <continuation-in-part>
+        <relation>
+          <parent-doc>
+            <document-id>
+              <country>US</country>
+              <doc-number>09/336275</doc-number>
+              <date>19990618</date>
+            </document-id>
+            <parent-status>ABANDONED</parent-status>
+          </parent-doc>
+          <child-doc>
+            <document-id>
+              <country>US</country>
+              <doc-number>09/521026</doc-number>
+            </document-id>
+          </child-doc>
+        </relation>
+      </continuation-in-part>
+      <provisional-application>
+        <document-id>
+          <country>US</country>
+          <doc-number>60/114422</doc-number>
+          <date>19981231</date>
+        </document-id>
+      </provisional-application>
+      <related-publication>
+        <document-id>
+          <country>US</country>
+          <doc-number>33627599</doc-number>
+          <kind>A</kind>
+          <date>19990618</date>
+        </document-id>
+      </related-publication>
+    </related-documents>
+    <parties date-changed="20100409">
+      <applicants>
+        <applicant sequence="1" app-type="applicant">
+          <addressbook lang="eng">
+            <orgname>ASML Holdings, N.V.</orgname>
+            <role>03</role>
+            <address>
+              <city>Veldhoven</city>
+              <country>NL</country>
+            </address>
+          </addressbook>
+        </applicant>
+      </applicants>
+      <inventors>
+        <inventor sequence="1">
+          <addressbook lang="eng">
+            <name>Oh, Hilario</name>
+            <address>
+              <city>Rochester Hills</city>
+              <state>MI</state>
+            </address>
+          </addressbook>
+        </inventor>
+      </inventors>
+    </parties>
+    <examiners>
+      <primary-examiner>
+        <last-name>Patel</last-name>
+        <first-name>Ramesh</first-name>
+        <department>2121</department>
+      </primary-examiner>
+      <assistant-examiner>
+        <last-name>Gain</last-name>
+        <first-name>Edward F.</first-name>
+      </assistant-examiner>
+    </examiners>
+    <patent-family date-changed="20110901">
+      <main-family family-id="127963240">
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>6678572</doc-number>
+            <kind>B1</kind>
+            <date>20040113</date>
+          </document-id>
+          <application-date>
+            <date>20000307</date>
+          </application-date>
+        </family-member>
+      </main-family>
+      <complete-family family-id="142707097">
+        <family-member>
+          <document-id>
+            <country>JP</country>
+            <doc-number>4621698</doc-number>
+            <kind>B2</kind>
+            <date>20110126</date>
+          </document-id>
+          <application-date>
+            <date>20070208</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>EP</country>
+            <doc-number>1264332</doc-number>
+            <kind>A1</kind>
+            <date>20021211</date>
+          </document-id>
+          <application-date>
+            <date>20000616</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>EP</country>
+            <doc-number>1141801</doc-number>
+            <kind>B1</kind>
+            <date>20050817</date>
+          </document-id>
+          <application-date>
+            <date>19991201</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>EP</country>
+            <doc-number>1141801</doc-number>
+            <kind>A1</kind>
+            <date>20011010</date>
+          </document-id>
+          <application-date>
+            <date>19991201</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>WO</country>
+            <doc-number>0041048</doc-number>
+            <kind>A1</kind>
+            <date>20000713</date>
+          </document-id>
+          <application-date>
+            <date>19991201</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>WO</country>
+            <doc-number>0167493</doc-number>
+            <kind>A1</kind>
+            <date>20010913</date>
+          </document-id>
+          <application-date>
+            <date>20000616</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>EP</country>
+            <doc-number>1188097</doc-number>
+            <kind>A2</kind>
+            <date>20020320</date>
+          </document-id>
+          <application-date>
+            <date>20000623</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>WO</country>
+            <doc-number>0079356</doc-number>
+            <kind>A2</kind>
+            <date>20001228</date>
+          </document-id>
+          <application-date>
+            <date>20000623</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>6865437</doc-number>
+            <kind>B1</kind>
+            <date>20050308</date>
+          </document-id>
+          <application-date>
+            <date>20000623</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>6952622</doc-number>
+            <kind>B2</kind>
+            <date>20051004</date>
+          </document-id>
+          <application-date>
+            <date>20031014</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>7052919</doc-number>
+            <kind>B2</kind>
+            <date>20060530</date>
+          </document-id>
+          <application-date>
+            <date>20031014</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>6694218</doc-number>
+            <kind>B2</kind>
+            <date>20040217</date>
+          </document-id>
+          <application-date>
+            <date>20020614</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>6418356</doc-number>
+            <kind>B1</kind>
+            <date>20020709</date>
+          </document-id>
+          <application-date>
+            <date>19990618</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>JP</country>
+            <doc-number>4733011</doc-number>
+            <kind>B9</kind>
+            <date>20110428</date>
+          </document-id>
+          <application-date>
+            <date>20061228</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>EP</country>
+            <doc-number>1188097</doc-number>
+            <kind>B1</kind>
+            <date>20060308</date>
+          </document-id>
+          <application-date>
+            <date>20000623</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>6768930</doc-number>
+            <kind>B2</kind>
+            <date>20040727</date>
+          </document-id>
+          <application-date>
+            <date>20030218</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>AT</country>
+            <doc-number>302438</doc-number>
+            <kind>T</kind>
+            <date>20050915</date>
+          </document-id>
+          <application-date>
+            <date>19991201</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>AT</country>
+            <doc-number>320033</doc-number>
+            <kind>T</kind>
+            <date>20060315</date>
+          </document-id>
+          <application-date>
+            <date>20000623</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>AU</country>
+            <doc-number>3108500</doc-number>
+            <kind>A</kind>
+            <date>20000724</date>
+          </document-id>
+          <application-date>
+            <date>19991201</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>JP</country>
+            <doc-number>2007165913</doc-number>
+            <kind>A</kind>
+            <date>20070628</date>
+          </document-id>
+          <application-date>
+            <date>20061228</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>JP</country>
+            <doc-number>2007208269</doc-number>
+            <kind>A</kind>
+            <date>20070816</date>
+          </document-id>
+          <application-date>
+            <date>20070208</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>JP</country>
+            <doc-number>2007214550</doc-number>
+            <kind>A</kind>
+            <date>20070823</date>
+          </document-id>
+          <application-date>
+            <date>20061228</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>JP</country>
+            <doc-number>2007214551</doc-number>
+            <kind>A</kind>
+            <date>20070823</date>
+          </document-id>
+          <application-date>
+            <date>20061228</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>JP</country>
+            <doc-number>3987725</doc-number>
+            <kind>B2</kind>
+            <date>20071010</date>
+          </document-id>
+          <application-date>
+            <date>20000616</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>JP</country>
+            <doc-number>2007281490</doc-number>
+            <kind>A</kind>
+            <date>20071025</date>
+          </document-id>
+          <application-date>
+            <date>20070423</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>JP</country>
+            <doc-number>2007305988</doc-number>
+            <kind>A</kind>
+            <date>20071122</date>
+          </document-id>
+          <application-date>
+            <date>20070501</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>SG</country>
+            <doc-number>143963</doc-number>
+            <kind>A1</kind>
+            <date>20080729</date>
+          </document-id>
+          <application-date>
+            <date>20000616</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>KR</country>
+            <doc-number>1020030007454</doc-number>
+            <kind>A</kind>
+            <date>20030123</date>
+          </document-id>
+          <application-date>
+            <date>20020907</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>KR</country>
+            <doc-number>1020010101334</doc-number>
+            <kind>A</kind>
+            <date>20011114</date>
+          </document-id>
+          <application-date>
+            <date>20010629</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>JP</country>
+            <doc-number>4733011</doc-number>
+            <kind>B2</kind>
+            <date>20110727</date>
+          </document-id>
+          <application-date>
+            <date>20061228</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>WO</country>
+            <doc-number>0079356</doc-number>
+            <kind>A3</kind>
+            <date>20010809</date>
+          </document-id>
+          <application-date>
+            <date>20000623</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>JP</country>
+            <doc-number>2002534789</doc-number>
+            <kind>T</kind>
+            <date>20021015</date>
+          </document-id>
+          <application-date>
+            <date>19991201</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>JP</country>
+            <doc-number>2003502877</doc-number>
+            <kind>T</kind>
+            <date>20030121</date>
+          </document-id>
+          <application-date>
+            <date>20000623</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>JP</country>
+            <doc-number>2003526916</doc-number>
+            <kind>T</kind>
+            <date>20030909</date>
+          </document-id>
+          <application-date>
+            <date>20000616</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>DE</country>
+            <doc-number>60026527</doc-number>
+            <kind>D1</kind>
+            <date>20060504</date>
+          </document-id>
+          <application-date>
+            <date>20000623</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>DE</country>
+            <doc-number>69926798</doc-number>
+            <kind>D1</kind>
+            <date>20050922</date>
+          </document-id>
+          <application-date>
+            <date>19991201</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>DE</country>
+            <doc-number>69926798</doc-number>
+            <kind>T2</kind>
+            <date>20060914</date>
+          </document-id>
+          <application-date>
+            <date>19991201</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>DE</country>
+            <doc-number>60026527</doc-number>
+            <kind>T2</kind>
+            <date>20061019</date>
+          </document-id>
+          <application-date>
+            <date>20000623</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>6678572</doc-number>
+            <kind>B1</kind>
+            <date>20040113</date>
+          </document-id>
+          <application-date>
+            <date>20000307</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>20020059015</doc-number>
+            <kind>A1</kind>
+            <date>20020516</date>
+          </document-id>
+          <application-date>
+            <date>19990618</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>20030028282</doc-number>
+            <kind>A1</kind>
+            <date>20030206</date>
+          </document-id>
+          <application-date>
+            <date>20020614</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>20030154001</doc-number>
+            <kind>A1</kind>
+            <date>20030814</date>
+          </document-id>
+          <application-date>
+            <date>20030218</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>20040078109</doc-number>
+            <kind>A1</kind>
+            <date>20040422</date>
+          </document-id>
+          <application-date>
+            <date>20031014</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>20040087187</doc-number>
+            <kind>A1</kind>
+            <date>20040506</date>
+          </document-id>
+          <application-date>
+            <date>20031014</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>AU</country>
+            <doc-number>5636600</doc-number>
+            <kind>A</kind>
+            <date>20010109</date>
+          </document-id>
+          <application-date>
+            <date>20000623</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>AU</country>
+            <doc-number>5747600</doc-number>
+            <kind>A</kind>
+            <date>20010917</date>
+          </document-id>
+          <application-date>
+            <date>20000616</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>KR</country>
+            <doc-number>100731822</doc-number>
+            <kind>B1</kind>
+            <date>20070625</date>
+          </document-id>
+          <application-date>
+            <date>20020907</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>JP</country>
+            <doc-number>3987725</doc-number>
+            <kind>B9</kind>
+            <date>20070720</date>
+          </document-id>
+          <application-date>
+            <date>20000616</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>JP</country>
+            <doc-number>4621698</doc-number>
+            <kind>B9</kind>
+            <date>20101105</date>
+          </document-id>
+          <application-date>
+            <date>20070208</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>KR</country>
+            <doc-number>100508679</doc-number>
+            <kind>B1</kind>
+            <date>20050817</date>
+          </document-id>
+          <application-date>
+            <date>20010629</date>
+          </application-date>
+        </family-member>
+      </complete-family>
+    </patent-family>
+  </bibliographic-data>
+  <abstract id="abstr_eng" date-changed="20100409" lang="eng" format="original">
+    <p id="p-00001-en">The invention allows a cluster tool to change from a first recipe to a second recipe, while preserving periodicity and ensuring that there are no delays at critical points. This procedure is referred to as recipe cascading. Cascading involves emptying a first lot of wafers off a cluster tool and populating the cluster tool with another lot of wafers, serially and simultaneously. The procedure is performed with no delays incurred at critical process steps; and with no additional robots and process modules other than those called for by the recipe and throughput requirements of the entering and the exiting lots. The entering lot may also have different recipes and throughput requirements from the exiting lot. A program residing on a computer determines a schedule for the cluster tool which enables recipe cascading. The program may use a genetic algorithm to determine the schedule, or any other optimization technique.</p>
+  </abstract>
+  <legal-data date-changed="20110722">
+    <legal-event sequence="1">
+      <publication-date>
+        <date>20000710</date>
+      </publication-date>
+      <event-code-1>AS</event-code-1>
+      <legal-description>ASSIGNMENT</legal-description>
+      <status-identifier>N</status-identifier>
+      <docdb-publication-number> US     6678572B1</docdb-publication-number>
+      <new-owner>SILICON VALLEY GROUP, INC., CALIFORNIA</new-owner>
+      <free-text-description>ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNOR:OH, HILARIO;REEL/FRAME:010903/0163</free-text-description>
+      <effective-date>
+        <date>20000612</date>
+      </effective-date>
+    </legal-event>
+    <legal-event sequence="2">
+      <publication-date>
+        <date>20031125</date>
+      </publication-date>
+      <event-code-1>AS</event-code-1>
+      <legal-description>ASSIGNMENT</legal-description>
+      <status-identifier>N</status-identifier>
+      <docdb-publication-number> US     6678572B1</docdb-publication-number>
+      <new-owner>ASML HOLDING N.V., NETHERLANDS</new-owner>
+      <free-text-description>ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNOR:ASML USA INC.;REEL/FRAME:014724/0721</free-text-description>
+      <effective-date>
+        <date>20030909</date>
+      </effective-date>
+    </legal-event>
+    <legal-event sequence="3">
+      <publication-date>
+        <date>20070706</date>
+      </publication-date>
+      <event-code-1>FPAY</event-code-1>
+      <effect>+</effect>
+      <legal-description>FEE PAYMENT</legal-description>
+      <status-identifier>N</status-identifier>
+      <docdb-publication-number> US     6678572B1</docdb-publication-number>
+      <fee-payment-year>4</fee-payment-year>
+    </legal-event>
+    <legal-event sequence="4">
+      <publication-date>
+        <date>20080808</date>
+      </publication-date>
+      <event-code-1>AS</event-code-1>
+      <legal-description>ASSIGNMENT</legal-description>
+      <status-identifier>C</status-identifier>
+      <docdb-publication-number> US     6678572B1</docdb-publication-number>
+      <new-owner>ASML US, INC., ARIZONA</new-owner>
+      <free-text-description>CHANGE OF NAME;ASSIGNOR:SILICON VALLEY GROUP, INC.;REEL/FRAME:021360/0168</free-text-description>
+      <effective-date>
+        <date>20011101</date>
+      </effective-date>
+    </legal-event>
+    <legal-event sequence="5">
+      <publication-date>
+        <date>20080808</date>
+      </publication-date>
+      <event-code-1>AS</event-code-1>
+      <legal-description>ASSIGNMENT</legal-description>
+      <status-identifier>C</status-identifier>
+      <docdb-publication-number> US     6678572B1</docdb-publication-number>
+      <new-owner>ASML US, INC., ARIZONA</new-owner>
+      <free-text-description>MERGER;ASSIGNOR:ASML US, LLC;REEL/FRAME:021360/0092</free-text-description>
+      <effective-date>
+        <date>20021231</date>
+      </effective-date>
+    </legal-event>
+    <legal-event sequence="6">
+      <publication-date>
+        <date>20080808</date>
+      </publication-date>
+      <event-code-1>AS</event-code-1>
+      <legal-description>ASSIGNMENT</legal-description>
+      <status-identifier>C</status-identifier>
+      <docdb-publication-number> US     6678572B1</docdb-publication-number>
+      <new-owner>ASML US, INC., ARIZONA</new-owner>
+      <free-text-description>MERGER;ASSIGNOR:SVG LITHOGRAPHY SYSTEMS, INC.;REEL/FRAME:021360/0189</free-text-description>
+      <effective-date>
+        <date>20011231</date>
+      </effective-date>
+    </legal-event>
+    <legal-event sequence="7">
+      <publication-date>
+        <date>20080808</date>
+      </publication-date>
+      <event-code-1>AS</event-code-1>
+      <legal-description>ASSIGNMENT</legal-description>
+      <status-identifier>C</status-identifier>
+      <docdb-publication-number> US     6678572B1</docdb-publication-number>
+      <new-owner>ASML US, LLC, ARIZONA</new-owner>
+      <free-text-description>CHANGE OF NAME;ASSIGNOR:ASML US, INC.;REEL/FRAME:021360/0088</free-text-description>
+      <effective-date>
+        <date>20021004</date>
+      </effective-date>
+    </legal-event>
+    <legal-event sequence="8">
+      <publication-date>
+        <date>20081121</date>
+      </publication-date>
+      <event-code-1>AS</event-code-1>
+      <legal-description>ASSIGNMENT</legal-description>
+      <status-identifier>N</status-identifier>
+      <docdb-publication-number> US     6678572B1</docdb-publication-number>
+      <new-owner>ASML HOLDING N.V., NETHERLANDS</new-owner>
+      <free-text-description>ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNOR:ASML US, INC.;REEL/FRAME:021872/0047</free-text-description>
+      <effective-date>
+        <date>20030909</date>
+      </effective-date>
+    </legal-event>
+    <legal-event sequence="9">
+      <publication-date>
+        <date>20110708</date>
+      </publication-date>
+      <event-code-1>FPAY</event-code-1>
+      <effect>+</effect>
+      <legal-description>FEE PAYMENT</legal-description>
+      <status-identifier>N</status-identifier>
+      <docdb-publication-number> US     6678572B1</docdb-publication-number>
+      <fee-payment-year>8</fee-payment-year>
+    </legal-event>
+  </legal-data>
+  <description id="descr_eng" lang="eng" format="original" date-changed="20100409">
+    <related-apps>
+      <p id="p-00002-en">This application is a continuation-in-part of U.S. patent application No. 09/336,275, filed Jun. 18, 1999 now abandoned, which is a continuation-in-part of U.S. patent application No. 60/114,422, filed Dec. 31, 1998, both of which are herein incorporated by reference in their entirety.</p>
+    </related-apps>
+    <summary>
+      <heading level="2">BACKGROUND OF THE INVENTION</heading>
+      <p id="p-00003-en">1. Field of the Invention</p>
+      <p id="p-00004-en">This invention relates to the field of wafer processing. In particular, the invention relates to scheduling techniques for wafer cluster tools.</p>
+      <p id="p-00005-en">2. Description of the Related Art</p>
+      <p id="p-00006-en">In the process of manufacturing a semiconductor device such as an integrated circuit, numerous steps of micro-fabrication are performed to form a device. These steps are performed serially on the individual items of manufacture in individual modules; the items of manufacture are transferred between modules by transport mechanisms such as robots. In order to achieve desirable throughput, reliability, and fabrication quality, several conditions must be met:</p>
+      <p id="p-00007-en">1) The delivery and removal of the substrate to and from the process modules, as well as the transportation of the wafer between modules, must be accomplished in a timely manner. This timely delivery and removal of substrate is achieved when the flow of substrate is maintained in a periodic and synchronized manner. If periodicity and synchronization are not maintained, the process results will be inconsistent from substrate to substrate, and the expected throughput may be reduced.</p>
+      <p id="p-00008-en">2) It is desirable to transport the substrate in similar process flow paths to avoid inconsistency in process results due to variations in the process history of the substrates.</p>
+      <p id="p-00009-en">3) It is imperative to ensure that the articles of manufacture do not spend any pre-process or post-process time idling in modules where critical processes are performed. The addition of pre-process or post-process time in these modules degrades not only the throughput but also the process results. For example, in an IC fabrication system, if a substrate is not immediately transferred from the spin coat module to a bake module to thermally cure a photo-resist film layer, the resulting film thickness will be unpredictable. If it is impossible to totally eliminate pre-process and/or post-process times, they should be rendered as brief as possible, and any variations in these times cannot be allowed.</p>
+      <p id="p-00010-en">The inability to meet any or all of the above conditions come from the failure to resolve transport conflicts. Conflicts are situations wherein separate modules demand a robot within a time span insufficient for the robot to service these modules</p>
+      <p id="p-00011-en">One conventional solution to the concerns listed above is the addition of extra process modules and transportation resources. However, the size limitations and geometrical constraints of a track system limit the possibility of resolving the above difficulties by adding additional process modules or transportation resources.</p>
+      <p id="p-00012-en">The addition of dedicated transfer arms to transfer substrates between adjacent modules (hereinafter called Inter Bay Transfer Arms, or IBTAs) is another method used to improve throughput and eliminate some of the pre-process and/or post-process times. However, the addition of IBTAs also has serious drawbacks. Dedicated transfer arms complicate the tool and increase its cost, constrain the position of the modules, and cannot be used everywhere in the tool. As a result, the tasks of managing the substrate flow in the track system while maintaining both high throughput and quality and resolving all transport conflicts become unmanageable.</p>
+      <p id="p-00013-en">Another conventional solution is to assign a set of substrate transport priority rules. Prior to any robot move, the control system, also referred to as the software scheduler, verifies the status of substrates in different modules and makes transfer priority decisions based on these rules. However, to achieve high throughputs, the scheduler may generate undesirable, unpredictable and variable pre-process and post-process times in critical modules, and the substrates may also be forced to follow different flow paths to complete their process cycle.</p>
+      <p id="p-00014-en">Heretofore, the requirements of conflict resolution, synchronization, quality, and path consistency referred to above have not been fully met. What is needed is a solution that simultaneously addresses all of these requirements.</p>
+      <heading level="2">SUMMARY OF THE INVENTION</heading>
+      <p id="p-00015-en">An embodiment of the invention allows a cluster tool to change from a first recipe to a second recipe, while preserving periodicity and ensuring that there are no delays at critical points. This procedure is referred to as recipe cascading. Cascading involves emptying a first lot of wafers off a cluster tool and populating the cluster tool with another lot of wafers, serially and simultaneously. The procedure is performed with no delays incurred at critical process steps; and with no additional robots and process modules other than those called for by the recipe and throughput requirements of the entering and the exiting lots. The entering lot may also have different recipe and throughput requirements from the exiting lot.</p>
+      <p id="p-00016-en">An embodiment of the invention includes a method for processing wafers which comprises loading a first plurality of wafers into a wafer cluster tool individually at intervals delimited by a first sending period, wherein the first plurality of wafers are processed according to a first recipe; and loading a second plurality of wafers into the cluster tool at intervals delimited by a second sending period, wherein the second plurality of wafers are processed according to a second recipe. In embodiments of the invention, the cluster tool has a transition period, during which the cluster tool processes one or more wafers from the first plurality of wafers according to the first recipe and one or more wafers from the second plurality of wafers according to the second recipe.</p>
+      <p id="p-00017-en">Embodiments of the invention also include a computer program for scheduling the wafer processing system. The computer program includes resources for scheduling the wafer processing system during a first time period, wherein a first plurality of wafers is processed during the first time period according to a first recipe; resources for scheduling the wafer processing system during a second time period, wherein a second plurality of wafers is processed during the second time period according to a second recipe; and resources for scheduling the wafer processing system during a third time period, wherein a third plurality of wafers is processed during the third time period, such that one or more wafers from the third plurality are processed according to the first recipe, and one or more wafers from the third plurality are processed according to the second recipe. In embodiments of the invention, the computer program resides on a server coupled to the wafer processing system. In embodiments of the invention, the computer program uses a genetic algorithm to schedule the wafer processing system. In some embodiments, the computer program uses another optimization technique to schedule the wafer processing system.</p>
+    </summary>
+    <description-of-drawings>
+      <heading level="2">BRIEF DESCRIPTION OF THE FIGURES</heading>
+      <p id="p-00018-en">
+        <figref>FIG. 1</figref>is a time line illustrating the points at which wafers are loaded into a cluster tool, wherein the points are separated by intervals of one sending period.</p>
+      <p id="p-00019-en">
+        <figref>FIG. 2</figref>illustrates the relative and absolute pick-up times of three wafers at a process i, as well as the mantissas of the pick-up times, wherein the pick-up times are normalized in terms of the sending period.</p>
+      <p id="p-00020-en">
+        <figref>FIG. 3</figref>illustrates the various modules and transportation modules in the cluster tool.</p>
+      <p id="p-00021-en">
+        <figref>FIG. 4</figref>is a graph and corresponding table illustrating the module paths in the cluster tool.</p>
+      <p id="p-00022-en">
+        <figref>FIG. 5</figref>is a table illustrating the recipe of a cluster tool.</p>
+      <p id="p-00023-en">
+        <figref>FIG. 6</figref>is a graph and corresponding table of module pick-up times which arise in a sending period, wherein the sending period is broken into 6 sub-intervals, as there are six possible robot moves within a single sending period.</p>
+      <p id="p-00024-en">
+        <figref>FIG. 7</figref>is a graph and corresponding table illustrating conflicts that arise between processes for access to robots, wherein conflicts are indicated when two modules assigned to a robot have pick-up demands within a single period.</p>
+      <p id="p-00025-en">
+        <figref>FIG. 8</figref>is a graph and accompanying tables and matrices, which illustrate the insertion of queues to eliminate conflicts between modules for access to robots.</p>
+      <p id="p-00026-en">
+        <figref>FIG. 9</figref>illustrates recipes and recipe times in a cluster tool.</p>
+      <p id="p-00027-en">
+        <figref>FIG. 10</figref>illustrates wafer flow in steady state in a cluster tool.</p>
+      <p id="p-00028-en">
+        <figref>FIG. 11</figref>illustrates a transition period, in which the cluster tool processes an entering lot and an exiting lot.</p>
+      <p id="p-00029-en">
+        <figref>FIG. 12</figref>illustrates the timing of the first wafer of the entering lot in the cluster tool according to an embodiment of the invention.</p>
+    </description-of-drawings>
+    <detailed-desc>
+      <heading level="2">DETAILED DESCRIPTION</heading>
+      <heading level="2">Synchronized, Conflict Resolving Schedulers</heading>
+      <p id="p-00030-en">An aspect of the present invention comprises a method for maximizing throughput and quality in a manufacturing system by scheduling events in the system in a periodic, predictable fashion which eliminates conflicts for system resources. An example of such a manufacturing system comprises a series of process steps 1, . . . , N, which are performed consecutively on individual units of manufacture. The individual process steps of the system are conducted in “modules”, or “process chambers”, and the series of steps is listed in a “recipe”. The manufacturing system also includes resources for transporting the units of manufacture between modules in the series; these resources may include robots.</p>
+      <p id="p-00031-en">Conflicts may result between processes in the system when separate modules demand a robot within a time span which is insufficient for the robot to service these modules. Additionally, it is desirable to schedule the system in a manner which exhibits periodicity, so that events in the system are synchronized to occur at periodic, predictable intervals. An embodiment of the present invention includes a technique of selectively scheduling delays in various steps of the manufacturing process in order to eliminate all such conflicts, as well enforce periodicity, without degrading throughput or quality of the system.</p>
+      <heading level="2">An Example of Conflict-Resolving Synchronization: Wafer Cluster Tools</heading>
+      <p id="p-00032-en">An example of the type of manufacturing system described above is a wafer cluster tool. In a wafer cluster tool, the modules comprise process chambers, which are organized around a group of wafer transporting resources, or robots, to perform a sequence of process steps on the wafer. A wafer enters and exits the tool through a buffer called a load port. Once a robot retrieves a wafer from a load port, the wafer is transported sequentially through the series of modules specified in a recipe. The time period defined by a wafer's entrance to a module and the wafer's exit from the module is referred to as a module process time. This process time includes the time actually spent processing the wafer in the module as well as the overhead time required to prepare the wafer for processing and pick up.</p>
+      <p id="p-00033-en">(note that though the wafer cluster tool is described above as passing an individual wafer between modules, it will be apparent to one skilled in the art that the present invention is equally applicable to a wafer cluster tool in which a discrete set of wafers is passed between modules.)</p>
+      <p id="p-00034-en">In certain modules of the cluster tool, a delay in picking up the processed wafer may adversely affect on-wafer results; such modules are identified as “critical process modules,” as they cannot tolerate delays. The module whose process time is longest amongst all modules in the cluster tool is identified as the “gating module”; the process time at this module determines the throughput of the cluster tool. Because the gating module determines the throughput of the cluster tool, it too cannot tolerate delays. The recipe for a wafer cluster tool lists the modules in sequential order, alongside their respective process times. The time required by a robot to transport a wafer between two modules is referred to as its transport time.</p>
+      <heading level="2">Wafer Flow Management in the Cluster Tool</heading>
+      <p id="p-00035-en">Wafer flow management, i.e., the orchestration of wafer processing and wafer transporting in a cluster tool, determines both the throughput and the on-wafer results delivered by the system. Effective wafer flow management requires the simultaneous satisfaction of the following two conditions: a wafer which was just processed in the sending module and is now ready to move should do so when (1) the receiving module in which the wafer will subsequently be processed is empty; and (2) the robot assigned to transport wafers between those modules is available. In the prior art, condition (1) was satisfied by providing additional redundant modules. Such a solution, however, compromises condition (2) in two ways: (a) it results in an inadequate number of robots serving too many modules or (b) two or more modules may compete simultaneously for the service of a robot.</p>
+      <p id="p-00036-en">When the two conditions listed above are compromised, delays in wafer pick-up result. If such delays occur at critical process modules, they adversely affect on-wafer results. And if such delays occur at the gating module, they slow down throughput. As such, it is imperative that the transport conditions listed above are guaranteed with respect to critical process modules and the gating module. In case (a) wherein more handling is required than the robots could provide, adding more robots can mitigate the situation. However, in case (b), the problem resides in the timing of the robot service request. While adding more robots can also alleviate case (b), this is an inadequate solution.</p>
+      <p id="p-00037-en">Since the recipe prescribed for the cluster tool determines the timings of the robot service request, a fundamental solution to resolving the two conditions can arise from altering the wafer recipe to synchronize with wafer transport. A scheduling algorithm described herein performs such synchronization.</p>
+      <p id="p-00038-en">This scheduler described herein can be encoded in software executed by a computer, wherein the computer comprises a memory for storing the software, and a CPU for executing the software. In an embodiment of the present invention, the scheduler may be used off-line from the manufacturing system to generate a pre-determined schedule for the system. Alternatively, the computer may be coupled to the manufacturing system so that the scheduler can update the operation of the system in real-time.</p>
+      <heading level="2">Synchronizing Wafer Flow in the Cluster Tool</heading>
+      <p id="p-00039-en">In an embodiment of the present invention, wafer flow is synchronized by sending individual wafers through the cluster tool at a constant rate. This rate, referred to as the tool's “sending rate”, is expressed in number of wafers per hour, and paces the wafer flow with a periodicity equal to (3600/sending rate) seconds. This period, referred to as the sending period of the cluster tool, is the heartbeat of the system. Individual wafer units are introduced to the system at intervals of one sending period. And in order to synchronize the cluster tool, all process and transport times are measured in units of sending period. Furthermore, to ensure that the same tasks can be repeated in succeeding periods, the robots in the cluster tool are scheduled to accomplish all service requests, hereafter referred to as “tasks”, within a single sending period. As such, the synchronization of the cluster tool requires a determination of 1) the total number of tasks that are performed within a sending period and 2) the exact moment within a sending period that these tasks arise. These moments shall hereafter be referred to as the “timings” of the respective tasks.</p>
+      <p id="p-00040-en">The concepts of sending periods and synchronization are illustrated in FIG.<b>1</b>. The timeline<b>100</b>has an origin<b>102</b>, which denotes the moment when the first wafer is loaded into the cluster tool. The timeline<b>100</b>is demarcated in units of one sending period<b>110</b>. Each demarcation<b>104</b><b>106</b><b>108</b>indicates, respectively, the times at which the second, third, and fourth wafers are loaded into the cluster tool.</p>
+      <p id="p-00041-en">A principal characteristic of synchronization is periodicity: the present invention ensures that for each task i, i=1, . . . , n, the pick-up times for any wafer undergoing that task are identical. Thus each task i in the cluster tool can be associated with a relative pick-up time denoted T<sub>i</sub>, where T<sub>i</sub>is normalized in units of the sending period.<figref>FIG. 2</figref>depicts this feature of periodicity. Three wafers, wafer<b>1</b><b>208</b>, wafer<b>2</b><b>210</b>, and wafer<b>3</b><b>212</b>are depicted on the vertical axis<b>202</b>. The horizontal line depicts the TIME axis<b>200</b>. The origin of this axis<b>201</b>indicates the time at which wafer<b>1</b>is loaded into the cluster tool. The relative pick-up times T<sub>i</sub>at task i<b>200</b>are identical for each wafer. Because the wafers themselves are introduced at intervals of one sending period, the actual pick-up times are separated by units of one sending period.</p>
+      <p id="p-00042-en">
+        <figref>FIG. 2</figref>also illustrates a distinction between relative and “actual” or “absolute” pick-up times. The relative pick-up time of a process i is denoted by T<sub>i</sub><b>204</b>. Since the relative pick-up time is measured from the time a wafer is introduced into the wafer cluster tool, the relative pick-up time is identical for each wafer, wafer<b>1</b><b>208</b>, wafer<b>2</b><b>210</b>, and wafer<b>3</b><b>212</b>. The absolute pick-up time<b>214</b>is measured from the moment the first wafer was loaded into the cluster tool<b>201</b>. Since the wafers are introduced at intervals of one sending period, it follows that for any wafer no. w, the absolute pick-up time of wafer w at module i is</p>
+      <p id="p-00043-en">(<i>w</i>−1)+<i>T</i><sub>i</sub></p>
+      <p id="p-00044-en">This period (w−1) is illustrated in the figure<b>216</b>.</p>
+      <p id="p-00045-en">Another parameter which is critical in synchronization is designated by the symbol τ<sub>i</sub>. The fraction π=T<sub>i</sub>−INT (T<sub>i</sub>), where INT (T<sub>i</sub>) is a function that rounds T<sub>i</sub>down to the nearest integer, is the fraction of T<sub>i</sub>that has elapsed since the beginning of the current sending period. These parameters<b>206</b>are also illustrated in FIG.<b>2</b>. Since the T<sub>i</sub>values are identical for each wafer, and since the wafers are inserted at intervals of one sending period, the values of τ<sub>i</sub><b>206</b>are identical for each wafer. These fractions, τ, i=1, 2, 3. . . N comprise the timings of the tasks the robots must accomplish within a sending period.</p>
+      <p id="p-00046-en">The number of tasks N and the timings of these tasks constitute the load of the transport. Since T<sub>i</sub>is the accumulation up to the ith module of the process times p<sub>j</sub>, j=1, 2, 3. . . i; and the robot transport times t<sub>j</sub>, j=1, 2, 3. . . i−1, it follows that for any wafer, the relative pick-up time at module i is:<maths id="math-us-00001-en"><math><mrow><mrow><mrow><msub><mi>T</mi><mrow><mi>i</mi><mo>[!it!]</mo><mstyle><mtext> </mtext></mstyle></mrow></msub><mo>=</mo><mrow><mrow><munderover><mo>[!Sum!]</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>i</mi></munderover><mo>[!it!]</mo><mstyle><mtext> </mtext></mstyle><mo>[!it!]</mo><msub><mi>p</mi><mi>j</mi></msub></mrow><mo>+</mo><mrow><munderover><mo>[!Sum!]</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>i</mi><mo>-</mo><mn>1</mn></mrow></munderover><mo>[!it!]</mo><mstyle><mtext> </mtext></mstyle><mo>[!it!]</mo><msub><mi>t</mi><mi>j</mi></msub></mrow></mrow></mrow><mo>;</mo><mstyle><mtext> </mtext></mstyle><mo>[!it!]</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow></mrow><mo>,</mo><mn>2</mn><mo>,</mo><mrow><mn>3</mn><mo>[!it!]</mo><mstyle><mtext> </mtext></mstyle><mo>[!it!]</mo><mi>…</mi><mo>[!it!]</mo><mstyle><mtext> </mtext></mstyle><mo>[!it!]</mo><mi>N</mi></mrow></mrow></math><img he="N/A" wi="N/A" img-format="tif" id="emi-m00001-en" file="US06678572-20040113-M00001.TIF" img-content="math" alt="embedded image" /></maths></p>
+      <p id="p-00047-en">It also follows that the timing of the tasks, τ=1, 2, 3. . . N; is<maths id="math-us-00002-en"><math><mtable><mtr><mtd><mtable><mtr><mtd><mrow><msub><mi>τ</mi><mi>i</mi></msub><mo>=</mo><mrow><msub><mi>T</mi><mi>i</mi></msub><mo>-</mo><mrow><mi>INT</mi><mo>[!af!]</mo><mrow><mo>(</mo><msub><mi>T</mi><mi>i</mi></msub><mo>)</mo></mrow></mrow></mrow></mrow></mtd></mtr><mtr><mtd><mrow><mrow><mrow><mo>=</mo><mrow><mrow><munderover><mo>[!Sum!]</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>i</mi></munderover><mo>[!it!]</mo><mstyle><mtext> </mtext></mstyle><mo>[!it!]</mo><msub><mi>p</mi><mi>j</mi></msub></mrow><mo>+</mo><mrow><munderover><mo>[!Sum!]</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>i</mi><mo>-</mo><mn>1</mn></mrow></munderover><mo>[!it!]</mo><mstyle><mtext> </mtext></mstyle><mo>[!it!]</mo><msub><mi>t</mi><mi>j</mi></msub></mrow><mo>-</mo><mrow><mi>INT</mi><mo>[!af!]</mo><mrow><mo>(</mo><mrow><mrow><munderover><mo>[!Sum!]</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>i</mi></munderover><mo>[!it!]</mo><mstyle><mtext> </mtext></mstyle><mo>[!it!]</mo><msub><mi>p</mi><mi>j</mi></msub></mrow><mo>+</mo><mrow><munderover><mo>[!Sum!]</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>i</mi><mo>-</mo><mn>1</mn></mrow></munderover><mo>[!it!]</mo><mstyle><mtext> </mtext></mstyle><mo>[!it!]</mo><msub><mi>t</mi><mi>j</mi></msub></mrow></mrow><mo>)</mo></mrow></mrow></mrow></mrow><mo>;</mo><mstyle><mtext> </mtext></mstyle><mo>[!it!]</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow></mrow><mo>,</mo><mn>2</mn><mo>,</mo><mrow><mn>3</mn><mo>[!it!]</mo><mstyle><mtext> </mtext></mstyle><mo>[!it!]</mo><mi>…</mi><mo>[!it!]</mo><mstyle><mtext> </mtext></mstyle><mo>[!it!]</mo><mi>N</mi></mrow></mrow></mtd></mtr></mtable></mtd><mtd><mrow><mo>(</mo><mn>1</mn><mo>)</mo></mrow></mtd></mtr></mtable></math><img he="N/A" wi="N/A" img-format="tif" id="emi-m00002-en" file="US06678572-20040113-M00002.TIF" img-content="math" alt="embedded image" /></maths></p>
+      <p id="p-00048-en">Since transport times t<sub>j</sub>are fixed for a given cluster tool, it is apparent from Equation (1) that the timing of robot task τ<sub>i</sub>is dependent solely on the process times p<sub>i</sub>as prescribed by the recipe.</p>
+      <heading level="2">Periodicity and Wafer Identification</heading>
+      <p id="p-00049-en">The property of periodicity also enables the identification of wafers in the cluster tool. As elaborated infra, the synchronized scheduler ensures that 1) the wafers are loaded into the cluster tool in sequential order at intervals of one sending period, and 2) each wafer loaded into the cluster tool undergoes identical events at the same times, as measured relative to the moment they are loaded. A consequence of these two conditions is that wafers enter and depart each module in the cluster tool in the order they were originally loaded, at intervals of one sending period. As such, each wafer in a module can be identified simply by tracking the order in which they entered or exited that module. This feature of the synchronized scheduler is referred to as wafer identification, or wafer “tagging”.</p>
+      <heading level="2">Tagging and Module Paths</heading>
+      <p id="p-00050-en">In an embodiment of the present invention, each wafer loaded into the cluster tool follows a particular “module path”, i.e., a particular set of modules which correspond to the processes in the cluster tool. This feature of the present invention is illustrated in FIG.<b>4</b>. In this embodiment, each process in the cluster tool has one or more modules associated with it, wherein the wafers are processed. The modules for each process are ordered in a sequence such that when wafers arrive at that process, they are placed in the corresponding modules in the sequential order (for e.g., if a process has two corresponding modules, the first wafer in the system goes to the first module, the second wafer goes to the second module, the third wafer enters the first module, the fourth wafer enters the second module, etc.) As a consequence, the total number of module paths that a wafer may follow is constrained to the least common multiple of the number of modules corresponding to each process.</p>
+      <p id="p-00051-en">The embodiment described above is illustrated by example in FIG.<b>4</b>.<figref>FIG. 4</figref>shows a sequence of process steps, VP<b>400</b>, VPC<b>402</b>, CT<b>404</b>, SB<b>406</b>, SBC<b>408</b>, PEB<b>410</b>, PEBC<b>412</b>, DEV<b>414</b>, HB<b>416</b>, HBC<b>418</b>. A symbol of a process step appears for each module corresponding to the process step. For instance, the process CT<b>404</b>has three modules, and corresponding, the symbol of CT appears three times<b>404</b>. Above each process step is the number of modules for that process step<b>420</b>.</p>
+      <p id="p-00052-en">In this example, the least common multiple of the number of modules is: LCM(2,2,3,3,3,3,3,4,2,2)=12</p>
+      <p id="p-00053-en">Hence, the recipe for the cluster tool prescribes twelve module paths, which are listed<b>422</b>. Each column in the table<b>422</b>lists the module number for that process step in the respective module path. As there are twelve possible paths, every twelfth wafer follows the same module path. As such, by identifying a wafer and the order in which it was loaded into the tool, the present invention enables the determination of the module path followed by the wafer.</p>
+      <heading level="2">Adding Queues to Eliminate Conflicts for Transportation Resources</heading>
+      <p id="p-00054-en">If a recipe gives rise to simultaneous, competing service requests for particular robots, it would be desirable to resolve the conflicts not by adding more robots, but rather by modifying the recipe itself. One convenient scheme to modify the recipe is to introduce deliberate delays, hereafter called queues q<sub>j</sub>, to the non-critical process steps in order to achieve timing which resolves conflicts without compromising the throughput or on-wafer results delivered by the tool. Such a scheme, used in conjunction with Equation (1), is the basis for the “synchronous algorithm.” To recap, a recipe as originally prescribed may introduce competing service requests which result in delays at critical process and gating steps, thereby degrading the wafer quality and throughput of the single-wafer cluster tool. The aim of “synchronous algorithm” is to insert intentional delays at non-critical process steps in order to ensure that no delays occur at critical process steps or gating steps, and thereby ensure guarantees of throughput and wafer quality.</p>
+      <heading level="2">Solving for the Queues</heading>
+      <p id="p-00055-en">We shall now demonstrate how to solve for the delays, or q<sub>j</sub>. Let τ be the timing of robot tasks as dictated by a prescribed recipe per Equation (1). By adding queues q<sub>j</sub>to the process time p<sub>j</sub>to modify the recipe, the new timing τ<sub>i</sub>* is given by:<maths id="math-us-00003-en"><math><mtable><mtr><mtd><mtable><mtr><mtd><mrow><msubsup><mi>τ</mi><mi>i</mi><mo>*</mo></msubsup><mo>=</mo><mrow><mrow><munderover><mo>[!Sum!]</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>i</mi></munderover><mo>[!it!]</mo><mstyle><mtext> </mtext></mstyle><mo>[!it!]</mo><mrow><mo>(</mo><mrow><msub><mi>p</mi><mi>j</mi></msub><mo>+</mo><msub><mi>q</mi><mi>j</mi></msub></mrow><mo>)</mo></mrow></mrow><mo>+</mo><mrow><munderover><mo>[!Sum!]</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>i</mi><mo>-</mo><mn>1</mn></mrow></munderover><mo>[!it!]</mo><mstyle><mtext> </mtext></mstyle><mo>[!it!]</mo><msub><mi>t</mi><mi>j</mi></msub></mrow><mo>-</mo><mrow><mi>INT</mi><mo>[!af!]</mo><mrow><mo>(</mo><mrow><mrow><munderover><mo>[!Sum!]</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>i</mi></munderover><mo>[!it!]</mo><mstyle><mtext> </mtext></mstyle><mo>[!it!]</mo><mrow><mo>(</mo><mrow><msub><mi>p</mi><mi>j</mi></msub><mo>+</mo><msub><mi>q</mi><mi>j</mi></msub></mrow><mo>)</mo></mrow></mrow><mo>+</mo><mrow><munderover><mo>[!Sum!]</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>i</mi><mo>-</mo><mn>1</mn></mrow></munderover><mo>[!it!]</mo><mstyle><mtext> </mtext></mstyle><mo>[!it!]</mo><msub><mi>t</mi><mi>j</mi></msub></mrow></mrow><mo>)</mo></mrow></mrow></mrow></mrow></mtd></mtr><mtr><mtd><mrow><mo>=</mo><mrow><msub><mi>τ</mi><mi>i</mi></msub><mo>+</mo><mrow><munderover><mo>[!Sum!]</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>i</mi></munderover><mo>[!it!]</mo><mstyle><mtext> </mtext></mstyle><mo>[!it!]</mo><msub><mi>q</mi><mi>j</mi></msub></mrow><mo>-</mo><mrow><mi>INT</mi><mo>[!af!]</mo><mrow><mo>(</mo><mrow><mrow><munderover><mo>[!Sum!]</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>i</mi></munderover><mo>[!it!]</mo><mstyle><mtext> </mtext></mstyle><mo>[!it!]</mo><mrow><mo>(</mo><mrow><msub><mi>p</mi><mi>j</mi></msub><mo>+</mo><msub><mi>q</mi><mi>j</mi></msub></mrow><mo>)</mo></mrow></mrow><mo>+</mo><mrow><munderover><mo>[!Sum!]</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>i</mi><mo>-</mo><mn>1</mn></mrow></munderover><mo>[!it!]</mo><mstyle><mtext> </mtext></mstyle><mo>[!it!]</mo><msub><mi>t</mi><mi>j</mi></msub></mrow></mrow><mo>)</mo></mrow></mrow><mo>+</mo><mrow><mi>INT</mi><mo>[!af!]</mo><mrow><mo>(</mo><mrow><mrow><munderover><mo>[!Sum!]</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>i</mi></munderover><mo>[!it!]</mo><mstyle><mtext> </mtext></mstyle><mo>[!it!]</mo><msub><mi>p</mi><mi>j</mi></msub></mrow><mo>+</mo><mrow><munderover><mo>[!Sum!]</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>i</mi><mo>-</mo><mn>1</mn></mrow></munderover><mo>[!it!]</mo><mstyle><mtext> </mtext></mstyle><mo>[!it!]</mo><msub><mi>t</mi><mi>j</mi></msub></mrow></mrow><mo>)</mo></mrow></mrow></mrow></mrow></mtd></mtr></mtable></mtd><mtd><mrow><mo>(</mo><mn>2</mn><mo>)</mo></mrow></mtd></mtr></mtable></math><img he="N/A" wi="N/A" img-format="tif" id="emi-m00003-en" file="US06678572-20040113-M00003.TIF" img-content="math" alt="embedded image" /></maths></p>
+      <p id="p-00056-en">The objective is to find a set of queues q<sub>i</sub>to be inserted at the non-critical process steps such that the time interval between any two modules k and m, k=1, 2, 3, . . . N; and m=k, k+1, . . . , N, where module k and module m are assigned to have their wafers picked up by the same robot, is greater than the transport time of the robot. This would allow for time intervals sufficient for the robot to service all modules and thus avoid having to serve more than one module at a given time. However, the queues so derived must also be small enough to avoid excessive idling of modules. And there should be no queues at critical process modules or the gating module.</p>
+      <p id="p-00057-en">The set of queues will be solved for using Equation (2). This yields a system of linear equations<maths id="math-us-00004-en"><math><mrow><mrow><mrow><mo>(</mo><mrow><msubsup><mi>τ</mi><mi>i</mi><mo>*</mo></msubsup><mo>-</mo><msub><mi>τ</mi><mi>i</mi></msub></mrow><mo>)</mo></mrow><mo>=</mo><mrow><munderover><mo>[!Sum!]</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></munderover><mo>[!it!]</mo><mstyle><mtext> </mtext></mstyle><mo>[!it!]</mo><mrow><msub><mi>a</mi><mrow><mi>i</mi><mo>[!it!]</mo><mstyle><mtext> </mtext></mstyle><mo>[!it!]</mo><mi>j</mi></mrow></msub><mo>[!it!]</mo><msub><mi>q</mi><mi>j</mi></msub></mrow></mrow></mrow><mo>;</mo></mrow></math><img he="N/A" wi="N/A" img-format="tif" id="emi-m00004-en" file="US06678572-20040113-M00004.TIF" img-content="math" alt="embedded image" /></maths></p>
+      <p id="p-00058-en">where a<sub>ij</sub>is a lower triangular matrix with a<sub>ij</sub>=0, for i&lt;j; and a<sub>ij</sub>=1, for i≧j:<maths id="math-us-00005-en"><math><mtable><mtr><mtd><mrow><mrow><mo>[</mo><mtable><mtr><mtd><mrow><msubsup><mi>τ</mi><mn>1</mn><mo>*</mo></msubsup><mo>-</mo><msub><mi>τ</mi><mn>1</mn></msub></mrow></mtd></mtr><mtr><mtd><mrow><msubsup><mi>τ</mi><mn>2</mn><mo>*</mo></msubsup><mo>-</mo><msub><mi>τ</mi><mn>2</mn></msub></mrow></mtd></mtr><mtr><mtd><mrow><msubsup><mi>τ</mi><mn>3</mn><mo>*</mo></msubsup><mo>-</mo><msub><mi>τ</mi><mn>3</mn></msub></mrow></mtd></mtr><mtr><mtd><mrow><msubsup><mi>τ</mi><mn>4</mn><mo>*</mo></msubsup><mo>-</mo><msub><mi>τ</mi><mn>4</mn></msub></mrow></mtd></mtr><mtr><mtd><mi>[!ctdot!]</mi></mtd></mtr><mtr><mtd><mrow><msubsup><mi>τ</mi><mrow><mi>N</mi><mo>-</mo><mn>1</mn></mrow><mo>*</mo></msubsup><mo>-</mo><msub><mi>τ</mi><mrow><mi>N</mi><mo>-</mo><mn>1</mn></mrow></msub></mrow></mtd></mtr><mtr><mtd><mrow><msubsup><mi>τ</mi><mi>N</mi><mo>*</mo></msubsup><mo>-</mo><msub><mi>τ</mi><mi>N</mi></msub></mrow></mtd></mtr></mtable><mo>]</mo></mrow><mo>=</mo><mrow><mrow><mo>[</mo><mtable><mtr><mtd><mn>1</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mn>1</mn></mtd><mtd><mn>1</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mn>1</mn></mtd><mtd><mn>1</mn></mtd><mtd><mn>1</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mn>1</mn></mtd><mtd><mn>1</mn></mtd><mtd><mn>1</mn></mtd><mtd><mn>1</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mi>[!ctdot!]</mi></mtd><mtd><mi>[!ctdot!]</mi></mtd><mtd><mi>[!ctdot!]</mi></mtd><mtd><mi>[!ctdot!]</mi></mtd><mtd><mi>[!ctdot!]</mi></mtd><mtd><mi>[!ctdot!]</mi></mtd><mtd><mi>[!ctdot!]</mi></mtd><mtd><mi>[!ctdot!]</mi></mtd></mtr><mtr><mtd><mn>1</mn></mtd><mtd><mn>1</mn></mtd><mtd><mn>1</mn></mtd><mtd><mn>1</mn></mtd><mtd><mn>1</mn></mtd><mtd><mn>1</mn></mtd><mtd><mn>1</mn></mtd><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mn>1</mn></mtd><mtd><mn>1</mn></mtd><mtd><mn>1</mn></mtd><mtd><mn>1</mn></mtd><mtd><mn>1</mn></mtd><mtd><mn>1</mn></mtd><mtd><mn>1</mn></mtd><mtd><mn>1</mn></mtd></mtr></mtable><mo>]</mo></mrow><mo>×</mo><mrow><mo>[</mo><mtable><mtr><mtd><msub><mi>q</mi><mn>1</mn></msub></mtd></mtr><mtr><mtd><msub><mi>q</mi><mn>2</mn></msub></mtd></mtr><mtr><mtd><msub><mi>q</mi><mn>3</mn></msub></mtd></mtr><mtr><mtd><msub><mi>q</mi><mn>4</mn></msub></mtd></mtr><mtr><mtd><mi>[!ctdot!]</mi></mtd></mtr><mtr><mtd><msub><mi>q</mi><mrow><mi>N</mi><mo>-</mo><mn>1</mn></mrow></msub></mtd></mtr><mtr><mtd><msub><mi>q</mi><mi>N</mi></msub></mtd></mtr></mtable><mo>]</mo></mrow></mrow></mrow></mtd><mtd><mrow><mo>(</mo><mn>3</mn><mo>)</mo></mrow></mtd></mtr></mtable></math><img he="N/A" wi="N/A" img-format="tif" id="emi-m00005-en" file="US06678572-20040113-M00005.TIF" img-content="math" alt="embedded image" /></maths></p>
+      <p id="p-00059-en">The constraint that no delays should occur at critical modules is now applied to Equation (3). For example if module #3 and #4 are critical, Equation (3) should be modified to the linear equations as shown below.<maths id="math-us-00006-en"><math><mtable><mtr><mtd><mrow><mrow><mo>[</mo><mtable><mtr><mtd><mrow><msubsup><mi>τ</mi><mn>1</mn><mo>*</mo></msubsup><mo>-</mo><msub><mi>τ</mi><mn>1</mn></msub></mrow></mtd></mtr><mtr><mtd><mrow><msubsup><mi>τ</mi><mn>2</mn><mo>*</mo></msubsup><mo>-</mo><msub><mi>τ</mi><mn>2</mn></msub></mrow></mtd></mtr><mtr><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mi>[!ctdot!]</mi></mtd></mtr><mtr><mtd><mi>[!ctdot!]</mi></mtd></mtr><mtr><mtd><mrow><msubsup><mi>τ</mi><mrow><mi>N</mi><mo>-</mo><mn>1</mn></mrow><mo>*</mo></msubsup><mo>-</mo><msub><mi>τ</mi><mrow><mi>N</mi><mo>-</mo><mn>1</mn></mrow></msub></mrow></mtd></mtr><mtr><mtd><mrow><msubsup><mi>τ</mi><mi>N</mi><mo>*</mo></msubsup><mo>-</mo><msub><mi>τ</mi><mi>N</mi></msub></mrow></mtd></mtr></mtable><mo>]</mo></mrow><mo>=</mo><mrow><mrow><mo>[</mo><mtable><mtr><mtd><mn>1</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mn>1</mn></mtd><mtd><mn>1</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>1</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>1</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mi>[!ctdot!]</mi></mtd><mtd><mi>[!ctdot!]</mi></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mi>[!ctdot!]</mi></mtd><mtd><mi>[!ctdot!]</mi></mtd><mtd><mi>[!ctdot!]</mi></mtd><mtd><mi>[!ctdot!]</mi></mtd></mtr><mtr><mtd><mi>[!ctdot!]</mi></mtd><mtd><mi>[!ctdot!]</mi></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mi>[!ctdot!]</mi></mtd><mtd><mi>[!ctdot!]</mi></mtd><mtd><mi>[!ctdot!]</mi></mtd><mtd><mi>[!ctdot!]</mi></mtd></mtr><mtr><mtd><mn>1</mn></mtd><mtd><mn>1</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>1</mn></mtd><mtd><mn>1</mn></mtd><mtd><mn>1</mn></mtd><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mn>1</mn></mtd><mtd><mn>1</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>1</mn></mtd><mtd><mn>1</mn></mtd><mtd><mn>1</mn></mtd><mtd><mn>1</mn></mtd></mtr></mtable><mo>]</mo></mrow><mo>×</mo><mrow><mo>[</mo><mtable><mtr><mtd><msub><mi>q</mi><mn>1</mn></msub></mtd></mtr><mtr><mtd><msub><mi>q</mi><mn>2</mn></msub></mtd></mtr><mtr><mtd><msub><mi>q</mi><mn>3</mn></msub></mtd></mtr><mtr><mtd><msub><mi>q</mi><mn>4</mn></msub></mtd></mtr><mtr><mtd><mi>[!ctdot!]</mi></mtd></mtr><mtr><mtd><mi>[!ctdot!]</mi></mtd></mtr><mtr><mtd><msub><mi>q</mi><mrow><mi>N</mi><mo>-</mo><mn>1</mn></mrow></msub></mtd></mtr><mtr><mtd><msub><mi>q</mi><mi>N</mi></msub></mtd></mtr></mtable><mo>]</mo></mrow></mrow></mrow></mtd><mtd><mrow><mo>(</mo><mn>4</mn><mo>)</mo></mrow></mtd></mtr></mtable></math><img he="N/A" wi="N/A" img-format="tif" id="emi-m00006-en" file="US06678572-20040113-M00006.TIF" img-content="math" alt="embedded image" /></maths></p>
+      <p id="p-00060-en">In Equation (4) above, the timings τ<sub>i</sub>as prescribed by the original recipe are known. The target timings τ<sub>i</sub>* are set to values which eliminate conflicts between all modules using the same robot, as described earlier. Thus LHS of Equation (4) are known values. The vector q<sub>i</sub>is then solved for by pre-multiplying (τ<sub>i</sub>*—τ<sub>i</sub>) with the inverse of the modified constraint matrix as shown in Equation (5) below. Adding this set of q<sub>i</sub>to the corresponding module process time p<sub>i</sub>will synchronize wafer transport with wafer process.<maths id="math-us-00007-en"><math><mtable><mtr><mtd><mrow><mrow><mo>[</mo><mtable><mtr><mtd><msub><mi>q</mi><mn>1</mn></msub></mtd></mtr><mtr><mtd><msub><mi>q</mi><mn>2</mn></msub></mtd></mtr><mtr><mtd><msub><mi>q</mi><mn>3</mn></msub></mtd></mtr><mtr><mtd><msub><mi>q</mi><mn>4</mn></msub></mtd></mtr><mtr><mtd><mi>[!ctdot!]</mi></mtd></mtr><mtr><mtd><mi>[!ctdot!]</mi></mtd></mtr><mtr><mtd><msub><mi>q</mi><mrow><mi>N</mi><mo>-</mo><mn>1</mn></mrow></msub></mtd></mtr><mtr><mtd><msub><mi>q</mi><mi>N</mi></msub></mtd></mtr></mtable><mo>]</mo></mrow><mo>=</mo><mrow><mrow><mo>[</mo><mtable><mtr><mtd><mn>1</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mn>1</mn></mtd><mtd><mn>1</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>1</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>1</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mi>[!ctdot!]</mi></mtd><mtd><mi>[!ctdot!]</mi></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mi>[!ctdot!]</mi></mtd><mtd><mi>[!ctdot!]</mi></mtd><mtd><mi>[!ctdot!]</mi></mtd><mtd><mi>[!ctdot!]</mi></mtd></mtr><mtr><mtd><mi>[!ctdot!]</mi></mtd><mtd><mi>[!ctdot!]</mi></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mi>[!ctdot!]</mi></mtd><mtd><mi>[!ctdot!]</mi></mtd><mtd><mi>[!ctdot!]</mi></mtd><mtd><mi>[!ctdot!]</mi></mtd></mtr><mtr><mtd><mn>1</mn></mtd><mtd><mn>1</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>1</mn></mtd><mtd><mn>1</mn></mtd><mtd><mn>1</mn></mtd><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mn>1</mn></mtd><mtd><mn>1</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>1</mn></mtd><mtd><mn>1</mn></mtd><mtd><mn>1</mn></mtd><mtd><mn>1</mn></mtd></mtr></mtable><mo>]</mo></mrow><mo>×</mo><mrow><mo>[</mo><mtable><mtr><mtd><mrow><msubsup><mi>τ</mi><mn>1</mn><mo>*</mo></msubsup><mo>-</mo><msub><mi>τ</mi><mn>1</mn></msub></mrow></mtd></mtr><mtr><mtd><mrow><msubsup><mi>τ</mi><mn>2</mn><mo>*</mo></msubsup><mo>-</mo><msub><mi>τ</mi><mn>2</mn></msub></mrow></mtd></mtr><mtr><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mi>[!ctdot!]</mi></mtd></mtr><mtr><mtd><mi>[!ctdot!]</mi></mtd></mtr><mtr><mtd><mrow><msubsup><mi>τ</mi><mrow><mi>N</mi><mo>-</mo><mn>1</mn></mrow><mo>*</mo></msubsup><mo>-</mo><msub><mi>τ</mi><mrow><mi>N</mi><mo>-</mo><mn>1</mn></mrow></msub></mrow></mtd></mtr><mtr><mtd><mrow><msubsup><mi>τ</mi><mi>N</mi><mo>*</mo></msubsup><mo>-</mo><msub><mi>τ</mi><mi>N</mi></msub></mrow></mtd></mtr></mtable><mo>]</mo></mrow></mrow></mrow></mtd><mtd><mrow><mo>(</mo><mn>5</mn><mo>)</mo></mrow></mtd></mtr></mtable></math><img he="N/A" wi="N/A" img-format="tif" id="emi-m00007-en" file="US06678572-20040113-M00007.TIF" img-content="math" alt="embedded image" /></maths></p>
+      <heading level="2">An Application of the Synchronous Algorithm</heading>
+      <p id="p-00061-en">Specific embodiments of the invention will now be further described by the following, nonlimiting example which will serve to illustrate in some detail various features of significance. The example is intended merely to facilitate an understanding of ways in which the invention may be practiced and to further enable those of skill in the art to practice the invention. Accordingly, the example should not be construed as limiting the scope of the invention.</p>
+      <p id="p-00062-en">The synchronization of wafer transport with wafer process in a cluster tool will now be illustrated using a specific example of a cluster tool.<figref>FIG. 3</figref>is a schematic for a conceptual plan view of a wafer processing apparatus. The resist coating and developing modules are identified as CT<b>300</b>and DEV<b>302</b>respectively. Also shown in<figref>FIG. 3</figref>are the different bake modules vapor prime (VP)<b>304</b>, soft bake (SB)<b>306</b>, post exposure bake (PEB)<b>308</b>, and hard bake (HB)<b>310</b>, as well as their corresponding chill modules. The arrows connecting adjacent bake and chill modules represent the inter bay transfer arms, IBTAs<b>312</b>, that transfer the substrate between these modules. As a result, the locations of these bake modules constrain the location of their corresponding chill plate. The cassette end station (CES) robot<b>314</b>shown in the figure transfers substrates from and to the cassette end station. The stepper interface (SI) robot<b>316</b>transfers substrate from and to the stepper interface. The I/O module<b>318</b>is a buffer zone for the substrate transported to the stepper interface if and when it becomes necessary. The main robot<b>320</b>is the means to transport the substrate between all other modules such as vapor prime chill (VPC) to resist coat (CT.)</p>
+      <p id="p-00063-en">
+        <figref>FIG. 4</figref>is a schematic for the wafer process flow. As can be seen from the schematic, when the transport means is the IBTA the substrate will have only one option in the flow diagram. This is the case when the substrate is transported from a vapor prime bake<b>400</b>to vapor prime chill<b>402</b>. However, when the transport means is the main robot the substrate could have several options. For example, when a substrate is removed from a resist coat module<b>404</b>, it can be transported to any of the soft bake modules<b>406</b>shown in FIG.<b>4</b>.</p>
+      <heading level="2">The Synchronization Algorithm</heading>
+      <p id="p-00064-en">We will now demonstrate the application of the synchronization algorithm to this cluster tool as a series of four steps:</p>
+      <p id="p-00065-en">Step 1 Input The Recipe And Throughput Requirement. This discussion refers to FIG.<b>5</b>. This step commences by inserting the recipe in a table<b>500</b>. The first two columns<b>502</b>list the process steps in sequential order. The sending period, also referred to as the “system takt time” is also noted<b>504</b>. Cycle times, also known as module takt times, are then calculated for each module in the “Module type” column<b>502</b>to ensure each module takt time is less than the system takt time. The module takt time for each process step is listed in a column<b>506</b>. If not, redundant modules are added to reduce module takt time. As will be clear to one skilled in the art, for each process step:</p>
+      <p id="p-00066-en">No. Modules Required=INT (Module takt time/System takt time)</p>
+      <p id="p-00067-en">In this example, most modules require one additional redundant module. The number of modules required for each process step is listed in a column<b>508</b>.</p>
+      <p id="p-00068-en">Step 2 Determine The Load of The Wafer Transport. As defined earlier, the “load” of a robot refers to the number of moves it is scheduled to make as well as the times allotted for the robot to perform these moves, as measured from the beginning of the current sending period. The determination of the robot load is depicted in the table<b>600</b>in FIG.<b>6</b>. This cluster apparatus of this example has twelve process steps. The timings of the twelve corresponding robot moves are determined as follows. Counting the time from the moment the wafer leaves the load port (cassette), cumulate the process times of each module and transport times up to the module of interest. For example, for the module code-named VP<b>602</b>(hereafter all modules are coded), it is (62+6)=68 sec; for module VPC<b>604</b>, it is (68+65+5)=138 sec. The actual timings in seconds for all robot moves are listed in a column marked “Actual”<b>606</b>. To determine the relative pick-up times T<sub>i</sub>, the actual times are divided by the actual sending period. For example, dividing the actual pick-up times of VP and VPC by the actual sending period of 45 sec results, respectively, in normalized pick-up times 1.511 and 3.067. The normalized pick-up times for each of the twelve process steps are listed under the column “T<sub>i</sub>Normalized”<b>608</b>.</p>
+      <p id="p-00069-en">Subtracting the integer portion of the T<sub>i</sub>values results in the τ<sub>i</sub>values, i.e., the available time the respective modules have to be served by robots, as measured from the beginning of sending period, and expressed in units of one sending period. To illustrate, the τ<sub>i</sub>values of VP and VPC are 0.511 and 0.067, which indicates that VP must be serviced within 0.511 intervals of one sending period, and VPC must be serviced within 0.067 intervals of one sending period. The list of normalized τ<sub>i</sub>values are listed in a column<b>610</b>. The diagram<b>612</b>is a pictorial representation of the load: a total of twelve moves and the time they have to be served within a sending period.<figref>FIG. 7</figref>shows the same information from another perspective. Since the robot transport times are around 5 &amp; 6 seconds, the number of moves one robot can make within a sending period of 45 sec is (45/6)˜7; say 6 moves to be on the conservative side. Thus 6 vertical lines are drawn in the graph<b>700</b>. When the times the modules have to be served by a robot fall within one interval, such as SBC<b>702</b>, DEV<b>704</b>, HB<b>706</b>, and Cassette<b>708</b>, all of which fall into one interval<b>710</b>, it means that they are competing for the same move of the robot at a given time. To elaborate, if there are two or more tasks which use one robot, and if the τ values of these tasks fall into one of the 6 intervals, it means that there is insufficient time for the robot to service each of the two or more robots.</p>
+      <p id="p-00070-en">These “conflicts” between the tasks for use of the robots are resolved as described in the subsequent steps.</p>
+      <p id="p-00071-en">Step 3 Allocate The Transport Load. The first step to resolve conflicts in the manufacturing system is to allocate the load equally among robots in order to achieve a balanced transport load. Although conflicts are recipe dependent, assigning fewer loads per robot still reduces the chance for conflict. However, the possibility of balancing the load is dependent on the layout of the modules relative to robots. Poor layout limits accessibility to modules by robots and makes balanced loads difficult to attain. In this example, the layout is such that two robots, CES and SI, can each only serve two modules, leaving the bulk of the load to the main robot C-1 and three dedicated robots known as IBTA (Inter Bay Transfer Arm). The best allocation of transport load, under the constraints of the layout, is as shown in FIG.<b>7</b>. Six modules, VPC<b>712</b>, CT<b>714</b>, SBC<b>716</b>, PEBC<b>718</b>, DEV<b>720</b>, and HB<b>722</b>are allocated to the main robot C-1 with three of them, SBC, DEV and HB competing for one move of the robot, as discussed earlier. These conflicts will be resolved by queuing as demonstrated in the next step.</p>
+      <p id="p-00072-en">Step 4 Queuing For Synchronization. The information in the table<b>800</b>of<figref>FIG. 8</figref>is a summary of load allocation from Step 3. Only the six modules served by main robot C-1, i.e., VPC<b>802</b>, CT<b>804</b>, SBC<b>806</b>, PEBC<b>808</b>, DEV<b>810</b>, and HB<b>812</b>, need to be considered for queuing. The remaining modules should not experience conflicts since each has dedicated robot, i.e., an IBTA, serving them. In the Target Column<b>814</b>, the target timing profile is set for the 6 modules. For each of the modules listed in the table, a corresponding value is set for τ*, where τ* is an updated value for τ which eliminates conflicts between tasks for robots. Since only 3 of these 6 modules, SBC<b>806</b>, DEV<b>810</b>, and HB<b>812</b>are in conflict, only two, DEV and HB, need to have timing targets different from the original values for τ prescribed by the recipe. The timing targets are listed in a column<b>814</b>, and are set such that the timing interval between any pair of the 6 modules is larger than robot transport time (=6/45˜0.1333). The differences between the target and the originally prescribed timing profiles are referred to as the gaps and are computed the column<b>816</b>. These are shown pictorially in the graph<b>818</b>adjacent to the table. Another objective of the “synchronous algorithm” is to ensure that no delays are introduced at critical process steps. In this example, critical process steps are step 3<b>804</b>, step 4<b>806</b>, and step 7<b>809</b>. No queues should be added to modules corresponding to these steps, i.e., the target timing for these modules should be the same as the prescribed values. The gaps computed in the Gap column<b>816</b>may now be substituted in to Equation (3) to solve for the queues that will close these gaps. However, to ensure zero delays at the critical process modules, the matrix<b>818</b>relating gaps and queues must be modified per Equation (4) to generate a modified matrix<b>820</b>. Pre-multiplying the gaps from the Gap column<b>816</b>with the inverse of the modified matrix<b>822</b>produces the queues needed to close the gap<b>824</b>. The solution for the queues is transferred to a Que Column<b>826</b>. The solution, which is in units of the sending period, is converted to actual time in an Actual Que Column<b>828</b>.</p>
+      <p id="p-00073-en">Step 5 Check The Solution. The queues determined in Step 4 are now added to the module processing time of the original recipe. This is to verify if conflicts have been resolved. This is in fact the case as shown in the figure.</p>
+      <p id="p-00074-en">Robot Assignment</p>
+      <p id="p-00075-en">Another aspect of the scheduling problem, which merits automation, is the assignment of robots to modules. For example, in step three listed above, a recipe was chosen which assigned a single robot between each pair of consecutive models; this allocation is shown in the recipe listed in FIG.<b>7</b>. The allocation was chosen amongst many possible allocations.</p>
+      <p id="p-00076-en">In general, there is a need for an algorithm that determines an optimal robot assignment prior to the determination of queues. The need for such an algorithm will be demonstrated in the following example. Suppose we have a simplified track system, consisting of three modules, labeled Mod<b>1</b>, Mod<b>2</b>and Mod<b>3</b>. Suppose we have two robots, Robot<b>1</b>and Robot<b>2</b>, both of which can service all three modules. Let the sending period be designated by the variable SP. Suppose τ<sub>1</sub>=0.0, τ<sub>2</sub>=0.6, τ<sub>3</sub>=0.7, in units of the sending period, and suppose the robots can move in 0.3, in units of SP. There are four possible robot allocations:<tables id="table-us-00001-en"><table frame="none" colsep="0" rowsep="0"><tgroup cols="3" colsep="0" rowsep="0" align="left"><colspec colname="1" colwidth="77pt" align="center" /><colspec colname="2" colwidth="49pt" align="center" /><colspec colname="3" colwidth="91pt" align="center" /><thead><row><entry namest="1" nameend="3" align="center" rowsep="1" /></row><row><entry>Assignment</entry><entry>Mod1 to Mod 2</entry><entry>Mod2 to Mod3</entry></row><row><entry namest="1" nameend="3" align="center" rowsep="1" /></row></thead><tbody valign="top"><row><entry>1.</entry><entry>Robot1</entry><entry>Robot1</entry></row><row><entry>2.</entry><entry>Robot2</entry><entry>Robot2</entry></row><row><entry>3.</entry><entry>Robot1</entry><entry>Robot2</entry></row><row><entry>4.</entry><entry>Robot2</entry><entry>Robot1</entry></row><row><entry namest="1" nameend="3" align="center" rowsep="1" /></row></tbody></tgroup></table></tables></p>
+      <p id="p-00077-en">Upon inspection, only assignments<b>3</b>and<b>4</b>are viable. In assignments<b>1</b>and<b>2</b>, the time interval between τ<sub>2</sub>=0.6 and τ<sub>3</sub>=0.7 is 0.1 sending periods, which is less than the 0.3 sending periods required for a robot to move. Hence the optimal allocations are, in this case, assignment #3 and #4; as the time intervals between the values have sufficient distance, this robot assignment obviates the need to insert delays. Other criteria may also enter into the determination of an optimal robot assignment, for instance, balancing loads, increasing throughput. An algorithm is necessary which would determine, in cases more complicated than the simplified example above, an optimal robot assignment.</p>
+      <p id="p-00078-en">One method of performing such an assignment is simply an exhaustive technique: generate all possible robot assignments, and determine the validity of each assignment, i.e., ensure that all modules assigned to a robot differ sufficiently in their τ values to permit the robot to service them. The assignments thus generated may also be selected on additional criteria, such as load balancing.</p>
+      <p id="p-00079-en">Solving for Updated Timings (τ*)</p>
+      <p id="p-00080-en">Another feature of the synchronization that merits automation is the derivation of the updated timings, given by τ*. To elaborate, in step 4 of the algorithm outlined earlier, the algorithm was fed updated values of τ*, where for any two modules which shared a robot, the respective τ* values differed by enough time to allow the robot to move between them. There is a need for an automated method of deriving these τ* values. One such technique is as follows:</p>
+      <p id="p-00081-en">For each robot with a conflict, take the τ value for each of its modules.</p>
+      <p id="p-00082-en">For each combination of these τ values, sort the τ values from lowest to highest. For each sorted list of τ values:</p>
+      <p id="p-00083-en">Proceed sequentially through the τ values, from lowest to highest.</p>
+      <p id="p-00084-en">Determine the difference between the given τ value and the one that precedes it</p>
+      <p id="p-00085-en">If the difference is less than the time allotted for the robot to move, increment the τ value sufficiently.</p>
+      <p id="p-00086-en">Go to next τ value. When this algorithm finds an updated set of τ values for a given robot that eliminates conflicts, these become τ* values. It can be proven that if a conflict-free group of τ* values exist, the algorithm outlined above will find it.</p>
+      <p id="p-00087-en">Genetic Algorithms</p>
+      <p id="p-00088-en">The synchronization, robot assignment, and derivation problems can also be solved by use of a genetic algorithm (GA). A GA is an iterative process that starts out with an initial population of genes, which encode possible states of the problem. This population is systematically improved with each iteration, through a process of selective breeding. To perform selective breeding, the GA needs to a) define the characteristics of a species, and b) judge a species' fitness.</p>
+      <p id="p-00089-en">Characteristics of a Species</p>
+      <p id="p-00090-en">A specie is characterized by n genes. For our problem, we use two types of genes, one to represent the robot assignment, and the other, a queue segment. Consider the example used in the description of the earlier algorithm. The robot assignment will range from 1 to 4, indicating which robot will work on a particular module. Queue segment is also an integer indicating how many “time zones”, i.e., robot move periods, are to be added to a module's arrival time in order to avoid conflict in robot assignment. In our earlier example, the modules arrive in six different time zones, as shown in<figref>FIG. 6</figref><b>612</b>. If a time zone sees the arrival of, for instance, five modules, a conflict results. The addition of a queue segment to one of the modules will push the arrival time to the next time zone and hence resolve the conflict.</p>
+      <p id="p-00091-en">Fitness of a Species</p>
+      <p id="p-00092-en">We can measure fitness by the reciprocal of a species ‘badness’. In turn, badness can be measured by a weighted sum of the degree of conflict and the number of added queue segments. An ideal species is one that has no added segments, and results in no conflict in robot assignment.</p>
+      <p id="p-00093-en">To derive the fitness function, we scan each time zone and count the number of redundant assignments for each robot. The results are summed for all robots and all time zones. Call this sum s. We proceed to count the number of added queue segments, and call it t. The fitness function is then<maths id="math-us-00008-en"><math><mrow><mrow><mrow><mi>f</mi><mo>[!it!]</mo><mrow><mo>(</mo><mrow><mi>s</mi><mo>,</mo><mi>t</mi></mrow><mo>)</mo></mrow></mrow><mo>=</mo><mfrac><mn>1</mn><mrow><mo>(</mo><mrow><mn>1</mn><mo>+</mo><mrow><msub><mi>w</mi><mn>1</mn></msub><mo>[!it!]</mo><mi>s</mi></mrow><mo>+</mo><mrow><msub><mi>w</mi><mn>2</mn></msub><mo>[!it!]</mo><mi>t</mi></mrow></mrow><mo>)</mo></mrow></mfrac></mrow><mo>;</mo></mrow></math><img he="N/A" wi="N/A" img-format="tif" id="emi-m00008-en" file="US06678572-20040113-M00008.TIF" img-content="math" alt="embedded image" /></maths></p>
+      <p id="p-00094-en">where the weights w<sub>i</sub>and w<sub>2</sub>are assigned according to the relative importance of s over t.</p>
+      <p id="p-00095-en">Recipe Cascading</p>
+      <p id="p-00096-en">An embodiment of the invention allows the cluster tool to change from a first recipe to a second recipe, while preserving periodicity, and ensuring that there are no delays at critical points. This procedure is referred to as recipe cascading. Cascading involves emptying a first lot of wafers, hereafter called the exiting lot, off a cluster tool, and simultaneously and serially populating the cluster tool with another lot of wafers, hereafter called the entering lot. The procedure will be performed with no delays incurred at critical process steps; and with no additional robots and process modules other than those called for by the recipe and throughput requirements of the entering and the exiting lots. The entering lot may also have different recipe and throughput requirements from the exiting lot.</p>
+      <p id="p-00097-en">Notation</p>
+      <p id="p-00098-en">The following parameters will be employed in our discussion of recipe cascading:</p>
+      <p id="p-00099-en">m<sup>ex</sup>=number of process steps, superscript (en, ex) hereafter denotes entering or exiting lot.</p>
+      <p id="p-00100-en">n<sup>ex</sup>=number of exiting wafers to fully empty, or of enter wafers to fully populate the cluster tool.</p>
+      <p id="p-00101-en">SP<sub>i</sub><sup>ex</sup>=Send period of the ith wafer which is the time interval between the launching of the (i−1)th and ith wafer.</p>
+      <p id="p-00102-en">SP<sub>*</sub><sup>ex</sup>=Send period of the wafers during steady state.</p>
+      <p id="p-00103-en">SP<sub>1st,j</sub><sup>en</sup>=The delay in the launching of the 1st wafer of the entering lot to accommodate the change-over at the jth process module of the exiting lot.</p>
+      <p id="p-00104-en">CO<sub>j</sub>=Time it takes to change the jth process module of the exiting lot over to a new setting.</p>
+      <p id="p-00105-en">T<sub>ijk</sub><sup>in</sup>=The arrival time of the ith wafer at the jth module transported by the kth robot.</p>
+      <p id="p-00106-en">T<sub>ijk</sub><sup>out</sup>=The departure time of the ith wafer from the jth module transported by the kth robot</p>
+      <p id="p-00107-en">p<sub>j</sub><sup>ex</sup>=Process time of jth process step of the exiting lot.</p>
+      <p id="p-00108-en">t<sub>j</sub><sup>ex</sup>=Transport time between (j−1)th and jth process step of the exiting lot.</p>
+      <p id="p-00109-en">q<sub>ij</sub><sup>ex</sup>=queues added to the ith wafer at the jth process step of the exiting lot.</p>
+      <p id="p-00110-en">Nature of Recipe Cascading</p>
+      <p id="p-00111-en">
+        <figref>FIG. 9</figref>illustrates a typical recipe<b>900</b>. It specifies the process and transport tasks and the timing of each task to be performed on a wafer as the wafer goes through a cluster tool. To satisfy throughput requirement, succeeding wafers are sent through the cluster tool at a constant send period, as illustrated in FIG.<b>10</b>. This send period SP<b>1000</b>is given by<maths id="math-us-00009-en"><math><mrow><mrow><mi>S</mi><mo>[!it!]</mo><mstyle><mtext> </mtext></mstyle><mo>[!it!]</mo><mi>P</mi></mrow><mo>=</mo><mfrac><mn>3600</mn><mrow><mi>W</mi><mo>[!it!]</mo><mstyle><mtext> </mtext></mstyle><mo>[!it!]</mo><mi>P</mi><mo>[!it!]</mo><mstyle><mtext> </mtext></mstyle><mo>[!it!]</mo><mi>H</mi></mrow></mfrac></mrow></math><img he="N/A" wi="N/A" img-format="tif" id="emi-m00009-en" file="US06678572-20040113-M00009.TIF" img-content="math" alt="embedded image" /></maths></p>
+      <p id="p-00112-en">where WPH is the throughput requirement in wafer per hour.</p>
+      <p id="p-00113-en">By the nth wafer, the cluster tool will be fully populated with wafers. For every wafer exiting the cluster tool, there is a wafer entering to replenish it. All process and transport tasks performed on the wafers occur in a periodic fashion, the periodicity being delimited by the send period. When the system reaches this stage, it is said to be in steady state. The number of wafers n required to fully populate the cluster tool and ramp up to a steady periodic state is given by the expression<maths id="math-us-00010-en"><math><mtable><mtr><mtd><mrow><mrow><mi>n</mi><mo>=</mo><mrow><mn>1</mn><mo>+</mo><mrow><mi>INT</mi><mo>[!af!]</mo><mrow><mo>(</mo><mfrac><mi>π</mi><mrow><mi>S</mi><mo>[!it!]</mo><mstyle><mtext> </mtext></mstyle><mo>[!it!]</mo><mi>P</mi></mrow></mfrac><mo>)</mo></mrow></mrow></mrow></mrow><mo>;</mo></mrow></mtd><mtd><mrow><mo>(</mo><mi>A</mi><mo>)</mo></mrow></mtd></mtr></mtable></math><img he="N/A" wi="N/A" img-format="tif" id="emi-m00010-en" file="US06678572-20040113-M00010.TIF" img-content="math" alt="embedded image" /></maths></p>
+      <p id="p-00114-en">where π is the total process and transport time performed on a wafer as indicated in<figref>FIG. 9</figref><b>902</b>. The symbol INT(*) denotes a function that rounds a number down to the nearest integer. The above equation also applies for the number of wafers for a lot to ramp down from a steady state and fully empty out the cluster tool. In the steady state, every wafer has identical process and transport tasks performed on it at identical time intervals. There is therefore no need to keep track of the movement of wafers inside the cluster tool.</p>
+      <p id="p-00115-en">During the recipe cascading, however, the wafers are in transition from the steady state of the exiting lot to the steady state of the entering lot, as illustrated in FIG.<b>11</b>. During the transition, some wafers will be processed and transported according to the recipe and send period prescribed for the exiting lot; others, will be processed and transported according to the recipe prescribed for the entering lot. Periodicity therefore can not be maintained. “Conflicts” will occur. “Conflicts” refer to two situations. In one situation called process conflict, two wafers have to be processed sequentially by the same process module within an interval shorter than the process time of that step. In the other situation called transport conflict, two wafers have to be transported sequentially by the same robot within an interval shorter than the robot transport time.</p>
+      <p id="p-00116-en">One solution to conflicts is to add more modules and robots. This solution is costly and not practical. Another solution is to devise a set of priority rule and implement “if-then” algorithm to react to the conflicts. Because of its combinatorial nature, this solution generates huge combination of outcomes that eventually lead to chaos and unpredictability. The fundamental solution is to eliminate conflicts completely through proper timing in launching wafers of the entering lot and insertion of intentional delays at the non-critical process steps of both the exiting and entering lot. This is the principle behind recipe cascading described herein.</p>
+      <p id="p-00117-en">Procedure</p>
+      <p id="p-00118-en">Step 1: Estimate the number of wafers in transition. During transition, the exiting lot is emptying while the entering lot is populating the cluster tool. The number of wafers involved in the transition can be estimated by using Equation (A). The algorithm for the estimation is as follows.</p>
+      <p id="p-00119-en">π<sup>ex</sup>=0</p>
+      <p id="p-00120-en">For i=1, 2. . . m<sup>ex</sup></p>
+      <p id="p-00121-en">π<sup>ex</sup>=π<sup>ex</sup>+p<sub>i</sub><sup>ex</sup>+t<sub>i</sub><sup>ex</sup></p>
+      <p id="p-00122-en">Next i</p>
+      <p id="p-00123-en">n<sup>ex</sup>=INT(π<sup>ex</sup>/SP<sub>*</sub><sup>ex</sup>)</p>
+      <p id="p-00124-en">π<sup>en</sup>=0</p>
+      <p id="p-00125-en">For i=1, 2. . . n<sup>en</sup></p>
+      <p id="p-00126-en">π<sup>en</sup>=π<sup>en</sup>+p<sub>i</sub><sup>en</sup>+t<sub>i</sub><sup>en</sup></p>
+      <p id="p-00127-en">Next i</p>
+      <p id="p-00128-en">n<sup>en</sup>=INT(π<sup>en</sup>/SP<sub>*</sub><sup>en</sup>)</p>
+      <p id="p-00129-en">Step 2: Estimate the lower bound of “delay”. The timing of launching the wafers of the entering lot is a primary variable responsible for conflict occurrence. Therefore proper timing of the launches is important. Additionally, the timing of launching the first wafer, hereafter called the “delay”, should be such that it provides the time needed to change a process module over to a new setting called for by the entering lot. So that when the first wafer of the entering lot arrives, the change over is complete and the process module is ready to accept it. There will be as many “delays” as the number of module change over called for by the recipe of the entering lot. The maximum of them is the lower bound of the delay. Any amount of delay contemplated for conflict resolution must be greater than the lower bound. Referring to<figref>FIG. 12</figref>, the lower bound can be derived as follows.<maths id="math-us-00011-en"><math><mtable><mtr><mtd><mrow><mrow><mrow><msubsup><mi>SP</mi><mrow><mrow><mn>1</mn><mo>[!it!]</mo><mstyle><mtext> </mtext></mstyle><mo>[!it!]</mo><mi>st</mi></mrow><mo>,</mo><mi>j</mi></mrow><mi>en</mi></msubsup><mo>+</mo><mrow><munderover><mo>[!Sum!]</mo><mrow><mi>l</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>j</mi><mo>-</mo><mn>1</mn></mrow></munderover><mo>[!it!]</mo><mstyle><mtext> </mtext></mstyle><mo>[!it!]</mo><mrow><mo>(</mo><mrow><msubsup><mi>p</mi><mi>l</mi><mi>en</mi></msubsup><mo>+</mo><msubsup><mi>t</mi><mi>l</mi><mi>en</mi></msubsup></mrow><mo>)</mo></mrow></mrow></mrow><mo>=</mo><mrow><msub><mi>CO</mi><mi>j</mi></msub><mo>+</mo><mrow><munderover><mo>[!Sum!]</mo><mrow><mi>l</mi><mo>=</mo><mn>1</mn></mrow><mi>j</mi></munderover><mo>[!it!]</mo><mstyle><mtext> </mtext></mstyle><mo>[!it!]</mo><mrow><mo>(</mo><mrow><msubsup><mi>p</mi><mi>l</mi><mi>ex</mi></msubsup><mo>+</mo><msubsup><mi>t</mi><mi>l</mi><mi>ex</mi></msubsup></mrow><mo>)</mo></mrow></mrow></mrow></mrow><mo>[!it!]</mo><mstyle><mtext>[!NewLine!]</mtext></mstyle><mo>[!it!]</mo><mrow><msubsup><mi>SP</mi><mrow><mrow><mn>1</mn><mo>[!it!]</mo><mstyle><mtext> </mtext></mstyle><mo>[!it!]</mo><mi>st</mi></mrow><mo>,</mo><mi>j</mi></mrow><mi>en</mi></msubsup><mo>=</mo><mrow><msub><mi>CO</mi><mi>j</mi></msub><mo>+</mo><mrow><munderover><mo>[!Sum!]</mo><mrow><mi>l</mi><mo>=</mo><mn>1</mn></mrow><mi>j</mi></munderover><mo>[!it!]</mo><mstyle><mtext> </mtext></mstyle><mo>[!it!]</mo><mrow><mo>(</mo><mrow><msubsup><mi>p</mi><mi>l</mi><mi>ex</mi></msubsup><mo>+</mo><msubsup><mi>t</mi><mi>l</mi><mi>ex</mi></msubsup></mrow><mo>)</mo></mrow></mrow><mo>-</mo><mrow><munderover><mo>[!Sum!]</mo><mrow><mi>l</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>j</mi><mo>-</mo><mn>1</mn></mrow></munderover><mo>[!it!]</mo><mstyle><mtext> </mtext></mstyle><mo>[!it!]</mo><mrow><mo>(</mo><mrow><msubsup><mi>p</mi><mi>l</mi><mi>en</mi></msubsup><mo>+</mo><msubsup><mi>t</mi><mi>l</mi><mi>en</mi></msubsup></mrow><mo>)</mo></mrow></mrow></mrow></mrow><mo>[!it!]</mo><mstyle><mtext>[!NewLine!]</mtext></mstyle><mo>[!it!]</mo><msubsup><mi>SP</mi><mrow><mrow><mn>1</mn><mo>[!it!]</mo><mstyle><mtext> </mtext></mstyle><mo>[!it!]</mo><mi>st</mi></mrow><mo>[!it!]</mo><msup><mo>,</mo><mo>*</mo></msup></mrow><mi>en</mi></msubsup><mo>=</mo><mrow><mi>max</mi><mo>[!af!]</mo><mrow><mo>(</mo><mrow><msubsup><mi>SP</mi><mrow><mrow><mn>1</mn><mo>[!it!]</mo><mi>st</mi></mrow><mo>,</mo><mn>1</mn></mrow><mi>en</mi></msubsup><mo>,</mo><msubsup><mi>SP</mi><mrow><mrow><mn>1</mn><mo>[!it!]</mo><mi>st</mi></mrow><mo>,</mo><mn>2</mn></mrow><mi>en</mi></msubsup><mo>,</mo><msubsup><mi>SP</mi><mrow><mrow><mn>1</mn><mo>[!it!]</mo><mi>st</mi></mrow><mo>,</mo><mn>3</mn></mrow><mi>en</mi></msubsup><mo>,</mo><mrow><mi>…</mi><mo>[!it!]</mo><mstyle><mtext> </mtext></mstyle><mo>[!it!]</mo><msubsup><mi>SP</mi><mrow><mrow><mn>1</mn><mo>[!it!]</mo><mi>st</mi></mrow><mo>,</mo><mi>j</mi></mrow><mi>en</mi></msubsup></mrow><mo>,</mo><mstyle><mtext> </mtext></mstyle><mo>[!it!]</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mo>,</mo><mn>2</mn><mo>,</mo><mrow><mi>…</mi><mo>[!it!]</mo><mstyle><mtext> </mtext></mstyle><mo>[!it!]</mo><msup><mi>m</mi><mi>en</mi></msup></mrow><mo>,</mo></mrow><mo>)</mo></mrow></mrow></mrow></mtd><mtd><mrow><mo>(</mo><mi>B</mi><mo>)</mo></mrow></mtd></mtr></mtable></math><img he="N/A" wi="N/A" img-format="tif" id="emi-m00011-en" file="US06678572-20040113-M00011.TIF" img-content="math" alt="embedded image" /></maths></p>
+      <p id="p-00130-en">The following is the algorithm for estimating the lower bound of delay per Equation (B)</p>
+      <p id="p-00131-en">For j=1, 2. . . m<sup>en</sup></p>
+      <p id="p-00132-en">SP<sub>1st,j</sub><sup>en</sup>=CO<sub>j</sub></p>
+      <p id="p-00133-en">For l=1, 2. . . j</p>
+      <p id="p-00134-en">
+        <i>SP</i>
+        <sub>1st,j</sub>
+        <sup>en</sup>
+        <i>=SP</i>
+        <sub>1st,j</sub>
+        <sup>en</sup>+(<i>p</i><sub>l</sub><sup>ex</sup><i>+t</i><sub>l</sub><sup>ex</sup>)−(<i>p</i><sub>l</sub><sup>en</sup><i>+t</i><sub>l</sub><sup>en</sup>)</p>
+      <p id="p-00135-en">next l</p>
+      <p id="p-00136-en">
+        <i>SP</i>
+        <sub>1st,j</sub>
+        <sup>en</sup>
+        <i>=SP</i>
+        <sub>1st,j</sub>
+        <sup>en</sup>−(<i>p</i><sub>j</sub><sup>en</sup><i>+t</i><sub>j</sub><sup>en</sup>)</p>
+      <p id="p-00137-en">next j</p>
+      <p id="p-00138-en">SP<sub>1st,*</sub><sup>en</sup>=max(SP<sub>1st,1</sub><sup>en</sup>, SP<sub>1st,2</sub><sup>en</sup>, SP<sub>1st,3</sub><sup>en</sup>, SP<sub>1st,j</sub><sup>en</sup>, j=1, 2. . . m<sup>en</sup>,)</p>
+      <p id="p-00139-en">Step 3: Track the movement of wafers in transition. The movement of wafers in transition can be tracked. The arrival time T<sub>ijk</sub><sup>in</sup>of the ith wafer at the jth module transported by the kth robot is the departure time T<sub>i(j−1)k</sub><sup>out</sup>from the prior (j−1)th process module plus the transport time t<sub>j</sub>from the (j−1)th to the jth module:</p>
+      <p id="p-00140-en">
+        <i>T</i>
+        <sub>ijk</sub>
+        <sup>in</sup>
+        <i>=T</i>
+        <sub>i(j−1)k</sub>
+        <sup>out</sup>
+        <i>+t</i>
+        <sub>j</sub>  (C)</p>
+      <p id="p-00141-en">In turn, the departure time from the jth module is the arrival time plus the processing time and queues deliberately inserted for conflict resolution:</p>
+      <p id="p-00142-en">
+        <i>T</i>
+        <sub>ijk</sub>
+        <sup>out</sup>
+        <i>=T</i>
+        <sub>ijk</sub>
+        <sup>in</sup>
+        <i>+p</i>
+        <sub>j</sub>
+        <i>+q</i>
+        <sub>ij</sub>  (D)</p>
+      <p id="p-00143-en">The recursive formulae of Equations (C) and (D) above permit one to map out the movement of the wafers in transition. Thus, measuring time from when the last wafer of the exiting lot is launched and transition begun, see<figref>FIG. 11</figref>, the arrival and departure of a wafer at a process module can be calculated per the algorithm below. The arrival and departure times outside of the transition are not considered and therefore marked with large negative values. For wafers of the exiting lot, see FIG.<b>11</b>:</p>
+      <p id="p-00144-en">For i=1, 2. . . n<sup>ex</sup></p>
+      <p id="p-00145-en">T<sub>ijk</sub><sup>in</sup>=−∝</p>
+      <p id="p-00146-en">Sum=0</p>
+      <p id="p-00147-en">For j=1, 2. . . m<sup>ex</sup></p>
+      <p id="p-00148-en">Sum=Sum+<i>p</i><sub>j</sub><sup>ex</sup><i>+q</i><sub>ij</sub><sup>ex</sup>  (E)</p>
+      <p id="p-00149-en">
+        <i>T</i>
+        <sub>ijk</sub>
+        <sup>out</sup>=Sum−(<i>n</i><sup>ex</sup><i>−i</i>)*<i>SP</i><sub>*</sub><sup>ex</sup></p>
+      <p id="p-00150-en">if j=m<sup>ex</sup>, go to out</p>
+      <p id="p-00151-en">
+        <i>T</i>
+        <sub>i(j=1)k</sub>
+        <sup>in</sup>
+        <i>=T</i>
+        <sub>ijk</sub>
+        <sup>out</sup>
+        <i>+t</i>
+        <sub>j</sub>
+        <sup>ex</sup>
+      </p>
+      <p id="p-00152-en">if (<i>T</i><sub>i(j+1)k</sub><sup>in</sup>≦0<i>,−∝,T</i><sub>i(j−1)k</sub><sup>in</sup>)</p>
+      <p id="p-00153-en">if (<i>T</i><sub>ijk</sub><sup>out</sup>≦0<i>,−∝T</i><sub>ijk</sub><sup>out</sup>)</p>
+      <p id="p-00154-en">out: next j</p>
+      <p id="p-00155-en">next i</p>
+      <p id="p-00156-en">For wafers of the entering lot,</p>
+      <p id="p-00157-en">Sum=0</p>
+      <p id="p-00158-en">For<i>i</i>=(<i>n</i><sup>ex</sup>+1), (<i>n</i><sup>ex</sup>+2), . . . (<i>n</i><sup>ex</sup>−1<i>+n</i><sup>en</sup>), (<i>n</i><sup>ex</sup><i>+n</i><sup>en</sup>)</p>
+      <p id="p-00159-en">Sum=Sum+<i>SP</i><sub>i−n</sub><sub><sup2>ex</sup2></sub><sup>en</sup>(Note:<i>SP</i><sub>1</sub><sup>en</sup>≡delay)  (F)</p>
+      <p id="p-00160-en">Psum=Sum</p>
+      <p id="p-00161-en">For j=1, 2. . . m<sup>en</sup></p>
+      <p id="p-00162-en">Psum=Psum+<i>p</i><sub>j</sub><sup>en</sup><i>+q</i><sub>ij</sub><sup>en</sup><i>+t</i><sub>j</sub><sup>en</sup>  (G)</p>
+      <p id="p-00163-en">
+        <i>T</i>
+        <sub>ijk</sub>
+        <sup>out</sup>=Psum−<i>t</i><sub>j</sub><sup>en</sup></p>
+      <p id="p-00164-en">if j=m<sup>en</sup>, go to out<b>1</b></p>
+      <p id="p-00165-en">
+        <i>T</i>
+        <sub>i(j+1)k</sub>
+        <sup>in</sup>
+        <i>=t</i>
+        <sub>j</sub>
+        <sup>en</sup>
+      </p>
+      <p id="p-00166-en">Out<b>1</b>: next j</p>
+      <p id="p-00167-en">next i</p>
+      <p id="p-00168-en">Step 4: Identify conflicts. Having determined the arrival time T<sub>ijk</sub><sup>in</sup>and the departure time T<sub>ijk</sub><sup>out</sup>, one can check for conflicts. A process conflict occurs when a process module at the jth process step is called on to process sequentially a pair of wafer, the mth and the nth, within a time interval shorter than the process time. In other words, the nth wafer arrives before the mth wafer departs from the module. Thus conflict occurs if the following is true:</p>
+      <p id="p-00169-en">OR{AND[(<i>T</i><sub>mjk</sub><sup>out</sup><i>≧T</i><sub>njk</sub><sup>out</sup>),(<i>T</i><sub>njk</sub><sup>out</sup><i>≧T</i><sub>mjk</sub><sup>in</sup>)], AND[(<i>T</i><sub>mjk</sub><sup>out</sup><i>≦T</i><sub>njk</sub><sup>out</sup>),(<i>T</i><sub>mjk</sub><sup>out</sup><i>≧T</i><sub>njk</sub><sup>in</sup>)]}</p>
+      <p id="p-00170-en">By using above logic statement to examine all possible combination of (m,n) pairs for all process steps, all process conflicts may be identified:</p>
+      <p id="p-00171-en">For j=1 to (m<sup>ex</sup>+m<sup>en</sup>)</p>
+      <p id="p-00172-en">For m=1 to (n<sup>ex</sup>+n<sup>en</sup>)</p>
+      <p id="p-00173-en">For n=1 to m−1</p>
+      <p id="p-00174-en">Conflict if</p>
+      <p id="p-00175-en">OR{AND[(<i>T</i><sub>mjk</sub><sup>out</sup><i>≧T</i><sub>njk</sub><sup>out</sup>),(<i>T</i><sub>njk</sub><sup>out</sup><i>≧T</i><sub>mjk</sub><sup>in</sup>)], AND[(<i>T</i><sub>mjk</sub><sup>out</sup><i>≦T</i><sub>njk</sub><sup>out</sup>),(<i>T</i><sub>mjk</sub><sup>out</sup><i>≧T</i><sub>njk</sub><sup>in</sup>)]}=TRUE</p>
+      <p id="p-00176-en">next m</p>
+      <p id="p-00177-en">next n</p>
+      <p id="p-00178-en">Similarly, a transport conflict occurs when a robot, the kth robot, is called on to transport sequentially two wafers, the mth and the nth, within a time interval shorter than the transport time. In other words, the time interval between the arrival of the mth wafer and the departure of the nth wafer is shorter than the transport time. Thus transport conflict occurs if the following is true:</p>
+      <p id="p-00179-en">OR[|<i>T</i><sub>mjk</sub><sup>out</sup><i>−T</i><sub>njk</sub><sup>out</sup><i>|&lt;g,|T</i><sub>mjk</sub><sup>out</sup><i>−T</i><sub>njk</sub><sup>in</sup><i>|&lt;g,|T</i><sub>mjk</sub><sup>in</sup><i>−T</i><sub>njk</sub><sup>out</sup><i>|&lt;g,|T</i><sub>mjk</sub><sup>in</sup><i>−T</i><sub>njk</sub><sup>in</sup><i>|&lt;g]</i></p>
+      <p id="p-00180-en">In the above, the symbol |*| denotes absolute value and “g” is the time allocated for the robot to make one transport move. The time “g” is greater or equal to the transport time of the robot. By using above logic statement to examine all possible combination of (m,n) pairs for all process steps, all transport conflicts may be determined:</p>
+      <p id="p-00181-en">For j=1 to (m<sup>ex</sup>+m<sup>en</sup>)</p>
+      <p id="p-00182-en">For m=1 to (n<sup>ex</sup>+n<sup>en</sup>)</p>
+      <p id="p-00183-en">For n=1 to m−1</p>
+      <p id="p-00184-en">Conflict if</p>
+      <p id="p-00185-en">OR[|<i>T</i><sub>mjk</sub><sup>out</sup><i>−T</i><sub>njk</sub><sup>out</sup><i>|&lt;g,|T</i><sub>mjk</sub><sup>out</sup><i>−T</i><sub>njk</sub><sup>in</sup><i>|&lt;g,|T</i><sub>mjk</sub><sup>in</sup><i>−T</i><sub>njk</sub><sup>out</sup><i>|&lt;g,|T</i><sub>mjk</sub><sup>in</sup><i>−T</i><sub>njk</sub><sup>in</sup><i>|&lt;g]=TRUE</i></p>
+      <p id="p-00186-en">next m</p>
+      <p id="p-00187-en">next n</p>
+      <p id="p-00188-en">Step 5: Resolve conflict through proper queuing and launching. Note that in Equations (E) through (G), there are three yet undetermined variables used in the calculation of arrival and departure time of a wafer at a process module by a particular robot. These are the intentional delays called queues q<sub>ij</sub><sup>ex</sup>, q<sub>ij</sub><sup>en</sup>and the timing of launching the wafer of the entering lot SP<sub>j</sub><sup>en</sup>. Optimization procedures are used to find the best combination of these three variables such that there is no conflict and the total queues is minimized. Genetic Algorithms are one such optimization procedure. Others will be apparent to one skilled in the art.</p>
+      <p id="p-00189-en">The foregoing description of various embodiments of the invention has been presented for purposes of illustration and description. It is not intended to limit the invention to the precise forms disclosed. Many modifications and equivalent arrangements will be apparent.</p>
+    </detailed-desc>
+  </description>
+  <claims id="claims_eng" lang="eng" format="original" date-changed="20100409">
+    <claim num="1" id="clm-00001-en">
+      <claim-text>1. A method for wafer processing comprising:<claim-text>loading a first plurality of wafers into a wafer cluster tool, wherein the first plurality of wafers are loaded into the cluster tool individually at intervals delimited by a first sending period, and each wafer of the first plurality of wafers is processed according to a first recipe, the first recipe including</claim-text><claim-text>a first sequence of process steps</claim-text><claim-text>a first plurality of process times, wherein each process step in the first sequence of process steps has a corresponding process time in the first plurality of process times;</claim-text><claim-text>loading a second plurality of wafers into a wafer cluster tool, wherein the second plurality of wafers are loaded into the cluster tool individually at intervals delimited by a second sending period, and each wafer in the second plurality of wafers is processed according to a second recipe, the second recipe including</claim-text><claim-text>a second sequence of process steps;</claim-text><claim-text>a second plurality of process times, wherein each process step in the second sequence of process steps has a corresponding process time in the second plurality of process times;</claim-text></claim-text>
+      <claim-text>wherein the cluster tool has a transition period, during which the cluster tool processes one or more wafers from the first plurality of wafers according to the first recipe and one or more wafers from the second plurality of wafers according to the second recipe.</claim-text>
+    </claim>
+    <claim num="2" id="clm-00002-en">
+      <claim-text>2. The method of<claim-ref idref="clm-00001-en">claim 1</claim-ref>, wherein the first and second sequences of process steps are identical.</claim-text>
+    </claim>
+    <claim num="3" id="clm-00003-en">
+      <claim-text>3. The method of<claim-ref idref="clm-00002-en">claim 2</claim-ref>, wherein the first sending period and the second sending period are equal.</claim-text>
+    </claim>
+    <claim num="4" id="clm-00004-en">
+      <claim-text>4. The method of<claim-ref idref="clm-00002-en">claim 2</claim-ref>, wherein the first and second plurality of wafers are processed in a wafer cluster tool.</claim-text>
+    </claim>
+    <claim num="5" id="clm-00005-en">
+      <claim-text>5. The method of<claim-ref idref="clm-00004-en">claim 4</claim-ref>, wherein the wafer cluster tool includes a plurality of processing chambers.</claim-text>
+    </claim>
+    <claim num="6" id="clm-00006-en">
+      <claim-text>6. The method of<claim-ref idref="clm-00005-en">claim 5</claim-ref>, wherein each process step from the first sequence of process steps is performed in a processing chamber from the plurality of processing chambers.</claim-text>
+    </claim>
+    <claim num="7" id="clm-00007-en">
+      <claim-text>7. The method of<claim-ref idref="clm-00006-en">claim 6</claim-ref>, wherein each wafer of the first plurality of wafers is released from the wafer cluster tool at intervals delimited by the first sending period.</claim-text>
+    </claim>
+    <claim num="8" id="clm-00008-en">
+      <claim-text>8. The method of<claim-ref idref="clm-00007-en">claim 7</claim-ref>, wherein each wafer of the second plurality of wafers is released from the wafer cluster tool at intervals delimited by a second sending period.</claim-text>
+    </claim>
+  </claims>
+  <drawings id="drawings">
+    <figure id="fig-emi-d00000" num="2">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00000" file="US06678572-20040113-D00000.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00001" num="3">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00001" file="US06678572-20040113-D00001.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00002" num="4">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00002" file="US06678572-20040113-D00002.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00003" num="5">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00003" file="US06678572-20040113-D00003.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00004" num="6">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00004" file="US06678572-20040113-D00004.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00005" num="7">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00005" file="US06678572-20040113-D00005.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00006" num="8">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00006" file="US06678572-20040113-D00006.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00007" num="9">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00007" file="US06678572-20040113-D00007.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00008" num="10">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00008" file="US06678572-20040113-D00008.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00009" num="11">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00009" file="US06678572-20040113-D00009.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00010" num="12">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00010" file="US06678572-20040113-D00010.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00011" num="13">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00011" file="US06678572-20040113-D00011.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00012" num="14">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00012" file="US06678572-20040113-D00012.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+  </drawings>
+</lexisnexis-patent-document>

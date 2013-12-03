@@ -1,0 +1,758 @@
+
+   
+      
+         
+            US
+            6672019
+            B1
+            20040106
+         
+      
+      
+         
+            US
+            10175386
+            20020620
+         
+      
+      10
+      eng
+      eng
+      
+         
+            DE
+            19962547
+            A
+            19991223
+         
+         
+            US20020175386
+         
+         
+            DE19991062547
+         
+      
+      
+         
+            20040106
+         
+         
+            20040106
+         
+      
+      
+         
+             7E 01F   9/00   A
+            7
+            E
+            01
+            F
+            9
+            00
+            A
+         
+         
+             7E 04H   6/42   B
+            7
+            E
+            04
+            H
+            6
+            42
+            B
+         
+      
+      
+         
+            E01D  19/00        20060101C I20051008RMEP        
+            
+               20060101
+            
+            C
+            E
+            01
+            D
+            19
+            00
+            I
+            
+               20051008
+            
+            
+               EP
+            
+            R
+            M
+         
+         
+            E01D  19/08        20060101A I20051008RMEP        
+            
+               20060101
+            
+            A
+            E
+            01
+            D
+            19
+            08
+            I
+            
+               20051008
+            
+            
+               EP
+            
+            R
+            M
+         
+         
+            E04H   6/08        20060101C I20051008RMEP        
+            
+               20060101
+            
+            C
+            E
+            04
+            H
+            6
+            08
+            I
+            
+               20051008
+            
+            
+               EP
+            
+            R
+            M
+         
+         
+            E04H   6/10        20060101A I20051008RMEP        
+            
+               20060101
+            
+            A
+            E
+            04
+            H
+            6
+            10
+            I
+            
+               20051008
+            
+            
+               EP
+            
+            R
+            M
+         
+      
+      
+         US
+         
+            52/174
+            52
+            174
+         
+      
+      
+         
+            E01D 19/08C
+            E
+            01
+            D
+            19
+            08
+            
+               C  
+            
+         
+         
+            E04H  6/10
+            E
+            04
+            H
+            6
+            10
+         
+      
+      
+         
+            US
+            
+               52/174
+               52
+               174
+            
+         
+         
+            US
+            
+               52/175
+               52
+               175
+            
+         
+         
+            US
+            
+               52/573.1
+               52
+               573.1
+            
+         
+         
+            US
+            
+               52/302.1
+               52
+               302.1
+            
+         
+         
+            US
+            
+               52/302.3
+               52
+               302.3
+            
+         
+      
+      8
+      Multi-storey parking garage
+      
+         
+         
+         
+            
+               
+                  US
+                  4279109
+                  A
+                  Madl, Jr.
+                  19810721
+               
+               
+                  19790525
+               
+            
+         
+         
+            
+               
+                  US
+                  4604841
+                  A
+                  Barnoff et al.
+                  19860812
+               
+               
+                  19830401
+               
+            
+         
+         
+            
+               
+                  US
+                  4637181
+                  A
+                  Cohen
+                  19870120
+               
+               
+                  19830601
+               
+            
+         
+         
+            
+               
+                  US
+                  5025522
+                  A
+                  Eshew et al.
+                  19910625
+               
+               
+                  19900125
+               
+            
+         
+         
+            
+               
+                  US
+                  5056286
+                  A
+                  Bokor
+                  19911015
+               
+               
+                  19890929
+               
+            
+         
+         
+            
+               
+                  US
+                  5311629
+                  A
+                  Smith
+                  19940517
+               
+               
+                  19920803
+               
+            
+         
+         
+            
+               
+                  US
+                  5486392
+                  A
+                  Green
+                  19960123
+               
+               
+                  19940705
+               
+            
+         
+         
+            
+               
+                  US
+                  5715636
+                  A
+                  Taylor
+                  19980210
+               
+               
+                  19951115
+               
+            
+         
+         
+            
+               
+                  US
+                  5822947
+                  A
+                  Tarrant
+                  19981020
+               
+               
+                  19951229
+               
+            
+         
+         
+            
+               
+                  US
+                  5826381
+                  A
+                  Sasaki
+                  19981027
+               
+               
+                  19960628
+               
+            
+         
+         
+            
+               
+                  US
+                  6253514
+                  B1
+                  Jobe et al.
+                  20010703
+               
+               
+                  19990607
+               
+            
+         
+         
+            
+               
+                  DE
+                  298 06 840
+                  19981000
+               
+            
+         
+         
+            
+               
+                  WO
+                  WO 99 45 220
+                  19991000
+               
+            
+         
+         
+            
+               
+                  US
+                  D0599019
+                  S
+                  20090825
+               
+               
+                  20080310
+               
+            
+         
+         
+            
+               
+                  US
+                  7234281
+                  B2
+                  20070626
+               
+               
+                  20060123
+               
+            
+         
+         
+            
+               
+                  US
+                  7918891
+                  B1
+                  20110405
+               
+               
+                  20050329
+               
+            
+         
+      
+      
+         
+            
+               
+                  Vollack Parkhaus AG
+                  03
+                  
+                     Karlsruhe
+                     DE
+                  
+               
+            
+         
+         
+            
+               
+                  Wenz, Jürgen Otto
+                  
+                     Remchingen
+                     DE
+                  
+               
+            
+         
+         
+            
+               
+                  Vincent, Paul
+               
+            
+         
+      
+      
+         
+            Baxter
+            Gwendolyn
+            3632
+         
+      
+      
+         
+            
+               
+                  US
+                  6672019
+                  B1
+                  20040106
+               
+               
+                  20020620
+               
+            
+            
+               
+                  US
+                  20030233795
+                  A1
+                  20031225
+               
+               
+                  20020620
+               
+            
+         
+         
+            
+               
+                  US
+                  20030233795
+                  A1
+                  20031225
+               
+               
+                  20020620
+               
+            
+            
+               
+                  DE
+                  50015255
+                  D1
+                  20080821
+               
+               
+                  20001221
+               
+            
+            
+               
+                  EP
+                  1111160
+                  A3
+                  20030319
+               
+               
+                  20001221
+               
+            
+            
+               
+                  EP
+                  1111160
+                  A2
+                  20010627
+               
+               
+                  20001221
+               
+            
+            
+               
+                  AT
+                  400715
+                  T
+                  20080715
+               
+               
+                  20001221
+               
+            
+            
+               
+                  ES
+                  2308961
+                  T3
+                  20081216
+               
+               
+                  20001221
+               
+            
+            
+               
+                  DE
+                  19962547
+                  A1
+                  20010913
+               
+               
+                  19991223
+               
+            
+            
+               
+                  US
+                  6672019
+                  B1
+                  20040106
+               
+               
+                  20020620
+               
+            
+            
+               
+                  EP
+                  1111160
+                  B1
+                  20080709
+               
+               
+                  20001221
+               
+            
+            
+               
+                  DK
+                  1111160
+                  T3
+                  20081110
+               
+               
+                  20001221
+               
+            
+         
+      
+   
+   
+      A multi-storey parking garage which can be reassembled comprises a skeleton support structure with vertical supports, substantially horizontal ceiling beams and a plurality of floor plates which are supported on the ceiling beams for forming a passable surface, wherein a gap formed between neighboring floor plates extends above a ceiling beam in the longitudinal direction thereof. The floor plates are disposed on the ceiling beams with the interposition of a groove-shaped profiled body, in particular of an elastic plastic material. The profiled body extends in the longitudinal direction of the gap below same and serves for accepting and draining liquid dropping onto the floor plates.
+   
+   
+      
+         
+            20020620
+         
+         AS
+         ASSIGNMENT
+         N
+          US     6672019B1
+         PAG PARKHAUS AG, GERMANY
+         ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNOR:WENZ, JURGEN;REEL/FRAME:013039/0169
+         
+            20020618
+         
+      
+      
+         
+            20020812
+         
+         AS
+         ASSIGNMENT
+         N
+          US     6672019B1
+         VOLLACK PARKHAUS AG, GERMANY
+         ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNOR:WENZ, JURGEN;REEL/FRAME:012975/0291
+         
+            20020710
+         
+      
+      
+         
+            20070621
+         
+         FPAY
+         +
+         FEE PAYMENT
+         N
+          US     6672019B1
+         4
+      
+      
+         
+            20110815
+         
+         REMI
+         MAINTENANCE FEE REMINDER MAILED
+         N
+          US     6672019B1
+      
+   
+   
+      
+         This application is related to DE 199 62 547 filed Dec. 23, 1999 the complete disclosure of which is hereby incorporated by reference.
+         BACKGROUND OF THE INVENTION
+         The invention concerns a multi-storey parking garage which can be reassembled, comprising a skeleton support structure with vertical supports, substantially horizontal ceiling beams and a plurality of floor plates which are supported on the ceiling beams for forming a passable surface, wherein a gap formed between neighboring floor plates extends above a ceiling beam in the longitudinal direction thereof.
+         Multi-storey parking garages are conventionally produced substantially from concrete by forming supports and ceilings of concrete between concrete supports produced at the building site or delivered as a finished part to serve as a parking and driving surface. Multi-storey parking garages of this type are appropriate for stationary buildings intended for permanent use although production of site-mixed concrete components requires corresponding weather conditions and the concrete, due to its large weight, results in structural components which are relatively large and heavy for a given load capacity.
+         DE 298 09 011 U1 discloses a multi-storey parking garage for reassembly whose support structure consists of a steel skeleton with vertical supports and horizontal ceiling beams. Floor plates of steel, concrete or of a steel-concrete composite construction are mounted to the steel frame structure by disposing them on the ceiling beams and screwing them to the respective ceiling beam. To prevent liquid and other soiling matter entering from the upper side of the floor plates of a ceiling level from reaching the vehicles on the ceiling level below, a layer of sheet metal pieces is disposed onto the ceiling beams below the floor plates and are also screwed to the ceiling beams.
+         Leaks often occur in the vicinity of the mounting locations, i.e. at the screw holes where the mounting screw penetrates through the sheet metal and the upper flange of the ceiling beam and are difficult or impossible to seal. Water, fuel, oil or other liquids can therefore drip onto the underlying vehicles.
+         DE 298 06 840 U1 describes a similar multi-storey parking garage for reassembly wherein the floor plates are disposed such that the gaps or joints formed between neighboring floor plates extend above a ceiling beam in the longitudinal direction thereof. Elastic joint sealings are inserted into the gaps and joints to seal same. The floor plates are mutually tensioned in the plane of the plates using special tensioning members, thereby also loading the joint sealings. Although this produces improved sealing between the gaps and joints of adjacent floor plates, such a multi-storey parking garage for reassembly requires a great degree of assembly effort thereby causing it to be generally uneconomical.
+         Moreover, the acoustical insulation between the floor plates and the ceiling beams is disadvantageously unacceptable or can only be achieved at great expense.
+         It is the underlying purpose of the invention to produce a multi-storey parking garage for reassembly of the above-mentioned kind with which these problems are eliminated and which has floor plates disposed on the ceiling beams in a sealing and acoustically insulating fashion.
+         SUMMARY OF THE INVENTION
+         This object is achieved in accordance with the invention in a multi-storey parking garage for reassembly in that the floor plates are disposed onto the ceiling beams by interposing a groove-shaped profiled body, wherein the profiled body extends below and in the longitudinal direction of the gap.
+         The floor plates which are each individually formed as liquid-tight partial surfaces are not directly supported on the respective ceiling beam. The groove-shaped profiled body is interposed to provide acoustical insulation, sealing and drainage of liquids.
+         Liquid accumulating on the upper side of a floor plate can flow to the edge thereof and drop down through the gap formed between neighboring floor plates. The groove-shaped profiled body is disposed below this gap and receives the dropping liquid to divert it, within its groove in the longitudinal direction. This prevents the liquid from reaching an underlying level of the multi-storey parking garage.
+         The profiled body is preferably formed of an elastic plastic material to effect acoustical separation between the floor plate and the ceiling beam and to also seal these structural components.
+         In a preferred embodiment of the invention, the ceiling beam has an I-shaped profile and the groove-shaped profiled body is disposed at its lower side on the upper flange of the ceiling beam, preferably across its entire surface. The profiled body can be glued onto the ceiling beam for exact positioning thereof. The profiled body preferably has a U-shaped cross-section which is open towards the top, wherein an edge region of a floor plate is disposed on the upper side of each U-shaped leg of the profiled body. Sealing between the floor plate and the profiled body and between the profiled body and the ceiling beam can be provided through the natural weight of the floor plate. However, a tensioning device is preferably additionally provided between the floor plate and the ceiling beam for tensioning the floor plate against the profiled body. The tensioning device accepts transverse loads which tend to lift the floor plate from the ceiling beam.
+         Reliable drainage of the liquid reaching the groove-shaped profiled body can be achieved if the ceiling beam and hence also the groove-shaped profiled body are slightly inclined in the longitudinal direction. The liquid is discharged to a discharge system at the end of the groove-shaped profiled body in a conventional fashion.
+         If the groove-shaped profiled body must be examined or cleaned of foreign bodies accumulated therein, appropriate maintenance work can be carried out between the gap formed between the neighboring floor plates. Towards this end, the gap has a width of between approximately 15 mm and 30 mm.
+      
+      
+         Further details and features of the invention can be extracted from the following description of an embodiment with reference to the drawing.
+         BRIEF DESCRIPTION OF THE DRAWING
+         
+            FIG. 1shows a vertical section through floor plates mounted on a ceiling beam; and
+         
+            FIG. 2shows a vertical section through a plurality of floor plates mounted on ceiling beams.
+      
+      
+         DESCRIPTION OF THE PREFERRED EMBODIMENT
+         A skeleton support structure of a multi-storey parking garage for reassembly comprises several parallel, substantially horizontal support beams11, of which only one is shown by way of example in the figure. The ceiling beam11has an I-shaped profile with an upper flange11
+            a, a vertical bar11
+            band a lower flange11
+            c. A groove-shaped profiled body16is disposed on the upper side of the upper flange11
+            aof the ceiling beam11and has a U-shaped cross-section which is open towards the top and which is made from an elastic plastic material, in particular an elastomer. The profiled body16extends in the longitudinal direction of the ceiling beam11and is preferably produced as a continuous, gap-free structural component.
+         Bores20are formed in the upper flange11
+            aof the ceiling beam11beside the profiled body16.
+         A floor plate12comprises a support layer13preferably formed as a steel sheet whose upper side is provided with a protective layer or coating14which extends to the side surfaces of the support layer13. The lower side of the floor plate12has reinforcements15(only schematically shown) and several downwardly projecting, threaded bolts17which are welded to the floor plate12close to its edge region.
+         For mounting, the floor plate12is disposed with its edge region on the upper side of a U-shaped leg16
+            aof the groove-shaped profiled body16and the threaded bolt17is introduced into the bore20of the upper flange11
+            aof the ceiling beam11such that it projects downwardly from same. The floor plate12is then tensioned in the direction of the upper flange11
+            aby means of a spacer18and a nut19, whereby pressure is exerted on the U-shaped leg16
+            aof the profiled body16.
+         As seen in the figure, a gap21formed between neighboring floor plates12is disposed above the groove-shaped profiled body16and extends in its longitudinal direction such that water or other liquid reaching the gap21is accepted and drained by the profiled body16. To support drainage, the ceiling beam11and also the profiled body16are slightly inclined in the longitudinal direction, i.e. perpendicular to the plane of the drawing.
+         
+            FIG. 2shows a vertical section corresponding toFIG. 1but for a plurality of floor plates12mounted to a plurality of ceiling beams11. The horizontal ceiling beams11seal on vertical supports30to define a skeletal support structure.
+      
+   
+   
+      
+         1. A multi-storey parking garage, the parking garage comprising:substantially vertical supports;
+            substantially horizontal ceiling beams seated on said vertical supports to define a skeletal support structure;
+            a plurality of groove-shaped, profiled bodies, each of said profiled bodies seating on an associated one of said ceiling beams and extending substantially along a longitudinal travel of said associated ceiling beam; and
+            a plurality of floor plates supported on said profiled bodies for forming a passable surface, said floor plates defining gaps between neighboring floor plates, said gaps disposed directly above an associated one of said profiled bodies and extending along said longitudinal travel of an associated supporting one of said ceiling beams.
+         
+      
+      
+         2. The multi-storey parking garage ofclaim 1, wherein each of said ceiling beams has an I-shaped cross-section, each of said profiled bodies being supported at a lower side thereof to seat on an upper flange of said associated ceiling beam.
+      
+      
+         3. The multi-storey parking garage ofclaim 1, wherein each of said profiled bodies consists essentially of an elastic plastic material.
+      
+      
+         4. The multi-storey parking garage ofclaim 1, wherein each of said profiled bodies has a U-shaped cross-section, wherein each of said gaps is disposed above a central portion of said U-shaped cross-section.
+      
+      
+         5. The multi-storey parking garage ofclaim 4, wherein an edge region of each of said floor plates seats on an, upper side of a leg of one of said profiled bodies.
+      
+      
+         6. The multi-storey parking garage ofclaim 1, further comprising a plurality of tensioning devices, each of said tensioning devices cooperating with one of said floor plates and an associated one of said ceiling beams to tension said one of said floor plates to an associated one of said profiled bodies.
+      
+      
+         7. The multi-storey parking garage ofclaim 1, wherein each of said ceiling beams and each of said profiled bodies is inclined in said longitudinal direction.
+      
+      
+         8. The multi-storey parking garage ofclaim 1, wherein each of said gaps has a width of between 15 mm and 30 mm.
+      
+   
+   
+      
+         
+      
+      
+         
+      
+      
+         
+      
+   

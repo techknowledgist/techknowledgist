@@ -1,0 +1,1158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright ©2011 LexisNexis Univentio, The Netherlands. -->
+<lexisnexis-patent-document schema-version="1.08" date-produced="20110930" file="US6672451B1.xml" produced-by="LexisNexis-Univentio" lang="eng" date-changed="20110722" time-changed="014828">
+  <bibliographic-data lang="eng">
+    <publication-reference publ-type="Grant" publ-desc="Patent without a pre-grant publication">
+      <document-id>
+        <country>US</country>
+        <doc-number>6672451</doc-number>
+        <kind>B1</kind>
+        <date>20040106</date>
+      </document-id>
+    </publication-reference>
+    <application-reference appl-type="utility">
+      <document-id>
+        <country>US</country>
+        <doc-number>10271399</doc-number>
+        <date>20021015</date>
+      </document-id>
+    </application-reference>
+    <application-series-code>10</application-series-code>
+    <language-of-filing>eng</language-of-filing>
+    <language-of-publication>eng</language-of-publication>
+    <priority-claims date-changed="20070523">
+      <priority-claim sequence="1" kind="national">
+        <country>US</country>
+        <doc-number>10271399</doc-number>
+        <date>20021015</date>
+      </priority-claim>
+      <priority-claim sequence="2" kind="national">
+        <country>US</country>
+        <doc-number>09525775</doc-number>
+        <date>20000314</date>
+      </priority-claim>
+      <priority-claim sequence="3" kind="national">
+        <country>US</country>
+        <doc-number>60125600</doc-number>
+        <date>19990319</date>
+      </priority-claim>
+    </priority-claims>
+    <dates-of-public-availability date-changed="20090405">
+      <unexamined-printed-without-grant>
+        <date>20040106</date>
+      </unexamined-printed-without-grant>
+      <printed-with-grant>
+        <date>20040106</date>
+      </printed-with-grant>
+    </dates-of-public-availability>
+    <classification-ipc date-changed="20090405">
+      <main-classification>
+        <text> 7B 65G  17/38   A</text>
+        <edition>7</edition>
+        <section>B</section>
+        <class>65</class>
+        <subclass>G</subclass>
+        <main-group>17</main-group>
+        <subgroup>38</subgroup>
+        <qualifying-character>A</qualifying-character>
+      </main-classification>
+    </classification-ipc>
+    <classifications-ipcr date-changed="20090405">
+      <classification-ipcr sequence="1">
+        <text>B65G  17/06        20060101C I20051008RMEP        </text>
+        <ipc-version-indicator>
+          <date>20060101</date>
+        </ipc-version-indicator>
+        <classification-level>C</classification-level>
+        <section>B</section>
+        <class>65</class>
+        <subclass>G</subclass>
+        <main-group>17</main-group>
+        <subgroup>06</subgroup>
+        <classification-value>I</classification-value>
+        <action-date>
+          <date>20051008</date>
+        </action-date>
+        <generating-office>
+          <country>EP</country>
+        </generating-office>
+        <classification-status>R</classification-status>
+        <classification-data-source>M</classification-data-source>
+      </classification-ipcr>
+      <classification-ipcr sequence="2">
+        <text>B65G  17/08        20060101A I20051008RMEP        </text>
+        <ipc-version-indicator>
+          <date>20060101</date>
+        </ipc-version-indicator>
+        <classification-level>A</classification-level>
+        <section>B</section>
+        <class>65</class>
+        <subclass>G</subclass>
+        <main-group>17</main-group>
+        <subgroup>08</subgroup>
+        <classification-value>I</classification-value>
+        <action-date>
+          <date>20051008</date>
+        </action-date>
+        <generating-office>
+          <country>EP</country>
+        </generating-office>
+        <classification-status>R</classification-status>
+        <classification-data-source>M</classification-data-source>
+      </classification-ipcr>
+    </classifications-ipcr>
+    <classification-national date-changed="20090405">
+      <country>US</country>
+      <main-classification>
+        <text>198/853</text>
+        <class>198</class>
+        <subclass>853</subclass>
+      </main-classification>
+      <further-classification sequence="1">
+        <text>198/841</text>
+        <class>198</class>
+        <subclass>841</subclass>
+      </further-classification>
+      <further-classification sequence="2">
+        <text>198/850</text>
+        <class>198</class>
+        <subclass>850</subclass>
+      </further-classification>
+      <further-classification sequence="3">
+        <text>198/852</text>
+        <class>198</class>
+        <subclass>852</subclass>
+      </further-classification>
+    </classification-national>
+    <classifications-ecla date-changed="20090405">
+      <classification-ecla sequence="1" classification-scheme="EC" country="EP">
+        <text>B65G 17/08D</text>
+        <section>B</section>
+        <class>65</class>
+        <subclass>G</subclass>
+        <main-group>17</main-group>
+        <subgroup>08</subgroup>
+        <additional-subgroups>
+          <additional-subgroup sequence="1">D  </additional-subgroup>
+        </additional-subgroups>
+      </classification-ecla>
+      <classification-ecla sequence="1" classification-scheme="ICO" country="EP">
+        <text>L65G201:02</text>
+        <section>L</section>
+        <class>65</class>
+        <subclass>G</subclass>
+        <main-group>201</main-group>
+        <subgroup>02</subgroup>
+      </classification-ecla>
+    </classifications-ecla>
+    <field-of-search date-changed="20070524">
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>198/853</text>
+          <class>198</class>
+          <subclass>853</subclass>
+        </main-classification>
+      </classification-national>
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>198/852</text>
+          <class>198</class>
+          <subclass>852</subclass>
+        </main-classification>
+      </classification-national>
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>198/841</text>
+          <class>198</class>
+          <subclass>841</subclass>
+        </main-classification>
+      </classification-national>
+      <classification-national>
+        <country>US</country>
+        <main-classification>
+          <text>198/850</text>
+          <class>198</class>
+          <subclass>850</subclass>
+        </main-classification>
+      </classification-national>
+    </field-of-search>
+    <number-of-claims>9</number-of-claims>
+    <invention-title id="title_eng" date-changed="20100418" lang="eng" format="original">Conveyor belt system</invention-title>
+    <references-cited date-changed="20101123">
+      <patent-citations name="patcit" date-changed="20100409" />
+      <non-patent-citations name="nplcit" date-changed="20100409" />
+      <forward-citations name="fwdcit" date-changed="20101123" />
+      <citation srep-phase="o">
+        <patcit num="1">
+          <document-id>
+            <country>US</country>
+            <doc-number>3231066</doc-number>
+            <kind>A</kind>
+            <name>Harrison et al.</name>
+            <date>19660125</date>
+          </document-id>
+          <application-date>
+            <date>19640506</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="2">
+          <document-id>
+            <country>US</country>
+            <doc-number>3870141</doc-number>
+            <kind>A</kind>
+            <name>Lapeyre et al.</name>
+            <date>19750311</date>
+          </document-id>
+          <application-date>
+            <date>19711008</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="3">
+          <document-id>
+            <country>US</country>
+            <doc-number>4080842</doc-number>
+            <kind>A</kind>
+            <name>Lapeyre et al.</name>
+            <date>19780328</date>
+          </document-id>
+          <application-date>
+            <date>19740610</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="4">
+          <document-id>
+            <country>US</country>
+            <doc-number>4213527</doc-number>
+            <kind>A</kind>
+            <name>Lapeyre et al.</name>
+            <date>19800722</date>
+          </document-id>
+          <application-date>
+            <date>19770117</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="5">
+          <document-id>
+            <country>US</country>
+            <doc-number>4222483</doc-number>
+            <kind>A</kind>
+            <name>Wootton et al.</name>
+            <date>19800916</date>
+          </document-id>
+          <application-date>
+            <date>19781122</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="6">
+          <document-id>
+            <country>US</country>
+            <doc-number>4742907</doc-number>
+            <kind>A</kind>
+            <name>Palmaer</name>
+            <date>19880510</date>
+          </document-id>
+          <application-date>
+            <date>19860905</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="7">
+          <document-id>
+            <country>US</country>
+            <doc-number>4765454</doc-number>
+            <kind>A</kind>
+            <name>Hodlewsky et al.</name>
+            <date>19880823</date>
+          </document-id>
+          <application-date>
+            <date>19850812</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="8">
+          <document-id>
+            <country>US</country>
+            <doc-number>4821872</doc-number>
+            <kind>A</kind>
+            <name>Lapeyre</name>
+            <date>19890418</date>
+          </document-id>
+          <application-date>
+            <date>19870417</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="9">
+          <document-id>
+            <country>US</country>
+            <doc-number>4832187</doc-number>
+            <kind>A</kind>
+            <name>Lapeyre</name>
+            <date>19890523</date>
+          </document-id>
+          <application-date>
+            <date>19800819</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="10">
+          <document-id>
+            <country>US</country>
+            <doc-number>4865183</doc-number>
+            <kind>A</kind>
+            <name>Hodlewsky et al.</name>
+            <date>19890912</date>
+          </document-id>
+          <application-date>
+            <date>19871030</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="11">
+          <document-id>
+            <country>US</country>
+            <doc-number>4901844</doc-number>
+            <kind>A</kind>
+            <name>Palmaer et al.</name>
+            <date>19900220</date>
+          </document-id>
+          <application-date>
+            <date>19881003</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="12">
+          <document-id>
+            <country>US</country>
+            <doc-number>4925013</doc-number>
+            <kind>A</kind>
+            <name>Lapeyre</name>
+            <date>19900515</date>
+          </document-id>
+          <application-date>
+            <date>19880906</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="13">
+          <document-id>
+            <country>US</country>
+            <doc-number>4934517</doc-number>
+            <kind>A</kind>
+            <name>Lapeyre</name>
+            <date>19900619</date>
+          </document-id>
+          <application-date>
+            <date>19881114</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="14">
+          <document-id>
+            <country>US</country>
+            <doc-number>4934518</doc-number>
+            <kind>A</kind>
+            <name>Lapeyre</name>
+            <date>19900619</date>
+          </document-id>
+          <application-date>
+            <date>19890512</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="15">
+          <document-id>
+            <country>US</country>
+            <doc-number>4941568</doc-number>
+            <kind>A</kind>
+            <name>Lapeyre</name>
+            <date>19900717</date>
+          </document-id>
+          <application-date>
+            <date>19891204</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="16">
+          <document-id>
+            <country>US</country>
+            <doc-number>4949838</doc-number>
+            <kind>A</kind>
+            <name>Lapeyre et al.</name>
+            <date>19900821</date>
+          </document-id>
+          <application-date>
+            <date>19890126</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="17">
+          <document-id>
+            <country>US</country>
+            <doc-number>4953693</doc-number>
+            <kind>A</kind>
+            <name>Draebel</name>
+            <date>19900904</date>
+          </document-id>
+          <application-date>
+            <date>19890123</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="18">
+          <document-id>
+            <country>US</country>
+            <doc-number>4993544</doc-number>
+            <kind>A</kind>
+            <name>Bailey et al.</name>
+            <date>19910219</date>
+          </document-id>
+          <application-date>
+            <date>19890926</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="19">
+          <document-id>
+            <country>US</country>
+            <doc-number>5069330</doc-number>
+            <kind>A</kind>
+            <name>Palmaer et al.</name>
+            <date>19911203</date>
+          </document-id>
+          <application-date>
+            <date>19901130</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="20">
+          <document-id>
+            <country>US</country>
+            <doc-number>5156260</doc-number>
+            <kind>A</kind>
+            <name>Dorner et al.</name>
+            <date>19921020</date>
+          </document-id>
+          <application-date>
+            <date>19910717</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="21">
+          <document-id>
+            <country>US</country>
+            <doc-number>5174439</doc-number>
+            <kind>A</kind>
+            <name>Spangler et al.</name>
+            <date>19921229</date>
+          </document-id>
+          <application-date>
+            <date>19910703</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="22">
+          <document-id>
+            <country>US</country>
+            <doc-number>5181601</doc-number>
+            <kind>A</kind>
+            <name>Palmaer et al.</name>
+            <date>19930126</date>
+          </document-id>
+          <application-date>
+            <date>19901009</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="23">
+          <document-id>
+            <country>US</country>
+            <doc-number>5224583</doc-number>
+            <kind>A</kind>
+            <name>Palmaer et al.</name>
+            <date>19930706</date>
+          </document-id>
+          <application-date>
+            <date>19920807</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="24">
+          <document-id>
+            <country>US</country>
+            <doc-number>5310045</doc-number>
+            <kind>A</kind>
+            <name>Palmaer et al.</name>
+            <date>19940510</date>
+          </document-id>
+          <application-date>
+            <date>19921202</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="25">
+          <document-id>
+            <country>US</country>
+            <doc-number>5310046</doc-number>
+            <kind>A</kind>
+            <name>Palmaer et al.</name>
+            <date>19940510</date>
+          </document-id>
+          <application-date>
+            <date>19921231</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="26">
+          <document-id>
+            <country>US</country>
+            <doc-number>5358096</doc-number>
+            <kind>A</kind>
+            <name>Faulkner et al.</name>
+            <date>19941025</date>
+          </document-id>
+          <application-date>
+            <date>19931015</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="27">
+          <document-id>
+            <country>US</country>
+            <doc-number>5372248</doc-number>
+            <kind>A</kind>
+            <name>Horton</name>
+            <date>19941213</date>
+          </document-id>
+          <application-date>
+            <date>19940118</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="28">
+          <document-id>
+            <country>US</country>
+            <doc-number>5419428</doc-number>
+            <kind>A</kind>
+            <name>Palmaer et al.</name>
+            <date>19950530</date>
+          </document-id>
+          <application-date>
+            <date>19940509</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="29">
+          <document-id>
+            <country>US</country>
+            <doc-number>5431275</doc-number>
+            <kind>A</kind>
+            <name>Faulkner</name>
+            <date>19950711</date>
+          </document-id>
+          <application-date>
+            <date>19940527</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="30">
+          <document-id>
+            <country>US</country>
+            <doc-number>5439099</doc-number>
+            <kind>A</kind>
+            <name>Bos et al.</name>
+            <date>19950808</date>
+          </document-id>
+          <application-date>
+            <date>19931116</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="31">
+          <document-id>
+            <country>US</country>
+            <doc-number>5547071</doc-number>
+            <kind>A</kind>
+            <name>Palmaer et al.</name>
+            <date>19960820</date>
+          </document-id>
+          <application-date>
+            <date>19950525</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="32">
+          <document-id>
+            <country>US</country>
+            <doc-number>5573105</doc-number>
+            <kind>A</kind>
+            <name>Palmaer</name>
+            <date>19961112</date>
+          </document-id>
+          <application-date>
+            <date>19951108</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="33">
+          <document-id>
+            <country>US</country>
+            <doc-number>5613597</doc-number>
+            <kind>A</kind>
+            <name>Palmaer et al.</name>
+            <date>19970325</date>
+          </document-id>
+          <application-date>
+            <date>19950606</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <patcit num="34">
+          <document-id>
+            <country>US</country>
+            <doc-number>5645160</doc-number>
+            <kind>A</kind>
+            <name>Palmaer et al.</name>
+            <date>19970708</date>
+          </document-id>
+          <application-date>
+            <date>19960212</date>
+          </application-date>
+        </patcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="1">
+          <text>KVP brochure, pp. 6-63, published by KVP Systems, Inc., Rancho Cordova, CA.</text>
+        </nplcit>
+      </citation>
+      <citation srep-phase="o">
+        <nplcit num="2">
+          <text>Introlox Product Line Update-Mar. 1994, pages Product Line 2-1 through 2-64 Product, Line.</text>
+        </nplcit>
+      </citation>
+      <citation>
+        <fwdcit num="1">
+          <document-id>
+            <country>US</country>
+            <doc-number>7293644</doc-number>
+            <kind>B2</kind>
+            <date>20071113</date>
+          </document-id>
+          <application-date>
+            <date>20041206</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+      <citation>
+        <fwdcit num="2">
+          <document-id>
+            <country>US</country>
+            <doc-number>7837028</doc-number>
+            <kind>B2</kind>
+            <date>20101123</date>
+          </document-id>
+          <application-date>
+            <date>20080424</date>
+          </application-date>
+        </fwdcit>
+      </citation>
+    </references-cited>
+    <related-documents date-changed="20100418">
+      <continuation>
+        <relation>
+          <parent-doc>
+            <document-id>
+              <country>US</country>
+              <doc-number>09/525775</doc-number>
+              <date>20000314</date>
+            </document-id>
+            <parent-status>GRANTED</parent-status>
+            <parent-grant-document>
+              <document-id>
+                <country>US</country>
+                <doc-number>6471048</doc-number>
+                <kind>A</kind>
+              </document-id>
+            </parent-grant-document>
+          </parent-doc>
+          <child-doc>
+            <document-id>
+              <country>US</country>
+              <doc-number>10/271399</doc-number>
+            </document-id>
+          </child-doc>
+        </relation>
+      </continuation>
+      <provisional-application>
+        <document-id>
+          <country>US</country>
+          <doc-number>12560099</doc-number>
+          <date>19990319</date>
+        </document-id>
+      </provisional-application>
+      <provisional-application>
+        <document-id>
+          <country>US</country>
+          <doc-number>60/125600</doc-number>
+          <date>19990319</date>
+        </document-id>
+      </provisional-application>
+    </related-documents>
+    <parties date-changed="20100409">
+      <applicants>
+        <applicant sequence="1" app-type="applicant">
+          <addressbook lang="eng">
+            <orgname>Vic Thompson Company</orgname>
+            <role>02</role>
+            <address>
+              <city>Fort Worth</city>
+              <state>TX</state>
+            </address>
+          </addressbook>
+        </applicant>
+      </applicants>
+      <inventors>
+        <inventor sequence="1">
+          <addressbook lang="eng">
+            <name>Thompson, Jr., Victor H.</name>
+            <address>
+              <city>Burleson</city>
+              <state>TX</state>
+            </address>
+          </addressbook>
+        </inventor>
+        <inventor sequence="2">
+          <addressbook lang="eng">
+            <name>Jarka, Benon C.</name>
+            <address>
+              <city>Fort Worth</city>
+              <state>TX</state>
+            </address>
+          </addressbook>
+        </inventor>
+      </inventors>
+      <agents>
+        <agent sequence="1" rep-type="attorney">
+          <addressbook lang="eng">
+            <name>Mantooth, Geoffrey A.</name>
+          </addressbook>
+        </agent>
+      </agents>
+    </parties>
+    <examiners>
+      <primary-examiner>
+        <last-name>Walsh</last-name>
+        <first-name>Donald P.</first-name>
+        <department>3653</department>
+      </primary-examiner>
+      <assistant-examiner>
+        <last-name>Shapiro</last-name>
+        <first-name>Jeffrey A.</first-name>
+      </assistant-examiner>
+    </examiners>
+    <patent-family date-changed="20070530">
+      <main-family family-id="47975133">
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>6672451</doc-number>
+            <kind>B1</kind>
+            <date>20040106</date>
+          </document-id>
+          <application-date>
+            <date>20021015</date>
+          </application-date>
+        </family-member>
+      </main-family>
+      <complete-family family-id="47653626">
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>6471048</doc-number>
+            <kind>B1</kind>
+            <date>20021029</date>
+          </document-id>
+          <application-date>
+            <date>20000314</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>US</country>
+            <doc-number>6672451</doc-number>
+            <kind>B1</kind>
+            <date>20040106</date>
+          </document-id>
+          <application-date>
+            <date>20021015</date>
+          </application-date>
+        </family-member>
+      </complete-family>
+    </patent-family>
+  </bibliographic-data>
+  <abstract id="abstr_eng" date-changed="20100409" lang="eng" format="original">
+    <p id="p-00001-en">A conveyor belt is made up of plastic links that are capable of traversing a radiused or curved path. The links are provided with a cover member, such as a plate. Articles to be conveyed are put on top of the plates. The links are interconnected together so as to reduce the exposure of gaps between the links. Each link has a slot on the ends, with the slot receiving a guiderail or track. Each slot has a convex inside surface which contacts the guiderail. The belt is supported by side frames, which side frames have lips that form the tracks. Each side frame has an upper lip and a lower lip. Thus, the side frames can support and guide both an upper portion of the conveyor belt as well as a lower portion of the conveyor belt in a self contained assembly. The side frames are coupled together by cross beams to provide the support, as well as provide a path of the tracks. The side frames are coupled to vertical supports.</p>
+  </abstract>
+  <legal-data date-changed="20110722">
+    <legal-event sequence="1">
+      <publication-date>
+        <date>20021015</date>
+      </publication-date>
+      <event-code-1>AS</event-code-1>
+      <legal-description>ASSIGNMENT</legal-description>
+      <status-identifier>N</status-identifier>
+      <docdb-publication-number> US     6672451B1</docdb-publication-number>
+      <new-owner>VIC THOMPSON COMPANY, TEXAS</new-owner>
+      <free-text-description>ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNORS:THOMPSON, VICTOR H. JR.;JARKA, BENON C.;REEL/FRAME:013396/0955</free-text-description>
+      <effective-date>
+        <date>20021011</date>
+      </effective-date>
+    </legal-event>
+    <legal-event sequence="2">
+      <publication-date>
+        <date>20070626</date>
+      </publication-date>
+      <event-code-1>FPAY</event-code-1>
+      <effect>+</effect>
+      <legal-description>FEE PAYMENT</legal-description>
+      <status-identifier>N</status-identifier>
+      <docdb-publication-number> US     6672451B1</docdb-publication-number>
+      <fee-payment-year>4</fee-payment-year>
+    </legal-event>
+    <legal-event sequence="3">
+      <publication-date>
+        <date>20110706</date>
+      </publication-date>
+      <event-code-1>FPAY</event-code-1>
+      <effect>+</effect>
+      <legal-description>FEE PAYMENT</legal-description>
+      <status-identifier>N</status-identifier>
+      <docdb-publication-number> US     6672451B1</docdb-publication-number>
+      <fee-payment-year>8</fee-payment-year>
+    </legal-event>
+  </legal-data>
+  <description id="descr_eng" lang="eng" format="original" date-changed="20100409">
+    <related-apps>
+      <p id="p-00002-en">The present application is a continuation application of U.S. Ser. No. 09/525,775, filed Mar. 14, 2000 now U.S. Pat. No. 6,471,048, which in turn claims the benefit of U.S. provisional application Ser. No. 60/125,600, filed Mar. 19, 1999.</p>
+    </related-apps>
+    <summary>
+      <heading level="2">FIELD OF THE INVENTION</heading>
+      <p id="p-00003-en">The present invention relates to conveyor belts that are used to carry objects or articles from one location to another.</p>
+      <heading level="2">BACKGROUND OF THE INVENTION</heading>
+      <p id="p-00004-en">Plastic conveyor belts are well known in the art. For example, Palmaer, U.S. Pat. No. 4,742,907 described a plastic conveyor belt.</p>
+      <p id="p-00005-en">Designing a conveyor belt to go straight is difficult. Designing a conveyor belt to turn or go up and down an incline is even more difficult.</p>
+      <p id="p-00006-en">The conveyor belt of the '907 patent is able to traverse curves. The individual belt links can move closer to or away from adjacent links. This property is useful for traversing curves, wherein at the inside of the curve, the belt links are close together, and at the outside of the curve, the belt links are spread apart. The belt has gaps between the links for traversing curves. The gaps also allow air to circulate through the belt, an advantage when the belt conveys foods.</p>
+      <p id="p-00007-en">Adapting the belt to other applications presents some problems. In the package handling and baggage industries, the objects being conveyed are subject to being caught in the gaps between the links. For example, baggage has straps, hooks, wheels, handles, etc. which can become easily captured between two links. Packages may be flimsy envelopes, which can also become caught. A bag or package that becomes caught by the conveyor belt risks damage to itself and to the conveyor belt.</p>
+      <p id="p-00008-en">Another problem is speed. Packages and baggage are most desirably conveyed at high speeds, such as 300 feet per minute. This is in contrast with the much lower speed of the food handling industry (for example, 50 feet per minute). Higher speeds produce greater forces exerted on the belt. In addition, the links produce a loud and undesirable chatter at high speeds.</p>
+      <p id="p-00009-en">The loading on conveyor belts used in the package industry is much greater than those encountered in the food industry. The loading in the food handling industry is 10-13 pounds per linear foot, while it is 50 pounds per linear foot in the package industry (for a 36″ wide belt).</p>
+      <heading level="2">SUMMARY OF THE INVENTION</heading>
+      <p id="p-00010-en">It is an object of the present invention to provide a conveyor belt that can be used in the baggage or package industry without the problems discussed above.</p>
+      <p id="p-00011-en">The present invention provides a link for a plastic conveyor belt. The belt is constructed of links interconnected by pivot rods in a sequence of hinged links for conveying articles along a path, which path may include a curved portion. The link includes a rib, a first set of projections and a second set of projections. The first set of projections extends from the rib in a first direction. The individual projections of the first set are separated from each other by respective first gaps. The projections of the first set each have an opening therethrough. The openings in the first set of projections are aligned so as to receive a first pintle. The second set of projections extends from the rib in a direction that is opposite of the first direction. The individual projections of the second set are separated from each other by respective second gaps. The projections of the second set are staggered with respect to the projections of the first set. The projections of the second set each having a slotted opening therethrough. Each of the slotted openings extend for a portion of the length of the respective projection of the second set. The openings in the second set of projections are aligned so as to receive a second pintle. The rib, the first set of projections and the second set of projections collectively have a first side and a second side. The projections of the first and second sets each have a length. A cover member is located on the first side. The cover member overlies a portion of the lengths of the projections of the first and seconds sets so as partially cover the first and second gaps.</p>
+      <p id="p-00012-en">In accordance with one aspect of the present invention, the rib has ends, with the first set of projections having first endmost projections located at the ends of the rib and the second set of projections having second endmost projections located at the ends of the rib. The cover members couple to the first and second endmost projections.</p>
+      <p id="p-00013-en">In accordance with another aspect of the present invention, the cover member extends from the rib along the lengths of the projections of the first and second sets a distance that is:</p>
+      <p id="p-00014-en">distance≧length of the projections of respective set−(<i>A+B+C</i>)</p>
+      <p id="p-00015-en">where A=the distance between the end of a projection in the first set and the opening in the projection</p>
+      <p id="p-00016-en">B=the distance between the end of a projection in the second set and the opening in the projection</p>
+      <p id="p-00017-en">C=the diameter of the pivot rod.</p>
+      <p id="p-00018-en">In accordance with still another aspect of the present invention, the link has a stepped first side, with a step being formed between the first set of projections and the cover member and another step being formed between the second set of projections and the cover member.</p>
+      <p id="p-00019-en">In accordance with still another aspect of the present invention, the cover member has a carrying surface facing away from the rib. The carrying surface has a groove therein.</p>
+      <p id="p-00020-en">In accordance with still another aspect of the present invention, the link has two ends with the cover member extending between the ends. The cover member has beveled portions at each of the ends to accommodate the curved path.</p>
+      <p id="p-00021-en">In accordance with another aspect of the present invention, the link has two ends, with each end having a slot therein. The slot is parallel to the first and second sets of projections. The slot being structured and arranged to receive a guide rail.</p>
+      <p id="p-00022-en">In accordance with still another aspect of the invention, the slot has an inside surface that is structured and arranged to contact the guide rail. The inside surface is arcuate so as to be convex.</p>
+      <p id="p-00023-en">In still another aspect of the present invention, each of the link ends has outside end surfaces with the slot in each end being between the outside end surfaces. The outside end surfaces are each arcuate so as to be convex.</p>
+      <p id="p-00024-en">The present invention also provides a link for a plastic conveyor belt, the belt being constructed of links interconnected by pivot rods into a sequence of hinged links for conveying articles along a path which path may include a curved path. The link includes a rib, a first set of projections and a second set of projections. The first set of projections extends from the rib in a first direction. The individual projections of the first set are separated from each other by respective first gaps. The projections of the first set each having an opening therethrough. The openings in the first set of projections being aligned so as to receive a first pivot rod. The second set of projections extends from the rib in a direction that is opposite of the first direction. The individual projections of the second set are separated from each other by respective second gaps. The projections of the second set are staggered with respect to the projections of the first set. The projections of the second set each have a slotted opening therethrough. Each of the slotted openings extends for a portion of the length of the respective projection of the second set. The openings in the second set of projections being aligned so as to receive a second pivot rod. The link has two ends, with the rib extending between the ends. A slot is formed in each end of the link. Each slot is formed by a pair of walls extending from an endmost projection in either the first or second sets of projections. The endmost projections are at respective ends of the rib.</p>
+      <p id="p-00025-en">In accordance with another aspect of the invention, each of the slots has an inside surface that is structured and arranged to contact a guide rail. The inside surface is arcuate so as to be convex.</p>
+      <p id="p-00026-en">In accordance with still another aspect of the present invention, each of the walls that extend from the endmost projection to form the slot has an outside end surface. The outside end surfaces are arcuate so as to be convex.</p>
+      <p id="p-00027-en">The present invention also provides a conveyor belt system for carrying articles along a path which path may include a curved path. First and second conveyor belts are located side by side adjacent to each other. The first and second conveyor belts are guided along respective paths by tracks. Each of the first and second conveyor belts includes a plurality of links, with each of the links comprising a rib, a first set of projections and a second set of projections. The first set of projections extends from the rib in a first direction. The individual projections of the first set being separated from each other by respective first gaps. The projections of the first set each having an opening therethrough. The openings of the first set of projections are aligned so as to receive a first pivot rod. The second set of projections extends from the rib in a direction that is opposite of the first direction. The individual projections of the second set are separated from each other by respective second gaps. The projections of the second set are staggered with respect to the projections of the first set. The projections of the second set each having a slotted opening therethrough. Each of the slotted openings extends for a portion of the link of the respective projection of the second set. The openings of the second set of projections being aligned so as to receive a second pivot rod. The link has two ends with the rib extending between the ends. A slot is formed in each of the link. Each slot is formed by a pair of walls extending from an endmost projection in either the first or second sets of projections. The endmost projections being at the respective ends of the rib. The end slots receive the tracks, there being a center guide serving as a center track between the first and second conveyor belts. The center guide has first and second lips extending in opposite directions from each other. The first and second lips are coupled to mounting structure by a web. The first and second lips are received in end slots of the links in the first and second conveyor belts.</p>
+      <p id="p-00028-en">In accordance with another aspect of the present invention, the first and second lips comprise metal with plastic being interposed between the first and second lips on the conveyor belt links.</p>
+      <p id="p-00029-en">The present invention also provides a conveyor belt system for carrying articles along a path. There is a plurality of plastic links, with each link having a rib, a first set of projections and a second set of projections. The first set of projections extends from the rib in a first direction. The individual projections of the first set being separated from each other by respective first gaps. The projections of the first set each having an opening therethrough. The openings of the first set of projections are aligned so as to receive a first pivot rod. The second set of projections extends from the rib in a direction that is opposite of the first direction. The individual projections of the second set are separated from each other by respective second gaps. The projections of the second set are staggered with respect to the projections of the first set. The projections of the second set each having a slotted opening therethrough. The slotted opening extends for a portion of the length of the projection of the second set. The openings of the second set of projections being aligned so as to receive a second pivot rod. The links being coupled together with the pivot rods such that the first set of projections are received by the second gaps and the second set of projections are received by the first gaps. Each of the links having two ends with each of the ends having a slot therein. The slot is parallel to the first and second sets of projections. There are two side frames that are spaced apart from each other. Each side frame has first and second lips. The first and second lips extend in an inside direction and are separated from each other by one or more cross members that couple the side frames together. The conveyor belt has an upper portion and a lower portion, with the slots of the belt links in the upper portion of the conveyor belt receiving the first lips and the slots of the belt links in the lower portion of the conveyor belt receiving the second lips.</p>
+      <p id="p-00030-en">The side frames and cross members form a self-contained support assembly for the conveyor belt.</p>
+      <p id="p-00031-en">In accordance with another aspect of the present invention, the side frames have outside surfaces which outside surfaces engage vertical supports.</p>
+    </summary>
+    <description-of-drawings>
+      <heading level="2">DESCRIPTION OF THE DRAWINGS</heading>
+      <p id="p-00032-en">
+        <figref>FIG. 1</figref>is a schematic plan view of a conveyor belt system, incorporating the conveyor belt of the present invention, in accordance a preferred embodiment.</p>
+      <p id="p-00033-en">
+        <figref>FIG. 2</figref>is a schematic elevational view of the conveyor belt system, taken at lines II—II of FIG.<b>1</b>.</p>
+      <p id="p-00034-en">
+        <figref>FIG. 3</figref>is a top plan view of a link of the conveyor belt.</p>
+      <p id="p-00035-en">
+        <figref>FIG. 4</figref>is a top plan view of a link, in accordance with another embodiment.</p>
+      <p id="p-00036-en">
+        <figref>FIG. 5</figref>is a bottom plan view of the links of<figref>FIGS. 3 and 4</figref>.</p>
+      <p id="p-00037-en">
+        <figref>FIG. 6</figref>is a detailed top plan view showing an end of the link of<figref>FIG. 4</figref>with hidden lines showing the bottom structure.</p>
+      <p id="p-00038-en">
+        <figref>FIG. 7</figref>is a detailed side view of the link of FIG.<b>6</b>.</p>
+      <p id="p-00039-en">
+        <figref>FIG. 8</figref>is an end view of the link taken along lines VIII—VIII of FIG.<b>6</b>.</p>
+      <p id="p-00040-en">
+        <figref>FIG. 9</figref>is a cross-sectional end view of the link, taken through lines IX—IX of FIG.<b>6</b>.</p>
+      <p id="p-00041-en">
+        <figref>FIG. 10</figref>is an end view of a link, in accordance with still another embodiment.</p>
+      <p id="p-00042-en">
+        <figref>FIG. 11</figref>is a top plan view showing a portion of a conveyor belt configured in a turn.</p>
+      <p id="p-00043-en">
+        <figref>FIG. 12</figref>is a bottom plan view of the conveyor belt portion of FIG.<b>11</b>.</p>
+      <p id="p-00044-en">
+        <figref>FIG. 13</figref>is a transverse cross-sectional view of the conveyor belt support subassembly, shown configured to receive two side-by-side conveyor belts.</p>
+      <p id="p-00045-en">
+        <figref>FIG. 14</figref>is a plan view of a portion of the conveyor belt support subassembly of FIG.<b>13</b>.</p>
+      <p id="p-00046-en">
+        <figref>FIG. 15</figref>is a transverse cross-sectional view of a side frame.</p>
+      <p id="p-00047-en">
+        <figref>FIG. 16</figref>is a transverse cross-sectional view of a cross member.</p>
+      <p id="p-00048-en">
+        <figref>FIG. 17</figref>is a transverse cross-sectional view of a center guide.</p>
+      <p id="p-00049-en">
+        <figref>FIG. 18</figref>is a transverse cross-sectional view of an intermediate guide.</p>
+      <p id="p-00050-en">
+        <figref>FIG. 19</figref>is a transverse cross-sectional view of two side-by-side conveyor belts and a full support system.</p>
+      <p id="p-00051-en">
+        <figref>FIG. 20</figref>is a transverse cross-sectional view of a leg support.</p>
+      <p id="p-00052-en">
+        <figref>FIG. 21</figref>is an elevational view of an adjustable foot assembly.</p>
+      <p id="p-00053-en">
+        <figref>FIG. 22</figref>is a top view of the foot.</p>
+      <p id="p-00054-en">
+        <figref>FIG. 23</figref>is a transverse cross-sectional view of trim or guard panels.</p>
+      <p id="p-00055-en">
+        <figref>FIG. 24</figref>is a top plan view of a turnaround subassembly.</p>
+      <p id="p-00056-en">
+        <figref>FIG. 25</figref>is a side elevational view of the turnaround subassembly of FIG.<b>24</b>.</p>
+      <p id="p-00057-en">
+        <figref>FIG. 26</figref>is an end view of the turnaround subassembly of FIG.<b>24</b>.</p>
+      <p id="p-00058-en">
+        <figref>FIG. 27</figref>is an isometric exploded view of a side plate of the turnaround assembly.</p>
+      <p id="p-00059-en">
+        <figref>FIG. 28</figref>is an isometric exploded view of a center plate of the turnaround assembly.</p>
+    </description-of-drawings>
+    <detailed-desc>
+      <heading level="2">DESCRIPTION OF THE PREFERRED EMBODIMENT</heading>
+      <p id="p-00060-en">In<figref>FIGS. 1 and 2</figref>, there is shown a conveyor belt system<b>11</b>. The system is used to convey objects, such as packages<b>12</b>A or baggage<b>12</b>B, from one location to another. The system<b>11</b>has a conveyor belt<b>13</b>, guides or tracks<b>15</b>, and a drive mechanism<b>17</b>.</p>
+      <p id="p-00061-en">The conveyor belt<b>13</b>can have straight sections<b>19</b>, radiused or curved sections<b>21</b>and inclined or declined sections<b>23</b>. Straight sections<b>19</b>involve the belt traveling in a uniform direction. Radiused sections<b>21</b>involve the belt turning from one direction to another. Inclined or declined sections<b>23</b>involve a change in elevation of the belt.</p>
+      <p id="p-00062-en">The guides<b>15</b>control the path of the belt. The guides<b>15</b>include side (or end) guides and bearing (or intermediate) guides. The guides<b>15</b>contact the belt to steer and support the belt. The guides will be described in more detail below.</p>
+      <p id="p-00063-en">The conveyor belt<b>13</b>is endless and thus travels in a continuous loop. In the system<b>11</b>shown in<figref>FIGS. 1 and 2</figref>, there are returns or turnarounds<b>231</b>at locations A and B of the system. At location B, the top belt portion rounds the return to go underneath. At location A, the underneath belt portion rounds the return to go on top. The top belt travels from location A to location B, while the bottom belt travels from location B to location A.</p>
+      <p id="p-00064-en">The drive mechanism<b>17</b>includes a motor driven sprocket that engages the conveyor belt. The speed of belt travel can vary between 10-300 linear feet per minute. The drive mechanism<b>17</b>can move the conveyor belt in either direction.</p>
+      <p id="p-00065-en">The conveyor belt<b>13</b>is made up of a plurality of links<b>25</b>or modules that are coupled together. Referring to<figref>FIGS. 3</figref>,<b>5</b>and<b>7</b>, each link<b>25</b>has a central, straight rib<b>27</b>that extends between the ends<b>29</b>of the link. (In the preferred embodiment, the ends<b>29</b>have a slot<b>67</b>therein; therefore, the rib<b>27</b>does not extend all the way to the ends<b>29</b>.) The rib<b>27</b>has a forward or leading side<b>31</b>and a rearward or trailing side<b>33</b>. Projections<b>35</b>extend out from the rib<b>27</b>. Adjacent projections<b>35</b>are separated from each other by a gap<b>37</b>. Each projection has a free end<b>39</b>.</p>
+      <p id="p-00066-en">There is a first set of projections<b>35</b>A that extends transversely from the leading side<b>31</b>of the rib<b>27</b>. A second set of projections<b>35</b>B extends transversely from the trailing side<b>33</b>of the rib<b>27</b>. (In the description that follows, “leading” and “trailing” are used to provide a frame of reference to describe the links. However, the links can be driven in either direction.)</p>
+      <p id="p-00067-en">The second set of projections<b>35</b>B are offset or staggered from the first set of projections<b>35</b>A. Thus, the projections of one set are centered with the gaps<b>37</b>of the other set. This offset allows the projections of one link to fit interdigitally with the projections of the adjacent link, as shown in<figref>FIG. 12</figref>while the ends<b>39</b>remain aligned. (In<figref>FIG. 12</figref>, the ends<b>39</b>are aligned along an arc or curve; when the links<b>25</b>are on a straight section<b>19</b>, the ends<b>39</b>are aligned along a straight line.)</p>
+      <p id="p-00068-en">Each of the projections of the first set<b>35</b>A has a cylindrical opening<b>40</b>therethrough (see FIGS.<b>8</b>and<b>9</b>). Each of the projections of the second set<b>35</b>B has a slot<b>41</b>therethrough. The openings<b>40</b>are oriented with respect to each other so as to receive a pintle<b>43</b>, or pivot pin, that is generally parallel to the rib<b>27</b>(see FIG.<b>12</b>). Likewise, the slots<b>41</b>are oriented with respect to each other so as to receive a second pintle<b>43</b>that is generally parallel to the rib<b>27</b>.</p>
+      <p id="p-00069-en">The projections<b>35</b>are generally coplanar with each other as shown by the end view of FIG.<b>8</b>. The link<b>25</b>has leading and trailing sides that correspond to the ends<b>39</b>of the projections<b>35</b>. The leading side corresponds to the ends<b>45</b>(see<figref>FIGS. 5 and 8</figref>) of the first set<b>35</b>A of projections, while the trailing side corresponds to the ends<b>47</b>of the second set<b>35</b>B of projections. As shown in<figref>FIG. 9</figref>the ends<b>45</b>,<b>47</b>of the projections are rounded.</p>
+      <p id="p-00070-en">For purposes of this description, the link also has top and bottom sides<b>48</b>,<b>49</b>(top and bottom are used with reference to<figref>FIGS. 7 and 9</figref>, and also to the orientation of a link when in the top belt portion of the conveyor belt transversing from location A to location B of FIG.<b>1</b>). A cover member<b>51</b>covers a portion of the top side<b>48</b>of each link, while the bottom side<b>49</b>is uncovered. Thus, the gaps<b>37</b>between the projections<b>35</b>are partially covered from the top side<b>48</b>by the cover member<b>51</b>, while being uncovered from the bottom side<b>49</b>. In the preferred embodiment, the cover member<b>51</b>is a plate. The plate<b>51</b>extends from the rib<b>27</b>toward the ends<b>45</b>of the first set<b>35</b>A of projections. Likewise, the plate<b>51</b>extends from the rib<b>27</b>toward the ends<b>47</b>of the second set<b>35</b>B of projections. The plate<b>51</b>extends to the mid-length of the projections<b>35</b>, thus leaving the end portions of the projections uncovered. This allows the links<b>25</b>to traverse a radiused section, as will be described more fully below. The ends<b>53</b>of the plate extend to the ends<b>29</b>of the link (see FIG.<b>6</b>). More specifically, the plate extends a distance from the rib<b>27</b>that is:</p>
+      <p id="p-00071-en">distance≧length of the projections−(<i>A+B+C</i>)</p>
+      <p id="p-00072-en">where A=the distance between the end of the opening<b>40</b>and the end of the projection<b>35</b>A (see<figref>FIG. 8</figref>)</p>
+      <p id="p-00073-en">B=the distance between the end of the slot<b>41</b>and the end of the projection<b>35</b>B</p>
+      <p id="p-00074-en">C the diameter of the pintle<b>43</b>.</p>
+      <p id="p-00075-en">Thus, the plate<b>51</b>of a particular link extends over the ends<b>39</b>of the projections of the adjacent and interlocked link. As shown in<figref>FIG. 11</figref>(especially on the right side where the links are pulled apart) the gaps<b>37</b>between the projections<b>35</b>are covered by the plate<b>51</b>and filled by the projections from the adjacent link. (Note that<figref>FIG. 12</figref>shows the bottom side of the belt. The plate<b>51</b>covers the top side, shown in<figref>FIG. 11.</figref>) As shown in<figref>FIG. 9</figref>, the ends<b>39</b>of the projections are rounded. The rounded ends<b>39</b>allow the plate edge<b>57</b>to overlap slightly the ends of the projections of the adjacent link. Thus, the distance given above for the plate extension can be slightly greater than the length of the projections (A+B+C).</p>
+      <p id="p-00076-en">The corners<b>55</b>and the edges<b>57</b>(see<figref>FIGS. 3</figref>,<b>6</b>, and<b>8</b>) of the plate<b>51</b>are rounded to eliminate any sharp corners and edges that may snag on the articles that are being conveyed. The leading edge of the plate<b>51</b>is tapered<b>59</b>(see<figref>FIGS. 3</figref>,<b>6</b>and<b>8</b>) near the corners. This tapering assists the link<b>25</b>in traversing a radiused section<b>21</b>on the conveyor belt system<b>11</b>. The trailing edge of the plate<b>51</b>can be tapered.</p>
+      <p id="p-00077-en">The plate<b>51</b>has a groove<b>61</b>(see<figref>FIG. 3</figref>) in its top surface, which groove extends between the plate ends<b>53</b>. Holes<b>63</b>can be formed along the bottom of the groove. The groove is filled with an elastomeric material such as rubber<b>65</b>. The top surface of the elastomeric material<b>65</b>extends above the top surface of the plate<b>51</b>. The elastomeric material provides friction to prevent objects from sliding on the plates. This is especially useful for inclined sections<b>23</b>(see<figref>FIGS. 1 and 2</figref>) on the conveyor belt system<b>11</b>. The elastomeric material extends into the holes, which holes serve to retain the elastomeric material in the groove. The holes<b>63</b>are optional.</p>
+      <p id="p-00078-en">As an alternative embodiment, the link can have a plate without a top groove<b>61</b>therein (see FIGS.<b>4</b>and<b>11</b>). A belt<b>13</b>can have the elastomeric material<b>65</b>and groove<b>61</b>on every second, third or fourth link.</p>
+      <p id="p-00079-en">The length of the projections in the first set is substantially the same as the length of the projections in the second set.</p>
+      <p id="p-00080-en">Referring to<figref>FIG. 6</figref>, each projection<b>35</b>is made up of a relatively thin web<b>85</b>that is coupled to the rib<b>27</b>and an enlarged end portion<b>87</b>located at the end of the web<b>85</b>. Thus, the gap<b>37</b>between any two projections has a narrow part (between the enlarged end portions<b>87</b>of the projections) and a broad part (between the narrow webs<b>85</b>). This tapered gap configuration assists the links<b>25</b>in forming an angle with each other (as shown in<figref>FIGS. 11 and 12</figref>) in order to traverse a radiused or curved section<b>21</b>.</p>
+      <p id="p-00081-en">Referring to<figref>FIGS. 5</figref>,<b>6</b>and<b>9</b>, each projection<b>35</b>has a lip<b>89</b>that extends from the enlarged end portion<b>87</b>to the plate. The lip<b>89</b>provides for a wider top side<b>48</b>of the projection<b>35</b>relative to the bottom side<b>49</b>. Thus, the tapered projections, together with the plate, minimize the exposure of the gaps when the conveyor belt is viewed from the top side (see FIG.<b>11</b>). By minimizing the exposure of the gaps, the likelihood that an article (such as a package or baggage) will be caught in the belt will be minimized. There are some small spaces between the projections, as illustrated in FIG.<b>11</b>. This is to allow for ease in moving the one link with respect to an adjacent link.</p>
+      <p id="p-00082-en">At each end of the rib<b>27</b>is an endmost projection<b>35</b>E (see FIG.<b>3</b>). The endmost projections<b>35</b>E are wider than the other projections<b>35</b>due to the provision of a slot<b>67</b>. The ends<b>29</b>of the link<b>25</b>are located on the endmost projections<b>35</b>E. The ends<b>29</b>are curved or radiused in a convex arrangement (see<figref>FIGS. 3</figref>,<b>5</b>and<b>6</b>), wherein the center of the respective end<b>29</b>bulges outwardly more than the corners of the end. This outward curvature on the link ends enables the link to better traverse a radiused section<b>21</b>(see<figref>FIG. 1</figref>) of the conveyor belt system. The ends<b>53</b>of the plate<b>51</b>need not be curved and can be flat as shown in<figref>FIGS. 3 and 4</figref>. Alternatively, the ends<b>53</b>of the plate can be curved.</p>
+      <p id="p-00083-en">In addition, each of the endmost projections<b>35</b>E of the link<b>25</b>has a slot<b>67</b>therein, which slot is open to the end<b>29</b>and to the leading and trailing sides<b>31</b>,<b>33</b>. The slot<b>67</b>extends generally parallel to the projections<b>35</b>(see FIGS.<b>6</b>-<b>8</b>). The slot<b>67</b>is formed by upper and lower end portions or walls<b>69</b>,<b>71</b>. The slot has top and bottom surfaces<b>73</b>,<b>75</b>which are flat and smooth. The slot<b>67</b>engages the guides<b>15</b>along the sides of the conveyor belt<b>13</b>(see FIG.<b>1</b>). The slot also has an inside surface<b>77</b>which traverses between the top and bottom surfaces. This inside surface<b>77</b>is smooth, but is radiused in a convex arrangement so as to bow outward in the middle. The curvature of the inside surface<b>77</b>need not be the same as the curvature of the end<b>29</b>. In the preferred embodiment, the curvature of the inside surface<b>77</b>is greater than the curvature of the end<b>29</b>. The curvature of the inside surface<b>77</b>serves to reduce noise, such as chatter, when the links<b>25</b>move along the guides or tracks.</p>
+      <p id="p-00084-en">The upper and lower end portions<b>69</b>,<b>71</b>can be of equal thickness, as shown in<figref>FIGS. 7 and 8</figref>. The opening<b>40</b>is centered within the slot<b>67</b>. Alternatively, the upper end portion<b>69</b>and the lower end portion<b>71</b>can be of unequal thickness, as shown in FIG.<b>10</b>. The upper end portion<b>69</b>is of a greater thickness than the lower end portion<b>71</b>.</p>
+      <p id="p-00085-en">Each endmost projection<b>35</b>E has an opening<b>40</b>therethrough, which opening is aligned with the other openings<b>40</b>in the projections<b>35</b>A so as to receive the pintle<b>43</b>. The opening<b>40</b>communicates with the slot<b>67</b>. At the outermost end of the opening is a shoulder<b>91</b>that extends slightly into the opening (see FIGS.<b>6</b>and<b>8</b>). The shoulder<b>91</b>serves to retain the pintle in place; the length of the pintle<b>43</b>is less than the distance between the shoulders in the endmost projections<b>35</b>E so that the ends of the pintle are located between the shoulders.</p>
+      <p id="p-00086-en">The plate<b>51</b>is coupled to the upper end portion<b>69</b>of the slot<b>67</b>at<b>68</b>. Thus, the plate<b>51</b>serves to strengthen the upper end portion<b>69</b>as well as the endmost projection<b>35</b>E. In fact, the plate provides stiffening all along the length of the link<b>25</b>. At the outer ends, the trailing portion of the plate overlaps the endmost projection of the adjacent trailing link (see FIG.<b>12</b>).</p>
+      <p id="p-00087-en">The links<b>25</b>can be of any length, from end<b>29</b>to end<b>29</b>. The links<b>25</b>can be made up of plural components separated along the rib and/or projections, and joined into one length by the pintles<b>43</b>. For example, a link can be made up of a right end section, a middle section, and a left section or any combination thereof The links are made of molded plastic; each link has integral projections, rib and plate.</p>
+      <p id="p-00088-en">The assembly of the links<b>25</b>into a conveyor belt will now be described. The links<b>25</b>are all oriented with the plates<b>51</b>facing a first direction. The first sets of projections<b>35</b>A of the links likewise all face a second direction, which is perpendicular to the first direction. Two links are coupled together by inserting the first set<b>35</b>A of projections of one link into the gaps<b>37</b>between the second set<b>35</b>B of projections of the other link, so that the openings<b>40</b>are aligned with the slots<b>41</b>. The pintle<b>43</b>is then inserted from one end<b>29</b>of a link, through the openings<b>40</b>and slots<b>41</b>to the other end and secured in place by the shoulders<b>91</b>. A number of the links<b>25</b>are assembled together to form a continuous conveyor belt<b>13</b>loop.</p>
+      <p id="p-00089-en">When the links are assembled as shown in<figref>FIG. 11</figref>, a top or carrying surface is formed. Articles<b>12</b>A,<b>12</b>B are loaded on the carrying surface. The carrying surface includes the top surface of the plate<b>51</b>, as well as the top surfaces of the projections<b>35</b>A,<b>35</b>B. The carrying surface is stepped with steps being formed by the plate edges<b>57</b>T,<b>57</b>L. The steps provide some contour to the carrying surface so that articles will be carried along with the belt. If the plates are grooved<b>61</b>, as shown in<figref>FIG. 3</figref>, the articles are even less likely to slip.</p>
+      <p id="p-00090-en">The conveyor belt<b>13</b>is mounted to a support subsystem<b>101</b>, shown in<figref>FIGS. 13 and 14</figref>. The support subsystem<b>101</b>supports the conveyor belt up off of the floor and provides the guides<b>15</b>or tracks for guiding the conveyor belt along a path.</p>
+      <p id="p-00091-en">In general, the support subsystem<b>101</b>forms a rectangular frame. The frame is formed by side frame members<b>103</b>and cross members<b>105</b>. The side frame members<b>103</b>extend the length of the support subsystem. There is a side frame member<b>103</b>along each side of the support subsystem. The cross members<b>105</b>extend transversely across and are coupled to the support frame members<b>103</b>. As shown in<figref>FIG. 15</figref>, each side frame member<b>103</b>has first and second shoulders<b>107</b>that extend from walls<b>108</b>, which walls are coplanar. The ends of the cross members<b>105</b>are received between the shoulders<b>107</b>, as shown in FIG.<b>13</b>.</p>
+      <p id="p-00092-en">The side frame members<b>103</b>and the cross members<b>105</b>are made of extruded metal. Thus, the transverse cross-sectional shape remains the same along the length of the members. In addition, the side frame members<b>103</b>can be radiused for the curved sections<b>21</b>of the system.</p>
+      <p id="p-00093-en">Referring to<figref>FIG. 16</figref>, which shows a cross-sectional view of a cross member<b>105</b>, the cross member has two rectangular blocks<b>109</b>coupled together by a web<b>111</b>so as to form a “C”. Short flanges<b>113</b>extend from the corners of the blocks. Each block has a circular hole<b>115</b>therein which hole extends the length of the cross member<b>105</b>. The ends of the cross member<b>105</b>are coupled to the side frame members<b>103</b>by threaded fasteners<b>117</b>that extend through the walls<b>108</b>of the side frame members and are received by the openings<b>115</b>of the cross members (see FIG.<b>13</b>).</p>
+      <p id="p-00094-en">Referring to<figref>FIG. 15</figref>, each side frame member<b>103</b>is symmetrical about a center line<b>117</b>. In describing the cross-section of the side frame member, “inside” and “outside” will be used with reference to the orientation shown in<figref>FIGS. 13 and 19</figref>, wherein “inside” is towards the conveyor belt and “outside” is away from the conveyor belt. The wall<b>108</b>with the shoulder<b>107</b>is an inside wall. An outside wall<b>119</b>extends transversely from the center line<b>117</b>a short distance. A wall<b>121</b>that extends parallel to the center line<b>117</b>couples the wall<b>119</b>to an end of the wall<b>108</b>. Another wall<b>123</b>extends from the other end of the wall<b>108</b>in a parallel direction to the wall<b>121</b>. The two walls<b>119</b>and<b>123</b>are coplanar. Still another wall<b>125</b>extends from the wall<b>123</b>toward the wall<b>119</b>. The walls<b>119</b>,<b>121</b>,<b>108</b>,<b>123</b>and<b>125</b>form a “C” shaped structure with lips<b>127</b>. A cavity<b>128</b>is formed by the “C” shaped structure. The cavity<b>128</b>and the lips<b>127</b>are used to couple the side frames to vertical supports<b>175</b>(see FIG.<b>19</b>), which will be described in more detail hereinbelow.</p>
+      <p id="p-00095-en">Extending perpendicularly from the wall<b>123</b>is another wall<b>129</b>. A lip<b>131</b>extends from the free end of the wall<b>129</b>inwardly. A plastic wear strip<b>133</b>is placed around the lip<b>131</b>. The wear strip<b>133</b>and the lip<b>131</b>serve as tracks for guiding the conveyor belt links<b>25</b>. The wear strip<b>133</b>and the lip<b>131</b>are received by the slot<b>67</b>in the ends<b>29</b>of the links<b>25</b>. The wear strip<b>133</b>has upper and lower surfaces<b>135</b>that contact the top and bottom surfaces<b>73</b>,<b>75</b>(see<figref>FIGS. 7 and 8</figref>) of the slots<b>67</b>. The distance between the upper and lower surfaces<b>135</b>of the wear strip<b>133</b>is less than the distance between the top and bottom surfaces<b>73</b>,<b>75</b>so as to provide for a somewhat loose fit. The wear strip has an inside surface<b>137</b>that contacts the inside surface<b>77</b>(see<figref>FIGS. 7 and 8</figref>) of each link. The distance between the wear strip inside surfaces<b>137</b>is greater than the distance between the two inside surfaces<b>77</b>of each link<b>25</b>so as to provide for a somewhat loose fit. The links<b>25</b>are able to move and/or slide along the lips<b>131</b>and wear strips<b>135</b>. The wear strips are made of a low friction plastic. The wear strips are retained on the lips by corresponding shoulders<b>139</b>on each of the lips and shoulders.</p>
+      <p id="p-00096-en">With the support subsystem<b>101</b>, the conveyor belt links<b>25</b>are captured and guided at the ends<b>29</b>for the entire path that is traversed by the conveyor belt<b>13</b>. This allows the conveyor belt to be operated at relatively high speeds. In addition, maintenance on the conveyor belt system is minimized because the belt is not subject to misalignment problems.</p>
+      <p id="p-00097-en">Returning to the description of the side frame member<b>103</b>of<figref>FIG. 15</figref>, each wall<b>129</b>has a channel<b>141</b>formed on its outside. The channel<b>141</b>is used to couple trim or guard panels<b>209</b>,<b>211</b>(see<figref>FIG. 19</figref>) to the side frame members<b>103</b>, which will be described in more detail hereinbelow. The wall<b>142</b>forming the channel<b>141</b>has an outside surface that is coplanar with the outside surfaces of the walls<b>119</b>,<b>125</b>, wherein a leg support<b>175</b>can bear against these outside surfaces (see FIG.<b>19</b>).</p>
+      <p id="p-00098-en">As discussed, the side frame member<b>103</b>is symmetrical about a center line<b>117</b>. Thus, there are two lips<b>131</b>. An upper lip is used to guide the upper portion of the conveyor belt, which upper portion carries the articles<b>12</b>. A lower lip is used to guide the lower portion of the conveyor belt, which lower portion serves as a return for the continuous loop conveyor belt.</p>
+      <p id="p-00099-en">The two walls<b>121</b>are separated by a gap<b>143</b>. Small grooves<b>145</b>are formed in the edges of the walls<b>119</b>,<b>125</b>across the gap<b>128</b>and of the walls<b>108</b>across the gap<b>143</b>.</p>
+      <p id="p-00100-en">
+        <figref>FIGS. 13 and 19</figref>illustrate a support subsystem that supports two conveyor belts<b>13</b>A,<b>13</b>B. The two conveyor belts traverse parallel paths and are located adjacent to each other. The use of two side-by-side conveyor belts<b>13</b>A,<b>13</b>B allows the construction and operation of a wider conveyor system. The two belts are moved at the same speed, thus forming in essence a single conveyor.</p>
+      <p id="p-00101-en">The invention locates the guides below the top surface of the conveyor belts so that articles<b>12</b>which are being conveyed can bear on the two belts simultaneously (see FIG.<b>19</b>). In addition, the conveyor system is able to convey the articles in a curved path<b>21</b>(see FIG.<b>1</b>). Using two (or more) conveyor belts side-by-side allows the length (between the ends<b>29</b>) of the individual links<b>25</b>to remain relatively short. Using relatively short links<b>25</b>permits the minimizing of forces on the links<b>25</b>and pintles<b>43</b>when the belt traverses a curved section<b>21</b>.</p>
+      <p id="p-00102-en">Although the conveyor belts in<figref>FIG. 19</figref>are described as being side-by-side, the individual links<b>25</b>are end<b>29</b>to end<b>29</b>. That is to say that an end<b>29</b>of a link<b>25</b>in one conveyor belt is adjacent to an end<b>29</b>of a link in the other conveyor belt. The two ends<b>29</b>of the links in the two conveyor belts are guided by a center guide<b>151</b>, shown in<figref>FIGS. 13</figref>,<b>14</b>,<b>17</b>and<b>19</b>. The center guide<b>151</b>forms a rail or track that extends the length of the support subsystem<b>101</b>. Referring to<figref>FIG. 17</figref>, the guide has a block<b>153</b>with a cavity<b>155</b>therein. Extending from the block is a “T” shaped wall structure, having a web<b>157</b>and two lips<b>159</b>extending in opposite directions from each other. A wear strip<b>161</b>is located around the lips<b>159</b>. Shoulders<b>139</b>retain the wear strip<b>161</b>on the lips<b>159</b>.</p>
+      <p id="p-00103-en">The center guide<b>151</b>is coupled to the cross members<b>105</b>by bolts<b>163</b>. The bolts extend through openings in the respective block<b>109</b>of the cross member<b>105</b>. The bolt heads are located in the cavity, while the nuts are located on the opposite side of the block<b>109</b>and are used to secure the bolts. The nuts can be loosened to allow the center guide<b>151</b>to be slid into position, after which the nuts are tightened.</p>
+      <p id="p-00104-en">There is an upper center guide<b>151</b>and a lower center guide<b>151</b>, as shown in<figref>FIG. 13</figref>, for the upper and lower portions of the belt. The upper portion of the belts convey articles<b>12</b>and consequently bear the weight of the articles. Intermediate guides<b>165</b>are positioned beneath the belts to provide support (see<figref>FIG. 13</figref>;<figref>FIG. 19</figref>does not show intermediate guides in order to prevent the drawing from becoming too cluttered.) Referring to<figref>FIG. 18</figref>, each intermediate guide<b>165</b>is generally block shaped in transverse cross-section. There is a cavity<b>167</b>for receiving bolt heads, like the cavity<b>155</b>of the center guide<b>151</b>. Two oppositely facing lips<b>169</b>serve to receive and retain a wear strip<b>171</b>. The upper surface<b>173</b>of the wear strip is radiused and contacts the bottom side<b>49</b>of the links<b>25</b>.</p>
+      <p id="p-00105-en">As shown in<figref>FIGS. 13 and 14</figref>, the intermediate guides<b>165</b>are coupled to the cross members<b>105</b>by bolts and nuts, in a similar manner as described with respect to the center guide<b>151</b>. Also, as shown in<figref>FIG. 14</figref>, the intermediate guides<b>165</b>are preferably installed in a nonparallel configuration. Installing the intermediate guides<b>165</b>so as to be parallel to each other and to the center guide<b>151</b>is acceptable. However, this may result in wear to the underside of the links<b>25</b>. To minimize wear on the links, the intermediate guides<b>165</b>are installed in a nonparallel arrangement, wherein the distance between the intermediate guides with respect to each other and to the center rail varies along the conveyor belt path.</p>
+      <p id="p-00106-en">The lower portion of the conveyor belt need not have any intermediate guides.</p>
+      <p id="p-00107-en">The center guide<b>151</b>, intermediate guide<b>165</b>, and the wear strips<b>133</b>,<b>161</b>and<b>171</b>are all extruded parts.</p>
+      <p id="p-00108-en">When the conveyor belts<b>13</b>A,<b>13</b>B (see<figref>FIGS. 13 and 19</figref>) are installed into the supports, the tracks formed by lips<b>131</b>and the tracks formed by the center guide<b>151</b>are received by slots<b>67</b>in the ends of the links<b>25</b>. Thus, each conveyor belt extends between a track formed by the lip<b>131</b>and a track formed by the center guide<b>151</b>. The conveyor belts<b>13</b>A,<b>13</b>B are very close together, in the range of a fraction of an inch.</p>
+      <p id="p-00109-en">Of course, the invention can utilize a single conveyor belt instead of two conveyor belts. For a single conveyor belt, no center guide<b>151</b>is used. The slots in the ends of the links are supported by the lips<b>131</b>.</p>
+      <p id="p-00110-en">The support subsystem<b>101</b>supports the conveyor belts off of the floor<b>173</b>. In the preferred embodiment, the conveyor belt system bears on a floor<b>173</b>(see<figref>FIG. 19</figref>) by the use of leg supports<b>175</b>. However, other types of vertical supports besides legs can be used. For example, the conveyor belt system can be suspended from a ceiling or beams.</p>
+      <p id="p-00111-en">
+        <figref>FIG. 20</figref>shows a transverse cross-sectional view of a leg support<b>175</b>, which is extruded. There is a central “C” shaped portion<b>177</b>flanked by two oppositely facing “C” shaped portions<b>179</b>. The oppositely facing “C” shaped portions<b>177</b>,<b>179</b>share common walls<b>181</b>. The central “C” shaped portion<b>177</b>has a wall<b>183</b>that extends between the two common walls<b>181</b>.</p>
+      <p id="p-00112-en">The leg supports<b>175</b>are coupled to the side frame members<b>103</b>and depend downwardly therefrom, as shown in FIG.<b>19</b>. The wall<b>183</b>of each leg support<b>175</b>abuts against the walls<b>119</b>,<b>125</b>and<b>142</b>(see<figref>FIG. 15</figref>) of the side frame members. Bolts extend through the wall<b>183</b>of the leg support<b>175</b>and are received by nuts in the cavities<b>128</b>(see<figref>FIG. 15</figref>) of the side frame member<b>103</b>.</p>
+      <p id="p-00113-en">In<figref>FIG. 19</figref>, the bottom ends of the leg supports are mounted to angle bracket type of feet<b>223</b>. Bolts can be driven through the angle brackets<b>223</b>into the floor<b>173</b>to secure the entire system<b>11</b>. An alternative foot structure<b>185</b>is shown in<figref>FIGS. 21 and 22</figref>. This foot structure<b>185</b>has an elongated block<b>187</b>that is received by the cavity of the “C” shaped portion<b>177</b>(see<figref>FIG. 20</figref>) of the leg support<b>175</b>. One end of the block<b>187</b>has a cavity<b>189</b>therein for receiving a nut. A bolt couples the leg support to the block. The block has a bore<b>191</b>extending between the ends. The other end of the support has a bolt<b>193</b>extending out of the bore. The head<b>195</b>of the bolt<b>193</b>is received by a cavity<b>197</b>in the underside of a foot bracket<b>199</b>or plate. Two nuts<b>201</b>on the bolt shaft are used to space the block<b>187</b>(and the leg support<b>175</b>) above the foot bracket<b>199</b>(and the floor). The foot bracket has another opening<b>203</b>for receiving an anchor, which anchor is the foot bracket to the floor.</p>
+      <p id="p-00114-en">
+        <figref>FIG. 19</figref>shows the conveyor belt as it might be used in a setting near customers, such as an airport. Trim panels<b>209</b>,<b>211</b>are provided in order to limit access to the belts. In<figref>FIG. 19</figref>, there is a front side<b>205</b>, where people can load/remove articles from the belts, and a back side<b>207</b>. On the front side<b>205</b>, the leg supports<b>175</b>do not extend above the conveyor belts. This allows people to easily access the belts. On the back side<b>207</b>, the leg supports<b>175</b>can extend above the conveyor belts. The taller back side<b>207</b>can be used to hide controls, etc.</p>
+      <p id="p-00115-en">The trim panels<b>209</b>,<b>211</b>extend parallel with the side frame members<b>103</b>. There are generally two types of trim panels, namely straight and angled<b>209</b>,<b>211</b>. The trim panels stack on top of each other, being coupled together with a tongue and groove arrangement. For example, referring to<figref>FIG. 23</figref>, an angled trim panel<b>211</b>has a tongue<b>213</b>that is received by a groove<b>215</b>in a straight trim panel<b>209</b>. Each trim panel has a beveled lip<b>217</b>near the tongue or groove. When two panels are assembled together, a clamp<b>219</b>is placed around the oppositely facing beveled lips<b>217</b>in order to secure the trim panels together.</p>
+      <p id="p-00116-en">The angled trim panel<b>211</b>has a tongue<b>221</b>(see<figref>FIG. 19</figref>) at its free end. The tongue<b>221</b>is received by the channel<b>141</b>(see<figref>FIG. 15</figref>) in the side frame member<b>103</b>. This secures the angled trim panel<b>211</b>on the front side<b>205</b>to the side frame member.</p>
+      <p id="p-00117-en">With the conveyor belt system, the conveyor belts are captured in a safe and secure manner. The ends<b>29</b>of the belts are captured by the tracks<b>131</b>,<b>151</b>. Very little space or gap is left exposed. Likewise, the underneath side of the belt is covered by the trim panels. Furtherstill, the plates and projections fill the gaps between the links. Thus, the conveyor belt system is safe so that it can be used in a public area such as an airport; a person will be unable to get a finger or other appendage stuck in the belts.</p>
+      <p id="p-00118-en">The conveyor belts form a continuous loop. Turnarounds are provided, wherein belt lengths<b>25</b>move from the upper portion of the belt to the lower portion.<figref>FIGS. 24-26</figref>illustrate a turnaround subassembly<b>231</b>.</p>
+      <p id="p-00119-en">Referring to<figref>FIGS. 24 and 27</figref>, each turnaround subassembly<b>231</b>has a frame that is formed by side plates<b>233</b>. The side plates<b>233</b>are coupled together by cross members<b>105</b>. Each side plate<b>233</b>has a track<b>237</b>on its inside surface, as shown in FIG.<b>27</b>. The track, which is received by the slots<b>67</b>in the ends<b>29</b>of the links<b>25</b>, forms a curve so as to change the direction of the belt. The track need not have a wear strip. In the curved portion<b>237</b>C of the track, the track is thinner than in the straight portions. This allows the links to traverse a path having a relatively small radius.</p>
+      <p id="p-00120-en">A side frame member<b>103</b>abuts against the side plate<b>233</b>(see<figref>FIG. 25</figref>) so that the lips<b>131</b>of the side frame member are aligned with the track<b>237</b>, to form a continuous track. Because a wear strip is not used on the track<b>237</b>, the thickness of the track<b>237</b>at the junction with the side frame member<b>103</b>is the same as the thickness of the wear strip<b>135</b>. This provides a smooth transition between the wear strip and the track. The side frame member<b>103</b>is coupled to the side plate<b>233</b>by way of two cross members<b>105</b>that are bolted together. The side plate<b>233</b>has an arm<b>241</b>that extends below the side frame member<b>103</b>for a short distance.</p>
+      <p id="p-00121-en">The turnaround subassembly<b>231</b>is supported by leg supports<b>175</b>which are coupled to the side plates<b>233</b>.</p>
+      <p id="p-00122-en">The side plate<b>233</b>has an opening<b>256</b>(see<figref>FIG. 27</figref>) for receiving a shaft<b>245</b>(see FIG.<b>24</b>). A number of sprockets<b>247</b>are mounted on the shaft<b>245</b>. The teeth of the sprockets<b>247</b>enter the gaps<b>37</b>of the links<b>25</b>and are used to drive the conveyor belts. A motor<b>249</b>rotates the shaft<b>245</b>and the sprockets<b>247</b>. The motor can be fitted with a variable speed transmission, such as a variable frequency drive, which allows the belt speed to be adjusted.</p>
+      <p id="p-00123-en">The shaft is received by bearings<b>243</b>(see<figref>FIG. 24</figref>) mounted to the side plates<b>233</b>. Each side plate<b>233</b>has an access panel<b>257</b>(see<figref>FIG. 27</figref>) that is slotted to fit into the side plate. The opening<b>256</b>is divided between the side plate<b>233</b>and the access panel<b>257</b>. Removing the access panel<b>257</b>allows the shaft<b>245</b>and sprockets<b>247</b>to be lifted up from the turnaround subassembly<b>231</b>.</p>
+      <p id="p-00124-en">A center guide<b>251</b>is provided in the turnaround subassembly<b>231</b>. The center guide is formed in a center plate<b>253</b>(see FIG.<b>28</b>). The center plate is mounted to the cross members<b>05</b>; the openings<b>259</b>receive the cross members<b>105</b>. The center plate<b>253</b>has tracks<b>255</b>and is aligned so that its tracks<b>255</b>are aligned with the tracks or lips of<b>159</b>of the center guide<b>151</b>. Intermediate guides<b>165</b>are provided as well.</p>
+      <p id="p-00125-en">Referring to<figref>FIG. 28</figref>, the center plate<b>253</b>has a “C” shaped piece<b>261</b>(when held in such an orientation) that includes the curved portion of the track<b>255</b>. The piece<b>261</b>can be disassembled from the remainder of the plate<b>253</b>as shown. The shaft<b>245</b>extends through the piece<b>261</b>. Thus, when the piece<b>261</b>is removed from the plate<b>253</b>, the shaft can be lifted out of the turnaround subassembly<b>231</b>. The piece<b>261</b>is coupled to the plate<b>253</b>by bolts which are received by threaded holes in cylindrical slugs (not shown), which slugs are located in cylindrical openings of the plate<b>253</b>.</p>
+      <p id="p-00126-en">As discussed previously, the links<b>25</b>can be driven in either direction. A drive sprocket<b>247</b>is used to drive the links. The sprocket<b>247</b>has teeth that are aligned with the gaps<b>37</b>either between the first set of projections or the gaps between the second set of projections.</p>
+      <p id="p-00127-en">When a sprocket tooth enters a gap<b>37</b>, it contacts a driving surface. If the conveyor belt is being driven in the forward direction, the sprocket tooth engages the trailing side<b>33</b>of the rib<b>27</b>. This trailing side is shown in cross-section in FIG.<b>9</b>. The bottom portion<b>79</b>of the trailing side<b>33</b>is radiused toward the leading side<b>31</b>. The top portion<b>81</b>of the trailing side<b>33</b>is, in the preferred embodiment, flat. This allows the link to be molded more simply, as the plate can be molded integrally with the rib and the projections. If the conveyor belt is being driven in the reverse direction, the sprocket tooth engages the leading side of the link by engaging the end<b>45</b>of a projection<b>35</b>A in the first set of projections. The end<b>45</b>has a bottom portion<b>83</b>that is radiused in a similar, opposite manner from the bottom portion<b>79</b>of the trailing side<b>33</b>of the rib<b>27</b>.</p>
+      <p id="p-00128-en">The operation of the conveyor belt will now be described. The articles<b>12</b>A,<b>12</b>B to be conveyed are located on the top of the plates<b>51</b>. The drive mechanism engages the links to move the belt. The moving conveyor belt conveys the articles.</p>
+      <p id="p-00129-en">The conveyor belt, when traversing a straight section<b>15</b>, is likely to be pulled. The individual links will spread out so that the spacing between adjacent ribs is maximized. The pintle prevents the links from being pulled completely apart.</p>
+      <p id="p-00130-en">The plates<b>51</b>cover the gaps<b>37</b>when the links<b>25</b>are pulled to their maximum extent.<figref>FIG. 11</figref>shows this on the right side of the links<b>25</b>, where the plates are pulled apart from each other. Thus, objects on top of the belt plates<b>51</b>are prevented from entering and becoming caught in the gaps. This is especially useful when the articles being conveyed have straps, clips, and other loose items that are susceptible of becoming caught.</p>
+      <p id="p-00131-en">Adjacent links can rotate with respect to each other about the pintle<b>43</b>. This is useful when the conveyor belt traverses inclined sections<b>23</b>of the system, as well as returns at locations A and B.</p>
+      <p id="p-00132-en">In addition, the links can traverse radiused sections<b>21</b>of the system<b>11</b>(see FIGS.<b>11</b>and<b>12</b>). When the belt is being pulled, the trailing and leading edges of the adjacent plates are separated. This separation allows the belt to traverse a radiused section. Referring to the orientation of<figref>FIG. 11</figref>, the belt in engaged in a left hand turn. The end<b>291</b>of the links on the inside of the curve are bunched together so that the leading and trailing edges<b>57</b>L,<b>57</b>T of the adjacent plates<b>51</b>are in contact, or nearly so. The ends<b>290</b>of the links on the outside of the curve are pulled apart so that the leading and trailing edges of adjacent plates are separated by a maximum distance. At the outside of the radiused section, the plates still serve to cover the gaps between the projections.</p>
+      <p id="p-00133-en">Thus, the plates<b>51</b>on the links<b>25</b>cover the gaps<b>37</b>to prevent catching articles therein, while providing movement between adjacent links so as to allow traversing of a radiused section.</p>
+      <p id="p-00134-en">In addition, the curved ends of each link make contact with the guides<b>15</b>along a tangential point. Reducing the area of contact between the ends of each link and the guides reduces the amount of chatter between adjacent links. This is especially useful for conveyor belts operating at high speeds.</p>
+      <p id="p-00135-en">The foregoing disclosure and the showings made in the drawings are merely illustrative of the principles of this invention and are not to be interpreted sense.</p>
+    </detailed-desc>
+  </description>
+  <claims id="claims_eng" lang="eng" format="original" date-changed="20100409">
+    <claim num="1" id="clm-00001-en">
+      <claim-text>1. A link for a plastic conveyor belt, the belt being constructed of links interconnected by pivot rods into a sequence of hinged links for conveying articles along a path which path may include a curved portion, comprising:<claim-text>a) a rib;</claim-text><claim-text>b) a first set of projections extending from the rib in a first direction, the individual projections of the first set being separated from each other by respective first gaps, the projections of the first set each having an opening therethrough, the openings in the first set of projections being aligned so as to receive a first pivot rod;</claim-text><claim-text>c) a second set of projections extending from the rib in a direction that is opposite of the first direction, the individual projections of the second set being separated from each other by respective second gaps, the projections of the second set being staggered with respect to the projections of the first set so that the first gaps can receive a second set of projections of a second link and the second gaps can receive a first set of projections of a third link, the projections of the second set each having a slotted opening therethrough, each of the slotted openings extending for a portion of the length of the respective projection of the second set, the openings in the second set of projections being aligned so as to receive a second pivot rod;</claim-text><claim-text>d) the link having two ends, with the rib extending between the ends;</claim-text><claim-text>e) a slot formed in each end of the link, each slot being formed by a pair of walls extending from an endmost projection in either the first or second sets of projections, the endmost projections being at respective ends of the rib, the walls forming the slot being integral to the endmost projection.</claim-text></claim-text>
+    </claim>
+    <claim num="2" id="clm-00002-en">
+      <claim-text>2. The link of<claim-ref idref="clm-00001-en">claim 1</claim-ref>wherein each of the slots has an inside surface that is structured and arranged to contact a guide rail, the inside surface being arcuate so as to be convex.</claim-text>
+    </claim>
+    <claim num="3" id="clm-00003-en">
+      <claim-text>3. The link of<claim-ref idref="clm-00002-en">claim 2</claim-ref>wherein each of the walls that extend from the endmost projection to form the slot has an outside end surface, the outside end surfaces being arcuate so as to be convex.</claim-text>
+    </claim>
+    <claim num="4" id="clm-00004-en">
+      <claim-text>4. The link of<claim-ref idref="clm-00001-en">claim 1</claim-ref>wherein each of the walls that extend from the endmost projection to form the slot has an outside end surface, the outside end surfaces being arcuate so as to be convex.</claim-text>
+    </claim>
+    <claim num="5" id="clm-00005-en">
+      <claim-text>5. The link of<claim-ref idref="clm-00001-en">claim 1</claim-ref>wherein the rib, the first set of projections, the second set of projections and the walls forming each slot are integral.</claim-text>
+    </claim>
+    <claim num="6" id="clm-00006-en">
+      <claim-text>6. A conveyor belt system for carrying articles along a path, which path may include a curved path, comprising:<claim-text>a) first and second conveyor belts located side by side adjacent to each other, the first and second conveyor belts being guided along respective tracks;</claim-text><claim-text>b) each of the first and second conveyor belts comprising a plurality of links, with each of the links comprising a rib;</claim-text><claim-text>c) each of the links comprising a first set of projections extending from the rib in a first direction, the individual projections of the first set being separated from each other by respective first gaps, the projections of the first set each having an opening therethrough, the openings in the first set of projections being aligned so as to receive a first pivot rod;</claim-text><claim-text>d) each of the links comprising a second set of projections extending from the rib in a direction that is opposite of the first direction, the individual projections of the second set being separated from each other by respective second gaps, the projections of the second set being staggered with respect to the projections of the first set so that the first gaps can receive a second set of projections of a second link and the second gaps can receive a first set of projections of a third link, the projections of the second set each having a slotted opening therethrough, each of the slotted openings extending for a portion of the length of the respective projection of the second set, the openings in the second set of projections being aligned so as to receive a second pivot rod;</claim-text><claim-text>e) each of the links having two ends, with the rib extending between the ends;</claim-text><claim-text>f) a slot formed in each end of each link, each slot being formed by a pair of walls extending from an endmost projection in either the first or second sets of projections, the endmost projections being, at respective ends of the rib;</claim-text><claim-text>g) the end slots of each link receiving the tracks, there being a center guide serving as a center track between the first and second conveyor belts, the center guide having first and second lips extending in opposite directions from each other, the first and second lips being coupled to a mounting structure by a web, the first and second lips being received inside the end slots of the links in the first and second conveyor belts.</claim-text></claim-text>
+    </claim>
+    <claim num="7" id="clm-00007-en">
+      <claim-text>7. The conveyor belt system of<claim-ref idref="clm-00006-en">claim 6</claim-ref>wherein the first and second lips comprise metal, with plastic being interposed between the first and second lips and the conveyor belt links.</claim-text>
+    </claim>
+    <claim num="8" id="clm-00008-en">
+      <claim-text>8. A conveyor belt system for carrying articles along a path, comprising:<claim-text>a) a plurality of plastic links, with each link having a rib, a first set of projections and a second set of projections;</claim-text><claim-text>b) the first set of projections extending from the rib in a first direction, the individual projections of the first set being separated from each other by respective first gaps, the projections of the first set each having an opening therethrough, the openings in the first set of projections being aligned so as to receive a first pivot rod;</claim-text><claim-text>c) the second set of projections extending from the rib in a direction that is opposite of the first direction, the individual projections of the second set being separated from each other by respective second gaps, the projections of the second set being staggered with respect to the projections of the first set so that the first gaps can receive a second set of projections of a second link and the second gaps can receive a first set of projections of a third link, the projections of the second set each having a slotted opening therethrough, the slotted opening extending for a portion of the length of the projection of the second set, the openings in the second set of projections being aligned so as to receive a second pivot rod;</claim-text><claim-text>d) the links being joined together with pivot rods such that the first set of projections are received by the second gaps and the second set of projections are received by the first gaps;</claim-text><claim-text>e) each of the links having two ends, with each of the ends having a slot therein, the slot being parallel to the first and second sets of projections;</claim-text><claim-text>f) two side frames spaced apart from each other, with each side frame having a first lip and a second lip, the first and second lips extending in an inside direction, the first and second lips being separated from each other by one or more cross members that couple the side frames together;</claim-text><claim-text>g) the conveyor belt having an upper portion and a lower portion, with the slots of the belt links in the upper portion of the conveyor belt receiving the first lips and the slots of the belt links in the lower portion of the conveyor belt receiving the second lips.</claim-text></claim-text>
+    </claim>
+    <claim num="9" id="clm-00009-en">
+      <claim-text>9. The conveyor belt of<claim-ref idref="clm-00001-en">claim 1</claim-ref>, wherein the side frames have outside surfaces, wherein the outside surfaces are adapted to engage vertical supports.</claim-text>
+    </claim>
+  </claims>
+  <drawings id="drawings">
+    <figure id="fig-emi-d00000" num="2">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00000" file="US06672451-20040106-D00000.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00001" num="3">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00001" file="US06672451-20040106-D00001.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00002" num="4">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00002" file="US06672451-20040106-D00002.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00003" num="5">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00003" file="US06672451-20040106-D00003.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00004" num="6">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00004" file="US06672451-20040106-D00004.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00005" num="7">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00005" file="US06672451-20040106-D00005.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00006" num="8">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00006" file="US06672451-20040106-D00006.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00007" num="9">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00007" file="US06672451-20040106-D00007.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00008" num="10">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00008" file="US06672451-20040106-D00008.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00009" num="11">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00009" file="US06672451-20040106-D00009.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00010" num="12">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00010" file="US06672451-20040106-D00010.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00011" num="13">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00011" file="US06672451-20040106-D00011.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00012" num="14">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00012" file="US06672451-20040106-D00012.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00013" num="15">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00013" file="US06672451-20040106-D00013.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00014" num="16">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00014" file="US06672451-20040106-D00014.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00015" num="17">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00015" file="US06672451-20040106-D00015.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00016" num="18">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00016" file="US06672451-20040106-D00016.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00017" num="19">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00017" file="US06672451-20040106-D00017.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00018" num="20">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00018" file="US06672451-20040106-D00018.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00019" num="21">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00019" file="US06672451-20040106-D00019.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00020" num="22">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00020" file="US06672451-20040106-D00020.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00021" num="23">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00021" file="US06672451-20040106-D00021.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00022" num="24">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00022" file="US06672451-20040106-D00022.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+    <figure id="fig-emi-d00023" num="25">
+      <img he="N/A" wi="N/A" img-format="tif" id="emi-d00023" file="US06672451-20040106-D00023.TIF" img-content="drawing" alt="embedded image" />
+    </figure>
+  </drawings>
+</lexisnexis-patent-document>
