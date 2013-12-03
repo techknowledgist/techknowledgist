@@ -8,10 +8,11 @@ $ python lookup.py workspace/data/list-010.txt
 """
 
 
-import os, sys, codecs, time, sqlite3
+import os, sys, codecs, time, sqlite3, random
+from operator import itemgetter
 
 from utils.text import parse_fact_line, build_section_tree, DocNode
-from utils.text import chunk_text
+from utils.text import SentenceSplitter, Chunker
 from utils.tokenizer import Tokenizer
 
 
@@ -36,17 +37,17 @@ def process(filelist):
         basename = os.path.basename(infile)
         text_file = infile + '.txt'
         fact_file = infile + '.fact'
-        term_file = infile + '.terms'
+        term_file = 'workspace/results/' + basename + '.terms'
         c, sc = process_file(text_file, fact_file, term_file)
         all_c += c
         all_sc += sc
         if VERBOSE:
-            print "   %s  %.4fs  chunks/subchunks: %d/%s" % (infile, time.time() - t2, c, sc)
-        #break
+            print "   %s  %.4fs  chunks/subchunks: %d/%s" \
+                  % (infile, time.time() - t2, c, sc)
     if VERBOSE:
         print "Total chunks/subchunks: %d/%d" % (all_c, all_sc)
         print "Total time elapsed: %f" % (time.time() - t1)
-    for size in sorted(SIZES.keys()): print size, SIZES[size]
+        #for size in sorted(SIZES.keys()): print size, SIZES[size]
 
 
 def process_file(text_file, fact_file, terms_file):
@@ -65,15 +66,27 @@ def process_file(text_file, fact_file, terms_file):
             if ftype in SECTIONS:
                 sections.append((start, end, ftype))
     sections.sort()
+    # this would be needed if we took document structure into account
     tree = build_section_tree(sections)
     #tree.pp()
 
+    file_terms = []
     all_c, all_sc = 0, 0
     for start, end, ftype in sections:
-        if ftype in LOOKUP_SECTIONS:
-            c, sc = lookup_section(doc, ftype, start, end, fh_terms)
+        if ftype in LOOKUP_SECTIONS: # and end - start < 5000:
+            c, sc, section_terms = lookup_section(doc, ftype, start, end, fh_terms)
+            file_terms.extend(section_terms)
+            section_size = end - start
+            #if section_size > 5000: print section_size,
             all_c += c
             all_sc += sc
+
+    counted_terms = {}
+    for term in file_terms:
+        t = term[2]
+        counted_terms[t] = counted_terms.get(t,0) + 1
+    for t,v in counted_terms.items():
+        fh_terms.write("%s\t%s\n" % (v,t))
 
     return all_c, all_sc
 
@@ -83,43 +96,80 @@ def lookup_section(doc, ftype, start, end, fh_terms):
     global SIZES
     global TERMS_DATABASE
 
+    section_terms = []
     text = doc[start:end]
-    text = text.lower()
     #print_section(ftype, start, end, text, print_text=False)
 
     chunks = chunk_text(text)
     all_c, all_subc = 0, 0
     for chunk in chunks:
         chunk_length = len(chunk)
-        if chunk_length > 1000: print chunk_length, ' '.join(chunk)
-        if chunk_length <= 140:
+        if chunk_length == -1:
+            try: print chunk_length, ' '.join(chunk)
+            except: pass
+        if chunk_length <= 10:
             SIZES[chunk_length] = SIZES.get(chunk_length, 0) + 1
-            c, subc, sub_chunks = lookup_chunk(chunk)
+            c, subc, chunk_terms = lookup_chunk(chunk, fh_terms)
+            section_terms.extend(chunk_terms)
             all_c += c
             all_subc += subc
 
-    return all_c, all_subc
-
-    #tokens = text.split()
-    #fh_terms.write("%s %s %s\n" % (ftype, start, end))
-    #fh_terms.write("%s\n\n" % text)
-    #for t in tokens:
-    #    TERMS_DATABASE.exists(t)
+    return all_c, all_subc, section_terms
 
 
-def lookup_chunk(chunk):
-    verbose = True if len(chunk) == 14999 else False
+def chunk_text(text, tokenize=False):
+    splitter = SentenceSplitter()
+    chunker = Chunker()
+    if tokenize:
+        # NOT YET FINISHED
+        tokenized_text = Tokenizer(text).tokenize_text()
+    else:
+        text = text.lower()
+        sentences = splitter.split(text)
+        chunker.chunk(sentences, len(text))
+        #chunker.pp_chunks()
+        return chunker.get_chunks()
+
+
+def lookup_chunk(chunk, fh_terms):
+    verbose = True if len(chunk) == -1 else False
     if verbose: print '>>>', chunk
-    chunk_subs = []
+    subs = []
     for i in range(len(chunk)):
         for j in range(len(chunk) + 1):
-            if i < j and j - i <= 500:
-                chunk_subs.append(chunk[i:j])
+            if i < j and j - i <= 10:
+                sub = chunk[i:j]
+                subs.append([i, j, ' '.join(sub), len(sub)])
+    terms = lookup_terms(subs)
     if verbose:
-        for sc in chunk_subs:
-            print '  ', ' '.join(sc)
-        print len(chunk_subs)
-    return len(chunk), len(chunk_subs), chunk_subs
+        for sc in subs:
+            print '  ', ' '.join(sc[2])
+        print len(subs)
+    return len(chunk), len(subs), terms
+
+
+def lookup_terms(terms):
+    verbose = False
+    #for t in terms: print t
+    terms = [(i, j, term, len) for (i, j, term, len)
+             in terms if TERMS_DATABASE.exists(term)]
+    terms = list(reversed(sorted(terms, key=itemgetter(3,1))))
+    filtered_terms = []
+    seen = {}
+    for t in terms:
+        tseen = False
+        for i in range(t[0], t[1]):
+            if i in seen:
+                tseen = True
+                continue
+        if not tseen:
+            for i in range(t[0], t[1]):
+                seen[i] = True
+            filtered_terms.append(t)
+    if verbose:
+        for t in terms: print "%s %s %s %s\n" % (t[0], t[1], t[3], t[2])
+        for t in filtered_terms: print "  %s %s %s %s\n" % (t[0], t[1], t[3], t[2])
+    return filtered_terms
 
 
 def print_section(ftype, start, end, text, print_text=False):
@@ -155,7 +205,7 @@ def initialize_term_db(in_memory=True, verbose=True, empty=False):
 class EmptyDB(object):
     """Place holder database."""
     def exists(self, term):
-        return False
+        return random.random() > 0.5
 
 
 class SqliteTermDB(object):
@@ -207,7 +257,7 @@ class HashTermDB(object):
             for line in codecs.open("%s/terms_%s.txt" % (self.path, c), encoding='utf-8'):
                 lines += 1
                 if lines % 100000 == 0: print '  ', lines
-                if lines > 100000: break
+                #if lines > 100000: break
                 self.terms[c][line.strip()] = True
             #print self.terms[c]
 
@@ -242,7 +292,7 @@ if __name__ == '__main__':
         filelist = sys.argv[2]
 
     initialize_term_db(empty=True, verbose=VERBOSE)
-    #initialize_term_db(in_memory=True, verbose=VERBOSE)
+    initialize_term_db(in_memory=True, verbose=VERBOSE)
     #initialize_term_db(in_memory=False, verbose=VERBOSE)
     #test_db()
 

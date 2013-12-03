@@ -96,9 +96,19 @@ class SentenceSplitter(object):
 
 class Chunker(object):
 
-    """Very simplistic chunker that uses a few sets of closed classes to
-    identify items that are not in a chunk and that assumes that any sequency of
-    non-function words and non-punctuation marks is a chunk."""
+    """Simplistic chunker that uses a few sets of closed classes to identify
+    items that are not in a chunk. It assumes that any sequency of non-function
+    words and non-punctuation marks is a chunk. Use the chunker as follows:
+
+    >>> text = u'a unicode string to be chunked.'
+    >>> text = text.lower()
+    >>> sentences = splitter.split(text)
+    >>> chunker.chunk(sentences, len(text))
+    >>> return chunker.get_chunks()
+
+    In the case above, only the chunks are returned, ignoring all tokens outside
+    of chunks. Access the chunked_sentences instance variable to get all the
+    results."""
 
     CC = ['and', 'both', 'but', 'either', 'or']
 
@@ -115,12 +125,51 @@ class Chunker(object):
           u'up', u'upon', u'via', u'whether', u'while', u'with', u'within',
           u'without']
 
+    MD = [u'can', u'may', u'must', u'will', u'would']
+
     RP = [u'down', u'in', u'off', u'on', u'out', u'over']
 
     TO = [u'to']
 
+    RB = [u'about', u'accordingly', u'accurately', u'additionally',
+          u'adjustably', u'aesthetically', u'afterwards', u'again', u'also',
+          u'alternately', u'alternatively', u'apart', u'arbitrarily',
+          u'arcuately', u'as', u'audibly', u'automatically', u'autonomously',
+          u'away', u'back', u'better', u'chemically', u'circumferentially',
+          u'closely', u'commonly', u'communicatively', u'completely',
+          u'conductively', u'consequently', u'considerably', u'constantly',
+          u'continually', u'conveniently', u'conversely', u'detachably',
+          u'digitally', u'directionally', u'directly', u'dramatically',
+          u'easily', u'either', u'electrically', u'electrochemically',
+          u'entirely', u'especially', u'essentially', u'even', u'exclusively',
+          u'exponentially', u'finally', u'financially', u'first', u'fixedly',
+          u'forward', u'freely', u'fully', u'further', u'furthermore',
+          u'generally', u'hence', u'herein', u'highly', u'however',
+          u'immovably', u'indeed', u'independently', u'individually',
+          u'initially', u'instead', u'integrally', u'inwardly', u'longer',
+          u'magnetically', u'manually', u'moreover', u'mutually', u'namely',
+          u'naturally', u'no', u'normally', u'not', u'off', u'olefinically',
+          u'once', u'only', u'operatively', u'optically', u'optionally',
+          u'outwardly', u'partially', u'particularly', u'pharmaceutically',
+          u'photolithographically', u'pivotably', u'pivotally', u'positively',
+          u'preferably', u'presently', u'prior', u'quantitatively', u'radially',
+          u'randomly', u'rather', u'readily', u'regardless', u'removably',
+          u'repeatedly', u'replaceably', u'respectively', u'rigidly',
+          u'rotatably', u'second', u'selectively', u'sequentially', u'serially',
+          u'seriously', u'side-by-side', u'simultaneously', u'so',
+          u'spectroscopically', u'still', u'subsequently', u'substantially',
+          u'then', u'thereafter', u'thereby', u'therefor', u'therefore',
+          u'therefrom', u'therein', u'thereof', u'thereto', u'thus', u'tightly',
+          u'together', u'too', u'twice', u'two-to-one', u'uniformly',
+          u'uniquely', u'up', u'upwardly', u'usefully', u'variously', u'versa',
+          u'vertically', u'very', u'visibly', u'well', u'wholly']
+
+    WRB = [u'when', u'whenever', u'where', u'whereby', u'wherein']
+
     # other words that never occur inside a chunk
-    NIC = [u'is', u'are', u'which', u'then', u'has', u'have', u'', u'', ]
+    NIC = [u'be', u'is', u'are', u'which', u'then', u'has', u'have', u'',
+           u'', u'', u'', u'', u'', u'', u'', u'', u'', u'', 
+           u'', u'', u'', u'', u'', u'', u'', u'', u''  ]
     
     PUNCT = ['.', '?', '!', ',', ':', ';']
 
@@ -130,11 +179,17 @@ class Chunker(object):
         self.IN = dict.fromkeys(Chunker.IN, True)
         self.RP = dict.fromkeys(Chunker.RP, True)
         self.TO = dict.fromkeys(Chunker.TO, True)
+        self.WRB = dict.fromkeys(Chunker.WRB, True)
+        self.MD = dict.fromkeys(Chunker.MD, True)
+        self.RB = dict.fromkeys(Chunker.RB, True)
         self.NIC = dict.fromkeys(Chunker.NIC, True)
         self.PUNCT = dict.fromkeys(Chunker.PUNCT, True)
         self.chunked_sentences = []
 
     def chunk(self, sentences, text_size=None):
+        """Chunk the list of sentences and put the results into the
+        chunked_sentences instance variable. A text_size can be handed in for
+        debugging and benchmarking purposes."""
         self.text_size = text_size
         self.chunked_sentences = [self._chunk_sentence(s) for s in sentences]
 
@@ -162,12 +217,16 @@ class Chunker(object):
             # stand-alone pucntuations are not in chunk
             if t in self.PUNCT:
                 self._add_to_current_sentence(t)
-            # determiners are not in chunk (may want to chane this to make them
+            # determiners are not in chunk (may want to change this to make them
             # the first element
             elif t in self.DT:
                 self._add_to_current_sentence(t)
             # other function words not in chunks
-            elif t in self.CC or t in self.IN or t in self.RP or t in self.TO:
+            elif t in self.CC or t in self.IN or t in self.RP or t in self.TO \
+                 or t in self.WRB:
+                self._add_to_current_sentence(t)
+            # some non-function words that do not occur in chunks
+            elif t in self.MD or t in self.RB or t in self.NIC:
                 self._add_to_current_sentence(t)
             # add all others to the current chunk
             else:
@@ -182,11 +241,3 @@ class Chunker(object):
             self.current_chunk = []
         self.chunked_sentence.append(t)
 
-
-def chunk_text(text):
-    splitter = SentenceSplitter()
-    sentences = splitter.split(text)
-    chunker = Chunker()
-    chunker.chunk(sentences, len(text))
-    #chunker.pp_chunks()
-    return chunker.get_chunks()

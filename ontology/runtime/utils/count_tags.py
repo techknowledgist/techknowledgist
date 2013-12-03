@@ -27,8 +27,12 @@ Notable results:
 
     RP - down in off on out over
 
+    MD - can may must will would
+
     TO - to
     
+    WRB - when whenever where whereby wherein
+
 """
 
 
@@ -37,7 +41,8 @@ import sys, glob, codecs
 
 dirname = sys.argv[1]
 
-FUNCTION_TAGS = dict.fromkeys(['IN', 'DT', 'CC', 'RP', 'TO'], True)
+FUNCTION_TAGS = dict.fromkeys(['IN', 'DT', 'CC', 'RP', 'TO', 'RB',
+                               'WRB', 'MD', 'LS', '-LRB-', '-RRB-'], True)
 
 TAGS1 = {}
 
