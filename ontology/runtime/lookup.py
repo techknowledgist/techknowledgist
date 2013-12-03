@@ -1,6 +1,7 @@
 """
 
 $ python lookup.py --verbose workspace/data/list-010.txt
+$ python lookup.py -v workspace/data/list-010.txt
 $ python lookup.py workspace/data/list-010.txt
 
 
@@ -10,6 +11,7 @@ $ python lookup.py workspace/data/list-010.txt
 import os, sys, codecs, time, sqlite3
 
 from utils.text import parse_fact_line, build_section_tree, DocNode
+from utils.text import chunk_text
 from utils.tokenizer import Tokenizer
 
 
@@ -21,35 +23,30 @@ LOOKUP_SECTIONS = ('TITLE', 'SECTITLE', 'TEXT')
 
 TERMS_DATABASE = None
 
-
-
-# tokens that start a chunk
-STARTS_CHUNK = [ 'the', 'a', 'an' ]
-
-# tokens that are never in a chunk
-NOT_IN_CHUNK = [
-    '.', ',', '?', '!', '"', "'", '', '(', ')', '[', ']', '#', '%',
-    'in', 'of', 'over', 'under', 'on', '', '',
-    'and', 'or', 'but', 'therefore', 'hence', 'although',
-    ]
-
-STARTS_CHUNK = dict.fromkeys(STARTS_CHUNK, True)
-NOT_IN_CHUNK = dict.fromkeys(NOT_IN_CHUNK, True)
+SIZES = {}
 
 
 def process(filelist):
     t1 = time.time()
     infiles = [ f.strip() for f in open(filelist).readlines()]
     if VERBOSE: print '[process] looking up terms in files'
+    all_c, all_sc = 0, 0
     for infile in infiles:
-        if VERBOSE: print '  ', infile
+        t2 = time.time()
         basename = os.path.basename(infile)
         text_file = infile + '.txt'
         fact_file = infile + '.fact'
         term_file = infile + '.terms'
-        process_file(text_file, fact_file, term_file)
+        c, sc = process_file(text_file, fact_file, term_file)
+        all_c += c
+        all_sc += sc
+        if VERBOSE:
+            print "   %s  %.4fs  chunks/subchunks: %d/%s" % (infile, time.time() - t2, c, sc)
         #break
-    if VERBOSE: print "Time elapsed: %f" % (time.time() - t1)
+    if VERBOSE:
+        print "Total chunks/subchunks: %d/%d" % (all_c, all_sc)
+        print "Total time elapsed: %f" % (time.time() - t1)
+    for size in sorted(SIZES.keys()): print size, SIZES[size]
 
 
 def process_file(text_file, fact_file, terms_file):
@@ -71,27 +68,59 @@ def process_file(text_file, fact_file, terms_file):
     tree = build_section_tree(sections)
     #tree.pp()
 
-    t1 = time.time()
-    count = 0
+    all_c, all_sc = 0, 0
     for start, end, ftype in sections:
         if ftype in LOOKUP_SECTIONS:
-            count += 1
-            #if count > 2: break
-            result = lookup(doc, ftype, start, end, fh_terms)
-    if VERBOSE:
-        print "lookup time: %f" % (time.time() - t1)
+            c, sc = lookup_section(doc, ftype, start, end, fh_terms)
+            all_c += c
+            all_sc += sc
+
+    return all_c, all_sc
 
 
-def lookup(doc, ftype, start, end, fh_terms):
+def lookup_section(doc, ftype, start, end, fh_terms):
+
+    global SIZES
     global TERMS_DATABASE
+
     text = doc[start:end]
+    text = text.lower()
     #print_section(ftype, start, end, text, print_text=False)
-    chunked_text = chunk_text(text)
-    tokens = text.split()
-    fh_terms.write("%s %s %s\n" % (ftype, start, end))
-    fh_terms.write("%s\n\n" % text)
-    for t in tokens:
-        TERMS_DATABASE.exists(t)
+
+    chunks = chunk_text(text)
+    all_c, all_subc = 0, 0
+    for chunk in chunks:
+        chunk_length = len(chunk)
+        if chunk_length > 1000: print chunk_length, ' '.join(chunk)
+        if chunk_length <= 140:
+            SIZES[chunk_length] = SIZES.get(chunk_length, 0) + 1
+            c, subc, sub_chunks = lookup_chunk(chunk)
+            all_c += c
+            all_subc += subc
+
+    return all_c, all_subc
+
+    #tokens = text.split()
+    #fh_terms.write("%s %s %s\n" % (ftype, start, end))
+    #fh_terms.write("%s\n\n" % text)
+    #for t in tokens:
+    #    TERMS_DATABASE.exists(t)
+
+
+def lookup_chunk(chunk):
+    verbose = True if len(chunk) == 14999 else False
+    if verbose: print '>>>', chunk
+    chunk_subs = []
+    for i in range(len(chunk)):
+        for j in range(len(chunk) + 1):
+            if i < j and j - i <= 500:
+                chunk_subs.append(chunk[i:j])
+    if verbose:
+        for sc in chunk_subs:
+            print '  ', ' '.join(sc)
+        print len(chunk_subs)
+    return len(chunk), len(chunk_subs), chunk_subs
+
 
 def print_section(ftype, start, end, text, print_text=False):
     if VERBOSE:
@@ -100,25 +129,9 @@ def print_section(ftype, start, end, text, print_text=False):
         ptext = '- ' + text if print_text else ''
         print ftype, start, end, ptext
 
-def chunk_text(text):
-    """Simple version of chunker, just tokenization and perhaps a few little
-    tricks like putting chunk boundaries at punctuation or at some words that
-    are known to not occur in chunks (hopefully some function words, which
-    actually makes sense for the current version of the chunker, which does not
-    include any determiners, prepositions or conjunctions)."""
-    for t in text.split():
-        if t[-1] in ['.',',', '?', '!']: t = t[:-1]
-        STARTS_CHUNK.get(t)
-        NOT_IN_CHUNK.get(t)
-    return
-    tokenizer = Tokenizer(text)
-    sentences = tokenizer.tokenize_text().as_string().strip().split("\n")
-    #print "\n".join(sentences)
-    for sentence in sentences:
-        chunked_sentence = chunk_sentence(sentence)
 
-def chunk_sentence(sentence):
-    pass
+
+
 
 
 def initialize_term_db(in_memory=True, verbose=True, empty=False):
@@ -137,7 +150,6 @@ def initialize_term_db(in_memory=True, verbose=True, empty=False):
     t2 = time.time()
     if verbose:
         print "loading time: %f" % (t2 - t1)
-
 
 
 class EmptyDB(object):
@@ -225,7 +237,7 @@ if __name__ == '__main__':
 
     VERBOSE = False
     filelist = sys.argv[1]
-    if len(sys.argv) > 2 and sys.argv[1] == '--verbose':
+    if len(sys.argv) > 2 and sys.argv[1] in ('-v', '--verbose'):
         VERBOSE = True
         filelist = sys.argv[2]
 

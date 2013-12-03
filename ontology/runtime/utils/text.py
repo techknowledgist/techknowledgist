@@ -96,7 +96,7 @@ class SentenceSplitter(object):
 
 class Chunker(object):
 
-    """Very simplictic chunker that uses a few sets of closed classes to
+    """Very simplistic chunker that uses a few sets of closed classes to
     identify items that are not in a chunk and that assumes that any sequency of
     non-function words and non-punctuation marks is a chunk."""
 
@@ -118,6 +118,9 @@ class Chunker(object):
     RP = [u'down', u'in', u'off', u'on', u'out', u'over']
 
     TO = [u'to']
+
+    # other words that never occur inside a chunk
+    NIC = [u'is', u'are', u'which', u'then', u'has', u'have', u'', u'', ]
     
     PUNCT = ['.', '?', '!', ',', ':', ';']
 
@@ -127,6 +130,7 @@ class Chunker(object):
         self.IN = dict.fromkeys(Chunker.IN, True)
         self.RP = dict.fromkeys(Chunker.RP, True)
         self.TO = dict.fromkeys(Chunker.TO, True)
+        self.NIC = dict.fromkeys(Chunker.NIC, True)
         self.PUNCT = dict.fromkeys(Chunker.PUNCT, True)
         self.chunked_sentences = []
 
@@ -184,6 +188,5 @@ def chunk_text(text):
     sentences = splitter.split(text)
     chunker = Chunker()
     chunker.chunk(sentences, len(text))
-    chunks = chunker.get_chunks()
     #chunker.pp_chunks()
-    return chunks
+    return chunker.get_chunks()
