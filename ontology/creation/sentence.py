@@ -647,6 +647,71 @@ class Sentence_english(Sentence):
         res = verb_prep
         return(fname("prev_V2", res))        
 
+    # version of prev_v2 in which verb is lemmatized
+    # in progress ///
+    @feature_method
+    def prev_l_V2(self, index):
+        verb = ""
+        prep = ""
+        past_verb = ""
+        verb_prep = ""
+        i = index -1
+        while i > 0:
+            # terminate if verb is found
+            # but not if the verb is past participle (VBN) or past tense (VBD)
+            # which could be an adjectival use of the verb.
+            # Also look for a form of "to be" before a VBN or VBD
+            # and accept the verb if an aux is found.
+            if self.chart[i].tag in ["VBG", "VBP", "VBZ", "VB"]:
+                verb = self.chart[i].lc_tok
+                break
+
+            # check for form of "to be" just before a past_verb.  
+            # If found, then assume this is the main verb.  If not, remove
+            # the past_verb value.
+            if past_verb != "" and self.chart[i].lc_tok in ["is", "are", "were", "was", "been"]:
+                verb = past_verb
+                break
+            else:
+                past_verb = ""
+
+            # Store a past verb in case an aux precedes it.
+            if self.chart[i].tag in ["VBD", "VBN"]:
+                past_verb = self.chart[i].lc_tok
+
+            # Do not terminate if a noun is reached before a verb
+            #if self.chart[i].tag[0] == "N":
+            #    break
+
+            # keep a prep if reached before verb
+            # this could be a particle.  Note we always replace 
+            # any previously encountered prep, giving us the one
+            # closest to the verb, assuming we find a verb.
+            if self.chart[i].tag in ["RP", "IN"]:
+                prep = self.chart[i].lc_tok
+
+            # remove the prep if a comma is found, since a
+            # comma makes the particle interpretation unlikely
+            if self.chart[i].lc_tok == ",":
+                prep = ""
+            # keep looking 
+            i = i - 1
+        if verb != "":
+
+            ### need to decide when dict can be loaded once for all docs.
+            ### dict choice needs to be language sensitive
+            ### verb = lemmatize(verb, "verb") ///PGA
+            # 11/9/21 PGA replaced blank with _
+            if prep != "":
+                verb_prep = verb + "_" + prep
+            else:
+                verb_prep = verb
+            #print "[sentence.py] verb_prep: %s" % verb_prep
+        res = verb_prep
+        return(fname("prev_l_V2", res))        
+
+
+
     # first noun to the left of chunk, within 3 words
     @feature_method
     def prev_N(self, index):
