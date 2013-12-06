@@ -1,24 +1,53 @@
 """
 
-$ python lookup.py --verbose workspace/data/list-010.txt
-$ python lookup.py -v workspace/data/list-010.txt
-$ python lookup.py workspace/data/list-010.txt
+Usage:
+
+    $ python lookup.py OPTIONS
+
+
+OPTIONS:
+
+--filelist FILE
+   Contains a list of paths to the input files. This is the only required
+   option.
+
+--run-id
+   The optional run-id option defines an identifier for the current run. The
+   default is to use the current timestamp. The run-id determines where results
+   file are written to. For example, with a run-id of 'run-018', result files
+   are written to workspace/results/run-018.
+
+--full-text
+   Lookup either occurs on all text or on just the title, abstract, summary and
+   claims. The latter is the default. Use this option to do a full text search.
+   
+-v
+--verbose
+   Print progress and other information to the terminal
+
+
+Typical examples:
+
+    $ python lookup.py --filelist workspace/data/list-010.txt
+    $ python lookup.py --filelist workspace/data/list-010.txt --full-text
+    $ python lookup.py -v --run-id lookup-024 --filelist workspace/data/list-010.txt
 
 
 """
 
 
-import os, sys, codecs, time, sqlite3, random
+import os, sys, codecs, time, sqlite3, random, getopt
 from operator import itemgetter
 
-from utils.text import parse_fact_line, build_section_tree, DocNode
+from utils.text import parse_fact_line, build_section_tree, build_section_list
 from utils.text import SentenceSplitter, Chunker
 from utils.tokenizer import Tokenizer
+from utils.misc import read_filelist, default_id
 
 
-SECTIONS = ('TITLE', 'ABSTRACT', 'SUMMARY',
-            'SECTITLE', 'TEXT', 'EMPHASIS',
-            'TEXT_CHUNK', 'RELATED_APPLICATIONS', 'CLAIMS')
+SECTION_TYPES = ('TITLE', 'ABSTRACT', 'SUMMARY',
+                 'SECTITLE', 'TEXT', 'EMPHASIS',
+                 'TEXT_CHUNK', 'RELATED_APPLICATIONS', 'CLAIMS')
 
 LOOKUP_SECTIONS = ('TITLE', 'SECTITLE', 'TEXT')
 
@@ -27,71 +56,92 @@ TERMS_DATABASE = None
 SIZES = {}
 
 
-def process(filelist):
+def process(filelist, run_id, full_text):
     t1 = time.time()
-    infiles = [ f.strip() for f in open(filelist).readlines()]
+    infiles = read_filelist(filelist)
     if VERBOSE: print '[process] looking up terms in files'
     all_c, all_sc = 0, 0
-    for infile in infiles:
+    results_dir = os.path.join('workspace', 'results', run_id)
+    os.mkdir(results_dir)
+    for text_file, fact_file in infiles:
         t2 = time.time()
-        basename = os.path.basename(infile)
-        text_file = infile + '.txt'
-        fact_file = infile + '.fact'
-        term_file = 'workspace/results/' + basename + '.terms'
-        c, sc = process_file(text_file, fact_file, term_file)
+        basename = os.path.splitext(os.path.basename(text_file))[0]
+        term_file = "%s/%s.terms" % (results_dir, basename)
+        c, sc = process_file(text_file, fact_file, term_file, full_text)
         all_c += c
         all_sc += sc
         if VERBOSE:
             print "   %s  %.4fs  chunks/subchunks: %d/%s" \
-                  % (infile, time.time() - t2, c, sc)
+                  % (text_file, time.time() - t2, c, sc)
     if VERBOSE:
         print "Total chunks/subchunks: %d/%d" % (all_c, all_sc)
         print "Total time elapsed: %f" % (time.time() - t1)
         #for size in sorted(SIZES.keys()): print size, SIZES[size]
 
 
-def process_file(text_file, fact_file, terms_file):
+
+def process_file(text_file, fact_file, terms_file, full_text):
 
     fh_text = codecs.open(text_file, encoding='utf-8')
     fh_fact = codecs.open(fact_file, encoding='utf-8')
     fh_terms = codecs.open(terms_file, 'w', encoding='utf-8')
 
     doc = fh_text.read()
-    sections = []
-    for line in open(fact_file):
-        fields = line.split()
-        if fields[0] == 'STRUCTURE':
-            fclass, ftype, start, end = parse_fact_line(fields)
-            #print ftype
-            if ftype in SECTIONS:
-                sections.append((start, end, ftype))
-    sections.sort()
-    # this would be needed if we took document structure into account
-    tree = build_section_tree(sections)
-    #tree.pp()
+    sections = build_section_list(fact_file, SECTION_TYPES)
 
-    file_terms = []
-    all_c, all_sc = 0, 0
-    for start, end, ftype in sections:
-        if ftype in LOOKUP_SECTIONS: # and end - start < 5000:
-            c, sc, section_terms = lookup_section(doc, ftype, start, end, fh_terms)
-            file_terms.extend(section_terms)
-            section_size = end - start
-            #if section_size > 5000: print section_size,
-            all_c += c
-            all_sc += sc
-
-    counted_terms = {}
-    for term in file_terms:
-        t = term[2]
-        counted_terms[t] = counted_terms.get(t,0) + 1
+    if full_text:
+        terms, all_c, all_sc = lookup_terms_in_all_sections(doc, sections)
+    else:
+        terms, all_c, all_sc = lookup_terms_in_some_sections(doc, sections)
+        
+    counted_terms = count_terms(terms)
     for t,v in counted_terms.items():
         fh_terms.write("%s\t%s\n" % (v,t))
 
     return all_c, all_sc
 
 
-def lookup_section(doc, ftype, start, end, fh_terms):
+def count_terms(file_terms):
+    counted_terms = {}
+    for term in file_terms:
+        t = term[2]
+        counted_terms[t] = counted_terms.get(t,0) + 1
+    return counted_terms
+
+
+def lookup_terms_in_all_sections(doc, sections):
+    """Look up terms in all title and text sections."""
+    file_terms = []
+    all_c, all_sc = 0, 0
+    for start, end, ftype in sections:
+        if ftype in LOOKUP_SECTIONS:
+            c, sc, section_terms = lookup_section(doc, ftype, start, end)
+            file_terms.extend(section_terms)
+            all_c += c
+            all_sc += sc
+    return file_terms, all_c, all_sc
+
+def lookup_terms_in_some_sections(doc, sections):
+    """Look up terms in the title, abstract, summary and claims."""
+    tree = build_section_tree(sections)
+    tree.index()
+    terms = []
+    all_c, all_sc = 0, 0
+    for section in [('title', tree.title), ('abstract', tree.abstract),
+                    ('summary', tree.summary), ('claims', tree.claims)]:
+        name, s = section
+        if s is None:
+            if VERBOSE:
+                print "      WARNING: missing %s in document" % name
+            continue
+        c, sc, section_terms = lookup_section(doc, s.label, s.start, s.end)
+        terms.extend(section_terms)
+        all_c += c
+        all_sc += sc
+    return terms, all_c, all_sc
+
+
+def lookup_section(doc, ftype, start, end):
 
     global SIZES
     global TERMS_DATABASE
@@ -109,7 +159,7 @@ def lookup_section(doc, ftype, start, end, fh_terms):
             except: pass
         if chunk_length <= 10:
             SIZES[chunk_length] = SIZES.get(chunk_length, 0) + 1
-            c, subc, chunk_terms = lookup_chunk(chunk, fh_terms)
+            c, subc, chunk_terms = lookup_chunk(chunk)
             section_terms.extend(chunk_terms)
             all_c += c
             all_subc += subc
@@ -131,7 +181,7 @@ def chunk_text(text, tokenize=False):
         return chunker.get_chunks()
 
 
-def lookup_chunk(chunk, fh_terms):
+def lookup_chunk(chunk):
     verbose = True if len(chunk) == -1 else False
     if verbose: print '>>>', chunk
     subs = []
@@ -150,7 +200,6 @@ def lookup_chunk(chunk, fh_terms):
 
 def lookup_terms(terms):
     verbose = False
-    #for t in terms: print t
     terms = [(i, j, term, len) for (i, j, term, len)
              in terms if TERMS_DATABASE.exists(term)]
     terms = list(reversed(sorted(terms, key=itemgetter(3,1))))
@@ -178,9 +227,6 @@ def print_section(ftype, start, end, text, print_text=False):
             print_text = True
         ptext = '- ' + text if print_text else ''
         print ftype, start, end, ptext
-
-
-
 
 
 
@@ -282,18 +328,25 @@ def test_db():
 
 
 
-
 if __name__ == '__main__':
 
-    VERBOSE = False
-    filelist = sys.argv[1]
-    if len(sys.argv) > 2 and sys.argv[1] in ('-v', '--verbose'):
-        VERBOSE = True
-        filelist = sys.argv[2]
+    options = ['filelist=', 'run-id=', 'verbose', 'full-text']
+    (opts, args) = getopt.getopt(sys.argv[1:], 'v', options)
 
-    initialize_term_db(empty=True, verbose=VERBOSE)
+    VERBOSE = False
+    filelist = None
+    run_id = default_id()
+    full_text = False
+    
+    for opt, val in opts:
+        if opt == '-v': VERBOSE = True
+        if opt == '--verbose': VERBOSE = True
+        if opt == '--filelist': filelist = val
+        if opt == '--run-id':  run_id = val
+        if opt == '--full-text': full_text = True
+
+    #initialize_term_db(empty=True, verbose=VERBOSE)
     initialize_term_db(in_memory=True, verbose=VERBOSE)
     #initialize_term_db(in_memory=False, verbose=VERBOSE)
-    #test_db()
 
-    filelist = process(filelist)
+    filelist = process(filelist, run_id, full_text)

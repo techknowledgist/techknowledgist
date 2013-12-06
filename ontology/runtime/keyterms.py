@@ -174,6 +174,7 @@ from ontology.classifier.run_iclassify import patent_invention_classify
 from ontology.classifier.run_iclassify import process_label_file
 from ontology.utils.git import get_git_commit
 from ontology.runtime.utils.text import parse_fact_line
+from ontology.runtime.utils.misc import read_filelist, default_id
 
 # these are imported so that paths to classifier and tagger can be updated
 import config
@@ -208,10 +209,6 @@ def process(filelist, run_id, mallet_path, stanford_path, condense_results):
     cleanup(run_id)
     if VERBOSE: print "Time elapsed: %f" % (time.time() - t1)
 
-def default_id():
-    """Returns a string represenatation of the current timestamp."""
-    return time.strftime('%Y%m%d-%H%M%S')
-
 def update_directories(mallet_path, stanford_path):
     """Updates the MALLET_DIR and STANFORD_TAGGER_DIR paths in the module
     ontology.creation.config and ontology.classifier.config with the values in
@@ -243,22 +240,6 @@ def update_directories(mallet_path, stanford_path):
     if VERBOSE:
         print 'MALLET_DIR =', ontology.classifier.config.MALLET_DIR
         print 'STANFORD_TAGGER_DIR =', ontology.creation.config.STANFORD_TAGGER_DIR
-
-def read_filelist(filelist):
-    """Read the files in the input filelist. Allows each line to either have
-    both the path to the text file and fact file or just a path without the
-    extension."""
-    infiles = []
-    for line in open(filelist):
-        files = line.strip().split("\t")
-        if len(files) == 1:
-            infiles.append([files[0]+'.txt', files[0]+'.fact'])
-        elif len(files) == 2:
-            infiles.append([files[0], files[1]])
-        else:
-            print "WARNING: unexpected line in filelist"
-            print "        ", line
-    return infiles
 
 def run_xml2txt(text_file, fact_file, outfile):
     fh_in = codecs.open(text_file, encoding='utf-8')
