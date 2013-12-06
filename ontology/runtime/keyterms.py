@@ -19,8 +19,10 @@ OPTIONS:
    files are written to workspace/results/run-018.
 
 --verbose
-   In verbose mode, messages will be printed to the terminal and temporary files
-   in workspace/tmp will not be removed. 
+   In verbose mode, messages will be printed to the terminal. Information
+   printed includes: location of classifier and tagger, file that i sbeing
+   pre-processed (tagging and chunking), and commands executed during
+   classification.
 
 --mallet-dir PATH
 --stanford-tagger-dir PATH
@@ -39,6 +41,8 @@ OPTIONS:
 Typical examples:
 
    $ python keyterms.py --filelist workspace/data/list-010.txt
+   $ python keyterms.py --filelist workspace/data/list-010.txt --run-id run-17 --condense-results
+   $ python keyterms.py --filelist workspace/data/list-010.txt --mallet-dir /tools/mallet/bi
 
 
 Needed input files are text files and the BAE fact files. Each line in FILE is
@@ -171,6 +175,11 @@ from ontology.classifier.run_iclassify import process_label_file
 from ontology.utils.git import get_git_commit
 from ontology.runtime.utils.text import parse_fact_line
 
+# these are imported so that paths to classifier and tagger can be updated
+import config
+import ontology.creation.config
+import ontology.classifier.config
+
 
 # the model used by this invention classifier
 MODEL = '../classifier/data/models/inventions-standard-20130713/'
@@ -200,18 +209,15 @@ def process(filelist, run_id, mallet_path, stanford_path, condense_results):
     if VERBOSE: print "Time elapsed: %f" % (time.time() - t1)
 
 def default_id():
+    """Returns a string represenatation of the current timestamp."""
     return time.strftime('%Y%m%d-%H%M%S')
 
 def update_directories(mallet_path, stanford_path):
     """Updates the MALLET_DIR and STANFORD_TAGGER_DIR paths in the module
     ontology.creation.config and ontology.classifier.config with the values in
     the local module ontology.runtime.config or the values handed in by command
-    line options."""
-    # TODO: this a bit of a hack and I would like to have a better way to deal
-    # with all the directory settings.
-    import config
-    import ontology.creation.config
-    import ontology.classifier.config
+    line options. TODO: this a bit of a hack and I would like to have a better
+    way to deal with all the directory settings. """
     # check the local config
     for var in ('MALLET_DIR', 'STANFORD_TAGGER_DIR'):
         path = config.__dict__.get(var)
@@ -239,6 +245,9 @@ def update_directories(mallet_path, stanford_path):
         print 'STANFORD_TAGGER_DIR =', ontology.creation.config.STANFORD_TAGGER_DIR
 
 def read_filelist(filelist):
+    """Read the files in the input filelist. Allows each line to either have
+    both the path to the text file and fact file or just a path without the
+    extension."""
     infiles = []
     for line in open(filelist):
         files = line.strip().split("\t")
@@ -250,7 +259,6 @@ def read_filelist(filelist):
             print "WARNING: unexpected line in filelist"
             print "        ", line
     return infiles
-
 
 def run_xml2txt(text_file, fact_file, outfile):
     fh_in = codecs.open(text_file, encoding='utf-8')
@@ -284,11 +292,10 @@ def run_tag2chk(tag_file, chk_file):
                   filter_p=False, chunker_rules='en', compress=False)
 
 def cleanup(run_id):
-    """Remove all temporary files unless in verbose mode."""
+    """Remove all temporary files."""
     tmp_dir = "workspace/tmp/" + run_id
-    if not VERBOSE:
-        for f in os.listdir(tmp_dir):
-            os.remove(os.path.join(tmp_dir, f))
+    for f in os.listdir(tmp_dir):
+        os.remove(os.path.join(tmp_dir, f))
 
 def run_classifier(chk_files, run_id, condense_results):
     results_dir = os.path.join('workspace', 'results', run_id)
@@ -321,7 +328,7 @@ def create_info_file(classification):
 
 if __name__ == '__main__':
 
-    options = ['runid=', 'mallet-dir=', 'stanford-tagger-dir=',
+    options = ['run-id=', 'mallet-dir=', 'stanford-tagger-dir=',
                'filelist=', 'verbose', 'condense-results']
     (opts, args) = getopt.getopt(sys.argv[1:], '', options)
 
