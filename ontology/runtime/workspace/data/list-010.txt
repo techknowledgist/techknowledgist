@@ -3,8 +3,8 @@ workspace/data/sample-010/US6672451B1
 workspace/data/sample-010/US6673330B1
 workspace/data/sample-010/US6674661B1
 workspace/data/sample-010/US6675175B2
-workspace/data/sample-010/US6676627B1
-workspace/data/sample-010/US6678572B1
-workspace/data/sample-010/US6679584B2
-workspace/data/sample-010/US6682507B2
-workspace/data/sample-010/US6684711B2
+workspace/data/sample-010/US6676627B1.txt	workspace/data/sample-010/US6676627B1.fact
+workspace/data/sample-010/US6678572B1.txt	workspace/data/sample-010/US6678572B1.fact
+workspace/data/sample-010/US6679584B2.txt	workspace/data/sample-010/US6679584B2.fact
+workspace/data/sample-010/US6682507B2.txt	workspace/data/sample-010/US6682507B2.fact
+workspace/data/sample-010/US6684711B2.txt	workspace/data/sample-010/US6684711B2.fact
