@@ -296,6 +296,7 @@ def cleanup(run_id):
     tmp_dir = "workspace/tmp/" + run_id
     for f in os.listdir(tmp_dir):
         os.remove(os.path.join(tmp_dir, f))
+    os.rmdir(tmp_dir)
 
 def run_classifier(chk_files, run_id, condense_results):
     results_dir = os.path.join('workspace', 'results', run_id)
