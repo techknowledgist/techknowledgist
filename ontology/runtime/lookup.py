@@ -1,5 +1,8 @@
 """
 
+Script to look up all known terms in a set of patents.
+
+
 Usage:
 
     $ python lookup.py OPTIONS
@@ -25,6 +28,11 @@ OPTIONS:
 --verbose
    Print progress and other information to the terminal
 
+--profile
+   Run the profiler. Writes files with the 'profile-' prefix to the current
+   working directory. Use utils/show_profile.py to viwe the results. Will not
+   print statistics to the terminal, even in verbose mode.
+
 
 Typical examples:
 
@@ -33,10 +41,39 @@ Typical examples:
     $ python lookup.py -v --run-id lookup-024 --filelist workspace/data/list-010.txt
 
 
+The code uses a set of in-memory Python hashes to store all known terms. These
+terms are assumed to be in workspace/terms/source-split, but the expected files
+are not part of the git repository and need to be downloaded separately. As of
+December 9th 2013, the list of terms consists of 31,453,657 elements.
+
+
+Wishlist:
+
+1- The list of terms contains some 'terms' like 'said' and other verbs. These
+   are in the term list due to tagging errors when creating the term
+   ontology. But since they are high-frequency in general they make the results
+   on an individual files look bad. Solve this by either tagging the patentsd
+   (which would increase processing time a lot) or by using a filter to get rid
+   of the main culprits.
+
+2- The script slows down on some documents, taking over three seconds or more on
+   them. These documents have noting in common and using the profiler shows that
+   the slowdown appears to occurr in otherwise harmless, yet frequently used,
+   methods. There is probably some memory issue causing the script to write to
+   the disk. Getting rid of these outliers could shave off as much as 30% of the
+   processing time (for full text search, performance is about 4 patents per
+   second).
+
+3- The script uses STRUCTURE tags from the fact file to feed a simple sentence
+   splitter and chunker. We get some bad tokens hower due to things like
+   'Figure<i>1</i>' since the current fact files do not have a representation
+   for the <i> tag. Once these are added as EMPHASIS structure types, this
+   script can be updated to take advantage of that information.
+
 """
 
 
-import os, sys, codecs, time, sqlite3, random, getopt
+import os, sys, codecs, time, sqlite3, random, getopt, cProfile
 from operator import itemgetter
 
 from utils.text import parse_fact_line, build_section_tree, build_section_list
@@ -67,12 +104,17 @@ def process(filelist, run_id, full_text):
         t2 = time.time()
         basename = os.path.splitext(os.path.basename(text_file))[0]
         term_file = "%s/%s.terms" % (results_dir, basename)
-        c, sc = process_file(text_file, fact_file, term_file, full_text)
-        all_c += c
-        all_sc += sc
-        if VERBOSE:
-            print "   %s  %.4fs  chunks/subchunks: %d/%s" \
-                  % (text_file, time.time() - t2, c, sc)
+        if RUN_PROFILER:
+            command = "process_file('%s', '%s', '%s', %s)" \
+                      % (text_file, fact_file, term_file, full_text)
+            cProfile.run(command, 'profile-' + basename)
+        else:
+            c, sc = process_file(text_file, fact_file, term_file, full_text)
+            all_c += c
+            all_sc += sc
+            if VERBOSE:
+                print "   %s  %.4fs  chunks/subchunks: %d/%s" \
+                      % (text_file, time.time() - t2, c, sc)
     if VERBOSE:
         print "Total chunks/subchunks: %d/%d" % (all_c, all_sc)
         print "Total time elapsed: %f" % (time.time() - t1)
@@ -330,10 +372,11 @@ def test_db():
 
 if __name__ == '__main__':
 
-    options = ['filelist=', 'run-id=', 'verbose', 'full-text']
+    options = ['filelist=', 'run-id=', 'verbose', 'profile', 'full-text']
     (opts, args) = getopt.getopt(sys.argv[1:], 'v', options)
 
     VERBOSE = False
+    RUN_PROFILER = False
     filelist = None
     run_id = default_id()
     full_text = False
@@ -341,6 +384,7 @@ if __name__ == '__main__':
     for opt, val in opts:
         if opt == '-v': VERBOSE = True
         if opt == '--verbose': VERBOSE = True
+        if opt == '--profile': RUN_PROFILER = True
         if opt == '--filelist': filelist = val
         if opt == '--run-id':  run_id = val
         if opt == '--full-text': full_text = True

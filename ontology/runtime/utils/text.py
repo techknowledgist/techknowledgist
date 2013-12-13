@@ -30,7 +30,8 @@ class DocNode(object):
     empty self.elements list."""
 
     def __init__(self, section=None):
-        self.elements = []
+        self.children = []
+        self.all_nodes = []
         self.start = 0
         self.end = sys.maxint
         self.label = 'TOP'
@@ -39,26 +40,82 @@ class DocNode(object):
             self.end = section[1]
             self.label = section[2]
 
+    def __str__(self):
+        return "<DocNode %d-%d %s %d>" \
+               % (self.start, self.end, self.label, len(self.children))
+
     def add_element(self, section):
-        if not self.elements:
-            self.elements.append(DocNode(section))
+        if not self.children:
+            # adding to an empty children list
+            self.children.append(DocNode(section))
         else:
-            last = self.elements[-1]
+            # if there are children, then determine whether to append to the
+            # current child list or to add to the last child.
+            last = self.children[-1]
             if last.start <= section[0] and last.end >= section[1]:
                 last.add_element(section)
             else:
-                self.elements.append(DocNode(section))
+                self.children.append(DocNode(section))
+
+    def get_nodes(self, result=None):
+        if result is None:
+            result = []
+        result.append(self)
+        for e in self.children:
+            e.get_nodes(result)
+        return result
 
     def pp(self, indent=''):
         print "%s%s %s %s" % (indent, self.label, self.start, self.end)
-        for e in self.elements:
+        for e in self.children:
             e.pp(indent+'   ')
+
+
+class TopNode(DocNode):
+
+    def __init__(self):
+        self.title = None
+        self.abstract = None
+        self.summary = None
+        self.claims = None
+        DocNode.__init__(self)
+
+    def __str__(self):
+        top_str = "<TopNode> %d-%d>\n" % (self.start, self.end)
+        title_str = "  title    = %s\n" % self.title
+        abstr_str = "  abstract = %s\n" % self.abstract
+        summa_str = "  summary  = %s\n" % self.summary
+        claim_str = "  claims   = %s\n" % self.claims
+        return top_str + title_str + abstr_str + summa_str + claim_str
+
+    def index(self):
+        self.all_nodes = self.get_nodes()
+        for node in self.all_nodes:
+            if node.label == 'TITLE': self.title = node
+            elif node.label == 'ABSTRACT': self.abstract = node
+            elif node.label == 'SUMMARY': self.summary = node
+            elif node.label == 'CLAIMS': self.claims = node
+
+
+def build_section_list(fact_file, section_types):
+    """Build a sorted list of sections from the contents of the fact file, using
+    on ly th especified section types. A section is a triple of a start offset,
+    end offset and section type."""
+    sections = []
+    for line in open(fact_file):
+        fields = line.split()
+        if fields[0] == 'STRUCTURE':
+            fclass, ftype, start, end = parse_fact_line(fields)
+            if ftype in section_types:
+                sections.append((start, end, ftype))
+    sections.sort()
+    return sections
 
 
 def build_section_tree(sections):
     """Build a tree of DocNodes from the list of sections. Each section is a
     triple of start offset, end offset and type."""
-    tree = DocNode()
+    tree = TopNode()
     for section in sections:
         tree.add_element(section)
     return tree
