@@ -6,7 +6,7 @@ Usage:
     % python create-cs-master-list.py
 
 This results in three files, all starting with cs-master-list. One file has the
-results, two two others contain a dribble and error me=ssages. The results file
+results, two two others contain a dribble and error messages. The results file
 has four fields for each patent:
 
     application_date

@@ -6,12 +6,12 @@ publication date.
 
 Usage:
 
-    $ python create_date_idx.py INFILE OUTFILE COUNT SKIP 
+    $ python create_date_idx.py INFILE OUTFILE WARNINGS COUNT SKIP 
 
     Parses INFILE and creates OUTFILE which has three fields for each file, an
-    application date, a publicaiton date and the filepath. Writes warning to
-    date_warnings.txt. If COUNT is given, limits the number of files processed,
-    if SKIP is also given, then the first SKIP files are skipped.
+    application date, a publicaiton date and the filepath. Writes warnings to
+    WARNINGS. If SKIP and COUNT are given, limits the number of files processed,
+    starting the file after SKIP and finsihing at COUNT.
 
 Expects each line of the input to start like this:
 
@@ -36,25 +36,23 @@ well).
 import sys
 from xml.dom.minidom import parse
 
-SKIP = 1000
+SKIP = 0
 COUNT = 999999999999999999999
-if len(sys.argv) > 3: COUNT = int(sys.argv[3])
 if len(sys.argv) > 4: SKIP = int(sys.argv[4])
+if len(sys.argv) > 5: COUNT = int(sys.argv[5])
 fh = open(sys.argv[1])
 fh_results = open(sys.argv[2], 'w')
-fh_warnings = open('date_warnings.txt', 'w')
-sys.stderr.write("Processing %d files from %s\n" % (COUNT, fh.name))
+fh_warnings = open(sys.argv[3], 'w')
+sys.stderr.write("Processing files %s through %s from %s\n" % (SKIP, COUNT, fh.name))
 
 
 def find_dates():
 
-    global SKIP
     count = 0
     for line in fh:
-        if SKIP > 0:
-            SKIP = SKIP -1
-            continue
         count += 1
+        if count <= SKIP:
+            continue
         if count > COUNT: break
         if count % 100 == 0: sys.stderr.write("%d\n" % count)
         fname = line.strip().split("\t")[1]
