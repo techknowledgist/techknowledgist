@@ -8,6 +8,9 @@ ontology/creation/log.dat
 ontology/creation/data/*
 !ontology/creation/data/wos
 ontology/creation/data/wos/cs-*
+!ontology/creation/data/patents
+ontology/creation/data/patents/*
+!ontology/creation/data/patents/*py
 
 ontology/classifier/data/*
 # this does not work, I have no idea why not
