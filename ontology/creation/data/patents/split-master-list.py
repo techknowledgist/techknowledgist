@@ -1,30 +1,33 @@
 """
 
-Data utility to split the master list created with create-master-list.py.
+Data utility to split the master list for a corpus, typically created with
+create-master-list.py. or create_date_idx.py.
 
 Usage:
     python split-master-list.py
-    
-Creates a sereis of file in the cs-500K corpus on corpuswork:
 
-    - a file with 51,000 t=random patents
+Creates a series of file in the corpus directory indentified by CORPUS_DIR.
+
+    - a file with 51,000 random patents
     - files with all patents from particular years
 
 The years are application years. A file for an application year has three
 columns: year, path and shortpath. The short path contains the publication year
 and the patent name. The year in the random file is not the application year but
-th epublication year. May want to consider changing this.Also the random file is
-random over the entire corpus, that is, for some years there are many more
+the publication year. May want to consider changing this. Also, the random file
+is random over the entire corpus, that is, for some years there are many more
 instances.
 
 """
 
 import random
 
-# this is the master list created by create-master-list.py
-MASTER_LIST = '/home/j/corpuswork/fuse/FUSEData/corpora/cs-500k/master-list.txt'
+# Location of the master list and the directory of sublists. The master list is
+# created by create-master-list.py or by create_date_idx.py
 
-LISTS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/cs-500k/sublists'
+CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-all-500k'
+MASTER_LIST = CORPUS_DIR + '/master-list.txt'
+LISTS_DIR = CORPUS_DIR + '/sublists'
 
 
 def get_pubdate_and_name(path):
@@ -39,7 +42,13 @@ ALL_PATENTS = []
 YEAR_INDEX = {}
 
 for line in open(MASTER_LIST):
-    (appdate, pubdate, source, path) = line.split()
+    fields = line.split()
+    if len(fields) == 4:
+        # the msater list for cs, created by create-master-list.py, has an extra
+        # field with the source of the element in the list
+        (appdate, pubdate, source, path) = fields
+    else:
+        (appdate, pubdate, path) = fields
     ALL_PATENTS.append(path)
     year = appdate[:4]
     YEAR_INDEX.setdefault(year,[]).append(path)
