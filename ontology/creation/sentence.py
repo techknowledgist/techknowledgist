@@ -448,6 +448,11 @@ class Sentence(object):
         res = self.make_section_loc(self.field, self.num)
         return(fname("section_loc", res))
 
+    
+    # 12/29/13 PGA replaced prev_n3 and prev_n2 with prev_V and prev_Npr, prev_Jpr
+    # These are no longer needed for English.
+    # TODO: replace the next_ features in a similar way.
+
     # returns the string of up to count tokens prior to index
     # if no tokens exist, it includes "^"
     @feature_method
@@ -459,6 +464,7 @@ class Sentence(object):
     def prev_n2(self, index):
         res = self.prev_n(index, 2)
         return(fname("prev_n2", res))
+
 
     # returns the string of up to count tokens following the indexed chunk
     # if no tokens exist, it includes "^"
@@ -522,7 +528,15 @@ class Sentence(object):
             res = self.chart[index].lc_tok
         # note, returns "" if length of phrase is 1
         return(fname("first_word", res))
-   
+
+    # length of the phrase
+    @feature_method
+    def plen(self, index):
+        chunk = self.chart[index]
+        chunk_len = chunk.chunk_end - chunk.chunk_start
+        res = str(chunk_len)
+        return(fname("plen", res))
+
     @feature_method
     # tag signature (sequence of tags as a string)
     def tag_list(self, index):
@@ -534,54 +548,16 @@ class Sentence(object):
             res = res[1:]
         return(fname("tag_sig", res))
 
+    
+
 ### language specific Sentence subclass definitions
 
 class Sentence_english(Sentence):
 
     #print "Creating Sentence_english subclass"
 
-    # previous verb
-    # return closest verb to left of NP
-    # as well as prep or particle if there is one after verb
 
-
-    """
-    # TODO PGA extend this to handle the case of chunks within a list.
-    # We want to capture the verb to left of the list for all members of the list, 
-    # not just the first.  Also may need to adjust for prev_n and prev_prep
-
-    @feature_method
-    def prev_V(self, index):
-        verb = ""
-        prep = ""
-        verb_prep = ""
-        i = index -1
-        while i > 0:
-            # terminate if verb is found
-            if self.chart[i].tag[0] == "V":
-                verb = self.chart[i].lc_tok
-                break
-            # terminate if a noun is reached before a verb
-            if self.chart[i].tag[0] == "N":
-                break
-            # keep a prep if reached before verb
-            if self.chart[i].tag in ["RP", "IN"]:
-                prep = self.chart[i].lc_tok
-            # keep looking 
-            i = i - 1
-        if verb != "":
-            # 11/9/21 PGA replaced blank with _
-            if prep != "":
-                verb_prep = verb + "_" + prep
-            else:
-                verb_prep = verb
-            #print "[sentence.py] verb_prep: %s" % verb_prep
-        res = verb_prep
-        return(fname("prev_V", res))        
-
-    """
-
-    # prev_V2
+    # prev_V (originally called prev_V2 to distinguish from prev_V, now renamed to prev_Vstrong and commented out)
     # a less restrictive feature looking for a preceding verb
     # deals with cases like:
     # Cache memory control circuit including summarized cache tag memory summarizing cache tag information in parallel processor system
@@ -590,12 +566,43 @@ class Sentence_english(Sentence):
     # in the above, we don't want "plurality" to block finding "includes" for the NP circuits.
     # however, the verb in this case will include the prep "of" if that is the last prep encountered.  ie. prev_V2=includes_of
     # This is a nice feature to detect cases of N1 of N2 but won't work if the verb includes a particle of its own.
+    # fixed PGA 12/29/13
+
+    # TODO Extend this to handle the case of chunks within a list (to capture all
+    # items in the scope of "contains" or "includes").
+    # We want to capture the verb to left of the list for all members of the list, 
+    # not just the first.  Also may need to adjust for prev_n and prev_prep
+
+    # example
+    # thus_RB giving_VBG a_DT relatively_RB high_JJ ranking_NN to_TO musical_JJ 
+    # selections_NNS categorized_VBN as_IN ``_`` cool_JJ jazz_NN ._. ''_''
+
+    # in the previous case, the previous verb to "cool jazz" should be "categorized_as"
+
+    # the list includes categorized recordings
+    # here "recordings" is modified by the verb categorized but direct object of "includes
+    
+    # To handle such cases, we look at the word preceding a past tense verb to see if it
+    # is an aux.  In this cases, we assume the past verb is the actual dominating verb
+    # rather than a modifier.
+    # if preceded by a noun, we consider it a dominating modifier and also make it the preceding verb.
+
+    # We also try to capture cases such as
+    # refers to X as Y => refers_to_as for Y
+    # But we disallow too many intermediate nouns, as in
+    # sends media to users over the internet
+    # BUG: we allow adj between verb and prep causing
+    # includes next to each mac address => includes_to
+    # being limitative to => being_to
+
     @feature_method
-    def prev_V2(self, index):
+    def prev_V(self, index):
         verb = ""
         prep = ""
+        prep2 = ""
         past_verb = ""
         verb_prep = ""
+        noun_found_p = False
         i = index -1
         while i > 0:
             # terminate if verb is found
@@ -607,202 +614,165 @@ class Sentence_english(Sentence):
                 verb = self.chart[i].lc_tok
                 break
 
-            # check for form of "to be" just before a past_verb.  
-            # If found, then assume this is the main verb.  If not, remove
-            # the past_verb value.
-            if past_verb != "" and self.chart[i].lc_tok in ["is", "are", "were", "was", "been"]:
-                verb = past_verb
-                break
-            else:
-                past_verb = ""
-
-            # Store a past verb in case an aux precedes it.
+            # A past tense verb is ambiguous, could me main verb or a modifier
+            # He returned the reviewed book  vs.
+            # He reviewed the book
+            # It does not handle correctly:
+            # invention is providing selected files ...
+            # impose execution of Y
+            # describe a plurality of Y
             if self.chart[i].tag in ["VBD", "VBN"]:
-                past_verb = self.chart[i].lc_tok
+                # if preceded by a determiner, treat it as a modifier rather than the dominant verb
+                if i > 0 and ((self.chart[i-1].tag == "DT") or (self.chart[i-1].tag[0] == "V" and (self.chart[i-1].lc_tok not in ["be", "been", "being", "is", "am", "are", "was", "were", "have", "had", "has", "having"]))):
+                    past_verb = self.chart[i].lc_tok
+                else:
+                    # treat the past tense verb as the main verb
+                    verb = self.chart[i].lc_tok
+                    break
 
+            """
             # Do not terminate if a noun is reached before a verb
-            #if self.chart[i].tag[0] == "N":
-            #    break
+            # But do terminate if a second noun is reached before a verb
+            if self.chart[i].tag[0] == "N":
+                if noun_found_p:
+                    break
+                else:
+                    noun_found_p = True
+            """
+            # It is more conservative to break if a noun is encountered.
+            if self.chart[i].tag[0] == "N":
+                break
+
+            # if we hit an adj after a prep, don't create a prev_V feature
+            if prep != "" and self.chart[i].tag[0] == "J":
+                break
 
             # keep a prep if reached before verb
             # this could be a particle.  Note we always replace 
             # any previously encountered prep, giving us the one
             # closest to the verb, assuming we find a verb.
-            if self.chart[i].tag in ["RP", "IN"]:
+            # 12/29/13 PGA added "TO"
+            # retained a second prep if there is one in prep2
+            # This allows us to capture previous verbs with multiple preps
+            # x refers to a plurality of y => refers_to_of
+            # referred to as y => referred_to_as
+            if self.chart[i].tag in ["RP", "IN", "TO"]:
+                if prep != "":
+                    # save the prep to the right of the current prep
+                    prep2 = prep
+                # capture the new prep (which should be closer to the verb to the left)
                 prep = self.chart[i].lc_tok
 
-            # remove the prep if a comma is found, since a
-            # comma makes the particle interpretation unlikely
-            if self.chart[i].lc_tok == ",":
-                prep = ""
+
+            # if a comma is found after a prep, we should stop looking for a dominating verb.
+            # example: 
+            # an_DT online_JJ system_NN provides_VBZ selected_VBN media_NNS files_NNS ,_, chosen_VBN from_IN among_IN a_DT plurality_NN of_IN media_NNS files_NNS ,_, to_TO a_DT user_NN over_IN a_DT packet-switched_JJ network_NN ._.
+            # We don't want "chosen_from_among" to be the prev_V for "user".
+                
+            if self.chart[i].lc_tok == "," and prep != "":
+                break
+
             # keep looking 
             i = i - 1
         if verb != "":
             # 11/9/21 PGA replaced blank with _
+            # 12/29/13 PGA added prep2
             if prep != "":
                 verb_prep = verb + "_" + prep
+                if prep2 != "":
+                    verb_prep = verb_prep + "_" + prep2
             else:
                 verb_prep = verb
             #print "[sentence.py] verb_prep: %s" % verb_prep
         res = verb_prep
-        return(fname("prev_V2", res))        
+        return(fname("prev_V", res))        
 
-    # version of prev_v2 in which verb is lemmatized
-    # in progress ///
+    # first noun_prep to the left of chunk, within 4 words
+    # 12/29/13 PGA changed prev_N to prev_Npr to capture cases of NOUN PREP
     @feature_method
-    def prev_l_V2(self, index):
-        verb = ""
-        prep = ""
-        past_verb = ""
-        verb_prep = ""
-        i = index -1
-        while i > 0:
-            # terminate if verb is found
-            # but not if the verb is past participle (VBN) or past tense (VBD)
-            # which could be an adjectival use of the verb.
-            # Also look for a form of "to be" before a VBN or VBD
-            # and accept the verb if an aux is found.
-            if self.chart[i].tag in ["VBG", "VBP", "VBZ", "VB"]:
-                verb = self.chart[i].lc_tok
-                break
-
-            # check for form of "to be" just before a past_verb.  
-            # If found, then assume this is the main verb.  If not, remove
-            # the past_verb value.
-            if past_verb != "" and self.chart[i].lc_tok in ["is", "are", "were", "was", "been"]:
-                verb = past_verb
-                break
-            else:
-                past_verb = ""
-
-            # Store a past verb in case an aux precedes it.
-            if self.chart[i].tag in ["VBD", "VBN"]:
-                past_verb = self.chart[i].lc_tok
-
-            # Do not terminate if a noun is reached before a verb
-            #if self.chart[i].tag[0] == "N":
-            #    break
-
-            # keep a prep if reached before verb
-            # this could be a particle.  Note we always replace 
-            # any previously encountered prep, giving us the one
-            # closest to the verb, assuming we find a verb.
-            if self.chart[i].tag in ["RP", "IN"]:
-                prep = self.chart[i].lc_tok
-
-            # remove the prep if a comma is found, since a
-            # comma makes the particle interpretation unlikely
-            if self.chart[i].lc_tok == ",":
-                prep = ""
-            # keep looking 
-            i = i - 1
-        if verb != "":
-
-            ### need to decide when dict can be loaded once for all docs.
-            ### dict choice needs to be language sensitive
-            ### verb = lemmatize(verb, "verb") ///PGA
-            # 11/9/21 PGA replaced blank with _
-            if prep != "":
-                verb_prep = verb + "_" + prep
-            else:
-                verb_prep = verb
-            #print "[sentence.py] verb_prep: %s" % verb_prep
-        res = verb_prep
-        return(fname("prev_l_V2", res))        
-
-
-
-    # first noun to the left of chunk, within 3 words
-    @feature_method
-    def prev_N(self, index):
+    def prev_Npr(self, index):
         noun = ""
+        prep = ""
+        noun_prep = ""
         i = index - 1
-        distance_limit = 3
+        distance_limit = 4
+        #print "[prev_Npr]Starting"
         while i > 0 and distance_limit > 0:
             # PGA: It may make sense to add some blocking conditions,
             # such as punc or verb.
-            if self.chart[i].tag[0] == "N":
+            if self.chart[i].tag in ["RP", "IN", "TO"]:
+                prep = self.chart[i].lc_tok
+
+            elif prep != "" and self.chart[i].tag[0] == "N":
                 noun = self.chart[i].lc_tok
+                #print "[prev_Npr]noun: %s" % noun
                 break
-            else:
+            # adj and det could be part of the current NP, so ignore those
+            # but avoid: person skilled in => person_in
+            elif prep == "" and self.chart[i].tag[0] in ["J", "D"] :
                 # keep looking 
-                i = i - 1
-
+                pass
+            else:
+                # give up
+                break
+            i = i - 1
             distance_limit = distance_limit - 1
-        res = noun.lower()
-        return(fname("prev_N", res))
+        #print "[prev_Npr]distance_limit: %i" % distance_limit
+        if noun != "" and prep != "":
+            noun_prep = noun + "_" + prep
+            #print "[prev_Npr]noun_prep: %s" % noun_prep
+        res = noun_prep
+        return(fname("prev_Npr", res))
 
-    """
-    ### These features are not being used, given the current chunker, so
-    ### won't bother to create them.  But they could be useful for a different 
-    ### chunker, e.g. one that includes verbal modifiers
 
-    # initial adj in chunk, if there is one
-    @feature_method
-    def chunk_lead_J(self, index):
-        res = ""
-        if self.chart[index].tag[0] == "J":
-            res = self.chart[index].lc_tok
-        return(fname("chunk_lead_J", res))
+    # first adj_prep to the left of chunk, within 4 words
+    # 12/29/13 PGA 
 
-    # initial V-ing verb in chunk, if there is one
-    @feature_method
-    def chunk_lead_VBG(self, index):
-        res = ""
-        if self.chart[index].tag[0] == "VBG":
-            res = self.chart[index].lc_tok
-        return(fname("chunk_lead_VBG", res))
 
-    # head of prep in chunk, if there is one
-    @feature_method
-    def of_head(self, index):
-        res = ""
-        i = index
-        head = ""
-        prep_idx = self.first_prep_idx(index)
-        if prep_idx != -1:
-            head_loc = prep_idx - 1
-            head = self.chart[head_loc].lc_tok
-            res = head.lower()
-        return(fname("of_head", res))
-
-    # first adjective in the chunk
-    @feature_method
-    def initial_J(self, index):
-        res = ""
-        i = index
-        if self.chart[i].tag[0] == "J":
-            res = self.chart[i].lc_tok
-        return(fname("initial_J", res))
 
     @feature_method
-    def initial_V(self, index):
-        res = ""
-        i = index
-        if self.chart[i].tag[0] == "V":
-            res = self.chart[i].lc_tok
-        return(fname("initial_V", res))
+    def prev_Jpr(self, index):
+        adj = ""
+        prep = ""
+        adj_prep = ""
+        i = index - 1
+        distance_limit = 4
+        #print "[prev_Jpr]Starting"
+        while i > 0 and distance_limit > 0:
+            # PGA: It may make sense to add some blocking conditions,
+            # such as punc or verb.
+            if self.chart[i].tag in ["RP", "IN", "TO"]:
+                prep = self.chart[i].lc_tok
 
-    # If a prep occurs directly after the chunk, return the token
-    @feature_method
-    def following_prep(self, index):
-        res = ""
-        i = index
-        following_index = self.chart[i].chunk_end
-        if following_index <= self.last:
-            if self.chart[following_index].tag == "IN":
-                res = self.chart[following_index].lc_tok
-        return(fname("following_prep", res))        
-    """
+            elif prep != "" and self.chart[i].tag[0] == "J":
+                adj = self.chart[i].lc_tok
+                #print "[prev_Jpr]adj: %s" % adj
+                break
+            # adj and det could be part of the current NP, so ignore those
+            # until we have seen a prep
+            elif self.chart[i].tag[0] in ["J", "D"] :
+                # keep looking 
+                pass
+            else:
+                # give up
+                break
+            i = i - 1
+            distance_limit = distance_limit - 1
+        #print "[prev_Jpr]distance_limit: %i" % distance_limit
+        if adj != "" and prep != "":
+            adj_prep = adj + "_" + prep
+            #print "[prev_Jpr]adj_prep: %s" % adj_prep
+        res = adj_prep
+        return(fname("prev_Jpr", res))
 
-    # previous adj (JJ, JJR, JJS)
     # Adj must be immediately bfore index term
     @feature_method
     def prev_J(self, index):
         res = ""
-        i = index - 1
-        if self.chart[i].tag[0] == "J":
-            res = self.chart[i].lc_tok
+        if index >= 1:
+            i = index - 1
+            if self.chart[i].tag[0] == "J":
+                res = self.chart[i].lc_tok
         return(fname("prev_J", res))
 
 
@@ -850,6 +820,7 @@ class Sentence_german(Sentence):
             distance_limit = distance_limit - 1
         res = noun.lower()
         return(fname("prev_N", res))
+
 
     # initial adj in chunk, if there is one
     @feature_method
@@ -1334,3 +1305,4 @@ if __name__ == "__main__":
         method(e) # unbound methods, so must supply instance
     print "sid: %s" % self.sid
 """
+
