@@ -1,17 +1,48 @@
 """
+Script to run the matcher on a corpus.
 
-$ python run_matcher.py \
-    --corpus data/patents/201306-computer-science \
-    --filelist files_testing_01.txt \
-    --patterns MATURITY
-    --batch batch-01 \
-    --statistics \
-    --verbose
+Usage:
 
-The default for patterns is MATURITY, the only other choice is PROMISE.
+    $ python run_matcher.py OPTIONS
 
-TODO: should also allow using more than one patterns set. Also, the code that
-consumes the patterns (eg maturity.py) needs to be adapted.
+Options:
+
+    --corpus - the corpus to run the matcher on
+
+    --filelist - list of files from the corpus to process, it is expected to be
+      in the config directory of the corpus, defaults to files.txt
+
+    --patterns - pattern set to use, either MATURITY or PROMISE, defaults to the
+      first of those
+
+    --batch - directory in data/o2_matcher to write the results to
+
+    --verbose - print progress
+
+Writes results to the --batch directory in two files, one with a line for each
+match and one with a summary where the number of matches for each term is
+printed. Also writes a couple of general information files to the output
+directory and a file with statistics on the number of features found in the
+input.
+
+Example:
+
+    $ python run_matcher.py \
+      --corpus data/patents/201306-computer-science \
+      --filelist files_testing_01.txt \
+      --patterns MATURITY \
+      --batch batch-01 \
+      --verbose
+
+
+WISHLIST:
+
+- Should also allow using more than one patterns set. Also, the code that
+  consumes the patterns (eg maturity.py) needs to be adapted.
+
+- Remove dependency on directories inside the corpus. The filelist now has to be
+  inside the config dir and the results have to be written to o2_matcher. Leave
+  these as a default, but allow files/directories in other spots.
 
 """
 
@@ -33,7 +64,7 @@ VERBOSE = False
 
 class Matcher(object):
 
-    def __init__(self, rconfig, filelist, batch, gather_statistics):
+    def __init__(self, rconfig, filelist, batch):
         self.rconfig = rconfig
         self.file_list = os.path.join(rconfig.config_dir, filelist)
         self.batch = batch
@@ -46,7 +77,6 @@ class Matcher(object):
         self.info_file_config = os.path.join(self.batch_dir, "match.info.config.txt")
         self.info_file_filelist = os.path.join(self.batch_dir, "match.info.filelist.txt")
         self.info_file_featlist = os.path.join(self.batch_dir, "match.info.features.txt")
-        self.gather_statistics = gather_statistics
         self.feature_statistics = FeatureStatistics(self.info_file_featlist)
         self.patterns = PATTERNS
 
@@ -66,16 +96,14 @@ class Matcher(object):
                 # if count > 10: break
                 self.run_matcher_on_file(fname, fh)
         self.create_summary()
-        if self.gather_statistics:
-            self.feature_statistics.write_to_file()
+        self.feature_statistics.write_to_file()
         self._finish()
 
     def run_matcher_on_file(self, fname, fh):
         infile = open_input_file(fname)
         for line in infile:
             (id, year, term, feats) = parse_feats_line(line)
-            if self.gather_statistics:
-                self.feature_statistics.add(feats)
+            self.feature_statistics.add(feats)
             prev_V = feats.get('prev_V', None)
             #initial_V = feats.get('initial_V', None)
             #chunk_lead_VBG = feats.get('chunk_lead_VBG', None)
@@ -115,7 +143,7 @@ class Matcher(object):
     def _create_info_files(self):
         if os.path.exists(self.info_file_general):
             sys.exit("WARNING: already ran matcher for batch %s" % self.batch)
-        print "[Matcher] initializing datat/o2_matcher/%s directory" %  self.batch
+        print "[Matcher] initializing data/o2_matcher/%s directory" %  self.batch
         ensure_path(self.batch_dir)
         with open(self.info_file_general, 'w') as fh:
             fh.write("$ python %s\n\n" % ' '.join(sys.argv))
@@ -181,8 +209,7 @@ def print_file_progress(stage, count, filename, verbose):
 
 
 def read_opts():
-    longopts = ['corpus=', 'filelist=', 'batch=', 'pipeline=',
-                'patterns=', 'statistics', 'verbose' ]
+    longopts = ['corpus=', 'filelist=', 'batch=', 'pipeline=', 'patterns=', 'verbose' ]
     try:
         return getopt.getopt(sys.argv[1:], '', longopts)
     except getopt.GetoptError as e:
@@ -288,7 +315,6 @@ if __name__ == '__main__':
     batch = None
     filelist = 'files.txt'
     pipeline_config = 'pipeline-default.txt'
-    gather_statistics = False
 
     (opts, args) = read_opts()
     for opt, val in opts:
@@ -298,7 +324,6 @@ if __name__ == '__main__':
         elif opt == '--patterns': patterns = val
         elif opt == '--batch': batch = val
         elif opt == '--pipeline': pipeline_config = val
-        elif opt == '--statistics': gather_statistics = True
         elif opt == '--verbose': VERBOSE = True
 
     if patterns == 'MATURITY':
@@ -313,6 +338,6 @@ if __name__ == '__main__':
     # object
     rconfig = RuntimeConfig(corpus, None, None, language, pipeline_config)
 
-    matcher = Matcher(rconfig, filelist, batch, gather_statistics)
+    matcher = Matcher(rconfig, filelist, batch)
     matcher.pp()
     matcher.run()

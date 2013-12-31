@@ -25,7 +25,7 @@ import random
 # Location of the master list and the directory of sublists. The master list is
 # created by create-master-list.py or by create_date_idx.py
 
-CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-all-500k'
+CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-all-600k'
 MASTER_LIST = CORPUS_DIR + '/master-list.txt'
 LISTS_DIR = CORPUS_DIR + '/sublists'
 
