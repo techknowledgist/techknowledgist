@@ -44,6 +44,9 @@ WISHLIST:
   inside the config dir and the results have to be written to o2_matcher. Leave
   these as a default, but allow files/directories in other spots.
 
+- Add runtime statistics like time elapsed and perhaps specifications of the
+  machine it ran on.
+
 """
 
 
