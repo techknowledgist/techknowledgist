@@ -48,7 +48,7 @@ based on the results of the pattern matcher and are calcualted as follows:
 3- Let's call this adjusted count c. Now take log(c+1)/log(highest_count), where
 highest_count is the highest number of matches for all term-year pairs in the
 corpus. We take log(c+1) to make sure that a count of 0 leads to a 0 score
-(log(0+1) is 0) and log(highest_score) to make sure our highest valueis 1.
+(log(0+1) is 0) and log(highest_score) to make sure our highest value is 1.
 
 There are also two files which have the entire time series for all terms over
 all years:
