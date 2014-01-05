@@ -66,6 +66,28 @@ cat 1996.tcmi.diff | sort -nr -k7 -t" " > 1996.tcmi.diff.k7
 todo: script to sort by k7
 determine top cat for each term and output sorted terms by cat (only top cat for each term)
 
+run_term_uc.sh
+For all xml files in m1_term_counts_tas, create a single file in m2_mi_tas which counts the 
+number of docs each term occurs in.
+File name is <year.uc>
+Format:
+invention       12425
+
+term_verb_count.run_dir2tfc()   Creates .tfc files per year in m2_tv
+This combines .uc (doc freq) with .vc (primary category freq) data
+term                    cat    uc_freq  cat_freq
+matrix multiplication   t       2       3
+
+mi_diff.run_tfc_diff()   Creates a tfc.diff file from .tfc which gives year-previous year differences
+term			 year	 c_cat	l_freq  c_freq  % change        adj_change      diff cat change? l_cat  count  c_cat    count
+system performance      1996    |a      32      68      2.09090909091   10.8924934009   36   n       a       177     a       257
+
+Note that the counts for freq and cat count are based on different criteria.  The freq is # docs in which term occurs at
+least n times (where n = 3).   The cat counts are based on the number of times a term occurs with a diagnostic verb for
+the primary category of the term.
+
+sort_tfc_diff.sh  sorts the tfc.diff files by k7 (adjusted change)
+
 ----------------------------------------------------------------------------------------------------
 details:
 run_m1_term_counts.sh
@@ -129,7 +151,7 @@ Categorize terms according to the verbs they occur with.
 verb.cat.en.dat.sorted contains a list of 118 inflected verbs along with the semantic category of 
 the direct object (or object of included preposition).
 
-Categories of verbs:
+Categories of verbs: /// update this
 a affected
 c component (something used in something else)
 g goal

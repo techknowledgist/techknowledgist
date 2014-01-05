@@ -328,7 +328,11 @@ def mi2vcat(inroot, year, vcat_file):
 
     # write out the categories and frequencies per term
     s_outfile = codecs.open(outfile, "w", encoding='utf-8')
+    # keep track of the category with the highest freq
+
     for term in d_term.keys():
+        max_freq = 0
+        max_cat = ""
         # make a list of doc_freqs for each category for this term
         l_term_cat_freqs = []
         # make a list of codes that occur for this term
@@ -342,13 +346,59 @@ def mi2vcat(inroot, year, vcat_file):
                 l_term_cat_codes.append(cat)
 
             l_term_cat_freqs.append(freq)
+            # update the max frequency and category found so far
+            if freq >= max_freq:
+                max_freq = freq
+                max_cat = cat
 
         codes_str = "".join(l_term_cat_codes)
         freqs_str = "	".join(str(freq) for freq in l_term_cat_freqs)
-        s_outfile.write("%s\t%s\t%s\n" % (term, codes_str, freqs_str))
+        # write out the .vc file
+        s_outfile.write("%s\t%s\t%s\t%s\t%s\n" % (term, max_cat, str(max_freq), codes_str, freqs_str))
         
     s_outfile.close()
-         
+
+
+def dir2tfc(term_uc_year_file, term_cat_year_file, out_year_file):
+    d_term2cat = {}
+    s_uc = codecs.open(term_uc_year_file, encoding='utf-8')
+    s_vc = codecs.open(term_cat_year_file, encoding='utf-8')
+    s_tfc = codecs.open(out_year_file, "w", encoding='utf-8')
+
+        
+    # for each term with a cat, store its primary cat and cat_freq in a dictionary
+    for line in s_vc:
+        line = line.strip()
+        l_fields = line.split("\t")
+        term = l_fields[0]
+        cat = l_fields[1]
+        cat_freq = l_fields[2]
+        d_term2cat[term] = [cat, cat_freq]
+
+    for line in s_uc:
+        line = line.strip()
+        l_fields = line.split("\t")
+        term = l_fields[0]
+        uc = l_fields[1]
+
+        #if the term is in the uc dictionary, output a line
+        # note that terms in .uc have to exceed a threshold of within doc freq,
+        # whereas the terms in .vc do not.  The latter occur in verbal contexts.
+        # If there is no entry for the term in d_term2cat, we give it the category "u" for unknown.
+        # Also, pre-filter any terms with non-alpha characters to weed out a lot of noise.
+        if alpha_phrase_p(term):
+            if d_term2cat.has_key(term):
+                (cat, cat_freq) = d_term2cat[term]
+            else:
+                cat = "u"
+                cat_freq = "0"
+
+            output_line = "\t".join([term, cat, uc, cat_freq])
+            s_tfc.write("%s\n" % output_line)
+
+    s_uc.close()
+    s_vc.close()
+    s_tfc.close()
 
 def test_mi_mini():
     filelist_file = "/home/j/anick/patent-classifier/ontology/creation/data/patents/cs_2002_subset/config/files.txt"
@@ -420,3 +470,29 @@ def run_mi2vcat():
         year = str(int_year)
         print "[run_mi2vcat] processing year: %s" % year
         mi2vcat(inroot, year, vcat_file)
+
+# create .tfc from .uc and .vc data
+# term_verb_count.run_dir2tfc()
+def run_dir2tfc():
+
+    term_cat_root = "/home/j/anick/patent-classifier/ontology/creation/data/patents/cs_500k/data/m2_tv"
+    term_uc_root = "/home/j/anick/patent-classifier/ontology/creation/data/patents/cs_500k/data/m2_mi_tas"
+    outroot = "/home/j/anick/patent-classifier/ontology/creation/data/patents/cs_500k/data/m2_tv"
+    print "Output dir: %s" % outroot
+
+    # range should be start_year and end_year + 1
+    #for int_year in range(1981, 2008):
+    for int_year in range(1995, 2008):
+    #for int_year in range(1995, 1996):
+    
+        year = str(int_year)
+        term_uc_year_file = term_uc_root + "/" + year + ".uc"
+        term_cat_year_file = term_cat_root + "/" + year + ".vc"
+        out_year_file = outroot  + "/" + year + ".tfc"
+
+        print "Processing input: %s, %s.  Output: %s" % (term_uc_year_file, term_cat_year_file, out_year_file)
+
+        dir2tfc(term_uc_year_file, term_cat_year_file, out_year_file)
+        print "Completed: %s" % out_year_file
+
+
