@@ -6,7 +6,7 @@ publication date.
 
 Usage:
 
-    $ python create_date_idx.py INFILE OUTFILE WARNINGS COUNT SKIP 
+    $ python create_date_idx.py INFILE OUTFILE WARNINGS SKIP COUNT
 
     Parses INFILE and creates OUTFILE which has three fields for each file, an
     application date, a publicaiton date and the filepath. Writes warnings to
@@ -30,10 +30,9 @@ version) in the lists in /home/j/corpuswork/fuse/FUSEData/lists/.
 Perhaps belongs in ontology/utils (and perhaps patent_index.py belongs there as
 well).
 
-
 """
 
-import sys
+import sys, time
 from xml.dom.minidom import parse
 
 SKIP = 0
@@ -118,4 +117,6 @@ def find_dates_using_grep(fname):
         
 if __name__ == '__main__':
 
+    t1 = time.time()
     find_dates()
+    print "Time elapsed: % seconds" % (time.time() - t1)
