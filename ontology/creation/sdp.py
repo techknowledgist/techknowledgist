@@ -1171,16 +1171,15 @@ class STagger:
     # returns a list of tagged sentence strings
     def tag(self, text):
         if self.verbose:
-            print "[process_to_end]text: %s" % text
+            print "[process_to_end] text: %s" % text
 
         self.give_input_and_end(text)
         if self.verbose:
-            print "[process_to_end]after give_input_and_end"
+            print "[process_to_end] after give_input_and_end"
         result = self.get_output_to_end()
-        #print "[process_to_end]after setting result to: %s" % result
+        if self.verbose:
+            print "[process_to_end] after setting result to: %s" % result
         return(result)
-
-        #return self.get_outputs()
 
     # passes a string to the sdp tagger subprocess
     # Also passes a special "~" string to use as a signal that tag output
@@ -1189,7 +1188,7 @@ class STagger:
         #self.proc.stdin.flush()
         terminated_line = text + '\n~_\n'
         if self.verbose:
-            print "[give_input_and_end]terminated_line: |%s|" % terminated_line
+            print "[give_input_and_end] terminated_line: |%s|" % terminated_line
         self.proc.stdin.write(terminated_line.encode('utf-8'))
         #self.proc.stdin.write(text)
         self.proc.stdin.flush()

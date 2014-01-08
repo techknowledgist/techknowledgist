@@ -21,7 +21,6 @@ def seg(infile, outfile, segmenter):
     s_output = codecs.open(outfile, "w", encoding='utf-8')
     output = []
     for line in s_input:
-        print '.',
         line = re.sub(r'^\s*$', '', line)
         if debug_p == True:
             print "[tag]Processing line: %s\n" % line
@@ -36,7 +35,6 @@ def seg(infile, outfile, segmenter):
                 l_seg_string = segmenter.seg(line)
                 if l_seg_string != '':
                     s_output.write("%s" % l_seg_string)
-    print
     s_input.close()        
     s_output.close()
 

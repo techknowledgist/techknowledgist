@@ -130,6 +130,7 @@ os.chdir(script_dir)
 
 import config
 from ontology.utils.file import ensure_path, get_file_paths, read_only
+from ontology.utils.git import get_git_commit
 
 
 
@@ -140,12 +141,14 @@ def init(language, source_file, source_path, target_path, pipeline_config,
     there needed for further processing. See the module docstring for more
     details."""
 
+    command = "$ python %s\n\n" % ' '.join(sys.argv)
     settings = ["timestamp    =  %s\n" % time.strftime("%x %X"),
                 "language     =  %s\n" % language,
                 "source_file  =  %s\n" % source_file,
                 "source_path  =  %s\n" % source_path,
                 "target_path  =  %s\n" % target_path,
-                "shuffle      =  %s\n" % str(shuffle_file)]
+                "shuffle      =  %s\n" % str(shuffle_file),
+                "git_commit   =  %s\n" % get_git_commit()]
     
     print "\n[--init] initializing %s" % (target_path)
     print "\n   %s" % ("   ".join(settings))
@@ -156,7 +159,7 @@ def init(language, source_file, source_path, target_path, pipeline_config,
     conf_path = os.path.join(target_path, 'config')
     
     create_directories(target_path, conf_path, data_path)
-    create_general_config_file(conf_path, settings)
+    create_general_config_file(conf_path, command, settings)
     create_default_pipeline_config_file(pipeline_config, conf_path)
     create_filelist(source_file, source_path, conf_path, shuffle_file)
     print
@@ -190,10 +193,11 @@ def create_filelist(source_file, source_path, conf_path, shuffle_file):
                  "--source-directory option, aborting")
     read_only(file_list)
 
-def create_general_config_file(conf_path, settings):
+def create_general_config_file(conf_path, command, settings):
     filename = os.path.join(conf_path, 'general.txt')
     print "[--init] creating %s" % (filename)
     fh = open(filename, 'w')
+    fh.write(command)
     fh.write("".join(settings))
     read_only(filename)
 

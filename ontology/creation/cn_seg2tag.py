@@ -36,15 +36,11 @@ def tag(input, output, tagger):
                     print "[tag]line: %s" % line
                 # process the sentences in the section
                 l_tag_string = tagger.tag(line)
-
                 for tag_string in l_tag_string:
                     tag_string = tag_string.encode('utf-8')
                     if debug_p:
                         print "[tag]tag_string: %s" % tag_string
-
                     s_output.write("%s\n" % tag_string)
-
-
     s_input.close()
     s_output.close()
 

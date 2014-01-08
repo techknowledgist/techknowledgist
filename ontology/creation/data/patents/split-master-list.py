@@ -25,7 +25,8 @@ import random
 # Location of the master list and the directory of sublists. The master list is
 # created by create-master-list.py or by create_date_idx.py
 
-CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-all-600k'
+CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-us-all-600k'
+CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-cn-all-600k'
 MASTER_LIST = CORPUS_DIR + '/master-list.txt'
 LISTS_DIR = CORPUS_DIR + '/sublists'
 
@@ -44,7 +45,7 @@ YEAR_INDEX = {}
 for line in open(MASTER_LIST):
     fields = line.split()
     if len(fields) == 4:
-        # the msater list for cs, created by create-master-list.py, has an extra
+        # the master list for cs, created by create-master-list.py, has an extra
         # field with the source of the element in the list
         (appdate, pubdate, source, path) = fields
     else:

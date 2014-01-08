@@ -142,8 +142,11 @@ def run_populate(rconfig, limit, verbose=False):
             print "[--populate] %04d %s" % (count, dst_file)
         ensure_path(os.path.dirname(dst_file))
         shutil.copyfile(src_file, dst_file)
-        if rconfig.language == 'en':
-            compress(dst_file)
+        # at some point there seemed to be an issue with compressig for Chinese,
+        # so added this to do language dependent compressing, there is now no
+        # difference for the population phase
+        if rconfig.language == 'en': compress(dst_file)
+        elif rconfig.language == 'cn': compress(dst_file)
         # TODO: does this mean that you miss some if total_count % STEP != 0
         if count % STEP == 0:
             dataset.update_processed_count(STEP)
@@ -183,8 +186,9 @@ def run_xml2txt(rconfig, limit, options, source, verbose=False):
             fh.close()
             print "[--xml2txt] WARNING: error on", file_in
             print "           ", e
-        if rconfig.language == 'en':
-            compress(file_in, file_out)
+        # for now, do not compress the output of the document parser
+        if rconfig.language == 'en': compress(file_in, file_out)
+        elif rconfig.language == 'cn': compress(file_in)
         if count % STEP == 0:
             output_dataset.update_processed_count(STEP)
 
