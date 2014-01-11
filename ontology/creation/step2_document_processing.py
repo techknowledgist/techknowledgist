@@ -235,6 +235,8 @@ def run_txt2seg(rconfig, limit, options, verbose):
 
     count = 0
     segmenter = sdp.Segmenter()
+    swrapper = cn_txt2seg.SegmenterWrapper(segmenter)
+
     fspecs = get_lines(rconfig.filenames, output_dataset.files_processed, limit)
     for fspec in fspecs:
         count += 1
@@ -242,8 +244,8 @@ def run_txt2seg(rconfig, limit, options, verbose):
         print_file_progress(TXT2SEG, count, filename, verbose)
         file_in, file_out = prepare_io(filename, input_dataset, output_dataset)
         uncompress(file_in)
-        cn_txt2seg.seg(file_in, file_out, segmenter)
-        compress(file_in)
+        #cn_txt2seg.seg(file_in, file_out, segmenter)
+        swrapper.process(file_in, file_out)
         compress(file_in, file_out)
         if count % STEP == 0:
             output_dataset.update_processed_count(STEP)
