@@ -80,6 +80,9 @@ class SegmenterWrapper(object):
         for line in self.s_input:
             # a hack to get rid of the character with ordinal 12288
             line = ''.join([c for c in line if ord(c) != 12288])
+            # this is needed because the segmenter has a normalization error for
+            # non-breaking spaces, replace them here with regular spaces.
+            line = line.replace(unichr(160),' ').strip()
             if line != "":
                 if line.startswith('FH_'):
                     self._segment_lines()
@@ -98,9 +101,6 @@ class SegmenterWrapper(object):
                     self.s_output.write(line)
                 else:
                     debug("[seg] collecting  [%s]" % line.strip())
-                    # this is a hack needed because the segmenter has a normalization error
-                    # for non-breaking spaces, replace them here with regular spaces.
-                    line = line.replace(unichr(160),' ').strip()
                     if line:
                         self.lines.append(line)
         self._segment_lines()
