@@ -304,12 +304,8 @@ def run_tag2chk(rconfig, limit, options, verbose):
         print_file_progress(TAG2CHK, count, filename, verbose)
         file_in, file_out = prepare_io(filename, input_dataset, output_dataset)
         year = get_year(filename)
-        # no compression for Chinese, must be tested first
-        compress_p = True if rconfig.language == 'en' else False
         tag2chunk.Doc(file_in, file_out, year, rconfig.language,
-                      filter_p=filter_p, chunker_rules=chunker_rules, compress=compress_p)
-        # TODO: this seems superfluous
-        if rconfig.language == 'en': compress(file_in, file_out)
+                      filter_p=filter_p, chunker_rules=chunker_rules, compress=True)
         if count % STEP == 0:
             output_dataset.update_processed_count(STEP)
 

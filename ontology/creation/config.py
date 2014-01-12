@@ -87,7 +87,7 @@ DEFAULT_PIPELINE_CN = """
 # as well.
 
 DATA_TYPES = \
-    ['d0_xml', 'd1_txt', 'd2_tag', 'd2_seg', 'd3_phr_feats']
+    ['d0_xml', 'd1_txt', 'd2_seg', 'd2_tag', 'd3_phr_feats']
 PROCESSING_AREAS = \
     DATA_TYPES + ['t0_annotate', 't1_train', 't2_classify', 't3_test',
                   'o1_index', 'o2_matcher', 'o3_selector', 'workspace' ]
