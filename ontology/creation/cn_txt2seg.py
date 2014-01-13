@@ -1,12 +1,23 @@
-# cn_txt2seg.py
-# create segmented chinese files
-# formatted as follows:
-# field headers of the form    FH_<name>:
-# each followed by one or more lines of text (without any empty lines)
-# A line can consist of multiple sentences, which will be split by the tagger
-# Last line must be     END:
+"""cn_txt2seg.py
 
-import os, re, codecs, StringIO
+Create segmented chinese files formatted as follows:
+- field headers of the form    FH_<name>:
+- each followed by one or more lines of text (without any empty lines)
+A line can consist of multiple sentences, which will be split by the tagger
+Last line must be     END:
+
+When embedded in other code, first create an instance of sdp.Segmenter and then
+use the seg() funciton or the SegmenterWrapper class. See the end of thos file
+for an example of the latter.
+
+When run from the command line, this script takes a list of files and runs each
+of them through the segmenter, writing new files with the .seg extension:
+
+    $ python cn_txt2seg.py FILE1 FILE2 ...
+
+"""
+
+import os, sys, re, codecs, StringIO
 from time import sleep, time
 
 import sdp
@@ -236,3 +247,18 @@ def seg_lang(lang):
         # we need to segment before tagging
         patent_path = "/home/j/anick/fuse/data/patents"
         patent_txt2seg_dir("/home/j/anick/fuse/data/patents", lang)
+
+
+
+if __name__ == '__main__':
+
+    files_in = sys.argv[1:]
+    segmenter = sdp.Segmenter()
+    swrapper = SegmenterWrapper(segmenter)
+    use_old = False
+    for file_in in files_in:
+        file_out = file_in + '.seg'
+        if use_old:
+            seg(file_in, file_out, segmenter)
+        else:
+            swrapper.process(file_in, file_out, verbose=True)

@@ -48,7 +48,7 @@ class Doc:
         # field_name to list of sent instances
         # field name is header string without FH_ or : affixes
         self.d_field = {}
-        
+
         # sent id to sent instance and chunk id to chunk instance
         self.d_sent = {}
         self.d_chunk = {}
@@ -90,6 +90,7 @@ class Doc:
                 section = line.split("_")[1].rstrip(": ")
                 self.d_field[section] = []
                 sent_no_in_section = 0
+
             else:
                 # process the sentence, the line is a list of token_tag pairs
                 if section == "TITLE" or section == "ABSTRACT":
@@ -166,13 +167,13 @@ def add_line_to_phr_feats(metadata_list, mallet_feature_list, s_output_phr_feats
     #print "mallet_feature string: %s" % mallet_feature_string
     s_output_phr_feats.write(mallet_feature_string)
 
-
 def tag2chunk_dir(tag_dir, phr_occ_dir, phr_feats_dir, year, lang, filter_p = True):
     for file in os.listdir(tag_dir):
         input = tag_dir + "/" + file
         output_phr_occ = phr_occ_dir + "/" + file
         output_phr_feats = phr_feats_dir + "/" + file
         doc = Doc(input, output_phr_occ, output_phr_feats, year, lang, filter_p)
+
 
 # new3 output after changing chunker on 1/3/13  PGA
 # tag2chunk.test_t2c()
@@ -213,12 +214,10 @@ def test_t2c():
 
 # tag2chunk.test_t2c_de(True)
 def test_t2c_de(filter_p):
-    
     input = "/home/j/anick/fuse/data/patents/de/tag/1982/DE3102424A1.xml"
     output_phr_occ = "/home/j/anick/fuse/data/patents/de_test/DE3102424A1.phr_occ"
     output_phr_feats = "/home/j/anick/fuse/data/patents/de_test/DE3102424A1.phr_feats"
     cs = sentence.chunk_schema("de")
-
     year = "1980"
     lang = "de"
     #filter_p = True
@@ -228,17 +227,14 @@ def test_t2c_de(filter_p):
 
 # tag2chunk.test_t2c_de_tag_sig()
 def test_t2c_de_tag_sig():
-    
     input = "/home/j/anick/fuse/data/patents/de_test/tag_sig_test.xml"
     output_phr_occ = "/home/j/anick/fuse/data/patents/de_test/tag_sig_test.phr_occ"
     output_phr_feats = "/home/j/anick/fuse/data/patents/de_test/tag_sig_test.phr_feats"
     cs = sentence.chunk_schema("de")
-
     year = "1982"
     lang = "de"
     doc = Doc(input, output_phr_occ, output_phr_feats, year, lang)
     return(doc)
-
 
 # tag2chunk.test_t2c_cn()
 def test_t2c_cn():
@@ -250,18 +246,14 @@ def test_t2c_cn():
     doc = Doc(input, output_phr_occ, output_phr_feats, year, lang)
     return(doc)
 
-
-
 # returns (lowercased) nouns in a tag_string
 def lc_nouns(tag_string):
-
     l_lc_nouns = []
     for tagged_token in tag_string.split(" "):
         (tok, tag) = tagged_token.rsplit("_", 1)
         if tag[0:1] == "N":
             l_lc_nouns.append(tok.lower())
     return(l_lc_nouns)
-
 
 # language is en, de, cn
 # lang_path (above year_dir)
@@ -276,8 +268,8 @@ def patent_tag2chunk_dir(patent_path, language, filter_p = True):
         phr_occ_year_dir = phr_occ_path + "/" + year
         phr_feats_year_dir = phr_feats_path + "/" + year
         tag_year_dir = tag_path + "/" + year
-        #print "[patent_tag2chunk_dir]calling tag2chunk for dir: %s" % tag_year_dir
-        print "[patent_tag2chunk_dir]calling tag2chunk, filter_p: %s, output dirs: %s, %s" % (filter_p, phr_feats_year_dir, phr_occ_year_dir)
+        print "[patent_tag2chunk_dir]calling tag2chunk, filter_p: %s, output dirs: %s, %s" \
+              % (filter_p, phr_feats_year_dir, phr_occ_year_dir)
         tag2chunk_dir(tag_year_dir, phr_occ_year_dir, phr_feats_year_dir, year, language, filter_p)
     print "[patent_tag2chunk_dir]finished writing chunked data to %s and %s" % (phr_occ_path, phr_feats_path)
 
@@ -299,16 +291,12 @@ def pipeline_tag2chunk_dir(root, language, filter_p = True):
         # create the file name from id + .xml
         file_name = id + ".xml"
         tag_file = os.path.join(root, "tag", file_name)
-
         output_phr_occ = os.path.join(root, "phr_occ", file_name)
         output_phr_feats = os.path.join(root, "phr_feats", file_name)
-
-        print "[pipeline_tag2chunk_dir]about to process doc: %s, phr_occ: %s, phr_feats: %s, year: %s" % (tag_file, output_phr_occ, output_phr_feats, year)
+        print "[pipeline_tag2chunk_dir]about to process doc: %s, phr_occ: %s, phr_feats: %s, year: %s" \
+              % (tag_file, output_phr_occ, output_phr_feats, year)
         doc = Doc(tag_file, output_phr_occ, output_phr_feats, year, language, filter_p)
-
-
     s_list.close()
-
     print "[pipeline_tag2chunk_dir]finished writing chunked data to %s and %s" % (phr_occ_path, phr_feats_path)
 
 
@@ -321,8 +309,3 @@ def chunk_lang(lang, filter_p = True):
     patent_tag2chunk_dir("/home/j/anick/fuse/data/patents", lang, filter_p)
 
 
-if __name__ == '__main__':
-    import sys
-    tag_file, phr_occ_file, phr_feats_file = sys.argv[1:4]
-    doc = Doc(tag_file, phr_occ_file, phr_feats_file, '1999', 'en',
-              filter_p=True, chunker_rules='en')
