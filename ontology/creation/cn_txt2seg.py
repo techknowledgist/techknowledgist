@@ -87,18 +87,18 @@ class SegmenterWrapper(object):
                 if line.startswith('FH_'):
                     self._segment_lines()
                     debug("[seg] header      [%s]" % line.strip())
-                    self.s_output.write(line)
+                    self.s_output.write(line + u"\n")
                 elif line.strip() == 'END':
                     self._segment_lines()
                     debug("[seg] end         [%s]" % line.strip())
-                    self.s_output.write(line)
+                    self.s_output.write(line + u"\n")
                 elif is_skipable(line):
                     self._segment_lines()
                     debug("[seg] skipable    [%s]" % line.strip())
                 elif is_ascii(line):
                     self._segment_lines()
                     debug("[seg] ascii       [%s]" % line.strip())
-                    self.s_output.write(line)
+                    self.s_output.write(line + u"\n")
                 else:
                     debug("[seg] collecting  [%s]" % line.strip())
                     if line:
