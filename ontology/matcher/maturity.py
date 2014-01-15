@@ -10,7 +10,9 @@ Usage:
 
     $ python maturity.py
 
-    No command line arguments, but some global variables may need to be edited.
+    No command line arguments, but the following global variables may need to be
+    edited: CORPUS_DIR, CLASS_SUBDIR and TIME_SERIES. See the text just under
+    'USER SETTINGS' for short explanations and some examples.
 
 Note that for this to work, you need three kinds of input:
 
@@ -66,35 +68,60 @@ certain threshold (although it is not clear what exactly that threshold is).
 import os, codecs, math
 
 
-# Years to process
+### USER SETTINGS
 
+# years to process
 YEARS = [1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007]
 #YEARS = [1997, 1998]
 
+# path to the corpus directory
+CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-us-cs-500k'
+CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-us-all-600k'
+#CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-cn-all-600k'
 
-# Directories and files
+# directory where the classifications of all subcorpora are
+CLASS_SUBDIR = 'classifications'
+CLASS_SUBDIR = 'classifications/phase2-eval'
 
-CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-cs-500k'
-CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-all-600k'
+# name of the time series directory in the corpus directory
+TIME_SERIES = 'time-series'
+TIME_SERIES = 'time-series-v1'
+TIME_SERIES = 'time-series-v2'
 
-if CORPUS_DIR.endswith('ln-cs-500k'):
-    CLASS_DIR = os.path.join(CORPUS_DIR, 'classifications')
+# This variable needs to be set manually by finding the term-year pair with the
+# highest number of matches.  For convenience, this number is printed each time
+# this script runs.
+MAX_NUMBER_OF_MATCHES = 90439  # ln-us-cs-500k
+MAX_NUMBER_OF_MATCHES = 26542  # ln-us-all-600k
+
+# Threshold that determine what the adjusted frequency count has to be to render
+# a technology mature or available.
+MATURITY_THRESHOLD = 25
+AVAILABILITY_THRESHOLD = 10
+
+### NO USER EDITS NEEDED AFTER THIS
+
+
+if CORPUS_DIR.endswith('ln-us-cs-500k'):
+    CLASS_DIR = os.path.join(CORPUS_DIR, CLASS_SUBDIR)
     CLASS_SUFFIX = '-technologies-standard-1000'
     CLASS_FILE = 'classify.MaxEnt.out.s3.scores.sum'
     MATCH_DIR = os.path.join(CORPUS_DIR, 'subcorpora')
     MATCH_SUBDIR = 'data/o2_matcher/batch-01'
     MATCH_FILE = 'match.results.summ.txt'
-elif CORPUS_DIR.endswith('ln-all-600k'):
-    CLASS_DIR = os.path.join(CORPUS_DIR, 'classifications')
+elif CORPUS_DIR.endswith('ln-us-all-600k'):
+    CLASS_DIR = os.path.join(CORPUS_DIR, CLASS_SUBDIR)
     CLASS_PREFIX = 'technologies-ds1000-all-'
     CLASS_FILE = 'classify.MaxEnt.out.s3.scores.sum'
     MATCH_DIR = os.path.join(CORPUS_DIR, 'subcorpora')
     MATCH_SUBDIR = 'data/o2_matcher/maturity'
+    if CLASS_SUBDIR == 'classifications/phase2-eval':
+        MATCH_SUBDIR = 'data/o2_matcher/maturity-2007'
     MATCH_FILE = 'match.results.summ.txt'
 
 TERMS_FILE = CLASS_DIR + os.sep + 'all_terms.0025.txt'
 
-TIME_SERIES_DIR = CORPUS_DIR + '/time-series/maturity-scores'
+TIME_SERIES_DIR = os.path.join(CORPUS_DIR, TIME_SERIES, 'maturity-scores')
 
 
 # Variables needed for various adjustments of counts
@@ -104,33 +131,24 @@ TIME_SERIES_DIR = CORPUS_DIR + '/time-series/maturity-scores'
 YEAR_SIZES_CS_500K = {
     1997: 18555, 1998: 19875, 1999: 22254, 2000: 28576, 2001: 57429, 2002: 51058,
     2003: 49212, 2004: 48869, 2005: 46493, 2006: 33290, 2007: 9058 }
-YEAR_SIZES_ALL_600K = {
+YEAR_SIZES_ALL_600K_v1 = {
     1997: 15941, 1998: 15878, 1999: 17412, 2000: 19533, 2001: 36832, 2002: 38482,
     2003: 42439, 2004: 43903, 2005: 44493, 2006: 43412, 2007: 40715 }
+YEAR_SIZES_ALL_600K_v2 = {
+    1997: 15932, 1998: 15849, 1999: 17317, 2000: 19174, 2001: 36208, 2002: 37080,
+    2003: 38961, 2004: 36314, 2005: 29894, 2006: 20513, 2007: 6017 }
 
-corpus = "ln-cs-500k"
-corpus = "ln-all-600k"
-
-if corpus == "ln-cs-500k":
+if os.path.basename(CORPUS_DIR) == "ln-us-cs-500k":
     YEAR_SIZES = YEAR_SIZES_CS_500K
-elif corpus == "ln-all-600k":
-    YEAR_SIZES = YEAR_SIZES_ALL_600K
+elif os.path.basename(CORPUS_DIR) == "ln-us-all-600k":
+    YEAR_SIZES = YEAR_SIZES_ALL_600K_v1
+    if CLASS_SUBDIR == 'classifications/phase2-eval':
+        YEAR_SIZES = YEAR_SIZES_ALL_600K_v1
 
 LARGEST_SIZE = max(YEAR_SIZES.values())
 
-
-# Adjusting the match score with the upper bound. The first variable needs to be
-# set manually by finding term-year pair with the highest number of matches. For
-# convenience, this number is printed each time this script runs.
-MAX_NUMBER_OF_MATCHES = 90439  # ln-cs-500k
-MAX_NUMBER_OF_MATCHES = 26542  # ln-all-600k
+# Adjusting the match score with the upper bound. 
 MATCHES_ADJUSTMENT = math.log(MAX_NUMBER_OF_MATCHES)
-
-
-# Threshold that determine what the adjusted frequency count has to be to render
-# a technology mature or available.
-MATURITY_THRESHOLD = 25
-AVAILABILITY_THRESHOLD = 10
 
 
 
@@ -210,9 +228,9 @@ if __name__ == '__main__':
     for year in YEARS:
         print
         print year
-        if CORPUS_DIR.endswith('ln-cs-500k'):
+        if CORPUS_DIR.endswith('ln-us-cs-500k'):
             tech_file = "%s/%s%s/%s" % (CLASS_DIR, year, CLASS_SUFFIX, CLASS_FILE)
-        elif CORPUS_DIR.endswith('ln-all-600k'):
+        elif CORPUS_DIR.endswith('ln-us-all-600k'):
             tech_file = "%s/%s%s/%s" % (CLASS_DIR, CLASS_PREFIX, year, CLASS_FILE)
         else:
             exit(CORPUS_DIR)

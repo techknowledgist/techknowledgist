@@ -9,10 +9,10 @@ and splits them into simpler tables for each year.
 
 import os, codecs
 
-CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-cs-500k'
-CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-all-600k'
+CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-us-cs-500k'
+CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-us-all-600k'
 
-TIME_SERIES_DIR = CORPUS_DIR + '/time-series/maturity-scores'
+TIME_SERIES_DIR = CORPUS_DIR + '/time-series-v2/maturity-scores'
 
 maturity_scores1_file = TIME_SERIES_DIR + '/maturity-freq-based.txt'
 maturity_scores2_file = TIME_SERIES_DIR + '/maturity-match-based.txt'
