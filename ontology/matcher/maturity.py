@@ -77,7 +77,7 @@ YEARS = [1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007]
 # path to the corpus directory
 CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-us-cs-500k'
 CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-us-all-600k'
-#CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-cn-all-600k'
+CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-cn-all-600k'
 
 # directory where the classifications of all subcorpora are
 CLASS_SUBDIR = 'classifications'
@@ -91,10 +91,13 @@ TIME_SERIES = 'time-series-v2'
 # This variable needs to be set manually by finding the term-year pair with the
 # highest number of matches.  For convenience, this number is printed each time
 # this script runs.
+# NOTE: this variable was not changed when running this on the us match results
+# that excluded pubyears > 2007, but it did not seem to hurt the results.
 MAX_NUMBER_OF_MATCHES = 90439  # ln-us-cs-500k
-MAX_NUMBER_OF_MATCHES = 26542  # ln-us-all-600k
+MAX_NUMBER_OF_MATCHES = 26542  # ln-us-all-600k, with files.txt
+MAX_NUMBER_OF_MATCHES = 26542  # ln-us-all-600k, with files-2007.txt
 
-# Threshold that determine what the adjusted frequency count has to be to render
+# Threshold that determines what the adjusted frequency count has to be to render
 # a technology mature or available.
 MATURITY_THRESHOLD = 25
 AVAILABILITY_THRESHOLD = 10

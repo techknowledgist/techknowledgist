@@ -1,2 +1,17 @@
-maturity-1	提取物
-maturity-2	提取物	提取物
+maturity-use	使用	用	利用
+maturity-have	有	具有
+maturity-provide 提供
+maturity-stored
+maturity-connect	连接
+maturity-received	接收	接受
+maturity-select
+maturity-access	通过	进入
+maturity-activate
+maturity-detect
+maturity-obtain	获得
+maturity-store
+maturity-generate	产生
+
+maturity-adopt	采用
+maturity-realize	实现
+maturity-involve	涉及

@@ -193,7 +193,7 @@ class Pattern(object):
         self.elements = elements
 
     def __str__(self):
-        return "<Pattern %s %.2f {%s}>" % (self.name, self.score, self.elememts)
+        return "<Pattern %s %.2f {%s}>" % (self.name, self.score, self.elements)
 
     def matches(self, feats):
         matched_features = []
@@ -204,6 +204,27 @@ class Pattern(object):
                 return None
         return ' '.join(matched_features)
 
+    def pp(self):
+        print self.name, '==> {',
+        for feat, vals in self.elements.items():
+            print "%s = [ %s ]" % (feat, ' , '.join(vals)),
+        print '}'
+
+def load_chinese_patterns():
+    # TODO: use this for all patterns for all languages, need a more stable
+    # syntax for the pattern file.
+    global MATURITY_PATTERNS
+    MATURITY_PATTERNS = []
+    pattern_fh = codecs.open('patterns-cn.txt', encoding='utf-8')
+    for line in pattern_fh:
+        line = line.strip()
+        if line.startswith('#') or not line:
+            continue
+        fields = line.split("\t")
+        if len(fields) > 1:
+            MATURITY_PATTERNS.append(
+                Pattern(fields[0], 0.7, { 'prev_V': fields[1:] }))
+    for p in MATURITY_PATTERNS: p.pp()
 
 def print_file_progress(stage, count, filename, verbose):
     # copied from step2_document_processing
@@ -212,7 +233,7 @@ def print_file_progress(stage, count, filename, verbose):
 
 
 def read_opts():
-    longopts = ['corpus=', 'filelist=', 'batch=', 'pipeline=', 'patterns=', 'verbose' ]
+    longopts = ['corpus=', 'filelist=', 'batch=', 'pipeline=', 'patterns=', 'language=', 'verbose' ]
     try:
         return getopt.getopt(sys.argv[1:], '', longopts)
     except getopt.GetoptError as e:
@@ -329,6 +350,9 @@ if __name__ == '__main__':
         elif opt == '--pipeline': pipeline_config = val
         elif opt == '--verbose': VERBOSE = True
 
+    if language == 'cn':
+        load_chinese_patterns()
+
     if patterns == 'MATURITY':
         PATTERNS = MATURITY_PATTERNS
     elif patterns == 'PROMISE':
@@ -338,7 +362,7 @@ if __name__ == '__main__':
 
     # TODO: language should not be an option after step1_initialize since it is
     # associated with a corpus, should therefore also not be given to the config
-    # object
+    # object, but for now we keep it
     rconfig = RuntimeConfig(corpus, None, None, language, pipeline_config)
 
     matcher = Matcher(rconfig, filelist, batch)
