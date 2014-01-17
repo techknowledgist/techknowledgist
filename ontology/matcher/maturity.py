@@ -77,7 +77,7 @@ YEARS = [1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007]
 # path to the corpus directory
 CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-us-cs-500k'
 CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-us-all-600k'
-CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-cn-all-600k'
+#CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-cn-all-600k'
 
 # directory where the classifications of all subcorpora are
 CLASS_SUBDIR = 'classifications'
@@ -93,9 +93,11 @@ TIME_SERIES = 'time-series-v2'
 # this script runs.
 # NOTE: this variable was not changed when running this on the us match results
 # that excluded pubyears > 2007, but it did not seem to hurt the results.
+# TODO: is this actually needed? Can't it be calculated when all data are loaded?
 MAX_NUMBER_OF_MATCHES = 90439  # ln-us-cs-500k
 MAX_NUMBER_OF_MATCHES = 26542  # ln-us-all-600k, with files.txt
-MAX_NUMBER_OF_MATCHES = 26542  # ln-us-all-600k, with files-2007.txt
+MAX_NUMBER_OF_MATCHES = 21981  # ln-us-all-600k, with files-2007.txt
+#MAX_NUMBER_OF_MATCHES = 7232   # ln-cn-all-600k, with files-2007.txt
 
 # Threshold that determines what the adjusted frequency count has to be to render
 # a technology mature or available.
@@ -113,6 +115,15 @@ if CORPUS_DIR.endswith('ln-us-cs-500k'):
     MATCH_SUBDIR = 'data/o2_matcher/batch-01'
     MATCH_FILE = 'match.results.summ.txt'
 elif CORPUS_DIR.endswith('ln-us-all-600k'):
+    CLASS_DIR = os.path.join(CORPUS_DIR, CLASS_SUBDIR)
+    CLASS_PREFIX = 'technologies-ds1000-all-'
+    CLASS_FILE = 'classify.MaxEnt.out.s3.scores.sum'
+    MATCH_DIR = os.path.join(CORPUS_DIR, 'subcorpora')
+    MATCH_SUBDIR = 'data/o2_matcher/maturity'
+    if CLASS_SUBDIR == 'classifications/phase2-eval':
+        MATCH_SUBDIR = 'data/o2_matcher/maturity-2007'
+    MATCH_FILE = 'match.results.summ.txt'
+elif CORPUS_DIR.endswith('ln-cn-all-600k'):
     CLASS_DIR = os.path.join(CORPUS_DIR, CLASS_SUBDIR)
     CLASS_PREFIX = 'technologies-ds1000-all-'
     CLASS_FILE = 'classify.MaxEnt.out.s3.scores.sum'
@@ -140,19 +151,32 @@ YEAR_SIZES_ALL_600K_v1 = {
 YEAR_SIZES_ALL_600K_v2 = {
     1997: 15932, 1998: 15849, 1999: 17317, 2000: 19174, 2001: 36208, 2002: 37080,
     2003: 38961, 2004: 36314, 2005: 29894, 2006: 20513, 2007: 6017 }
+YEAR_SIZES_ALL_600K_cn_v1 = {
+    1997: 1, 1998: 1, 1999: 1, 2000: 1, 2001: 1, 2002: 1,
+    2003: 1, 2004: 1, 2005: 1, 2006: 1, 2007: 1 }
+YEAR_SIZES_ALL_600K_cn_v2 = {
+    1997: 11143, 1998: 12387, 1999: 13550, 2000: 16618, 2001: 19450, 2002: 24389,
+    2003: 28596, 2004: 29997, 2005: 33344, 2006: 27194, 2007: 5347 }
 
 if os.path.basename(CORPUS_DIR) == "ln-us-cs-500k":
     YEAR_SIZES = YEAR_SIZES_CS_500K
 elif os.path.basename(CORPUS_DIR) == "ln-us-all-600k":
     YEAR_SIZES = YEAR_SIZES_ALL_600K_v1
     if CLASS_SUBDIR == 'classifications/phase2-eval':
-        YEAR_SIZES = YEAR_SIZES_ALL_600K_v1
+        YEAR_SIZES = YEAR_SIZES_ALL_600K_v2
+elif os.path.basename(CORPUS_DIR) == "ln-cn-all-600k":
+    YEAR_SIZES = YEAR_SIZES_ALL_600K_cn_v1
+    if CLASS_SUBDIR == 'classifications/phase2-eval':
+        YEAR_SIZES = YEAR_SIZES_ALL_600K_cn_v2
 
 LARGEST_SIZE = max(YEAR_SIZES.values())
 
 # Adjusting the match score with the upper bound. 
 MATCHES_ADJUSTMENT = math.log(MAX_NUMBER_OF_MATCHES)
 
+print 'YEAR_SIZES:', YEAR_SIZES
+print 'LARGEST_SIZE:', LARGEST_SIZE
+print 'MATCHES_ADJUSTMENT:', MATCHES_ADJUSTMENT
 
 
 def adjust_count(year):
@@ -234,6 +258,8 @@ if __name__ == '__main__':
         if CORPUS_DIR.endswith('ln-us-cs-500k'):
             tech_file = "%s/%s%s/%s" % (CLASS_DIR, year, CLASS_SUFFIX, CLASS_FILE)
         elif CORPUS_DIR.endswith('ln-us-all-600k'):
+            tech_file = "%s/%s%s/%s" % (CLASS_DIR, CLASS_PREFIX, year, CLASS_FILE)
+        elif CORPUS_DIR.endswith('ln-cn-all-600k'):
             tech_file = "%s/%s%s/%s" % (CLASS_DIR, CLASS_PREFIX, year, CLASS_FILE)
         else:
             exit(CORPUS_DIR)
