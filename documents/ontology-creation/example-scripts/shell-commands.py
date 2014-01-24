@@ -13,7 +13,7 @@ The third one is not quite finished, the merging and time series part is hard-wi
 """
 
 SHOW_CREATE_DATE_INDEX = False
-SHOW_SINGLE = True
+SHOW_SINGLE = False
 SHOW_COMPOSITE = True
 
 SINGLE_CORPUS = 'data/patents/en-500'
@@ -22,9 +22,10 @@ SINCLE_FILELIST = 'data/patents/sample-500-en-full-scrambled.txt'
 SINGLE_DOWNSAMPLE = 50
 SINGLE_FEATURES = 'all'
 
-COMPOSITE_CORPUS = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-us-all-600k'
+COMPOSITE_CORPUS = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-us-cs-500k'
+COMPOSITE_CORPUS = '/home/j/corpuswork/fuse/FUSEData/corpora/wos-cs-520k'
 COMPOSITE_LANGUAGE = 'en'
-COMPOSITE_FILELIST = 'files-2007.txt'
+COMPOSITE_FILELIST = 'files.txt'
 COMPOSITE_DOWNSAMPLE1 = 200
 COMPOSITE_DOWNSAMPLE2 = 1000
 COMPOSITE_FEATURES = 'all'
@@ -93,7 +94,7 @@ def print_step2_command_initialize(filelist, corpus, language):
     print "python step1_initialize.py --corpus %s --language %s --filelist %s" % (corpus, language, filelist)
 
 def print_step2_command(corpus, language, corpus_size, stage):
-    print "python step2_document_processing.py --corpus %s --language %s --verbose -n %d %s" % (corpus, language, corpus_size, stage)
+    print "python step2_document_processing.py --corpus %s -l %s --verbose -n %d %s &" % (corpus, language, corpus_size, stage)
 
     
 def print_training_commands(corpus, annotation_file, features, downsample):

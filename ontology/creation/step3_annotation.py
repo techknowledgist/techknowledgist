@@ -21,7 +21,22 @@ To create technology annotation files do something like:
       --name test1 \
       --corpus data/patents/201305-en \
       --filelist files-testing.txt \
+      --print-context \
       --verbose
+
+Four annotation files are created (in addition to a couple of info files):
+
+    annotate.terms.context.html
+    annotate.terms.context.txt
+    annotate.terms.counts.txt
+    annotate.terms.unlab.txt
+
+The first two present the term in context in html or text format. The first is
+not strictly an annotation file but a file that provides pretty printed context
+for the annotator. The context text file can be used as input to a command line
+annotation tool. The counts file gives counts and cumulative counts for the term
+list. Finally, the unlab file simply has the term and a space for the label
+before it.
 
 Options:
 
@@ -39,7 +54,12 @@ Options:
 
    --verbose - switch on verbose mode
 
+   --print-context - prints the two annotation context files, which are not
+       printed by default
 
+   --sort-terms - with this option, terms are printed in order of frequency
+
+   
 INVENTIONS:
 
 The following command creates a directory with some info files and an annotation
@@ -80,7 +100,7 @@ from ontology.utils.file import open_input_file, compress, uncompress
 from ontology.utils.git import get_git_commit
 
 
-def annotate_technologies(name, rconfig, filelist):
+def annotate_technologies(name, rconfig, filelist, sort_terms_p, print_context_p):
 
     """Create input for manually annotation (that is, creation of a labeled list
     of terms). Given a runtime configuration for a corpus and a file list,
@@ -105,11 +125,15 @@ def annotate_technologies(name, rconfig, filelist):
 
     dirname = set_dirname(rconfig, 'technologies', name)
     write_info(rconfig, dirname, filelist_path)
-    term_contexts = collect_contexts(dataset_tags, dataset_features, filelist_path)
+    term_contexts = {}
+    if print_context_p:
+        term_contexts = collect_contexts(dataset_tags, dataset_features,
+                                         filelist_path)
     term_counts = collect_counts(dataset_features, filelist_path)
     term_count_list = sorted(list(term_counts.items()))
     term_count_list.sort(lambda x, y: cmp(y[1],x[1]))
-    print_annotation_files(dirname, term_count_list, term_contexts)
+    print_annotation_files(dirname, term_count_list, term_contexts,
+                           sort_terms_p, print_context_p)
 
 
 def set_dirname(rconfig, annotation_type, name):
@@ -152,14 +176,16 @@ def collect_contexts(dataset_tags, dataset_feats, filelist):
         for term in fd.get_terms():
             term_obj = fd.get_term(term)
             for instance in term_obj.term_instances:
-                year = instance.year
-                identifier = instance.id
-                context = "<file>%s</file><br/>\n%s <np>%s</np> %s" \
-                    % (instance.id,
-                       instance.context_left(),
-                       instance.context_token(),
-                       instance.context_right())
-                contexts.setdefault(term,[]).append([year, identifier, context])
+                #print instance, instance.feats.get('section_loc')
+                #year = instance.year
+                #identifier = instance.id
+                contexts.setdefault(term,[]).append(instance)
+                #context = "<file>%s</file><br/>\n%s <np>%s</np> %s" \
+                #    % (instance.id,
+                #       instance.context_left(),
+                #       instance.context_token(),
+                #       instance.context_right())
+                #contexts.setdefault(term,[]).append([year, identifier, context])
     return contexts
 
 
@@ -183,23 +209,31 @@ def collect_counts(dataset, filelist):
     return counts
 
     
-def print_annotation_files(dirname, term_count_list, term_contexts):
+def print_annotation_files(dirname, term_count_list, term_contexts,
+                           sort_terms_p, print_context_p):
 
     """Print the three annotation files in dirname, using the list of term
     counts and the dictionary of contexts."""
 
     file_unlab = os.path.join(dirname, 'annotate.terms.unlab.txt')
     file_counts = os.path.join(dirname, 'annotate.terms.counts.txt')
-    file_context = os.path.join(dirname, 'annotate.terms.context.html')
+    file_context_txt = os.path.join(dirname, 'annotate.terms.context.txt')
+    file_context_html = os.path.join(dirname, 'annotate.terms.context.html')
 
     fh_unlab = codecs.open(file_unlab, 'w', encoding='utf-8')
     fh_counts = codecs.open(file_counts, 'w', encoding='utf-8')
-    fh_context = codecs.open(file_context, 'w', encoding='utf-8')
-    write_html_prefix(fh_context)
+    if print_context_p:
+        fh_context_txt = codecs.open(file_context_txt, 'w', encoding='utf-8')
+        fh_context_html = codecs.open(file_context_html, 'w', encoding='utf-8')
+        write_html_prefix(fh_context_html)
 
     term_no = 0
     cumulative = 0
-    #ensure_path(os.path.join(dirname, 'term.contexts'))
+
+    # suffle the terms if are not supposed to be sorted
+    if not sort_terms_p:
+        random.shuffle(term_count_list)
+        
     for term, count in term_count_list:
         term_no += 1
         cumulative += count
@@ -209,14 +243,28 @@ def print_annotation_files(dirname, term_count_list, term_contexts):
         google_link = "<a href='%s' target='_bank'>Google</a>" % google_url
         fh_unlab.write("\t%s\n" % term)
         fh_counts.write("%d\t%d\t%d\t%s\n" % (term_no, count, cumulative, term))
-        fh_context.write("\n<p>%s (%d documents)</p>\n\n" % (term, count))
-        fh_context.write("<blockquote>%s</blockquote>\n\n" % google_link)
-        #file_term_context = os.path.join(dirname, 'term.contexts', "%04d.html" % term_no)
-        #fh_term_context = codecs.open(file_term_context, 'w', encoding='utf-8')
-        random.shuffle(term_contexts[term])
-        for year, id, context in term_contexts[term][:10]:
-            fh_context.write("<blockquote>\n%s\n</blockquote>\n\n" % context)
+        if print_context_p:
+            fh_context_txt.write("%s\n" % term)
+            fh_context_html.write("\n<p>%s (%d documents)</p>\n\n" % (term, count))
+            fh_context_html.write("<blockquote>%s</blockquote>\n\n" % google_link)
+            random.shuffle(term_contexts[term])
+            for instance in term_contexts[term][:10]:
+                fh_context_txt.write("\t%s\t%s\t%s\t%s\t%s\t%s\n"
+                                     % (instance.year,
+                                        instance.id,
+                                        instance.feats.get('section_loc'),
+                                        instance.context_left(),
+                                        instance.context_token(),
+                                        instance.context_right()))
+                fh_context_html.write("<blockquote>\n")
+                fh_context_html.write("<file>%s</file><br/>\n%s <np>%s</np> %s" 
+                                      % (instance.id,
+                                         instance.context_left(),
+                                         instance.context_token(),
+                                         instance.context_right()))
+                fh_context_html.write("</blockquote>\n\n")
 
+            
 
 def write_html_prefix(fh_context):
     fh_context.write("<html>\n")
@@ -340,8 +388,9 @@ def annotate_something(name, rconfig, filelist, chunks):
 
 if __name__ == '__main__':
 
-    options = ['name=', 'corpus=', 'pipeline=', 'filelist=',
-               'technologies', 'inventions', 'chunks=', 'verbose']
+    options = ['name=', 'corpus=', 'pipeline=', 'filelist=', 'sort-terms',
+               'print-context', 'technologies', 'inventions', 'chunks=',
+               'verbose']    
     (opts, args) = getopt.getopt(sys.argv[1:], '', options)
 
     name = None
@@ -350,6 +399,8 @@ if __name__ == '__main__':
     filelist = 'files.txt'
     annotate_technologies_p = False
     annotate_inventions_p = False
+    sort_terms_p = False
+    print_context_p = False
     chunks = 30
     verbose = False
     
@@ -360,6 +411,8 @@ if __name__ == '__main__':
         if opt == '--filelist': filelist = val
         if opt == '--technologies': annotate_technologies_p = True
         if opt == '--inventions': annotate_inventions_p = True
+        if opt == '--sort-terms': sort_terms_p = True
+        if opt == '--print-context': print_context_p = True
         if opt == '--chunks': chunks = int(val)
         if opt == '--verbose': verbose = True
         
@@ -371,6 +424,7 @@ if __name__ == '__main__':
         rconfig.pp()
 
     if annotate_technologies_p:
-        annotate_technologies(name, rconfig, filelist)
+        annotate_technologies(name, rconfig, filelist,
+                              sort_terms_p, print_context_p)
     elif annotate_inventions_p:
         annotate_inventions(name, rconfig, filelist, chunks)
