@@ -27,7 +27,7 @@ def add_file_list(year, subcorpus):
     FILE_LISTS[year] = open(filelist, 'w')
     
 def ensure_path(path):
-    if not os.path.exists(path):
+     if not os.path.exists(path):
         os.mkdir(path)
 
 def next_id():
@@ -39,13 +39,14 @@ def next_id():
 def split_file(fname):
     fh = codecs.open(fname)
     text = fh.read()
-    print fname, len(text), 
+    print fname, len(text),
     year = int(fname[20:24])
     wos_items = text.split("\n\n")
-    c = 0
+    c1 = 0
+    c2 = 0
     total_items_size = 0
     for wos_item in wos_items[:-1]:  # skip the empty one at the end
-        c += 1
+        c1 += 1
         #if c > 4: break
         total_items_size += len(wos_item)
         item_year = year
@@ -55,9 +56,11 @@ def split_file(fname):
                 if search_result is not None:
                     item_year = int(search_result.group(1))
                 break
-        write_wos_item(item_year, year, fname, wos_item)
-    print total_items_size, c
-    
+        wrote_item = write_wos_item(item_year, year, fname, wos_item)
+        if wrote_item:
+            c2 += 1
+    print "%d %d/%d" % (total_items_size, c2, c1)
+
 
 def write_wos_item(item_year, year, fname, text):
     dir = os.path.join('cs-corpora', str(item_year), os.path.basename(fname))
@@ -70,6 +73,8 @@ def write_wos_item(item_year, year, fname, text):
         FILE_LISTS[item_year].write("%d\t%s\t%s\n" % (item_year, long_path, short_path))
         with codecs.open(filename, 'w') as fh:
             fh.write(text + u"\n")
+        return True
+    return False
 
 
 if __name__ == '__main__':
