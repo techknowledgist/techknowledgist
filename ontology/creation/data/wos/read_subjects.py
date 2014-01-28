@@ -35,10 +35,11 @@ if len(sys.argv) > 1:
 
 SUBJECT_EXP = re.compile(">(.*)</subject>")
 SUBJECTS = {}
+ALL_SUBJECTS = {}
 
 for year in YEARS:
 
-    subjects = {}
+    SUBJECTS = {}
     fh_out = open("out-subjects-%s.txt" % year, 'w')
     files = glob.glob("%s/WoS.out.%d*" % (WOS_DIR, year))
     files_done = 0
@@ -55,21 +56,19 @@ for year in YEARS:
             if all_documents % 100 == 0 and MAX_DOCS_PER_FILE > 100:
                 print "  documents processed: %d" % all_documents
             all_documents += 1
-
             for subj in wosdoc.subjects:
                 result = SUBJECT_EXP.search(subj)
                 if result is not None:
                     topic = result.groups(0)[0]
                     topic = topic.replace('&amp;', '&')
                     SUBJECTS[topic] = SUBJECTS.get(topic,0) + 1
-                    subjects[topic] = subjects.get(topic,0) + 1
+                    ALL_SUBJECTS[topic] = ALL_SUBJECTS.get(topic,0) + 1
 
     for s in sorted(SUBJECTS.keys()):
         fh_out.write("%5d   %s\n" % (SUBJECTS[s], s))
+    fh_out.close()
 
 
 fh_out = open("out-subjects-all.txt", 'w')
-for s in sorted(SUBJECTS.keys()):
-    fh_out.write("%5d   %s\n" % (SUBJECTS[s], s))
-
-                
+for s in sorted(ALL_SUBJECTS.keys()):
+    fh_out.write("%5d   %s\n" % (ALL_SUBJECTS[s], s))

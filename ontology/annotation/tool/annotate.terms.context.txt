@@ -1,3 +1,17 @@
+# ## annotate.info.general.txt
+#
+# $ python step3_annotation.py --technologies --corpus /home/j/corpuswork/fuse/FUSEData/corpora/ln-us-sample-500 --filelist files-testing-2.txt --print-context --verbose --name test6
+# 
+# corpus            =  /home/j/corpuswork/fuse/FUSEData/corpora/ln-us-sample-500
+# file_list         =  /home/j/corpuswork/fuse/FUSEData/corpora/ln-us-sample-500/config/files-testing-2.txt
+# config_file       =  pipeline-default.txt
+# git_commit        =  v0.4-3-gf28333c
+#
+# ## annotate.info.filelist.txt
+#
+# 2004/US6776488B2.xml
+# 2007/US20070073479A1.xml
+#
 movements
 	2004	US6776488B2.xml_775	DESC_later	1-3 , where a processor which also belongs to the control device can determine the process paths located between the positions and the necessary movements by a spline function , so that the control device can then search for individual	movements	and positions in an automated manner .
 	2004	US6776488B2.xml_922	OTHER_later	The camera crane according toclaim 8 , wherein	movements	of at least one of the boom -LRB- 1 -RRB- , the crane post -LRB- 3 -RRB- , the attachment platform -LRB- 5 -RRB- and the pivot head -LRB- 4 -RRB- is moveable by electric motors controlled by a control device .

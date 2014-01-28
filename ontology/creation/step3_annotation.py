@@ -34,9 +34,10 @@ Four annotation files are created (in addition to a couple of info files):
 The first two present the term in context in html or text format. The first is
 not strictly an annotation file but a file that provides pretty printed context
 for the annotator. The context text file can be used as input to a command line
-annotation tool. The counts file gives counts and cumulative counts for the term
-list. Finally, the unlab file simply has the term and a space for the label
-before it.
+annotation tool. For each term, it gives a maximum of 5 contexts, with a
+preference for contexts earlier in a document. The counts file gives counts and
+cumulative counts for the term list. Finally, the unlab file simply has the term
+and a space for the label before it.
 
 Options:
 
@@ -57,7 +58,8 @@ Options:
    --print-context - prints the two annotation context files, which are not
        printed by default
 
-   --sort-terms - with this option, terms are printed in order of frequency
+   --sort-terms - with this option, terms are printed in order of frequency, by
+       default, they are randomly ordered
 
    
 INVENTIONS:
@@ -154,6 +156,7 @@ def write_info(rconfig, dirname, filelist_path):
     print "Writing general info..."
     with open(os.path.join(dirname, 'annotate.info.general.txt'), 'w') as fh:
         fh.write("$ python %s\n\n" % ' '.join(sys.argv))
+        fh.write("corpus            =  %s\n" % rconfig.corpus)
         fh.write("file_list         =  %s\n" % filelist_path)
         fh.write("config_file       =  %s\n" % \
                      os.path.basename(rconfig.pipeline_config_file))
@@ -176,16 +179,7 @@ def collect_contexts(dataset_tags, dataset_feats, filelist):
         for term in fd.get_terms():
             term_obj = fd.get_term(term)
             for instance in term_obj.term_instances:
-                #print instance, instance.feats.get('section_loc')
-                #year = instance.year
-                #identifier = instance.id
                 contexts.setdefault(term,[]).append(instance)
-                #context = "<file>%s</file><br/>\n%s <np>%s</np> %s" \
-                #    % (instance.id,
-                #       instance.context_left(),
-                #       instance.context_token(),
-                #       instance.context_right())
-                #contexts.setdefault(term,[]).append([year, identifier, context])
     return contexts
 
 
@@ -219,21 +213,19 @@ def print_annotation_files(dirname, term_count_list, term_contexts,
     file_counts = os.path.join(dirname, 'annotate.terms.counts.txt')
     file_context_txt = os.path.join(dirname, 'annotate.terms.context.txt')
     file_context_html = os.path.join(dirname, 'annotate.terms.context.html')
-
     fh_unlab = codecs.open(file_unlab, 'w', encoding='utf-8')
     fh_counts = codecs.open(file_counts, 'w', encoding='utf-8')
     if print_context_p:
         fh_context_txt = codecs.open(file_context_txt, 'w', encoding='utf-8')
         fh_context_html = codecs.open(file_context_html, 'w', encoding='utf-8')
-        write_html_prefix(fh_context_html)
-
-    term_no = 0
-    cumulative = 0
+        _initialize_context_files(fh_context_txt, fh_context_html, dirname)
 
     # suffle the terms if are not supposed to be sorted
     if not sort_terms_p:
         random.shuffle(term_count_list)
-        
+
+    term_no = 0
+    cumulative = 0
     for term, count in term_count_list:
         term_no += 1
         cumulative += count
@@ -248,25 +240,27 @@ def print_annotation_files(dirname, term_count_list, term_contexts,
             fh_context_html.write("\n<p>%s (%d documents)</p>\n\n" % (term, count))
             fh_context_html.write("<blockquote>%s</blockquote>\n\n" % google_link)
             random.shuffle(term_contexts[term])
-            for instance in term_contexts[term][:10]:
-                fh_context_txt.write("\t%s\t%s\t%s\t%s\t%s\t%s\n"
-                                     % (instance.year,
-                                        instance.id,
-                                        instance.feats.get('section_loc'),
-                                        instance.context_left(),
-                                        instance.context_token(),
-                                        instance.context_right()))
+            # order the contexts on position in the document
+            contexts = sorted(term_contexts[term])
+            for instance in contexts[:10]:
+                instance.print_as_tabbed_line(fh_context_txt)
                 fh_context_html.write("<blockquote>\n")
-                fh_context_html.write("<file>%s</file><br/>\n%s <np>%s</np> %s" 
-                                      % (instance.id,
-                                         instance.context_left(),
-                                         instance.context_token(),
-                                         instance.context_right()))
+                instance.print_as_html(fh_context_html)
                 fh_context_html.write("</blockquote>\n\n")
 
-            
 
-def write_html_prefix(fh_context):
+def _initialize_context_files(fh_context_txt, fh_context_html, dirname):
+    for info_file in ('annotate.info.general.txt', 'annotate.info.filelist.txt'):
+        path = os.path.join(dirname, info_file)
+        lines = open(path).readlines()
+        fh_context_txt.write("# ## %s\n#\n" % info_file)
+        for l in lines:
+            fh_context_txt.write("# %s\n" % l.rstrip())
+        fh_context_txt.write("#\n")
+    _write_html_prefix(fh_context_html)
+    return fh_context_txt, fh_context_html
+
+def _write_html_prefix(fh_context):
     fh_context.write("<html>\n")
     fh_context.write("<head>\n")
     fh_context.write("<style>\n")
