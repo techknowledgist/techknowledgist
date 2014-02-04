@@ -6,12 +6,12 @@ publication date.
 
 Usage:
 
-    $ python create_date_idx.py INFILE OUTFILE WARNINGS SKIP COUNT
+    $ python create-date-idx.py INFILE OUTFILE WARNINGS START END
 
     Parses INFILE and creates OUTFILE which has three fields for each file, an
     application date, a publicaiton date and the filepath. Writes warnings to
-    WARNINGS. If SKIP and COUNT are given, limits the number of files processed,
-    starting the file after SKIP and finsihing at COUNT.
+    WARNINGS. If START and END are given, limits the number of files processed,
+    starting the file after START and finishing at END.
 
 Expects each line of the input to start like this:
 
@@ -24,11 +24,17 @@ Alternatively, it allows this kind of input:
 
     4577022A    /home/j/corpuswork/fuse/FUSEData/2013-04/ln_uspto/1986/004/US4577022A.xml
 
-This is the format as used in ln_uspto.all.shuffled.txt (and the ordered
-version) in the lists in /home/j/corpuswork/fuse/FUSEData/lists/.
+This is the format as used in ln_uspto.all.shuffled.txt and its ordered version
+in the lists in /home/j/corpuswork/fuse/FUSEData/lists/.
 
-Perhaps belongs in ontology/utils (and perhaps patent_index.py belongs there as
-well).
+Here is an example on how to do the entire list of US patents using three
+processors:
+
+    $ python create-date-idx.py /home/j/corpuswork/fuse/FUSEData/lists/ln_uspto.all.shuffled.txt ln-uspto-1.txt warnings-1.txt 0 2500000
+    $ python create-date-idx.py /home/j/corpuswork/fuse/FUSEData/lists/ln_uspto.all.shuffled.txt ln-uspto-2.txt warnings-2.txt 2500000 5000000
+    $ python create-date-idx.py /home/j/corpuswork/fuse/FUSEData/lists/ln_uspto.all.shuffled.txt ln-uspto-3.txt warnings-3.txt 5000000 7500000
+
+On the CS machines, this takes about 2-3 days.
 
 """
 
@@ -119,4 +125,4 @@ if __name__ == '__main__':
 
     t1 = time.time()
     find_dates()
-    print "Time elapsed: % seconds" % (time.time() - t1)
+    print "Time elapsed: %d seconds" % (time.time() - t1)
