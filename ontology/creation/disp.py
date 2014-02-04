@@ -426,6 +426,49 @@ def test_bae_mini_3(db):
         dd.write_yearly_tsv(year)
     return(dd)
 
+def test_bae_mini_3(db):
+    dd = DispData(db, 1997, 2003,  "/home/j/anick/temp/fuse/tsv/test_bae_mini_3") 
+    #dd.process("usb controller")
+    #dd.process("emails")
+    dd.process_from_file("/home/j/anick/temp/fuse/bae/join_terms.sorted.3")
+    dd.store_derived_data()
+    for year in range(1997, 2004):
+        dd.write_yearly_tsv(year)
+    return(dd)
+
+
+# 1/9/14
+# The following function can be used to create dispersion stats for a set of terms
+# in the computer corpus.  We assume a populated SQL database of term info for the years
+# 1997 to 2004.  The output directory must exist and is passed into DispData.
+# The list of terms to be analyzed is a single column of phrases, passed into process_from_file
+# Processing time on sarpedon is ~ 10 secs/phrase)
+# Note that processing is done in memory for each term and afterwards all terms are written out
+# into yearly files in the output directory.
+
+#`  BEFORE RUNNING: make sure output dir exists:
+# mkdir /home/j/anick/temp/fuse/tsv/bae3600
+# create dispersion stats for new BAE term set (Jan. 2014)
+# python
+# import disp
+# import terms_db
+
+# db = terms_db.TermsDB("/home/j/anick/temp/fuse/", "cs_terms_db")
+#disp.test_bae_3600(db)
+# time: started at 5:12 pm
+def test_bae_3600(db):
+    #dd = DispData(db, 1997, 2003,  "/home/j/anick/temp/fuse/tsv/test_bae_mini_3") 
+    # output directory should exist
+    dd = DispData(db, 1997, 2003,  "/home/j/anick/temp/fuse/tsv/bae3600") 
+    #dd.process("usb controller")
+    #dd.process("emails")
+    # file should be a single column of terms
+    dd.process_from_file("/home/j/anick/temp/fuse/bae/good_3600_terms.txt")
+    dd.store_derived_data()
+    for year in range(1997, 2004):
+        dd.write_yearly_tsv(year)
+    return(dd)
+
 
 """
 keys for d_term

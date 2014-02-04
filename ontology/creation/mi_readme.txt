@@ -129,6 +129,7 @@ e.g.
 bit     selected_from   2
 audio channel field     comprises       2
 
+----
 term_verb_count.py
 
 dir2mi (called by test_cs_500k)
@@ -173,4 +174,39 @@ operating system        called  1
 =>
 operating system        n  
 
+----
+# For role ontology labeling
+run_term_features.sh
+Creates a .xml file for corresponding patent phr_feats files, containing term, feature, count
+for features of interest: last_word, prev_V, prev_Npr, prev_J, prev_Jpr
+TODO: add feature prev_VNP
 
+python:
+term_verb_count.run_dir2features_count()
+Creates a .tf file per year in /home/j/anick/patent-classifier/ontology/creation/data/patents/ln-us-all-600k/data/tv
+Gives the freq and prob of term feature pair for terms occurring with the seed features in seed.cat.en.dat
+# e.g. terminals       prev_Npr=plurality_of   29      0.001819
+
+# TBD: Make this into a script
+Extract the verb features only into .tv file
+cat 1997.tf | cut -f1,2,3 | grep prev_V | sed -e 's/prev_V=//' > 1997.tv 
+cat 2007.tf | cut -f1,2,3 | grep prev_V | sed -e 's/prev_V=//' > 2007.tv 
+
+#term category info
+term_verb_count.run_tv2tc()
+Processing dir: 1997
+Completed: 1997.tc in /home/j/anick/patent-classifier/ontology/creation/data/patents/ln-us-all-600k/data/tv
+
+# sorted by prob, with freq 1 removed
+cat 1997.tc.k5 | egrep -v '   1       ' > 1997.tc.k5.gt2
+
+term_verb_count.run_tc2st()
+Process the output of run_tv2tc to create a set of seed terms for feature category learning.
+Choose terms for which the category threshold > min_category_prob and pair freq (term and category) > min_pair_freq 
+
+To see learned associations between features and classes:
+cat 1998.fc.prob.k3 | egrep ' t       ' | more
+
+candidate coercion verbs:
+have medium probs (no preps)
+cat 1998.fc.prob.k3 | grep prev_V | egrep -v '=.*_' | egrep '0\.[23456]' | sort -k1,2 -t'       ' | more

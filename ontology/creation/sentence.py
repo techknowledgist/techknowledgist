@@ -687,6 +687,133 @@ class Sentence_english(Sentence):
         res = verb_prep
         return(fname("prev_V", res))        
 
+    # prev_VNP combines prev_Npr and prev_V in order to capture larger
+    # syntactic units of the form: increase the speed of the computer
+    @feature_method
+    def prev_VNP(self, index):
+
+        res = ""
+        noun = ""
+        prep = ""
+        noun_prep = ""
+        i = index - 1
+        distance_limit = 4
+        #print "[prev_Npr]Starting"
+        while i > 0 and distance_limit > 0:
+            # PGA: It may make sense to add some blocking conditions,
+            # such as punc or verb.
+            if self.chart[i].tag in ["RP", "IN", "TO"]:
+                prep = self.chart[i].lc_tok
+
+            elif prep != "" and self.chart[i].tag[0] == "N":
+                noun = self.chart[i].lc_tok
+                #print "[prev_Npr]noun: %s" % noun
+                break
+            # adj and det could be part of the current NP, so ignore those
+            # but avoid: person skilled in => person_in
+            elif prep == "" and self.chart[i].tag[0] in ["J", "D"] :
+                # keep looking 
+                pass
+            else:
+                # give up
+                break
+            i = i - 1
+            distance_limit = distance_limit - 1
+        #print "[prev_Npr]distance_limit: %i" % distance_limit
+        if noun != "" and prep != "":
+            noun_prep = noun + "|" + prep
+            #print "[prev_VNP]noun_prep: %s" % noun_prep
+            
+            # if we have found a noun_prep, continue looking left for a preceeding
+            # verb
+            verb = ""
+            prep = ""
+            prep2 = ""
+            past_verb = ""
+            verb_prep = ""
+            noun_found_p = False
+            # use j as index for our inner loop
+            j = i - 1
+            while j > 0:
+                #print "[prev_VNP] loop j = %i" % j
+                # terminate if verb is found
+                # but not if the verb is past participle (VBN) or past tense (VBD)
+                # which could be an adjectival use of the verb.
+                # Also look for a form of "to be" before a VBN or VBD
+                # and accept the verb if an aux is found.
+                if self.chart[j].tag in ["VBG", "VBP", "VBZ", "VB"]:
+                    verb = self.chart[j].lc_tok
+                    break
+
+                # A past tense verb is ambiguous, could me main verb or a modifier
+                # He returned the reviewed book  vs.
+                # He reviewed the book
+                # It does not handle correctly:
+                # invention is providing selected files ...
+                # impose execution of Y
+                # describe a plurality of Y
+                if self.chart[j].tag in ["VBD", "VBN"]:
+                    # if preceded by a determiner, treat it as a modifier rather than the dominant verb
+                    if j > 0 and ((self.chart[j-1].tag == "DT") or (self.chart[j-1].tag[0] == "V" and (self.chart[j-1].lc_tok not in ["be", "been", "being", "is", "am", "are", "was", "were", "have", "had", "has", "having"]))):
+                        past_verb = self.chart[j].lc_tok
+                    else:
+                        # treat the past tense verb as the main verb
+                        verb = self.chart[j].lc_tok
+                        break
+
+                # Fail if a noun is encountered before a verb.
+                if self.chart[j].tag[0] == "N":
+                    break
+
+                # if we hit an adj after a prep, don't create a prev_V feature
+                if prep != "" and self.chart[j].tag[0] == "J":
+                    break
+
+
+                # keep a prep if reached before verb
+                # this could be a particle.  Note we always replace 
+                # any previously encountered prep, giving us the one
+                # closest to the verb, assuming we find a verb.
+                # 12/29/13 PGA added "TO"
+                # retained a second prep if there is one in prep2
+                # This allows us to capture previous verbs with multiple preps
+                # x refers to a plurality of y => refers_to_of
+                # referred to as y => referred_to_as
+                if self.chart[j].tag in ["RP", "IN", "TO"]:
+                    if prep != "":
+                        # save the prep to the right of the current prep
+                        prep2 = prep
+                    # capture the new prep (which should be closer to the verb to the left)
+                    prep = self.chart[j].lc_tok
+                    #print "[prev_VNP]found prep: %s" % prep
+
+                # if a comma is found after a prep, we should stop looking for a dominating verb.
+                # example: 
+                # an_DT online_JJ system_NN provides_VBZ selected_VBN media_NNS files_NNS ,_, chosen_VBN from_IN among_IN a_DT plurality_NN of_IN media_NNS files_NNS ,_, to_TO a_DT user_NN over_IN a_DT packet-switched_JJ network_NN ._.
+                # We don't want "chosen_from_among" to be the prev_V for "user".
+
+                if self.chart[j].lc_tok == "," and prep != "":
+                    break
+
+                # keep looking 
+                #print "[prev_VNP]keep looking..."
+                j = j - 1
+            if verb != "":
+                # 11/9/21 PGA replaced blank with _
+                # 12/29/13 PGA added prep2
+                if prep != "":
+                    verb_prep = verb + "_" + prep
+                    if prep2 != "":
+                        verb_prep = verb_prep + "_" + prep2
+                else:
+                    verb_prep = verb
+                #print "[prev_VNP] verb_prep: %s" % verb_prep
+            if verb_prep != "":
+                # create a feature including the verb and noun_prep
+                res = verb_prep + "|" + noun_prep
+                print "[prev_VNP]res: %s" % res
+            return(fname("prev_VNP", res))        
+
     # first noun_prep to the left of chunk, within 4 words
     # 12/29/13 PGA changed prev_N to prev_Npr to capture cases of NOUN PREP
     @feature_method
