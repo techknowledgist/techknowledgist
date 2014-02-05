@@ -811,7 +811,7 @@ class Sentence_english(Sentence):
             if verb_prep != "":
                 # create a feature including the verb and noun_prep
                 res = verb_prep + "|" + noun_prep
-                print "[prev_VNP]res: %s" % res
+                #print "[prev_VNP]res: %s" % res
             return(fname("prev_VNP", res))        
 
     # first noun_prep to the left of chunk, within 4 words
