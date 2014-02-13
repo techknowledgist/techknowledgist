@@ -175,7 +175,7 @@ def run_xml2txt(rconfig, limit, options, source, verbose=False):
     for fspec in fspecs:
         count += 1
         filename = fspec.target
-        print_file_progress(XML2TXT, count, filename, verbose)
+        print_file_progress(XML2TXT, rconfig.corpus, count, filename, verbose)
         file_in, file_out = prepare_io(filename, input_dataset, output_dataset)
         uncompress(file_in)
         try:
@@ -211,7 +211,7 @@ def run_txt2tag(rconfig, limit, options, verbose):
     for fspec in fspecs:
         count += 1
         filename = fspec.target
-        print_file_progress(TXT2TAG, count, filename, verbose)
+        print_file_progress(TXT2TAG, rconfig.corpus, count, filename, verbose)
         file_in, file_out = prepare_io(filename, input_dataset, output_dataset)
         uncompress(file_in)
         txt2tag.tag(file_in, file_out, tagger)
@@ -241,7 +241,7 @@ def run_txt2seg(rconfig, limit, options, verbose):
     for fspec in fspecs:
         count += 1
         filename = fspec.target
-        print_file_progress(TXT2SEG, count, filename, verbose)
+        print_file_progress(TXT2SEG, rconfig.corpus, count, filename, verbose)
         file_in, file_out = prepare_io(filename, input_dataset, output_dataset)
         uncompress(file_in)
         #cn_txt2seg.seg(file_in, file_out, segmenter)
@@ -268,7 +268,7 @@ def run_seg2tag(rconfig, limit, options, verbose):
     for fspec in fspecs:
         count += 1
         filename = fspec.target
-        print_file_progress(SEG2TAG, count, filename, verbose)
+        print_file_progress(SEG2TAG, rconfig.corpus, count, filename, verbose)
         file_in, file_out = prepare_io(filename, input_dataset, output_dataset)
         uncompress(file_in)
         cn_seg2tag.tag(file_in, file_out, tagger)
@@ -301,7 +301,7 @@ def run_tag2chk(rconfig, limit, options, verbose):
     for fspec in fspecs:
         count += 1
         filename = fspec.target
-        print_file_progress(TAG2CHK, count, filename, verbose)
+        print_file_progress(TAG2CHK, rconfig.corpus, count, filename, verbose)
         file_in, file_out = prepare_io(filename, input_dataset, output_dataset)
         year = get_year(filename)
         tag2chunk.Doc(file_in, file_out, year, rconfig.language,
@@ -383,9 +383,9 @@ def print_datasets(stage, input_dataset, output_dataset):
     print "[%s] input %s" % (stage, input_dataset)
     print "[%s] output %s" % (stage, output_dataset)
 
-def print_file_progress(stage, count, filename, verbose):
+def print_file_progress(stage, corpus, count, filename, verbose):
     if verbose:
-        print "[%s] %04d %s" % (stage, count, filename)
+        print "[%s] %04d %s %s" % (stage, count, os.path.basename(corpus), filename)
 
 def check_file_counts(input_dataset, output_dataset, limit):
     if input_dataset.files_processed < output_dataset.files_processed + limit:
