@@ -23,11 +23,15 @@ instances.
 import random
 
 # Location of the master list and the directory of sublists. The master list is
-# created by create-master-list.py or by create_date_idx.py
+# created by create-cs-master-list.py, create_date_idx.py (which was used when
+# we still did not have the full date index) or create-master-list.py.
 
 CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-us-all-600k'
 CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-cn-all-600k'
-MASTER_LIST = CORPUS_DIR + '/master-list.txt'
+CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-us-12-chemical'
+CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-us-14-health'
+
+MASTER_LIST = CORPUS_DIR + '/master-list-14.txt'
 LISTS_DIR = CORPUS_DIR + '/sublists'
 
 

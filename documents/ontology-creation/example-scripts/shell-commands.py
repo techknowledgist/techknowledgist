@@ -24,6 +24,8 @@ SINGLE_FEATURES = 'all'
 
 COMPOSITE_CORPUS = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-us-cs-500k'
 COMPOSITE_CORPUS = '/home/j/corpuswork/fuse/FUSEData/corpora/wos-cs-520k'
+COMPOSITE_CORPUS = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-us-12-chemical'
+COMPOSITE_CORPUS = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-us-14-health'
 COMPOSITE_LANGUAGE = 'en'
 COMPOSITE_FILELIST = 'files.txt'
 COMPOSITE_DOWNSAMPLE1 = 200
