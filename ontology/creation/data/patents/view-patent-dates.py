@@ -5,6 +5,10 @@ using the date index ln_uspto.all.index.date2path.txt.
 
 """
 
+import os, sys
+sys.path.append(os.path.abspath('../../..'))
+from utils.file import open_input_file
+
 DATE_INDEX_FILE = '/home/j/corpuswork/fuse/FUSEData/lists/ln_uspto.all.index.date2path.txt'
 
 DATES = {}
@@ -32,7 +36,7 @@ def print_dates():
         
 count = 0
 skipped_patents = 0
-for line in open(DATE_INDEX_FILE):
+for line in open_input_file(DATE_INDEX_FILE):
     count += 1
     if count > 100000:
         break
