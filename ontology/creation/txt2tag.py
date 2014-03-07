@@ -70,9 +70,11 @@ def tag_line(line, line_no, tagger, s_output):
         print "WARNING: tagger error for line %d, skipping" % line_no
 
 
-def test_tag_en():
-    input = "/home/j/anick/fuse/data/patents/en_test/txt/US20110052365A1.xml"
-    output = "/home/j/anick/fuse/data/patents/en_test/tag/US20110052365A1.xml"
+def test_tag_en(input=None, output=None):
+    if input is None:
+        input = "/home/j/anick/fuse/data/patents/en_test/txt/US20110052365A1.xml"
+    if output is None:
+        output = "/home/j/anick/fuse/data/patents/en_test/tag/US20110052365A1.xml"
     tagger = sdp.STagger("english-caseless-left3words-distsim.tagger")
     tag(input, output, tagger)
 
@@ -192,3 +194,9 @@ def get_tagger(language):
         return sdp.STagger("german-fast.tagger")
     elif language == "cn":
         return sdp.STagger("chinese.tagger")
+
+
+
+if __name__ == '__main__':
+    import sys
+    test_tag_en(sys.argv[1], sys.argv[2])
