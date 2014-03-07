@@ -12,11 +12,11 @@ import sys
 file1 = open(sys.argv[1])
 file2 = open(sys.argv[2])
 
-substract = {}
+subtract = {}
 for line in file2:
-    substract[line] = True
+    subtract[line] = True
 
 for line in file1:
-    if not substract.has_key(line):
+    if not subtract.has_key(line):
         print line,
-        
+

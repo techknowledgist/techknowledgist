@@ -1199,9 +1199,11 @@ class STagger:
     # We use a line with a single "~" to signal the end of the output
     # from the tagger.  Note that the tagger will add _<tag> to the tilda,
     # so we match on the first two characters only for the termination condition.
+    # TODO: this funciton is a mess and we still do not know how to deal with
+    # some of the encoding issues
     def get_output_to_end(self):
         ###print "[get_output] entered..."
-        result=[]
+        result = []
         #line = self.proc.stdout.readline()
         #line = self.proc.stdout.readline().decode('utf8')
         line = self.proc.stdout.readline()
