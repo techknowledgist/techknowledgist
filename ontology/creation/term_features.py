@@ -1,6 +1,6 @@
 # term_features.py
 # based on term_verb.py
-# extract the term and prev_V value from phr_feats file
+# extract features from phr_feats file to be used in role classification
 # lines are of the form:
 # <term>\t<feature>+
 # e.g.,
@@ -20,8 +20,18 @@ for line in sys.stdin:
     line = line.strip("\n")
     l_fields = line.split("\t")
     term = l_fields[2]
+
+    # output a line for each term instance
+    # This is used to generate term counts
+    print "%s\t%s" % (term, "")
+
+    # output a line for each term instance occurring with a role diagnostic feature
     for feature in l_fields[1:]:
         # Note that we use the prefixes of some feature names for convenience.
-        # The actual features are prev_V, prev_J, prev_Jpr, prev_Npr, last_word
+        # The actual features are prev_V, prev_VNP, prev_J, prev_Jpr, prev_Npr, last_word
+        # first_word, if an adjective, may capture some indicators of dimensions (high, low), although
+        # many common adjectives are excluded from the chunk and would be matched by prev_J.
+        # we also pull out the sent and token locations to allow us to locate the full sentence for this
+        # term-feature instance.
         if feature[0:6] in ["prev_V", "prev_J", "prev_N", "last_w"]:
             print "%s\t%s" % (term, feature)

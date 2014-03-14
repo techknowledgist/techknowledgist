@@ -37,9 +37,22 @@
 # cs patents (1997 - 2007)
 #ROOT="/home/j/corpuswork/fuse/FUSEData/corpora/ln-us-cs-500k"                                                       
 #TARGET="/home/j/anick/patent-classifier/ontology/creation/data/patents/ln-us-cs-500k"                             
+
+# random us patent subset 600k
+ROOT="/home/j/corpuswork/fuse/FUSEData/corpora/ln-us-all-600k"
+TARGET="/home/j/anick/patent-classifier/ontology/creation/data/patents/ln-us-all-600k"
+
 # chinese general patents
-ROOT="/home/j/corpuswork/fuse/FUSEData/corpora/ln-cn-all-600k"
-TARGET="/home/j/anick/patent-classifier/ontology/creation/data/patents/ln-cn-all-600k"
+#ROOT="/home/j/corpuswork/fuse/FUSEData/corpora/ln-cn-all-600k"
+#TARGET="/home/j/anick/patent-classifier/ontology/creation/data/patents/ln-cn-all-600k"
+
+# chemistry
+#ROOT="/home/j/corpuswork/fuse/FUSEData/corpora/ln-us-12-chemical"                                                       
+#TARGET="/home/j/anick/patent-classifier/ontology/creation/data/patents/ln-us-12-chemical"                             
+
+# health
+#ROOT="/home/j/corpuswork/fuse/FUSEData/corpora/ln-us-14-health"
+#TARGET="/home/j/anick/patent-classifier/ontology/creation/data/patents/ln-us-14-health"
 
 # Make sure target directory tree exists before running this script
 mkdir $TARGET
@@ -50,12 +63,14 @@ mkdir $TARGET/data/tv
 # loop over the years for which we have data
 #"COMMENT"
 YEAR=1997
-while [ $YEAR -le 1998 ] ; do
-#while [ $YEAR -le 1997 ] ; do
+#YEAR=2002
+#while [ $YEAR -le 1998 ] ; do
+while [ $YEAR -le 1997 ] ; do
+#while [ $YEAR -le 2002 ] ; do
     echo "year: $YEAR"
 
     sh term_features.sh $ROOT/subcorpora/$YEAR/config/files.txt $ROOT/subcorpora/$YEAR/data/d3_phr_feats/01/files $TARGET/data/term_features tas
-
+    
     YEAR=$[ $YEAR + 1 ]
 done
 #COMMENT
