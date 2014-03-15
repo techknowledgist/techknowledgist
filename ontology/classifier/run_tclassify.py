@@ -67,20 +67,21 @@ typical invocation:
      --batch data/classifications/test2 \
      --verbose
 
-For evaluation of the above-created classification, simply use the batch and
+For evaluation of the above-created classification, simply read the batch and
 compare it to a gold standard:
 
    $ python run_tclassify.py \
      --evaluate \
      --batch data/classifications/test2 \
      --gold-standard ../annotation/en/technology/phr_occ.eval.lab \
+     --filter ../annotation/en/technology/gold-training.txt \
      --verbose
 
 The system will select classify.MaxEnt.out.s4.scores.sum.nr in the selected
 batch of the corpus and consider that file to be the system response. Ideally,
 the gold standard was manually created over the same files as the one in the
-batch. The log file will contain all terms with gold label, system response and
-system score.
+batch. When --filter is used only terms that do not occur in the gold-training
+file are evaluated.
 
 """
 
@@ -255,30 +256,33 @@ class Classifier(TrainerClassifier):
             self.stderr_file)
 
     def _set_features(self):
-        # TODO: it is a bit unclear now how we get the features, in the past
+        # TODO. It is a bit unclear now how we get the features, in the past
         # they came from the model.info file, recursing to parent info files if
-        # needed, but now we find them in the mallet.info file, the question is
-        # whether the features are always there and if they are the correct ones
-        # in case we selected features twice; maybe never allow feature
-        # selection to happen twice.
+        # needed, then we found them in the mallet.info file, and now we find
+        # them in info/train.info.general.txt. The question is whether the
+        # features are always there and if they are the correct ones in case we
+        # selected features twice; maybe never allow feature selection to happen
+        # twice.
         if VERBOSE:
             print "[get_features] model file =", self.model
         info_file = os.path.splitext(self.model)[0] + '.mallet.info'
-        print self.model
-        print info_file
+        if not os.path.exists(info_file):
+            model_dir = os.path.dirname(self.model)
+            info_file = os.path.join(model_dir, 'info', 'train.info.general.txt')
         features = parse_info_file(info_file)
         if features.has_key('features'):
             feature_set = frozenset(features['features'].split())
+            self.features = sorted(list(feature_set))
         else:
-            print "WARNING: no features found, exiting."
-            exit()
-        self.features = sorted(list(feature_set))
+            print "[_set_features] WARNING: no features found, using all.features."
+            self.features = sorted(get_features())
 
 
 def parse_info_file(fname):
     """Parse an info file and return a dictionary of features. Return None if the
     file does not exist. Assumes that the last feature of note is always
     git_commit."""
+    # TODO: why is git_commit supposed to be the last feature?
     if VERBOSE:
         print "[parse_info_file]", fname
     features = {}
@@ -289,9 +293,18 @@ def parse_info_file(fname):
                 features[f.strip()] = v.strip()
                 if f.strip() == 'git_commit':
                     break
-        return features
     except IOError:
-        return None
+        print "[parse_info_file] WARNING: no such file '%s'" % fname
+    return features
+
+def get_features():
+    """Returns the list of features in the all.features file."""
+    # TODO: this is a copy of a method in create_mallet_file (except that the
+    # doc string is very different), consolidate/refactor these two
+    script_dir = os.path.dirname(os.path.abspath(sys.argv[0]))
+    features_file = os.path.join(script_dir, "features", "all.features")
+    content = open(features_file).read().strip()
+    return content.split()
 
 
 def evaluate(batch, gold_standard, tfilter):
@@ -305,7 +318,7 @@ def evaluate(batch, gold_standard, tfilter):
         tfstring = term_filter_as_short_string(tfilter)
         summary_file = os.path.join(batch, "eval-results-%s-%s.txt" % (ttstring, tfstring))
         summary_fh = codecs.open(summary_file, 'w', encoding='utf-8')
-        for threshold in (0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9):
+        for threshold in (0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9):
             log_file = os.path.join(batch, "eval-results-%s-%s-%.1f.txt" \
                                     % (ttstring, tfstring, threshold))
             result = evaluation.test(gold_standard, system_file, threshold, log_file,

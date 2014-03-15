@@ -37,11 +37,20 @@ compare-labeled-sets.py
 
 doc_feats.eval
 
-gold-testing.txt
-gold-training.txt
-
-phr_occ.20130218.relab
-phr_occ.cum
-
 phr_occ.lab
 phr_occ.uct
+phr_occ.cum
+	The first is the annotation file for training data derived from the
+	sample-500 data set, the terms are ordered on frequency. The second has
+	frequencies for each term and the third cumulative counts.
+
+phr_occ.20130218.relab
+	Not sure what this is, but it has the "?" label added. It has 2682 lines
+	and may or may not overlap with phr_occ.lab (I did not check this, but
+	some frequent terms like "data" and "image" are not in this file.
+
+gold-training.txt
+gold-testing.txt
+	Derived from phr_occ.lab and phr_occ.eval.lab as follows:
+	$ egrep "^(y|n)" phr_occ.lab > gold-training.txt
+	$ egrep "^(y|n)" phr_occ.eval.lab > gold-testing.txt
