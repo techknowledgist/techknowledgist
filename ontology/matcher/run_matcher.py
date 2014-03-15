@@ -119,12 +119,12 @@ class Matcher(object):
                              (year, id, pattern.name, term , matched_features))
 
     def create_summary(self):
-        """Creates a summary of all the matches. Now simply collects the number
-        of matches for each term. This only works for now because all patterns
-        are patterns that indicate usage. If promise patterns are added this
-        method should generate two numbers. Also, th enumber is now a simple
-        count that does not yet take the pattern weights into account."""
-        command = "cut -f4 %s | sort | uniq -c > %s" % \
+        """Creates a summary of all the matches. Now simply collects the number of
+        matches for each term. This only works for now because all patterns are
+        patterns that indicate usage. If promise patterns are added this method
+        should generate two numbers. Also, the number is now a simple count that
+        does not yet take the pattern weights into account. """
+        command = "cut -f4 %s | sort -T . | uniq -c > %s" % \
                   (self.results_file1, self.results_file2)
         print "[--matcher] creating summary"
         print "[--matcher]", command
