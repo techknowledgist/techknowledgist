@@ -32,17 +32,13 @@ with their context. Each term instance line starts with a tab and all field are
 tab-separated. See annotate.terms.context.txt for an example, this file was
 created by the technology annotation code in step3_annotation.py.
 
-This script was originally called technology_annotator_v2.py.
+This script was originally a copy of technology_annotator_v2.py.
 
 """
 
-import os, sys, codecs, textwrap
+import os, sys, codecs
+from utils import TermContexts
 
-BOLD = '\033[1m'
-GREEN = '\033[32m'
-BLUE = '\033[34m'
-INV = '\033[97;100m'
-END = '\033[0m'
 
 
 LEADING_TEXT = 'Technology?'
@@ -67,46 +63,6 @@ def read_annotated_terms(out_file):
         fh.close()
     return annotated_terms
 
-def read_terms_with_contexts(fh_contexts):
-    terms = []
-    info = ''
-    for line in fh_contexts:
-        if line.startswith('#'):
-            info += line
-        # context lines start with a tab
-        elif line[0] == "\t":
-            term.add_context(line)            
-        # this is when we find a new term
-        elif line.strip():
-            term = Term(line)
-            terms.append(term)
-        else:
-            print "WARNING:", line,
-    return info, terms
-
-
-class Term(object):
-
-    def __init__(self, line):
-        self.name = line.strip()
-        self.contexts = []
-
-    def __str__(self):
-        return "<Term freq=%02d name='%s'>" % (len(self.contexts), self.name)
-
-    def add_context(self, line):
-        fields = line.strip().split("\t")
-        self.contexts.append(fields)
-
-    def write_stdout(self, contexts=5):
-        print "\n%s%s%s\n" % (BOLD, self.name, END)
-        for year, id, loc, left, t, right in self.contexts[:contexts]:
-            print "   %s%s %s %s%s" % (GREEN, year, id, loc, END)
-            lines = textwrap.wrap("%s %s%s%s %s\n" % (left, BLUE + BOLD, t, END, right), width=80)
-            for l in lines: print '  ', l
-            print
-
-
 def make_query():
     return ">>> %s %s\n? " % (LEADING_TEXT,
                               ", ".join(["%s (%s)" % (l2, l1) for (l1, l2) in LABELS]))
@@ -117,7 +73,6 @@ def print_info(contexts_file, labels_file, terms, annotated_terms):
     print "###"
     print "### Terms in contexts file   -  %3d" % len(terms)
     print "### Terms already annotated  -  %3d\n" % len(annotated_terms)
-
 
 def ask_for_label(term, fh_contexts, fh_labels):
     got_answer = False
@@ -150,20 +105,20 @@ if __name__ == '__main__':
     if not contexts_file.endswith('.context.txt'):
         exit('ERROR: annotation file needs to end in ".context.txt".')
     labels_file = contexts_file.replace('.context.txt', '.labels.txt')
+    allowed_terms_file = sys.argv[2] if len(sys.argv) > 2 else None
 
     annotated_terms = read_annotated_terms(labels_file)
-    fh_contexts = codecs.open(contexts_file, encoding='utf-8')
-    info, terms = read_terms_with_contexts(fh_contexts)
+    contexts = TermContexts(contexts_file, allowed_terms_file)
 
     add_preface = False if os.path.exists(labels_file) else True
     fh_labels = codecs.open(labels_file, 'a', encoding='utf-8')
     if add_preface:
-        fh_labels.write(info)
+        fh_labels.write(contexts.info)
         fh_labels.flush()
         
-    print_info(contexts_file, labels_file, terms, annotated_terms)
+    print_info(contexts_file, labels_file, contexts.terms, annotated_terms)
 
-    for term in terms:
+    for term in contexts.terms:
         if term.name in annotated_terms:
             continue
-        ask_for_label(term, fh_contexts, fh_labels)
+        ask_for_label(term, contexts.fh_contexts, fh_labels)
