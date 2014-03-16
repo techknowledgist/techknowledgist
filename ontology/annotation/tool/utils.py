@@ -13,7 +13,7 @@ class TermContexts(object):
     """Stores the contents of a context file, optionally filter to only contain the
     terms in a specific list."""
 
-    def __init__(self, contexts_file, allowed_terms_file):
+    def __init__(self, contexts_file, allowed_terms_file=None):
         self.info = ''    # the preface at the beginning of the file
         self.terms = []   # a list of Term instances
         self.allowed_terms = {}
@@ -29,7 +29,7 @@ class TermContexts(object):
             self.filter_terms = True
             fh = codecs.open(self.allowed_terms_file, encoding='utf-8')
             for line in fh:
-                self.allowed_terms[line.strip()] = True
+                self.allowed_terms[line.strip().split("\t")[0]] = True
 
     def read_contexts(self):
         self.fh_contexts = codecs.open(self.contexts_file, encoding='utf-8')
@@ -64,18 +64,22 @@ class Term(object):
         return "<Term freq=%02d name='%s'>" % (len(self.contexts), self.name)
 
     def add_context(self, line):
-        fields = line.strip().split("\t")
+        fields = line.lstrip("\t").rstrip("\n\r").split("\t")
         self.contexts.append(fields)
 
-    def write(self, fh=sys.stdout):
+    def write_as_raw_data(self, fh=sys.stdout):
         fh.write("%s\n" % self.name)
-        for year, id, loc, left, t, right in self.contexts:
-            fh.write("\t%s\t%s\t%s\t%s\t%s\t%s\n" % (year, id, loc, left, t, right))
+        for c in self.contexts:
+            try:
+                year, id, loc, left, t, right = c
+                fh.write("\t%s\t%s\t%s\t%s\t%s\t%s\n" % (year, id, loc, left, t, right))
+            except ValueError:
+                print "CONTEXT WARNING:", self.name, c
 
-    def write_stdout(self, contexts=5):
-        print "\n%s%s%s\n" % (BOLD, self.name, END)
+    def write_as_annotation_context(self, contexts=5):
+        print "\n%s%s%s (%d contexts)\n" % (BOLD, self.name, END, len(self.contexts))
         for year, id, loc, left, t, right in self.contexts[:contexts]:
             print "   %s%s %s %s%s" % (GREEN, year, id, loc, END)
-            lines = textwrap.wrap("%s %s%s%s %s\n" % (left, BLUE + BOLD, t, END, right), width=80)
+            lines = textwrap.wrap("%s %s%s%s %s\n" % (left[-200:], BLUE + BOLD, t, END, right[:200]), width=80)
             for l in lines: print '  ', l
             print

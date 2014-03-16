@@ -22,7 +22,7 @@ outfile = sys.argv[2]
 termfile = sys.argv[3]
 
 contexts = TermContexts(infile, termfile)
-contexts.pp()
+#contexts.pp()
 
 out = codecs.open(outfile, 'w', encoding='utf-8')
 
@@ -33,4 +33,4 @@ out.write("# Created with filter.py from %s\n" % infile)
 out.write("# Keeping only the terms in %s\n" % termfile)
 out.write("#\n")
 for t in contexts.terms:
-    t.write(out)
+    t.write_as_raw_data(out)
