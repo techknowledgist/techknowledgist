@@ -64,7 +64,8 @@ class AnnotationTask(object):
 
     def category_mode(self):
         self.leading_text = 'Category?'
-        self.labels = [('c', 'component'), ('a', 'attribute'), ('t', 'task'), ('o', 'other')]
+        self.labels = [('c', 'component'), ('a', 'attribute'), ('t', 'task'),
+                       ('u', 'unknown'), ('o', 'other')]
         self.add_default_labels()
         self.index_labels()
 
