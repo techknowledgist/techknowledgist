@@ -1,33 +1,42 @@
 """
 
 Simple tool to take a file with terms and contexts, display the term in
-context and sollicit whether the term is a technology. Usage:
+context and sollicit a label for the term.
 
-    $ python term_annotator.py <SOURCE_FILE>
+Usage:
+
+    $ python term_annotator.py --technology <SOURCE_FILE>
+    $ python term_annotator.py --category <SOURCE_FILE>
+    $ python term_annotator.py --polarity <SOURCE_FILE>
+
+The tool has three modes: technology annotation (labels: yes, no, not-a-term),
+category annotation (labels: attribute, task, component, other, not-a-term) and
+polarity annotation (labels: yes, no, unknown, not-an-attribute).
 
 The SOURCE_FILE has to be named *.context.txt. The first time you open
-SOURCE_FILE, a new file will be created with the name *.labels.txt. Initially
-this labels file is empty except for a header copied from SOURCE_FILE. The label
-file will be opened on subsequent visits to the file. SOURCE_FILE is only read
-and never written to.
+SOURCE_FILE, a new file will be created with the name *.labels.txt. This file
+contains the labels for the terms that were annotated. Initially this labels
+file is empty except for a header copied from SOURCE_FILE. The label file will
+be opened on subsequent visits to the file. SOURCE_FILE is only read and never
+written to.
 
-The annotator sees one term with its instances and then either hits 'y', 'n' or
-'c', followed by a return, where 'y' indicates that the term is a technology,
-'n' indicates that the term is not a technology and 'c' indicates that the term
-is corrupted. The tool appends a line to the labels file with a label and the
-term. The default is to use 'n' for the label so simply hitting the return will
-add the 'n' label. Hitting 'm' followed by a return directs the tool to show all
+When the tool is started, the annotator sees one term in context with its
+instances and a line with a query and then some options. In technology mode,
+these options are 'y','n' and 'c', where 'y' indicates that the term is a
+technology, 'n' indicates that the term is not a technology and 'c' indicates
+that the term is corrupted. Type one of these, followed by a return, to save the
+label. The tool appends a line to the labels file with a label and the term. The
+labels are different for the other modes.
+
+For all modes, hitting 'm' followed by a return directs the tool to show all
 available contexts. Hitting 'q' followed by return terminates annotation and
 closes the files. The tool remembers where it stopped last time and will not
 simply start at the beginning when a file is reopened.
 
-There is a second invocation of the tool:
-
-    $ python term_annotator.py --categories <SOURCE_FILE>
-
-In this case, the tool will be in category annotation mode and provide four
-category choices: component (c), attribute (a), task (t) and other (o). The 'm'
-and 'q' options are also available.
+This tool only allows you to add labels to terms that were not annotated before,
+it does not allow the user to revisit annotations (this would have to be done
+maually by opening the labels file, or better, to avoid potential trouble, by
+making a note in a separate file).
 
 The SOURCE_FILE contains a list of terms where each term is printed as follows:
 
@@ -46,7 +55,7 @@ This script was originally a copy of technology_annotator_v2.py.
 """
 
 import os, sys, codecs
-from utils import TermContexts
+from utils import TermContexts, INV, RED, END
 
 
 class AnnotationTask(object):
@@ -55,29 +64,36 @@ class AnnotationTask(object):
         self.leading_text = None
         self.labels = None
         self.label_idx = None
+        self.quit = ('q', 'quit')
+        self.more = ('m', 'more-contexts')
 
     def technology_mode(self):
-        self.leading_text = 'Technology?'
+        self.leading_text = 'Is this term a technology?'
         self.labels = [('y', 'yes'), ('n', 'no'), ('c', 'crap/corrupted')]
-        self.add_default_labels()
         self.index_labels()
 
     def category_mode(self):
-        self.leading_text = 'Category?'
+        self.leading_text = 'What is the term\'s category?'
         self.labels = [('c', 'component'), ('a', 'attribute'), ('t', 'task'),
-                       ('u', 'unknown'), ('o', 'other')]
-        self.add_default_labels()
+                       ('u', 'unknown'), ('x', 'not-a-term')]
         self.index_labels()
 
-    def add_default_labels(self):
-        self.labels.extend([('m', 'show all contexts'), ('q', 'quit')])
+    def polarity_mode(self):
+        self.leading_text = 'What is the term\'s polarity?'
+        self.labels = [('p', 'positive'), ('n', 'negative'), ('u', 'unknown'),
+                       ('x', 'not-an-attribute')]
+        self.index_labels()
 
     def index_labels(self):
         self.label_idx = dict.fromkeys([l1 for (l1,l2) in self.labels])
 
     def make_query(self):
-        return ">>> %s %s\n? " % (self.leading_text,
-                                  ", ".join(["%s (%s)" % (l2, l1) for (l1, l2) in self.labels]))
+        labels = ", ".join(["%s (%s)" % (l2, l1) for (l1, l2) in self.labels])
+        more_and_quit = "%s (%s), %s (%s)\n" % (self.more[1], self.more[0],
+                                                self.quit[1], self.quit[0])
+        return "%s\n\n" % self.leading_text \
+               + "%s%s, %s%s\n" % (INV, labels, more_and_quit, END) \
+               + ">>> "
 
 
 def read_annotated_terms(out_file):
@@ -105,36 +121,39 @@ def ask_for_label(task, term, fh_contexts, fh_labels):
     term.write_as_annotation_context(contexts=5)
     while not got_answer:
         answer = raw_input(task.make_query())
+        if answer == 'q':
+            msg = "\nDone, saved labels in %s\n" % fh_labels.name
+            fh_contexts.close()
+            fh_labels.close()
+            exit(msg)
         if answer == 'm':
             term.write_as_annotation_context(contexts=sys.maxint)
             continue
         if answer in task.label_idx:
             got_answer = True
         else:
-            print ">>> Not a valid answer, try again..."
+            print "\n%sWARNING: not a valid answer, try again...%s\n" % (RED, END)
             continue
         process_answer(term, answer, fh_contexts, fh_labels)
 
 def process_answer(term, answer, fh_contexts, fh_labels):
-    if answer == 'q':
-        fh_contexts.close()
-        fh_labels.close()
-        exit("\n")
-    else:
-        fh_labels.write("%s\t%s\n" % (answer, term.name))
-        fh_labels.flush()
+    fh_labels.write("%s\t%s\n" % (answer, term.name))
+    fh_labels.flush()
 
 
 
 if __name__ == '__main__':
 
     task = AnnotationTask()
-    if sys.argv[1] == '--categories':
-        task.category_mode()
-        contexts_file = sys.argv[2]
-    else:
+    if sys.argv[1] == '--technology':
         task.technology_mode()
-        contexts_file = sys.argv[1]
+    if sys.argv[1] == '--category':
+        task.category_mode()
+    elif sys.argv[1] == '--polarity':
+        task.polarity_mode()
+    else:
+        exit("No valid annotation mode specified")
+    contexts_file = sys.argv[2]
 
     if not contexts_file.endswith('.context.txt'):
         exit('ERROR: annotation file needs to end in ".context.txt".')
