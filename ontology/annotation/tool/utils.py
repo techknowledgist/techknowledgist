@@ -2,6 +2,7 @@
 import sys, codecs, textwrap
 
 BOLD = '\033[1m'
+RED = '\033[31m'
 GREEN = '\033[32m'
 BLUE = '\033[34m'
 INV = '\033[97;100m'
@@ -77,9 +78,11 @@ class Term(object):
                 print "CONTEXT WARNING:", self.name, c
 
     def write_as_annotation_context(self, contexts=5):
-        print "\n%s%s%s (%d contexts)\n" % (BOLD, self.name, END, len(self.contexts))
+        print "\n%sTERM: %s%s (%d contexts)\n" % (BOLD, self.name, END, len(self.contexts))
         for year, id, loc, left, t, right in self.contexts[:contexts]:
             print "   %s%s %s %s%s" % (GREEN, year, id, loc, END)
-            lines = textwrap.wrap("%s %s%s%s %s\n" % (left[-200:], BLUE + BOLD, t, END, right[:200]), width=80)
+            highlighted_term = "%s%s%s" % (BLUE + BOLD, t, END)
+            context = "%s %s %s" % (left[-200:], highlighted_term, right[:200])
+            lines = textwrap.wrap("%s\n" % context, width=80)
             for l in lines: print '  ', l
             print
