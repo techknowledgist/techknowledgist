@@ -1,0 +1,1057 @@
+# ## annotate.info.general.txt
+#
+# $ python step3_annotation.py --technologies --name ln-us-all-testing --corpus /home/j/corpuswork/fuse/FUSEData/corpora/ln-us-sample-500 --filelist files-testing.txt --print-context --verbose
+# 
+# corpus            =  /home/j/corpuswork/fuse/FUSEData/corpora/ln-us-sample-500
+# file_list         =  /home/j/corpuswork/fuse/FUSEData/corpora/ln-us-sample-500/config/files-testing.txt
+# config_file       =  pipeline-default.txt
+# git_commit        =  v0.4-22-g63ad563
+#
+# ## annotate.info.filelist.txt
+#
+# 2004/US6776488B2.xml
+# 2007/US20070073479A1.xml
+# 2003/US20030033114A1.xml
+# 1996/US5559162A.xml
+# 2011/US7916138B2.xml
+# 1991/US5040845A.xml
+# 2007/US20070054120A1.xml
+# 2003/US20030058429A1.xml
+# 2003/US20030142429A1.xml
+# 2003/US20030114919A1.xml
+#
+## str29 ##
+## str23 ##
+## str6 ##
+## str3 ##
+## str30 ##
+## str28 ##
+## str34 ##
+## str1 ##
+## str16 ##
+## str5 ##
+## str4 ##
+## str18 ##
+## str25 ##
+## str35 ##
+## str14 ##
+## str20 ## ho
+## str36 ##
+## str11 ##
+## str9 ##
+## str32 ##
+## str17 ##
+## str13 ##
+## str27 ##
+## str2 ##
+## str31 ##
+## str24 ##
+## str10 ##
+## str21 ##
+## str22 ##
+## str33 ##
+## str26 ##
+## str7 ##
+## str15 ##
+## str8 ##
+## str12 ##
+n	nanoparticles
+c	ml cepo4
+y	tcm-2 module
+y	zoom video bus
+y	detector housing
+n	increase
+n	road map
+n	reversal point
+n	sulfate host material
+y	liter beaker
+c	09\/693 ,490
+n	borates
+n	pinch plasma
+n	host metal
+n	restrictions
+n	linear polymers
+n	lanthanide
+y	glonass
+n	patient
+n	advantage
+n	lett
+n	safety standpoint
+n	photoluminescence properties
+n	reaction
+n	flat sheet
+n	tm
+y	soft x-ray radiation sources
+n	return line
+n	graphics controller manufacturers
+y	serial interface
+n	phosphates
+n	writable space
+y	drive
+n	development
+y	pivot head
+n	art process
+n	rotation
+n	openings
+y	iii-v semiconductors
+y	corona wires
+c	section15receives
+n	thermal effects
+n	periodic additions
+n	retrieval
+n	physical sizes
+n	building title
+n	pes-es separation distance
+n	quantity-distance criteria violation
+c	material layers therebetween
+n	harder x-rays
+y	coaxial gas jet nozzle
+n	smaller percentage
+n	dalton values
+n	homogeneous conditions
+c	formula i. molecular weights
+y	molybdenum\/silicon multilayers
+n	molar ratio
+n	lanthanide metals
+y	x-ray lithography
+n	fgf
+y	magnetic pulse compressor
+n	end groups
+n	c. sub .1
+y	discharge system
+n	august
+y	horizontal pivot bearing
+n	proliferation
+n	compositions
+y	electronics system
+y	dihexyl ether
+n	alkali metal sulfates
+n	sub .4
+n	periods
+n	photoluminescent
+n	prostacyclin
+c	2,4-hexadienediyl
+n	maximum transparency
+y	ieee transactions
+n	curved shape
+y	hud device
+n	kind
+n	sub .2 oh
+y	methotrexate
+c	attachment platform5point
+c	fluid passageway therethrough
+n	earth-covered magazine
+n	data set number
+n	alternative
+n	points
+y	preionization unit
+n	c
+n	identifier
+n	full speed
+n	nominal spacing
+y	stainless steel mandrel
+n	arrangement
+y	ptsi photodiode
+n	axial rotation
+n	crystallization
+n	reactive metal salt
+n	lanthanide metal
+n	filter thickness
+y	sunshade
+y	chemical etching
+n	above-named method
+n	out-band radiation reflection
+n	sodium heparin
+n	ibg
+n	active data
+n	shape memory polymer
+n	polarization effects
+n	crane tilt axis s.
+n	database preparation application tools
+n	calcium channel blockers
+y	metal stent
+c	09\/532 ,276
+n	p. s. shaw
+n	beam components
+n	spectroscopy mode
+n	ethylene-propylene elastomer
+y	pci interface
+y	surlyn ®
+n	relative intensity
+n	instructions
+y	\ la database
+n	explosion effects
+n	growth
+n	radial direction
+y	biocompatible coating
+n	building data
+n	coatings
+n	metal atoms
+n	intermagazine arcs
+n	said data
+n	height
+n	organic compound
+c	system helmet mountable
+n	salts
+n	computer program
+n	chem
+n	vr atmosphere
+n	arcing
+y	ptsi photodiodes
+y	application euvl
+y	geographic information systems
+n	% max
+n	figs
+c	crane bearing32with
+n	molten metal
+n	manners
+n	photon flux
+n	personal computer manufacturing card industry association
+y	serial port
+n	end150
+y	injection molding
+y	image augmentation
+n	dopant
+n	usable angle
+n	restriction
+n	vascular site
+n	nominal gap
+n	lacl3-containing solution
+y	expandable stent
+n	site plan map
+n	master
+y	phosphodiesterase inhibitors
+n	times
+n	rigidity
+n	long gaps
+n	supplies
+n	metal-complexing agent
+n	complete precipitation
+n	above-indicated axes s
+y	near-infrared emission
+n	lines
+n	skilled person
+n	conductors
+n	patent application
+y	visibility navigation system
+n	luminescence
+c	crane column3is
+n	axis
+n	small dissections
+c	controller returns
+n	isoprene
+n	low-temperature initiation
+n	ratio
+n	elevational view
+n	co
+y	motion picture
+n	b
+n	unlimited zoom range
+y	computer interface
+n	deliveribility
+y	temperature probe
+y	small scale z-pinch device
+n	sharp bands
+n	molar ratios
+n	ibsen
+n	reaction mixture
+n	drawn-through line
+c	direction t1or
+n	half
+n	vacuo
+y	graphic editing
+n	collision
+n	lateral position
+n	glycerol
+n	metal atom
+y	long extended conductor device
+n	rapid collapse
+n	equimolar amount
+n	code
+n	fm
+c	,490
+n	deep ultraviolet
+n	es
+n	fish oil
+n	jul.
+n	aromatic molecule portion
+n	α
+y	binocular viewing head
+n	polymer-based optical components
+y	stainless steel
+n	facility
+n	discussion
+n	alignment
+n	antifibrins
+c	pivot bearing30with direct drive electric motor
+y	si pn diode
+n	metal-complexing agents
+y	instance light-emitting diodes
+n	start
+n	spectral sensitivity
+n	injury level
+y	contactless energy transfer
+y	processors
+n	automatic passage
+n	high-bay warehouse
+n	illumination conditions
+y	mesh filter
+n	wp1
+n	reference numerals14and15
+n	tendency
+y	luminescent inorganic metal salt
+n	attenuation
+y	camera cranes
+y	bischloroformates
+c	place small flaps
+n	completion
+n	components
+n	lto
+y	hydrazinium sulfate
+y	concrete containment wall
+n	back portion 22b
+n	separately
+n	horizontal camera tilt axis n
+c	attachment platform5can
+n	garmin
+n	dopant material
+n	mar.
+n	reasonable yields
+y	z-pinch
+y	data access methods
+y	delivery catheter
+n	smooth debris free cut
+n	setup
+n	hydrated metal salts
+n	gap separator signals
+n	program
+n	step
+y	thermometer
+y	ionizer unit
+y	text box
+n	movement paths
+n	frequency
+n	requirement
+n	cylinder
+n	cases
+n	incoming shell
+n	result
+y	mass storage units
+n	sulfoxide
+n	text etc.
+n	administrative documents
+n	calcium
+n	desire
+n	undulations
+c	bandwidth buses
+n	biogen
+y	thermoplastic elastomer
+y	vision imaging devices
+n	power loss
+n	geometry
+n	cut edge
+n	stenotic portions
+n	quantity-distance criteria exemptions
+n	module
+n	structure
+n	system components
+y	diethylene glycol bischloroformate
+n	probability
+n	temporal coherence
+n	element number
+n	designer
+n	silicon\/beryllium
+n	organic dispersion media
+y	jets
+n	spectral range
+y	ptsi photodiode detector
+n	end results
+c	counterweight2with respect
+n	correspondence
+n	city road map
+y	vr system
+n	radiation
+n	feature locations
+n	fluorescence intensity
+n	less soluble pyridine hydrofluoride
+y	augmented real scene image
+n	schematic side view
+n	omega 3-fatty acid
+y	sun 's ultrasparc
+n	promising technique
+n	point
+n	methylene
+n	ordinal number
+n	collection
+n	mbar
+n	formation
+n	dedicated hardware
+n	head
+n	peaks
+n	extreme ultraviolet radiation source
+n	axial direction
+n	discrete pattern
+n	opaque filters
+y	doped sulfates
+n	spectroscopic analysis
+y	electro-optic system
+y	flat mirror
+n	circuit diagram
+n	alcohol\/water solution
+n	wet synthesis techniques
+y	styrene-butadiene-styrene rubber
+n	play
+c	ml tributylphosphate
+c	camera7can
+c	π ×
+y	moment-compensating counterweight
+n	aug.
+n	azimuthal magnetic fields
+n	flexible metallic cylindrical rings
+y	polyline graphic tools
+n	htm high-bay warehouses
+n	random access memory
+n	mn2
+c	end140in accordance
+n	output beam parameter
+n	product announcement movitrans
+n	volatile components
+n	non-contact manner
+y	440fx
+n	vessels
+n	elastomers
+n	sides
+n	c.sub.2-12 alkenyl
+n	expenditure
+n	ieee
+n	\ lan attitude device
+n	vr
+n	absorption
+n	lacl3 solution
+n	substituents
+y	implicit synchronize
+y	aperture
+y	localizer
+n	nmr contrast properties
+n	dihydroperoxy hexane
+n	tri-valent metal ions
+n	ca
+n	small longitudinal length
+n	enhancement
+n	light emission
+n	cross-sections
+c	section15of
+n	death
+y	ester-type polymeric peroxides
+n	viscosity
+y	aliphatic polycarbonate polyurethane
+y	impedance matching
+n	fluoride sources
+n	harmonic oscillations
+n	claim
+n	excess amounts
+n	minimum
+n	kinetic energies
+n	residues
+n	gd
+n	markers
+n	improvement
+y	read recovery process
+n	plaque prolapse
+n	flyer
+n	body lumen
+n	movable vehicle part
+n	savings
+y	polymeric wire
+y	ptsi barrier
+n	measurement installations
+n	guides
+n	y salts
+n	fluorescence
+n	thioprotease inhibitors
+n	barium sulfate
+y	meshed polymeric tube
+n	cover letter
+n	homogenous nanoparticles
+c	camera7is
+n	capillary discharge
+n	writing
+n	right
+n	blast
+n	mitigation project
+y	polyester thermoplastic elastomer
+n	processes
+n	method
+y	electrode
+n	motion
+c	boom1can
+n	possibilities
+y	electrode system
+y	actinomycin
+n	shell metal atoms
+n	form
+n	polyethylene
+n	meta-phenylene
+n	housings
+n	uniform size
+n	dopant metal
+n	acid
+n	\ lin
+n	shell material
+n	si
+n	efficiency
+n	multimedia instructions
+n	iris information
+y	actinomycin x1
+c	boom1which
+n	shell-forming anion source
+n	unsaturated monomers
+y	transmission electromicrographs
+n	in vitro studies
+y	tilt drive
+n	pci slave device 's memory
+n	transfer
+n	metal ion
+n	11b\/111a platelet membrane receptor antagonist
+n	defense
+n	vacuum tight coupling
+c	g dry phosphoric acid
+n	less space
+n	complex end
+y	polyethylene glycol
+n	organic bases
+n	anti-freeze ingredients
+n	dec.
+n	c1
+n	r. korde
+n	ion source
+n	effects
+n	backhitch times
+n	distal vasculature
+n	tetramethylammonium sulfate
+n	automated data storage libraries
+n	luminescence energy
+n	phenomena increases
+n	shelf areas
+y	firewire chipset
+y	beam 7a
+n	hydrogen
+n	workpiece
+y	attachment platform
+n	electrical contact
+y	film camera
+n	diethyl ether
+n	maximum molecular weight
+y	qd engine
+n	independent control
+n	permanence
+n	a. sulfuric acid
+n	inch i.d.
+n	mechanical requirements
+y	user interface devices
+n	plans
+n	yb
+y	euv lithography beams
+n	r. sub .7
+y	traditional all-metal stents
+n	integrated drive electronics
+n	principles
+n	hydrophobic molecule portion
+n	arrows
+n	iradium
+n	volume
+n	efficient manner
+n	kinetic energy
+n	bi-directional stop
+n	radiation density
+n	mj
+y	precision cnc equipment
+y	shell synthesis
+n	sodium hydroxide
+n	core\/shell particle
+n	la.
+n	reasons
+n	non-semiconductor core\/shell particles
+y	nozzle
+n	nitrides
+n	gas stream
+n	hydrophilic residues
+n	antagonists
+n	zinc
+n	tools
+n	polymeric material
+n	building criteria data
+n	lower signal
+n	nm exposure
+n	sulfate
+n	laser parameters
+c	example runway boundaries
+n	d-phe-pro-arg-chloromethylketone
+n	emission characteristic
+n	column61as
+n	cr3
+n	data figures
+n	illustration
+n	respect
+n	nickel titanium
+n	exposure wavelengths
+c	performance parallel execution unit cpu
+n	examples
+n	hr
+n	ce3
+y	baffles
+n	clear dispersion
+n	site plan manager
+n	constant speed
+y	wire frames
+n	metal chloride
+y	krf-excimer laser systems
+n	c. sub .7
+c	direct laser
+y	camera7
+n	lanthanide metal ion
+n	security
+n	fluorine-containing anions
+n	quantity-distance criteria waivers
+n	waiver manager
+y	fine wire mesh
+y	hytrel
+n	distributors
+n	acid hydrogen atoms
+n	greater inclination
+n	furthermost contour boundary
+n	surface luminescence
+y	traffic lanes
+n	single layer
+y	mono\/di-substituted amines
+c	camera column3to
+n	r. sub .11
+y	mass storage unit
+n	satellite route
+n	analysis criteria
+n	dallas semiconductors
+y	interface
+n	conductor
+y	stable energy detector
+y	polychloroprene
+n	life-times
+n	euv photon radiation
+n	c. dbd
+y	drug delivery stents
+n	po4
+n	platinum silicide layer
+n	focal length
+n	h. meyssamy et al
+n	integral protrusions
+y	magnetic tape drive recording system
+n	shell salt
+y	digital interface
+n	nuclear science
+n	detail structure
+y	imaging energy filter
+y	mold cover
+y	energy monitor unit
+n	department
+n	600b
+y	dexamethasone
+n	relationship
+n	small hole
+n	recovery trail
+n	l
+n	sub .2 o
+n	target site
+n	fluid medium
+n	installation master plan
+y	polybutadienne-ethylene-propylene elastomer
+n	organic materials
+n	explosive site-exposed site pair
+n	09\/317 ,695
+n	european patent applications
+n	usefulness
+n	euv exposure
+n	longitudinal flexibility
+n	recovery process
+n	tack
+y	amplifiers
+n	pass
+n	sensitive detectors
+n	buyer
+n	ioexpected230 %
+n	ring structure
+y	accessible aperture
+n	usable angles
+n	frictional forces
+n	section14
+n	example embodiment
+c	process cycles
+n	systems
+n	smps
+n	formula
+n	euv mirror 4b
+n	radiation losses
+n	hoch
+n	processing time
+n	shell
+n	prepulse
+n	metrologia
+n	optical infinity
+n	irradiation
+n	flow diagram
+n	spirit
+y	luminescent lanthanide sulfate
+n	traps
+n	accordance
+c	section15close
+n	maps
+n	arrow t1
+n	nanometer dimensions
+n	portable components
+y	corrosion inhibitors
+n	ratio b
+n	° f.
+n	events
+n	schematic view
+n	threshold
+n	correction information
+y	text boxes
+y	beam splitting enclosure
+n	pcmcia
+y	stent
+y	triethylamine-trishydrofluoride
+n	laser cut
+y	serial port interface
+n	cycle
+n	v\/v
+n	l-band signals
+n	perspective view
+n	core
+y	vehicle line conductor
+n	mcgeoch
+y	direct drive
+y	heating mantel
+n	optical path
+n	formatting
+n	hydrazine
+n	assembly
+y	molecular fluorine lithography lasers
+n	gas supply systems
+n	arcs
+n	hot dense plasma
+n	attractive combination
+n	phenyl
+c	wavelength show
+n	\ lproviding
+n	\ lrecursively
+n	nist
+n	annotations
+n	solid angle
+y	ph-electrode
+n	spie3997
+y	controllable distribution boxes
+n	si pn
+n	tb nanoparticles
+n	line-type outgoing line
+n	travel
+n	contrast
+n	firm kaschke kg
+y	peroxycarbonate polymers
+n	r2
+n	niobium
+n	needle-like shape
+n	tb\/lapo4
+n	thermal stability
+n	building
+n	r3
+n	radiation incident
+n	quencher ions
+n	spline function
+n	continuous determination
+n	siting applications
+n	silikates
+n	crystallization water
+n	polyamides
+n	lanthanide dopants
+n	mbytes\/second data transfer rate
+n	c.sub.1-12 alkyl
+n	gas discharge
+n	tilt
+n	initiators
+y	tributylphosphate
+n	slag debris
+y	video cameras
+n	tortuous vessels
+y	7e-3b ®
+n	dextran
+n	parallel data
+y	dodecyl amine
+n	path
+y	doped colloidal nanomaterials
+n	forward pointer
+n	category code
+y	art stents
+n	transaction
+y	nickel titanium alloy
+n	problem
+n	crane tilt axis s
+n	maintenance costs
+c	3-methylpentadiyl-1 ,5
+n	detector
+n	high energy photon emission
+n	discharge conditions
+n	data elements
+n	gr
+n	inflated shape
+n	robust set
+n	image data
+n	proceedings
+n	complete intensity
+n	greater problem
+n	explosive safety experts
+n	short wavelength
+n	electrical input power
+n	hydroxy groups
+n	following
+n	combinations
+n	radial rigidity
+y	augmentation images
+n	explosion confinement analysis
+n	check
+n	activity
+n	c. stallings
+c	gas puff z
+n	none
+n	physical relationship
+n	polarity
+n	ts
+n	facilities characteristics
+n	chemical constitution
+y	single reel tape drive
+y	e-shaped planar core
+n	x-ray
+y	triethyleneglycol dibutyl ether
+n	images
+y	c-shaped pick-ups
+c	cem5 ,4 edges
+n	mirror shape
+n	spread spectrum
+n	steps
+n	particle growth
+n	net explosives weight
+y	euv-light scattering plates
+y	energy monitor detectors
+n	military standards
+n	polymers
+n	changes
+n	metal atom sources
+n	arterial section
+n	image supplementation
+n	component
+n	mandatory requirement
+n	rules
+n	imaging properties
+n	sigma-aldrich
+y	arf-excimer laser systems
+n	frank c. j. m. van veggel
+y	metallic stent
+n	products
+n	site plan document
+n	extreme ultraviolet
+n	power
+n	state
+n	multilayer ones
+n	noncompliance
+n	validation sets
+y	polymeric peroxides
+n	magnification
+c	4π ioioestimated1 sr1 sr0 .3 sr1
+n	crane pivot axis
+n	radio frequency
+n	special fields
+n	safe mixture
+y	euv attenuator
+y	printing
+n	repair
+n	data tool
+n	sulfate source
+n	real world
+n	patent application no.
+y	euv
+n	tb particles
+n	adverse viewing conditions
+n	inward movement
+n	tapered configuration
+n	period
+y	planes
+n	limit
+n	transportation vehicle
+y	electric discharge machining
+y	firewire
+y	polysulfide elastomer
+n	oswald
+n	hand
+n	dopants
+n	wrap
+n	antimitotic agents
+n	molecules
+n	ring diameter
+y	tetrabutyl ammonium hydrogendifluoride
+n	flexible polymeric material
+n	better scaffolding
+y	computer games
+y	rf preionization
+n	fluoride source
+y	ionizer
+n	outermost position
+n	sulfoxide solvents
+n	\ l
+n	co.
+n	redispersible er3
+c	example symbols
+n	configuration information
+n	acceleration information
+n	eu dispersion
+y	luminescent nanoparticle cores
+y	combiner
+n	antiplatelets
+n	united states department
+n	rpi qd
+n	electric fields
+n	violations
+n	ess
+n	shell-forming materials
+n	position
+n	lumenal wall
+n	sulfate core
+n	purposes
+n	attractive dopants
+n	instantaneous acceleration
+n	photoluminescence
+n	cecl3 ×
+n	fluorides
+n	beam diameter
+n	years
+y	polyolefins
+n	purge gas throughput
+y	pebax
+n	continuous monitoring
+y	centrifugation
+n	undesired side reactions
+n	optical element
+n	pattern edges
+n	fine structure
+n	euv photoabsorptive species
+n	maintenance
+n	grams\/mole
+c	users gps receiver
+n	xylyl
+n	ammunition
+n	diameters
+n	energy
+y	tunnel
+y	detector unit
+n	fragments
+c	boom1as
+y	vinbiastine
+n	excitation
+n	machine-controlled apparatus
+n	therapeutic drug
+c	end140of
+y	reels
+n	altitude data
+n	if-then-else
+y	trialkyl phosphines oxides
+y	frame
+n	distance analysis step
+n	facility description
+n	gaps
+n	primitives
+y	retrieval unit
+c	ml four-neck flask
+n	end marker
+n	loss
+n	narrow cuts
+n	claims
+n	,186
+n	facilities
+n	independent growth
+y	interface devices
+n	synchronized transaction data set
+n	lack
+n	nitrogen
+n	temporal development
+n	inch dia
+n	real way
+n	selective availability
+y	clipping aperture
+n	qd analysis standards
+n	stability
+n	conversion
+n	pulse energies
+y	single output beam
+n	output power
+c	carriage6or
+y	gas-puff z pinch
+n	metallic links
+n	camera tilt axle
+n	ready dispersibility
+n	doping lanthanide ion
+y	peripheral bus
+y	power supply circuit
+n	λexc
+n	heads
+n	vicinity
+y	sulfoxide synthesis
+y	griffin pci bus image processing board
+y	energy detector system
+y	luminescent nanoparticle core
+n	core material
+c	non-luminescent bi
+n	radial resistance
+n	≦
+n	output emission characteristics
+n	pivot range
+y	mesh
+n	effect
+y	mandrel
+n	apparatus
+y	spatial filter
+c	counterweight2while saving
+y	polymeric tube material
+y	single mirror
+n	future
+n	entity
+n	active oxygen content
+n	jan w. stouwdam
+c	ml tris-2-ethylhexylphosphat
+y	heat exchanger
+n	symbols
+n	results
+n	nitrates
+n	units
+n	video data
+n	mm
+n	higher absorption cross section
+n	spectral region
+n	yuv
+n	gpc analysis
+n	purge gases
+n	type
+n	tube-to-ring attachment
+y	forskolin
+n	noble gas
+y	vision system
+n	portions
+n	derivatives
+y	universal serial bus
+n	reaction time
+n	promising materials
+n	solutions
+y	beam 7b
+n	schottky type
+n	safe separation distance
+n	zh
+n	molecular weight polymer products
+c	counterweight2which
+n	metal nitrates
+y	coils
+y	guide pin
