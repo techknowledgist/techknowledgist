@@ -84,5 +84,10 @@ class Term(object):
             highlighted_term = "%s%s%s" % (BLUE + BOLD, t, END)
             context = "%s %s %s" % (left[-200:], highlighted_term, right[:200])
             lines = textwrap.wrap("%s\n" % context, width=80)
-            for l in lines: print '  ', l
+            for l in lines:
+                try:
+                    print '  ', l
+                except UnicodeEncodeError:
+                    # TODO: this is a rather blunt way of dealing with this
+                    pass
             print
