@@ -21,8 +21,18 @@ def load_labels(gold_data):
             score, term = line.split("\t")
             if labels.has_key(term):
                 print term
+            #print term, score
             labels[term] = [score]
     return labels
+
+def add_annotator_data(annotator_data, labels):
+    for line in codecs.open(annotator_data, encoding='utf8'):
+        line = line.rstrip()
+        if not line: continue
+        if line[0] == '#': continue
+        label, term = line.split("\t")
+        if labels.has_key(term):
+            labels[term].append(label)
 
 def add_system_labels(system_data, labels):
     for line in codecs.open(system_data, encoding='utf8'):
@@ -33,30 +43,51 @@ def add_system_labels(system_data, labels):
 
 def get_categories(labels):
     cats = {}
-    for (l1, l2) in labels.values():
-        cats[l1] = True
-        cats[l2] = True
+    for term, labels in labels.items():
+        try:
+            l1, l2 = labels
+            cats[l1] = True
+            cats[l2] = True
+        except ValueError:
+            pass
+            #print "WARNING: only one label for '%s'" % term
     return cats.keys()
 
-def calculate_pr(labels, fh):
+def calculate_pr(labels, fh, iaa=False):
     categories =  get_categories(labels)
     for cat in categories:
         if cat == 'x': continue
         if cat == 'u': continue
         tp, tn, fp, fn = 0, 0, 0, 0
-        for gold_label, system_label in labels.values():
-            if gold_label == cat and system_label == cat:
-                tp += 1
-            elif gold_label == cat:
-                fn += 1
-            elif system_label == cat:
-                fp += 1
-            else:
-                tn += 1
+        for term, term_labels in labels.items():
+            try:
+                gold_label, system_label = term_labels
+                if gold_label == cat and system_label == cat:
+                    tp += 1
+                elif gold_label == cat:
+                    fn += 1
+                elif system_label == cat:
+                    fp += 1
+                else:
+                    tn += 1
+            except ValueError:
+                pass
+                #print "WARNING: no labels for '%s' in '%s'" % (term, fh.name)
         precision = float(tp) / (tp + fp)
         recall = float(tp) / (tp + fn)
-        fh.write("%s - precision:%.2f recall:%.2f (tp:%03d fp:%03d fn:%03d tn:%03d)\n" 
-                 % (cat, precision, recall, tp, fp, fn, tn))
+        try:
+            fscore = (2 * precision * recall) / (precision + recall)
+        except ZeroDivisionError:
+            fscore = -1
+        average = (precision + recall) / 2
+        if iaa:
+            fh.write("%s - p&r:%.2f precision:%.2f recall:%.2f (tp:%03d fp:%03d fn:%03d tn:%03d)\n"
+                     % (cat, average, precision, recall, tp, fp, fn, tn))
+        else:
+            fh.write("%s %.2f %.2f %.2f\n"
+                     % (cat, precision, recall, fscore))
+            #fh.write("%s - precision:%.2f recall:%.2f (tp:%03d fp:%03d fn:%03d tn:%03d)\n"
+            #         % (cat, precision, recall, tp, fp, fn, tn))
     fh.write("\ngold\tsystem\tterm\n\n")
     for term in labels.keys():
         gl, sl = labels[term]
@@ -74,9 +105,19 @@ def process(gold_data, system_data, outfile):
         fh.write("LABEL_FILE: %s\n" % label_file)
     fh.write("\n")
     labels = load_labels(gold_data)
-    add_system_labels(system_data_health_actux, labels)
+    add_system_labels(system_data, labels)
     calculate_pr(labels, fh)
 
+def process_iaa(a1, a2, outfile):
+    labels = load_labels([a1])
+    add_annotator_data(a2, labels)
+    #print_labels(labels)
+    fh = open(outfile, 'w')
+    calculate_pr(labels, fh, iaa=True)
+
+def print_labels(labels):
+    print len(labels)
+    print labels
 
 
 def filter_jp(fnames): return [f for f in fnames if f.find('jp.labels') > -1]
@@ -100,6 +141,17 @@ if __name__ == '__main__':
     labels_cs_actux = ["role_annotation/cs.2002.act.%d.%s.labels.txt" % (c, n) for (c, n) in annotators]
     labels_cs_pnux = ["role_annotation/cs.2002.pn.%d.%s.labels.txt" % (c, n) for (c, n) in annotators]
 
+    labels_cs_actux_adj = ["role_annotation/cs.2002.act.2.aa.labels.txt",
+                           #"role_annotation/cs.2002.act.2.mv.labels.txt",
+                           "role_annotation/cs.2002.act.3.jp.labels.txt" ]
+
+    a1 = 'role_annotation/iaa/cs.2002.act.2.jp.labels.txt'
+    a2 = 'role_annotation/iaa/cs.2002.act.2.mv.labels.txt'
+    process_iaa(a1, a2, 'scores-iaa-cs-act.txt')
+    a1 = 'role_annotation/iaa/cs.2002.pn.3.jp.labels.txt'
+    a2 = 'role_annotation/iaa/cs.2002.pn.3.mv.labels.txt'
+    process_iaa(a1, a2, 'scores-iaa-cs-pn.txt')
+
     process(labels_health_actux, system_data_health_actux, 'scores-health-actux-all.txt')
     process(filter_pa(labels_health_actux), system_data_health_actux, 'scores-health-actux-pa.txt')
     process(filter_mv(labels_health_actux), system_data_health_actux, 'scores-health-actux-mv.txt')
@@ -114,6 +166,8 @@ if __name__ == '__main__':
     process(filter_pa(labels_cs_actux), system_data_cs_actux, 'scores-cs-actux-pa.txt')
     process(filter_mv(labels_cs_actux), system_data_cs_actux, 'scores-cs-actux-mv.txt')
     process(filter_jp(labels_cs_actux), system_data_cs_actux, 'scores-cs-actux-jp.txt')
+
+    process(labels_cs_actux_adj, system_data_cs_actux, 'scores-cs-actux-all-adj.txt')
 
     process(labels_cs_pnux, system_data_cs_pnux, 'scores-cs-pnux-all.txt')
     process(filter_pa(labels_cs_pnux), system_data_cs_pnux, 'scores-cs-pnux-pa.txt')
