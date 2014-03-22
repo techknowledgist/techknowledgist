@@ -17,6 +17,6 @@ for line in file2:
     subtract[line] = True
 
 for line in file1:
-    if not subtract.has_key(line):
+    if subtract.has_key(line):
         print line,
 

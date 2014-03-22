@@ -4,7 +4,7 @@ to all files in the corpus) and a file with labeled instances.
 
 Usage:
 
-  $ python malletfile_create.py OPTIONS
+  $ python create_malletfile.py OPTIONS
 
 Options:
 
@@ -39,6 +39,11 @@ the corpus itself has the lanuage in its configuration file. Also, as we will
 see below, language-specific information like annotated terms can be handed in
 to the process.
 
+When creating a mallet file, no features are filtered from the phr_feats
+file. The general info file in the model directory has a list of features, but
+note that these features are taken from the all.features file and not the
+phr_feats file.
+
 Typical invocation:
 
    $ python create_mallet_file.py \
@@ -58,6 +63,7 @@ and the default to use all files in the corpus is overuled by using the list in
 
 Wishlist:
 - Add runtime statistics (time elapsed, specifications of host machine).
+- Keep track of all features used and use these in the info file
 
 """
 
@@ -101,6 +107,7 @@ class MalletFileCreator(TrainerClassifier):
     def __init__(self, rconfig, file_list, annotation_file, annotation_count):
         """Store parameters and initialize file names."""
         self.rconfig = rconfig
+        self.corpus = rconfig.corpus
         self.file_list = self._find_filelist(file_list)
         self.annotation_file = annotation_file
         self.annotation_count = annotation_count
@@ -140,6 +147,8 @@ class MalletFileCreator(TrainerClassifier):
         with open(self.info_file_general, 'w') as fh:
             fh.write("$ python %s\n\n" % ' '.join(sys.argv))
             fh.write("model             =  %s\n" % os.path.abspath(self.model))
+            fh.write("corpus            =  %s\n" % os.path.abspath(self.corpus))
+            fh.write("features          =  %s\n" % ' '.join(get_features()))
             fh.write("file_list         =  %s\n" % os.path.abspath(self.file_list))
             fh.write("annotation_file   =  %s\n" % os.path.abspath(self.annotation_file))
             fh.write("annotation_count  =  %s\n" % self.annotation_count)
@@ -204,12 +213,27 @@ class MalletFileCreator(TrainerClassifier):
                     self.d_phr2label[phrase] = label
 
 
+def get_features():
+    """Returns the list of features as defined in the all.features file, this is
+    used to log the set of features. When creating a mallet file, no features
+    are filtered, but we do not keep track of what features were found. Because
+    the features returned are taken from a file, here is no actual guarantee
+    that these are the features in the mallet file. It is up to th eusers to
+    make sure that all.features has the correct features. """
+    # TODO: a copy of this method is in run_tclassify, consolidate
+    script_dir = os.path.dirname(os.path.abspath(sys.argv[0]))
+    features_file = os.path.join(script_dir, "features", "all.features")
+    content = open(features_file).read().strip()
+    return content.split()
+
+
+
 def read_opts():
     longopts = ['corpus=', 'language=', 'pipeline=', 'filelist=',
                 'annotation-file=', 'annotation-count=',
                 'batch=', 'model-dir=', 'verbose' ]
     try:
-        return getopt.getopt(sys.argv[1:], '', longopts)
+        return getopt.getopt(sys.argv[1:], 'a:m:f:c:n:p:v', longopts)
     except getopt.GetoptError as e:
         sys.exit("ERROR: " + str(e))
 
@@ -227,13 +251,13 @@ if __name__ == '__main__':
 
     (opts, args) = read_opts()
     for opt, val in opts:
-        if opt == '--corpus': corpus_path = val
-        elif opt == '--model-dir': model_path = val
-        elif opt == '--filelist': file_list = val
-        elif opt == '--annotation-file': annotation_file = val
-        elif opt == '--annotation-count': annotation_count = int(val)
-        elif opt == '--pipeline': pipeline_config = val
-        elif opt == '--verbose': VERBOSE = True
+        if opt in ['-c', '--corpus']: corpus_path = val
+        elif opt in ['-m', '--model-dir']: model_path = val
+        elif opt in ['-f', '--filelist']: file_list = val
+        elif opt in ['-a', '--annotation-file']: annotation_file = val
+        elif opt in ['-n', '--annotation-count']: annotation_count = int(val)
+        elif opt in ['-p', '--pipeline']: pipeline_config = val
+        elif opt in ['-v', '--verbose']: VERBOSE = True
 
     if corpus_path is None: exit("WARNING: no corpus specified, exiting...\n")
     if model_path is None: exit("WARNING: no model directory specified, exiting...\n")

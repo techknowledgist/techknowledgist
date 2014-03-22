@@ -49,11 +49,9 @@ To get the nubers with threshold set to 0, use 0.000000000001 (to avoid cofusion
 
 """
 
+import os, sys, collections, codecs
 import train
-#import mallet
-import os
-import collections
-import codecs
+
 
 
 ####################################################################################
@@ -62,93 +60,129 @@ import codecs
 
 class PRA:
 
-    """precision/recall/accuracy calculation"""
-    
-    def __init__(self, d_eval, d_system, threshold, s_log, debug_c=True):
+    """Precision, recall and accuracy calculation. Takes a dictionary with gold
+    standard terms, mapped to 'y' or 'n', and a dictionary of system results,
+    mapped to system scores. Depending on the threshold, system scores will be
+    mapped to 'y' or 'n' and PR&A are calculated over those, using only those
+    terms for which we have both gold standard and system data.
 
+    Will use all terms in the intersection of gold standard and system, unless
+    the terms parameter is set to 'single-token-terms' or 'multi-token-terms',
+    in which case a subset pf the interseciton is taken.
+
+    The filter parameter can be used to hand in a set of terms that should be
+    excluded from the evaluation, this could be the list of terms in the
+    training set.
+
+    """
+
+    def __init__(self, d_eval, d_system, threshold=None,
+                 term_type="all", term_filter=None, debug_c=True):
         self.debug_p = False
+        #self.debug_p = True
         self.debug_c = debug_c
         self.d_eval = d_eval
         self.d_system = d_system
-        self.true_pos = 0
-        self.system_pos = 0
-        self.false_pos = 0
-        self.false_neg = 0
-        self.true_neg = 0
-        self.correct = 0
-        self.total = 0   # number terms to be evaluated
-        self.score_count = 0 # number terms for which we have scores
-        self.eval_pos = 0
-        self.eval_labeled = 0
-        
+        self.threshold = threshold
+        self.eval_terms = None                # set or list of terms to evaluate, to be filled in
+        self.eval_terms_type = term_type      # 'all', 'single-token-terms' or 'multi-token-terms'
+        self.eval_terms_filter = term_filter  # file with terms not to include
+        self.eval_terms_count1 = None         # number of terms to be evaluated before filter
+        self.eval_terms_count2 = None         # number of terms to be evaluated after filter
+        self.eval_terms_scores = []           # list of all scores used
+        self.collect_terms_to_evaluate()
+        self.reset_counts()
+        if threshold is not None:
+            self.calculate_counts(threshold)
+
+    def collect_terms_to_evaluate(self):
+        # these are the terms that are in both dictionaries and that can be evaluated
+        self.eval_terms = set(self.d_eval).intersection(self.d_system)
+        # select the subset if you want single or multi token terms only
+        if self.eval_terms_type == 'single-token-terms':
+            self.eval_terms = [t for t in self.eval_terms if len(t.split()) == 1]
+        elif self.eval_terms_type == 'multi-token-terms':
+            self.eval_terms = [t for t in self.eval_terms if len(t.split()) > 1]
+        self.eval_terms_count1 = len(self.eval_terms)
+        self.eval_terms_count2 = len(self.eval_terms)
+        # remove terms that should not be included
+        if self.eval_terms_filter is not None:
+            fh = codecs.open(self.eval_terms_filter, encoding='utf-8')
+            terms_to_filter = {}
+            for line in fh:
+                fields = line.strip().split("\t")
+                if len(fields) == 2:
+                    terms_to_filter[fields[1]] = True
+            self.eval_terms = set(self.eval_terms).difference(terms_to_filter)
+            self.eval_terms_count2 = len(self.eval_terms)
+
+    def reset_counts(self):
+        self.tp = 0   # true positives
+        self.fp = 0   # false positives
+        self.fn = 0   # false negatives
+        self.tn = 0   # true negatives
+
+    def calculate_counts(self, threshold):
+        self.reset_counts()
+        self.threshold = threshold
         i = 0
-        none_count = 0
-
-        for phrase in self.d_eval.keys():
-
+        for phrase in self.eval_terms:
             i += 1
-            self.total += 1
-            gold_label = self.d_eval.get(phrase)
-            system_score = self.d_system.get(phrase)
-            self.debug_phrase(i, phrase, gold_label, system_score)
+            self.update_counts(i, phrase)
 
-            if system_score is None:
-                # the gold phrase doesn't appear in the scored subset (data sample),
-                # default the score to 0.0 and set the system label to 'u' (unknown).
-                system_score = 0.0
-                none_count += 1
-                system_label = "u"
-            elif system_score > threshold:
-                system_label = "y"
-                self.score_count += 1
+    def update_counts(self, i, phrase):
+        gold_label = self.d_eval.get(phrase)
+        system_score = self.d_system.get(phrase)
+        self.debug_phrase(i, phrase, gold_label, system_score)
+        if system_score is None:
+            # the gold phrase doesn't appear in the scored subset (data sample),
+            # default the score to 0.0 and set the system label to 'u' (unknown).
+            system_score = 0.0
+            system_label = "u"
+        else:
+            system_label = "y" if system_score > self.threshold else "n"
+        if gold_label == "y" and system_label == "y": self.tp += 1
+        elif gold_label == "y" and system_label == "n": self.fn += 1
+        elif gold_label == "n" and system_label == "n": self.tn += 1
+        elif gold_label == "n" and system_label == "y": self.fp += 1
+        self.eval_terms_scores.append("%s\t|%s|\t%f\t%s\n" \
+                                      % (gold_label, system_label, system_score, phrase))
 
-            elif system_score > 0.0:
-                system_label = "n"
-                self.score_count += 1
-            else:
-                system_label = "n"
-
-            if gold_label == "y" and system_label == "y": self.true_pos += 1
-            elif gold_label == "y" and system_label == "n": self.false_neg += 1
-            elif gold_label == "n" and system_label == "n": self.true_neg += 1
-            elif gold_label == "n" and system_label == "y": self.false_pos += 1
-            s_log.write("%s\t|%s|\t%f\t%s\n" % (gold_label, system_label, system_score, phrase))
-        
-        self.log_missing_eval_phrases(threshold, s_log)
-        self.correct = self.true_pos + self.true_neg
-        self.debug_counts(d_eval, d_system, i, none_count, s_log)
-
+    def total(self):
+        return self.tp + self.tn + self.fp + self.fn
 
     def precision(self):
         try:
-            return float(self.true_pos) / (self.true_pos + self.false_pos)
+            return float(self.tp) / (self.tp + self.fp)
         except ZeroDivisionError:
-            print "[WARNING: precision] true_pos: %i, false_pos: %i" % (self.true_pos, self.false_pos) 
             return -1
 
     def recall(self):
-        res = float(self.true_pos) / (self.true_pos + self.false_neg)
-        return(res)
+        try:
+            return float(self.tp) / (self.tp + self.fn)
+        except ZeroDivisionError:
+            return -1
+
+    def f1_score(self):
+        p = self.precision()
+        r = self.recall()
+        try:
+            return (2 * p * r) / (p + r)
+        except ZeroDivisionError:
+            return -1
 
     def accuracy(self):
-        #res = float(self.correct) / self.total
-        res = float(self.correct) / self.score_count
-        return(res)
+        try:
+            return float(self.tp + self.tn) / self.total()
+        except ZeroDivisionError:
+            return -1
 
     def debug_phrase(self, i, phrase, gold_label, system_score):
         if self.debug_p and i < 10:
             print "[PRA] '%s'" % phrase
             found = 'y' if self.d_system.has_key(phrase) else 'n'
-            print "[PRA] gold_label=%s found=%s system_score=%s\n" % (gold_label, found, system_score)
-
-    def debug_counts(self, d_eval, d_system, i, none_count, logfile):
-        counts_string = "\nCounts\n" + \
-                        "   size of d_eval: %d\n" % len(d_eval) + \
-                      "   size of d_system: %d\n" % len(d_system) + \
-                      "   non-matches (not in d_system): %i\n" % none_count
-        logfile.write(counts_string)
-        if self.debug_c:
-            print counts_string
+            print "[PRA] gold_label=%s found=%s system_score=%s\n" \
+                  % (gold_label, found, system_score)
 
     def log_missing_eval_phrases(self, threshold, log):
         log.write("\nPHRASES NOT IN D_EVAL\n")
@@ -157,106 +191,132 @@ class PRA:
             system_label = 'y' if score > threshold else 'n'
             if gold_label is None:
                 log.write("u\t|%s|\t%f\t%s\n" % (system_label, score, phrase))
-                
+
+    def count_terms_in_overlap(self):
+        return len( set(self.d_eval).intersection(self.d_system))
+
+    def results_string(self):
+        return \
+            "threshold: %.2f {%s %s} ==> " % \
+            (self.threshold, self.term_type_as_short_string(),
+             self.term_filter_as_short_string()) + \
+            "p=%.2f r=%.2f f1=%.2f acc=%.2f - " % \
+            (self.precision(), self.recall(), self.f1_score(), self.accuracy()) + \
+            "(total:%04d tp:%04d tn:%04d fp:%04d fn:%04d)\n" % \
+            (self.total(), self.tp, self.tn, self.fp, self.fn)
+
+    def term_type_as_short_string(self):
+        if self.eval_terms_type == 'all': return 'all'
+        if self.eval_terms_type == 'single-token-terms': return 'stt'
+        if self.eval_terms_type == 'multi-token-terms': return 'mtt'
+
+    def term_filter_as_short_string(self):
+        return 'ntf' if self.eval_terms_filter is None else 'ytf'
+
+    def pp_counts(self, fh=sys.stdout):
+        fh.write(self.results_string())
+
+    def pp_counts_long(self, fh=sys.stdout):
+        fh.write("true positives   %4d\n" % self.tp)
+        fh.write("true negatives   %4d\n" % self.tn)
+        fh.write("false positives  %4d\n" % self.fp )
+        fh.write("false negatives  %4d\n" % self.fn)
+        fh.write("total            %4d\n\n" % self.total())
+        fh.write("precision        %.2f\n" % self.precision())
+        fh.write("recall           %.2f\n" % self.recall())
+        fh.write("f1-score         %.2f\n" % self.f1_score())
+        fh.write("accuracy         %.2f\n\n" % self.accuracy())
 
     
-def default_n():
-    """Initialize the label dictionaries to the label 'n'. """
-    return("n")
-
-
 class EvalData:
 
-    """ Class to take an evaluation (gold standard) file (terms labeled with 'y', 'n') and
-    the output of the mallet classifier (in the form of a scores file), and populate
-    dictionaries to hold this information, keyed by term.  """
+    """ Class to take a gold standard file (terms labeled with 'y', 'n') and the
+    output of the mallet classifier (in the form of a scores file), and populate
+    dictionaries to hold this information, indexed by term. """
     
-    # optional parameter to use min, max, or average score for thresholding
     def __init__(self, eval_file, system_file, score_type="average", count_threshold=1):
-
-        self.debug = False
         self.d_eval_phr2label = {}   # map from evaluation phrase to class
         self.d_system_phr2score = {} # map from phrase to score (between 0.0 and 1.0)
+        self._populate_gold_data_dictionary(eval_file)
+        self._populate_system_dictionary(system_file, score_type, count_threshold)
+
+    def _populate_gold_data_dictionary(self, eval_file):
+        """Populate dictionaries, part 1: gold data from a manually annotated
+        file of random phrases."""
         s_eval = codecs.open(eval_file, "r", encoding='utf-8')
-        s_system = codecs.open(system_file, "r", encoding='utf-8')
-
-        # populate dictionaries, part 1: gold data: manually annotated file of random phrases
         for line in s_eval:
-            if line.strip() == '': continue
-            if line.lstrip()[0] == '#': continue
-            # if line begins with tab, it has not been labeled, since y/n should appear in
-            # col 1 before the tab.
-            if line[0] != "\t":
-                # also omit any header lines that don't contain a tab in column two
-                if line[1] == "\t":
-                    line = line.strip()
-                    (label, phrase) = line.split("\t")
-                    # normalize segmentation by removing all spaces from Chinese words
-                    # phrase = phrase.replace(' ','')
-                    self.d_eval_phr2label[phrase] = label
-                    # NOTE how the phrase and label are printed out. First byte(s) of
-                    # phrase seems lost or misplaced
-                    # print "[EvalData] storing label/phrase: %s, %s" % (label, phrase)
+            self._add_eval_line(line)
+        s_eval.close()
 
-        # output from mallet maxent classifier ("yes" score, averaged over multiple document instances)
+    def _add_eval_line(self, line):
+        """Add the label for a phrase to the eval dictionary."""
+        if line.strip() == '': return
+        if line.lstrip()[0] == '#': return
+        # if line begins with tab, it has not been labeled, since y/n should appear in
+        # col 1 before the tab.
+        if line[0] != "\t":
+            # also omit any header lines that don't contain a tab in column two
+            if line[1] == "\t":
+                line = line.strip()
+                (label, phrase) = line.split("\t")
+                # normalize segmentation by removing all spaces from Chinese words
+                # phrase = phrase.replace(' ','')
+                self.d_eval_phr2label[phrase] = label
+                # NOTE how the phrase and label are printed out. First byte(s) of
+                # phrase seems lost or misplaced
+                # print "[EvalData] storing label/phrase: %s, %s" % (label, phrase)
+
+    def _populate_system_dictionary(self, system_file, score_type, count_threshold):
+        """Takes the output from the mallet maxent classifier with the 'y'
+        score, averaged over multiple document instances."""
+        self.debug = False
+        #self.debug = True
+        s_system = codecs.open(system_file, "r", encoding='utf-8')
         n = 0  # number of lines (terms)
         c = 0  # number of terms with count >= count_threshold
-
         for line in s_system:
             n += 1
-            line = line.rstrip()
-
-            # the following were removed at merge time, but may be needed (MV)
-            #
-            # # normalize segmentation by removing all spaces from Chinese words
-            # # phrase = phrase.replace(' ','')
-            # self.d_system_phr2score[phrase] = float(score)
-            # self.debug_phrase(n, phrase, score)
-
-            (phrase, average, count, min, max) = line.split("\t")
-            
+            # count is the number of documents the term was found in
+            (phrase, average, count, min, max) = line.rstrip().split("\t")
             count = int(count)
-
-            # only use scorees for terms that appear in at least <count_threshold> docs
+            # only use scores for terms that appear in at least <count_threshold> docs
             if count >= count_threshold:
-                # default score is the average score over docs
-                score = average
-                # count is the number of documents the term was found in
-                count = int(count)
-
-                # chose which score to use based on score_type parameter
-                if int(count) > 1: 
-                    if score_type == "max":
-                        score = max
-                    elif score_type == "min":
-                        score = min
-
-                #if count == '1': continue
+                score = self._set_score(count, average, min, max, score_type)
                 c += 1
-                # normalize segmentation by removing all spaces from Chinese words
-                #phrase = phrase.replace(' ','')
-
-                self.d_system_phr2score[phrase] = float(score)
-
+                phrase = normalize_phrase(phrase)
+                self.d_system_phr2score[phrase] = score
                 if self.debug and n < 10:
-                    print "[ED]phrase: %s, score: %s" % (phrase, score)
-                    if self.d_system_phr2score.has_key(phrase):
-                        print "[ED]Found key in d_system: %s" % phrase
-                    else:
-                        print "[ED]key not found in d_system: %s" % phrase
-                    if self.d_eval_phr2label.has_key(phrase):
-                        print "[ED]Found key in d_eval: %s" % phrase
-                    else:
-                        print "[ED]key not found in d_eval: %s" % phrase
-                    print "[EvalData]Storing sys score, phrase: %s, score: %f, actual: %f" \
-                          % (phrase, float(score), self.d_system_phr2score.get(phrase))
-
+                    self._debug_system_dictionary(phrase, score)
         if self.debug:
             print "Total scores: %i, scores with count >= %i: %i" % (n, count_threshold, c)
-        s_eval.close()
         s_system.close()
 
-        
+    def _set_score(self, count, average, min, max, score_type):
+        # default score is the average score over docs
+        score = float(average)
+        # chose which score to use based on score_type parameter
+        if int(count) > 1:
+            if score_type == "max": score = float(max)
+            elif score_type == "min": score = float(min)
+        return score
+
+    def _debug_system_dictionary(self, phrase, score):
+        print "[EvalData] phrase: %s, score: %s" % (phrase, score)
+        #if self.d_system_phr2score.has_key(phrase):
+        #    print "[EvalData]   in d_system"
+        if self.d_eval_phr2label.has_key(phrase):
+            print "[EvalData]   in d_eval"
+        print "[EvalData]   storing sys score, phrase: %s, score: %f, actual: %f" \
+              % (phrase, float(score), self.d_system_phr2score.get(phrase))
+
+
+def normalize_phrase(phrase):
+    """Perhaps needed to normalize segmentation by removing all spaces from
+    Chinese words by using phrase.replace(' ',''), now just return the
+    phrase."""
+    return phrase
+
+
 # for a list of terms (eg. annotated terms), compare scores generated in different ways 
 # (e.g. different chunker, filter on/off.)
 
@@ -459,32 +519,46 @@ def t0(threshold):
     log_file_name = "t0_" + str(threshold) + ".gs.log"
     test(eval_test_file, system_test_file, threshold, log_file_name)
 
-       
-# optional parameter to use min, max, or average score for thresholding
-# count restricts scores to terms that appear in <count> documents
-def test(eval_test_file, system_test_file, threshold, log_file_name,
+
+# test(eval_test_file, system_test_file, threshold, log_file_name)
+def test(eval_file, system_file, threshold, log_file=None,
+         term_type='all', term_filter=None,
          score_type="average", count=1, debug_c=True, command=None):
-    edata = EvalData(eval_test_file, system_test_file, score_type, count)
-    # open a log file to keep gold and system labels for each phrase
-    s_log = codecs.open(log_file_name, "w", 'utf-8')
-    if command is not None:
-        s_log.write(command + "\n\n")
 
-    pra = PRA(edata.d_eval_phr2label, edata.d_system_phr2score, threshold, s_log, debug_c)
-    precision = pra.precision()
-    recall = pra.recall()
-    accuracy = pra.accuracy()
-    total = pra.total
+    """Compare the system results to the gold standard results. score_type is an
+    optional parameter to use min, max, or average score for thresholding.
+    count restricts scores to terms that appear in <count> or more documents."""
 
-    results_string = "total:%d tp:%s fp:%s fn:%s tn:%s -- " % \
-                     (total, pra.true_pos, pra.false_pos, pra.false_neg, pra.true_neg) + \
-                     "precision: %.2f, recall: %.2f, accuracy: %.2f, threshold: %.2f" % \
-                     (precision, recall, accuracy, threshold)
+    edata = EvalData(eval_file, system_file, score_type, count)
+    pra = PRA(edata.d_eval_phr2label, edata.d_system_phr2score, threshold,
+              term_type=term_type, term_filter=term_filter, debug_c=debug_c)
 
-    print results_string
-    s_log.write("\n" + results_string + "\n")
-    s_log.close()
-    return results_string
+    if log_file is not None:
+        s_log = codecs.open(log_file, "w", 'utf-8')
+        if command is not None:
+            s_log.write('$ ' + command.replace('--', "\n     --") + "\n\n")
+        s_log.write("threshold    =  %s\n" % threshold)
+        s_log.write("term_type    =  %s\n" % term_type)
+        s_log.write("term_filter  =  %s\n\n" % term_filter)
+        s_log.write("terms in gold standard:        %4d\n" % len(pra.d_eval))
+        s_log.write("terms in system response:      %4d\n" % len(pra.d_system))
+        s_log.write("terms in both (the overlap):   %4d\n" % pra.count_terms_in_overlap())
+        s_log.write("terms after term_type:         %4d\n" % pra.eval_terms_count1)
+        s_log.write("terms after term_filter:       %4d\n\n" % pra.eval_terms_count2)
+        pra.pp_counts_long(s_log)
+        # pra.log_missing_eval_phrases(s_log)
+        s_log.write("\nList of used gold labels and system responses:\n\n")
+        for (x, y, name) in (('n', 'y', 'false positives'), ('y', 'n', 'false negatives'),
+                             ('y', 'y', 'true positives'), ('n', 'n', 'true negatives')):
+            s_log.write("$ grep -e '^%s' %s | grep '|%s|'   # to get %s\n"
+                        % (x, os.path.basename(log_file), y, name))
+        s_log.write("\ngold\tsystem\tscore\tterm\n\n")
+        for score in pra.eval_terms_scores: s_log.write(score)
+        s_log.close()
+
+    print pra.results_string(),
+    return pra.results_string()
+
 
 
 ####################################################################################

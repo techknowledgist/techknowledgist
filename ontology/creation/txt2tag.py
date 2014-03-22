@@ -13,51 +13,68 @@ import codecs
 debug_p = False
 #debug_p = True
 
+def debug(text):
+    if debug_p == True:
+        print text
+
+
 def tag(input, output, tagger):
     s_input = codecs.open(input, encoding='utf-8')
     s_output = open(output, "w")
-    section = ""
-    sent_no_in_section = 0
+    line_no = 0
     for line in s_input:
-        # skip very long lines since these typically contain non-tectual crut like gene
-        # sequences; skip them because some of them break the tagger
-        # TODO: now we just lose them, write them to the output but mark them somehow
-        if len(line) > 10000:
+        line_no += 1
+        if skip_line(line):
+            # TODO: now we just lose these lines, instead perhaps write them to
+            # the output but mark them somehow
             continue
-        line = line.strip("\n")
-        # TODO: this is hack to make the tagger work, but it loses information
-        # TODO: could replace with &tilde;
-        # TODO: or find the real solution
-        line = line.replace('~','')
-        if debug_p == True:
-            print "[tag]Processing line: %s\n" % line
+        line = fix_line(line)
+        debug("[tag] Processing line: %s\n" % line)
         if line != "":
-
             if line[0:3] == "FH_":
-                # we are at a section header
-                # write it back out as is
+                # do not tag section headers
                 line_out = line.encode('utf-8')
                 s_output.write("%s\n" % line_out)
             else:
-                if debug_p:
-                    print "[tag]line: %s" % line
-                # process the sentences in the section
-                l_tag_string = tagger.tag(line)
-                if debug_p:
-                    print "[tag]line2: %s" % line
-                for tag_string in l_tag_string:
-                    tag_string = tag_string.encode('utf-8')
-                    if debug_p:
-                        print "[tag]tag_string: %s" % tag_string
-                    s_output.write("%s\n" % tag_string)
-
+                debug("[tag] line: %s" % line)
+                tag_line(line, line_no, tagger, s_output)
     s_input.close()
     s_output.close()
 
-    
-def test_tag_en():
-    input = "/home/j/anick/fuse/data/patents/en_test/txt/US20110052365A1.xml"
-    output = "/home/j/anick/fuse/data/patents/en_test/tag/US20110052365A1.xml"
+
+def skip_line(line):
+    # Very long lines since these typically contain non-textual garbage like
+    # gene sequences; skip them because some of them break the tagger
+    if len(line) > 10000: return True
+    return False
+
+def fix_line(line):
+    """Several fixes to the line needed for the tagger."""
+    line = line.strip("\n\r\f")
+    # This is a hack to make the tagger work, but it loses information
+    # TODO: could replace "~" with "&tilde;" or find the real solution
+    line = line.replace('~','')
+    # backspace characters break the sdp tagger code
+    line = line.replace(unichr(8),'')
+    return line
+
+def tag_line(line, line_no, tagger, s_output):
+    try:
+        l_tag_string = tagger.tag(line)
+        debug("[tag] line2: %s" % line)
+        for tag_string in l_tag_string:
+            tag_string = tag_string.encode('utf-8')
+            debug("[tag] tag_string: %s" % tag_string)
+            s_output.write("%s\n" % tag_string)
+    except:
+        print "WARNING: tagger error for line %d, skipping" % line_no
+
+
+def test_tag_en(input=None, output=None):
+    if input is None:
+        input = "/home/j/anick/fuse/data/patents/en_test/txt/US20110052365A1.xml"
+    if output is None:
+        output = "/home/j/anick/fuse/data/patents/en_test/tag/US20110052365A1.xml"
     tagger = sdp.STagger("english-caseless-left3words-distsim.tagger")
     tag(input, output, tagger)
 
@@ -177,3 +194,9 @@ def get_tagger(language):
         return sdp.STagger("german-fast.tagger")
     elif language == "cn":
         return sdp.STagger("chinese.tagger")
+
+
+
+if __name__ == '__main__':
+    import sys
+    test_tag_en(sys.argv[1], sys.argv[2])

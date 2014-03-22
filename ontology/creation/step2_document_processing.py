@@ -446,17 +446,19 @@ if __name__ == '__main__':
 
     # NOTE: this is named rconfig to avoid confusion with config.py
     rconfig = RuntimeConfig(corpus, None, None, language, pipeline_config)
-    options = rconfig.get_options(stage)
     #rconfig.pp()
 
     if show_data_p:
         show_datasets(rconfig, config.DATA_TYPES, verbose)
-    elif show_pipelines_p:
+        exit()
+    if show_pipelines_p:
         show_pipelines(rconfig)
+        exit()
 
     # note that the second argument always has to be the limit, this is required
     # by update_state()
-    elif stage == POPULATE:
+    options = rconfig.get_options(stage)
+    if stage == POPULATE:
         run_populate(rconfig, limit, verbose)
     elif stage == XML2TXT:
         run_xml2txt(rconfig, limit, options, source, verbose)

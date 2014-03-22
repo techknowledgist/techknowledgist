@@ -1,0 +1,1022 @@
+# ## annotate.info.general.txt
+#
+# $ python step3_annotation.py --technologies --corpus data/patents/en-cs-eval-10 --filelist files.txt --print-context --verbose --name eval
+# 
+# corpus            =  data/patents/en-cs-eval-10
+# file_list         =  data/patents/en-cs-eval-10/config/files.txt
+# config_file       =  pipeline-default.txt
+# git_commit        =  v0.4-3-gf28333c
+#
+# ## annotate.info.filelist.txt
+#
+# 2007	/home/j/corpuswork/fuse/FUSEData/2013-04/ln_uspto/2007/063/US20070021846A1.xml	2007/US20070021846A1.xml
+# 2007	/home/j/corpuswork/fuse/FUSEData/2013-04/ln_uspto/2007/030/US20070156286A1.xml	2007/US20070156286A1.xml
+# 2002	/home/j/corpuswork/fuse/FUSEData/2013-04/ln_uspto/2002/013/US6363474B1.xml	2002/US6363474B1.xml
+# 2004	/home/j/corpuswork/fuse/FUSEData/2013-04/ln_uspto/2004/018/US6732199B1.xml	2004/US6732199B1.xml
+# 1994	/home/j/corpuswork/fuse/FUSEData/2013-04/ln_uspto/1994/019/US5334827A.xml	1994/US5334827A.xml
+# 2006	/home/j/corpuswork/fuse/FUSEData/2013-04/ln_uspto/2006/052/US7007078B2.xml	2006/US7007078B2.xml
+# 2003	/home/j/corpuswork/fuse/FUSEData/2013-04/ln_uspto/2003/057/US20030115294A1.xml	2003/US20030115294A1.xml
+# 2006	/home/j/corpuswork/fuse/FUSEData/2013-04/ln_uspto/2006/071/US20060022687A1.xml	2006/US20060022687A1.xml
+# 2002	/home/j/corpuswork/fuse/FUSEData/2013-04/ln_uspto/2002/025/US20020188565A1.xml	2002/US20020188565A1.xml
+# 2005	/home/j/corpuswork/fuse/FUSEData/2013-04/ln_uspto/2005/032/US20050199718A1.xml	2005/US20050199718A1.xml
+#
+n	sb12
+c	eui-64 field fb1
+n	control capacitors c1
+n	curbs
+y	data files
+y	soldering piece
+n	perimeter tracking
+n	receipt
+y	localization system
+y	device 3c
+n	assignee
+n	points
+c	\ la
+n	polymeric material
+c	ax unit260is
+n	links
+n	device information
+c	user presses
+n	model
+c	284contains arithmetic
+n	physical channels
+y	receiver name column
+n	bops
+y	decoder
+y	error correction decoder\/encoder
+y	single bus
+n	child
+n	contact
+y	menu guidance software
+y	log-in section
+n	user records
+n	organization diagram
+n	birth
+y	ugvs
+n	θl
+n	sb15
+n	physical layer
+n	costly levels
+n	metal layers
+y	connected device
+n	safe store buffer entry
+n	m cells
+y	quadrature amplitude modulation
+n	functionality
+n	years
+c	\ lrepeatedly
+y	digital movie
+y	built-in program
+n	step s121
+y	terrain mapping
+n	digital data services
+n	disposal
+n	step sb22
+n	clients desire
+n	unconventional tactics
+c	.4
+y	output devices
+c	apparatus ofclaim
+c	hour movies
+n	maximum number
+y	flash ram
+y	built-in modem
+n	⅔ r
+n	line f-h
+n	storage
+n	patrol
+n	extreme care
+y	testing process
+n	paragraph
+n	words
+n	log
+n	step sc23
+c	frame304sizes
+n	renter
+y	stereo processing
+n	s121
+n	behavioral stasis
+n	building walls
+n	loan service
+y	row index
+y	communication control unit
+n	fact
+y	personal computers
+n	confirmation information
+n	adc
+n	bandwidth field
+n	d flip\/flop332
+y	lidar
+n	transaction layer
+n	wider range
+n	unexplored space
+y	balance confirmation process
+y	universal digital data system
+n	registers294 ,296,298
+y	character keys
+n	electric power
+n	programming environment
+n	read contact-springs contact regions
+y	microengine
+n	radio range
+y	flash
+n	sa5
+n	black asphalt curbs
+n	corners
+y	vendor 's physical design database
+n	steps
+n	entirety
+n	locations
+y	roadway
+y	terminal adapter
+y	universal serial bus
+n	stream packets
+y	real-time data transmission
+n	stores kinds
+n	unknown position
+y	log-in information screen
+n	secure memory location
+n	transferee taro saito
+n	device 5d response
+n	shared notion
+n	households
+n	unit268
+n	space
+n	simplicity
+y	computer software storage medium
+n	long vectors
+n	outgoes
+n	family member
+n	route
+n	software features
+n	address bus318
+c	clock signal99will
+n	work station
+n	cpu returns
+n	processor state
+y	tablet pc
+n	life
+n	s\/r latch324
+n	cache copies
+n	vector
+n	people
+n	resources
+y	portals
+n	home
+n	connection state
+n	transparency
+n	royalties
+n	spirit
+y	self-reinforcing oscillation
+n	user setting
+y	vfh algorithm
+n	request command interim
+n	climb
+y	internet banking system
+n	pre-fabricated slice
+n	valid flag
+n	designation
+n	field f122
+n	step sa21
+n	access
+y	laser
+n	status
+n	latency
+y	serial bus
+n	accurate localization
+y	status register
+n	local autonomy
+n	transferee bank
+n	functional operation
+n	lsi logic corp.
+n	mechanisms
+n	digital services
+n	step sc15
+n	r
+y	flippers
+n	ground
+n	m ×
+n	menus
+y	computer
+y	building
+y	photo editing
+y	wafer fab
+n	indiscernible state
+n	5b
+n	step s114
+n	specified period
+n	schools
+y	hough lines
+n	localization information
+n	moves
+n	forward end
+y	graphics user interface
+y	\ la bonding pad cell
+n	test
+n	injection
+n	reason
+n	s
+y	card contact
+y	tele-operator
+n	contrary
+n	functional expression
+c	\ lthe processor
+n	provision
+y	connected control capacitor c1
+c	module90contains
+y	detent webs
+n	address lines
+n	log-in screen information
+n	ip
+y	look-up circuitry
+n	team robot control system communication scheme
+y	resistor r4
+n	historical log-in records
+y	interfaces
+n	settled transactions
+n	operating place
+y	non-autonomous robots
+n	higher security
+n	radio frequency signals
+n	downloadable titles
+c	d flip\/flops332and
+n	elementary stream data
+n	step sa49
+n	healthy child growth
+n	bus
+n	floating-point operations
+n	collateral damage
+y	cable tv
+n	communications
+n	amount
+n	table
+n	service action specification
+y	man-portable military-use mobile robot system
+n	records ranges
+n	schematic sectional view
+n	tcode field fd5
+n	example screen shot
+n	section288
+c	θright-θleftif-π
+y	pre-manufactured chip
+y	input\/output interface
+n	subset
+y	narrow metal wires
+n	electrical connection
+n	bushes
+y	network
+y	broadcaster
+n	sd1
+c	\ la transceiver
+n	daily incomes
+n	distance threshold
+n	kerbs
+n	not-shown client
+n	defects
+n	bit rates
+n	maximum revenue
+n	usage information column
+n	computer cycles
+n	follow-waypoint behaviors
+n	contact cusp portion
+n	cursor
+n	modules
+c	register stack\/queue
+n	basis
+n	ground forces
+n	reloading
+n	circumnavigation robot mission
+n	street reconnaissance
+y	input devices
+n	designs
+n	design implementation flow
+n	tuner control
+c	\ li
+n	on-demand data
+n	processor92shown
+n	timing outputs
+n	accumulator
+n	bonding pad cell a
+n	hexadecimal notation
+n	1c
+n	unrestricted persons
+n	balances
+n	full-time operator
+n	stb user
+n	steps sb25
+y	packetizer
+n	contact cusps
+n	mobile robot outline
+n	complete data
+n	meter
+y	occupancy grid map
+n	disadvantages
+n	random escape action
+n	detent means
+n	autonomous perimeter-following operation
+n	fault recovery
+n	context
+n	art system
+n	street-following robot mission
+n	transient lines
+c	address bus318will
+n	motion model
+n	art systems
+n	strong-line candidates
+n	sa18
+n	occurrence
+n	deposit table
+n	side
+n	model name
+n	user 's accounts
+c	s\/r latches314are
+y	heat transfer printer
+n	transaction
+n	transmission
+n	register pop
+n	lapse
+n	person
+n	limited range
+n	operand field
+n	mobile robot 's physical size
+n	account balance data
+n	qos action spec
+y	onboard processor
+n	protocols
+y	master plug
+n	independent accounts
+n	single piece
+y	tv set
+c	slot3is
+n	alarm window display signal
+n	light detection
+n	account number column
+c	\ lwhereby
+n	knowledge
+y	internal switching structures
+n	3d stereo vision data
+n	strongest lines
+n	counters
+n	complete path
+n	team navigation operation
+n	oclimb instructions
+n	computer hardware organization
+y	false short depth-readings
+n	memory copies
+y	digital movies
+n	rear
+n	samples
+c	safe store stack302is
+n	associated grid cell
+n	string
+n	work
+y	programmable calendar queue cache
+y	modem operating system
+n	brian yamauchi
+n	path-constructing
+n	address
+n	3b
+n	records user ids
+n	map
+n	newer memories
+y	broadcast server system
+y	platform vendor
+n	transmitted-data
+n	nearby walls
+y	authorized file download process
+n	data structure
+n	mother
+n	valid bit
+n	translation registers298
+n	device stores
+n	account balance
+n	jth line
+y	printer
+y	resistors r
+y	slice
+n	svfh clear-path bin vectors
+n	workings
+c	\ lg
+y	stainless steel band
+n	obstacle-free paths
+n	output audible tones
+n	memory cycles
+n	user ids
+c	286into memory
+c	\ lthe set
+n	fa5
+n	time ranges
+c	\ lconnecting
+n	material advantages
+n	account data
+n	peripheral services
+y	portal physical id field fe4
+y	teleoperation console
+n	obstacle map
+n	pes packets
+n	pes packet header
+y	cache memory system94
+n	family
+c	input\/output pin use
+n	output mode
+n	002h
+n	operator interface
+n	vote
+n	guesses
+n	phone number
+n	n
+n	sa19
+n	setting
+y	platform
+c	cache memories256in
+y	die tie-off
+y	central storage
+n	elevational arrangement
+y	resistor r1
+n	note
+n	legitimate purpose
+n	banking services
+n	6b
+n	decrement
+y	connection counters 39a
+c	\ lb
+n	narrow bandwidth
+n	perimeter reconnaissance
+n	terminal name information
+n	constraint
+n	device 5d requests
+y	distribution program
+c	hr ×
+n	αi
+n	one-to-one correspondent relation
+n	channel
+n	devices 6a
+n	field f110
+n	light-weight unit
+n	left
+n	circuit board level
+n	greater usefulness
+n	value log24
+y	obstacle avoidance software
+y	bond pad
+n	plural ways
+n	arrow
+n	collision
+y	simultaneous localization
+n	δt
+y	autonomous follow-perimeter operation
+n	length
+n	clear trajectory
+n	bi-directional communication paradigm
+n	urban combat
+n	drawing figures
+y	html file
+n	calendar box
+y	waypoint-following operation
+n	heart
+y	cd-rom
+n	termination portion
+n	high-level missions
+n	step sd17
+y	springy arm
+y	bi-directional communication
+y	hypertext markup language
+n	basic programs
+n	transferer
+n	days
+y	odometric systems
+n	distinction
+n	portals response
+y	accumulator array
+n	membership number
+n	listener portals
+n	step sb2
+n	date\/time
+n	registration number column
+y	wheels
+y	slam
+n	rapid development
+n	glass
+n	leash routine
+y	mobile robot control software
+n	step s110
+n	rescue operations
+n	downward movement
+c	scu88also
+n	account closing screen
+n	symbol
+n	ap
+n	services
+n	′ t
+n	wrong values
+c	section288forms
+n	user tasks
+n	personal unit
+n	composite plan view
+c	safe store stack258as programs transition
+y	lidar range finder
+y	portals 8a
+y	transmission destination physical id field fd2
+n	screen transfer
+n	alignment
+n	user 's account
+n	duration
+n	positional data
+n	log-in number entry column
+n	digitalization
+c	rw-rd
+y	browser
+n	step sc25
+n	v
+n	plural ieee
+y	software coding
+n	time range
+n	deletion
+y	drive motor
+n	investment fund service
+n	thereon
+c	\ le
+y	elementary stream
+n	codes
+n	near term
+y	teleoperable mobile robots
+n	slope threshold
+c	signal342is
+y	semiconductor device
+n	request
+n	streets
+n	short range
+n	mobile robot operator 's control unit
+c	shows example svfh blocked-path bins
+n	c3
+n	elements
+n	violations
+n	plane
+n	communication path management table numbers
+n	step sc2
+n	fault
+c	comparators310compares
+n	nearest invalid slot
+y	digital broadcast system
+y	relational database
+n	high-level navigational goals
+n	client tunes
+n	soldiers
+n	operative
+n	communication organization
+y	data transmission
+n	slope
+n	wish list
+y	upstream communications link
+n	movie titles
+y	self-service imaging kiosks
+n	6r
+n	pes packet stream
+n	implementations
+y	infrared laser
+n	rectangular building
+n	power
+n	outside
+n	non-limiting examples
+n	transfer transaction
+n	field f141
+n	portal 7a decrements
+y	contact cusp
+n	boolean flag
+n	steps sa30
+n	possibilities
+y	cathode ray tube
+n	location
+n	prescribed response commands
+n	\ la plurality
+n	manufacture
+n	path information
+y	autonomous waypoint navigation
+n	intervention
+n	request system services
+n	accurate maps
+n	age table
+y	frame register
+n	no
+n	user issues
+n	semiconductor instance
+y	reader\/writer connectors
+n	steps sc13
+y	machine vision techniques
+y	set-top boxes
+n	trouble
+n	hours
+n	asynchronous packets
+n	speed
+y	customer configurable application
+n	stylized arrows
+y	chip
+n	modules84
+c	dmux320would
+n	unlimited access
+n	receptacle
+c	tcode field f102 stores
+n	command area
+n	credit
+n	engagement
+n	transmitted data
+n	wide variety
+y	combiner\/amplifier
+n	standard
+y	ink jet printer
+n	utilization
+n	step sa22
+n	example hardware organization
+n	sa3
+n	numbering
+n	sensor data
+y	circuitry
+n	everything
+n	lower ribs 75a
+n	step sb39
+n	uppermost tables
+n	iclimbs
+y	detachable memory storage device
+y	range-detecting system
+n	use
+n	invalid values
+y	trucks
+n	step sc26
+n	counter 's count
+n	method
+y	contact spring
+n	clock signals
+y	address comparators
+n	θright max
+n	step sd7
+n	path planning
+n	service provider
+n	application adaptive section
+n	user 's bank account number
+y	io devices
+n	boxes
+n	scheduling
+n	response command
+n	interference
+n	block diagram
+n	isochronous streams packets
+y	360-degree planar lidar system
+n	risk factors
+n	switch
+n	permutation
+n	computer readable memory location
+n	subjects
+n	visual data
+y	listener portal
+n	variable length segments
+n	header
+n	disclosure
+n	18n
+y	mouse
+n	assemblage
+n	8b
+n	non-dod data file
+y	hybrid compass\/odometry localization technique
+y	proximity sensors
+n	client terminals
+y	programmable memory allocation mechanism
+n	small number
+n	acts
+n	user account
+n	laser range data
+n	homepages
+n	operation
+n	channel field f141 stores
+n	c2
+n	late-metal components
+n	pc maker
+n	laser plane
+y	device 6b
+n	stream
+n	increment
+y	filter generator
+n	form
+n	firm
+n	underside
+n	111b
+n	calculations
+n	pin
+n	network interface
+n	search
+n	step sb6
+y	\ la teleoperation console
+n	obstacle avoidance issues
+n	decision
+c	\ lif
+n	hardware
+n	automobile dealer company
+n	data file broadcast
+n	termination member
+n	complexity
+n	mission command
+n	shunt value
+n	outputs velocity
+n	flow
+n	growth records
+n	semi-random
+n	drive motor current
+y	look-up logic circuitry
+n	default
+n	bottom
+c	hereinbefore
+n	schedule
+n	step128
+n	hereinafter
+y	conductors
+n	room
+n	y ′ t
+y	tuning device
+n	pointer registersprn1088
+n	plural communication path management tables 27a
+n	responses
+n	unsurmountable obstacles
+n	steering
+y	stasis detection behavior routine
+n	volatile memory
+y	computers
+y	tongues
+n	requests
+n	tracking logic
+n	prescribed controls
+n	path adjustments
+y	input\/output device
+n	sd14
+y	s\/r latches314
+n	mouse pointer
+n	actuated condition
+n	circular region
+n	global x
+n	on-chip time slots
+n	x ′ t
+n	mb\/s
+n	projects
+y	storage medium driver
+n	user 's digital media
+n	\ la current register
+n	servers
+n	team operation
+y	catv
+n	system environment
+c	d flip\/flop332remain
+n	vector field histogram functionality
+n	secure digital
+n	2h
+n	means
+n	processor transitions
+n	base
+y	bearings
+n	cellular telephone networks
+y	\ la transmitter
+n	grid cell stores
+n	rest
+n	resistance
+n	scheduling algorithm
+n	nearest obstacles
+n	play time
+n	operand availability
+n	user needs
+n	system advances
+n	register reference references
+n	frequent insertion\/removal
+n	random rotation
+n	sensor input
+n	pause
+y	world wide web
+y	serial buses
+n	logic increments
+n	example plan-view map
+c	\ lreceiving
+n	background operation
+n	extent
+n	°
+n	step sa10
+n	characteristics
+n	control
+n	climb instruction
+n	portion
+n	humans
+n	examination
+n	hierarchy
+y	optical fiber
+n	lowermost tables
+y	outgoing autonomous navigation
+n	irms
+y	removable media device
+y	terminal information database
+n	flat portions
+y	cantilever arm
+n	cells
+n	latest log-in record
+n	coupling
+n	complex independent operations
+y	printed circuit board
+n	construction
+n	connection counter fields
+n	logging-in date
+n	key component
+y	controller field
+y	growth record database
+n	academic researchers
+n	safe store
+c	l1 cache256until
+y	mission-selection buttons
+n	design system
+n	sa35
+n	device 5c
+n	read position
+y	scr number field fe8
+n	sb13
+y	notebook type pc
+n	step sb30
+n	trades
+n	mechanical means
+n	signal348
+c	gates312correspond
+n	step124
+c	safe store stack258is
+n	located projections
+n	registered name
+n	io resource
+n	sa33
+n	response
+y	self-id process
+n	15b
+n	uppermost metal layer n.
+n	transferee registration
+y	household account-book database
+n	patrol loop
+n	output screen
+n	voltage supply
+n	range-finding data
+n	weight value
+n	time data table
+n	efficient manner
+n	pupils
+n	constant memory space lps
+n	independent bandwidths
+n	lidar data
+n	extended vector field
+n	resilient abutment
+n	user ledger
+n	contact support
+n	policy network
+n	dynamic loading
+y	contacts springs
+y	channel number field fa7
+y	software
+n	wide range
+n	function
+n	information services
+n	data communications
+y	pure odometry
+n	groups
+n	caves
+n	operators
+y	integrated circuit
+n	rib 54b
+n	command control block
+n	obstacle locations
+y	art bi-directional client-server architecture
+n	latin cross shape
+n	re-securing resources
+n	size
+n	ieee p1394 .1 committee
+n	mask cost
+n	m\/s
+n	gates312
+n	scr number field
+n	transaction column
+n	user 's log-in account
+n	children
+n	basic section
+n	mhz
+n	ic market
+n	software art
+n	secured channel number
+n	cul-de-sac
+n	θw-k
+y	multimedia card
+n	4rc
+n	specification
+n	management information
+n	random speed
+n	fig.
+n	serdes
+n	hardware configuration
+n	shape
+n	transmission destination bus id
+n	tenth embodiment
+n	data input
+n	purchase investment funds
+y	arbiter routine
+n	lines
+c	push\/pop signal344is
+n	computer art
+y	electronic bankbooks
+n	calendar queue
+n	dec.
+n	channel field
+n	robotic reconnaissance
+n	step sb25
+n	teachings
+n	built-in version
+n	register294 ,298 contents
+y	connection management method
+n	monday
+n	hybrid compass\/odometry position estimate
+n	fraudulent reading
+y	privacy encryption\/decryption module
+n	step d
+n	traversal
+n	24-word safe store
+n	recipe
+n	column
+n	\ ldisabling
+n	end portion
+n	bank account number
+n	favourable cost
+n	docsis
+n	broken parts
+n	dangerous reconnaissance tasks
+n	io circuit structures
+y	pc cards
+n	timing diagram
+n	strongest points
+n	1a
+y	video server
+n	environments
+n	holding
+n	system
+n	balance confirmation screen data
+n	hard disk memory
+y	audio\/visual device
+n	transport stream header
+n	customer 's logical design netlist
+n	balance inquiry
+n	programs
+n	issues
+n	time data
+n	filter
+y	persistent storage mechanism
+n	step sd5
+n	secure memory
+n	simpler testing flow
+n	sa24
+n	bit strings
+n	outline
+y	movie storage system
+n	valid bits
+c	frame304when
+n	isochronous stream packets
+n	step116
+n	clusters
+n	time t
+n	product
+n	device information management table storage block
+n	register read line348
+c	address lines318were demultiplexed320
+y	round-robin system
+n	devices 4a
+n	ends
+n	gravity vector
+y	touch pen
+n	robot operation commands
+n	node
+n	design cost
+n	workstation
+n	local perceptual space
+y	portals 111a
+n	vehicle mobility characteristics
+n	\ lat
+n	avoidance behavior projects
+n	sa12
+n	tunes
+y	computer-readable storage medium
+n	bit rate increases
+c	ssb286one half cycle
+n	proof
+n	mission parameters
+n	platform-based ic
+n	transaction screens
+n	log-in condition
+n	presentation
+n	obstacle avoidance
+y	audio\/visual devices
+n	1d
+n	step sd22
+n	unplugging
+n	communication path management tables
+n	triangular outline
+n	studies
+n	logging-in
+n	π4
+n	board design
+c	latch324corresponds
+n	component
+n	embedded programmable logic block
