@@ -115,44 +115,6 @@ def populate_term2freq(term2freq_file):
 # create .tf.a and .tf.t by filtering out any terms not labeled as a or t in
 # <year>.act.cat.w0.2
 
-"""
-def old filter_tf_file(tv_root, year, act_file):
-    tf_file = tv_root + str(year) + ".tf"
-    tfa_file = tf_file + ".a"
-    tft_file = tf_file + ".t"
-
-    s_tfa = codecs.open(tfa_file, "w", encoding='utf-8')
-    s_tft = codecs.open(tft_file, "w", encoding='utf-8')
-
-    d_term2cat = defaultdict(str)
-
-    # store the category of each term labeled a and t 
-    s_act_file = codecs.open(act_file, encoding='utf-8')
-    for line in s_act_file:
-        line = line.strip("\n")
-        l_fields = line.split("\t")
-        term = l_fields[0]
-        cat = l_fields[3]
-        d_term2cat[term] = cat
-        #print "term: %s, cat: %s" % (term, cat)
-    s_act_file.close()
-
-    # create subset files of .tf for the a and t terms
-    s_tf_file = codecs.open(tf_file, encoding='utf-8')
-    for line in s_tf_file:
-        # don't bother to strip off newline
-        # just grab the term
-        term = line.split("\t")[0]
-        cat = d_term2cat[term]
-        if cat == "a":
-            s_tfa.write(line)
-        elif cat == "t":
-            s_tft.write(line)
-
-    s_tf_file.close()
-    s_tfa.close()
-    s_tft.close()
-"""
 
 def filter_tf_file(corpus_root, corpus, year, act_file_type):
     #tf_file = tv_root + str(year) + ".tf"
@@ -293,10 +255,10 @@ def classify(l_cats, l_priors, d_lfgc, d_term2feats, d_term2freq, min_weight, ou
 # nbayes.run_classify("ln-us-14-health", 2002, "act")
 # nbayes.run_classify("ln-us-14-health", 1997, "pn")
 # nbayes.run_classify("ln-us-cs-500k", 1997, "act", "")
-# nbayes.run_classify("ln-us-cs-500k", 1997, "pn")
+# nbayes.run_classify("ln-us-cs-500k", 1997, "pn", "a")
 # nbayes.run_classify("ln-us-cs-500k", 1997, "pn", "a")
 # nbayes.run_classify("ln-us-all-600k", 1997, "act", "")  
-# nbayes.run_classify("ln-us-cs-500k", 1997, "pn")
+# nbayes.run_classify("ln-us-cs-500k", 1997, "pn", "a")
 # nbayes.run_classify("ln-us-all-600k", 1997, "pn", "a")
 # nbayes.run_classify("ln-us-14-health", 1997, "pn", "a")
 
@@ -356,11 +318,9 @@ def run_classify(corpus, year, cat_type, subset=""):
         print "[nbayes.py]classifying into outfile: %s" % outfile 
         classify(l_cats, l_priors, d_lfgc, d_term2feats, d_term2freq, cutoff, outfile)
 
-
-        
 # nbayes.run_filter_tf_file("ln-us-all-600k", 1997, "0.1")        
-# nbayes.run_filter_tf_file("ln-us-cs-500k", 1997, "0.1")        
-# nbayes.run_filter_tf_file("ln-us-14-health", 1997, "0.1")        
+# nbayes.run_filter_tf_file("ln-us-cs-500k", 1997, "0.0")        
+# nbayes.run_filter_tf_file("ln-us-14-health", 1997, "0.0")        
 def run_filter_tf_file(corpus, year, cutoff="0.1"):
     corpus_root = "/home/j/anick/patent-classifier/ontology/creation/data/patents/"
     #tv_loc = "/data/tv/"
@@ -374,3 +334,296 @@ def run_filter_tf_file(corpus, year, cutoff="0.1"):
     #filter_tf_file(tv_root, year, act_file)
     act_file_type = role.cat_cutoff_file_type(cutoff)
     filter_tf_file(corpus_root, corpus, year, act_file_type)
+
+
+def domain_score(f_terms1, c1_size, f_terms2, c2_size, outfile):
+
+    print "[domain_score]f_terms1: %s, f_terms2: %s, outfile: %s" % (f_terms1, f_terms2, outfile)
+
+    # f_terms1 should be the domain corpus file
+    # f_terms2 should be a generic (or random) corpus file
+    s_terms1 = codecs.open(f_terms1, encoding='utf-8')
+    s_terms2 = codecs.open(f_terms2, encoding='utf-8')
+    s_domain_score = codecs.open(outfile, "w", encoding='utf-8')
+
+    # Default to a frequency of 1 for unknown words in a corpus 
+    d_terms1_freq = {}
+    d_terms2_freq = {}
+
+    # score = log (prob(term1)/prob(term2))
+    # prob_term1 = freq_term1 / c1_size
+    # prob_term2 = freq_term2 / c2_size
+    # Taking the log:
+    # score = log(freq_term1) - log(freq_term2) + (log(c1_size) - log(c2_size))
+    # we can compute the (log(c1_size) - log(c2_size)) once, since this is constant
+
+    c1_size = int(c1_size)
+    c2_size = int(c2_size)
+
+    log_corpus_sizes = math.log(c1_size) - math.log(c2_size)
+
+    print "c1_size: %i, c2_size: %i, log_corpus_sizes: %f" % (c1_size, c2_size, log_corpus_sizes)
+
+    #pdb.set_trace()
+    # populate the frequency dictionary for the domain1
+    count = 0
+    for line in s_terms1:
+        line = line.strip()
+        (term, term_freq, term_instance_freq, term_prob) = line.split("\t")
+        d_terms1_freq[term] = int(term_freq)
+        count += 1
+    print "[domain_score]s_terms1 count: %i" % count
+
+    count = 0
+    for line in s_terms2:
+        line = line.strip()
+        (term, term_freq2, term_instance_freq, term_prob) = line.split("\t")
+        d_terms2_freq[term] = int(term_freq2)
+        count += 1
+    print "[domain_score]s_terms2 count: %i" % count
+
+    for term in d_terms1_freq.keys():
+        term1_freq = d_terms1_freq[term]
+        if d_terms2_freq.has_key(term):
+            term2_freq = d_terms2_freq[term]
+            count += 1
+        else:
+            term2_freq = 1
+        domain_score = math.log(term1_freq) - math.log(term2_freq) + log_corpus_sizes
+        #pdb.set_trace()
+        s_domain_score.write("%s\t%i\t%i\t%f\n" % (term, term1_freq, term2_freq, domain_score))
+    print "[domain_score]d_terms1_freq count: %i" % count
+
+    s_terms1.close()
+    s_terms2.close()
+    s_domain_score.close()
+
+# first file should be the more recent year
+# This must be run after domain specificity for later year (.ds) has been computed
+def diff_score(f_terms1, y1_size, f_terms2, y2_size, f_ds1, cat_file, outfile):
+
+    print "[diff_score]f_terms1: %s, f_terms2: %s, outfile: %s" % (f_terms1, f_terms2, outfile)
+
+    # f_terms1 should be the corpus file for the later year
+    # f_terms2 should be an equivalent earlier corpus file
+    s_terms1 = codecs.open(f_terms1, encoding='utf-8')
+    s_terms2 = codecs.open(f_terms2, encoding='utf-8')
+    s_domain_score = codecs.open(f_ds1, encoding='utf-8')
+    s_cat_file = codecs.open(cat_file, encoding='utf-8')
+    s_diff = codecs.open(outfile, "w", encoding='utf-8')
+
+    # Default to a frequency of 1 for unknown words in a corpus 
+    d_terms1_freq = {}
+    d_terms2_freq = {}
+    d_ds = {}
+    d_cat ={}
+
+    # score = log (prob(term1)/prob(term2))
+    # prob_term1 = freq_term1 / c1_size
+    # prob_term2 = freq_term2 / c2_size
+    # Taking the log:
+    # score = log(freq_term1) - log(freq_term2) + (log(c1_size) - log(c2_size))
+    # we can compute the (log(c1_size) - log(c2_size)) once, since this is constant
+
+    y1_size = int(y1_size)
+    y2_size = int(y2_size)
+
+    log_corpus_sizes = math.log(y1_size) - math.log(y2_size)
+
+    print "y1_size: %i, y2_size: %i, log_corpus_sizes: %f" % (y1_size, y2_size, log_corpus_sizes)
+
+    #pdb.set_trace()
+    # populate the frequency dictionary for the year1
+    for line in s_terms1:
+        line = line.strip()
+        (term, term_freq, term_instance_freq, term_prob) = line.split("\t")
+        d_terms1_freq[term] = int(term_freq)
+
+    for line in s_terms2:
+        line = line.strip()
+        (term, term_freq2, term_instance_freq, term_prob) = line.split("\t")
+        d_terms2_freq[term] = int(term_freq2)
+
+    for line in s_domain_score:
+        line = line.strip()
+        (term, term1_freq, term2_freq, domain_score) = line.split("\t")
+        d_ds[term] = float(domain_score)
+
+    for line in s_cat_file:
+        #pdb.set_trace()
+        line = line.strip()
+        l_fields = line.split("\t")
+        term = l_fields[0]
+        cat = l_fields[3]
+        d_cat[term] = cat
+
+    for term in d_terms1_freq.keys():
+        term1_freq = d_terms1_freq[term]
+        if d_terms2_freq.has_key(term):
+            term2_freq = d_terms2_freq[term]
+        else:
+            term2_freq = 1
+        diff_score = math.log(term1_freq) - math.log(term2_freq) + log_corpus_sizes
+        domain_score = d_ds[term]
+        if d_cat.has_key(term):
+            cat = d_cat[term]
+        else:
+            cat = "u"
+        #pdb.set_trace()
+        s_diff.write("%s\t%s\t%i\t%i\t%f\t%f\n" % (term, cat, term1_freq, term2_freq, diff_score, domain_score))
+
+    s_terms1.close()
+    s_terms2.close()
+    s_domain_score.close()
+    s_cat_file.close()
+    s_diff.close()
+
+def cat_filter(corpus_root, corpus, year, cat_type, subset, min_freq, min_domain_score, max_freq):
+    cat_file_type = "cat.w0.0"
+    f_cat = role.tv_filepath(corpus_root, corpus, year, cat_file_type, subset, cat_type)
+    f_ds =  role.tv_filepath(corpus_root, corpus, year, "ds", "", "")
+    out_file_type = cat_file_type + "_r" + str(min_freq) + "-" + str(max_freq) + "_ds" + str(min_domain_score)
+    f_out = role.tv_filepath(corpus_root, corpus, year, out_file_type, subset, cat_type)
+
+    d_term2cat = {}
+    d_term2ds = {}
+
+    s_cat = codecs.open(f_cat, encoding='utf-8')
+    s_ds = codecs.open(f_ds, encoding='utf-8')
+    s_out = codecs.open(f_out, "w", encoding='utf-8')
+
+    # store domain_scores
+    for line in s_ds:
+        line = line.strip()
+        #proximal zone   5       1       1.841114 
+        (term, freq, generic_freq, domain_score) = line.split("\t")
+        d_term2ds[term] = float(domain_score)
+
+    # categorized terms
+    for line in s_cat:
+        line = line.strip()
+        l_fields = line.split("\t")
+        term = l_fields[0]
+        cat = l_fields[3]
+        try:
+            freq = int(l_fields[4])
+        except:
+            print "[cat_filter]In line: %s" % line
+            print "[cat_filter]Illegal integer in field 4: [%s][%s][%s][%s][%s][%s]" % (l_fields[0], l_fields[1], l_fields[2], l_fields[3], l_fields[4], l_fields[5])
+            quit
+        ds = d_term2ds[term]
+        # filter and output
+        if ds >= min_domain_score and (freq >= min_freq and freq <= max_freq):
+            s_out.write("%s\t%s\t%i\t%f\n" % (term, cat, freq, ds))
+
+
+    s_cat.close()
+    s_ds.close()
+    s_out.close()
+
+# Create a subset of labeled terms with min freq and min domain score)
+# This is useful to generate a set of terms for evaluation.
+# nbayes.run_act_ds("ln-us-14-health", 1997, 10, 2)
+# nbayes.run_act_ds("ln-us-cs-500k", 1997, 10, 2)
+def run_cat_filter(corpus, year, min_freq, min_domain_score, max_freq, cat_type, subset):
+    corpus_root = "/home/j/anick/patent-classifier/ontology/creation/data/patents/"
+    cat_filter(corpus_root, corpus, year, cat_type, subset, min_freq, min_domain_score, max_freq)
+
+# Generate domain scores (<year>.ds) for a corpus using a general corpus from the same year for comparison.
+# nbayes.run_domain_score("ln-us-cs-500k", 18555 , "ln-us-all-600k", 15941, 1997)
+# nbayes.run_domain_score("ln-us-14-health", 20097 , "ln-us-all-600k", 15941, 1997)
+def run_domain_score(corpus1, corpus1_size, corpus2, corpus2_size, year):
+    corpus_root = "/home/j/anick/patent-classifier/ontology/creation/data/patents/"
+    #outfile_name = corpus1 + "_" + corpus2 + ".ds"
+    outfile = role.tv_filepath(corpus_root, corpus1, year, "ds", "", "")
+    f_terms1 = role.tv_filepath(corpus_root, corpus1, year, "terms", "", "")
+    f_terms2 = role.tv_filepath(corpus_root, corpus2, year, "terms", "", "")
+    
+    domain_score(f_terms1, corpus1_size, f_terms2, corpus2_size, outfile)
+
+# nbayes.run_diff_score("ln-us-cs-500k", 2002, 1997)
+# nbayes.run_diff_score("ln-us-14-health", 2002, 1997)
+def run_diff_score(corpus, year1, year2):
+    corpus_root = "/home/j/anick/patent-classifier/ontology/creation/data/patents/"
+    outfile_years = str(year1) + "_" + str(year2)
+    outfile = role.tv_filepath(corpus_root, corpus, outfile_years, "diff", "", "")
+    f_terms1 = role.tv_filepath(corpus_root, corpus, year1, "terms", "", "")
+    f_terms2 = role.tv_filepath(corpus_root, corpus, year2, "terms", "", "")
+    cat_file = role.tv_filepath(corpus_root, corpus, year1, "cat.w0.0", "", "act")
+    f_ds1 = role.tv_filepath(corpus_root, corpus, year1, "ds", "", "")
+
+    # read in the corpus sizes
+    y1_size_file = role.tv_filepath(corpus_root, corpus, year1, "cs", "", "")
+    y2_size_file = role.tv_filepath(corpus_root, corpus, year2, "cs", "", "")
+    y1_size = 0
+    y2_size = 0
+    with open(y1_size_file, 'r') as f:
+        y1_size = int(f.readline().strip("\n"))
+
+    with open(y2_size_file, 'r') as f:
+        y2_size = int(f.readline().strip("\n"))
+
+    diff_score(f_terms1, y1_size, f_terms2, y2_size, f_ds1, cat_file, outfile)
+
+# nbayes.run_steps("ln-us-cs-500k", 2002, ["nb", "ds", "cf"])
+# nbayes.run_steps("ln-us-cs-500k", 1997, ["nb", "ds", "cf"])
+# nbayes.run_steps("ln-us-cs-500k", 1997, ["cf"])
+# nbayes.run_steps("ln-us-cs-500k", 2002, ["nb", "ds", "cf"])
+# nbayes.run_steps("ln-us-cs-500k", 2002, ["cf"], ranges=[[10, 100000, 3.0], [2,10, 3.0]])
+# nbayes.run_steps("ln-us-14-health", 2002, ["nb", "ds", "cf"], ranges=[[10, 100000, 1.0], [2,10, 1.0]])
+# nbayes.run_steps("ln-us-14-health", 2002, ["cf"], ranges=[[10, 100000, 1.0], [2,10, 1.0]])
+# nbayes.run_steps("ln-us-14-health", 2002, ["cf"], ranges=[[10, 100000, 0.05], [2,10, 0.05]])
+# nbayes.run_steps("ln-us-14-health", 2002, ["nb"], cat_type="pn", subset="a")
+
+
+
+# To generate a subset of attrs for use in evaluation min-freq =10, ds = 1.0
+# nbayes.run_steps("ln-us-14-health", 2002, ["cf"], cat_type="pn", subset="a", ranges=[[10, 100000, 1.0]])
+# nbayes.run_steps("ln-us-14-health", 2002, ["cf"], cat_type="pn", subset="a", ranges=[[10, 100000, 0.05]])
+# nbayes.run_steps("ln-us-cs-500k", 2002, ["cf"], cat_type="pn", subset="a", ranges=[[10, 100000, 1.5]])
+
+# min_freq = 5, ds = 1.0
+# nbayes.run_steps("ln-us-14-health", 2002, ["cf"], cat_type="pn", subset="a", ranges=[[5, 100000, 1.0]])
+# nbayes.run_steps("ln-us-cs-500k", 2002, ["cf"], cat_type="pn", subset="a", ranges=[[5, 100000, 3.0]])
+
+
+
+def run_steps(corpus, year, todo_list=["nb", "ds", "cf"], ranges=[[10, 100000, 1.5], [2,10, 1.5]], cat_type="act", subset=""):
+    #parameters
+    code_root = "/home/j/anick/patent-classifier/ontology/creation/"
+    # path to corpus
+    corpus_root = code_root + "data/patents/"
+    corpus1_size_file = role.tv_filepath(corpus_root, corpus, year, "cs", "", "")
+    # generic corpus for domain specificity computation
+    corpus2 = "ln-us-all-600k"
+    corpus2_size_file = role.tv_filepath(corpus_root, corpus2, year, "cs", "", "")
+
+    # read in the corpus sizes
+    with open(corpus1_size_file, 'r') as f:
+        corpus1_size = int(f.readline().strip("\n"))
+
+    with open(corpus2_size_file, 'r') as f:
+        corpus2_size = int(f.readline().strip("\n"))
+        
+    if "nb" in todo_list:
+        # from .fc_kl, create act.cat.w0.0
+        print "[run_steps]step nb, Creating .cat.w0.0"
+        run_classify(corpus, year, cat_type, subset)
+    if "ds" in todo_list:
+        # from , create .ds
+        print "[run_steps]step ds, Creating .cat.w0.0_gt10_ds2"
+        run_domain_score(corpus, corpus1_size, corpus2, corpus2_size, year)
+    if "cf" in todo_list:
+
+        # run cat_filter for each range
+        for (min_freq, max_freq, min_domain_score) in ranges:
+
+            # from .ds and act.cat.w0.0, create .cat.w0.0_gt5_ds2
+            print "[run_steps]step cf, Creating .act.cat.w0.0_gt?_ds?"
+            #min_freq = 5
+            #min_domain_score = 2
+            run_cat_filter(corpus, year, min_freq, min_domain_score, max_freq, cat_type, subset)
+
+    print "[run_steps]Reached end of todo_list"
+
+    

@@ -21,6 +21,7 @@ import collections
 from collections import defaultdict
 import codecs
 import utils
+import pickle
 
 # pattern can contain alpha or blank, must be length >=2
 re_alpha_phrase = re.compile('^[a-z ]{2,}$')
@@ -64,9 +65,9 @@ def set2pairs_alpha(term_set):
 def tv_filepath(corpus_root, corpus, year, file_type, subset, cat_type=""):
     # check for illegal parameter values
     # note: for file_type, we allow values of the form "cat.<cutoff>"
-    if file_type not in ["tf", "cat", "cat_prob", "fc", "fc_kl", "fc_prob", "fc_uc", "tc", "tcs", "tfc", "feats", "terms"] and not file_type[0:5] == "cat.w":
-        print "[tv_filepath]ERROR: unknown file type: %s" % file_type
-        quit
+    if file_type not in ["diff", "tf", "cs", "cat", "cat_prob", "fc", "fc_kl", "fc_prob", "fc_uc", "tc", "tcs", "tfc", "feats", "terms", "ds"] and not file_type[0:5] == "cat.w":
+        print "[tv_filepath]WARNING: unknown file type: %s" % file_type
+        
     if subset not in ["", "a", "t", "c"]:
         # note: subset can be empty string
         print "[tv_filepath]ERROR: unknown subset: %s" % subset
@@ -148,6 +149,7 @@ def dir2features_count(inroot, outroot, year):
     outfile = outroot + "/" + outfilename + ".tf"
     terms_file = outroot + "/" + outfilename + ".terms"
     feats_file = outroot + "/" + outfilename + ".feats"
+    corpus_size_file = outroot + "/" + outfilename + ".cs"
 
     # count of number of docs a term pair cooccurs in
     d_pair_freq = collections.defaultdict(int)
@@ -263,6 +265,11 @@ def dir2features_count(inroot, outroot, year):
     s_outfile.close()
     s_terms_file.close()
     s_feats_file.close()
+    
+    # Finally, create a file to store the corpus size (# docs in the source directory)
+    cmd = "ls -1 " + inroot + " | wc -l > " + corpus_size_file
+    print "[dir2features_count]Storing corpus size in %s " % corpus_size_file
+    os.system(cmd)
 
 
 # convert term feature (.tf) info to term category info (.tc)
@@ -814,7 +821,16 @@ def run_fcuc2fcprob(corpus_root, corpus, start_range, end_range, cat_list, cat_t
 # role.run_tf_steps("ln-us-cs-500k", 1997, 1997, "pn", ["tc", "tcs", "fc", "uc", "prob"], "a")
 # role.run_tf_steps("ln-us-all-600k", 1997, 1997, "act", ["tc", "tcs", "fc", "uc", "prob"], "")
 # role.run_tf_steps("ln-us-all-600k", 1997, 1997, "pn", ["tc", "tcs", "fc", "uc", "prob"], "a")
+
 # role.run_tf_steps("ln-us-14-health", 1997, 1997, "pn", ["tc", "tcs", "fc", "uc", "prob"], "a")
+# role.run_tf_steps("ln-us-14-health", 2002, 2002, "act", ["tf", "tc", "tcs", "fc", "uc", "prob"], "")
+# role.run_tf_steps("ln-us-all-600k", 2002, 2002, "act", ["tf"], "")
+
+# role.run_tf_steps("ln-us-14-health", 2002, 2002, "pn", ["tc", "tcs", "fc", "uc", "prob"], "a")
+
+# role.run_tf_steps("ln-us-cs-500k", 1997, 1997, "act", ["tf"])
+# role.run_tf_steps("ln-us-cs-500k", 2007, 2007, "act", ["tf"])
+
 def run_tf_steps(corpus, start, end, cat_type="act", todo_list=["tf", "tc", "tcs", "fc", "uc", "prob"], subset=""):
     #parameters
     code_root = "/home/j/anick/patent-classifier/ontology/creation/"
@@ -847,6 +863,8 @@ def run_tf_steps(corpus, start, end, cat_type="act", todo_list=["tf", "tc", "tcs
     # use subdirectories for classifying into act categories
     # This is a bit of a hack.  We need a place to put data for different classification tasks, so we 
     # create directories of tv, where we put the default data for classification into acot classes.
+    fcat_file = ""
+    cat_list = []
     if cat_type == "act":
         fcat_file = code_root + "/seed." + cat_type + ".en.dat"
         cat_list = ["a", "c", "t"]
@@ -906,3 +924,653 @@ def run_tf_steps(corpus, start, end, cat_type="act", todo_list=["tf", "tc", "tcs
 
     print "[run_tf_steps]Completed"
     
+def summary(term, d_term2act, d_term2pn):
+    if d_term2act.has_key(term):
+        (term, num_diagnostic_feats, num_doc_feature_instances, cat, doc_freq, score_a, score_c, score_t, feats) = d_term2act[term].split("\t")
+        print "ACT: %s\t%s\%s\t%s" % (term, cat, doc_freq, feats)
+    if d_term2pn.has_key(term):
+        (term, num_diagnostic_feats, num_doc_feature_instances, cat, doc_freq, score_p, score_n, feats) = d_term2pn[term].split("\t")
+        print "Polarity: %s\t%s\%s\t%s" % (term, cat, doc_freq, feats)
+        
+# return the cat files as dictionaries
+# (d_act, d_pn) = role.get_dcats("ln-us-cs-500k", 2002)
+def get_dcats(corpus, year):
+    #parameters
+    code_root = "/home/j/anick/patent-classifier/ontology/creation/"
+    # path to corpus
+    corpus_root = code_root + "data/patents/"
+
+    d_term2act = {}
+    d_term2pn = {}
+
+    file_type = "cat.w0.0"
+    act_file = tv_filepath(corpus_root, corpus, year, file_type, "", cat_type="act")
+    pn_file = tv_filepath(corpus_root, corpus, year, file_type, "a", cat_type="pn")
+
+    s_act_file = codecs.open(act_file, encoding='utf-8')
+    for line in s_act_file:
+        line = line.strip("\n")
+        l_fields = line.split("\t")
+        term = l_fields[0]
+        d_term2act[term] = l_fields
+    s_act_file.close()
+
+    s_pn_file = codecs.open(pn_file, encoding='utf-8')
+    for line in s_pn_file:
+        line = line.strip("\n")
+        l_fields = line.split("\t")
+        term = l_fields[0]
+        d_term2pn[term] = l_fields
+    s_pn_file.close()
+
+    return(d_term2act, d_term2pn)
+
+# in progress
+def get_hword2label(corpus, year):
+    #parameters
+    code_root = "/home/j/anick/patent-classifier/ontology/creation/"
+    # path to corpus
+    corpus_root = code_root + "data/patents/"
+
+    d_term2act = {}
+    d_term2pn = {}
+
+    file_type = "cat.w0.0"
+    act_file = tv_filepath(corpus_root, corpus, year, file_type, "", cat_type="act")
+
+    s_act_file = codecs.open(act_file, encoding='utf-8')
+    for line in s_act_file:
+        line = line.strip("\n")
+        l_fields = line.split("\t")
+        term = l_fields[0]
+        d_term2act[term] = l_fields
+    s_act_file.close()
+
+# line to extract headwords
+# fcpy (fuse code python) is "python /home/j/anick/patent-classifier/ontology/creation"
+# fcpy="python /home/j/anick/patent-classifier/ontology/creation"
+# cat 2002.terms | cut -f1 | sed 's/.* //' | sort | uniq -c | sort -nr | $fcpy/reformat_uc1.py 
+
+# 3/19/14 temporal entropy idea
+# Similar to Kanhabua and Norvig use of TE in Machine Learning and Knowledge Discovery in Databases: European Conference ...
+# edited by Wray Buntine, Marko Grobelnik, Dunja Mladenic, John Shawe-Taylor
+# http://books.google.com/books?id=5THWkRwjZywC&pg=PA739&lpg=PA739&dq=%22temporal+entropy%22+terms&source=bl&ots=0TptVioYXD&sig=pB0ZYlF63pZfYYcC0eZc_4uSg3I&hl=en&sa=X&ei=ikMqU9TYB9SEqQGmrYGYBw&ved=0CEMQ6AEwBQ#v=onepage&q=%22temporal%20entropy%22%20terms&f=false
+
+# Get the feats with doc freq > 1000 in 2005
+# cat 2005.feats | grep prev_V= | $pgt 2 1000 |cut -f1,2 > 2005.feats.gt1000
+# Get the terms with freq > 10 in 2005 (from .terms)
+#cat 2005.terms | $pgt 2 10 | wc -l
+# 50670
+# cat 2005.terms | $pgt 2 10 | cut -f1,2 > 2005.terms.gt10
+
+# Todo later, compare TE for c, a, t terms
+
+# To compute TE, we'll need for each year:
+
+# d_year_term2freq where key is term|year  (from .terms)
+# d_y_term_feat2freq where key is term|feat|year (from .tf)
+
+# but just use the terms and feats filtered as above
+
+# d_t2e  = role.get_te("ln-us-cs-500k")
+#(d_term, d_feat, d_term_year2freq, d_term_year2feats, d_term_feat_year2freq) = role.get_te_dicts("ln-us-cs-500k")
+def get_te_dicts(corpus):
+    #parameters
+    code_root = "/home/j/anick/patent-classifier/ontology/creation/"
+    # path to corpus
+    corpus_root = code_root + "data/patents/"
+
+    # store the terms and feats we will consider after filtering
+    d_feat = {}
+    d_term = {}
+
+    # store all the freq data needed for computing probs from TE
+    #d_term_feat_year2freq = {}
+    d_term_year2freq = {}
+    # we also need to keep track of all the feats for a given term in a year
+    d_term_year2feats = defaultdict(set)
+    # Freq of a term_feat combinations in a given year
+    d_term_feat_year2freq = {}
+
+    file_type = "cat.w0.0"
+    # use our reference file for terms
+    ref_term_file = tv_filepath(corpus_root, corpus, 2005,  "terms.gt10", "", cat_type="")
+    # mini file for testing
+    #ref_term_file = tv_filepath(corpus_root, corpus, 2005,  "terms.gt10.10", "", cat_type="")
+    ref_feat_file = tv_filepath(corpus_root, corpus, 2005, "feats.gt1000", "", cat_type="")
+
+    # reference terms
+    s_in_file = codecs.open(ref_term_file, encoding='utf-8')
+    for line in s_in_file:
+        line = line.strip("\n")
+        (term, freq) = line.split("\t")
+        d_term[term] = int(freq)
+    s_in_file.close()
+
+    # reference feats
+    s_in_file = codecs.open(ref_feat_file, encoding='utf-8')
+    for line in s_in_file:
+        line = line.strip("\n")
+        (feat, freq) = line.split("\t")
+        d_feat[feat] = int(freq)
+    s_in_file.close()
+
+    #for year in range(1997, 2008):
+    for year in range(1997, 2008):
+        str_year = str(year)
+        
+        tf_file = tv_filepath(corpus_root, corpus, year,  "tf", "", "")
+        terms_file = tv_filepath(corpus_root, corpus, year,  "terms", "", "")
+
+        # terms_file contains the doc_freq for each term, so load it in!
+        s_in_file = codecs.open(terms_file, encoding='utf-8')
+        for line in s_in_file:
+            line = line.strip("\n")
+            (term, freq, instance_freq, prob) = line.split("\t")
+            # only use filtered terms
+            if d_term.has_key(term):
+                key = "^".join([term, str_year])
+                d_term_year2freq[key] = int(freq)
+        s_in_file.close()
+
+        s_in_file = codecs.open(tf_file, encoding='utf-8')
+        for line in s_in_file:
+            line = line.strip("\n")
+            (term, feat, freq, xxx) = line.split("\t")
+            # only use filtered terms and feats
+            if d_feat.has_key(feat) and d_term.has_key(term):
+                tfy_key = "^".join([term, feat, str_year])
+                tf_key = "^".join([term, feat])
+                ty_key = "^".join([term, str_year])
+                # add the feat to the set of feats occurring with this term
+                d_term_year2feats[ty_key].add(feat)
+                d_term_feat_year2freq[tfy_key] = int(freq)
+        s_in_file.close()
+
+
+    l_dicts = [d_term, d_feat, d_term_year2freq, d_term_year2feats, d_term_feat_year2freq]
+    pickle_dicts = [d_term_year2freq, d_term_year2feats, d_term_feat_year2freq]
+    # pickle the results
+    te_data_file = tv_filepath(corpus_root, corpus, "te_data", "pickle" , "", "")
+    #s_te_data_file = codecs.open(te_data_file, "w", encoding='utf-8')
+    pickle.dump(pickle_dicts, open(te_data_file, "wb"))
+    #s_te_data_file.close()
+
+    return(l_dicts)
+
+# (d_term_year2freq, d_term_year2feats, d_term_feat_year2freq) = role.get_te_pickled("ln-us-cs-500k", "patrick.10")
+def get_te_pickled(corpus, terms_filename):
+    #parameters
+    code_root = "/home/j/anick/patent-classifier/ontology/creation/"
+    # path to corpus
+    corpus_root = code_root + "data/patents/"
+
+    # list of terms for which to compute feature entropy
+    terms_file = tv_filepath(corpus_root, corpus, "te_in",  terms_filename, "", "")
+    pickle_file = tv_filepath(corpus_root, corpus, "te_data",  "pickle", "", "")
+
+    (d_term_year2freq, d_term_year2feats, d_term_feat_year2freq) = pickle.load( open( pickle_file, "rb" ) )
+    print "[get_te_pickled]loaded pickle data"
+    get_te(corpus, terms_filename, d_term_year2freq, d_term_year2feats, d_term_feat_year2freq)
+    # return the dicts so they can be reused in python environment without reloading from pickle
+    return([d_term_year2freq, d_term_year2feats, d_term_feat_year2freq])
+
+# compute temporal entropy for a set of terms in terms_file
+# d_term2feat_entropy = role.get_te("ln-us-cs-500k", "patrick.10", d_term_year2freq, d_term_year2feats, d_term_feat_year2freq)
+# This assumes that range data dictionaries have been put into te_data.pickle by get_te_dicts.
+def get_te(corpus, terms_filename, d_term_year2freq, d_term_year2feats, d_term_feat_year2freq):
+    #parameters
+    code_root = "/home/j/anick/patent-classifier/ontology/creation/"
+    # path to corpus
+    corpus_root = code_root + "data/patents/"
+
+    # list of terms for which to compute feature entropy
+    terms_file = tv_filepath(corpus_root, corpus, "te_in",  terms_filename, "", "")
+
+    print "[get_te]loaded pickle data through parameters"
+    # Now we have all the term freq data loaded
+    # we can compute the prob for each term_feat pair over the years
+    d_term_feat2entropy = defaultdict(float)
+
+    # compute entropy of term-feat count over the year range
+    s_in_file = codecs.open(terms_file, encoding='utf-8')
+
+    # track the terms we will be computing entropy for
+    l_input_terms = []
+    # IMPORTANT: The number of years must be consistent with the number of
+    # years in the range, for the entropy computation
+    NUM_YEARS = 11
+    # inverse log of number of partitions (used in K&N temporal entropy definition)
+    ILNY = 1 / math.log(NUM_YEARS, 2)
+
+    for line in s_in_file:
+        line = line.strip("\n")
+        term = line
+        l_input_terms.append(term)
+        # get all features for the term 
+        l_feats = d_term2feats[term]
+
+        # accumulate the number of docs a term occurs in
+        term_cum_freq = 0
+
+        for year in range(1997, 2008):
+            str_year = str(year)
+            ty_key = "^".join([term, str_year])
+
+            # accumulate total number of docs the term is in across all years
+            if d_term_year2freq.has_key(ty_key):
+                term_cum_freq += d_term_year2freq[ty_key]
+
+        # for each feature of this term
+        # compute its prob for each year
+        # as doc-freq in the year / doc_freq in the entire range (all years)
+        for feat in l_feats:
+            tf_key = "^".join([term, feat])
+            # accumulate the frequency of the feature across years
+            feat_cum_freq = 0
+            # accumulate normalized frequency for each year
+            cum_norm_freq = 0
+            # keep list of freq in each year
+            l_feat_year_freq = []
+            for year in range(1997, 2008):
+                str_year = str(year)
+                tfy_key = "^".join([term, feat, str_year])
+                ty_key = "^".join([term, str_year])
+
+                #pdb.set_trace()
+                # prob is the term-feat doc frequency / term doc freq
+                # Verify that this term occurs in this year before computing anything
+                if d_term_feat_year2freq.has_key(tfy_key):
+                    #pdb.set_trace()
+                    # get the term freq for this year
+                    freq = float(d_term_feat_year2freq[tfy_key])
+                    # normalize by dividing freq by the # docs for the term for the year
+                    norm_freq = freq / d_term_year2freq[ty_key]
+                    # update the cumulative freq for the feature
+                    feat_cum_freq += freq
+                    cum_norm_freq += norm_freq
+                    # update our year list of freqs
+                    l_feat_year_freq.append(norm_freq)
+                    print "[TE]tfy: %s, freq: %i, doc_freq: %i, norm_freq: %f, feat_cum_freq: %i, cum_norm_freq: %f" % (tfy_key, freq, d_term_year2freq[ty_key], norm_freq, feat_cum_freq, cum_norm_freq)
+
+            # Now that we have the cumumlative freq, we can compute probs
+            # Note that we have omitted 0 freqs.  However, if we wanted to track feature
+            # freq by year, we should include them (and set probs to 0 also)
+            #norm_cum_freq = float(feat_cum_freq) / term_cum_freq
+            for norm_freq in l_feat_year_freq:
+                prob = norm_freq / cum_norm_freq
+                #pdb.set_trace()
+                # By just walking through the tf file for the year, we are getting all the probs
+                # for terms and feats that occur at least once.
+                # we are skipping any 0 probs, since they do not contribute to the summation anyway
+                # entropy assumes that prob(x)*log(prob(x) = 0 whenever prob(x) = 0.
+                # Do the summation in d_term_feat2entropy
+                # The result is the average log(prob(term-feat))
+                d_term_feat2entropy[tf_key] += prob * math.log(prob, 2)
+                print "[TE]feat: %s, norm_freq: %f, cum_norm_freq: %f, prob: %f, sum(ent): %f" % (feat, norm_freq, cum_norm_freq, prob, d_term_feat2entropy[tf_key]  )
+            # Entropy is actually -1 * the sum.
+            # Use the formula from
+            # "Using temporal language models for document dating" (Kanhabua and Norvig)
+            # commented out straight entropy:
+            #d_term_feat2entropy[tf_key] = -1 * d_term_feat2entropy[tf_key]
+            d_term_feat2entropy[tf_key] = 1 + ILNY * d_term_feat2entropy[tf_key]
+            
+            print "Finished feat for all years: tfy: %s, sum_entropy: %f" % (tfy_key, d_term_feat2entropy[tf_key]  )
+    s_in_file.close()
+
+    # Now for each term, sort the feats by entropy
+    entropy_file = tv_filepath(corpus_root, corpus, "te_out",  terms_filename, "", "")
+    s_entropy = codecs.open(entropy_file, "w", encoding='utf-8')
+
+    d_term2feat_entropy = {}
+
+    for term in l_input_terms:
+        l_feats = d_term2feats[term]
+        l_feat_entropy = []
+        
+        for feat in l_feats:
+            tf_key = "^".join([term, feat])
+            entropy = d_term_feat2entropy[tf_key]
+            l_feat_entropy.append([feat, entropy])
+        #pdb.set_trace()
+        l_feat_entropy.sort(utils.list_element_2_sort)
+        d_term2feat_entropy[term] = l_feat_entropy
+        s_entropy.write("%s\t%s\n" % (term, d_term2feat_entropy[term]))
+
+    s_entropy.close()
+    return(d_term2feat_entropy)
+
+# (d_feat_year2freq, d_feat_range2freq) = role.build_d_feat_year2freq("ln-us-cs-500k", 1997, 1998)
+def build_d_feat_year2freq(corpus, start, end):
+    #parameters
+    code_root = "/home/j/anick/patent-classifier/ontology/creation/"
+    # path to corpus
+    corpus_root = code_root + "data/patents/"
+    # use the data in .feats for this (field 2 is freq)
+    d_feat_year2freq = defaultdict(int)
+    d_feat_range2freq = defaultdict(int)
+
+    range_end = end + 1
+    for year in range(start, range_end):
+        str_year = str(year)
+        feats_file = tv_filepath(corpus_root, corpus, str_year,  "feats", "", "")
+        s_feats_file = codecs.open(feats_file, encoding='utf-8')
+
+        for line in s_feats_file:
+            line = line.strip()
+            l_fields = line.split("\t")
+            feat = l_fields[0]
+            freq = l_fields[1]
+            
+            fy_key = "^".join([feat, str_year])
+            # feat2freq given year
+            d_feat_year2freq[fy_key] = int(freq)
+            # feat2freq for range
+            d_feat_range2freq[feat] += int(freq)
+    
+        s_feats_file.close()
+    return([d_feat_year2freq, d_feat_range2freq])
+
+# d_term_year2feats = role.build_d_term_year2feats("ln-us-cs-500k", 1997, 2007)
+def build_d_term_year2feats(corpus, start, end):
+    #parameters
+    code_root = "/home/j/anick/patent-classifier/ontology/creation/"
+    # path to corpus
+    corpus_root = code_root + "data/patents/"
+    # use the data in .feats for this (field 2 is freq)
+    d_term_year2feats = defaultdict(set)
+    d_term_range2feats = defaultdict(set)
+
+    range_end = end + 1
+    for year in range(start, range_end):
+        str_year = str(year)
+        tf_file = tv_filepath(corpus_root, corpus, str_year,  "tf", "", "")
+        s_tf_file = codecs.open(tf_file, encoding='utf-8')
+
+        for line in s_tf_file:
+            line = line.strip()
+            l_fields = line.split("\t")
+            term = l_fields[0]
+            feat = l_fields[1]
+            freq = l_fields[2]
+
+            ty_key = "^".join([term, str_year])
+            # term to feats given year
+            d_term_year2feats[ty_key].add(feat)
+            # feat2freq for range ?? needed??
+            # d_term_range2feats[term].add(feat) 
+    
+        s_tf_file.close()
+    return(d_term_year2feats)
+
+        
+
+# d_feats is a reference file limiting the set of feats to consider to some threshold
+# feat prob by year
+# (d_fgr, d_fgy) = role.get_fpgy("ln-us-cs-500k", "patrick.10", 1997, 1998, d_term_year2freq, d_term_year2feats, d_term_feat_year2freq)
+# (d_fgr, d_fgy) = role.get_fpgy("ln-us-cs-500k", "patrick.61", 1997, 2007, d_term_year2freq, d_term_year2feats, d_term_feat_year2freq)
+# feature probability given year
+def get_fpgy(corpus, terms_filename, start, end, d_term_year2freq, d_term_year2feats, d_term_feat_year2freq):
+    #parameters
+    code_root = "/home/j/anick/patent-classifier/ontology/creation/"
+    # path to corpus
+    corpus_root = code_root + "data/patents/"
+
+    # threshold for the number of feature occurrences in the range of years
+    min_range_freq = 80
+
+    # file of terms for which to compute fpy
+    terms_file = tv_filepath(corpus_root, corpus, "te_in",  terms_filename, "", "")
+
+    # use a constrained set of features only
+    ref_feat_file = tv_filepath(corpus_root, corpus, 2005, "feats.gt1000", "", cat_type="")
+    # reference feats
+    d_feat = {}
+    s_in_file = codecs.open(ref_feat_file, encoding='utf-8')
+    for line in s_in_file:
+        line = line.strip("\n")
+        (feat, freq) = line.split("\t")
+        d_feat[feat] = int(freq)
+    s_in_file.close()
+
+    print "[get_te]loaded pickle data through parameters"
+    # Now we have all the term freq data loaded
+    # we can compute the prob for each feat over the years
+    # Count is number of doc_feature combinations in the year for our term set
+
+    # add one to end for python range
+    range_end = end + 1
+
+    # we can sum over d_term_year2freq to populate term-doc counts
+    d_td_year2freq = defaultdict(int)
+    # feat-doc count given the year
+    d_fd_year2freq = defaultdict(int)
+    d_fd_range2freq = defaultdict(int)
+    # total number term-doc entries for the terms in the term_list
+    td_range_freq = 0
+
+    s_in_file = codecs.open(terms_file, encoding='utf-8')
+
+    # track the terms we will be computing feat probs for
+    l_input_terms = []
+    # list of all feats compiled
+    l_all_feats = set()
+
+    for line in s_in_file:
+        line = line.strip("\n")
+        term = line
+        l_input_terms.append(term)
+    
+        # accumulate the term_doc counts for each year and total
+        for year in range(start, range_end):
+            str_year = str(year)
+            ty_key = "^".join([term, str_year])
+            # total term-doc per year
+            if d_term_year2freq.has_key(ty_key):
+                d_td_year2freq[year] += d_term_year2freq[ty_key]
+                # total term-doc over the range
+                td_range_freq += d_term_year2freq[ty_key]
+
+                # get all features for the term for this year
+                l_feats = d_term_year2feats[ty_key]
+
+                for feat in l_feats:
+                    # add it to the total set
+                    l_all_feats.add(feat)
+                    # Don't bother with real low frequency feats (which are omitted from d_feat)
+                    if d_feat.has_key(feat):
+                        tfy_key = "^".join([term, feat, str_year])
+                        fy_key =  "^".join([feat, str_year])
+                        d_fd_year2freq[fy_key] += d_term_feat_year2freq[tfy_key]
+                        d_fd_range2freq[feat] += d_term_feat_year2freq[tfy_key]
+                
+    # Now we should be able to compute prob(feat|year) and prob(feat|range)
+    # total term-doc per year
+    # d_td_year2freq[year]
+    # total term-doc over the range
+    # td_range_freq
+    # feature doc freq given year
+    # d_fd_year2freq[fy_key]
+    # feature doc freq total in range
+    # d_fd_range2freq[feat]
+    # all feats
+    # l_all_feats
+    d_fgy = {}  # fy_key
+    d_fgr = {}  # feat
+
+    for feat in l_all_feats:
+        if d_feat.has_key(feat) and d_fd_range2freq[feat] > min_range_freq:
+            # feature given entire range (marginal prob)
+            d_fgr[feat] = float(d_fd_range2freq[feat]) / td_range_freq
+            print "feat: %s, fgr: %i, tgr: %i, prob(fgr): %f" % (feat, d_fd_range2freq[feat], td_range_freq, d_fgr[feat])
+            # feature given year 
+            for year in range(start, range_end):
+                str_year = str(year)
+                fy_key = "^".join([feat, str_year])
+                d_fgy[fy_key] = float(d_fd_year2freq[fy_key]) / d_td_year2freq[year]
+                print "feat: %s, year: %s, fgy: %i, tgy: %i, prob(fgy): %f" % (feat, year, d_fd_year2freq[fy_key], d_td_year2freq[year], d_fgy[fy_key])
+
+    return([d_fgr, d_fgy])
+
+# prob of year given the feature
+# (d_ygf_actual, d_ygf_expected) = role.get_ypgf("ln-us-cs-500k", "patrick.10", 1997, 2007, d_term_year2freq, d_term_year2feats, d_term_feat_year2freq)
+def get_ypgf(corpus, terms_filename, start, end, d_term_year2freq, d_term_year2feats, d_term_feat_year2freq):
+    #parameters
+    code_root = "/home/j/anick/patent-classifier/ontology/creation/"
+    # path to corpus
+    corpus_root = code_root + "data/patents/"
+
+    min_range_freq = 80
+
+    # list of terms for which to compute fpy
+    terms_file = tv_filepath(corpus_root, corpus, "te_in",  terms_filename, "", "")
+
+    # use a constrained set of features only
+    ref_feat_file = tv_filepath(corpus_root, corpus, 2005, "feats.gt1000", "", cat_type="")
+    # reference feats
+    d_feat = {}
+    s_in_file = codecs.open(ref_feat_file, encoding='utf-8')
+    for line in s_in_file:
+        line = line.strip("\n")
+        (feat, freq) = line.split("\t")
+        d_feat[feat] = int(freq)
+    s_in_file.close()
+
+    print "[get_ypgf]loaded pickle data through parameters"
+    # Now we have all the term freq data loaded
+    # we can compute the prob for each feat over the years
+    # Count is number of doc_feature combinations in the year for our term set
+
+    # add one to end for python range
+    range_end = end + 1
+
+    # sums needed for computations
+    d_fy2sum_tfy_over_terms = defaultdict(int)
+    d_f2sum_tfy_in_range_over_terms = defaultdict(int)
+
+    d_y2sum_ty_over_terms = defaultdict(int)
+    sum_ty_in_range_over_terms = 0
+
+    # we can sum over d_term_year2freq to populate term-doc counts
+    d_td_year2freq = defaultdict(int)
+    # feat-doc count given the year
+    d_fd_year2freq = defaultdict(int)
+    d_fd_range2freq = defaultdict(int)
+    # total number term-doc entries for the terms in the term_list
+    td_range_freq = 0
+
+    # Make a list of the terms we will be computing feat probs for
+    l_input_terms = []
+    # list of all feats compiled
+    l_all_feats = set()
+
+    #"""
+    s_terms_file = codecs.open(terms_file, encoding='utf-8')
+
+    for line in s_terms_file:
+        # each line is a single term
+        term = line.strip("\n")
+        l_input_terms.append(term)
+        
+    s_terms_file.close()
+    #"""
+
+    # parameters for testing
+    l_input_terms = ["firewalls", "interface"]
+    #l_input_terms = ["firewalls"]
+    start = 2005
+    range_end = 2007
+    min_range_freq = 0
+
+
+    # term freq means the # occurrences of a doc containing the term
+    for term in l_input_terms:
+        #pdb.set_trace()
+        # accumulate the term_doc counts for each year and total range
+        for year in range(start, range_end):
+            str_year = str(year)
+            ty_key = "^".join([term, str_year])
+            # total term-doc per year
+            if d_term_year2freq.has_key(ty_key):
+                d_y2sum_ty_over_terms[year] += d_term_year2freq[ty_key]
+                #d_td_year2freq[year] += d_term_year2freq[ty_key]
+                # total term-doc over the range
+                #td_range_freq += d_term_year2freq[ty_key]
+                sum_ty_in_range_over_terms += d_term_year2freq[ty_key]
+
+                # get all features for the term for this year
+                l_feats = d_term_year2feats[ty_key]
+
+                for feat in l_feats:
+                    # add it to the total set
+                    l_all_feats.add(feat)
+                    # Don't bother with real low frequency feats (which are omitted from d_feat)
+                    if d_feat.has_key(feat):
+                        tfy_key = "^".join([term, feat, str_year])
+                        fy_key =  "^".join([feat, str_year])
+                        #d_fd_year2freq[fy_key] += d_term_feat_year2freq[tfy_key]
+                        #d_fd_range2freq[feat] += d_term_feat_year2freq[tfy_key]
+                        d_fy2sum_tfy_over_terms[fy_key] += d_term_feat_year2freq[tfy_key]
+                        d_f2sum_tfy_in_range_over_terms[feat] += d_term_feat_year2freq[tfy_key]
+                        #pdb.set_trace()
+                
+    # Now we should be able to compute expected prob(year|feat) and actual(year|feat)
+    # total term-doc per year
+    # d_td_year2freq[year]
+    # total term-doc over the range
+    # td_range_freq
+    # feature doc freq given year
+    # d_fd_year2freq[fy_key]
+    # feature doc freq total in range
+    # d_fd_range2freq[feat]
+    # all feats
+    # l_all_feats
+    d_ygf_actual = {}  # fy_key
+    d_ygf_expected = {}  # feat
+    d_tgy = {}
+
+    for year in range(start, range_end):
+        # compute proportion of terms (actually term-docs) in each year
+        # needed for computation of expected year given feature
+        if sum_ty_in_range_over_terms > 0: 
+            d_tgy[year] = d_y2sum_ty_over_terms[year] / float(sum_ty_in_range_over_terms)
+        else:
+            d_tgy[year] = 0
+
+    # compute probs for each feat
+    # for testing, make our own feat list:
+    #l_all_feats = ["prev_Npr=use_of"] # ["prev_V=include"]
+    #l_all_feats = ["prev_V=including", "prev_V=include"]
+
+    # minimum number of actual term feature occurrences over the range
+    # to output the actual and expected probs.
+    min_tfy_in_range = 20
+
+    for feat in l_all_feats:
+        #if True: 
+        if d_feat.has_key(feat): # and d_fd_range2freq[feat] > min_range_freq:
+        #if d_feat.has_key(feat) and d_fd_range2freq[feat] > min_range_freq:
+            # note that d_fd_range2freq[feat] doesn't seem to have any feats in it, so ignore it for now...
+            # feature given entire range (marginal prob)
+
+            for year in range(start, range_end):
+                str_year = str(year)
+                fy_key = "^".join([feat, str_year])
+                # actual prob for each feat
+                if d_f2sum_tfy_in_range_over_terms[feat] > 0:
+                    d_ygf_actual[fy_key] = d_fy2sum_tfy_over_terms[fy_key] / float(d_f2sum_tfy_in_range_over_terms[feat])
+                else:
+                    d_ygf_actual[fy_key] = 0
+                if d_f2sum_tfy_in_range_over_terms[feat] > min_tfy_in_range:
+                    print "actual prob of year: %i given feat %s: %f (sum_tfy-year: %i, sum_tfy-range: %i)" % (year, feat, d_ygf_actual[fy_key], d_fy2sum_tfy_over_terms[fy_key], d_f2sum_tfy_in_range_over_terms[feat]) 
+
+                    # for each feat, compute fraction of features in year / total # features in range
+                    # multiply it by the proportion of terms in the year.
+                #d_ygf_expected[fy_key] = d_tgy[year] * (d_f2sum_tfy_in_range_over_terms[feat]) / float(sum_ty_in_range_over_terms)
+                # expectation is just based on the percentage of terms in each year
+                    d_ygf_expected[fy_key] = d_tgy[year]
+                    print "expected prob of year: %i given feat %s: %f (sum_ty-year: %i, sum_ty-range: %i)" % (year, feat, d_ygf_expected[fy_key], d_y2sum_ty_over_terms[year], sum_ty_in_range_over_terms) 
+
+                #pdb.set_trace()
+    return([d_ygf_actual, d_ygf_expected])
+        
