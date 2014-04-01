@@ -20,7 +20,7 @@ instances.
 
 """
 
-import random
+import os, random
 
 # Location of the master list and the directory of sublists. The master list is
 # created by create-cs-master-list.py, create_date_idx.py (which was used when
@@ -28,20 +28,32 @@ import random
 
 CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-us-all-600k'
 CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-cn-all-600k'
+CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-us-10-agriculture'
+CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-us-11-construction'
 CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-us-12-chemical'
+CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-us-13-electrical'
 CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-us-14-health'
+CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-us-15-industry'
+CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-us-16-instruments'
+CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-us-17-mechanical'
+CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-us-18-other'
 
-MASTER_LIST = CORPUS_DIR + '/master-list-14.txt'
+MASTER_LIST = CORPUS_DIR + '/master-list-18.txt'
 LISTS_DIR = CORPUS_DIR + '/sublists'
 
 
 def get_pubdate_and_name(path):
-        path_elements = path.split("/")
-        pubyear = path_elements[-3]
-        patent_name = path_elements[-1]
-        return (pubyear, patent_name)
+    path_elements = path.split("/")
+    pubyear = path_elements[-3]
+    patent_name = path_elements[-1]
+    return (pubyear, patent_name)
 
-    
+
+if not os.path.exists(LISTS_DIR):
+    print "Creating", LISTS_DIR
+    os.makedirs(LISTS_DIR)
+
+
 ALL_PATENTS = []
 
 YEAR_INDEX = {}
