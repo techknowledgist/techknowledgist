@@ -89,10 +89,10 @@ class AnnotationTask(object):
 
     def make_query(self):
         labels = ", ".join(["%s (%s)" % (l2, l1) for (l1, l2) in self.labels])
-        more_and_quit = "%s (%s), %s (%s)\n" % (self.more[1], self.more[0],
-                                                self.quit[1], self.quit[0])
+        more_and_quit = "%s (%s), %s (%s)" % (self.more[1], self.more[0],
+                                              self.quit[1], self.quit[0])
         return "%s\n\n" % self.leading_text \
-               + "%s%s, %s%s\n" % (INV, labels, more_and_quit, END) \
+               + "%s%s, %s%s\n\n" % (INV, labels, more_and_quit, END) \
                + ">>> "
 
 
@@ -144,10 +144,13 @@ def process_answer(term, answer, fh_contexts, fh_labels):
 
 if __name__ == '__main__':
 
+    #import platform
+    #print platform.system()
+    #exit()
     task = AnnotationTask()
     if sys.argv[1] == '--technology':
         task.technology_mode()
-    if sys.argv[1] == '--category':
+    elif sys.argv[1] == '--category':
         task.category_mode()
     elif sys.argv[1] == '--polarity':
         task.polarity_mode()
