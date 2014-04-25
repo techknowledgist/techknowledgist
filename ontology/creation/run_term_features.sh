@@ -4,6 +4,16 @@
 # file contains a term, a feature, and the count of appearances of the feature with the term.
 # The option ta/tas indicates which source file sections to use (title, abstract, summary)
 
+# modified to take three parameters corpus, start_year, end_year
+# sh run_term_features.sh wos-cs-520k 1997 1997
+
+CORPUS=$1
+START_YEAR=$2
+END_YEAR=$3
+
+ROOT="/home/j/corpuswork/fuse/FUSEData/corpora/$CORPUS"                                                       
+TARGET="/home/j/anick/patent-classifier/ontology/creation/data/patents/$CORPUS"                             
+
 #sh run_term_features.sh
 
 # Peter's cs_2002_subset of 100 patents
@@ -31,12 +41,13 @@
 #bash-4.1$ cd data
 #bash-4.1$ mkdir term_features
 
+# These variables out of data.  Corpus now passed in as parameter.
 # web of science
 #ROOT="/home/j/corpuswork/fuse/FUSEData/corpora/wos-cs-520k"                                                       
 #TARGET="/home/j/anick/patent-classifier/ontology/creation/data/patents/wos-cs-520k"                             
 # cs patents (1997 - 2007)
-ROOT="/home/j/corpuswork/fuse/FUSEData/corpora/ln-us-cs-500k"                                                       
-TARGET="/home/j/anick/patent-classifier/ontology/creation/data/patents/ln-us-cs-500k"                             
+#ROOT="/home/j/corpuswork/fuse/FUSEData/corpora/ln-us-cs-500k"                                                       
+#TARGET="/home/j/anick/patent-classifier/ontology/creation/data/patents/ln-us-cs-500k"                             
 
 # random us patent subset 600k
 #ROOT="/home/j/corpuswork/fuse/FUSEData/corpora/ln-us-all-600k"
@@ -62,12 +73,12 @@ mkdir $TARGET/data/tv
 
 # loop over the years for which we have data
 #"COMMENT"
-#YEAR=1997
+YEAR=$START_YEAR
 #YEAR=1998
-YEAR=2003
+#YEAR=2003
 #while [ $YEAR -le 1998 ] ; do
-#while [ $YEAR -le 1997 ] ; do
-while [ $YEAR -le 2007 ] ; do
+while [ $YEAR -le $END_YEAR ] ; do
+#while [ $YEAR -le 2007 ] ; do
     echo "year: $YEAR"
 
     sh term_features.sh $ROOT/subcorpora/$YEAR/config/files.txt $ROOT/subcorpora/$YEAR/data/d3_phr_feats/01/files $TARGET/data/term_features tas

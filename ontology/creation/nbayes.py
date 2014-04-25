@@ -9,6 +9,22 @@
 # We assume the number of categories is the same for all records and in a predetermined order
 # e.g., a c o t (for affected, constituent, obstacle, task)
 
+##################################################
+# Sequence of steps to produce the nbayes output for a domain, incuding polarity
+# (1) sh run_term_features_multi.sh which extracts the features of interest for each file in the source
+# directories and puts them into a local directory (...corpus/term_root/<year>)  
+# (2) role.run_tf_steps("ln-us-12-chemical", 1997, 1997, "act", ["tf", "tc", "tcs", "fc", "uc", "prob"], "")
+# (3) nbayes.run_steps("ln-us-12-chemical", 1997, ["nb", "ds", "cf"])
+# (4) nbayes.run_filter_tf_file("ln-us-12-chemical", 1997, "0.0") # create a.tf, needed for running polarity
+# (5) role.run_tf_steps("ln-us-12-chemical", 1997, 1997, "pn", ["tc", "tcs", "fc", "uc", "prob"], "a")
+# (6) nbayes.run_steps("ln-us-12-chemical", 1997, ["nb", "ds", "cf"], cat_type="pn", subset="a") 
+
+# nbayes.run_filter_tf_file("ln-us-12-chemical", 1997, "0.0")
+
+# runs
+# ln-us-all-600k
+# nbayes.run_steps("ln-us-all-600k", 1997, ["nb"])   
+
 import pdb
 import codecs
 import sys
@@ -112,7 +128,7 @@ def populate_term2freq(term2freq_file):
     return(d_term2freq)
 
     
-# create .tf.a and .tf.t by filtering out any terms not labeled as a or t in
+# create a.tf and t.tf by filtering out any terms not labeled as a or t in
 # <year>.act.cat.w0.2
 
 
@@ -321,6 +337,7 @@ def run_classify(corpus, year, cat_type, subset=""):
 # nbayes.run_filter_tf_file("ln-us-all-600k", 1997, "0.1")        
 # nbayes.run_filter_tf_file("ln-us-cs-500k", 1997, "0.0")        
 # nbayes.run_filter_tf_file("ln-us-14-health", 1997, "0.0")        
+# nbayes.run_filter_tf_file("ln-us-12-chemical", 1997, "0.0")        
 def run_filter_tf_file(corpus, year, cutoff="0.1"):
     corpus_root = "/home/j/anick/patent-classifier/ontology/creation/data/patents/"
     #tv_loc = "/data/tv/"
@@ -335,7 +352,8 @@ def run_filter_tf_file(corpus, year, cutoff="0.1"):
     act_file_type = role.cat_cutoff_file_type(cutoff)
     filter_tf_file(corpus_root, corpus, year, act_file_type)
 
-
+# compute a domain specificity score using freq within the domain corpus and freq within a generic
+# corpus of the same year.
 def domain_score(f_terms1, c1_size, f_terms2, c2_size, outfile):
 
     print "[domain_score]f_terms1: %s, f_terms2: %s, outfile: %s" % (f_terms1, f_terms2, outfile)
@@ -586,6 +604,8 @@ def run_diff_score(corpus, year1, year2):
 # nbayes.run_steps("ln-us-14-health", 2002, ["cf"], cat_type="pn", subset="a", ranges=[[5, 100000, 1.0]])
 # nbayes.run_steps("ln-us-cs-500k", 2002, ["cf"], cat_type="pn", subset="a", ranges=[[5, 100000, 3.0]])
 
+# nbayes.run_steps("ln-us-12-chemical", 1997, ["nb", "ds", "cf"])
+# nbayes.run_steps("ln-us-12-chemical", 1997, ["nb", "ds", "cf"], cat_type="pn", subset="a")
 
 
 def run_steps(corpus, year, todo_list=["nb", "ds", "cf"], ranges=[[10, 100000, 1.5], [2,10, 1.5]], cat_type="act", subset=""):
@@ -626,4 +646,28 @@ def run_steps(corpus, year, todo_list=["nb", "ds", "cf"], ranges=[[10, 100000, 1
 
     print "[run_steps]Reached end of todo_list"
 
-    
+# run everything for a corpus and year
+
+# nbayes.run_corpus_year(["ln-us-10-agriculture", "ln-us-11-construction"], [1997, 2002]) 
+# nbayes.run_corpus_year(["wos-cs-520k"], [1997]) 
+def run_corpus_year(corpus_list, year_list):
+    for corpus in corpus_list:
+        for year in year_list:
+            year = int(year)
+            print "[run_corpus_year]Processing corpus: %s for year: %i" % (corpus, year)
+            role.run_tf_steps(corpus, 1997, 1997, "act", ["tf", "tc", "tcs", "fc", "uc", "prob"], "")
+            run_steps(corpus, 1997, ["nb", "ds", "cf"])
+            run_filter_tf_file(corpus, 1997, "0.0") # create a.tf, needed for running polarity
+            role.run_tf_steps(corpus, 1997, 1997, "pn", ["tc", "tcs", "fc", "uc", "prob"], "a")
+            run_steps(corpus, 1997, ["nb", "ds", "cf"], cat_type="pn", subset="a") 
+
+        print "[run_corpus_year] Completed."
+
+
+# run the nbayes act analysis for a range of years for a single corpus
+# nbayes.run_nbayes_years("ln-us-cs-500k", 1998, 2007)
+def run_nbayes_years(corpus, start_year, end_year):
+    start_range = int(start_year)
+    end_range = int(end_year) + 1
+    for year in range(start_range, end_range):
+        run_steps(corpus, year, todo_list=["nb", "ds", "cf"])
