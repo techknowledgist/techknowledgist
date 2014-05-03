@@ -3,7 +3,7 @@ Script to run the matcher on a corpus.
 
 Usage:
 
-    $ python run_matcher.py OPTIONS
+    $ python collect_frequencies.py OPTIONS
 
 Options:
 
@@ -12,19 +12,21 @@ Options:
     --filelist - list of files from the corpus to process, it is expected to be
       in the config directory of the corpus, defaults to files.txt
 
-    --batch - directory in data/o2_index to write the results to
+    --batch - directory in data/o1_index to write the results to
 
     --verbose - print progress
 
-Writes results to the --batch directory in two files, one with a line for each
-match and one with a summary where the number of matches for each term is
-printed. Also writes a couple of general information files to the output
-directory and a file with statistics on the number of features found in the
-input.
+Takes all the d3_phr_feats from a corpus and collects the terms and all the
+locations they occur in. Creates four files in the batch directory:
+
+    index.locs.txt
+    index.info.general.txt
+    index.info.config.txt
+    index.info.filelist.txt
 
 Example:
 
-    $ python run_matcher.py \
+    $ python collect_frequencies.py \
       --corpus data/patents/201306-computer-science \
       --filelist files_testing_01.txt \
       --batch batch-01 \

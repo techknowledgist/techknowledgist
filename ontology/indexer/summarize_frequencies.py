@@ -1,6 +1,6 @@
 """
 
-Script to take the output of frequency collection and generate corpus wide
+Script to take the output of frequency collection and generate corpus-wide
 frequencies.
 
 Usage:
