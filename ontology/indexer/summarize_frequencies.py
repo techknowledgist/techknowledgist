@@ -1,35 +1,25 @@
 """
-Script to run the matcher on a corpus.
+
+Script to take the output of frequency collection and generate corpus wide
+frequencies.
 
 Usage:
-
-    $ python run_matcher.py OPTIONS
+    $ python summarize_frequencies.py OPTIONS
 
 Options:
+    --corpus   -  the corpus to run the matcher on
+    --batch    -  directory in data/o2_index to read from and write to
+    --verbose  -  print progress
 
-    --corpus - the corpus to run the matcher on
-
-    --batch - directory in data/o2_index to read from and write to
-
-    --verbose - print progress
-
+The script takes the file index.locs.txt in the batch directory and creates
+index.locs.summ.txt. It also creates a file index.info.summ.txt with some
+information on the run.
 
 Example:
-
-    $ python run_matcher.py \
+    $ python summarize_frequencies.py \
       --corpus data/patents/201306-computer-science \
-      --batch batch-01 \
+      --batch standard \
       --verbose
-
-
-WISHLIST:
-
-- Remove dependency on directories inside the corpus. The filelist now has to be
-  inside the config dir and the results have to be written to o2_matcher. Leave
-  these as a default, but allow files/directories in other spots.
-
-- Add runtime statistics like time elapsed and perhaps specifications of the
-  machine it ran on.
 
 """
 
@@ -48,8 +38,8 @@ VERBOSE = False
 def summarize(corpus, batch):
     # TODO: add existence check??
     batch_dir = os.path.join(corpus, 'data', 'o1_index', batch)
-    infile = os.path.join(batch_dir, 'index.locs.10k.txt')
-    outfile = os.path.join(batch_dir, 'index.locs.10k.summ.txt')
+    infile = os.path.join(batch_dir, 'index.locs.txt')
+    outfile = os.path.join(batch_dir, 'index.locs.summ.txt')
     infofile = os.path.join(batch_dir, 'index.info.summ.txt')
     fh_in = codecs.open(infile, encoding='utf-8')
     fh_out = codecs.open(outfile, 'w', encoding='utf-8')
@@ -60,10 +50,13 @@ def summarize(corpus, batch):
     count = 0
     for line in fh_in:
         count += 1
-        if count % 1000 == 0: print count
+        if count % 100000 == 0 and VERBOSE: print 'reading', count
         (doc, term, freq, lines) = line.split("\t")
         frequencies[term] = frequencies.get(term, 0) + int(freq)
+    count = 0
     for t in sorted(frequencies.keys()):
+        count += 1
+        if count % 100000 == 0 and VERBOSE: print 'writing', count
         fh_out.write("%s\t%s\n" % (frequencies[t], t))
 
 def create_info_file(filename, batch, infile, outfile):
