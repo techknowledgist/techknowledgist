@@ -60,7 +60,13 @@ class TermDB(object):
         self.lcursor = self.lconnection.cursor()
             
     def get(self, terms):
+        """Get a list of Term objects from the database, one for each term."""
         return [Term(t, self.tcursor, self.lcursor) for t in terms]
+
+    def query_terms(self, query):
+        """Return the result of a query over the terms database."""
+        self.tcursor.execute(query)
+        return self.tcursor.fetchall()
 
     def close(self):
         self.tconnection.close()
