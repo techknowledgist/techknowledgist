@@ -1,0 +1,37 @@
+
+select term from terms where frequency=200 and technology_score > 0.5
+
+gate insulation film
+terpolymer
+chlorine atom
+laser device
+protective groups
+nozzle assembly
+search request
+el element
+figs .7
+analog converter
+ferromagnetic conductive film
+microsoft corporation
+pump power
+
+select term from terms where frequency=201 and technology_score > 0.5
+
+reflective coating
+direction transverse
+intelligent storage node
+valve timing
+carbon tetrachloride
+polymethyl methacrylate
+thermal contact
+redundant form
+optical transmitter
+photoinitiators
+japanese patent publication no.
+band pass filter
+stimulable phosphor sheets
+transmission channel
+optical sensors
+polyimide resin
+in situ hybridization
+.1 b.
