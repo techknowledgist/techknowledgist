@@ -9,10 +9,12 @@ Usage:
     $ python term_annotator.py --category <SOURCE_FILE>
     $ python term_annotator.py --polarity <SOURCE_FILE>
 
-The tool has three modes: technology annotation (labels: yes, no, not-a-term),
-category annotation (labels: attribute, task, component, other, not-a-term) and
-polarity annotation (labels: yes, no, unknown, not-an-attribute).
-
+The tool has four modes:
+    technology annotation (labels: yes, no, not-a-term)
+    category annotation (labels: attribute, task, component, other, not-a-term)
+    polarity annotation (labels: yes, no, unknown, not-an-attribute)
+    maturity annotation (labels: yes, no, not-sure)
+    
 The SOURCE_FILE has to be named *.context.txt. The first time you open
 SOURCE_FILE, a new file will be created with the name *.labels.txt. This file
 contains the labels for the terms that were annotated. Initially this labels
@@ -57,6 +59,8 @@ This script was originally a copy of technology_annotator_v2.py.
 import os, sys, codecs
 from utils import TermContexts, INV, RED, END
 
+sys.stdout = codecs.getwriter('utf8')(sys.stdout)
+
 
 class AnnotationTask(object):
 
@@ -82,6 +86,11 @@ class AnnotationTask(object):
         self.leading_text = 'What is the term\'s polarity?'
         self.labels = [('p', 'positive'), ('n', 'negative'), ('u', 'unknown'),
                        ('x', 'not-an-attribute')]
+        self.index_labels()
+
+    def maturity_mode(self):
+        self.leading_text = 'Does this sentence provide prove that the term was used?'
+        self.labels = [('y', 'yes'), ('n', 'no'), ('?', 'not-sure')]
         self.index_labels()
 
     def index_labels(self):
@@ -154,6 +163,8 @@ if __name__ == '__main__':
         task.category_mode()
     elif sys.argv[1] == '--polarity':
         task.polarity_mode()
+    elif sys.argv[1] == '--maturity':
+        task.maturity_mode()
     else:
         exit("No valid annotation mode specified")
     contexts_file = sys.argv[2]

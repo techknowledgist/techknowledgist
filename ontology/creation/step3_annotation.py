@@ -5,13 +5,14 @@ which to cull the data, (ii) a file list with filenames from the corpus, (iii) a
 name of the annotation set created, and (iv) a marker that indicates what kind
 of annotation files are created (now only --technologies and --inventions).
 
-There are two options that indicate the main mode of the script: one for
-technologies and one for inventions:
+There are three options that indicate the main mode of the script: one for
+technologies, one for inventions and one for maturity scores:
 
    --technologies
    --inventions
+   --terms
 
-
+   
 TECHNOLOGIES
 
 To create technology annotation files do something like:
@@ -62,7 +63,7 @@ Options:
        default, they are randomly ordered
 
    
-INVENTIONS:
+INVENTIONS
 
 The following command creates a directory with some info files and an annotation
 file for inventions:
@@ -79,6 +80,20 @@ Options are the same as for --technologies, except that there is an added option
 --chunks, which defines the maximum number of chunks per document to put in the
 annotation file. The default is 30. Only chunks from the FH_TITLE and
 FH_ABSTRACT sections will be used (this is hard-coded).
+
+
+TERMS
+
+This is a bit of an odd duck since it does not work of a list of files but off a
+list of terms, each with some instances where the instances are given thorugh
+the document name and line number.
+
+  $ python step3_annotation.py \
+      --terms \
+      --corpus data/patents/201305-en \
+      --instances ../annotation/en/maturity/terms-locations.txt\
+      --name test \
+      --verbose
 
 """
 
@@ -100,6 +115,8 @@ from ontology.utils.batch import check_file_availability, generate_doc_feats
 from ontology.utils.file import filename_generator, ensure_path, FileData
 from ontology.utils.file import open_input_file, compress, uncompress
 from ontology.utils.git import get_git_commit
+
+sys.stdout = codecs.getwriter('utf8')(sys.stdout)
 
 
 def annotate_technologies(name, rconfig, filelist, sort_terms_p, print_context_p):
@@ -154,9 +171,12 @@ def write_info(rconfig, dirname, filelist_path):
     """Generate a file with general information and copy the file list to the
     annotation directory."""
     print "Writing general info..."
+    idx = len(rconfig.corpus)
+    source = '<corpus>' + dirname[idx:] + '/annotate.terms.context.txt'
     with open(os.path.join(dirname, 'annotate.info.general.txt'), 'w') as fh:
         fh.write("$ python %s\n\n" % ' '.join(sys.argv))
         fh.write("corpus            =  %s\n" % rconfig.corpus)
+        fh.write("source            =  %s\n" % source)
         fh.write("file_list         =  %s\n" % filelist_path)
         fh.write("config_file       =  %s\n" % \
                      os.path.basename(rconfig.pipeline_config_file))
@@ -220,7 +240,7 @@ def print_annotation_files(dirname, term_count_list, term_contexts,
         fh_context_html = codecs.open(file_context_html, 'w', encoding='utf-8')
         _initialize_context_files(fh_context_txt, fh_context_html, dirname)
 
-    # suffle the terms if are not supposed to be sorted
+    # suffle the terms if they are not supposed to be sorted
     if not sort_terms_p:
         random.shuffle(term_count_list)
 
@@ -331,7 +351,8 @@ def annotate_something(name, rconfig, filelist, chunks):
 
     """This is a stub method that explains a bit more on how to create
     annotation files. Includes scaffolding that shows how to pull information
-    out of phrase feature and tag files."""
+    out of phrase feature and tag files. This is for cases when you use a list
+    of files."""
 
     # Create the complete path to the file list; the rconfig is an instance of
     # RuntimeConfiguration and is created from the corpus and the pipeline
@@ -342,7 +363,7 @@ def annotate_something(name, rconfig, filelist, chunks):
     dataset_tags = find_input_dataset(rconfig, 'd2_tag')
     dataset_feats = find_input_dataset(rconfig, 'd3_phr_feats')
 
-    # Check whether files form the file list are available
+    # Check whether files from the file list are available
     check_file_availability(dataset_tags, filelist_path)
     check_file_availability(dataset_feats, filelist_path)
 
@@ -379,12 +400,106 @@ def annotate_something(name, rconfig, filelist, chunks):
             term_obj = fd.get_term(term)
 
 
+def annotate_terms(name, rconfig, instances_file):
+
+    """Create an annotation file for term instances."""
+
+    # Get the datasets
+    dataset_tags = find_input_dataset(rconfig, 'd2_tag')
+    dataset_feats = find_input_dataset(rconfig, 'd3_phr_feats')
+    print dataset_feats.path
+    print dataset_tags.path
+
+    # Create the directory where the files will be written to; write info; and
+    # open the output file, intializing it with info
+    dirname = set_dirname(rconfig, 'instances', name)
+    write_info(rconfig, dirname, instances_file)
+    outfile = os.path.join(dirname, 'annotate.terms.context.txt')
+    out = codecs.open(outfile, 'w', encoding='utf8')
+    # add the content of the general info file as a preface
+    with open(os.path.join(dirname, 'annotate.info.general.txt')) as fh:
+        for line in fh:
+            out.write("# %s\n" % line.rstrip())
+        out.write("#\n")
+
+                           
+    # Check whether files form the file list are available; for now assuming
+    # this does not need to be done, would require creation of a temporary file    
+    #check_file_availability(dataset_tags, filelist_path)
+    #check_file_availability(dataset_feats, filelist_path)
+
+    # time to get the terms
+    terms = _read_terms(instances_file)
+    _reduce_terms(terms)
+    #_print_terms(terms)
+
+    for term, locations in terms.items():
+        count = 0
+        for doc, lines in locations:
+            #sys.stdout.write("%s %s %s" % (term, doc, lines))
+            print term, doc, lines
+            phr_file =  os.path.join(dataset_feats.path, 'files', doc) + '.xml'
+            tag_file =  os.path.join(dataset_tags.path, 'files', doc) + '.xml'
+            fd = FileData(tag_file, phr_file)
+            term_obj = fd.get_term(term)
+            # this helps just getting the first instance in a line
+            done = {}
+            for inst in term_obj.term_instances:
+                if inst.doc_loc in lines and inst.doc_loc not in done:
+                    done[inst.doc_loc] = True
+                    count += 1
+                    out.write("%s - %d\n" % (term, count))
+                    inst.print_as_tabbed_line(out)
+
+
+def _read_terms(instances_file):
+    terms = {}
+    current_term = None
+    fh = codecs.open(instances_file, encoding='utf8')
+    for line in fh:
+        if line.startswith('<Term'):
+            current_term = line.split(' freq=')[0][7:-1]
+            if verbose:
+                print "[_read_terms] Adding '%s'" % current_term
+            terms[current_term] = []
+        else:
+            fields = line.split("\t")
+            if len(fields) == 3:
+                doc = fields[1]
+                lines = [int(l) for l in fields[2].split()]
+            terms[current_term].append((doc, lines))
+    return terms
+
+def _reduce_terms(terms):
+    MAX_TERMS = 30
+    for term in terms.keys():
+        locations = []
+        for doc, lines in terms[term]:
+            for line in lines:
+                locations.append((doc, line))
+        random.shuffle(locations)
+        locations = locations[:MAX_TERMS]
+        grouped_locations = {}
+        for doc, line in locations:
+            grouped_locations.setdefault(doc,[]).append(line)
+        terms[term] = []
+        for doc, lines in grouped_locations.items():
+            terms[term].append((doc, lines))
+
+def _print_terms(terms):
+    for term in terms.keys():
+        print term
+        for doc, lines in terms[term]:
+            print '  ', doc, lines
+
+
+
 
 if __name__ == '__main__':
 
     options = ['name=', 'corpus=', 'pipeline=', 'filelist=', 'sort-terms',
-               'print-context', 'technologies', 'inventions', 'chunks=',
-               'verbose']    
+               'print-context', 'technologies', 'inventions', 'terms',
+               'chunks=', 'instances=', 'verbose']    
     (opts, args) = getopt.getopt(sys.argv[1:], '', options)
 
     name = None
@@ -393,22 +508,30 @@ if __name__ == '__main__':
     filelist = 'files.txt'
     annotate_technologies_p = False
     annotate_inventions_p = False
+    annotate_terms_p = False
     sort_terms_p = False
     print_context_p = False
     chunks = 30
+    instances = "../annotation/en/maturity/terms-locations.txt"
+    #instances = "../annotation/cn/maturity/terms-locations.txt"
     verbose = False
     
     for opt, val in opts:
-        if opt == '--name': name = val
-        if opt == '--corpus': target_path = val
-        if opt == '--pipeline': pipeline_config = val
-        if opt == '--filelist': filelist = val
+        
         if opt == '--technologies': annotate_technologies_p = True
         if opt == '--inventions': annotate_inventions_p = True
+        if opt == '--terms': annotate_terms_p = True
+
+        if opt == '--name': name = val
+        if opt == '--corpus': target_path = val
+        if opt == '--verbose': verbose = True
+
+        if opt == '--pipeline': pipeline_config = val
+        if opt == '--filelist': filelist = val
         if opt == '--sort-terms': sort_terms_p = True
         if opt == '--print-context': print_context_p = True
         if opt == '--chunks': chunks = int(val)
-        if opt == '--verbose': verbose = True
+        if opt == '--instances': instances = val
         
     if name is None:
         exit("ERROR: missing --name option")
@@ -422,3 +545,6 @@ if __name__ == '__main__':
                               sort_terms_p, print_context_p)
     elif annotate_inventions_p:
         annotate_inventions(name, rconfig, filelist, chunks)
+
+    elif annotate_terms_p:
+        annotate_terms(name, rconfig, instances)

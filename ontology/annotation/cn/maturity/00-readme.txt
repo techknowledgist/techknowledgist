@@ -26,8 +26,8 @@ Si Li for annotation and received back from her respectively.
 
 The file terms-locations.txt is created with ontology/indexer/find_locations.py
 using the --filter option and using terms-selected.txt as the input (which is
-actually one of the defaults). The git commit was ????. At the end of this step
-there are eighteen terms left.
+actually one of the defaults). The git commit was 6cc8532 (v0.4-68-g6cc8532). At
+the end of this step there are eighteen terms left.
 
 
 3. Create annotation file
