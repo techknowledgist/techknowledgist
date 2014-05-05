@@ -56,7 +56,7 @@ if DOMAIN == 'cn':
     DEFAULT_CORPUS = FUSE_CORPORA + "/ln-cn-all-600k/subcorpora/2000"
     DEFAULT_TERMS = "../annotation/cn/maturity/terms-selected.txt"
 
-MIN_DOCUMENTS = 20 if DOMAIN == 'us' else 6
+MIN_DOCUMENTS = 20 if DOMAIN == 'us' else 10
 
 
 import os, sys, getopt, codecs
