@@ -28,19 +28,27 @@ Example:
 """
 
 
-import os, sys, getopt, shutil, codecs, time, subprocess
+import os, sys, getopt, codecs
 
 #sys.path.append(os.path.abspath('../..'))
 #from ontology.utils.file import open_input_file
 
 
-AGGREGATE_CORPUS = "/home/j/corpuswork/fuse/FUSEData/corpora/ln-us-all-600k"
+# TODO: the entire way of dealing with the aggregate and the sub corpus sucks
+
+AGGREGATE_CORPUS_US = "/home/j/corpuswork/fuse/FUSEData/corpora/ln-us-all-600k"
+AGGREGATE_CORPUS_CN = "/home/j/corpuswork/fuse/FUSEData/corpora/ln-cn-all-600k"
+AGGREGATE_CORPUS = AGGREGATE_CORPUS_CN
+
 TIME_SERIES = "time-series-v2"
 
 # TODO: these two should be on the command line
-TECHNOLOGY_SCORES = "technology-scores/2000.tab"
-MATURITY_SCORES = "maturity-scores/maturity-match-based-2000.txt"
-
+if AGGREGATE_CORPUS == AGGREGATE_CORPUS_US:
+    TECHNOLOGY_SCORES = "technology-scores/2000.tab"
+    MATURITY_SCORES = "maturity-scores/maturity-match-based-2000.txt"
+else:
+    TECHNOLOGY_SCORES = "technology-scores-cn/2000.tab"
+    MATURITY_SCORES = "maturity-scores-cn/maturity-match-based-2000.txt"
 
 VERBOSE = False
 
@@ -101,14 +109,12 @@ def combine(corpus, batch):
         fh_out.write("%s\t%s\t%s\t%s\n" % (t, vals[0], vals[1], vals[2]))
 
 
-
 def read_opts():
     longopts = ['corpus=', 'batch=', 'verbose' ]
     try:
         return getopt.getopt(sys.argv[1:], '', longopts)
     except getopt.GetoptError as e:
         sys.exit("ERROR: " + str(e))
-
 
 
 if __name__ == '__main__':

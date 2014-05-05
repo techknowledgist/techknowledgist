@@ -39,24 +39,27 @@ def summarize(corpus, batch):
     # TODO: add existence check??
     batch_dir = os.path.join(corpus, 'data', 'o1_index', batch)
     infile = os.path.join(batch_dir, 'index.locs.txt')
-    outfile = os.path.join(batch_dir, 'index.locs.summ.txt')
+    outfile = os.path.join(batch_dir, 'index.locs.summ.az.txt')
     infofile = os.path.join(batch_dir, 'index.info.summ.txt')
     fh_in = codecs.open(infile, encoding='utf-8')
     fh_out = codecs.open(outfile, 'w', encoding='utf-8')
     create_info_file(infofile, batch, infile, outfile)
-    print 'IN: ', infile
-    print 'OUT:', outfile
     frequencies = {}
     count = 0
+    print "\nReading", infile
     for line in fh_in:
         count += 1
-        if count % 100000 == 0 and VERBOSE: print 'reading', count
+        if count % 100000 == 0 and VERBOSE: print '  ', count
         (doc, term, freq, lines) = line.split("\t")
         frequencies[term] = frequencies.get(term, 0) + int(freq)
     count = 0
+    # TODO: maybe get rid of the sorting
+    print "\nWriting", outfile
     for t in sorted(frequencies.keys()):
+        # TODO: this is much slower than the reading (and that is not counting
+        # the sorting), why?
         count += 1
-        if count % 100000 == 0 and VERBOSE: print 'writing', count
+        if count % 100000 == 0 and VERBOSE: print '  ', count
         fh_out.write("%s\t%s\n" % (frequencies[t], t))
 
 def create_info_file(filename, batch, infile, outfile):

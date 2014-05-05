@@ -48,19 +48,16 @@ WISHLIST:
 import os, sys, getopt, shutil, codecs, time, subprocess
 
 sys.path.append(os.path.abspath('../..'))
-
 from ontology.utils.batch import RuntimeConfig, DataSet
 from ontology.utils.batch import find_input_dataset, check_file_availability
 from ontology.utils.file import filename_generator, ensure_path, open_input_file
 from ontology.utils.file import parse_feats_line
 from ontology.utils.git import get_git_commit
 
-
 VERBOSE = False
 
 
-
-class Indexer(object):
+class Collector(object):
 
     def __init__(self, rconfig, filelist, batch):
         self.rconfig = rconfig
@@ -75,7 +72,7 @@ class Indexer(object):
         self.info_file_filelist = os.path.join(self.batch_dir, "index.info.filelist.txt")
 
     def __str__(self):
-        return "<Indexer on '%s' for '%s'>" % (self.rconfig.corpus, self.batch)
+        return "<Collector on '%s' for '%s'>" % (self.rconfig.corpus, self.batch)
 
     def run(self):
         self.time = time.time()
@@ -87,11 +84,17 @@ class Indexer(object):
         for fname in fnames:
             count += 1
             #if count > 5: break
-            print_file_progress("Indexer", count, fname, VERBOSE)
-            self.run_indexer_on_file(fname, fh)
+            print_file_progress("Collector", count, fname, VERBOSE)
+            self._process_file(fname, fh)
         self._finish()
 
-    def run_indexer_on_file(self, fname, fh):
+    def pp(self):
+        print "\n<Collector on '%s'>" % self.rconfig.corpus
+        print "   index_dir =", self.index_dir
+        print "   batch_dir =", self.batch_dir
+        rconfig.pp()
+
+    def _process_file(self, fname, fh):
         self.locations = {}
         infile = open_input_file(fname)
         for l in infile:
@@ -109,24 +112,18 @@ class Indexer(object):
             path, term = key.split("\t", 1)
             fh.write("%s\t%s\t%s\t%s\n" % (path, term, len(lines), ' '.join(lines)))    
             
-    def pp(self):
-        print "\n<Indexer on '%s'>" % self.rconfig.corpus
-        print "   index_dir =", self.index_dir
-        print "   batch_dir =", self.batch_dir
-        rconfig.pp()
-
     def _find_datasets(self):
         """Select data sets and check whether all files are available."""
         # TODO: this is the same as the method on TrainerClassifier
-        print "[Indexer] finding dataset and checking file availability"
+        print "[Collector] finding dataset and checking file availability"
         self.input_dataset = find_input_dataset(self.rconfig, 'd3_phr_feats')
-        print "[Indexer]", self.input_dataset
+        print "[Collector]", self.input_dataset
         check_file_availability(self.input_dataset, self.file_list)
 
     def _create_info_files(self):
         if os.path.exists(self.info_file_general):
             sys.exit("WARNING: already ran indexer for batch %s" % self.batch)
-        print "[Indexer] initializing data/o1_index/%s directory" %  self.batch
+        print "[Collector] initializing data/o1_index/%s directory" %  self.batch
         ensure_path(self.batch_dir)
         with open(self.info_file_general, 'w') as fh:
             fh.write("$ python %s\n\n" % ' '.join(sys.argv))
@@ -140,8 +137,6 @@ class Indexer(object):
     def _finish(self):
         with open(self.info_file_general, 'a') as fh:
             fh.write("\nprocessing time: %d seconds\n" % (time.time() - self.time))
-
-
 
 
 def print_file_progress(stage, count, filename, verbose):
@@ -183,4 +178,4 @@ if __name__ == '__main__':
     rconfig = RuntimeConfig(corpus, None, None, language, pipeline_config)
     rconfig.pp()
 
-    Indexer(rconfig, filelist, batch).run()
+    Collector(rconfig, filelist, batch).run()

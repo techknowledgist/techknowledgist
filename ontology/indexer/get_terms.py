@@ -72,12 +72,28 @@ def test_query(corpus, batch):
 
 def find_terms_for_us_maturity_evaluation(corpus, batch):
     """These are the queries used for finding a set of evaluaiton terms for the
-    English maturity evaluation. For the end of phase 2B. This resulted in 31
-    terms, that were than manually culled down to 20 by removing some obvious
-    non-technology terms."""
+    English maturity evaluation. For the end of phase 2B. This resulted in a
+    total of 31 terms, that were than manually culled down by removing some
+    obvious non-technology terms."""
     queries = [
         'select term from terms where frequency=200 and technology_score > 0.5',
         'select term from terms where frequency=201 and technology_score > 0.5' ]
+    for q in queries:
+        print "\n", q
+        result = query_terms(corpus, batch, q)
+        print "\n".join([row[0] for row in result])
+
+def find_terms_for_cn_maturity_evaluation(corpus, batch):
+    
+    """Like the previous, but now for Chinese. This one resulted in 57
+    terms. Note that you cannot use the default setting for the corpus."""
+
+    queries = [
+        'select term from terms where frequency=99 and technology_score > 0.5',
+        'select term from terms where frequency=100 and technology_score > 0.5',
+        'select term from terms where frequency=101 and technology_score > 0.5',
+        'select term from terms where frequency=102 and technology_score > 0.5',
+        'select term from terms where frequency=103 and technology_score > 0.5' ]
     for q in queries:
         print "\n", q
         result = query_terms(corpus, batch, q)
@@ -94,5 +110,6 @@ if __name__ == '__main__':
         elif opt == '--batch': batch = val
 
     test_terms(corpus, batch)
-    test_query(corpus, batch)
-    find_terms_for_us_maturity_evaluation(corpus, batch)
+    #test_query(corpus, batch)
+    #find_terms_for_us_maturity_evaluation(corpus, batch)
+    find_terms_for_cn_maturity_evaluation(corpus, batch)
