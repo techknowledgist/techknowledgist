@@ -1,52 +1,52 @@
 
-select term from terms where frequency=99 and technology_score > 0.5
+select term, maturity_score from terms where frequency=99 and technology_score > 0.5
 
-光 密度
-系统 时钟
-记忆 模块
-光学 传感 设备
-循环 系统
-生物 传感器
-记录 头
-控制器 芯片
-通信 模块
-电动 装置
-电动 机轴
-电压 指令
-壳 材料 粉末
+光 密度	0.2193
+系统 时钟	0.3388
+记忆 模块	-1.0
+光学 传感 设备	-1.0
+循环 系统	0.2825
+生物 传感器	0.2476
+记录 头	0.2847
+控制器 芯片	0.0
+通信 模块	0.2784
+电动 装置	0.2193
+电动 机轴	0.2536
+电压 指令	0.2748
+壳 材料 粉末	-1.0
 
-select term from terms where frequency=100 and technology_score > 0.5
+select term, maturity_score from terms where frequency=100 and technology_score > 0.5
 
-硅氧烷 聚合物
-电子 组件
-头发 固定架
-一 系统
-服务器 数据库
-存储器 )
-前体 药物
-解码 装置
+硅氧烷 聚合物	0.1814
+电子 组件	0.1921
+头发 固定架	-1.0
+一 系统	0.3557
+服务器 数据库	0.0
+存储器 )	0.0
+前体 药物	0.4428
+解码 装置	0.2718
 
-select term from terms where frequency=101 and technology_score > 0.5
+select term, maturity_score from terms where frequency=101 and technology_score > 0.5
 
-信息 处理 设备
-液晶 聚合物
-电流 传感器
-娱乐 设备
-内容 文件 cf
-电力 转换器
-夹持 装置
-家用 电器
-述的 液晶
-定位 片
+信息 处理 设备	0.3793
+液晶 聚合物	0.3317
+电流 传感器	0.3192
+娱乐 设备	0.3154
+内容 文件 cf	-1.0
+电力 转换器	-1.0
+夹持 装置	0.3232
+家用 电器	0.4008
+述的 液晶	0.0
+定位 片	0.2193
 
-select term from terms where frequency=102 and technology_score > 0.5
+select term, maturity_score from terms where frequency=102 and technology_score > 0.5
 
-图像 区域
-印刷 电路
-搜索 窗口
+图像 区域	0.1325
+印刷 电路	0.4287
+搜索 窗口	0.2727
 
-select term from terms where frequency=103 and technology_score > 0.5
+select term, maturity_score from terms where frequency=103 and technology_score > 0.5
 
-空气 压缩机
-定位 动作
-所述 接收机
+空气 压缩机	0.3928
+定位 动作	0.1239
+所述 接收机	0.343
