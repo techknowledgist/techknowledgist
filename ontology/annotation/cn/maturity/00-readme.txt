@@ -35,4 +35,29 @@ the end of this step there are eighteen terms left.
 
 3. Create annotation file
 
-TBA
+Used ontology/creation/step3_annotation.py to create the annotation file
+annotate.maturity.cn.context.txt, which was then annotated with the tool 
+ontology/annotation/tool/term_annotator.py using --maturity mode.
+
+The results of the annotation is in annotate.maturity.cn.labels.txt. Labels were
+added by Si Li.
+
+
+4. Collect data and calculate Pearson's r
+
+Use merge_results.py to create terms-merged.txt, which has both the counts and
+the maturity scores.
+
+Then use the calculator at
+
+	http://www.socscistatistics.com/tests/pearson/
+
+The result using all 18 data points is:
+
+r = 0.174
+
+This is a very weak positive correlation. 
+
+The dataset contained one outlier where a 0 maturity score was paired with a
+high annotation score. Removing this outlier raised the score to 0.5391, which
+indicates a strong correlation.
