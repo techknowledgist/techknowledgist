@@ -16,6 +16,9 @@ This list was created with the function find_terms_for_cn_maturity_evaluation()
 in ontology/indexer/get_terms() from commit gb1af98d (v0.4-65-gb1af98d). It has
 37 elements.
 
+The list was updated a bit later to include maturity scores, using git commit
+f06661e (v0.4-70-gf06661e).
+
 The file terms-selected.txt is based on terms-candidates.txt, but with obvious
 non-technologies filtered out. The file has 28 elements. The files named
 terms-selected-sili-1.txt and terms-selected-sili-2.txt were the files given to
