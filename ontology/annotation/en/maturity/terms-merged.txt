@@ -1,0 +1,12 @@
+polyimide resin	0.7727	0.2697
+band pass filter	0.3448	0.258
+thermal contact	0.0000	0.3571
+nozzle assembly	0.1724	0.272
+transmission channel	0.7778	0.3007
+optical transmitter	0.4286	0.2723
+laser device	0.2222	0.3281
+reflective coating	0.2857	0.4279
+analog converter	0.0000	0.0
+optical sensors	0.6667	0.2819
+in situ hybridization	0.4667	0.2723
+photoinitiators	0.3929	0.2694

@@ -4,7 +4,7 @@ import os, codecs
 DIR = '.'
 
 candidates_file = os.path.join(DIR, 'terms-candidates.txt')
-annotation_results_file = os.path.join(DIR, 'annotate.maturity.cn.labels.txt')
+annotation_results_file = os.path.join(DIR, 'annotate.maturity.en.labels.txt')
 merged_file = os.path.join(DIR, 'terms-merged.txt')
 
 

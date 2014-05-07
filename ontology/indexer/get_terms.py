@@ -27,7 +27,7 @@ See the docstring with these methods.
 """
 
 DEFAULT_CORPUS = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-us-all-600k/subcorpora/2000'
-DEFAULT_CORPUS = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-cn-all-600k/subcorpora/2000'
+#DEFAULT_CORPUS = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-cn-all-600k/subcorpora/2000'
 DEFAULT_BATCH = 'standard'
 
 import os, sys, getopt
@@ -71,7 +71,14 @@ def test_query(corpus, batch):
     result = query_terms(corpus, batch, query)
     print result[0][0]
 
-def find_terms_for_us_maturity_evaluation(corpus, batch):
+    
+def find_terms_for_us_maturity_evaluation(corpus, batch, add_maturity_score=True):
+    if add_maturity_score:
+        find_terms_for_us_maturity_evaluation2(corpus, batch)
+    else:
+        find_terms_for_us_maturity_evaluation1(corpus, batch)
+            
+def find_terms_for_us_maturity_evaluation1(corpus, batch):
     """These are the queries used for finding a set of evaluation terms for the
     English maturity evaluation. For the end of phase 2B. This resulted in a
     total of 31 terms, that were than manually culled down by removing some
@@ -84,11 +91,25 @@ def find_terms_for_us_maturity_evaluation(corpus, batch):
         result = query_terms(corpus, batch, q)
         print "\n".join([row[0] for row in result])
 
+def find_terms_for_us_maturity_evaluation2(corpus, batch):
+    """These are the queries used for finding a set of evaluation terms for the
+    English maturity evaluation. For the end of phase 2B. This resulted in a
+    total of 31 terms, that were than manually culled down by removing some
+    obvious non-technology terms."""
+    queries = [
+        'select term, maturity_score from terms where frequency=200 and technology_score > 0.5',
+        'select term, maturity_score from terms where frequency=201 and technology_score > 0.5' ]
+    for q in queries:
+        print "\n", q
+        result = query_terms(corpus, batch, q)
+        print "\n".join(["%s\t%s" % (row[0], row[1]) for row in result])
+
+
 def find_terms_for_cn_maturity_evaluation(corpus, batch, add_maturity_score=True):
     if add_maturity_score:
         find_terms_for_cn_maturity_evaluation1(corpus, batch)
     else:
-        find_terms_for_cn_maturity_evaluation2(corpus, batch):
+        find_terms_for_cn_maturity_evaluation2(corpus, batch)
             
 def find_terms_for_cn_maturity_evaluation1(corpus, batch):
     """Like the previous, but now for Chinese. This one resulted in 57
@@ -128,6 +149,9 @@ if __name__ == '__main__':
         elif opt == '--batch': batch = val
 
     test_terms(corpus, batch)
+
     # test_query(corpus, batch)
-    # find_terms_for_us_maturity_evaluation(corpus, batch)
-    find_terms_for_cn_maturity_evaluation(corpus, batch)
+
+    find_terms_for_us_maturity_evaluation(corpus, batch)
+
+    # find_terms_for_cn_maturity_evaluation(corpus, batch)
