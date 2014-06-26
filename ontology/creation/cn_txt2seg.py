@@ -96,31 +96,31 @@ class SegmenterWrapper(object):
             line = line.replace(unichr(160),' ').strip()
             if line != "":
                 if line.startswith('FH_'):
-                    self._segment_lines()
+                    self._segment_lines(verbose)
                     debug("[seg] header      [%s]" % line.strip())
                     self.s_output.write(line + u"\n")
                 elif line.strip() == 'END':
-                    self._segment_lines()
+                    self._segment_lines(verbose)
                     debug("[seg] end         [%s]" % line.strip())
                     self.s_output.write(line + u"\n")
                 elif is_skipable(line):
-                    self._segment_lines()
+                    self._segment_lines(verbose)
                     debug("[seg] skipable    [%s]" % line.strip())
                 elif is_ascii(line):
-                    self._segment_lines()
+                    self._segment_lines(verbose)
                     debug("[seg] ascii       [%s]" % line.strip())
                     self.s_output.write(line + u"\n")
                 else:
                     debug("[seg] collecting  [%s]" % line.strip())
                     if line:
                         self.lines.append(line)
-        self._segment_lines()
+        self._segment_lines(verbose)
         self.s_input.close()
         self.s_output.close()
         if verbose:
             print "[Segmenter] processing time is %d seconds" % (time() - self.t1)
 
-    def _segment_lines(self):
+    def _segment_lines(self, verbose):
         if not self.lines:
             return
         text = (u" ".join(self.lines)).strip()
@@ -139,7 +139,9 @@ class SegmenterWrapper(object):
                     if self.t1 is None:
                         self.t1 = time()
                         if not self.model_loaded:
-                            print "[Segmenter] model loaded in %d seconds" % (self.t1 - self.t0)
+                            if verbose:
+                                print "[Segmenter] model loaded in %d seconds" \
+                                      % (self.t1 - self.t0)
                             self.model_loaded = True
                     self.s_output.write("%s" % l_seg_string)
         self.lines = []

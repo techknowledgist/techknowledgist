@@ -83,8 +83,6 @@ The directory tree created inside the target directory is as follows:
         |-- d2_seg         'segmenter results'
         |-- d2_tag         'tagger results '
         |-- d3_phr_feats   'results from candidate selection'
-        |-- d3_phr_occ     'results from candidate selection'
-        |-- d4_doc_feats   'results from merging phrase features'
         |-- o1_index       'term indexes'
         |-- o2_matcher     'results of the pattern matcher'
         |-- o3_selector    'results of the selector'
