@@ -472,18 +472,24 @@ class Corpus(object):
 
     def populate(self, rconfig, limit, verbose):
         run_populate(rconfig, limit, verbose)
+        if verbose: print
 
     def xml2txt(self, rconfig, limit, options, source, verbose):
         run_xml2txt(rconfig, limit, options, source, verbose)
+        if verbose: print
 
     def txt2tag(self, rconfig, limit, options, verbose):
         run_txt2tag(rconfig, limit, options, verbose)
+        if verbose: print
 
     def txt2seg(self, rconfig, limit, options, verbose):
         run_txt2seg(rconfig, limit, options, verbose)
+        if verbose: print
 
     def seg2tag(self, rconfig, limit, options, verbose):
         run_seg2tag(rconfig, limit, options, verbose)
+        if verbose: print
 
     def tag2chk(self, rconfig, limit, options, verbose):
         run_tag2chk(rconfig, limit, options, verbose)
+        if verbose: print
