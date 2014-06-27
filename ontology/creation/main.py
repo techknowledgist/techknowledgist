@@ -1,8 +1,7 @@
-
 """
 
-Script to process all documents in a corpus. Will initialize the corpus if
-needed. Combines what is done in the two scripts step1_initialize.py and
+Script to process all documents in a corpus. Will initialize the corpus
+directory if needed. Combines what is done in the step1_initialize.py and
 step2_document_processing.py, but simplifies the process a bit.
 
 USAGE
@@ -84,7 +83,6 @@ file list.
 import os, sys, getopt
 
 import config
-
 from corpus import Corpus
 from corpus import POPULATE, XML2TXT, TXT2TAG, TXT2SEG, SEG2TAG, TAG2CHK
 from ontology.utils.batch import RuntimeConfig
@@ -113,7 +111,10 @@ if __name__ == '__main__':
         if opt == '--corpus': corpus_path = val
         if opt == '--verbose': verbose = True
         if opt == '-n': limit = int(val)
-        
+
+    if source_file is None: exit("ERROR: missing --filelist option")
+    if corpus_path is None: exit("ERROR: missing --corpus option")
+
     c = Corpus(language, source_file, None, corpus_path, pipeline, None)
     rconfig = RuntimeConfig(corpus_path, None, None, language, pipeline_file)
     if limit is None:
