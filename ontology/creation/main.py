@@ -110,17 +110,17 @@ if __name__ == '__main__':
     source = 'LEXISNEXIS'
     limit = None
 
-    pipeline = config.DEFAULT_PIPELINE
-    if language == 'cn':
-            pipeline = config.DEFAULT_PIPELINE_CN
-    pipeline_file = 'pipeline-default.txt'
-
     for opt, val in opts:
         if opt == '--language': language = val
         if opt == '--filelist': source_file = val
         if opt == '--corpus': corpus_path = val
         if opt == '--verbose': verbose = True
         if opt == '-n': limit = int(val)
+
+    pipeline = config.DEFAULT_PIPELINE
+    pipeline_file = 'pipeline-default.txt'
+    if language == 'cn':
+        pipeline = config.DEFAULT_PIPELINE_CN
 
     if source_file is None: exit("ERROR: missing --filelist option")
     if corpus_path is None: exit("ERROR: missing --corpus option")
