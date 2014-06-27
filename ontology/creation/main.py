@@ -5,7 +5,7 @@ directory if needed. Combines what is done in the step1_initialize.py and
 step2_document_processing.py, but simplifies the process a bit.
 
 USAGE
-   % python corpus.py OPTIONS
+   % python main.py OPTIONS
 
 OPTIONS
    --language en|cn      language, default is 'en'
@@ -29,11 +29,18 @@ en/config/files.txt so there is always a local copy of the list with all input
 files. Note that the -n option is not given and therefore all documents will be
 processed.
 
-For the --filelist option, the system expects that FILE has two or three columns
-with year, source file and an optional target file, which is the filepath in the
-corpus starting at the target directory handed in with the --corpus option. If
-there is no third column than the source and target file will be the same as the
-source file, except that a leading path separator will be stripped.
+For the --filelist option, the system expects that FILE has two or three
+tab-separated columns with year, source file and an optional target file, which
+can be used to simplify and flatten the directory structure. For example, the
+three columns in a line of the file list could be:
+
+    1980
+    /data/500-patents/DATA/Lexis-Nexis/US/Xml/1980/US4192770A.xml
+    1980/US4192770A.xml
+
+In this case, the source file (second column) will be copied to a local path
+1980/US4192770A.xml inside the corpus. If there is no third column than the path
+of the source file will be copied into the corpus directory.
 
 The directory tree created inside the target directory is as follows:
 
@@ -57,9 +64,9 @@ The directory tree created inside the target directory is as follows:
         `-- workspace      'work space area'
 
 This script only performs document-level processing and fills in d0_xml, d1_txt,
-d2_seg (Chinese only), d2_tag and d3_phr_feats. All files are compressed. The
-directory structures mirror each other and look as follows (this example only
-has two files listed):
+d2_seg (Chinese only), d2_tag and d3_phr_feats. The structure of those
+directories mirror each other and look as follows (this example only has two
+files listed):
 
     `-- 01
         |-- state
@@ -71,10 +78,13 @@ has two files listed):
         `-- files
             |-- 1985
             |   ` US4523055A.xml.gz
-            `-- 19986
+            `-- 1986
                 ` US4577022A.xml.gz
 
-The structure under the files directory is determined by the third column in the
+All files are compressed. The first part of the directory tree is a run
+identifier, usually alwyas '01' unless the corpus was processed in different
+ways (using different chunker rules for example). As mentioned above, the
+structure under the files directory is determined by the third column in the
 file list.
 
 """
