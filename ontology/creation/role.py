@@ -10,6 +10,94 @@
 
 # TODO: add codecs to all writes
 
+"""
+Enclosed is documententation for preparing files to run role/polarity NB
+
+Summary: The goal is to label NP's within a patent domain/year with one of the high level 
+"ACT" roles: attribute, component, task.  Then to label the attributes with their polarity
+(positive or negative).  Input is two generic feature seed sets and the feature data from
+our chunker for the domain/year.
+  
+The generic feature seed set is used to generate a set of labeled NP's in each new domain. 
+By default, we choose as training terms any NP's which occur with at least 2 labeled feature
+occurrences and for which all labels are the same.
+
+The resulting terms are then used to estimate parameters for NB classifier.  We could also
+try using them as a maxent training set, perhaps using the terms which contain a mix of feature
+types as "other".
+
+Open issues:
+As of 7/9/2014 PGA
+1. For polarity, we need a way to distinguish neutral attributes
+2. It would be useful to normalize attributes syntactically, so that attributes with a 
+slot filler ("speed of the cpu") could be recognized as the same as NN compounds ("cpu speed").
+Currently we lose the filler in the first case.  However, we may not currently keep enough 
+info in the feature file to do this (as we only keep the head noun of phrases in a dependency
+relationship).
+3. Need to test on more domains
+4. Need a larger evaluation, containing more examples of A and T, in order to compare alternative
+variants, such as more/less restrictive cutoffs for the classifier categories.  e.g. if scores
+are very close, is it better to count polarity as neutral or to assume ambiguity between T and C?
+
+Seed features are in code_dir as
+seed.act.en.dat : ACT seed features
+seed.pn.en.dat : Polarity seed features
+
+########
+function tf2tfc(corpus_root, corpus, year, fcat_file, cat_list, cat_type, subset):
+cat_type: act, pn
+fcat_file: no longer used
+cat_list [a, c, t] or [p, n]
+subset "a" (for attribute in polarity classification or "" for none, in ACT classification)
+
+Input: .tf term + feature cooccurrences for a domain and year
+
+output
+<cat_type>.tfc: term feature category count
+<cat_type>.tc: term category term_category_pair_frequency term_frequency probability
+
+########
+function tc2tcs(corpus_root, corpus, year, min_prob, min_pair_freq, cat_type, subset)
+min_prob : minimum class probability to select term as a seed for the class 
+1.0 means all features for this term are of the same class
+min_pair_freq : minimum frequency of co-occurrence of term + feature
+(e.g. 2.  There must be 2 occurrences of the term and feature to use this feature as a diagnostic) 
+cat_type : act or pn
+subset : a or ""
+
+Input: .tc
+Output: 
+<cat_type>.tcs : term category term_category_pair_count prob   - these are seed terms for Naive Bayes training
+
+#########
+function: tcs2fc(corpus_root, corpus, year, cat_type, subset)
+Input: .tcs, .tf
+Output:
+<cat_type>.fc : feature category
+This contains one line for each occurrence of a feature with a term categorized in the seed term file (.tcs) 
+Thus the same feature can occur multiple times, possibly with different categories.
+
+########
+script: run_fc2fcuc.sh corpus_root corpus start_year end_year cat_type subset
+Input: .fc
+Output: .fc_uc   feature category count
+The same feature may appear with multiple categories
+
+#########
+function: fcuc2fcprob(corpus_root, corpus, year, cat_list, cat_type, subset)
+Input: .fc_uc, .tcs
+Output: 
+.fc_prob category term_cat_frequency cat_prob
+.cat_prob feature category feature_category_pair_frequency feature_freq category_given_feature feature_given_category
+.fc_kl feature, max_letter,  max_cat, next_cat, feature_freq, kld, lcgf_prob_string, lfgc_prob_string
+where max_letter is the highest scoring category, max_cat, next_cat are the direction of the divergence for the most divergent categories (written as <cat><+|->
+
+By sorting on divergence(kld), we can see the effect of features compared to expected values of the prob distribution.
+
+At this point we have all the files we need to run naive bayes (functions in nbayes.py)
+
+"""
+
 import pdb
 import re
 import glob
@@ -375,7 +463,7 @@ def tf2tfc(corpus_root, corpus, year, fcat_file, cat_list, cat_type, subset):
 # .tc is of the form:
 # acoustic devices        c       2       2       1.000000
 # As long as min_prob > .5, there will be one cat output for each term.  We are simply choosing the one
-# with highest probability and ignoring cases where the freq of the term feature pair >= min_pair_freq
+# with highest probability and ignoring cases where the freq of the term feature pair <= min_pair_freq
 def tc2tcs(corpus_root, corpus, year, min_prob, min_pair_freq, cat_type, subset):
     # the tc means "term-category" 
     #infile = inroot + "/" + year_cat_name + ".tc"
@@ -614,9 +702,7 @@ def fcuc2fcprob(corpus_root, corpus, year, cat_list, cat_type, subset):
         # keep category and prob to sort to find max prob category and runner up
         fcat_prob_list = []
 
-
         for cat in cat_list:
-            
             # create the key needed for d_pair_freq
             pair = cat + "\t" + feature
             # prob of category given the feature
@@ -646,8 +732,6 @@ def fcuc2fcprob(corpus_root, corpus, year, cat_list, cat_type, subset):
             lcgf_prob_string = lcgf_prob_string + " " + str(lcgf_prob)
             lfgc_prob_string = lfgc_prob_string + " " + str(lfgc_prob)
 
-            
-
         # also compute kl divergence and write a summary line for each feature
         #pdb.set_trace()
         # if there are not any instances of a category in the .fc file, then we'll get a 0 in
@@ -656,7 +740,6 @@ def fcuc2fcprob(corpus_root, corpus, year, cat_list, cat_type, subset):
             print "[fcuc2fcprob]Some category does not appear in the .fc file. Exiting.  cat_prob_list: %s" % cat_prob_list
             exit
         kld = kl_div(cgf_prob_list, cat_prob_list)
-
 
         # compute max and runner up prob categories
         fcat_prob_list.sort(utils.list_element_2_sort)
@@ -1589,6 +1672,10 @@ def run_time_kl(d_term_year2freq, d_term_year2feats, d_term_feat_year2freq):
 # role.run_tf_steps("ln-us-cs-500k", 1999, 1999, "act", ["tf"], "")
 # role.run_tf_steps("ln-us-cs-500k", 1998, 2007, "act", ["tc", "tcs", "fc", "uc", "prob"], "")
 # role.run_tf_steps("ln-us-all-600k", 1998, 2007, "act", ["tf"], "")
+
+# 2014 07/05
+# rerunning with adjusted initial feature seed sets
+# role.run_tf_steps("ln-us-cs-500k", 2002, 2002, "act", ["tc", "tcs", "fc", "uc", "prob"])
 
 
 def run_tf_steps(corpus, start, end, cat_type="act", todo_list=["tf", "tc", "tcs", "fc", "uc", "prob"], subset=""):

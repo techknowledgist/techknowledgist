@@ -10,7 +10,7 @@
 # e.g., a c o t (for affected, constituent, obstacle, task)
 
 ##################################################
-# Sequence of steps to produce the nbayes output for a domain, incuding polarity
+# Sequence of steps to produce the nbayes output for a domain, including polarity
 # (1) sh run_term_features_multi.sh which extracts the features of interest for each file in the source
 # directories and puts them into a local directory (...corpus/term_root/<year>)  
 # (2) role.run_tf_steps("ln-us-12-chemical", 1997, 1997, "act", ["tf", "tc", "tcs", "fc", "uc", "prob"], "")
@@ -24,6 +24,14 @@
 # runs
 # ln-us-all-600k
 # nbayes.run_steps("ln-us-all-600k", 1997, ["nb"])   
+
+# file formats
+# cat.w0.0:
+# created by classify
+# term num_diagnostic_feats num_doc_feature_instances max_cat doc_freq score_string feat_list
+# where score_string gives scores in the order ACT or PN
+# note that doc_freq means number of docs the term occurs in, regardless of existence of diagnostic features,
+# so this can be larger than num_doc_feature_instances.
 
 import pdb
 import codecs
@@ -39,10 +47,17 @@ import role
 # input file line example (1997.fc_kl):
 # prev_V=improving        a      a+ c-   275     2.514945                -0.249762837589 -1.90682879901  -4.01096295328  -2.73002910782              -4.90099344745  -10.2646354049  -8.91492178304  -8.46281913295
 
+# ///todo: add a similarity metric to determine which classes are not strongly discriminated.  This is best used for 
+# polarity to determine non-polar attributes.
+# compute a ratio to estimate the similarity of two scores.  Separate out the sign and put the larger number in the denominator.
+def sim_ratio(v1, v2):
+    return( v1 / v2)
+
 # d_lfgc = nbayes.populate_lfgc("/home/j/anick/patent-classifier/ontology/creation/data/patents/ln-us-14-health/data/tv/1997.fc_kl")
 def populate_lfgc(infile):
     print "[populate_lfgc]infile: %s" % infile
     # dict of weight, log(feature given category)
+    # weight is kl-divergence score for the feature
     d_lfgc = {}
     s_infile = codecs.open(infile, encoding='utf-8')
     for line in s_infile:
@@ -114,6 +129,8 @@ def populate_terms(infile):
     s_infile.close()
     return(d_term2feats)
 
+# term2freq_file is <year>.terms
+# input file line should start with term\tdoc-freq
 # return a dict with key term and value its document frequency
 def populate_term2freq(term2freq_file):
     d_term2freq = {}
@@ -121,7 +138,10 @@ def populate_term2freq(term2freq_file):
     s_infile = codecs.open(term2freq_file, encoding='utf-8')
     for line in s_infile:
         line = line.strip("\n")
-        (term, doc_freq, corpus_freq, prob ) = line.split("\t")
+        #(term, doc_freq, corpus_freq, prob ) = line.split("\t")
+        l_fields = line.split("\t")
+        term = l_fields[0]
+        doc_freq = l_fields[1]
         d_term2freq[term] = doc_freq
 
     s_infile.close()
@@ -179,7 +199,7 @@ def filter_tf_file(corpus_root, corpus, year, act_file_type):
     s_tft.close()
 
 # For each term in d_term2features,
-# for each cat
+# for each cat, we compute the posterior prob using the log of the prior x product of fgc probs.
 # compute priors[cat_idx] + sum of lfgc[feature][cat_idx] for all features with wt over threshold 
 # Choose category as cat with highest score.
 # max_cat
@@ -188,6 +208,8 @@ def filter_tf_file(corpus_root, corpus, year, act_file_type):
 # nbayes.classify(l_cats, l_priors, d_lfgc, d_term2feats, 0.7, "/home/j/anick/patent-classifier/ontology/creation/data/patents/ln-us-14-health/data/tv/1997.cat.0.7")
 
 # output is: term #diagnostic-features #term-feature-instances class doc_freq scores features
+# min_weight is the minimum kl_divergence score for the feature (in .fc_kl) to be 
+# utilized as a feature in NB.
 def classify(l_cats, l_priors, d_lfgc, d_term2feats, d_term2freq, min_weight, outfile):
     s_outfile = codecs.open(outfile, "w", encoding='utf-8')
     unlabeled_count = 0
@@ -201,8 +223,11 @@ def classify(l_cats, l_priors, d_lfgc, d_term2feats, d_term2freq, min_weight, ou
         num_diagnostic_feats = 0
         num_doc_feature_instances = 0
         # accumulate all features into a list to create a string of feats for output
+        # Here is where we do feature selection, so we compute the size of the 
+        # feature vocabulary here (needed for Laplace "add one" smoothing in the NB calculation.)
         feat_list = []
         for (feat, freq) in d_term2feats[term]:
+            # lfgc: log feature given class
             if d_lfgc.has_key(feat) and (d_lfgc[feat][1] > min_weight):
                 #pdb.set_trace()
                 num_diagnostic_feats += 1
@@ -607,7 +632,10 @@ def run_diff_score(corpus, year1, year2):
 # nbayes.run_steps("ln-us-12-chemical", 1997, ["nb", "ds", "cf"])
 # nbayes.run_steps("ln-us-12-chemical", 1997, ["nb", "ds", "cf"], cat_type="pn", subset="a")
 
-
+# todo_list.  
+# nb: run the classifier (cat_type = act or pn [if pn, use subset a])
+# ds: compute domain specificity scores
+# cf: filter classified results by domain score and term frequency 
 def run_steps(corpus, year, todo_list=["nb", "ds", "cf"], ranges=[[10, 100000, 1.5], [2,10, 1.5]], cat_type="act", subset=""):
     #parameters
     code_root = "/home/j/anick/patent-classifier/ontology/creation/"

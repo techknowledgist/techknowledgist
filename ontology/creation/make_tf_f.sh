@@ -1,9 +1,18 @@
 # make_tf_f.sh
+
 # file is needed for input to phran.py
 
 # uses <year>.tf to create <year>.tf.f
-# which gives # docs containing the term for that year
+# which gives # docs containing the term for that year for each term
 # sh make_tf_f.sh ln-us-cs-500k
+# .tf.f is of the form:  <term>\t<doc_freq>
+#e.g.
+# mixed-endian computing systems  1
+# great demand    19
+
+# It is created from the .tf file by selecting only the lines with the feature
+# last_word.  Since every NP must contain this field, its count field contains the 
+# number of docs the NP occurred in (as a full chunk).  
 
 CORPUS=$1
 

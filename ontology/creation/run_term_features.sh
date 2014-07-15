@@ -41,7 +41,7 @@ TARGET="/home/j/anick/patent-classifier/ontology/creation/data/patents/$CORPUS"
 #bash-4.1$ cd data
 #bash-4.1$ mkdir term_features
 
-# These variables out of data.  Corpus now passed in as parameter.
+# These variables out of date.  Corpus now passed in as parameter.
 # web of science
 #ROOT="/home/j/corpuswork/fuse/FUSEData/corpora/wos-cs-520k"                                                       
 #TARGET="/home/j/anick/patent-classifier/ontology/creation/data/patents/wos-cs-520k"                             
@@ -70,6 +70,8 @@ mkdir $TARGET
 mkdir $TARGET/data
 mkdir $TARGET/data/term_features
 mkdir $TARGET/data/tv
+# create a directory for ACT specific files
+mkdir $TARGET/data/act
 
 # loop over the years for which we have data
 #"COMMENT"
