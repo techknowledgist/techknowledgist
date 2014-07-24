@@ -40,6 +40,7 @@ import math
 from collections import defaultdict
 #from role import tv_filepath
 import role
+import pnames
 
 # populate the conditional probability table
 # lfcg[feature] -> [prefix, wt, [<lfgc>+]]
@@ -157,13 +158,13 @@ def filter_tf_file(corpus_root, corpus, year, act_file_type):
     tfa_subset = "a"
     tft_subset = "t"
 
-    tf_file = role.tv_filepath(corpus_root, corpus, year, "tf", "", cat_type="")
-    tfa_file = role.tv_filepath(corpus_root, corpus, year, "tf", tfa_subset, cat_type="")
-    tft_file = role.tv_filepath(corpus_root, corpus, year, "tf", tft_subset, cat_type="")
+    tf_file =  pnames.tv_filepath(corpus_root, corpus, year, "tf", "", cat_type="")
+    tfa_file =  pnames.tv_filepath(corpus_root, corpus, year, "tf", tfa_subset, cat_type="")
+    tft_file =  pnames.tv_filepath(corpus_root, corpus, year, "tf", tft_subset, cat_type="")
     print "[filter_tf_file]Creating tfa_file: %s" % tfa_file
     print "[filter_tf_file]Creating tft_file: %s" % tft_file
 
-    act_file = role.tv_filepath(corpus_root, corpus, year, act_file_type, "", "act")
+    act_file =  pnames.tv_filepath(corpus_root, corpus, year, act_file_type, "", "act")
     print "[filter_tf_file]Reading from act_file: %s" % act_file
     
     s_tfa = codecs.open(tfa_file, "w", encoding='utf-8')
@@ -323,18 +324,18 @@ def run_classify(corpus, year, cat_type, subset=""):
     #print "[run_classify]Output dir: %s" % tv_loc
 
     #path_to_terms_file = outroot + corpus + tv_loc + outfile_year + "."
-    #path_to_terms_file = role.tv_filepath(corpus_root, corpus, year, "tf", subset, "")
+    #path_to_terms_file =  pnames.tv_filepath(corpus_root, corpus, year, "tf", subset, "")
     #path_to_file = outroot + corpus + tv_loc + year_cat_name + "."
     #priors_file = path_to_file + priors_qualifier
-    priors_file = role.tv_filepath(corpus_root, corpus, year, priors_qualifier, subset, cat_type)
+    priors_file =  pnames.tv_filepath(corpus_root, corpus, year, priors_qualifier, subset, cat_type)
     #terms_file = path_to_terms_file + terms_qualifier
-    terms_file = role.tv_filepath(corpus_root, corpus, year, terms_qualifier, subset, "")
+    terms_file =  pnames.tv_filepath(corpus_root, corpus, year, terms_qualifier, subset, "")
 
     #lfgc_file = path_to_file + lfgc_qualifier
-    lfgc_file = role.tv_filepath(corpus_root, corpus, year, lfgc_qualifier, subset, cat_type)
+    lfgc_file =  pnames.tv_filepath(corpus_root, corpus, year, lfgc_qualifier, subset, cat_type)
 
     #term2freq_file = path_to_terms_file + term2freq_qualifier
-    term2freq_file = role.tv_filepath(corpus_root, corpus, year, term2freq_qualifier, "", "")
+    term2freq_file =  pnames.tv_filepath(corpus_root, corpus, year, term2freq_qualifier, "", "")
     
 
     # compute l_cats, l_priors, d_lfgc, d_term2feats once and use them to run several thresholds
@@ -355,7 +356,7 @@ def run_classify(corpus, year, cat_type, subset=""):
     for cutoff in [ .1, .05, .0]:
         cutoff_qualifier = role.cat_cutoff_file_type(cutoff)
         #outfile = path_to_file + outfile_qualifier + ".w" + cutoff_qualifier
-        outfile = role.tv_filepath(corpus_root, corpus, year, cutoff_qualifier, subset, cat_type)
+        outfile =  pnames.tv_filepath(corpus_root, corpus, year, cutoff_qualifier, subset, cat_type)
         print "[nbayes.py]classifying into outfile: %s" % outfile 
         classify(l_cats, l_priors, d_lfgc, d_term2feats, d_term2freq, cutoff, outfile)
 
@@ -371,7 +372,7 @@ def run_filter_tf_file(corpus, year, cutoff="0.1"):
     # e.g., act file: 1997.act.cat.w0.2
     
     #act_file = tv_root + year + ".act.cat.w" + cutoff
-    #act_file = role.tv_filepath(corpus_root, corpus, year, file_type, subset, cat_type=""):
+    #act_file =  pnames.tv_filepath(corpus_root, corpus, year, file_type, subset, cat_type=""):
     #print "[run_filter_tf_file]Creating .tf.a and .tf.t from %s" % act_file
     #filter_tf_file(tv_root, year, act_file)
     act_file_type = role.cat_cutoff_file_type(cutoff)
@@ -523,10 +524,10 @@ def diff_score(f_terms1, y1_size, f_terms2, y2_size, f_ds1, cat_file, outfile):
 
 def cat_filter(corpus_root, corpus, year, cat_type, subset, min_freq, min_domain_score, max_freq):
     cat_file_type = "cat.w0.0"
-    f_cat = role.tv_filepath(corpus_root, corpus, year, cat_file_type, subset, cat_type)
-    f_ds =  role.tv_filepath(corpus_root, corpus, year, "ds", "", "")
+    f_cat =  pnames.tv_filepath(corpus_root, corpus, year, cat_file_type, subset, cat_type)
+    f_ds =   pnames.tv_filepath(corpus_root, corpus, year, "ds", "", "")
     out_file_type = cat_file_type + "_r" + str(min_freq) + "-" + str(max_freq) + "_ds" + str(min_domain_score)
-    f_out = role.tv_filepath(corpus_root, corpus, year, out_file_type, subset, cat_type)
+    f_out =  pnames.tv_filepath(corpus_root, corpus, year, out_file_type, subset, cat_type)
 
     d_term2cat = {}
     d_term2ds = {}
@@ -578,9 +579,9 @@ def run_cat_filter(corpus, year, min_freq, min_domain_score, max_freq, cat_type,
 def run_domain_score(corpus1, corpus1_size, corpus2, corpus2_size, year):
     corpus_root = "/home/j/anick/patent-classifier/ontology/creation/data/patents/"
     #outfile_name = corpus1 + "_" + corpus2 + ".ds"
-    outfile = role.tv_filepath(corpus_root, corpus1, year, "ds", "", "")
-    f_terms1 = role.tv_filepath(corpus_root, corpus1, year, "terms", "", "")
-    f_terms2 = role.tv_filepath(corpus_root, corpus2, year, "terms", "", "")
+    outfile =  pnames.tv_filepath(corpus_root, corpus1, year, "ds", "", "")
+    f_terms1 =  pnames.tv_filepath(corpus_root, corpus1, year, "terms", "", "")
+    f_terms2 =  pnames.tv_filepath(corpus_root, corpus2, year, "terms", "", "")
     
     domain_score(f_terms1, corpus1_size, f_terms2, corpus2_size, outfile)
 
@@ -589,15 +590,15 @@ def run_domain_score(corpus1, corpus1_size, corpus2, corpus2_size, year):
 def run_diff_score(corpus, year1, year2):
     corpus_root = "/home/j/anick/patent-classifier/ontology/creation/data/patents/"
     outfile_years = str(year1) + "_" + str(year2)
-    outfile = role.tv_filepath(corpus_root, corpus, outfile_years, "diff", "", "")
-    f_terms1 = role.tv_filepath(corpus_root, corpus, year1, "terms", "", "")
-    f_terms2 = role.tv_filepath(corpus_root, corpus, year2, "terms", "", "")
-    cat_file = role.tv_filepath(corpus_root, corpus, year1, "cat.w0.0", "", "act")
-    f_ds1 = role.tv_filepath(corpus_root, corpus, year1, "ds", "", "")
+    outfile =  pnames.tv_filepath(corpus_root, corpus, outfile_years, "diff", "", "")
+    f_terms1 =  pnames.tv_filepath(corpus_root, corpus, year1, "terms", "", "")
+    f_terms2 =  pnames.tv_filepath(corpus_root, corpus, year2, "terms", "", "")
+    cat_file =  pnames.tv_filepath(corpus_root, corpus, year1, "cat.w0.0", "", "act")
+    f_ds1 =  pnames.tv_filepath(corpus_root, corpus, year1, "ds", "", "")
 
     # read in the corpus sizes
-    y1_size_file = role.tv_filepath(corpus_root, corpus, year1, "cs", "", "")
-    y2_size_file = role.tv_filepath(corpus_root, corpus, year2, "cs", "", "")
+    y1_size_file =  pnames.tv_filepath(corpus_root, corpus, year1, "cs", "", "")
+    y2_size_file =  pnames.tv_filepath(corpus_root, corpus, year2, "cs", "", "")
     y1_size = 0
     y2_size = 0
     with open(y1_size_file, 'r') as f:
@@ -641,10 +642,10 @@ def run_steps(corpus, year, todo_list=["nb", "ds", "cf"], ranges=[[10, 100000, 1
     code_root = "/home/j/anick/patent-classifier/ontology/creation/"
     # path to corpus
     corpus_root = code_root + "data/patents/"
-    corpus1_size_file = role.tv_filepath(corpus_root, corpus, year, "cs", "", "")
+    corpus1_size_file =  pnames.tv_filepath(corpus_root, corpus, year, "cs", "", "")
     # generic corpus for domain specificity computation
     corpus2 = "ln-us-all-600k"
-    corpus2_size_file = role.tv_filepath(corpus_root, corpus2, year, "cs", "", "")
+    corpus2_size_file =  pnames.tv_filepath(corpus_root, corpus2, year, "cs", "", "")
 
     # read in the corpus sizes
     with open(corpus1_size_file, 'r') as f:

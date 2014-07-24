@@ -16,7 +16,8 @@
 
 CORPUS=$1
 
-ROOT="/home/j/anick/patent-classifier/ontology/creation/data/patents"
+#ROOT="/home/j/anick/patent-classifier/ontology/creation/data/patents"
+
 DIR=$ROOT/$CORPUS/data/tv
 TF_QUAL="tf"
 TFF_QUAL="tf.f"

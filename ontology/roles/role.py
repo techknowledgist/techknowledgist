@@ -109,6 +109,7 @@ import collections
 from collections import defaultdict
 import codecs
 import utils
+import pnames
 import pickle
 
 # pattern can contain alpha or blank, must be length >=2
@@ -150,30 +151,6 @@ def set2pairs_alpha(term_set):
 ---
 1997.act.fc => 1997.a.pn.fc  
 """
-def tv_filepath(corpus_root, corpus, year, file_type, subset, cat_type=""):
-    # check for illegal parameter values
-    # note: for file_type, we allow values of the form "cat.<cutoff>"
-    if file_type not in ["diff", "tf", "cs", "cat", "cat_prob", "fc", "fc_kl", "fc_prob", "fc_uc", "tc", "tcs", "tfc", "feats", "terms", "ds"] and not file_type[0:5] == "cat.w":
-        print "[tv_filepath]WARNING: unknown file type: %s" % file_type
-        
-    if subset not in ["", "a", "t", "c"]:
-        # note: subset can be empty string
-        print "[tv_filepath]ERROR: unknown subset: %s" % subset
-        quit
-    if cat_type not in ["", "pn", "act"]:
-        print "[tv_filepath]ERROR: unknown cat_type: %s" % cat_type
-        quit
-    tv_subpath = "/data/tv/"
-    # make sure we don't create double slashes in the name
-    if corpus_root[-1] != "/":
-        corpus_root += "/"
-    if cat_type != "":
-        cat_type = "." + cat_type
-    if subset != "":
-        subset = "." + subset
-    full_filename = corpus_root + corpus + tv_subpath + str(year) + subset + cat_type + "." + file_type
-    print "[tv_filepath]file: %s" % full_filename
-    return(full_filename)
 
 # for creating a cat file_type based on a given cutoff value (e.g. "0.1")
 def cat_cutoff_file_type(cutoff):
@@ -222,7 +199,8 @@ def test_kl():
 # We assume inroot/year and outroot have been checked to exist at this point
 # outfilename will the be value of the year
 
-
+"""
+# moved to tf.py
 #----
 # from individual term features files, create a summary file per year
 # with the freq of the term feature combination  (.tf)
@@ -358,7 +336,7 @@ def dir2features_count(inroot, outroot, year):
     cmd = "ls -1 " + inroot + " | wc -l > " + corpus_size_file
     print "[dir2features_count]Storing corpus size in %s " % corpus_size_file
     os.system(cmd)
-
+"""
 
 # convert term feature (.tf) info to term category info (.tc)
 # also create .tfc (term, feature, cat)
@@ -374,16 +352,16 @@ def tf2tfc(corpus_root, corpus, year, fcat_file, cat_list, cat_type, subset):
     # the tc means "term-category" 
     #infile = inroot + "/" + yearfilename + ".tf"
     # note there is no cat_type in the file name for .tf file, so use ""
-    infile = tv_filepath(corpus_root, corpus, year, "tf" , subset, "")
+    infile = pnames.tv_filepath(corpus_root, corpus, year, "tf" , subset, "")
     """
     if subset != "":
         infile = infile + "." + subset
     """
 
     #tc_file = outroot + "/" + year_cat_name + ".tc"
-    tc_file = tv_filepath(corpus_root, corpus, year, "tc" , subset, cat_type)
+    tc_file = pnames.tv_filepath(corpus_root, corpus, year, "tc" , subset, cat_type)
     #tfc_file = outroot + "/" + year_cat_name + ".tfc"
-    tfc_file = tv_filepath(corpus_root, corpus, year, "tfc" , subset, cat_type)
+    tfc_file = pnames.tv_filepath(corpus_root, corpus, year, "tfc" , subset, cat_type)
 
     # load the feature categories for fcat_file
     s_fcat_file = open(fcat_file)
@@ -467,9 +445,9 @@ def tf2tfc(corpus_root, corpus, year, fcat_file, cat_list, cat_type, subset):
 def tc2tcs(corpus_root, corpus, year, min_prob, min_pair_freq, cat_type, subset):
     # the tc means "term-category" 
     #infile = inroot + "/" + year_cat_name + ".tc"
-    infile = tv_filepath(corpus_root, corpus, year, "tc", subset, cat_type)
+    infile = pnames.tv_filepath(corpus_root, corpus, year, "tc", subset, cat_type)
     #outfile = outroot + "/" + year_cat_name + ".tcs"
-    tcs_file = tv_filepath(corpus_root, corpus, year, "tcs", subset, cat_type)
+    tcs_file = pnames.tv_filepath(corpus_root, corpus, year, "tcs", subset, cat_type)
 
 
     s_tcs_file = codecs.open(tcs_file, "w", encoding='utf-8')
@@ -494,12 +472,12 @@ def tc2tcs(corpus_root, corpus, year, min_prob, min_pair_freq, cat_type, subset)
 def tcs2fc(corpus_root, corpus, year, cat_type, subset): 
     
     #seed_file = inroot + "/" + year_cat_name + ".tcs"
-    seed_file = tv_filepath(corpus_root, corpus, year, "tcs", subset, cat_type)
+    seed_file = pnames.tv_filepath(corpus_root, corpus, year, "tcs", subset, cat_type)
     #term_feature_file = inroot + "/" + str(year) + ".tf"
     # recall use "" for cat_type for .tf file
-    term_feature_file = tv_filepath(corpus_root, corpus, year, "tf", subset, "")
+    term_feature_file = pnames.tv_filepath(corpus_root, corpus, year, "tf", subset, "")
     #outfile = outroot + "/" + year_cat_name + ".fc"
-    fc_file = tv_filepath(corpus_root, corpus, year, "fc", subset, cat_type)
+    fc_file = pnames.tv_filepath(corpus_root, corpus, year, "fc", subset, cat_type)
     d_seed = {}
 
     s_fc_file = codecs.open(fc_file, "w", encoding='utf-8')
@@ -563,20 +541,20 @@ def fcuc2fcprob(corpus_root, corpus, year, cat_list, cat_type, subset):
     min_feature_freq = 10
 
     ##fc_uc_file = inroot + "/" + year_cat_name + ".fc_uc"
-    fc_uc_file = tv_filepath(corpus_root, corpus, year, "fc_uc", subset, cat_type)
+    fc_uc_file = pnames.tv_filepath(corpus_root, corpus, year, "fc_uc", subset, cat_type)
     # output file to store prob of category given the term
     ##prob_file = outroot + "/" + year_cat_name + ".fc.prob"
-    prob_file = tv_filepath(corpus_root, corpus, year, "fc_prob", subset, cat_type)
+    prob_file = pnames.tv_filepath(corpus_root, corpus, year, "fc_prob", subset, cat_type)
     # output file to store prior probs of each category
     ##cat_prob_file = outroot + "/" + year_cat_name + ".fc.cat_prob"
-    cat_prob_file = tv_filepath(corpus_root, corpus, year, "cat_prob", subset, cat_type)
+    cat_prob_file = pnames.tv_filepath(corpus_root, corpus, year, "cat_prob", subset, cat_type)
     # tcs_file contains seed term and category
-    tcs_file = tv_filepath(corpus_root, corpus, year, "tcs", subset, cat_type)
+    tcs_file = pnames.tv_filepath(corpus_root, corpus, year, "tcs", subset, cat_type)
 
     s_cat_prob_file = codecs.open(cat_prob_file, "w", encoding='utf-8')
 
     #kl_file = outroot + "/" + year_cat_name + ".fc.kl"
-    kl_file = tv_filepath(corpus_root, corpus, year, "fc_kl", subset, cat_type)
+    kl_file = pnames.tv_filepath(corpus_root, corpus, year, "fc_kl", subset, cat_type)
     s_kl_file = codecs.open(kl_file, "w", encoding='utf-8')
 
     # process the pairs
@@ -780,6 +758,9 @@ def fcuc2fcprob(corpus_root, corpus, year, cat_list, cat_type, subset):
     s_cat_prob_file.close()
     s_kl_file.close()
 
+
+"""
+# moved to tf.py
 #---
 # Create a single file of term feature count for each year (from the .xml extracts of phr_feats data)
 # role.run_dir2features_count()
@@ -827,6 +808,7 @@ def run_dir2features_count(inroot, outroot, start_range, end_range):
 
         dir2features_count(inroot_year, outroot, year)
         print "Completed: %s" % year
+"""
 
 # term feature to term feature category for terms whose feature appears in our seed list
 # role.run_tf2tfc()
@@ -943,8 +925,8 @@ def get_dcats(corpus, year):
     d_term2pn = {}
 
     file_type = "cat.w0.0"
-    act_file = tv_filepath(corpus_root, corpus, year, file_type, "", cat_type="act")
-    pn_file = tv_filepath(corpus_root, corpus, year, file_type, "a", cat_type="pn")
+    act_file = pnames.tv_filepath(corpus_root, corpus, year, file_type, "", cat_type="act")
+    pn_file = pnames.tv_filepath(corpus_root, corpus, year, file_type, "a", cat_type="pn")
 
     s_act_file = codecs.open(act_file, encoding='utf-8')
     for line in s_act_file:
@@ -975,7 +957,7 @@ def get_hword2label(corpus, year):
     d_term2pn = {}
 
     file_type = "cat.w0.0"
-    act_file = tv_filepath(corpus_root, corpus, year, file_type, "", cat_type="act")
+    act_file = pnames.tv_filepath(corpus_root, corpus, year, file_type, "", cat_type="act")
 
     s_act_file = codecs.open(act_file, encoding='utf-8')
     for line in s_act_file:
@@ -1033,10 +1015,10 @@ def get_te_dicts(corpus):
 
     file_type = "cat.w0.0"
     # use our reference file for terms
-    ref_term_file = tv_filepath(corpus_root, corpus, 2005,  "terms.gt10", "", cat_type="")
+    ref_term_file = pnames.tv_filepath(corpus_root, corpus, 2005,  "terms.gt10", "", cat_type="")
     # mini file for testing
-    #ref_term_file = tv_filepath(corpus_root, corpus, 2005,  "terms.gt10.10", "", cat_type="")
-    ref_feat_file = tv_filepath(corpus_root, corpus, 2005, "feats.gt1000", "", cat_type="")
+    #ref_term_file = pnames.tv_filepath(corpus_root, corpus, 2005,  "terms.gt10.10", "", cat_type="")
+    ref_feat_file = pnames.tv_filepath(corpus_root, corpus, 2005, "feats.gt1000", "", cat_type="")
 
     # reference terms
     s_in_file = codecs.open(ref_term_file, encoding='utf-8')
@@ -1058,8 +1040,8 @@ def get_te_dicts(corpus):
     for year in range(1997, 2008):
         str_year = str(year)
         
-        tf_file = tv_filepath(corpus_root, corpus, year,  "tf", "", "")
-        terms_file = tv_filepath(corpus_root, corpus, year,  "terms", "", "")
+        tf_file = pnames.tv_filepath(corpus_root, corpus, year,  "tf", "", "")
+        terms_file = pnames.tv_filepath(corpus_root, corpus, year,  "terms", "", "")
 
         # terms_file contains the doc_freq for each term, so load it in!
         s_in_file = codecs.open(terms_file, encoding='utf-8')
@@ -1090,7 +1072,7 @@ def get_te_dicts(corpus):
     l_dicts = [d_term, d_feat, d_term_year2freq, d_term_year2feats, d_term_feat_year2freq]
     pickle_dicts = [d_term_year2freq, d_term_year2feats, d_term_feat_year2freq]
     # pickle the results
-    te_data_file = tv_filepath(corpus_root, corpus, "te_data", "pickle" , "", "")
+    te_data_file = pnames.tv_filepath(corpus_root, corpus, "te_data", "pickle" , "", "")
     #s_te_data_file = codecs.open(te_data_file, "w", encoding='utf-8')
     pickle.dump(pickle_dicts, open(te_data_file, "wb"))
     #s_te_data_file.close()
@@ -1105,8 +1087,8 @@ def get_te_pickled(corpus, terms_filename):
     corpus_root = code_root + "data/patents/"
 
     # list of terms for which to compute feature entropy
-    terms_file = tv_filepath(corpus_root, corpus, "te_in",  terms_filename, "", "")
-    pickle_file = tv_filepath(corpus_root, corpus, "te_data",  "pickle", "", "")
+    terms_file = pnames.tv_filepath(corpus_root, corpus, "te_in",  terms_filename, "", "")
+    pickle_file = pnames.tv_filepath(corpus_root, corpus, "te_data",  "pickle", "", "")
 
     (d_term_year2freq, d_term_year2feats, d_term_feat_year2freq) = pickle.load( open( pickle_file, "rb" ) )
     print "[get_te_pickled]loaded pickle data"
@@ -1124,7 +1106,7 @@ def get_te(corpus, terms_filename, d_term_year2freq, d_term_year2feats, d_term_f
     corpus_root = code_root + "data/patents/"
 
     # list of terms for which to compute feature entropy
-    terms_file = tv_filepath(corpus_root, corpus, "te_in",  terms_filename, "", "")
+    terms_file = pnames.tv_filepath(corpus_root, corpus, "te_in",  terms_filename, "", "")
 
     print "[get_te]loaded pickle data through parameters"
     # Now we have all the term freq data loaded
@@ -1218,7 +1200,7 @@ def get_te(corpus, terms_filename, d_term_year2freq, d_term_year2feats, d_term_f
     s_in_file.close()
 
     # Now for each term, sort the feats by entropy
-    entropy_file = tv_filepath(corpus_root, corpus, "te_out",  terms_filename, "", "")
+    entropy_file = pnames.tv_filepath(corpus_root, corpus, "te_out",  terms_filename, "", "")
     s_entropy = codecs.open(entropy_file, "w", encoding='utf-8')
 
     d_term2feat_entropy = {}
@@ -1252,7 +1234,7 @@ def build_d_feat_year2freq(corpus, start, end):
     range_end = end + 1
     for year in range(start, range_end):
         str_year = str(year)
-        feats_file = tv_filepath(corpus_root, corpus, str_year,  "feats", "", "")
+        feats_file = pnames.tv_filepath(corpus_root, corpus, str_year,  "feats", "", "")
         s_feats_file = codecs.open(feats_file, encoding='utf-8')
 
         for line in s_feats_file:
@@ -1283,7 +1265,7 @@ def build_d_term_year2feats(corpus, start, end):
     range_end = end + 1
     for year in range(start, range_end):
         str_year = str(year)
-        tf_file = tv_filepath(corpus_root, corpus, str_year,  "tf", "", "")
+        tf_file = pnames.tv_filepath(corpus_root, corpus, str_year,  "tf", "", "")
         s_tf_file = codecs.open(tf_file, encoding='utf-8')
 
         for line in s_tf_file:
@@ -1319,10 +1301,10 @@ def get_fpgy(corpus, terms_filename, start, end, d_term_year2freq, d_term_year2f
     min_range_freq = 80
 
     # file of terms for which to compute fpy
-    terms_file = tv_filepath(corpus_root, corpus, "te_in",  terms_filename, "", "")
+    terms_file = pnames.tv_filepath(corpus_root, corpus, "te_in",  terms_filename, "", "")
 
     # use a constrained set of features only
-    ref_feat_file = tv_filepath(corpus_root, corpus, 2005, "feats.gt1000", "", cat_type="")
+    ref_feat_file = pnames.tv_filepath(corpus_root, corpus, 2005, "feats.gt1000", "", cat_type="")
     # reference feats
     d_feat = {}
     s_in_file = codecs.open(ref_feat_file, encoding='utf-8')
@@ -1422,10 +1404,10 @@ def get_ypgf(corpus, terms_filename, start, end, d_term_year2freq, d_term_year2f
     min_range_freq = 80
 
     # list of terms for which to compute fpy
-    terms_file = tv_filepath(corpus_root, corpus, "te_in",  terms_filename, "", "")
+    terms_file = pnames.tv_filepath(corpus_root, corpus, "te_in",  terms_filename, "", "")
 
     # use a constrained set of features only
-    ref_feat_file = tv_filepath(corpus_root, corpus, 2005, "feats.gt1000", "", cat_type="")
+    ref_feat_file = pnames.tv_filepath(corpus_root, corpus, 2005, "feats.gt1000", "", cat_type="")
     # reference feats
     d_feat = {}
     s_in_file = codecs.open(ref_feat_file, encoding='utf-8')
@@ -1738,7 +1720,7 @@ def run_tf_steps(corpus, start, end, cat_type="act", todo_list=["tf", "tc", "tcs
     # steps
     # from xml phr_feats files in /term_features/<year>, create <year>.tf in /tv
 
-    #tv_filepath(corpus_root, corpus, year, file_type, subset, cat_type="")
+    #pnames.tv_filepath(corpus_root, corpus, year, file_type, subset, cat_type="")
     if "tf" in todo_list:    
         if cat_type == "pn":
             print "[run_tf_steps]ERROR: You shouldn't use the tf step if cat_type is pn. a.tf and .t.tf files should already exist."

@@ -187,3 +187,8 @@ EXTERNAL_RDG_FILELIST = os.path.join(DATA_ROOT, "external/en1.txt")
 
 # For each RDG, create a local working directory
 WORKING_RDG_PATH = os.path.join(DATA_ROOT, "working/rdg/en1")
+
+#-----
+# roles specific paths
+
+CORPUS_ROOT = "/home/j/anick/patent-classifier/ontology/creation/data/patents"
