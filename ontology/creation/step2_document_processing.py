@@ -30,6 +30,9 @@ OPTIONS:
        print all pipelines, then exits, requires the -t option, also assumes
        that all pipeline files match 'pipeline-*.txt'
 
+  --show-processing-time
+       show processing time for the corpus
+
   --pipeline FILE:
       optional pipeline configuration file to overrule the default pipeline; this is just
       the basename not path, so with '--pipeline conf.txt', the config file loaded is
@@ -59,12 +62,13 @@ from corpus import ALL_STAGES
 
 from ontology.utils.batch import RuntimeConfig
 from ontology.utils.batch import show_datasets, show_pipelines
-
+from ontology.utils.batch import show_processing_time
 
 def read_opts():
     options = ['corpus=', 'source=', 'populate',
                'xml2txt', 'txt2tag', 'txt2seg', 'seg2tag', 'tag2chk',
-               'verbose', 'pipeline=', 'show-data', 'show-pipelines']
+               'verbose', 'pipeline=', 'show-data', 'show-pipelines',
+               'show-processing-time']
     try:
         return getopt.getopt(sys.argv[1:], 'l:n:', options)
     except getopt.GetoptError as e:
@@ -80,6 +84,7 @@ if __name__ == '__main__':
     stage = None
     pipeline_config = 'pipeline-default.txt'
     verbose, show_data_p, show_pipelines_p = False, False, False
+    show_processing_time_p = False
     limit = 1
     
     (opts, args) = read_opts()
@@ -92,6 +97,7 @@ if __name__ == '__main__':
         if opt == '--pipeline': pipeline_config = val
         if opt == '--show-data': show_data_p = True
         if opt == '--show-pipelines': show_pipelines_p = True
+        if opt == '--show-processing-time': show_processing_time_p = True
         if opt in ALL_STAGES:
             stage = opt
 
@@ -104,6 +110,8 @@ if __name__ == '__main__':
         exit()
     if show_pipelines_p:
         show_pipelines(rconfig)
+    if show_processing_time_p:
+        show_processing_time(rconfig, config.DATA_TYPES)
         exit()
 
     # note that the second argument always has to be the limit, this is required
