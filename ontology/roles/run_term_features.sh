@@ -4,10 +4,19 @@
 # file contains a term, a feature, and the count of appearances of the feature with the term.
 # The option ta/tas indicates which source file sections to use (title, abstract, summary)
 
+# uses tf.py and term_features.sh
+
+# example calls
 # modified to take three parameters corpus, start_year, end_year
 # sh run_term_features.sh wos-cs-520k 1997 1997
 # sh run_term_features.sh ln-us-all-600k 1997 2007
-# sh run_term_features.sh ln-us-cs-500k 1997 2007
+# sh run_term_features.sh ln-us-A27-molecular-biology 2002 2002
+# sh run_term_features.sh ln-us-A30-electrical-circuits 2002 2002
+# 
+
+# PARAMETERS TO SET BEFORE RUNNING SCRIPT:
+FUSE_CORPUS_ROOT="/home/j/corpuswork/fuse/FUSEData/corpora"
+LOCAL_CORPUS_ROOT="/home/j/anick/patent-classifier/ontology/creation/data/patents"
 
 # get start time to compute elapsed time
 START_TIME=$(date +%s)
@@ -18,6 +27,8 @@ source ./roles_config.sh
 CORPUS=$1
 START_YEAR=$2
 END_YEAR=$3
+
+
 
 #ROOT="/home/j/corpuswork/fuse/FUSEData/corpora/$CORPUS"
 FUSE_ROOT=$FUSE_CORPUS_ROOT/$CORPUS
@@ -99,9 +110,9 @@ YEAR=$START_YEAR
 # populate the local term_features directory for the range of years specified
 
 
-<<"COMMENT"
+#<<"COMMENT"
 echo "[run_term_features.sh]Populating term_features directory for each year in range"
-exit
+#exit
 
 while [ $YEAR -le $END_YEAR ] ; do
 
@@ -111,7 +122,7 @@ while [ $YEAR -le $END_YEAR ] ; do
     
     YEAR=$[ $YEAR + 1 ]
 done
-COMMENT
+#COMMENT
 
 # Now populate the tv files
 echo "Elaspsed time: $(date -d @$(($(date +%s)-$START_TIME)) +"%M minutes %S seconds")"

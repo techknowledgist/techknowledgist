@@ -201,6 +201,7 @@ def run_dir2features_count(inroot, outroot, start_range, end_range):
         print "Completed: %s" % year
 
 
+# python /home/j/anick/patent-classifier/ontology/creation/data/patents/ln-us-cs-500k/data/term_features ...
 if __name__ == "__main__":
     args = sys.argv
     inroot = args[1]

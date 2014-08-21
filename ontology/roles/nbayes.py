@@ -13,7 +13,7 @@
 # Sequence of steps to produce the nbayes output for a domain, including polarity
 # (1) sh run_term_features_multi.sh which extracts the features of interest for each file in the source
 # directories and puts them into a local directory (...corpus/term_root/<year>)  
-# (2) role.run_tf_steps("ln-us-12-chemical", 1997, 1997, "act", ["tf", "tc", "tcs", "fc", "uc", "prob"], "")
+# (2) role.run_tf_steps("ln-us-12-chemical", 1997, 1997, "act", [ "tc", "tcs", "fc", "uc", "prob"], "")
 # (3) nbayes.run_steps("ln-us-12-chemical", 1997, ["nb", "ds", "cf"])
 # (4) nbayes.run_filter_tf_file("ln-us-12-chemical", 1997, "0.0") # create a.tf, needed for running polarity
 # (5) role.run_tf_steps("ln-us-12-chemical", 1997, 1997, "pn", ["tc", "tcs", "fc", "uc", "prob"], "a")

@@ -20,6 +20,10 @@
 # l_cohort_cs = rfcs.filter(1998, 1998, 2006, 1, 2000, 30, 10000)
 # Output a file with features sorted by conditional prob ratio
 # fan.cohort_features("ln-us-cs-500k", 2003, l_cohort_cs, "c98-06_30")
+# To see top features:
+# cat 2003.c98-06_30.fscores | sortnr -k3 | grep prev | head -100 | sortnr -k1 | more
+
+# TODO: compute cumulative feature scores
 
 import pdb
 import utils
@@ -376,6 +380,9 @@ def make_cohorts(rfreq, corpus, year):
 # on mac: cd /Users/panick/peter/my_documents/brandeis/fuse/papers/coling_2014_workshop
 # scp anick@sarpedon.cs.brandeis.edu:uploads/1998* . 
 
+# input a file containing a list of features of interest (indicator features which
+# correlate with high growth terms)
+
 # gtype - growth type
 def growth2excel(corpus, y1, gtype, ftype="rel", start_year=1998, end_year=2006):
     if ftype == "rel":
@@ -675,3 +682,11 @@ class TermInfo():
         self.d_term[tuple([term, year, ftype, "feats"])] = l_feats_sorted
         #return(self.d_term)
         #pdb.set_trace()
+
+# TODO:
+# Given a list of diagnostic features and a range of years
+# create a dict from term,year,feature => count of docs containing the term/feature in the year
+# create a dict from term,year,feature => cumulative count of docs containing the term/feature in the year
+# create dict from term => first appearance year (within range)
+
+# Test: how much change in top features depending on cohort and year?
