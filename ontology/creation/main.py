@@ -82,10 +82,22 @@ files listed):
                 ` US4577022A.xml.gz
 
 All files are compressed. The first part of the directory tree is a run
-identifier, usually alwyas '01' unless the corpus was processed in different
+identifier, usually always '01' unless the corpus was processed in different
 ways (using different chunker rules for example). As mentioned above, the
 structure under the files directory is determined by the third column in the
 file list.
+
+There are two options that allow you to specifiy the location of the Stanford
+tagger and segmenter.
+
+--stanford-tagger-dir PATH
+--stanford-segmenter-dir PATH
+   These can be used to overrule the default directories for the segmenter and
+   tagger. There are actually several ways of doing this. One is to edit the
+   config.py file in this directory, a second is to edit config.txt and the
+   third is to use these options. The vlaues in config.py are the defaults,
+   which can be overruled by config.txt, which in turn can be overruled by the
+   command line options. See config.py and config.txt for more information.
 
 """
 
@@ -98,9 +110,23 @@ from corpus import POPULATE, XML2TXT, TXT2TAG, TXT2SEG, SEG2TAG, TAG2CHK
 from ontology.utils.batch import RuntimeConfig
 
 
+def update_stanford_tagger(path):
+    if os.path.isdir(path):
+        config.STANFORD_TAGGER_DIR = path
+    else:
+        print "WARNING: invalid path specified for STANFORD_TAGGER_DIR"
+
+def update_stanford_segment(path):
+    if os.path.isdir(path):
+        config.STANFORD_SEGMENTER_DIR = path
+    else:
+        print "WARNING: invalid path specified for STANFORD_SEGMENTER_DIR"
+
+
 if __name__ == '__main__':
 
-    options = ['language=', 'corpus=', 'filelist=', 'verbose']
+    options = ['language=', 'corpus=', 'filelist=', 'verbose',
+               'stanford-segmenter-dir=', 'stanford-tagger-dir=']
     (opts, args) = getopt.getopt(sys.argv[1:], 'n:', options)
 
     source_file = None
@@ -111,12 +137,18 @@ if __name__ == '__main__':
     limit = None
 
     for opt, val in opts:
+        print opt, val
         if opt == '--language': language = val
         if opt == '--filelist': source_file = val
         if opt == '--corpus': corpus_path = val
         if opt == '--verbose': verbose = True
         if opt == '-n': limit = int(val)
+        if opt == '--stanford-segmenter-dir': update_stanford_segmenter(val)
+        if opt == '--stanford-tagger-dir': update_stanford_tagger(val)
 
+    print config.STANFORD_TAGGER_DIR
+    print config.STANFORD_SEGMENTER_DIR
+    exit()
     pipeline = config.DEFAULT_PIPELINE
     pipeline_file = 'pipeline-default.txt'
     if language == 'cn':
