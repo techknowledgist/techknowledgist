@@ -116,7 +116,7 @@ def update_stanford_tagger(path):
     else:
         print "WARNING: invalid path specified for STANFORD_TAGGER_DIR"
 
-def update_stanford_segment(path):
+def update_stanford_segmenter(path):
     if os.path.isdir(path):
         config.STANFORD_SEGMENTER_DIR = path
     else:
