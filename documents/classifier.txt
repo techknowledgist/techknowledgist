@@ -1,0 +1,98 @@
+Running the Technology Classifier
+======================================================================
+
+
+Requirements
+------------
+
+1. The code, available at the git repository at 
+
+	http://www.cs.brandeis.edu/~marc/git/fuse/patent-classifier.git 
+
+You may need to do a pull. If you get the code from scratch using "git clone",
+then you need to initialize the submodules:
+
+$ git submodule init
+$ git submodule update 
+
+
+2. Version 2.0.7 of Mallet. Ther versions will most likely works as well, but
+were not tested. You can get the version we use at
+
+	http://www.cs.brandeis.edu/~marc/fuse/downloads/tools/
+
+3. A Mallet model. There is a small one bundled in with the code which is
+sufficient when you just try to see if the code runs, but eventually you will
+want to get a better model. Models are available at:
+
+	http://www.cs.brandeis.edu/~marc/fuse/downloads/models/
+
+There is currently only one model available. You can create as many models as
+you want using a couple of scripts in ontology/classifier.
+
+4. Input to the classifier. The input is originally created with main.py in
+ontology/creation. Input can be given as an complete corpus (which is what
+main.py generates) or as a list of files. In the former case the code picks out
+the right files from the corpus. 
+
+The files have lines like this:
+
+US4192770A.xml_0	1980	catalyst restoration	doc_loc=0	first_word=catalyst	last_word=restoration	next2_tags=IN_NN	next_n2=with_boron	next_n3=with_boron_compounds	plen=2	prev_n2=^_cracking	prev_n3=^_^_cracking	section_loc=TITLE_sent1	sent_loc=1-3	suffix3=ion	suffix4=tion	suffix5=ation	tag_sig=NN_NN
+
+
+
+
+Running the classifier
+----------------------
+
+The top-level script for running the technology classifier is
+
+	ontology/classifier/run_tclassify.py
+
+1. Running on a corpus
+
+To run the classifier on a corpus (which would have been created with the
+ontology/creation/main.py script), you can do something like this.
+
+$ python run_tclassify.py --classify --corpus data/corpora/patents-en-500 --model data/models/technologies-010-20140911/train.model --batch data/classifications/patents-en-500 --verbose
+
+This assumes that Mallet is installed in one of the default spots, which it
+typically isn't. So you probably need to add the --mallet-dir option:
+
+$ python run_tclassify.py --classify --corpus data/corpora/patents-en-500 --model data/models/technologies-010-20140911/train.model --mallet-dir /home/j/corpuswork/fuse/code/patent-classifier/tools/mallet/mallet-2.0.7/bin --batch data/classifications/patents-en-500 --verbose
+
+Change the --corpus and --batch options depending on where your data live. The
+--model option here uses the model that is shipped with the code.
+
+It takes about 2-3 minutes to classify 1000 patents on a regular
+desktop. Processing time scales linearly.
+
+The commands above create a directory data/classifications/patents-en-500
+with the classification results for the concatenation of all files in the
+corpus. This directory contains several files, the one you are most likely to
+use is classify.MaxEnt.out.s3.scores.sum, which has lines as follows:
+
+	senses flag	0.439934	1	0.439934	0.439934
+	text message	0.342870	2	0.225453	0.460288
+
+The columns contain: the term, the technology score, the number of occurrences
+of the term in the corpus, the lowest score, and the highest score.
+
+Within the FUSE context, I typically run this on 10-50K random patents from one
+year so that the results file contains the average technology score over that
+year. For previous processing, BAE tended to run in batches of 1000. You could
+do that here to, but if you want technology scores for an entire year then you
+will have to average over all your 1000-patent batches for that year.
+
+
+2. Running on a list of files.
+
+You do not need an actual corpus to run the classifier. Instead you can provide
+a file that contains a list of input files that need to be classified.
+
+$ python run_tclassify.py --classify --filelist lists/list-010.txt --model data/models/technologies-010-20140911/train.model --verbose --batch data/classifications/patents-list
+
+Again, change --batch and --filelist as needed and add --mallet-dir.
+
+Results are put in data/classifications/patents-list and will have the
+technology scores over the concatenation of all files.
