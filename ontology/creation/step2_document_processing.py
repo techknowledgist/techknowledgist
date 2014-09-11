@@ -16,8 +16,8 @@ OPTIONS:
   --tag2chk    creating chunks in context and adding features
 
   --corpus TARGET_PATH  corpus directory, default is data/patents
-  --l en|cn|de          provides the language, default is 'en'
-  --n INTEGER           number of documents to process, default is 1
+  -l en|cn|de          provides the language, default is 'en'
+  -n INTEGER           number of documents to process, default is 1
 
   --verbose:
        print name of each processed file to stdout

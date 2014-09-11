@@ -148,7 +148,6 @@ if __name__ == '__main__':
 
     print config.STANFORD_TAGGER_DIR
     print config.STANFORD_SEGMENTER_DIR
-    exit()
     pipeline = config.DEFAULT_PIPELINE
     pipeline_file = 'pipeline-default.txt'
     if language == 'cn':
