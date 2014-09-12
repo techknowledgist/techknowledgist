@@ -38,10 +38,9 @@ import sdp
 import tag2chunk
 import cn_txt2seg
 import cn_seg2tag
-
-import path
-
 import config
+
+sys.path.append(os.path.abspath('../..'))
 from utils.docstructure.main import Parser
 from ontology.utils.file import ensure_path, get_file_paths, read_only
 from ontology.utils.file import get_lines, compress, uncompress, get_year

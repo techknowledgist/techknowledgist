@@ -6,11 +6,11 @@
 # one with all chunks indexed by id with all features for that phrase occurrence (phr_feats)
 # one with only chunk and <id><tab><bracketed sentence>, to be used for annotation)
 
-import os
+import os, sys
 import codecs
 import sentence
-import path
 
+sys.path.append(os.path.abspath('../..'))
 from ontology.utils.file import open_input_file, open_output_file
 
 # returns True if lists share at least one term

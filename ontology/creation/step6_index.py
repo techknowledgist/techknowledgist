@@ -63,8 +63,8 @@ $ python step6_index.py --analyze-index --corpus data/patents/en --index-name st
 import os, sys, time, shutil, getopt, codecs, resource, StringIO
 
 import config
-import path
 
+sys.path.append(os.path.abspath('../..'))
 from ontology.utils.batch import RuntimeConfig, show_datasets, show_pipelines
 from ontology.utils.batch import find_input_dataset, check_file_availability
 from ontology.utils.file import ensure_path, open_input_file

@@ -109,7 +109,6 @@ pipeline-default.txt).
 
 import os, sys, shutil, getopt, errno, random, time
 
-sys.path.append(os.path.abspath('../..'))
 import config, corpus
 
 
