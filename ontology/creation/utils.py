@@ -1,7 +1,9 @@
-# general python utilities
+# general python utilities, including log functions
 
 import sys
 import re
+import datetime
+
 
 # descending sort based on 2nd element of list item
 def list_element_2_sort(e1, e2):
@@ -17,16 +19,10 @@ def list_element_2_sort(e1, e2):
 def list_element_1_sort(e1, e2):
     return(cmp(e1[0],e2[0]))
 
-
+# return intersection of two lists, preserves order in the first list
 def intersect(seq1, seq2):
-    res = []
-    for x in seq1:
-        if x in seq2:
-            if x not in res:
-                res.append(x)
-    return res
-
-
+    _auxset = set(seq2)
+    return [x for x in seq1 if x in _auxset]
 
 # extract the file name from a full path
 def path2filename(path, extension_p):
@@ -53,7 +49,6 @@ def get_field_after(field, split_word):
         return ""
 
 
-
 # reformat output of unix uniq -c | sort -nr
 # to <count>\t<value>
 def reformat_uc():
@@ -66,13 +61,52 @@ def reformat_uc():
         newline = count + "\t" + value
         print newline
 
-
-
 # replace cases of &apos; and &quot; with original punctuation
 def restore_line_punc(line):
     line = re.sub(r'&apos;', "'", line)
     line = re.sub(r'&quot;', '"', line)
     line = re.sub(r'&lt;', '<', line)
     line = re.sub(r'&gt;', '>', line)
-
     return line
+
+
+# takes a datetime, output stream, message
+# computes the time elapsed in seconds and writes it to the output stream
+# e.g. Fri Nov 16 14:12:16 2012        63      time 2
+# returns the current datetime object which can be used as prev_time in a subsequent call.
+def log_time_diff(prev_time, log_stream, message, print_p = True):
+    now_time = datetime.datetime.now()
+    diff = now_time - prev_time
+    ctime = now_time.ctime()
+    # e.g. 'Fri Nov 16 13:18:42 2012'
+    if print_p:
+        print("%s\t%s\t%s\n" % (ctime, diff.seconds, message)) 
+    log_stream.write("%s\t%s\t%s\n" % (ctime, diff.seconds, message))
+    # flush line so we can track progress through the log
+    log_stream.flush()
+    return(now_time)
+
+# log current time in same format as log_time_diff (using 0 seconds as diff)
+# e.g. Fri Nov 16 14:11:13 2012        0       time 1
+def log_current_time(log_stream, message, print_p = True):
+    now_time = datetime.datetime.now()
+    ctime = now_time.ctime()
+    # e.g. 'Fri Nov 16 13:18:42 2012'
+    if print_p:
+        print("%s\t%s\t%s\n" % (ctime, "0", message)) 
+    log_stream.write("%s\t%s\t%s\n" % (ctime, "0", message)) 
+    # flush line so we can track progress through the log
+    log_stream.flush()
+
+    return(now_time)
+
+
+
+if __name__ == '__main__':
+
+    s1 = [1,2,3,4,5,6]
+    s2 = [1,8,5,6]
+    print intersect(s1, s2)
+
+
+    

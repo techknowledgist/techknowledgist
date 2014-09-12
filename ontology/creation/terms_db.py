@@ -52,7 +52,7 @@ import codecs
 import apsw
 import re
 import config
-import log
+import utils
 import math
 from collections import defaultdict
 # For the next import, PYTHONPATH should include ../..
@@ -330,7 +330,7 @@ def load_terms_db(root_dir, filelist_file, db_dir, transaction_length=1000, year
     filename = ""
     # start a transaction
     tdb.begin()
-    start_time = log.log_current_time(s_log, "start", True)
+    start_time = utils.log_current_time(s_log, "start", True)
     s_filelist = codecs.open(filelist_file, encoding='utf-8')
     for line in s_filelist:
         line = line.strip("\n")
@@ -346,11 +346,11 @@ def load_terms_db(root_dir, filelist_file, db_dir, transaction_length=1000, year
                 tdb.commit()
                 tdb.begin()
                 log_message = "file " + str(file_count) +  ": " + filename
-                log.log_time_diff(start_time, s_log, log_message, True)
+                utils.log_time_diff(start_time, s_log, log_message, True)
             file_count += 1
 
     log_message = "file " + str(file_count) +  ": " + filename
-    log.log_time_diff(start_time, s_log, log_message, True)
+    utils.log_time_diff(start_time, s_log, log_message, True)
 
     s_filelist.close()
     s_log.close()
@@ -406,7 +406,7 @@ def create_csv_file(root_dir, filelist_file, db_dir, csv_file_prefix, transactio
     file_count = 1
     filename = ""
     # start a transaction
-    start_time = log.log_current_time(s_log, "start", True)
+    start_time = utils.log_current_time(s_log, "start", True)
     s_filelist = codecs.open(filelist_file, encoding='utf-8')
     #print "filelist_file: %s" % filelist_file
     for line in s_filelist:
@@ -426,10 +426,10 @@ def create_csv_file(root_dir, filelist_file, db_dir, csv_file_prefix, transactio
                 s_csv.write("%s\n" % list2tsv(tuple))
             if file_count%transaction_length == 0:
                 log_message = "file " + str(file_count) +  ": " + filename
-                log.log_time_diff(start_time, s_log, log_message, True)
+                utils.log_time_diff(start_time, s_log, log_message, True)
             file_count += 1
     
-    log.log_time_diff(start_time, s_log, "Completed csv file creation", True)
+    utils.log_time_diff(start_time, s_log, "Completed csv file creation", True)
 
     s_filelist.close()
     s_log.close()
