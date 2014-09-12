@@ -100,7 +100,6 @@ the document name and line number.
 import os, sys, shutil, getopt, codecs, random
 
 import config
-import putils
 import textwrap
 
 script_path = os.path.abspath(sys.argv[0])
