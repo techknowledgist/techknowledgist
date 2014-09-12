@@ -10,8 +10,13 @@ Configuration settings in this file:
 - stanford tool locations and settings
 - settings for pipeline and patent_analyzer scripts
 
-Settings for the location of the STanford tagger and segment can be overwritten
-by editing config.txt.
+One of the things that this script does is to calculate some default settings
+for where the Stanford tagger and segmenter live, using some idiosyncracies of
+the setup on several laptops and desktops and on Fusenet.
+
+These settings can be overruled by using command line options for the main.py
+script. Something similar needs to be done for step2_document_processing.py, but
+that is less urgent because non-Brandeis users will probably always use main.py.
 
 """
 
@@ -19,8 +24,7 @@ import os, sys
 
 
 # First some code to determine what machine we are running this on, will be used
-# to determine default locations for the Stanford tools. Edit config.txt to
-# overrule the defaults.
+# to determine default locations for the Stanford tools.
 
 script_path = os.path.abspath(sys.argv[0])
 if script_path.startswith('/shared/home'):
@@ -187,28 +191,3 @@ EXTERNAL_RDG_FILELIST = os.path.join(DATA_ROOT, "external/en1.txt")
 # For each RDG, create a local working directory
 WORKING_RDG_PATH = os.path.join(DATA_ROOT, "working/rdg/en1")
 
-
-
-
-### Overrule defaults for the Stanford tools locations
-### -----------------------------------------------------------------------
-
-for line in  open("config.txt"):
-
-    line = line.strip()
-    if not line or line[0] == '#': continue
-    components = line.split()
-    if components[1] != '=' or len(components) != 3: continue
-    setting, path = components[0], components[2]
-
-    if setting == 'STANFORD_TAGGER_DIR':
-        if os.path.isdir(path):
-            STANFORD_TAGGER_DIR = path
-        else:
-            print "WARNING: invalid path in config.txt for STANFORD_TAGGER_DIR"
-
-    elif setting == 'STANFORD_SEGMENTER_DIR':
-        if os.path.isdir(path):
-            STANFORD_SEGMENTER_DIR = path
-        else:
-            print "WARNING: invalid path in config.txt for STANFORD_SEGMENTER_DIR"

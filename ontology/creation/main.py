@@ -92,12 +92,8 @@ tagger and segmenter.
 
 --stanford-tagger-dir PATH
 --stanford-segmenter-dir PATH
-   These can be used to overrule the default directories for the segmenter and
-   tagger. There are actually several ways of doing this. One is to edit the
-   config.py file in this directory, a second is to edit config.txt and the
-   third is to use these options. The vlaues in config.py are the defaults,
-   which can be overruled by config.txt, which in turn can be overruled by the
-   command line options. See config.py and config.txt for more information.
+   These can be used to overrule the default directories for the Stanford
+   segmenter and tagger.
 
 """
 
