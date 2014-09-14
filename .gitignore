@@ -4,6 +4,7 @@
 utils/tries/*
 
 ontology/creation/log.dat
+ontology/doc_processing/log.dat
 
 ontology/creation/data/*
 !ontology/creation/data/wos
