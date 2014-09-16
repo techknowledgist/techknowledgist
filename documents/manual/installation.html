@@ -1,13 +1,13 @@
 <html>
 
 <head>
-<title>BOC - Installation</title>
+<title>TOC - Installation</title>
 <link rel="stylesheet" href="main.css" type="text/css" />
 </head>
 
 <body>
 
-<h1>Brandeis Ontology Creation - Installation</h1>
+<h1>Technology Ontology Creation - Installation</h1>
 
 
 <p class="navigation">
@@ -34,6 +34,7 @@ classifier), and (3) dowloading the classifier models.</p>
 
 <ol>
 
+
 <li><p>The code is available at the git repository at</p>
 
 <pre class="example">
@@ -55,14 +56,20 @@ $ git submodule update
 </pre>
 
 
-<li>The code uses version 2.0.7 of Mallet. Other versions will most likely works as well, but
-were not tested. You can get the version we use at
+<li>Stanford Tools.
+
+
+<li>The code uses version 2.0.7 of the Mallet toolkit<sup>1</sup>, available
+at <a href="http://mallet.cs.umass.edu/"
+target="_blank">http://mallet.cs.umass.edu/</a>. Other versions will most likely
+work as well, but were not tested. You can get the version we use at
 
 <pre class="example">
 http://www.cs.brandeis.edu/~marc/fuse/downloads/tools/
 </pre>
 
-<li>There are small classifer models (for technology classifier and key temr
+
+<li>There are small classifer models (for technology classifier and key term
 extraction) bundled in with the code, which is sufficient when you just try to
 see if the code runs, but eventually you will want to get a better
 model. Technology classifier models are available at:
@@ -72,7 +79,16 @@ http://www.cs.brandeis.edu/~marc/fuse/downloads/models/
 </pre>
 
 <p>There is currently only one model available. You can easily create your own
-models, as described in te manual section on the technology classifier.
+models, as described in the manual section on the technology classifier.
+
+
+</ol>
+
+
+<hr/>
+
+<sup>1</sup> Andrew Kachites McCallum. "MALLET: A Machine Learning for Language
+Toolkit." http://mallet.cs.umass.edu. 2002.
 
 
 

@@ -29,11 +29,11 @@ h2:before {
 h3:before {
    content: counter(section) "." counter(subsection) ". "; }
 
-p, li {
+p, li, td {
    font-size: 100%; }
 
 .navigation {
-   font-size: 120%; }
+   font-size: 140%; }
 
 .author {
    font-size: 120%; }
@@ -71,3 +71,9 @@ p.abstract {
 
 .move-down-a-bit {
    margin-top: 0.5em; }
+
+.nowrap {
+    white-space: nowrap; }
+
+ul.spacy > li {
+    margin-bottom: 10pt; }
