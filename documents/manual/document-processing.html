@@ -7,7 +7,7 @@
 
 <body>
 
-<h1>Technology Ontology Creation - Document Processing</h1>
+<h1>Ontology Creation - Document Processing</h1>
 
 
 <p class="navigation">
@@ -83,14 +83,27 @@ filenames when they are processed), use -v
 or <span class="nowrap">--verbose</span>. See the documentation string
 in <code>main.py</code> for more information.</p>
 
-<p>The main limitation with this one-size-fits-all script is that for large
-corpora processing time can get rather high, for example, processing 40K US
-patents takes 1-2 days on a high-end desktop. The process can easily be
-parallelized by splitting the corpus in smaller chunks, but in that case some
-extra bookkeeping is needed, especially to prepare for subsequent processing. In
-addition, the script has been proven to a bit brittle at times. There is error
-trapping at the document processing level, but there are some ill-understood
-errors that are known to let the tagger hang at times.</p>
+<p>The invocation above will look for the Stanford tools at a couple of places
+which are quite specific to the local setup used by code developers. Most users
+may need to use two extra options for specifying the location of the Stanford
+tagger and segmenter:</p>
+
+<pre class="example">
+--stanford-tagger-dir PATH
+--stanford-segmenter-dir PATH
+</pre>
+
+<p>The paths point to the root of the installation of these tools, that is, the
+directory that includes the <code>bin</code> directory.</p>
+
+<p>The main limitation with the one-size-fits-all <code>main.py</code> script is
+that processing time can get rather high for large corpora, for example,
+processing 40,000 US patents takes 1-2 days on a high-end desktop. The process
+can easily be parallelized by splitting the corpus in smaller chunks, but in
+that case some extra bookkeeping is needed, especially to prepare for subsequent
+processing. In addition, the script has been proven to a bit brittle at
+times. There is error trapping at the document processing level, but there are
+some ill-understood errors that are known to let the tagger hang at times.</p>
 
 <p>As an alternative way to create and process a corpus, there is a slightly
 more complicated series of batch processing steps that can be taken. To achieve
@@ -106,13 +119,14 @@ $ python step2_process.py -c data/patents/corpora/sample-us -n 4 --tag2chk
 </pre>
 
 <p>Again, this particular invocation will exit with a warning because the corpus
-created already exists, so another directory should be used. The main difference
-here, apart from using five commands instead of one, is
+created already exists, so another directory should be used. And you will
+probably need to use the <code>--stanford-tagger-dir</code> option. The main
+difference here, apart from using five commands instead of one, is
 that <code>main.py</code> processes all documents in the list but for these
 batch scripts the number of files to be processed has to be given (it defaults
 to processing one document). This allows for some more flexibility in how you
-want to process a corpus. See the documentation string of the batch scripts for
-more information.</p>
+want to process a corpus. See the documentation string of the two batch scripts
+for more information.</p>
 
 <p>The resulting corpus is almost identical to the one created
 with <code>main.py</code>, barring some configuration settings like timestamp
@@ -127,199 +141,73 @@ this is because all files are compressed.</p>
 <a name="output"></a>
 <h2>Output Description</h2>
 
-The processed corpus generated from the first
+We now look at the result of the command used above, repeated here for convenience.
+
+<pre class="example">
+$ python main.py -f data/lists/sample-us.txt -c data/patents/corpora/sample-us
+</pre>
+
+<p>This creates a directory <code>data/patents/corpora/sample-us</code>, in
+which the corpus is inritialized and populated with the files
+in <code>data/patents/corpora/sample-us</code>. The directory structure is as
+follows:
+
+<pre class="example">
+|-- config
+|   |-- files.txt
+|   |-- general.txt
+|   `-- pipeline-default.txt
+`-- data
+    |-- d0_xml         'import of XML data'
+    |-- d1_txt         'results of document structure parser'
+    |-- d2_seg         'segmenter results'
+    |-- d2_tag         'tagger results '
+    |-- d3_phr_feats   'results from candidate selection and feature extraction'
+    |-- o1_index       'term indexes'
+    |-- o2_matcher     'results of the pattern matcher'
+    |-- o3_selector    'results of the selector'
+    |-- t0_annotate    'input for annotation effort'
+    |-- t1_train       'vectors for the classifier and classifier models'
+    |-- t2_classify    'classification results'
+    |-- t3_test        'test and evaluation area'
+    `-- workspace      'work space area'
+</pre>
+
+<p>The script copied the file list to <code>config/files.txt</code> so there is
+a local copy of the list with all input files.
+
+
+<p>The processed corpus generated from the first
 of these lists can be viewed
 at <a href="../../ontology/doc_processing/data/patents/corpora/sample-us"
 target="_blank">../../ontology/doc_processing/data/patents/corpora/sample-us</a>.
 
-<h2>Rest</h2>
-
-
-<pre>
-Script to process all documents in a corpus. Will initialize the corpus
-directory if needed. Combines what is done in the step1_initialize.py and
-step2_document_processing.py, but simplifies the process a bit.
-
-USAGE
-   % python main.py OPTIONS
-
-OPTIONS
-   --language en|cn      language, default is 'en'
-   --filelist PATH       a file with a list of source files
-   --corpus PATH         a directory where the corpus is created
-   -n INTEGER            number of files to process, defaults to all files
-   
-You must run this script from the directory it is in.
-
-Typical invocation:
-
-   % python main.py \
-       --language en \
-       --corpus data/patents/test \
-       --filelist filelist.txt
-
-This creates a directory data/patents/test, in which the corpus will be
-initialized. The directory will include config/ and data/ subdirectories and
-several files in the config/ subdirectory. The script copies filelist.txt to
-en/config/files.txt so there is always a local copy of the list with all input
-files. Note that the -n option is not given and therefore all documents will be
-processed.
-
-For the --filelist option, the system expects that FILE has two or three
-tab-separated columns with year, source file and an optional target file, which
-can be used to simplify and flatten the directory structure. For example, the
-three columns in a line of the file list could be:
-
-    1980
-    /data/500-patents/DATA/Lexis-Nexis/US/Xml/1980/US4192770A.xml
-    1980/US4192770A.xml
-
-In this case, the source file (second column) will be copied to a local path
-1980/US4192770A.xml inside the corpus. If there is no third column than the path
-of the source file will be copied into the corpus directory.
-
-The directory tree created inside the target directory is as follows:
-
-    |-- config
-    |   |-- files.txt
-    |   |-- general.txt
-    |   `-- pipeline-default.txt
-    `-- data
-        |-- d0_xml         'import of XML data'
-        |-- d1_txt         'results of document structure parser'
-        |-- d2_seg         'segmenter results'
-        |-- d2_tag         'tagger results '
-        |-- d3_phr_feats   'results from candidate selection and feature extraction'
-        |-- o1_index       'term indexes'
-        |-- o2_matcher     'results of the pattern matcher'
-        |-- o3_selector    'results of the selector'
-        |-- t0_annotate    'input for annotation effort'
-        |-- t1_train       'vectors for the classifier and classifier models'
-        |-- t2_classify    'classification results'
-        |-- t3_test        'test and evaluation area'
-        `-- workspace      'work space area'
-
-This script only performs document-level processing and fills in d0_xml, d1_txt,
+<p>This script only performs document-level processing and fills in d0_xml, d1_txt,
 d2_seg (Chinese only), d2_tag and d3_phr_feats. The structure of those
-directories mirror each other and look as follows (this example only has two
-files listed):
+directories mirror each other and look as follows:
 
-    `-- 01
-        |-- state
-        |   |-- processed.txt
-        |   `-- processing-history.txt
-        |-- config
-        |   |-- pipeline-head.txt
-        |   `-- pipeline-trace.txt
-        `-- files
-            |-- 1985
-            |   ` US4523055A.xml.gz
-            `-- 1986
-                ` US4577022A.xml.gz
+<pre class="example">
+ `-- 01
+     |-- state
+     |   |-- processed.txt
+     |   `-- processing-history.txt
+     |-- config
+     |   |-- pipeline-head.txt
+     |   `-- pipeline-trace.txt
+     `-- files
+         |-- 1980
+         |   | US4192770A.xml.gz
+         |   ` US4236596A.xml.gz
+         `-- 1981
+             | US4246708A.xml.gz 
+             ` US4254395A.xml.gz
+</pre>
 
 All files are compressed. The first part of the directory tree is a run
 identifier, usually always '01' unless the corpus was processed in different
 ways (using different chunker rules for example). As mentioned above, the
 structure under the files directory is determined by the third column in the
 file list.
-
-There are two options that allow you to specifiy the location of the Stanford
-tagger and segmenter.
-
---stanford-tagger-dir PATH
---stanford-segmenter-dir PATH
-   These can be used to overrule the default directories for the Stanford
-   segmenter and tagger.
-
-</pre>
-
-
-
-
-
-<h2>Input Requirements</h2>
-
-The input is originally created with main.py in
-ontology/creation. Input can be given as an complete corpus (which is what
-main.py generates) or as a list of files. In the former case the code picks out
-the right files from the corpus. 
-
-The files have lines like this:
-
-<pre class="example">
-term_id year term feature+
-US4192770A.xml_0	1980	catalyst restoration	doc_loc=0	first_word=catalyst	last_word=restoration	next2_tags=IN_NN	next_n2=with_boron	next_n3=with_boron_compounds	plen=2	prev_n2=^_cracking	prev_n3=^_^_cracking	section_loc=TITLE_sent1	sent_loc=1-3	suffix3=ion	suffix4=tion	suffix5=ation	tag_sig=NN_NN
-</pre>
-
-<p>All fields, including the features, are tab-separated.</p>
-
-
-
-<h2>Running the classifier</h2>
-
-
-The top-level script for running the technology classifier is
-
-<pre class="example">
-	ontology/classifier/run_tclassify.py
-</pre>
-
-
-<h3>Running on a corpus</h3>
-
-To run the classifier on a corpus (which would have been created with the
-ontology/creation/main.py script), you can do something like this.</p>
-
-<pre class="example">
-$ python run_tclassify.py --classify --corpus data/corpora/patents-en-500 --model data/models/technologies-010-20140911/train.model --batch data/classifications/patents-en-500 --verbose
-</pre>
-
-This assumes that Mallet is installed in one of the default spots, which it
-typically isn't. So you probably need to add the --mallet-dir option:</p>
-
-<pre class="example">
-$ python run_tclassify.py --classify --corpus data/corpora/patents-en-500 --model data/models/technologies-010-20140911/train.model --mallet-dir /home/j/corpuswork/fuse/code/patent-classifier/tools/mallet/mallet-2.0.7/bin --batch data/classifications/patents-en-500 --verbose
-</pre>
-
-<p>Change the --corpus and --batch options depending on where your data live. The
---model option here uses the model that is shipped with the code.</p>
-
-<p>It takes about 2-3 minutes to classify 1000 patents on a regular
-desktop. Processing time scales linearly.</p>
-
-<p>The commands above create a directory data/classifications/patents-en-500
-with the classification results for the concatenation of all files in the
-corpus. This directory contains several files, the one you are most likely to
-use is classify.MaxEnt.out.s3.scores.sum, which has lines as follows:</p>
-
-<pre class="example">
-	senses flag	0.439934	1	0.439934	0.439934
-	text message	0.342870	2	0.225453	0.460288
-</pre>
-
-The columns contain: the term, the technology score, the number of occurrences
-of the term in the corpus, the lowest score, and the highest score.</p>
-
-Within the FUSE context, I typically run this on 10-50K random patents from one
-year so that the results file contains the average technology score over that
-year. For previous processing, BAE tended to run in batches of 1000. You could
-do that here to, but if you want technology scores for an entire year then you
-will have to average over all your 1000-patent batches for that year.</p>
-
-
-<h3>Running on a list of files</h3>
-
-You do not need an actual corpus to run the classifier. Instead you can provide
-a file that contains a list of input files that need to be classified.</p>
-
-<pre class="example">
-$ python run_tclassify.py --classify --filelist lists/list-010.txt --model data/models/technologies-010-20140911/train.model --verbose --batch data/classifications/patents-list
-</pre>
-
-Again, change --batch and --filelist as needed and add --mallet-dir.</p>
-
-Results are put in data/classifications/patents-list and will have the
-technology scores over the concatenation of all files.</p>
 
 </body>
 </html>
