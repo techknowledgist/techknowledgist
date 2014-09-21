@@ -20,90 +20,163 @@ documents. It runs off a corpus or a list of files, generates a technology score
 for each term in each document, and then summarizes the score over the corpus or
 list of files.</p>
 
+<p>
+[ <a href="#input">input description</a> 
+| <a href="#howto">classifying terms</a> 
+| <a href="#output">output description</a> ]
+</p>
 
+
+<a name="input"></a>
 <h2>Input Requirements</h2>
 
-The input is originally created with main.py in
-ontology/creation. Input can be given as an complete corpus (which is what
-main.py generates) or as a list of files. In the former case the code picks out
-the right files from the corpus. 
-
-The files have lines like this:
+<p>The input to the classifier is from the feature files that are the endpoint
+of <code>main.py</code> or <code>step2_process.py</code>
+in <code>ontology/doc_processing</code>. Input can be given as a complete corpus
+(which is what the scripts mention above generate) or as a list of files. In the
+former case the code picks out the right files from the corpus. The input files
+have lines in the following format (all fields are tab-separated):</p>
 
 <pre class="example">
 term_id year term feature+
-US4192770A.xml_0	1980	catalyst restoration	doc_loc=0	first_word=catalyst	last_word=restoration	next2_tags=IN_NN	next_n2=with_boron	next_n3=with_boron_compounds	plen=2	prev_n2=^_cracking	prev_n3=^_^_cracking	section_loc=TITLE_sent1	sent_loc=1-3	suffix3=ion	suffix4=tion	suffix5=ation	tag_sig=NN_NN
 </pre>
 
-<p>All fields, including the features, are tab-separated.</p>
+<p>All fields, including the features, are tab-separated. The
+<code.term_id</code> is the name of an input file followed by an underscore and
+a number. Each feature has a name and a
+value <code>next2_tags=IN_NN</code>. The <a href="../../ontology/doc_processing/data/patents/corpora/sample-us/">example
+processed corpus</a> included in the distribution has a couple of example files,
+the first five lines of one of them are
+<a href="phr_feats.txt" target="_blank">here</a>.
 
 
-
+<a name="howto"></a>
 <h2>Running the classifier</h2>
 
-
-The top-level script for running the technology classifier is
+<p>The top-level script for running the technology classifier is</p>
 
 <pre class="example">
-	ontology/classifier/run_tclassify.py
+ontology/classifier/run_tclassify.py
 </pre>
+
+<p>The classifier needs to be run from the directory it is in and as mentioned
+before it can take either a corpus or a list of files as input.</p>
 
 
 <h3>Running on a corpus</h3>
 
-To run the classifier on a corpus (which would have been created with the
-ontology/creation/main.py script), you can do something like this.</p>
+<p>To run the classifier on a corpus, you can do something like the following.</p>
 
 <pre class="example">
-$ python run_tclassify.py --classify --corpus data/corpora/patents-en-500 --model data/models/technologies-010-20140911/train.model --batch data/classifications/patents-en-500 --verbose
+$ python run_tclassify.py 
+    --classify 
+    --corpus ../doc_processing/data/patents/corpora/sample-us
+    --model data/models/technologies-010-20140911/train.model 
+    --output data/classifications/sample-us 
 </pre>
 
-This assumes that Mallet is installed in one of the default spots, which it
-typically isn't. So you probably need to add the --mallet-dir option:</p>
+<p>Note that this should be a one-line command, it is spread out over several
+lines here for clarity. Change the <code>--corpus</code> and option depending on
+where your corpus lives. The corpus used in this example is the sample corpus
+included in the distribution. Use
+the <code><span class="nowrap">--output</span></code> option to specify what
+directory classification results are written to.  The <code>--model</code>
+option here uses the model that is shipped with the code. This model is
+sufficient when you just try to see if the code runs, but eventually you will
+want to get a better model. Models are available at
+<a href="http://www.cs.brandeis.edu/~marc/fuse/downloads/models/"
+target="_blank">http://www.cs.brandeis.edu/~marc/fuse/downloads/models/</a>. There
+is currently only one model available. You can create as many models as you want
+by following directions in a </code>.
+<a href="../../ontology/classifier/00-readme.txt" target="_blank">readme</a>
+file in the classifier directory.</p>
+
+<p> The command above assumes that Mallet is installed in one of the default
+spots, which typically isn't the case because the default spots are quite
+indiosyncratic. So you probably need to add the <code>--mallet-dir</code>
+option to hand in your local Mallet bin directory:</p>
 
 <pre class="example">
-$ python run_tclassify.py --classify --corpus data/corpora/patents-en-500 --model data/models/technologies-010-20140911/train.model --mallet-dir /home/j/corpuswork/fuse/code/patent-classifier/tools/mallet/mallet-2.0.7/bin --batch data/classifications/patents-en-500 --verbose
+$ python run_tclassify.py 
+    --classify 
+    --corpus ../doc_processing/data/patents/corpora/sample-us
+    --model data/models/technologies-010-20140911/train.model 
+    --output data/classifications/sample-us
+    --mallet-dir /tools/mallet/mallet-2.0.7/bin  
 </pre>
 
-<p>Change the --corpus and --batch options depending on where your data live. The
---model option here uses the model that is shipped with the code.</p>
+<p>Use the <code>--verbose</code> option to print verbose messages, which
+includes writing all files read by the classifier.</p>
 
 <p>It takes about 2-3 minutes to classify 1000 patents on a regular
 desktop. Processing time scales linearly.</p>
 
-<p>The commands above create a directory data/classifications/patents-en-500
-with the classification results for the concatenation of all files in the
-corpus. This directory contains several files, the one you are most likely to
-use is classify.MaxEnt.out.s3.scores.sum, which has lines as follows:</p>
-
-<pre class="example">
-	senses flag	0.439934	1	0.439934	0.439934
-	text message	0.342870	2	0.225453	0.460288
-</pre>
-
-The columns contain: the term, the technology score, the number of occurrences
-of the term in the corpus, the lowest score, and the highest score.</p>
-
-Within the FUSE context, I typically run this on 10-50K random patents from one
-year so that the results file contains the average technology score over that
-year. For previous processing, BAE tended to run in batches of 1000. You could
-do that here to, but if you want technology scores for an entire year then you
-will have to average over all your 1000-patent batches for that year.</p>
-
 
 <h3>Running on a list of files</h3>
 
-You do not need an actual corpus to run the classifier. Instead you can provide
+<p>You do not need an actual corpus to run the classifier. Instead you can provide
 a file that contains a list of input files that need to be classified.</p>
 
 <pre class="example">
-$ python run_tclassify.py --classify --filelist lists/list-010.txt --model data/models/technologies-010-20140911/train.model --verbose --batch data/classifications/patents-list
+$ python run_tclassify.py
+    --classify
+    --filelist lists/list-sample-us
+    --model data/models/technologies-010-20140911/train.model
+    --output data/classifications/list-sample-us.txt
 </pre>
 
-Again, change --batch and --filelist as needed and add --mallet-dir.</p>
+<p>This command uses an example file list
+in <a href="../../ontology/classifier/lists/list-sample-us.txt"
+target="_blank">list-sample-us.txt</a>, which refers to the feature files in
+the <code>sample-us</code> example corpus. One thing to note about this list is
+that the file paths do not include the .gz extenson. The code itself figures out
+whether the file is compressed or not. Again, change <code>--output</code>
+and <code>--filelist</code> as needed and add <code>--mallet-dir</code> if
+Mallet is not installed on a default location.</p>
 
-Results are put in data/classifications/patents-list and will have the
-technology scores over the concatenation of all files.</p>
+
+<a name="output"></a>
+<h2>Output description</h2>
+
+<p>The classification results for the files in the corpus or file list are
+concatenated and put in the output directory, which has the following
+content:</p>
+
+<pre class="example">
+classify.MaxEnt.out.gz
+classify.MaxEnt.out.s1.all_scores.gz
+classify.MaxEnt.out.s2.y_scores
+classify.MaxEnt.out.s3.scores.sum
+classify.MaxEnt.out.s4.scores.sum.az
+classify.MaxEnt.out.s4.scores.sum.nr
+classify.MaxEnt.stderr
+classify.info.filelist.txt
+classify.info.general.txt
+classify.mallet.gz
+</pre>
+
+<p>The last file is the file with the input to the classifier. The first file
+contains the raw results of the classifier and the second just the yes scores
+from the raw results. The results have scores not for each term occurrence but
+for each term in a document.  The file that one is most likely to use
+is <code>classify.MaxEnt.out.s3.scores.sum</code>, which has lines as
+follows:</p>
+
+<pre class="example">
+senses flag	0.439934	1	0.439934	0.439934
+text message	0.342870	2	0.225453	0.460288
+</pre>
+
+<p>The columns contain: the term, the technology score over the entire corpus or
+list of files, the number of documents in the corpus or file list that the term
+occurs in, the lowest score, and the highest score.</p>
+
+<p>These scores are often used to create time series, typically using 10-50K
+random patents from one year so that the results file contains the average
+technology score over that year. If the results for one year were generated in
+several smaller batches, then some extra processing will be needed to combine
+and average the scores.</p>
+
 
 </body>
 </html>
