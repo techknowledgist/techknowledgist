@@ -1,5 +1,4 @@
-"""
-Script to run the matcher on a corpus.
+"""Script to run the matcher on a corpus.
 
 Usage:
 
@@ -10,34 +9,54 @@ Options:
     --corpus - the corpus to run the matcher on
 
     --filelist - list of files from the corpus to process, it is expected to be
-      in the config directory of the corpus, defaults to files.txt
+         in the config directory of the corpus, defaults to files.txt, which
+         includes all files in the corpus; if no corpus was specified, this
+         option is to specify a file list that points to files that can be
+         anywhere, that is, they are not restricted to be in a corpus, in that
+         case, the list is not expected to be found inside the configuration
+         directory of a corpus
 
     --patterns - pattern set to use, either MATURITY or PROMISE, defaults to the
-      first of those
+         first of those
 
-    --batch - directory in data/o2_matcher to write the results to
+    --ouput - directory to write the results to, if a corpus was specified then
+         this will be a subdirectory of in data/o2_matcher in the corpus, if
+         not, the directory is taken as a path relative to the script directory
+         (unless it is an absolute path)
 
     --verbose - print progress
 
-Writes results to the --batch directory in two files, one with a line for each
-match and one with a summary where the number of matches for each term is
+Results are written to the output directory in two files, one with a line for
+each match and one with a summary where the number of matches for each term is
 printed. Also writes a couple of general information files to the output
 directory and a file with statistics on the number of features found in the
 input.
 
-Example:
+Examples:
 
     $ python run_matcher.py \
-      --corpus data/patents/201306-computer-science \
-      --filelist files_testing_01.txt \
+      --corpus ../doc_processing/data/patents/corpora/sample-us \
       --patterns MATURITY \
-      --batch batch-01 \
+      --output maturity \
       --verbose
+
+    $ python run_matcher.py \
+      --filelist ../classifier/lists/list-sample-us.txt \
+      --patterns MATURITY \
+      --output maturity \
+      --verbose
+
+These two command will process the same files since the file list specified in
+the second command points to all files in the corpus of the first command. The
+main difference is that the first command writes to a directory named 'maturity'
+inside of the 'data/o2_matcher' directory inside the corpus, whereas the second
+writes to a directory 'maturity' in the directory that the run_matcher.py script
+lives in.
 
 
 WISHLIST:
 
-- Should also allow using more than one patterns set. Also, the code that
+- Should also allow using more than one pattern set. Also, the code that
   consumes the patterns (eg maturity.py) needs to be adapted.
 
 - Remove dependency on directories inside the corpus. The filelist now has to be
@@ -67,34 +86,45 @@ VERBOSE = False
 
 class Matcher(object):
 
-    def __init__(self, rconfig, filelist, batch):
+    def __init__(self, rconfig, filelist, output):
+        self.output = output
         self.rconfig = rconfig
-        self.file_list = os.path.join(rconfig.config_dir, filelist)
-        self.batch = batch
-        self.data_dir = os.path.join(self.rconfig.target_path, 'data')
-        self.match_dir = os.path.join(self.data_dir, 'o2_matcher')
-        self.batch_dir = os.path.join(self.match_dir, batch)
-        self.results_file1 = os.path.join(self.batch_dir, "match.results.full.txt")
-        self.results_file2 = os.path.join(self.batch_dir, "match.results.summ.txt")
-        self.info_file_general = os.path.join(self.batch_dir, "match.info.general.txt")
-        self.info_file_config = os.path.join(self.batch_dir, "match.info.config.txt")
-        self.info_file_filelist = os.path.join(self.batch_dir, "match.info.filelist.txt")
-        self.info_file_featlist = os.path.join(self.batch_dir, "match.info.features.txt")
+        self.file_list = filelist
+        self.output_dir = output
+        # this avoids using the config directory to find the file list, which
+        # would happen if there was no corpus specified in the input
+        if rconfig.config_dir is not None:
+            self.file_list = os.path.join(rconfig.config_dir, filelist)
+            self.data_dir = os.path.join(self.rconfig.target_path, 'data')
+            self.match_dir = os.path.join(self.data_dir, 'o2_matcher')
+            self.output_dir = os.path.join(self.match_dir, output)
+        self.results_file1 = os.path.join(self.output_dir, "match.results.full.txt")
+        self.results_file2 = os.path.join(self.output_dir, "match.results.summ.txt")
+        self.info_file_general = os.path.join(self.output_dir, "match.info.general.txt")
+        self.info_file_config = os.path.join(self.output_dir, "match.info.config.txt")
+        self.info_file_filelist = os.path.join(self.output_dir, "match.info.filelist.txt")
+        self.info_file_featlist = os.path.join(self.output_dir, "match.info.features.txt")
         self.feature_statistics = FeatureStatistics(self.info_file_featlist)
         self.patterns = PATTERNS
 
     def __str__(self):
-        return "<Matcher on '%s' for '%s'>" % (self.rconfig.corpus, self.batch)
+        return "<Matcher on '%s' for '%s'>" % (self.rconfig.corpus, self.output)
 
     def run(self):
         self.time = time.time()
-        self._find_datasets()
+        if self.rconfig.corpus is not None:
+            self._find_datasets()
+            fnames = filename_generator(self.input_dataset.path, self.file_list)
+            print fnames.next()
+        else:
+            fnames = [f.strip() for f in open(self.file_list).readlines()]
+            print 11, fnames[0], 22
         self._create_info_files()
-        fnames = filename_generator(self.input_dataset.path, self.file_list)
         with codecs.open(self.results_file1, 'w', encoding='utf-8') as fh:
             count = 0
             for fname in fnames:
                 count += 1
+
                 print_file_progress("Matcher", count, fname, VERBOSE)
                 # if count > 10: break
                 self.run_matcher_on_file(fname, fh)
@@ -131,9 +161,13 @@ class Matcher(object):
         subprocess.call(command, shell=True)
 
     def pp(self):
-        print "\n<Matcher on '%s'>" % self.rconfig.corpus
-        print "   match_dir =", self.match_dir
-        print "   batch_dir =", self.batch_dir
+        if self.rconfig.corpus:
+            print "\n<Matcher on '%s'>" % self.rconfig.corpus
+            print "   match_dir =", self.match_dir
+            print "   output_dir =", self.output_dir
+        else:
+            print "\n<Matcher on '%s'>" % self.file_list
+            print "   output_dir =", self.output_dir
         rconfig.pp()
 
     def _find_datasets(self):
@@ -141,20 +175,23 @@ class Matcher(object):
         # TODO: this is the same as the method on TrainerClassifier
         print "[Matcher] finding dataset and checking file availability"
         self.input_dataset = find_input_dataset(self.rconfig, 'd3_phr_feats')
-        #check_file_availability(self.input_dataset, self.file_list)
+        #print self.input_dataset
+        check_file_availability(self.input_dataset, self.file_list)
 
     def _create_info_files(self):
         if os.path.exists(self.info_file_general):
-            sys.exit("WARNING: already ran matcher for batch %s" % self.batch)
-        print "[Matcher] initializing data/o2_matcher/%s directory" %  self.batch
-        ensure_path(self.batch_dir)
+            sys.exit("WARNING: already have matcher results in %s" % self.output)
+        print "[Matcher] initializing data/o2_matcher/%s directory" %  self.output
+        ensure_path(self.output_dir)
         with open(self.info_file_general, 'w') as fh:
             fh.write("$ python %s\n\n" % ' '.join(sys.argv))
-            fh.write("batch        =  %s\n" % self.batch)
+            fh.write("output       =  %s\n" % self.output)
             fh.write("file_list    =  %s\n" % self.file_list)
-            fh.write("config_file  =  %s\n" % os.path.basename(rconfig.pipeline_config_file))
+            #fh.write("config_file  =  %s\n" % os.path.basename(rconfig.pipeline_config_file))
+            fh.write("config_file  =  %s\n" % rconfig.pipeline_config_file)
             fh.write("git_commit   =  %s\n" % get_git_commit())
-        shutil.copyfile(self.rconfig.pipeline_config_file, self.info_file_config)
+        if self.rconfig.pipeline_config_file is not None:
+            shutil.copyfile(self.rconfig.pipeline_config_file, self.info_file_config)
         shutil.copyfile(self.file_list, self.info_file_filelist)
 
     def _finish(self):
@@ -231,9 +268,16 @@ def print_file_progress(stage, count, filename, verbose):
     if verbose:
         print "[%s] %05d %s" % (stage, count, filename)
 
+def check_output(corpus, output):
+    """Checks whether the ouput directory already exists, exits if that's the case"""
+    dir_to_check = output
+    if corpus is not None:
+        dir_to_check = os.path.join(corpus, 'data', 'o2_matcher', output)
+    if os.path.exists(dir_to_check):
+        exit("Output directory '%s' allready exists, exiting..." % dir_to_check)
 
 def read_opts():
-    longopts = ['corpus=', 'filelist=', 'batch=', 'pipeline=', 'patterns=', 'language=', 'verbose' ]
+    longopts = ['corpus=', 'filelist=', 'output=', 'pipeline=', 'patterns=', 'language=', 'verbose' ]
     try:
         return getopt.getopt(sys.argv[1:], '', longopts)
     except getopt.GetoptError as e:
@@ -336,7 +380,7 @@ if __name__ == '__main__':
     corpus = None
     language = 'en'
     patterns = 'MATURITY'
-    batch = None
+    output = None
     filelist = 'files.txt'
     pipeline_config = 'pipeline-default.txt'
 
@@ -346,9 +390,11 @@ if __name__ == '__main__':
         elif opt == '--language': language = val
         elif opt == '--filelist': filelist = val
         elif opt == '--patterns': patterns = val
-        elif opt == '--batch': batch = val
+        elif opt == '--output': output = val
         elif opt == '--pipeline': pipeline_config = val
         elif opt == '--verbose': VERBOSE = True
+
+    check_output(corpus, output)
 
     if language == 'cn':
         load_chinese_patterns()
@@ -365,6 +411,6 @@ if __name__ == '__main__':
     # object, but for now we keep it
     rconfig = RuntimeConfig(corpus, None, None, language, pipeline_config)
 
-    matcher = Matcher(rconfig, filelist, batch)
+    matcher = Matcher(rconfig, filelist, output)
     matcher.pp()
     matcher.run()
