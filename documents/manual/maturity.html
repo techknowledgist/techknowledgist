@@ -17,13 +17,15 @@
 <p class="abstract">Maturity scores indicate the maturity of a technology. They
 are calculated with a (i) pattern matcher that picks up textual features in the
 context of the technology and (ii) some simple statistical calculations over the
-results of the matcher.</p>
+results of the matcher. The scores are limited to those terms that occur
+frequently enough.</p>
 
 <p>
-[ <a href="#input">input description</a> 
+[ <a href="#input">input</a> 
 | <a href="#howto1">pattern matcher</a> 
-| <a href="#howto2">score generation</a> 
-| <a href="#output">output description</a> ]
+| <a href="#howto2">term frequencies</a> 
+| <a href="#howto3">score generation</a> 
+| <a href="#output">output</a> ]
 </p>
 
 
@@ -97,7 +99,72 @@ example corpus.
 
 
 <a name="howto2"></a>
+<h2>Term frequencies</h2>
+
+<p>Maturity scores cannot be realiably calculated for terms with very low
+frequencies. Therefore, we use a frequency list as a filter when generating
+maturity scores. It was shown in the <a href="classifier.html#output"
+target="_blank"> output description section</a> of the classifier manual that
+the file <code>classify.MaxEnt.out.s3.scores.sum</code> contains the term
+frequencies over a corpus or list of files. However, for maturity score time
+series we want to calculate over a series of corpora (or file lists), one for
+each year. The merged frequencies can be calculated with
+<code>merge_classifier_results.py</code>
+in <code>ontology/classifier</code>. This script is used as follows:</p>
+
+<pre class="example">
+$ python merge_classifier_results.py OUTPUT_DIRECTORY CLASSIFIER_RESULT+
+</pre>
+
+<p>CLASSIFIER_RESULT is a summed classifier result, typically, but not
+necessarily, a file with the base
+name <code>classify.MaxEnt.out.s3.scores.sum</code>, but it can also be an
+expression with unix wild cards. Here is an example where the scores in two
+classification results are merged (split over several lines for convenience):
+
+<pre class="example">
+$ python merge_classifier_results.py 
+    data/merged-2000-2001 
+    classifications/2001/classify.MaxEnt.out.s3.scores.sum
+    classifications/2002/classify.MaxEnt.out.s3.scores.sum 
+</pre>
+
+<p>Using wild cards this would be:</p>
+
+<pre class="example">
+    data/merged-2000-2001 
+    classifications/????/classify.MaxEnt.out.s3.scores.sum
+</pre>
+
+<p>Of course, if there were to be subdirectories for other years with
+classification then those would be included as well.</p>
+
+<p>The result are written to <code>data/merged-2000-2001</code>, which has the
+following files:</p>
+
+<pre class="example">
+merged_term_frequencies.0005.txt
+merged_term_frequencies.0010.txt
+merged_term_frequencies.0025.txt
+merged_term_frequencies.0050.txt
+merged_term_frequencies.0100.txt
+merged_term_frequencies.all.txt
+merged_term_frequencies.info.txt
+</pre>
+
+<p>Each (non-info) file has two fields: a total count and the term. One file has
+all terms and their frequencies, whereas the others only have the terms that
+occur N times, where N is given in the file name. An info file is written with
+the version of the code used and all the names of the files that were merged.</p>
+
+
+
+
+
+<a name="howto3"></a>
 <h2>Generating the scores</h2>
+
+
 
 
 
@@ -153,7 +220,7 @@ for each term:</p>
 </pre>
 
 <p>This file, like the previous file, is tab-separated, but note that there can
-be leading spaces (this is for te convenience of the person opening the file and
+be leading spaces (this is for the convenience of the person opening the file and
 looking at it.</p>
 
 
