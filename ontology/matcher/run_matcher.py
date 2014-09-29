@@ -121,10 +121,10 @@ class Matcher(object):
             print 11, fnames[0], 22
         self._create_info_files()
         with codecs.open(self.results_file1, 'w', encoding='utf-8') as fh:
+            print "[--matcher] applying patterns to files"
             count = 0
             for fname in fnames:
                 count += 1
-
                 print_file_progress("Matcher", count, fname, VERBOSE)
                 # if count > 10: break
                 self.run_matcher_on_file(fname, fh)
