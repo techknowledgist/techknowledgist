@@ -17,13 +17,17 @@ TECHNOLOGIES
 
 To create technology annotation files do something like:
 
-  $ python step3_annotation.py \
+  $ python create_annotation_files.py \
       --technologies \
-      --name test1 \
-      --corpus data/patents/201305-en \
-      --filelist files-testing.txt \
+      --ouput test-annotate-technologies \
+      --corpus ../doc_processing/data/patents/corpora/sample-us \
+      --filelist files.txt \
       --print-context \
       --verbose
+
+The following does the same, but is more compact:
+
+  $ python create_annotation_files.py --technologies -o test-annotate-technologies -c ../doc_processing/data/patents/corpora/sample-us --print-context -v
 
 Four annotation files are created (in addition to a couple of info files):
 
@@ -51,8 +55,8 @@ Options:
        creates a list of filenames in the corpus, the annotation file are taken
        from these files
 
-   --name STRING - the name for the annotation set, this will be used as a
-       directory name inside CORPUS_DIRECTORY/data/t0_annotation
+   --output DIRNAME - the name for the annotation set, this will be used as a
+       directory name
 
    --verbose - switch on verbose mode
 
@@ -65,49 +69,50 @@ Options:
    
 INVENTIONS
 
+Options include the first five options mentioned for --technologies plus the
+added option --chunks, which defines the maximum number of chunks per document
+to put in the annotation file. The default is 30. Only chunks from the FH_TITLE
+and FH_ABSTRACT sections will be used (this is hard-coded).
+
 The following command creates a directory with some info files and an annotation
 file for inventions:
 
-  $ python step3_annotation.py \
+  $ python create_annotation_files.py \
       --inventions \
-      --corpus data/patents/201305-en \
-      --filelist files-n2.txt \
-      --name test2 \
+      --corpus ../doc_processing/data/patents/corpora/sample-us \
+      --filelist files.txt \
+      --output test-annotate-inventions \
       --chunks 30 \
       --verbose
 
-Options are the same as for --technologies, except that there is an added option
---chunks, which defines the maximum number of chunks per document to put in the
-annotation file. The default is 30. Only chunks from the FH_TITLE and
-FH_ABSTRACT sections will be used (this is hard-coded).
+This does the same, but uses short option names and the defaults for --filelist
+and --chunks:
+
+  $ python create_annotation_files.py --inventions -c ../doc_processing/data/patents/corpora/sample-us -o test-annotate-inventions -v
 
 
 TERMS
 
 This is a bit of an odd duck since it does not work of a list of files but off a
-list of terms, each with some instances where the instances are given thorugh
+list of terms, each with some instances where the instances are given through
 the document name and line number.
 
   $ python step3_annotation.py \
       --terms \
-      --corpus data/patents/201305-en \
-      --instances ../annotation/en/maturity/terms-locations.txt\
-      --name test \
+      --corpus ../doc_processing/data/patents/corpora/sample-us \
+      --instances en/maturity/terms-locations.txt \
+      --output test-annotate-terms \
       --verbose
+
+Compact version:
+
+  $ python step3_annotation.py --terms -c ../doc_processing/data/patents/corpora/sample-us --instances en/maturity/terms-locations.txt -o test-annotate-terms -v
 
 """
 
-import os, sys, shutil, getopt, codecs, random
+import os, sys, shutil, getopt, codecs, random, textwrap
 
-import config
-import textwrap
-
-script_path = os.path.abspath(sys.argv[0])
-script_dir = os.path.dirname(script_path)
-os.chdir(script_dir)
-os.chdir('../..')
-sys.path.insert(0, os.getcwd())
-os.chdir(script_dir)
+sys.path.append(os.path.abspath('../..'))
 
 from ontology.utils.batch import RuntimeConfig, find_input_dataset
 from ontology.utils.batch import check_file_availability, generate_doc_feats
@@ -118,7 +123,7 @@ from ontology.utils.git import get_git_commit
 sys.stdout = codecs.getwriter('utf8')(sys.stdout)
 
 
-def annotate_technologies(name, rconfig, filelist, sort_terms_p, print_context_p):
+def annotate_technologies(dirname, rconfig, filelist, sort_terms_p, print_context_p):
 
     """Create input for manually annotation (that is, creation of a labeled list
     of terms). Given a runtime configuration for a corpus and a file list,
@@ -127,7 +132,6 @@ def annotate_technologies(name, rconfig, filelist, sort_terms_p, print_context_p
     terms with contexts. For contexts, a maximum of 10 is printed, selected
     randomly."""
 
-    filelist_path = os.path.join(rconfig.config_dir, filelist)
     print "finding tags..."
     dataset_tags = find_input_dataset(rconfig, 'd2_tag')
     print "finding features..."
@@ -138,50 +142,34 @@ def annotate_technologies(name, rconfig, filelist, sort_terms_p, print_context_p
         print "DATASET TAGS: ", dataset_tags
         print "DATASET FEATS:", dataset_features, "\n"
 
-    check_file_availability(dataset_tags, filelist_path)
-    check_file_availability(dataset_features, filelist_path)
+    check_file_availability(dataset_tags, filelist)
+    check_file_availability(dataset_features, filelist)
 
-    dirname = set_dirname(rconfig, 'technologies', name)
-    write_info(rconfig, dirname, filelist_path)
+    write_info(rconfig, dirname, filelist)
     term_contexts = {}
     if print_context_p:
         term_contexts = collect_contexts(dataset_tags, dataset_features,
-                                         filelist_path)
-    term_counts = collect_counts(dataset_features, filelist_path)
+                                         filelist)
+    term_counts = collect_counts(dataset_features, filelist)
     term_count_list = sorted(list(term_counts.items()))
     term_count_list.sort(lambda x, y: cmp(y[1],x[1]))
     print_annotation_files(dirname, term_count_list, term_contexts,
                            sort_terms_p, print_context_p)
 
-
-def set_dirname(rconfig, annotation_type, name):
-    """Returns the directory where all annotation files will be written. Exit if
-    the directory already exists, otherwise create it and return it. The two
-    current annotation_types are 'technologies' and 'inventions'. The name is
-    given by the user and is used as the name of a subdirectory."""
-    dirname = os.path.join(rconfig.target_path,
-                           'data', 't0_annotate', annotation_type, name)
-    if os.path.exists(dirname):
-        exit("WARNING: exiting, already created annotation files in %s" % dirname)
-    ensure_path(dirname)
-    return dirname
-
-def write_info(rconfig, dirname, filelist_path):
+def write_info(rconfig, dirname, filelist):
     """Generate a file with general information and copy the file list to the
     annotation directory."""
     print "Writing general info..."
-    idx = len(rconfig.corpus)
-    source = '<corpus>' + dirname[idx:] + '/annotate.terms.context.txt'
+    ensure_path(dirname)
     with open(os.path.join(dirname, 'annotate.info.general.txt'), 'w') as fh:
         fh.write("$ python %s\n\n" % ' '.join(sys.argv))
-        fh.write("corpus            =  %s\n" % rconfig.corpus)
-        fh.write("source            =  %s\n" % source)
-        fh.write("file_list         =  %s\n" % filelist_path)
+        fh.write("corpus            =  %s\n" % os.path.abspath(rconfig.corpus))
+        fh.write("file_list         =  %s\n" % os.path.abspath(filelist))
         fh.write("config_file       =  %s\n" % \
                      os.path.basename(rconfig.pipeline_config_file))
         fh.write("git_commit        =  %s" % get_git_commit())
-    print "Copying %s..." % (filelist_path)
-    shutil.copyfile(filelist_path,
+    print "Copying %s..." % (filelist)
+    shutil.copyfile(filelist,
                     os.path.join(dirname, 'annotate.info.filelist.txt'))
 
 def collect_contexts(dataset_tags, dataset_feats, filelist):
@@ -293,21 +281,19 @@ def _write_html_prefix(fh_context):
 
 
 
-def annotate_inventions(name, rconfig, filelist, chunks):
+def annotate_inventions(dirname, rconfig, filelist, chunks):
     """Create a directory with annotation files in t0_annotation/<name>."""
 
-    filelist_path = os.path.join(rconfig.config_dir, filelist)
     dataset_tags = find_input_dataset(rconfig, 'd2_tag')
     dataset_feats = find_input_dataset(rconfig, 'd3_phr_feats')
-    check_file_availability(dataset_tags, filelist_path)
-    check_file_availability(dataset_feats, filelist_path)
+    check_file_availability(dataset_tags, filelist)
+    check_file_availability(dataset_feats, filelist)
 
-    dirname = set_dirname(rconfig, 'inventions', name)
-    write_info(rconfig, dirname, filelist_path)
+    write_info(rconfig, dirname, filelist)
     outfile = os.path.join(dirname, 'annotate.inventions.unlab.txt')
     output_fh = codecs.open(outfile, 'w', encoding='utf-8')
-    tag_files = list(filename_generator(dataset_tags.path, filelist_path))
-    feat_files = list(filename_generator(dataset_feats.path, filelist_path))
+    tag_files = list(filename_generator(dataset_tags.path, filelist))
+    feat_files = list(filename_generator(dataset_feats.path, filelist))
 
     # add the content of the general info file as a preface
     with open(os.path.join(dirname, 'annotate.info.general.txt')) as fh:
@@ -346,38 +332,31 @@ def _add_file_data_to_annotation_file(output_fh, fd):
     output_fh.write("#\n")
 
 
-def annotate_something(name, rconfig, filelist, chunks):
+def annotate_something(dirname, rconfig, filelist, chunks):
 
     """This is a stub method that explains a bit more on how to create
     annotation files. Includes scaffolding that shows how to pull information
     out of phrase feature and tag files. This is for cases when you use a list
     of files."""
 
-    # Create the complete path to the file list; the rconfig is an instance of
-    # RuntimeConfiguration and is created from the corpus and the pipeline
-    # specification
-    filelist_path = os.path.join(rconfig.config_dir, filelist)
-
     # Here is how you get the datasets
     dataset_tags = find_input_dataset(rconfig, 'd2_tag')
     dataset_feats = find_input_dataset(rconfig, 'd3_phr_feats')
 
     # Check whether files from the file list are available
-    check_file_availability(dataset_tags, filelist_path)
-    check_file_availability(dataset_feats, filelist_path)
-
-    # Create the directory where the files will be written to
-    dirname = set_dirname(rconfig, 'inventions', name)
+    check_file_availability(dataset_tags, filelist)
+    check_file_availability(dataset_feats, filelist)
 
     # Next would typically be some way of writing down the information, the
-    # following writes general information (command used, corpus directory, git
-    # commit) and the list of files used.
-    write_info(rconfig, dirname, filelist_path)
+    # following writes general information (command used, corpus directory as
+    # well as git commit) and the list of files used. This also creates the
+    # output directory.
+    write_info(rconfig, dirname, filelist)
 
     # Now we can get the file names, loop over them, and extract the needed
     # information. The code below is some scaffolding if all you need is in one
     # dataset.
-    fnames = filename_generator(dataset_feats.path, filelist_path)
+    fnames = filename_generator(dataset_feats.path, filelist)
     for fname in fnames:
         with open_input_file(fname) as fh:
             # extract data from the line, you may want to put it in some
@@ -387,8 +366,8 @@ def annotate_something(name, rconfig, filelist, chunks):
 
     # And this is what you do if you need information that is distributed over
     # the feature and tag files.
-    tag_files = list(filename_generator(dataset_tags.path, filelist_path))
-    feat_files = list(filename_generator(dataset_feats.path, filelist_path))
+    tag_files = list(filename_generator(dataset_tags.path, filelist))
+    feat_files = list(filename_generator(dataset_feats.path, filelist))
     for i in range(len(tag_files)):
         # the FileData object
         fd = FileData(tag_files[i], feat_files[i])
@@ -399,7 +378,7 @@ def annotate_something(name, rconfig, filelist, chunks):
             term_obj = fd.get_term(term)
 
 
-def annotate_terms(name, rconfig, instances_file):
+def annotate_terms(dirname, rconfig, instances_file):
 
     """Create an annotation file for term instances."""
 
@@ -411,7 +390,6 @@ def annotate_terms(name, rconfig, instances_file):
 
     # Create the directory where the files will be written to; write info; and
     # open the output file, intializing it with info
-    dirname = set_dirname(rconfig, 'instances', name)
     write_info(rconfig, dirname, instances_file)
     outfile = os.path.join(dirname, 'annotate.terms.context.txt')
     out = codecs.open(outfile, 'w', encoding='utf8')
@@ -420,13 +398,7 @@ def annotate_terms(name, rconfig, instances_file):
         for line in fh:
             out.write("# %s\n" % line.rstrip())
         out.write("#\n")
-
                            
-    # Check whether files form the file list are available; for now assuming
-    # this does not need to be done, would require creation of a temporary file    
-    #check_file_availability(dataset_tags, filelist_path)
-    #check_file_availability(dataset_feats, filelist_path)
-
     # time to get the terms
     terms = _read_terms(instances_file)
     _reduce_terms(terms)
@@ -496,14 +468,14 @@ def _print_terms(terms):
 
 if __name__ == '__main__':
 
-    options = ['name=', 'corpus=', 'pipeline=', 'filelist=', 'sort-terms',
-               'print-context', 'technologies', 'inventions', 'terms',
-               'chunks=', 'instances=', 'verbose']    
-    (opts, args) = getopt.getopt(sys.argv[1:], '', options)
+    options = ['technologies', 'inventions', 'terms',
+               'output=', 'corpus=', 'pipeline=', 'filelist=', 'sort-terms',
+               'print-context', 'chunks=', 'instances=', 'verbose']
+    (opts, args) = getopt.getopt(sys.argv[1:], 'o:c:f:v', options)
 
-    name = None
-    target_path = config.WORKING_PATENT_PATH
-    pipeline_config = config.DEFAULT_PIPELINE_CONFIGURATION_FILE
+    output = None
+    corpus = None
+    pipeline_config = 'pipeline-default.txt'
     filelist = 'files.txt'
     annotate_technologies_p = False
     annotate_inventions_p = False
@@ -521,29 +493,40 @@ if __name__ == '__main__':
         if opt == '--inventions': annotate_inventions_p = True
         if opt == '--terms': annotate_terms_p = True
 
-        if opt == '--name': name = val
-        if opt == '--corpus': target_path = val
-        if opt == '--verbose': verbose = True
+        if opt in ('--output', '-o'): output = val
+        if opt in ('--corpus', '-c'): corpus = val
+        if opt in ('--filelist', '-f'): filelist = val
+        if opt in ('--verbose', '-v'): verbose = True
 
         if opt == '--pipeline': pipeline_config = val
-        if opt == '--filelist': filelist = val
         if opt == '--sort-terms': sort_terms_p = True
         if opt == '--print-context': print_context_p = True
         if opt == '--chunks': chunks = int(val)
         if opt == '--instances': instances = val
-        
-    if name is None:
-        exit("ERROR: missing --name option")
-        
-    rconfig = RuntimeConfig(target_path, None, None, None, pipeline_config)
+
+    if corpus is None:
+        exit("ERROR: no corpus specified with --corpus option")
+    if not os.path.exists(corpus):
+        exit("ERROR: corpus '%s' does not exist" % corpus)
+    if not os.path.exists(filelist):
+        saved_filelist = filelist
+        filelist = os.path.join(corpus, 'config', filelist)
+        if not os.path.exists(filelist):
+            exit("ERROR: the file list '%s' does not exist" % saved_filelist)
+    if output is None:
+        exit("ERROR: no output directory specified with the --output option")
+    if os.path.exists(output):
+        exit("ERROR: already created annotation files in %s" % output)
+
+    rconfig = RuntimeConfig(corpus, None, None, None, pipeline_config)
     if verbose:
         rconfig.pp()
 
     if annotate_technologies_p:
-        annotate_technologies(name, rconfig, filelist,
+        annotate_technologies(output, rconfig, filelist,
                               sort_terms_p, print_context_p)
     elif annotate_inventions_p:
-        annotate_inventions(name, rconfig, filelist, chunks)
+        annotate_inventions(output, rconfig, filelist, chunks)
 
     elif annotate_terms_p:
-        annotate_terms(name, rconfig, instances)
+        annotate_terms(output, rconfig, instances)
