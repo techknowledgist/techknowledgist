@@ -62,17 +62,24 @@ There are time series for about 540K terms, being all terms with a frequency of
 25 or higher in the corpus. Maturity scores tend to be meaningless below a
 certain threshold (although it is not clear what exactly that threshold is).
 
+
+
+$ python maturity.py
+    --corpus /home/j/corpuswork/fuse/FUSEData/corpora/ln-us-all-600k
+    --output maturity-scores
+
+
 """
 
 
-import os, codecs, math
+import os, sys, codecs, math, getopt
 
 
 ### USER SETTINGS
 
 # years to process
 YEARS = [1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007]
-#YEARS = [1997, 1998]
+YEARS = [1997, 1998]
 
 # path to the corpus directory
 CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-us-cs-500k'
@@ -81,12 +88,14 @@ CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-us-all-600k'
 
 # directory where the classifications of all subcorpora are
 CLASS_SUBDIR = 'classifications'
-CLASS_SUBDIR = 'classifications/phase2-eval'
+#CLASS_SUBDIR = 'classifications/phase2-eval'
 
 # name of the time series directory in the corpus directory
 TIME_SERIES = 'time-series'
 TIME_SERIES = 'time-series-v1'
 TIME_SERIES = 'time-series-v2'
+TIME_SERIES = 'time-series-v3'
+TIME_SERIES = 'time-series-tmp'
 
 # This variable needs to be set manually by finding the term-year pair with the
 # highest number of matches.  For convenience, this number is printed each time
@@ -96,7 +105,7 @@ TIME_SERIES = 'time-series-v2'
 # TODO: is this actually needed? Can't it be calculated when all data are loaded?
 MAX_NUMBER_OF_MATCHES = 90439  # ln-us-cs-500k
 MAX_NUMBER_OF_MATCHES = 26542  # ln-us-all-600k, with files.txt
-MAX_NUMBER_OF_MATCHES = 21981  # ln-us-all-600k, with files-2007.txt
+#MAX_NUMBER_OF_MATCHES = 21981  # ln-us-all-600k, with files-2007.txt
 #MAX_NUMBER_OF_MATCHES = 7232   # ln-cn-all-600k, with files-2007.txt
 
 # Threshold that determines what the adjusted frequency count has to be to render
@@ -118,6 +127,7 @@ elif CORPUS_DIR.endswith('ln-us-all-600k'):
     CLASS_DIR = os.path.join(CORPUS_DIR, CLASS_SUBDIR)
     CLASS_PREFIX = 'technologies-ds1000-all-'
     CLASS_FILE = 'classify.MaxEnt.out.s3.scores.sum'
+    CLASS_FILE = 'classify.MaxEnt.out.s4.scores.sum.az'
     MATCH_DIR = os.path.join(CORPUS_DIR, 'subcorpora')
     MATCH_SUBDIR = 'data/o2_matcher/maturity'
     if CLASS_SUBDIR == 'classifications/phase2-eval':
@@ -136,6 +146,7 @@ elif CORPUS_DIR.endswith('ln-cn-all-600k'):
 TERMS_FILE = CLASS_DIR + os.sep + 'all_terms.0025.txt'
 
 TIME_SERIES_DIR = os.path.join(CORPUS_DIR, TIME_SERIES, 'maturity-scores')
+TIME_SERIES_DIR = '.'
 
 
 # Variables needed for various adjustments of counts
@@ -151,6 +162,10 @@ YEAR_SIZES_ALL_600K_v1 = {
 YEAR_SIZES_ALL_600K_v2 = {
     1997: 15932, 1998: 15849, 1999: 17317, 2000: 19174, 2001: 36208, 2002: 37080,
     2003: 38961, 2004: 36314, 2005: 29894, 2006: 20513, 2007: 6017 }
+YEAR_SIZES_ALL_600K_v3 = {
+    1997: 15914, 1998: 18878, 1999: 17412, 2000: 19533, 2001: 36832, 2002: 38482,
+    2003: 42439, 2004: 43903, 2005: 44493, 2006: 43412, 2007: 40715, 2008: 35406,
+    2009: 27927, 2010: 17412 }
 YEAR_SIZES_ALL_600K_cn_v1 = {
     1997: 1, 1998: 1, 1999: 1, 2000: 1, 2001: 1, 2002: 1,
     2003: 1, 2004: 1, 2005: 1, 2006: 1, 2007: 1 }
@@ -164,6 +179,8 @@ elif os.path.basename(CORPUS_DIR) == "ln-us-all-600k":
     YEAR_SIZES = YEAR_SIZES_ALL_600K_v1
     if CLASS_SUBDIR == 'classifications/phase2-eval':
         YEAR_SIZES = YEAR_SIZES_ALL_600K_v2
+    else:
+        YEAR_SIZES = YEAR_SIZES_ALL_600K_v3
 elif os.path.basename(CORPUS_DIR) == "ln-cn-all-600k":
     YEAR_SIZES = YEAR_SIZES_ALL_600K_cn_v1
     if CLASS_SUBDIR == 'classifications/phase2-eval':
@@ -246,11 +263,48 @@ def calculate_maturity_scores(maturity_data):
             maturity_data[term][year] = scores
 
 
+
+def read_opts():
+    options = ['corpus=', 'output=',
+               'verbose' ]
+    try:
+        return getopt.getopt(sys.argv[1:], 'c:o:v', options)
+    except getopt.GetoptError as e:
+        sys.exit("ERROR: " + str(e))
+
+        
+
         
 if __name__ == '__main__':
 
+    corpus = None
+    output = None
+    verbose = False
+
+    (opts, args) = read_opts()
+    for opt, val in opts:
+        if opt in ('-c', '--corpus'): corpus = val
+        if opt in ('-o', '--output'): output = val
+        if opt in ('-v', '--verbose'): verbose = True
+
     terms = read_terms()
     maturity_data = {}
+
+    print 'CORPUS_DIR', CORPUS_DIR
+    print 'YEARS', YEARS
+    print 'YEAR_SIZES', YEAR_SIZES
+    print 'CLASS_SUBDIR', CLASS_SUBDIR
+    print 'CLASS_DIR', CLASS_DIR
+    try:
+        CLASS_SUFFIX
+        print 'CLASS_SUFFIX', CLASS_SUFFIX
+    except NameError:
+        pass
+    print 'CLASS_FILE', CLASS_FILE
+    print 'MATCH_DIR',MATCH_DIR
+    print 'MATCH_SUBDIR', MATCH_SUBDIR
+    print 'MATCH_FILE', MATCH_FILE
+    print 'TIME_SERIES', TIME_SERIES
     
     for year in YEARS:
         print
@@ -272,8 +326,9 @@ if __name__ == '__main__':
         for line in codecs.open(tech_file):
             c += 1
             if c % 100000 == 0: print '     ', c
-            #if c > 200000: break
-            term, score, doc_count, min, max = line.split("\t")
+            if c > 10000: break
+            term, score, doc_count, min, max = line.rstrip("\n\r\f").split("\t")
+            #print score, min, max, doc_count, term
             score = float(score)
             doc_count = int(doc_count)
             if terms.has_key(term):

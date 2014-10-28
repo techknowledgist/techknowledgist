@@ -14,6 +14,7 @@ CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-us-all-600k'
 #CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-cn-all-600k'
 
 TIME_SERIES_DIR = CORPUS_DIR + '/time-series-v2/maturity-scores'
+TIME_SERIES_DIR = CORPUS_DIR + '/time-series-v3/maturity-scores'
 #TIME_SERIES_DIR = CORPUS_DIR + '/time-series-v2/maturity-scores-cn'
 
 maturity_scores1_file = TIME_SERIES_DIR + '/maturity-freq-based.txt'
