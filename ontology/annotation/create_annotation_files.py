@@ -6,7 +6,7 @@ name of the annotation set created, and (iv) a marker that indicates what kind
 of annotation files are created (now only --technologies and --inventions).
 
 There are three options that indicate the main mode of the script: one for
-technologies, one for inventions and one for maturity scores:
+technologies, one for inventions and one for terms (for maturity scores):
 
    --technologies
    --inventions
@@ -49,7 +49,7 @@ Options:
    --corpus CORPUS_DIRECTORY - the directory where the corpus lives
 
    --pipeline FILENAME - the kind of pipeline that is expected for the input
-       data, defaults to default-pipeline.txt
+       data, defaults to default-pipeline.txt in the config directory
 
    --filelist FILENAME - this is a file inside of CORPUS_DIRECTORY/config which
        creates a list of filenames in the corpus, the annotation file are taken
@@ -66,7 +66,10 @@ Options:
    --sort-terms - with this option, terms are printed in order of frequency, by
        default, they are randomly ordered
 
-   
+There are short options for --corpus (-c), --pipeline (-p), --filelist (-f),
+--output (-o) and --verbose (-v).
+
+
 INVENTIONS
 
 Options include the first five options mentioned for --technologies plus the
@@ -471,7 +474,7 @@ if __name__ == '__main__':
     options = ['technologies', 'inventions', 'terms',
                'output=', 'corpus=', 'pipeline=', 'filelist=', 'sort-terms',
                'print-context', 'chunks=', 'instances=', 'verbose']
-    (opts, args) = getopt.getopt(sys.argv[1:], 'o:c:f:v', options)
+    (opts, args) = getopt.getopt(sys.argv[1:], 'o:c:f:p:v', options)
 
     output = None
     corpus = None
@@ -496,9 +499,9 @@ if __name__ == '__main__':
         if opt in ('--output', '-o'): output = val
         if opt in ('--corpus', '-c'): corpus = val
         if opt in ('--filelist', '-f'): filelist = val
+        if opt in ('--pipeline', '-p'): pipeline_config = val
         if opt in ('--verbose', '-v'): verbose = True
 
-        if opt == '--pipeline': pipeline_config = val
         if opt == '--sort-terms': sort_terms_p = True
         if opt == '--print-context': print_context_p = True
         if opt == '--chunks': chunks = int(val)

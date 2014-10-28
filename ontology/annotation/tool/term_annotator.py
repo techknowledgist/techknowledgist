@@ -37,7 +37,7 @@ simply start at the beginning when a file is reopened.
 
 This tool only allows you to add labels to terms that were not annotated before,
 it does not allow the user to revisit annotations (this would have to be done
-maually by opening the labels file, or better, to avoid potential trouble, by
+manually by opening the labels file, or better, to avoid potential trouble, by
 making a note in a separate file).
 
 The SOURCE_FILE contains a list of terms where each term is printed as follows:
@@ -50,7 +50,7 @@ The SOURCE_FILE contains a list of terms where each term is printed as follows:
 That is, the term on a line by itself, followed by one or more term instances
 with their context. Each term instance line starts with a tab and all field are
 tab-separated. See annotate.terms.context.txt for an example, this file was
-created by the technology annotation code in step3_annotation.py.
+created by the technology annotation code in ../create_annotation_files.py.
 
 This script was originally a copy of technology_annotator_v2.py.
 
@@ -71,24 +71,24 @@ class AnnotationTask(object):
         self.quit = ('q', 'quit')
         self.more = ('m', 'more-contexts')
 
-    def technology_mode(self):
+    def set_technology_mode(self):
         self.leading_text = 'Is this term a technology?'
         self.labels = [('y', 'yes'), ('n', 'no'), ('c', 'crap/corrupted')]
         self.index_labels()
 
-    def category_mode(self):
+    def set_category_mode(self):
         self.leading_text = 'What is the term\'s category?'
         self.labels = [('c', 'component'), ('a', 'attribute'), ('t', 'task'),
                        ('u', 'unknown'), ('x', 'not-a-term')]
         self.index_labels()
 
-    def polarity_mode(self):
+    def set_polarity_mode(self):
         self.leading_text = 'What is the term\'s polarity?'
         self.labels = [('p', 'positive'), ('n', 'negative'), ('u', 'unknown'),
                        ('x', 'not-an-attribute')]
         self.index_labels()
 
-    def maturity_mode(self):
+    def set_maturity_mode(self):
         self.leading_text = 'Does this sentence provide prove that the term was used?'
         self.labels = [('y', 'yes'), ('n', 'no'), ('?', 'not-sure')]
         self.index_labels()
@@ -158,13 +158,13 @@ if __name__ == '__main__':
     #exit()
     task = AnnotationTask()
     if sys.argv[1] == '--technology':
-        task.technology_mode()
+        task.set_technology_mode()
     elif sys.argv[1] == '--category':
-        task.category_mode()
+        task.set_category_mode()
     elif sys.argv[1] == '--polarity':
-        task.polarity_mode()
+        task.set_polarity_mode()
     elif sys.argv[1] == '--maturity':
-        task.maturity_mode()
+        task.set_maturity_mode()
     else:
         exit("No valid annotation mode specified")
     contexts_file = sys.argv[2]
