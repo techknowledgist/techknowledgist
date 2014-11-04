@@ -1,0 +1,5 @@
+trends-*.txt
+tscores-*.txt
+maturity-all.txt
+maturity-freq-based.txt
+maturity-match-based.txt

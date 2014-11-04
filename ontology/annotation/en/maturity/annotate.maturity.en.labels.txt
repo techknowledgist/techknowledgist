@@ -1,0 +1,361 @@
+# $ python step3_annotation.py --terms --corpus /home/j/corpuswork/fuse/FUSEData/corpora/ln-us-all-600k/subcorpora/2000 --name eval-phase2a
+# 
+# corpus            =  /home/j/corpuswork/fuse/FUSEData/corpora/ln-us-all-600k/subcorpora/2000
+# source            =  <corpus>/data/t0_annotate/instances/eval-phase2a/annotate.terms.context.txt
+# file_list         =  ../annotation/en/maturity/terms-locations.txt
+# config_file       =  pipeline-default.txt
+# git_commit        =  v0.4-68-g6cc8532
+#
+n	polyimide resin - 1
+?	polyimide resin - 2
+y	polyimide resin - 3
+n	polyimide resin - 4
+?	polyimide resin - 5
+y	polyimide resin - 6
+y	polyimide resin - 7
+y	polyimide resin - 8
+y	polyimide resin - 9
+y	polyimide resin - 10
+y	polyimide resin - 11
+y	polyimide resin - 12
+?	polyimide resin - 13
+y	polyimide resin - 14
+?	polyimide resin - 15
+n	polyimide resin - 16
+?	polyimide resin - 17
+?	polyimide resin - 18
+?	polyimide resin - 19
+?	polyimide resin - 20
+y	polyimide resin - 21
+y	polyimide resin - 22
+y	polyimide resin - 23
+y	polyimide resin - 24
+y	polyimide resin - 25
+n	polyimide resin - 26
+n	polyimide resin - 27
+y	polyimide resin - 28
+y	polyimide resin - 29
+y	polyimide resin - 30
+n	optical sensors - 1
+n	optical sensors - 2
+y	optical sensors - 3
+y	optical sensors - 4
+y	optical sensors - 5
+y	optical sensors - 6
+y	optical sensors - 7
+y	optical sensors - 8
+n	optical sensors - 9
+y	optical sensors - 10
+n	optical sensors - 11
+n	optical sensors - 12
+y	optical sensors - 13
+?	optical sensors - 14
+?	optical sensors - 15
+y	optical sensors - 16
+y	optical sensors - 17
+?	optical sensors - 18
+y	optical sensors - 19
+?	optical sensors - 20
+?	optical sensors - 21
+y	optical sensors - 22
+n	optical sensors - 23
+n	optical sensors - 24
+y	optical sensors - 25
+y	optical sensors - 26
+?	optical sensors - 27
+?	optical sensors - 28
+n	thermal contact - 1
+n	thermal contact - 2
+?	thermal contact - 3
+?	thermal contact - 4
+?	thermal contact - 5
+?	thermal contact - 6
+?	thermal contact - 7
+?	thermal contact - 8
+?	thermal contact - 9
+?	thermal contact - 10
+?	thermal contact - 11
+?	thermal contact - 12
+?	thermal contact - 13
+?	thermal contact - 14
+?	thermal contact - 15
+?	thermal contact - 16
+?	thermal contact - 17
+?	thermal contact - 18
+?	thermal contact - 19
+?	thermal contact - 20
+?	thermal contact - 21
+?	thermal contact - 22
+?	thermal contact - 23
+?	thermal contact - 24
+?	thermal contact - 25
+?	thermal contact - 26
+?	thermal contact - 27
+?	thermal contact - 28
+?	thermal contact - 29
+?	thermal contact - 30
+n	nozzle assembly - 1
+n	nozzle assembly - 2
+n	nozzle assembly - 3
+n	nozzle assembly - 4
+n	nozzle assembly - 5
+y	nozzle assembly - 6
+y	nozzle assembly - 7
+n	nozzle assembly - 8
+n	nozzle assembly - 9
+n	nozzle assembly - 10
+n	nozzle assembly - 11
+y	nozzle assembly - 12
+y	nozzle assembly - 13
+n	nozzle assembly - 14
+n	nozzle assembly - 15
+n	nozzle assembly - 16
+y	nozzle assembly - 17
+n	nozzle assembly - 18
+n	nozzle assembly - 19
+n	nozzle assembly - 20
+n	nozzle assembly - 21
+n	nozzle assembly - 22
+n	nozzle assembly - 23
+n	nozzle assembly - 24
+n	nozzle assembly - 25
+n	nozzle assembly - 26
+n	nozzle assembly - 27
+n	nozzle assembly - 28
+n	nozzle assembly - 29
+y	transmission channel - 1
+y	transmission channel - 2
+y	transmission channel - 3
+y	transmission channel - 4
+n	transmission channel - 5
+y	transmission channel - 6
+y	transmission channel - 7
+y	transmission channel - 8
+y	transmission channel - 9
+y	transmission channel - 10
+n	transmission channel - 11
+y	transmission channel - 12
+?	transmission channel - 13
+y	transmission channel - 14
+?	transmission channel - 15
+?	transmission channel - 16
+n	transmission channel - 17
+y	transmission channel - 18
+y	transmission channel - 19
+y	transmission channel - 20
+n	transmission channel - 21
+n	transmission channel - 22
+n	transmission channel - 23
+y	transmission channel - 24
+y	transmission channel - 25
+y	transmission channel - 26
+y	transmission channel - 27
+y	transmission channel - 28
+y	transmission channel - 29
+y	transmission channel - 30
+n	optical transmitter - 1
+n	optical transmitter - 2
+n	optical transmitter - 3
+n	optical transmitter - 4
+y	optical transmitter - 5
+n	optical transmitter - 6
+y	optical transmitter - 7
+y	optical transmitter - 8
+n	optical transmitter - 9
+n	optical transmitter - 10
+n	optical transmitter - 11
+n	optical transmitter - 12
+n	optical transmitter - 13
+n	optical transmitter - 14
+n	optical transmitter - 15
+n	optical transmitter - 16
+n	optical transmitter - 17
+y	optical transmitter - 18
+y	optical transmitter - 19
+y	optical transmitter - 20
+?	optical transmitter - 21
+y	optical transmitter - 22
+y	optical transmitter - 23
+y	optical transmitter - 24
+?	optical transmitter - 25
+y	optical transmitter - 26
+n	optical transmitter - 27
+y	optical transmitter - 28
+n	optical transmitter - 29
+y	optical transmitter - 30
+y	laser device - 1
+y	laser device - 2
+?	laser device - 3
+n	laser device - 4
+n	laser device - 5
+y	laser device - 6
+n	laser device - 7
+n	laser device - 8
+n	laser device - 9
+n	laser device - 10
+n	laser device - 11
+n	laser device - 12
+n	laser device - 13
+n	laser device - 14
+n	laser device - 15
+n	laser device - 16
+n	laser device - 17
+n	laser device - 18
+y	laser device - 19
+n	laser device - 20
+n	laser device - 21
+y	laser device - 22
+y	laser device - 23
+n	laser device - 24
+n	laser device - 25
+n	laser device - 26
+n	laser device - 27
+n	laser device - 28
+y	reflective coating - 1
+n	reflective coating - 2
+n	reflective coating - 3
+n	reflective coating - 4
+n	reflective coating - 5
+n	reflective coating - 6
+n	reflective coating - 7
+y	reflective coating - 8
+n	reflective coating - 9
+n	reflective coating - 10
+n	reflective coating - 11
+n	reflective coating - 12
+n	reflective coating - 13
+n	reflective coating - 14
+n	reflective coating - 15
+?	reflective coating - 16
+y	reflective coating - 17
+n	reflective coating - 18
+y	reflective coating - 19
+n	reflective coating - 20
+n	reflective coating - 21
+n	reflective coating - 22
+n	reflective coating - 23
+n	reflective coating - 24
+n	reflective coating - 25
+y	reflective coating - 26
+y	reflective coating - 27
+y	reflective coating - 28
+y	reflective coating - 29
+n	analog converter - 1
+n	analog converter - 2
+n	analog converter - 3
+n	analog converter - 4
+?	analog converter - 5
+?	analog converter - 6
+?	analog converter - 7
+?	analog converter - 8
+?	analog converter - 9
+?	analog converter - 10
+?	analog converter - 11
+?	analog converter - 12
+?	analog converter - 13
+?	analog converter - 14
+?	analog converter - 15
+?	analog converter - 16
+?	analog converter - 17
+?	analog converter - 18
+?	analog converter - 19
+?	analog converter - 20
+?	analog converter - 21
+?	analog converter - 22
+?	analog converter - 23
+?	analog converter - 24
+?	analog converter - 25
+?	analog converter - 26
+?	analog converter - 27
+?	analog converter - 28
+?	analog converter - 29
+?	analog converter - 30
+n	band pass filter - 1
+n	band pass filter - 2
+n	band pass filter - 3
+n	band pass filter - 4
+n	band pass filter - 5
+n	band pass filter - 6
+y	band pass filter - 7
+n	band pass filter - 8
+y	band pass filter - 9
+y	band pass filter - 10
+y	band pass filter - 11
+n	band pass filter - 12
+y	band pass filter - 13
+n	band pass filter - 14
+n	band pass filter - 15
+n	band pass filter - 16
+y	band pass filter - 17
+y	band pass filter - 18
+y	band pass filter - 19
+n	band pass filter - 20
+n	band pass filter - 21
+n	band pass filter - 22
+n	band pass filter - 23
+n	band pass filter - 24
+y	band pass filter - 25
+y	band pass filter - 26
+n	band pass filter - 27
+n	band pass filter - 28
+n	band pass filter - 29
+y	in situ hybridization - 1
+n	in situ hybridization - 2
+n	in situ hybridization - 3
+n	in situ hybridization - 4
+n	in situ hybridization - 5
+n	in situ hybridization - 6
+n	in situ hybridization - 7
+n	in situ hybridization - 8
+n	in situ hybridization - 9
+n	in situ hybridization - 10
+n	in situ hybridization - 11
+y	in situ hybridization - 12
+y	in situ hybridization - 13
+y	in situ hybridization - 14
+y	in situ hybridization - 15
+n	in situ hybridization - 16
+y	in situ hybridization - 17
+y	in situ hybridization - 18
+y	in situ hybridization - 19
+y	in situ hybridization - 20
+y	in situ hybridization - 21
+y	in situ hybridization - 22
+y	in situ hybridization - 23
+n	in situ hybridization - 24
+n	in situ hybridization - 25
+y	in situ hybridization - 26
+y	in situ hybridization - 27
+n	in situ hybridization - 28
+n	in situ hybridization - 29
+n	in situ hybridization - 30
+y	photoinitiators - 1
+n	photoinitiators - 2
+n	photoinitiators - 3
+n	photoinitiators - 4
+n	photoinitiators - 5
+n	photoinitiators - 6
+y	photoinitiators - 7
+y	photoinitiators - 8
+y	photoinitiators - 9
+n	photoinitiators - 10
+n	photoinitiators - 11
+n	photoinitiators - 12
+?	photoinitiators - 13
+y	photoinitiators - 14
+y	photoinitiators - 15
+n	photoinitiators - 16
+y	photoinitiators - 17
+y	photoinitiators - 18
+y	photoinitiators - 19
+n	photoinitiators - 20
+n	photoinitiators - 21
+?	photoinitiators - 22
+n	photoinitiators - 23
+y	photoinitiators - 24
+n	photoinitiators - 25
+n	photoinitiators - 26
+y	photoinitiators - 27
+n	photoinitiators - 28
+n	photoinitiators - 29
+n	photoinitiators - 30

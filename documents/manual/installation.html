@@ -1,0 +1,114 @@
+<html>
+
+<head>
+<title>TOC - Installation</title>
+<link rel="stylesheet" href="main.css" type="text/css" />
+</head>
+
+<body>
+
+<h1>Ontology Creation - Installation</h1>
+
+
+<p class="navigation">
+<a href="index.html">index</a> > <a href="installation.html">installation</a>
+</p>
+
+
+<p>Requirements for running the code:</p>
+
+<ol>
+<li>Python 2.6 or 2.7
+<li>Java 1.6
+<li>SQLite 3.3.6 or higher (probably any major version of 3 or higher)
+<li>xsltproc and xmllint
+<li>Git 1.8 (needed only for getting the code, slightly older versions most likely will also work)
+</ol>
+
+<p>The code has been tested on RHEL 6 and  Mac OS 10.6.</p>
+
+
+<p>Installation is a matter of (1) getting the git repository and installing the
+sub modules, (2) installing third party software (Stanford tools and Mallet
+classifier), and (3) dowloading the classifier models.</p>
+
+<ol>
+
+
+<li><p>The code is available at the git repository at</p>
+
+<pre class="example">
+http://www.cs.brandeis.edu/~marc/git/fuse/patent-classifier.git
+</pre>
+
+<p>When you are reading this document you probably already have the code, but if not, obtain it by
+
+<pre class="example">
+$ git clone http://www.cs.brandeis.edu/~marc/git/fuse/patent-classifier.git
+</pre>
+
+<p>After getting the clone, you need to initialize and update the submodules
+used by the repository:</p>
+
+<pre class="example">
+$ git submodule init
+$ git submodule update 
+</pre>
+
+
+<li>Stanford Tools.
+
+
+<li>The code uses version 2.0.7 of the Mallet toolkit<sup>1</sup>, available
+at <a href="http://mallet.cs.umass.edu/"
+target="_blank">http://mallet.cs.umass.edu/</a>. Other versions will most likely
+work as well, but were not tested. You can get the version we use at
+
+<blockquote>
+<a href="http://www.cs.brandeis.edu/~marc/fuse/downloads/tools/"
+target="_blank">http://www.cs.brandeis.edu/~marc/fuse/downloads/tools/</a>
+</blockquote>
+
+<li>There are small classifer models (for technology classifier and key term
+extraction) bundled in with the code, which is sufficient when you just try to
+see if the code runs, but eventually you will want to get a better
+model. Technology classifier models are available at:
+
+<blockquote>
+<a href="http://www.cs.brandeis.edu/~marc/fuse/downloads/models/"
+target="_blank">http://www.cs.brandeis.edu/~marc/fuse/downloads/models/</a>
+</blockquote>
+
+<p>There is currently only one model available. You can easily create your own
+models, as described in the manual section on the technology classifier.
+
+
+</ol>
+
+
+<hr/>
+
+<sup>1</sup> Andrew Kachites McCallum. "MALLET: A Machine Learning for Language
+Toolkit." http://mallet.cs.umass.edu. 2002.
+
+
+
+<!--
+
+Getting tries
+
+We are assuming that (i) you have the misc repository in Dropbox/code/misc, (ii) the
+patent classifier code is in ~/Desktop/FUSE/code/patent-classifier/utils, and (iii) the
+current commit is f296e3e0acea70176978055ae8a3919987ee944b.
+
+% cd ~/Dropbox/code/misc
+% ./export.sh tries ~/Desktop/FUSE/code/patent-classifier/utils
+% cd ~/Desktop/FUSE/code/patent-classifier/utils
+% tar xfvp tries.f296e3e0acea70176978055ae8a3919987ee944b.tar
+
+-->
+
+
+</body>
+
+</html>

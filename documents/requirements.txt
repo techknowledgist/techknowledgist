@@ -1,7 +1,0 @@
-=== Requirements for running the runtime code:
-
-- Python 2.6 or 2.7
-- SQLite 3.3.6 or higher (probably any major version of 3 or higher)
-- xsltproc and xmllint
-
-These all seem to be ready available on the VM.

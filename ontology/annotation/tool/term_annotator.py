@@ -9,10 +9,12 @@ Usage:
     $ python term_annotator.py --category <SOURCE_FILE>
     $ python term_annotator.py --polarity <SOURCE_FILE>
 
-The tool has three modes: technology annotation (labels: yes, no, not-a-term),
-category annotation (labels: attribute, task, component, other, not-a-term) and
-polarity annotation (labels: yes, no, unknown, not-an-attribute).
-
+The tool has four modes:
+    technology annotation (labels: yes, no, not-a-term)
+    category annotation (labels: attribute, task, component, other, not-a-term)
+    polarity annotation (labels: yes, no, unknown, not-an-attribute)
+    maturity annotation (labels: yes, no, not-sure)
+    
 The SOURCE_FILE has to be named *.context.txt. The first time you open
 SOURCE_FILE, a new file will be created with the name *.labels.txt. This file
 contains the labels for the terms that were annotated. Initially this labels
@@ -35,7 +37,7 @@ simply start at the beginning when a file is reopened.
 
 This tool only allows you to add labels to terms that were not annotated before,
 it does not allow the user to revisit annotations (this would have to be done
-maually by opening the labels file, or better, to avoid potential trouble, by
+manually by opening the labels file, or better, to avoid potential trouble, by
 making a note in a separate file).
 
 The SOURCE_FILE contains a list of terms where each term is printed as follows:
@@ -48,7 +50,7 @@ The SOURCE_FILE contains a list of terms where each term is printed as follows:
 That is, the term on a line by itself, followed by one or more term instances
 with their context. Each term instance line starts with a tab and all field are
 tab-separated. See annotate.terms.context.txt for an example, this file was
-created by the technology annotation code in step3_annotation.py.
+created by the technology annotation code in ../create_annotation_files.py.
 
 This script was originally a copy of technology_annotator_v2.py.
 
@@ -56,6 +58,8 @@ This script was originally a copy of technology_annotator_v2.py.
 
 import os, sys, codecs
 from utils import TermContexts, INV, RED, END
+
+sys.stdout = codecs.getwriter('utf8')(sys.stdout)
 
 
 class AnnotationTask(object):
@@ -67,21 +71,26 @@ class AnnotationTask(object):
         self.quit = ('q', 'quit')
         self.more = ('m', 'more-contexts')
 
-    def technology_mode(self):
+    def set_technology_mode(self):
         self.leading_text = 'Is this term a technology?'
         self.labels = [('y', 'yes'), ('n', 'no'), ('c', 'crap/corrupted')]
         self.index_labels()
 
-    def category_mode(self):
+    def set_category_mode(self):
         self.leading_text = 'What is the term\'s category?'
         self.labels = [('c', 'component'), ('a', 'attribute'), ('t', 'task'),
                        ('u', 'unknown'), ('x', 'not-a-term')]
         self.index_labels()
 
-    def polarity_mode(self):
+    def set_polarity_mode(self):
         self.leading_text = 'What is the term\'s polarity?'
         self.labels = [('p', 'positive'), ('n', 'negative'), ('u', 'unknown'),
                        ('x', 'not-an-attribute')]
+        self.index_labels()
+
+    def set_maturity_mode(self):
+        self.leading_text = 'Does this sentence provide prove that the term was used?'
+        self.labels = [('y', 'yes'), ('n', 'no'), ('?', 'not-sure')]
         self.index_labels()
 
     def index_labels(self):
@@ -89,10 +98,10 @@ class AnnotationTask(object):
 
     def make_query(self):
         labels = ", ".join(["%s (%s)" % (l2, l1) for (l1, l2) in self.labels])
-        more_and_quit = "%s (%s), %s (%s)\n" % (self.more[1], self.more[0],
-                                                self.quit[1], self.quit[0])
+        more_and_quit = "%s (%s), %s (%s)" % (self.more[1], self.more[0],
+                                              self.quit[1], self.quit[0])
         return "%s\n\n" % self.leading_text \
-               + "%s%s, %s%s\n" % (INV, labels, more_and_quit, END) \
+               + "%s%s, %s%s\n\n" % (INV, labels, more_and_quit, END) \
                + ">>> "
 
 
@@ -144,13 +153,18 @@ def process_answer(term, answer, fh_contexts, fh_labels):
 
 if __name__ == '__main__':
 
+    #import platform
+    #print platform.system()
+    #exit()
     task = AnnotationTask()
     if sys.argv[1] == '--technology':
-        task.technology_mode()
-    if sys.argv[1] == '--category':
-        task.category_mode()
+        task.set_technology_mode()
+    elif sys.argv[1] == '--category':
+        task.set_category_mode()
     elif sys.argv[1] == '--polarity':
-        task.polarity_mode()
+        task.set_polarity_mode()
+    elif sys.argv[1] == '--maturity':
+        task.set_maturity_mode()
     else:
         exit("No valid annotation mode specified")
     contexts_file = sys.argv[2]

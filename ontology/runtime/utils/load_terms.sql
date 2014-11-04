@@ -1,3 +1,4 @@
+
 -- sqlite3 all_terms.db < all_terms.sql
 .echo ON
 PRAGMA cache_size = 500000;
@@ -15,7 +16,7 @@ CREATE INDEX i_term on terms (term);
 
 
 -- Ran this on Saturday October 26th 2013, took about 15-30 minutes.
--- Ran a select count(*) from terms, took about a minute and returned 31453657.
+-- Ran a select count(*) from terms, took about a minute and returned 31,453,657.
 
 -- However, selects were not using the index and here is why:
 --

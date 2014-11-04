@@ -1,0 +1,37 @@
+
+select term from terms where frequency=200 and technology_score > 0.5
+
+gate insulation film	0.345
+terpolymer	0.1165
+chlorine atom	0.2237
+laser device	0.3281
+protective groups	0.2697
+nozzle assembly	0.272
+search request	0.3158
+el element	0.196
+figs .7	0.1364
+analog converter	0.0
+ferromagnetic conductive film	-1.0
+microsoft corporation	0.1109
+pump power	0.3712
+
+select term from terms where frequency=201 and technology_score > 0.5
+
+reflective coating	0.4279
+direction transverse	0.0
+intelligent storage node	-1.0
+valve timing	0.316
+carbon tetrachloride	0.1097
+polymethyl methacrylate	0.1165
+thermal contact	0.3571
+redundant form	-1.0
+optical transmitter	0.2723
+photoinitiators	0.2694
+japanese patent publication no.	0.1138
+band pass filter	0.258
+stimulable phosphor sheets	-1.0
+transmission channel	0.3007
+optical sensors	0.2819
+polyimide resin	0.2697
+in situ hybridization	0.2723
+.1 b.	-1.0

@@ -2,8 +2,7 @@
 
 File with configuration settings. Intended to replace all previous configuration
 files, which were named inconsistently and which duplicated some code. Used all
-caps for all variables that are intended to be consumed by other scripts, which
-makes it easier to recognize when variables from this file are used.
+caps for all variables that are intended to be consumed by other scripts.
 
 Configuration settings in this file:
 - general settings
@@ -11,16 +10,21 @@ Configuration settings in this file:
 - stanford tool locations and settings
 - settings for pipeline and patent_analyzer scripts
 
+One of the things that this script does is to calculate some default settings
+for where the Stanford tagger and segmenter live, using some idiosyncracies of
+the setup on several laptops and desktops and on Fusenet.
+
+These settings can be overruled by using command line options for the main.py
+script. Something similar needs to be done for step2_document_processing.py, but
+that is less urgent because non-Brandeis users will probably always use main.py.
+
 """
 
 import os, sys
 
 
 # First some code to determine what machine we are running this on, will be used
-# to determine locations.
-
-# TODO: this feels a bit hackish, may want to think about a more elegant
-# solution.
+# to determine default locations for the Stanford tools.
 
 script_path = os.path.abspath(sys.argv[0])
 if script_path.startswith('/shared/home'):
@@ -31,10 +35,8 @@ elif script_path.startswith('/local/chalciope/'):
     location = 'BRANDEIS'
 elif script_path.startswith('/Users/'): 
     location = 'MAC'
-elif script_path.startswith('/home/sean'):
-    location = 'MAC'
 else:
-    print "WARNING: could not determine the location"
+    #print "WARNING: could not determine the location"
     location = None
 
 
@@ -83,8 +85,8 @@ DEFAULT_PIPELINE_CN = """
 """
 
 # Definition of sub directory names for processing stages. DATA_TYPES is also
-# defined in ../classificatier, if it is changed here it should be changed there
-# as well.
+# defined in ../classifier, if it is changed here it should be changed there as
+# well. (TODO: remove this dependency)
 
 DATA_TYPES = \
     ['d0_xml', 'd1_txt', 'd2_seg', 'd2_tag', 'd3_phr_feats']
@@ -125,8 +127,9 @@ if location == 'BRANDEIS':
     STANFORD_TAGGER_DIR = base_dir + "stanford-postagger-full-2012-07-09" 
     STANFORD_SEGMENTER_DIR = base_dir + "stanford-segmenter-2012-07-09"
 elif location == 'FUSENET':
-    STANFORD_TAGGER_DIR = "/home/fuse/tools/stanford-postagger-full-2012-07-09" 
-    STANFORD_SEGMENTER_DIR = "/home/fuse/tools/stanford-segmenter-2012-07-09"
+    base_dir = "/home/fuse/tools/"
+    STANFORD_TAGGER_DIR = base_dir + "stanford-postagger-full-2012-07-09"
+    STANFORD_SEGMENTER_DIR = base_dir + "stanford-segmenter-2012-07-09"
 elif location == 'MAC':
     base_dir = '/Applications/ADDED/nlp/stanford/'
     STANFORD_TAGGER_DIR = base_dir + "stanford-postagger-full-2012-07-09"
@@ -187,3 +190,4 @@ EXTERNAL_RDG_FILELIST = os.path.join(DATA_ROOT, "external/en1.txt")
 
 # For each RDG, create a local working directory
 WORKING_RDG_PATH = os.path.join(DATA_ROOT, "working/rdg/en1")
+

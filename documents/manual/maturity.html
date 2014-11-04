@@ -1,0 +1,228 @@
+<html>
+
+<head>
+<title>TOC - Classifier</title>
+<link rel="stylesheet" href="main.css" type="text/css" />
+</head>
+
+<body>
+
+<h1>Ontology Creation - Maturity Scores</h1>
+
+
+<p class="navigation">
+<a href="index.html">index</a> > <a href="maturity.html">maturity scores</a>
+</p>
+
+<p class="abstract">Maturity scores indicate the maturity of a technology. They
+are calculated with a (i) pattern matcher that picks up textual features in the
+context of the technology and (ii) some simple statistical calculations over the
+results of the matcher. The scores are limited to those terms that occur
+frequently enough.</p>
+
+<p>
+[ <a href="#input">input</a> 
+| <a href="#howto1">pattern matcher</a> 
+| <a href="#howto2">term frequencies</a> 
+| <a href="#howto3">score generation</a> 
+| <a href="#output">output</a> ]
+</p>
+
+
+<a name="input"></a>
+<h2>Input description</h2>
+
+<p>The input to this components is partially the same as the input to the
+technology classifier, that is, it takes feature files where lines have the
+following format (all fields are tab-separated):</p>
+
+<pre class="example">
+term_id year term feature+
+</pre>
+
+<p>See <a href="classifier.html#input" target="_blank">the classifier input
+section</a> of this manual for more details on the input.</p>
+
+<p>In addition to the feature files, maturity score generation also requires the
+output of the technology classifier.</p>
+
+
+<a name="howto1"></a>
+<h2>Running the pattern matcher</h2>
+
+
+<p>The top-level script for running the pattern matcher is</p>
+
+<pre class="example">
+ontology/matcher/run_matcher.py
+</pre>
+
+<p>The matcher can be run on a corpus or on a file list.</p>
+
+
+<h3>Running on a corpus</h3>
+
+<p>To run the matcher on all files of a corpus, do the following (new lines and
+spaces added for clarity, the command should be on one line):</p>
+
+<pre class="example">
+$ python run_matcher.py
+    --corpus ../doc_processing/data/patents/corpora/sample-us
+    --output maturity
+</pre>
+
+<p>This runs the matcher on the corpus specified, which is the example corpus
+included in the distribution, and puts the results in a
+directory <code>data/o2_matcher/maturity</code> inside the corpus. There is
+a <code>--patterns</code> option with possible values <code>MATURITY</code>
+and <code>PROMISE</code>, but it does not need be used here since the value
+defaults to the former. Using the <code>--verbose</code> option will print
+progress on individual files.</p>
+
+
+<h3>Running on a list of files</h3>
+
+<p>Instead of a corpus, the input to the matcher can be a list of files:</p>
+
+<pre class="example">
+$ python run_matcher.py
+    --filelist ../classifier/lists/list-sample-us.txt
+    --output maturity
+</pre>
+
+<p>The files have to be feature
+files. The <a href="../../ontology/classifier/lists/list-sample-us.txt"
+target="_blank">sample file list</a> used here is that same as used for
+the <a href="classifier.html#howto" target="_blank">technology classification
+example</a> and refers to the feature files in the <code>sample-us</code>
+example corpus.
+
+
+<a name="howto2"></a>
+<h2>Term frequencies</h2>
+
+<p>Maturity scores cannot be realiably calculated for terms with very low
+frequencies. Therefore, we use a frequency list as a filter when generating
+maturity scores. It was shown in the <a href="classifier.html#output"
+target="_blank"> output description section</a> of the classifier manual that
+the file <code>classify.MaxEnt.out.s3.scores.sum</code> contains the term
+frequencies over a corpus or list of files. However, for maturity score time
+series we want to calculate over a series of corpora (or file lists), one for
+each year. The merged frequencies can be calculated with
+<code>merge_classifier_results.py</code>
+in <code>ontology/classifier</code>. This script is used as follows:</p>
+
+<pre class="example">
+$ python merge_classifier_results.py OUTPUT_DIRECTORY CLASSIFIER_RESULT+
+</pre>
+
+<p>CLASSIFIER_RESULT is a summed classifier result, typically, but not
+necessarily, a file with the base
+name <code>classify.MaxEnt.out.s3.scores.sum</code>, but it can also be an
+expression with unix wild cards. Here is an example where the scores in two
+classification results are merged (split over several lines for convenience):
+
+<pre class="example">
+$ python merge_classifier_results.py 
+    data/merged-2000-2001 
+    classifications/2001/classify.MaxEnt.out.s3.scores.sum
+    classifications/2002/classify.MaxEnt.out.s3.scores.sum 
+</pre>
+
+<p>Using wild cards this would be:</p>
+
+<pre class="example">
+    data/merged-2000-2001 
+    classifications/????/classify.MaxEnt.out.s3.scores.sum
+</pre>
+
+<p>Of course, if there were to be subdirectories for other years with
+classification then those would be included as well.</p>
+
+<p>The result are written to <code>data/merged-2000-2001</code>, which has the
+following files:</p>
+
+<pre class="example">
+merged_term_frequencies.0005.txt
+merged_term_frequencies.0010.txt
+merged_term_frequencies.0025.txt
+merged_term_frequencies.0050.txt
+merged_term_frequencies.0100.txt
+merged_term_frequencies.all.txt
+merged_term_frequencies.info.txt
+</pre>
+
+<p>Each (non-info) file has two fields: a total count and the term. One file has
+all terms and their frequencies, whereas the others only have the terms that
+occur N times, where N is given in the file name. An info file is written with
+the version of the code used and all the names of the files that were merged.</p>
+
+
+
+
+
+<a name="howto3"></a>
+<h2>Generating the scores</h2>
+
+
+
+
+
+<pre class="example">
+
+</pre>
+
+
+
+<a name="output"></a>
+<h2>Output description</h2>
+
+<p>The pattern matcher creates six output files:</p>
+
+<pre class="example">
+match.info.config.txt
+match.info.features.txt
+match.info.filelist.txt
+match.info.general.txt
+match.results.full.txt
+match.results.summ.txt
+</pre>
+
+<p>The first four contains various pieces of information, including a list of
+all features found, a copy of the file list, and a file with the processing
+parameters. The file <code>match.results.full.txt</code> contains the raw output
+of the matcher:</p>
+
+<pre class="example">
+1980    US4192770A.xml_71       maturity-provide        process prev_V=provides
+1980    US4192770A.xml_142      maturity-have   boiling point   prev_V=have
+1980    US4192770A.xml_158      maturity-activate       alumina prev_V=activated
+1980    US4192770A.xml_165      maturity-provide        metallic ions   prev_V=provide
+1980    US4192770A.xml_583      maturity-have   affect  prev_V=has
+1980    US4192770A.xml_646      maturity-have   effect  prev_V=have
+</pre>
+
+<p>The third column has the name of the pattern that matched, the fourth the
+term for which we had a match, and the fifth the actual value of the feature
+that matched.</p>
+
+<p>And <code>match.results.summ.txt</code> contains a summary with match counts
+for each term:</p>
+
+<pre class="example">
+   1 member
+   1 metallic ions
+   2 path
+   1 permanent magnet
+   1 polarity
+   3 poles
+   1 positionable control element
+</pre>
+
+<p>This file, like the previous file, is tab-separated, but note that there can
+be leading spaces (this is for the convenience of the person opening the file and
+looking at it.</p>
+
+
+</body>
+</html>
