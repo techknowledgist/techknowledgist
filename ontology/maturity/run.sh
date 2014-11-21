@@ -31,6 +31,6 @@ fi
 
 if [ 1 = 1 ]; then
 TERMFREQS=/home/j/corpuswork/fuse/FUSEData/corpora/ln-us-all-600k/classifications/all_terms.0025.txt
-#python create_time_series.py -o out -t $TERMFREQS data/usage-1997.txt data/usage-1998.txt data/usage-1999.txt 
-python create_time_series.py -o out -t $TERMFREQS usage-1997.txt usage-1998.txt usage-1999.txt 
+#python create_time_series.py -t $TERMFREQS data/usage-1997.txt data/usage-1998.txt data/usage-1999.txt 
+python create_time_series.py -t $TERMFREQS usage-1997.txt usage-1998.txt usage-1999.txt 
 fi
