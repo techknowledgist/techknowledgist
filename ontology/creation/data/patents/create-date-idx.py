@@ -60,7 +60,11 @@ def find_dates():
             continue
         if count > COUNT: break
         if count % 100 == 0: sys.stderr.write("%d\n" % count)
-        fname = line.strip().split("\t")[1]
+        fields = line.strip().split("\t")
+        if len(fields) > 1: fname = fields[1]
+        if len(fields) == 1: fname = fields[0]
+        if fname == '':
+            continue
         #find_dates_using_xml(fname)
         find_dates_using_grep(fname)
 
@@ -87,7 +91,6 @@ def find_dates_using_xml(fname):
         apprefdate = apprefdates[0].firstChild.nodeValue
 
     fh_results.write("%s\t%s\t%s\n" % (fname, apprefdate, pubrefdate))
-
 
     
 def find_dates_using_grep(fname):
