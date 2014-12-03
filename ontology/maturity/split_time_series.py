@@ -11,11 +11,13 @@ import os, codecs
 
 CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-us-cs-500k'
 CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-us-all-600k'
-#CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-cn-all-600k'
+CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-cn-all-600k'
 
 TIME_SERIES_DIR = CORPUS_DIR + '/time-series-v2/maturity-scores'
 TIME_SERIES_DIR = CORPUS_DIR + '/time-series-v3/maturity-scores'
-#TIME_SERIES_DIR = CORPUS_DIR + '/time-series-v2/maturity-scores-cn'
+TIME_SERIES_DIR = CORPUS_DIR + '/time-series-v4/maturity-scores'
+TIME_SERIES_DIR = CORPUS_DIR + '/time-series-v2/maturity-scores-cn'
+TIME_SERIES_DIR = CORPUS_DIR + '/time-series-v4/maturity-scores-cn'
 
 maturity_scores1_file = TIME_SERIES_DIR + '/maturity-freq-based.txt'
 maturity_scores2_file = TIME_SERIES_DIR + '/maturity-match-based.txt'
@@ -26,10 +28,11 @@ for filename in (maturity_scores1_file, maturity_scores2_file):
     print filename
     fh_in = codecs.open(filename)
     first_line = fh_in.readline()
-    years = first_line.split()[:-1]
+    years = first_line.split()#[:-1]
 
     fh_out = {}
     base, ext = os.path.splitext(filename)
+    base = "/local/chalciope/marc/" + os.path.split(base)[1]
     for year in years:
         outfile = base + '-' + year + ext
         print "Initializing", outfile

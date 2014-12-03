@@ -93,12 +93,12 @@ def create_usage_file(corpus, matches, tscores, output,
     for line in codecs.open(tscores_file, encoding='utf-8'):
         c += 1
         if c > limit: break
-        if c % 100000 == 0: print '  ', c
+        if c % 100000 == 0: print "%dk" % (c/1000,),
         term, score, doc_count, min, max = line.rstrip("\n\r\f").split("\t")
         if filter_term(term, language):
             continue
         stats.update(term, score, doc_count, term_matches)
-    print "Calculating usage rates..."
+    print "\nCalculating usage rates..."
     calculate_usage_rates(stats)
     print "Writing usage data..."
     fh_out = codecs.open(output, 'w', encoding='utf-8')
@@ -108,7 +108,9 @@ def create_usage_file(corpus, matches, tscores, output,
 
 
 def calculate_usage_rates(stats):
-    adjustment = math.log(stats.highest_match_count + 1)
+    # in rare circumstances there are no matches, use 1.0001 instead of 1 to
+    # avoid a null division error with the adjustment value
+    adjustment = math.log(stats.highest_match_count + 1.0001)
     for term in stats.usage_data:
         [tscore, doc_count, match_count] = stats.usage_data[term]
         usage = math.log(match_count + 1) / adjustment
