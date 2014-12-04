@@ -1,4 +1,3 @@
-
 """
 
 Generate a file with maturity time series given a list of terms and a set of
@@ -22,6 +21,28 @@ hard-coded and include a timestamp, for example:
 
     out-20141120:195652-frequency-based.txt
     out-20141120:195652-usage-based.txt
+
+The first file has the same scores as given in phase 1, where each term-year
+pair got a 0, 1, or 2 (unavailable, immature, mature). These scores are based on
+frequency counts only and are a fallback.
+
+The second file has a score between 0 and 1 for each term-year. These scores are
+based on the results of the pattern matcher and are calcualted as follows:
+
+1- Get the rough count of matches for each term for each year. These counts are
+   available in the usage files.
+
+2- Adjust the count relative to the number of patents in the year.
+
+3- Let's call this adjusted count c. Now take log(c+1)/log(highest_count), where
+   highest_count is the highest number of matches for all term-year pairs in the
+   corpus. We take log(c+1) to make sure that a count of 0 leads to a 0 score
+   (log(0+1) is 0) and log(highest_score) to make sure our highest value is 1.
+
+Maturity scores are only calculated for terms with a frequency in the corpus
+that crosses a certain threshold. Maturity scores tend to be meaningless below
+some threshold, it is not clear what exactly that threshold is but we have been
+using 25.
 
 """
 

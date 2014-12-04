@@ -1,5 +1,9 @@
 """
 
+NOTE. This script is now obsolete since it is replaces by collect_usage_data.py,
+count_terms.py and create_time_series.py. It will be removed at some point.
+
+
 Generate maturity time series for terms.
 
 Runs on the results of the classifier and the patterns matcher. Creates a series
