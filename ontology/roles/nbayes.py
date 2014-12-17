@@ -41,6 +41,10 @@ from collections import defaultdict
 #from role import tv_filepath
 import role
 import pnames
+import roles_config
+
+#corpus_root = "/home/j/anick/patent-classifier/ontology/roles/data/patents"
+corpus_root = roles_config.CORPUS_ROOT
 
 # populate the conditional probability table
 # lfcg[feature] -> [prefix, wt, [<lfgc>+]]
@@ -306,7 +310,7 @@ def classify(l_cats, l_priors, d_lfgc, d_term2feats, d_term2freq, min_weight, ou
 
 def run_classify(corpus, year, cat_type, subset=""):
 
-    corpus_root = "/home/j/anick/patent-classifier/ontology/creation/data/patents/"
+    # corpus_root = "/home/j/anick/patent-classifier/ontology/creation/data/patents/"
     #tv_loc = "/data/tv/"
     outfile_qualifier = "cat"
     priors_qualifier = "cat_prob"
@@ -365,7 +369,7 @@ def run_classify(corpus, year, cat_type, subset=""):
 # nbayes.run_filter_tf_file("ln-us-14-health", 1997, "0.0")        
 # nbayes.run_filter_tf_file("ln-us-12-chemical", 1997, "0.0")        
 def run_filter_tf_file(corpus, year, cutoff="0.1"):
-    corpus_root = "/home/j/anick/patent-classifier/ontology/creation/data/patents/"
+    # corpus_root = "/home/j/anick/patent-classifier/ontology/creation/data/patents/"
     #tv_loc = "/data/tv/"
     #tv_root = outroot + corpus + tv_loc 
     #year = str(year)
@@ -570,14 +574,14 @@ def cat_filter(corpus_root, corpus, year, cat_type, subset, min_freq, min_domain
 # nbayes.run_act_ds("ln-us-14-health", 1997, 10, 2)
 # nbayes.run_act_ds("ln-us-cs-500k", 1997, 10, 2)
 def run_cat_filter(corpus, year, min_freq, min_domain_score, max_freq, cat_type, subset):
-    corpus_root = "/home/j/anick/patent-classifier/ontology/creation/data/patents/"
+    # corpus_root = "/home/j/anick/patent-classifier/ontology/creation/data/patents/"
     cat_filter(corpus_root, corpus, year, cat_type, subset, min_freq, min_domain_score, max_freq)
 
 # Generate domain scores (<year>.ds) for a corpus using a general corpus from the same year for comparison.
 # nbayes.run_domain_score("ln-us-cs-500k", 18555 , "ln-us-all-600k", 15941, 1997)
 # nbayes.run_domain_score("ln-us-14-health", 20097 , "ln-us-all-600k", 15941, 1997)
 def run_domain_score(corpus1, corpus1_size, corpus2, corpus2_size, year):
-    corpus_root = "/home/j/anick/patent-classifier/ontology/creation/data/patents/"
+    # corpus_root = "/home/j/anick/patent-classifier/ontology/creation/data/patents/"
     #outfile_name = corpus1 + "_" + corpus2 + ".ds"
     outfile =  pnames.tv_filepath(corpus_root, corpus1, year, "ds", "", "")
     f_terms1 =  pnames.tv_filepath(corpus_root, corpus1, year, "terms", "", "")
@@ -588,7 +592,7 @@ def run_domain_score(corpus1, corpus1_size, corpus2, corpus2_size, year):
 # nbayes.run_diff_score("ln-us-cs-500k", 2002, 1997)
 # nbayes.run_diff_score("ln-us-14-health", 2002, 1997)
 def run_diff_score(corpus, year1, year2):
-    corpus_root = "/home/j/anick/patent-classifier/ontology/creation/data/patents/"
+    # corpus_root = "/home/j/anick/patent-classifier/ontology/creation/data/patents/"
     outfile_years = str(year1) + "_" + str(year2)
     outfile =  pnames.tv_filepath(corpus_root, corpus, outfile_years, "diff", "", "")
     f_terms1 =  pnames.tv_filepath(corpus_root, corpus, year1, "terms", "", "")
@@ -639,9 +643,9 @@ def run_diff_score(corpus, year1, year2):
 # cf: filter classified results by domain score and term frequency 
 def run_steps(corpus, year, todo_list=["nb", "ds", "cf"], ranges=[[10, 100000, 1.5], [2,10, 1.5]], cat_type="act", subset=""):
     #parameters
-    code_root = "/home/j/anick/patent-classifier/ontology/creation/"
+    code_root = roles_config.CODE_ROOT
     # path to corpus
-    corpus_root = code_root + "data/patents/"
+    # corpus_root = code_root + "data/patents/"
     corpus1_size_file =  pnames.tv_filepath(corpus_root, corpus, year, "cs", "", "")
     # generic corpus for domain specificity computation
     corpus2 = "ln-us-all-600k"

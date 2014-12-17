@@ -23,6 +23,11 @@
 # To see top features:
 # cat 2003.c98-06_30.fscores | sortnr -k3 | grep prev | head -100 | sortnr -k1 | more
 
+# mechanical engineering corpus
+# rfcs = fan.RFreq("ln-us-A28-mechanical-engineering", 1997, 2006)
+# l_cohort_me = rfcs.filter(1998, 1998, 2006, 1, 2000, 10, 10000)
+# fan.cohort_features("ln-us-A28-mechanical-engineering", 2003, l_cohort_me, "c98-06_30")
+
 # TODO: compute cumulative feature scores
 
 import pdb
@@ -31,13 +36,17 @@ from collections import defaultdict
 from operator import itemgetter
 import math
 import codecs
+import os
 
 import pnames
 import roles_config
 
+from operator import itemgetter
+
 # for WoS
 # sources are in, e.g. /home/j/corpuswork/fuse/FUSEData/corpora/wos-cs-520k/subcorpora/2000/data/d0_xml/01/files/WoS.out.2000000024
 
+# 9/30/14 NOTE: tf.f file no longer needed.  The doc freq for terms can be gotten from .terms file
 # Before running this, the corpus tv dir should contain all yearly tf.f files, which are
 # created by running
 # sh make_tf_f.sh ln-us-cs-500k
@@ -54,6 +63,7 @@ import roles_config
 
 
 #corpus_root = "/home/j/anick/patent-classifier/ontology/creation/data/patents"
+#CORPUS_ROOT = "/home/j/anick/patent-classifier/ontology/roles/data/patents"
 corpus_root = roles_config.CORPUS_ROOT
 
 # return a sorted (by descending numeric value) list of key-value pairs for a dict. 
@@ -71,26 +81,45 @@ def prob2str(count, total):
     fval = count / float(total)
     return("%.2f" % fval)
 
+
+# pi98 = fan.phrInfo("ln-us-A21-computers", 1998)
+# pi99 = fan.phrInfo("ln-us-A21-computers", 1999)
+# pi00 = fan.phrInfo("ln-us-A21-computers", 2000)
 # modified from phran.py to be independent of ACT role labels
 class phrInfo():
     def __init__(self, corpus, year):
         year = str(year)
         # term file is used for extracting the doc frequency of terms for the year
         #term_file = corpus_root + "/" + corpus + "/data/tv/" + year + ".tf.f"
-        term_file = pnames.tv_dir_year_file(corpus_root, corpus, year, "tf.f")
+        #term_file = pnames.tv_dir_year_file(corpus_root, corpus, year, "tf.f")
+        #term_file = pnames.tv_dir_year_file(corpus_root, corpus, year, "terms")
+        term_file = pnames.tv_dir_year_file(corpus_root, corpus, year, "terms.2")
 
         self.d_term2heads = defaultdict(list)
         self.d_term2mods =  defaultdict(list)
         self.d_head2terms = defaultdict(list)
         self.d_mod2terms =  defaultdict(list)
         self.d_head2count = defaultdict(int)
+        self.d_head2count_2 = defaultdict(int)
         self.d_mod2count = defaultdict(int)
+        self.d_mod2count_2 = defaultdict(int)
         self.term_count = 0
         self.headed_term_count = 0
+        self.headed_term_count_2 = 0
         self.modified_term_count = 0
-        self.d_term_freq = defaultdict(int)
-        self.d_term_cat = defaultdict(str)
+        self.modified_term_count_2 = 0
+        self.d_term2freq = defaultdict(int)
         self.l_singletons = []
+        self.l_head_counts = []
+        self.l_mod_counts = []
+
+        # sum of the frequencies for all terms containing the mod or head
+        # use this to capture the average spread
+        self.d_mod2sum_freq = defaultdict(int)
+        self.d_head2sum_freq = defaultdict(int)
+        self.d_mod2average_spread = defaultdict(int)
+        self.d_head2average_spread = defaultdict(int)
+
         # list sorted by freq [[term, freq],...]
         self.l_tf = []
 
@@ -98,83 +127,300 @@ class phrInfo():
         s_term_file = codecs.open(term_file, encoding='utf-8')
         for term_line in s_term_file:
             term_line = term_line.strip("\n")
-            (term, freq) = term_line.split("\t")
+            term_fields = term_line.split("\t")
+            term = term_fields[0]
+            # freq is the number of docs the term occurred in (this year)
+            freq = term_fields[1]
             freq = int(freq)
-            self.d_term_freq[term] = freq
-            #self.d_term_cat[term] = cat
+            self.d_term2freq[term] = freq
             self.term_count += 1
             self.l_tf.append([term, freq])
         s_term_file.close()
 
-        # sort the term list
+        # sort the term list by doc frequency
         self.l_tf.sort(utils.list_element_2_sort)
 
         self.compute_heads_mods()
-
+       
+    # revised version 10/5/14
+    # term_no_mod is actually the head word only, so mod is phrase before last word
+    # term_no_head is actually the mod
+    # note that we have to be consistent between the conditions of mod2count and mod2terms in terms of 
+    # the frequency criteria (>=2)
     def compute_heads_mods(self):
-        for term in self.d_term_freq.keys():
+        for term in self.d_term2freq.keys():
+
             l_words = term.split(" ")
             if len(l_words) > 1:
                 # term is a phrase.  Check for head and mod.
                 term_no_mod = " ".join(l_words[1:])
-                if self.d_term_freq.has_key(term_no_mod):
-                    # Then subterm exists on its own
-                    mod = l_words[0]
-                    self.d_term2mods[term_no_mod].append(mod)
-                    self.d_mod2terms[mod].append(term_no_mod)
-                    self.modified_term_count += 1
-                    self.d_mod2count[mod] += 1
+                #if self.d_term2freq[term_no_mod] >= 2:
+                #if self.d_term2freq.has_key(term_no_mod):
+                # Then subterm exists on its own as a term in the corpus (appears at least twice)
+                # extract the first word as the mod(ifier) and the remainder as the term_no_mod
+                mod = l_words[0]
+                #self.d_term2mods[term_no_mod].append(mod)
+                #self.d_mod2terms[mod].append([term_no_mod, self.d_term2freq[term]])
+                # collect all the modifiers of the head (term_no_mod) and their frequencies
+
+                self.d_head2terms[term_no_mod].append([mod, self.d_term2freq[term]])
+                self.d_head2sum_freq[term_no_mod] += self.d_term2freq[term]
+                #self.modified_term_count += 1
+                #self.d_mod2count[mod] += 1
+                # leave out the disp at doc freq 1 for now, for efficiency
+                # self.d_head2count[term_no_mod] += 1
+                # Record counts with a document freq threshold of 2
+                # where doc freq is the count for the full term
+                if self.d_term2freq[term] >= 2:                        
+                    self.d_head2count_2[term_no_mod] += 1
+
+                self.d_head2average_spread[term_no_mod] = float(self.d_head2sum_freq[term_no_mod]) / self.d_head2count_2[term_no_mod]
+
                 term_no_head = " ".join(l_words[0:len(l_words) - 1])
-                if self.d_term_freq.has_key(term_no_head):
-                    # Then subterm exists on its own
-                    head = l_words[-1]
-                    self.d_term2heads[term_no_head].append(head)
-                    self.d_head2terms[head].append(term_no_head)
-                    self.headed_term_count += 1
-                    self.d_head2count[head] += 1
+
+                # if self.d_term2freq.has_key(term_no_head):
+                # Then subterm exists on its own
+                head = l_words[-1]
+                #self.d_term2heads[term_no_head].append(head)
+                self.d_mod2terms[term_no_head].append([head, self.d_term2freq[term]])
+                self.d_mod2sum_freq[term_no_head] += self.d_term2freq[term]
+                #self.headed_term_count += 1
+                # leave out the disp at doc freq 1 for now, for efficiency
+                #self.d_mod2count[head] += 1
+                # Record counts with a document freq threshold of 2
+                if self.d_term2freq[term] >= 2:
+                    self.d_mod2count_2[term_no_head] += 1
+
+                self.d_mod2average_spread[term_no_head] = float(self.d_head2sum_freq[term_no_head]) / self.d_head2count_2[term_no_head]
+
             else:
                 # we have a single word term
                 self.l_singletons.append(term)
+                
+        # sort heads and mods
+        for key in self.d_mod2terms.keys():
+            self.d_mod2terms[key].sort(utils.list_element_2_sort)
+        for key in self.d_head2terms.keys():
+            self.d_head2terms[key].sort(utils.list_element_2_sort)
+
 
     def sort_heads(self):
-        l_head_counts = []
         for head in self.d_head2count.keys():
-            l_head_counts.append([head, self.d_head2count[head]])
-        l_head_counts.sort(utils.list_element_2_sort)
-        return(l_head_counts)
+            self.l_head_counts.append([head, self.d_head2count[head]])
+        self.l_head_counts.sort(utils.list_element_2_sort)
+        return(self.l_head_counts)
+
+    def sort_mods(self):
+        for mod in self.d_mod2count.keys():
+            self.l_mod_counts.append([mod, self.d_mod2count[mod]])
+        self.l_mod_counts.sort(utils.list_element_2_sort)
+        return(self.l_mod_counts)
 
 
-# store frequency info for a year of a corpus
-# not necessary, use RFreq instead.
-class YFreq():
-    def __init__(self, corpus, year):
-        self.d_t2freq = defaultdict(int)
-        self.term_count = 0
-        root = "/home/j/anick/patent-classifier/ontology/creation/data/patents/"
-        term_file = root + corpus + "/data/tv/" + str(year) + ".tf.f"
-        s_term_file = codecs.open(term_file, encoding='utf-8')
-        for term_line in s_term_file:
-            term_line = term_line.strip("\n")
-            (term, freq) = term_line.split("\t")
-            freq = int(freq)
-            self.d_term_freq[term] = freq
-            self.term_count += 1
+# difference in head and mod ratios between terms in
+# corpus 2 (pi2) and corpus 1 (pi1), normalized by 
+# term counts in the corpora
+def hm_diff(pi2, pi1):
+    normalization_factor = pi1.term_count / float(pi2.term_count)
+    print "[hm_diff]pi1.term_count: %s, pi2.term_count: %s" % (pi1.term_count, pi2.term_count)
+    l_mod_diff = []
+    l_head_diff = []
+    for term in pi2.d_head2count_2.keys():
+        # Before computing ratios of dispersion,
+        # do +1 smoothing, in case term has no instances in corpus 1
+        # to avoid division by zero
+        #pi2_count = pi2.d_head2count[term] + 1
+        #pi1_count = pi1.d_head2count[term] + 1
+        pi2_count_2 = pi2.d_head2count_2[term] + 1
+        pi1_count_2 = pi1.d_head2count_2[term] + 1
+        #score = (pi2_count / float(pi1_count)) * math.log(abs(pi2_count - pi1_count) + 1, 2) * normalization_factor
+        #score = math.log((pi2_count / float(pi1_count)), 2) * math.log(abs(pi2_count - pi1_count) + 1, 2) * normalization_factor
+        score2 = math.log((pi2_count_2 / float(pi1_count_2)), 2) * math.log(abs(pi2_count_2 - pi1_count_2) + 1, 2) * normalization_factor
+        #score = (pi2_count / float(pi1_count)) * abs(pi2_count - pi1_count) * normalization_factor
+        #score = (pi2_count / float(pi1_count)) * math.log(abs(pi2_count - pi1_count) + 1, 10) * normalization_factor
+        #l_head_diff.append([term, score, pi2_count, pi1_count, score2, pi2_count_2, pi1_count_2])
+        l_head_diff.append([term, score2, pi2_count_2, pi1_count_2])
 
-        s_term_file.close()
+    for term in pi2.d_mod2count_2.keys():
+        # do +1 smoothing, in case term has no instances in corpus 1
+        # to avoid division by zero
+        #pi2_count = pi2.d_mod2count[term] + 1
+        #pi1_count = pi1.d_mod2count[term] + 1
+        pi2_count_2 = pi2.d_mod2count_2[term] + 1
+        pi1_count_2 = pi1.d_mod2count_2[term] + 1
+
+        #score = (pi2_count / float(pi1_count)) * math.log(abs(pi2_count - pi1_count) + 1, 2) * normalization_factor
+        #score = math.log((pi2_count / float(pi1_count)), 2) * math.log(abs(pi2_count - pi1_count) + 1, 2) * normalization_factor
+        score2 = math.log((pi2_count_2 / float(pi1_count_2)), 2) * math.log(abs(pi2_count_2 - pi1_count_2) + 1, 2) * normalization_factor
+        #score = (pi2_count / float(pi1_count)) * abs(pi2_count - pi1_count) * normalization_factor
+        #score = (pi2_count / float(pi1_count)) * math.log(abs(pi2_count - pi1_count) + 1, 10) * normalization_factor
+        l_mod_diff.append([term, score2, pi2_count_2, pi1_count_2])
+
+    l_head_diff.sort(utils.list_element_2_sort)
+    l_mod_diff.sort(utils.list_element_2_sort)
+    # note we only keep score2 now.
+
+    return([l_head_diff, l_mod_diff])
 
 
+# given a corpus and a range of years, generate phrase info and compute diffs
+
+# prcs = fan.PiRange("ln-us-A21-computers", 1997, 2000)
+# prme = fan.PiRange("ln-us-A28-mechanical-engineering", 1997, 2000)
+
+# prmb3 = fan.PiRange("ln-us-A27-molecular-biology", 1997, 1998)
+class PiRange():
+    def __init__(self, corpus, start_year, end_year): 
+        end_range = end_year + 1
+        # dictionary to map year to phrInfo objects
+        self.d_year2pi = {}
+        self.d_1year2mod_diff = {}
+        self.d_1year2head_diff = {}
+        self.d_2year2mod_diff = {}
+        self.d_2year2head_diff = {}
+        for year in range(start_year, end_range):
+            self.d_year2pi[year] = phrInfo(corpus, year)
+            print "[pi_range]Created phrInfo for year: %i" % year
+        # compute the dispersion diff scores
+
+        start_range = start_year + 2
+        for year in range(start_range, end_range):
+
+            prev_year1 = year - 1
+            prev_year2 = year - 2
+
+            (self.d_1year2head_diff[year], self.d_1year2mod_diff[year]) = hm_diff(self.d_year2pi[year], self.d_year2pi[prev_year1])
+            print "[pi_range]Created diff data for 1 year span ending: %i" % year
+            """
+            (self.d_2year2head_diff[year], self.d_2year2mod_diff[year]) = hm_diff(self.d_year2pi[year], self.d_year2pi[prev_year2])
+            print "[pi_range]Created diff data for 2 year span ending: %i" % year
+            """
+
+# start_year should be 2 years ahead of the earliest year for which we have data
+# e.g. 1999        
+def print_pi_range(corpus, pi_range, start_year, end_year):
+    end_range = end_year + 1
+    for year in range(start_year, end_range):
+        # We'll use the threshold of 2 docs per term, which requires resorting our term lists
+        #top_mods1 = sorted(pi_range.d_1year2mod_diff[year], key=lambda x: (x[4],x[4]), reverse=True)[0:50]
+        top_mods1 = pi_range.d_1year2mod_diff[year][0:50]
+        print "%s" % top_mods1
+        #top_heads1 = sorted(pi_range.d_1year2head_diff[year], key=lambda x: (x[4],x[4]), reverse=True)[0:50]
+        #top_mods2 = sorted(pi_range.d_2year2mod_diff[year], key=lambda x: (x[4],x[4]), reverse=True)[0:50]
+        #top_heads2 = sorted(pi_range.d_2year2head_diff[year], key=lambda x: (x[4],x[4]), reverse=True)[0:50]
+
+# to get term freq of a term in a year from pi_range: <pi_range>.d_year2pi[2006].d_term2freq["gene"]
+# to get the terms for a mod: <pi_range>.d_year2pi[1999].d_mod2terms["r1is"]        
+#/// in progress
+
+
+# fan.trend("ln-us-A27-molecular-biology", prmb5, 1999, 50, 1997, 2000)
+# fan.trend("ln-us-A27-molecular-biology", prmb5, 1999, 50, 1997, 1999)
+def trend(corpus, pi_range, disp_year, max_terms, start_year=1997, end_year=2007):
+    trend_file = pnames.tv_dir(corpus_root, corpus) + "/trend." + str(disp_year)
+    s_trend_file = codecs.open(trend_file, "w", encoding='utf-8')
+
+    end_range = end_year + 1
+    # get the top dispersion terms for a given year and print out the trend from start_year to end_year
+    #top_mods1  = sorted(pi_range.d_1year2mod_diff[disp_year], key=lambda x: (x[4],x[4]), reverse=True)[0:50]
+    # Use the difference between 1 year ago and present (d_1year2mod_diff)
+    top_mods1  = pi_range.d_1year2mod_diff[disp_year][0:50]
+    top_heads1 = pi_range.d_1year2head_diff[disp_year][0:50]
+
+    l_mods_disp = []
+    l_mods_freq = []
+    l_heads_disp = []
+    l_heads_freq = []
+    l_mods_df_ratio = []
+    l_heads_df_ratio = []
+
+    #print "mods"
+    rank = 1
+    for item in top_mods1[0:max_terms]:
+        freqs_str = ""
+        term = item[0]
+
+        # output dispersion for the term in range
+        disp_str = "dm" + "\t" + str(rank) + "\t" + repr(term)
+        for year in range(start_year, end_range):
+            l_mods_disp.append(pi_range.d_year2pi[year].d_mod2count_2[term])
+            single_disp_str = "\t" + str(pi_range.d_year2pi[year].d_mod2count_2[term])
+            disp_str += single_disp_str
+
+        print "%s" % disp_str
+        s_trend_file.write("%s\n" % disp_str)
+
+        #print "%s from %i to %i" % (item, start_year, end_year)
+        freqs_str = "fm" + "\t" + str(rank) + "\t" + repr(term)
+        for year in range(start_year, end_range):
+            l_mods_freq.append(pi_range.d_year2pi[year].d_term2freq[term])
+            # get the doc freq for the term in this year
+            freq_str = "\t" + str(pi_range.d_year2pi[year].d_term2freq[term])
+            freqs_str += freq_str
+        print "%s" % freqs_str
+        s_trend_file.write("%s\n" % freqs_str)
+
+        # ratio line
+        ratios_str = "rm" + "\t" + str(rank) + "\t" + repr(term)
+        offset = 0
+        for year in range(start_year, end_range):
+            ratio = (float(l_mods_disp[offset]) + 1) / (l_mods_freq[offset] + 1)
+            ratios_str == "\t" + format(ratio, ".2f")
+            offset += 1
+        s_trend_file.write("%s\n" % ratios_str)
+
+        rank += 1
+
+    #print "heads"
+    rank = 1
+    for item in top_heads1[0:max_terms]:
+        freqs_str = ""
+        term = item[0]
+        
+        # output dispersion for the term in range
+        disp_str = "dh" + "\t" + str(rank) + "\t" + repr(term)
+        for year in range(start_year, end_range):
+            l_heads_disp.append(pi_range.d_year2pi[year].d_head2count_2[term])
+            single_disp_str = "\t" + str(pi_range.d_year2pi[year].d_head2count_2[term])
+            disp_str += single_disp_str
+        print "%s" % disp_str
+        s_trend_file.write("%s\n" % disp_str)
+
+        #print "%s from %i to %i" % (item, start_year, end_year)
+        freqs_str = "fh\t" +  str(rank) + "\t" + repr(term)
+        for year in range(start_year, end_range):
+            l_heads_freq.append(pi_range.d_year2pi[year].d_term2freq[term])
+            # get the doc freq for the term in this year
+            freq_str = "\t" + str(pi_range.d_year2pi[year].d_term2freq[term])
+            freqs_str += freq_str
+        print "%s" % freqs_str
+        s_trend_file.write("%s\n" % freqs_str)
+
+        # ratio line
+        ratios_str = "rh" + "\t" + str(rank) + "\t" + repr(term)
+        offset = 0
+        for year in range(start_year, end_range):
+            ratio = (float(l_heads_disp[offset]) + 1) / (l_heads_freq[offset] + 1)
+            ratios_str == "\t" + format(ratio, ".2f")
+            offset += 1
+        s_trend_file.write("%s\n" % ratios_str)
+
+        rank += 1
 
 # store a range of term,year=>freq dictionaries
 # rfcs = fan.RFreq("ln-us-cs-500k", 1997, 2006)
 # rf = fan.RFreq("ln-us-all-600k", 1997, 2006)
 # rfw = fan.RFreq("wos-cs-520k", 1997, 2006)
 # Range frequencies
-# Depends on: <year>.tf.f files must exist for all years in range
-# These are created by make_tf_f.sh 
-# e.g. sh make_tf_f.sh ln-us-cs-500k
+# Depends on: <year>.terms files must exist for all years in range
+
+# rftcs = fan.RFreq("ln-us-A21-computers", 1997, 2007, "2005.act.cat.w0.0.t")
+
+
+# rfa22 = fan.RFreq("ln-us-A22-communications", 1997, 2007, "")
 class RFreq():
 
-    def __init__(self, corpus, start_year, end_year):
+    def __init__(self, corpus, start_year, end_year, term_subset_file=""):
         root = corpus_root
         # frequency for a term-year combination
         self.d_ty2freq = defaultdict(int)
@@ -192,31 +438,57 @@ class RFreq():
         self.d_y2l_cohort = defaultdict(list)
         # list of freq for the term starting with first appearance year
         self.d_term2l_history = defaultdict(list)
+        self.corpus = corpus
+        self.term_subset_p = False
+        if term_subset_file != "":
+            self.term_subset_p = True
+        
+        self.d_term_subset = {}
+        # If term_subset_file is not"", populate a dictionary of the subset of terms and 
+        # only use terms in this dictionary in cohorts.
+        if self.term_subset_p:
+            term_subset_path = pnames.tv_dir(corpus_root, corpus) + "/" + term_subset_file
+            s_term_subset = codecs.open(term_subset_path,  encoding='utf-8')
+            for term_line in s_term_subset:
+                term_line = term_line.strip("\n")
+                term_fields = term_line.split("\t")
+                term = term_fields[0]
+                self.d_term_subset[term] = True
+            s_term_subset.close()
+            print "[fan.py Rfreq]Using term subset with %i terms" % len(self.d_term_subset.keys())
+
         for year in range(start_year, end_year + 1):
-            term_file = pnames.tv_dir_year_file(corpus_root, corpus, year, "tf.f")
+            #term_file = pnames.tv_dir_year_file(corpus_root, corpus, year, "terms.2")
+            term_file = pnames.tv_dir_year_file(corpus_root, corpus, year, "terms")
             s_term_file = codecs.open(term_file, encoding='utf-8')
             print "[RFreq]loading terms for year: %i" % year
             for term_line in s_term_file:
                 term_line = term_line.strip("\n")
-                (term, freq) = term_line.split("\t")
-                freq = int(freq)
-                ty = tuple([term, year])
+                term_fields = term_line.split("\t")
+                term = term_fields[0]
+                if self.term_subset_p == False or self.d_term_subset.has_key(term):
+                    #pdb.set_trace()
+                    # freq is the number of docs the term occurred in (this year)
+                    freq = term_fields[1]
+                    freq = int(freq)
 
-                # save the freq for the year
-                self.d_ty2freq[ty] = freq
-                self.d_y2tcount[year] += 1
+                    ty = tuple([term, year])
 
-                # record the first appearance year (y1) for the term
-                if not self.d_term2seen[term]:
-                    # if the term does not appear in the start year, we will call it
-                    # new in this range
-                    if year != start_year:
-                        self.d_term2new[term] = True
-                        self.d_y2ncount[year] += 1
-                    self.d_term2y1[term] = year
-                    self.d_y2l_cohort[year].append(term)
-                    # mark term as seen
-                    self.d_term2seen[term] = True
+                    # save the freq for the year
+                    self.d_ty2freq[ty] = freq
+                    self.d_y2tcount[year] += 1
+
+                    # record the first appearance year (y1) for the term
+                    if not self.d_term2seen[term]:
+                        # if the term does not appear in the start year, we will call it
+                        # new in this range
+                        if year != start_year:
+                            self.d_term2new[term] = True
+                            self.d_y2ncount[year] += 1
+                        self.d_term2y1[term] = year
+                        self.d_y2l_cohort[year].append(term)
+                        # mark term as seen
+                        self.d_term2seen[term] = True
                 
             print "Loaded %i terms, %i new" % (self.d_y2tcount[year], self.d_y2ncount[year]) 
             s_term_file.close()
@@ -238,14 +510,44 @@ class RFreq():
     # z98 = rf.filter(1998, 1998, 2006, 1, 2000, 30, 2000)
     # Note that the first year in the range is 1997.  Thus many terms will first appear here
     # but they may not be new.  So it is best to use a first year > the start_year.
-    def filter(self, cohort_year, ref_year, target_year, ref_min, ref_max, target_min, target_max):
+
+    # returns a list of [term, reference year freq, target year freq]
+    # filter_type is a mnemonic for the ref_year and target_year ranges (e.g. hh, hl - high-high, high-low)
+
+    def filter(self, cohort_year, ref_year, target_year, ref_min, ref_max, target_min, target_max, filter_type):
         l_matches = []
+        file_qualifier = "cohort." + filter_type
+        cohort_file = pnames.tv_dir_year_file(corpus_root, self.corpus, cohort_year, file_qualifier)
+        s_cohort_file = codecs.open(cohort_file, "w", encoding='utf-8')
+        # write parameters of the cohort as first line in file
+        s_cohort_file.write("#%i\t%i\t%i\t%i\t%i\t%i\t%i\n" % (cohort_year, ref_year, target_year, ref_min, ref_max, target_min, target_max))
         for term in self.d_y2l_cohort[cohort_year]:
             rf = self.d_ty2freq[tuple([term, ref_year])]
             tf = self.d_ty2freq[tuple([term, target_year])]
             if rf >= ref_min and rf <= ref_max and tf >= target_min and tf <= target_max:
                 l_matches.append([term, rf, tf])
+                # save to a file as well
+                s_cohort_file.write("%s\t%i\t%i\n" % (term, rf, tf))
+        s_cohort_file.close()
         return(l_matches)
+
+    # for a range of years, create filtered cohort files
+    # a cohort is all terms that first appear in a given year.
+    # filtering constrains the doc freq in a reference year and target year in the future from the cohort year,
+    # e.g. 2 years and 5 years later.
+    # hh: ref_year >= 5, target year >= 20
+    # rfa22.filter_range(1998, 2007, 2, 5, 5, 10000, 20, 10000, "hh") 
+    # hl: ref_year >= 5, target year <= 10
+    # rfa22.filter_range(1998, 2007, 2, 5, 5, 10000, 0, 10, "hl") 
+    # rfa22.filter_range(1998, 2007, 2, 5, 0, 5, 20, 10000, "lh")
+    # rfa22.filter_range(1998, 2007, 2, 5, 5, 10000, 0, 10000, "r5")
+    # rfa22.filter_range(1998, 2007, 2, 5, 0, 10000, 0, 10000, "r0")
+    def filter_range(self, cohort_start_year, cohort_end_year, ref_offset, target_offset, ref_min, ref_max, target_min, target_max, filter_type):
+        end_range = cohort_end_year + 1
+        for cohort_year in range(cohort_start_year, end_range):
+            ref_year = cohort_year + ref_offset
+            target_year = cohort_year + target_offset
+            self.filter(cohort_year, ref_year, target_year, ref_min, ref_max, target_min, target_max, filter_type)
 
 # l_cohort is the list returned by Rfreq.filter [[term, rf, tf], ...]
 # fan.cohort_features("ln-us-all-600k", 2003, l_cohort, "c98-06_2003_30")
@@ -683,6 +985,12 @@ class TermInfo():
         #return(self.d_term)
         #pdb.set_trace()
 
+# task term analysis
+# Assume we have a set of terms labeled as type task.
+
+
+
+
 # TODO:
 # Given a list of diagnostic features and a range of years
 # create a dict from term,year,feature => count of docs containing the term/feature in the year
@@ -690,3 +998,74 @@ class TermInfo():
 # create dict from term => first appearance year (within range)
 
 # Test: how much change in top features depending on cohort and year?
+
+# We have determined that we cannot limit terms to a single corpus.  We need to find the start year across multiple corpora.
+# Because this will generate a huge number of terms, we will, as a first step, compute the start year of all terms across corpora.
+# Then we will filter out any terms that appear in the first year, so that we only have to deal with neologisms in further processing.
+
+# The "all" corpus should be created before running this (with create_all_corpus)
+def term_to_year1(start_year, end_year, corpus_list): 
+    # value is the first year in which a term appears within any corpus in the corpus_list
+    term2year1 = {}
+    end_range = end_year + 1
+
+    # write the terms and start years into .tstart file
+    year_range = str(start_year) + "_" + str(end_year)
+    term_start_file = pnames.tv_dir_year_file(corpus_root, "all", year_range, "tstart")
+    print "[term_to_year1] term_start_file: %s" % term_start_file
+
+    # .neo is same as .tstart_file but filtering any terms that first appear in year 1.
+    # Thus this includes only neologisms appearing after year 1.
+    year_range = str(start_year) + "_" + str(end_year)
+    term_neo_file = pnames.tv_dir_year_file(corpus_root, "all", year_range, "neo")
+    print "[term_to_year1] term_neo_file: %s" % term_neo_file
+
+    for corpus in corpus_list:
+        for year in range(start_year, end_range):
+            term_file = pnames.tv_dir_year_file(corpus_root, corpus, str(year), "terms")
+            print "[term_to_year1] processing term_file: %s" % term_file
+            s_term_file = codecs.open(term_file, encoding='utf-8')
+            for term_line in s_term_file:
+                term_line = term_line.strip("\n")
+                term_fields = term_line.split("\t")
+                term = term_fields[0]
+                # if the term is not in our table, enter it along with the current year as start year
+                if not term2year1.has_key(term):
+                    term2year1[term] = year
+
+            s_term_file.close()
+
+    # write the terms and start years into .tstart file
+    year_range = str(start_year) + "_" + str(end_year)
+    term_start_file = pnames.tv_dir_year_file(corpus_root, "all", year_range, "tstart")
+    print "[term_to_year1] term_start_file: %s" % term_start_file
+    s_term_start_file = codecs.open(term_start_file, encoding='utf-8')
+    s_term_neo_file = codecs.open(term_neo_file, encoding='utf-8')
+    for term in term2year1.keys():
+        first_year = term2year1[term]
+        s_term_start_file.write("%s\t%i\n" % (term, first_year))
+        if first_year != start_year:
+            # then include term as a neologism
+            s_term_neo_file.write("%s\t%i\n" % (term, first_year))
+
+    s_term_start_file.close()
+    s_term_neo_file.close()
+
+# create the directory structure for an "all" corpus, where data across multiple corpora will reside
+def create_all_corpus():
+    tv_subpath = "/data/tv/"
+    tv_root = corpus_root + "/" + "all" + tv_subpath
+    # Be safe, check if tv_root path exists, and create it if not
+    if not os.path.exists(tv_root):
+        os.makedirs(tv_root)
+        print "Created outroot dir: %s" % tv_root
+
+
+# we have from 1997 to 2007.
+# corpora: ["ln-us-A21-computers", "ln-us-A22-communications", "ln-us-A25-chemical-engineering", "ln-us-A28-mechanical-engineering", "ln-us-A23-semiconductors", "ln-us-A26-organic-chemistry", "ln-us-A29-thermal-technology", "ln-us-A24-optical-systems","ln-us-A27-molecular-biology","ln-us-A30-electrical-circuits"]
+# fan.test_term_to_year1()
+def test_term_to_year1(): 
+    start_year = 1997
+    end_year = 1998
+    corpus_list = ["ln-us-A29-thermal-technology", "ln-us-A24-optical-systems"]
+    term_to_year1(start_year, end_year, corpus_list) 

@@ -96,8 +96,9 @@ PROCESSING_AREAS = \
 ### MALLET settings
 ### -----------------------------------------------------------------------
 
-# NOTE: this is left in because experiments.py uses it, but it should only be
-# used in ../classification
+# NOTE: experiments.py and roles.py use mallet but the version had to be modified
+# to allow feature selection to work.  For now the modified version is in:
+# /home/j/llc/gititkeh/mallet-2.0.7
 
 MALLET_RELEASE = '2.0.7'
 
@@ -110,8 +111,8 @@ elif location == 'MAC':
     MALLET_DIR = '/Applications/ADDED/nlp/mallet/mallet-2.0.7/bin'
 else:
     # location on the department machines
-    MALLET_DIR = "/home/j/corpuswork/fuse/code/patent-classifier/tools/mallet/mallet-2.0.7/bin"
-
+    #MALLET_DIR = "/home/j/corpuswork/fuse/code/patent-classifier/tools/mallet/mallet-2.0.7/bin"
+    MALLET_DIR = "/home/j/llc/gititkeh/mallet-2.0.7"
 
 ### Stanford parser/segmenter settings
 ### -----------------------------------------------------------------------
@@ -191,4 +192,6 @@ WORKING_RDG_PATH = os.path.join(DATA_ROOT, "working/rdg/en1")
 #-----
 # roles specific paths
 
-CORPUS_ROOT = "/home/j/anick/patent-classifier/ontology/creation/data/patents"
+#CORPUS_ROOT = "/home/j/anick/patent-classifier/ontology/creation/data/patents"
+CORPUS_ROOT = "/home/j/anick/patent-classifier/ontology/roles/data/patents"
+CODE_ROOT = "/home/j/anick/patent-classifier/ontology/roles"

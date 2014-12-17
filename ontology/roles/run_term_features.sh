@@ -10,19 +10,28 @@
 # modified to take three parameters corpus, start_year, end_year
 # sh run_term_features.sh wos-cs-520k 1997 1997
 # sh run_term_features.sh ln-us-all-600k 1997 2007
-# sh run_term_features.sh ln-us-A27-molecular-biology 2002 2002
+
 # sh run_term_features.sh ln-us-A30-electrical-circuits 2002 2002
 # 
+# sh run_term_features.sh ln-us-A27-molecular-biology 1997 2007
+# sh run_term_features.sh ln-us-A22-communications 1997 2007
+# sh run_term_features.sh ln-us-A30-electrical-circuits 1998 2007
 
 # PARAMETERS TO SET BEFORE RUNNING SCRIPT:
-FUSE_CORPUS_ROOT="/home/j/corpuswork/fuse/FUSEData/corpora"
-LOCAL_CORPUS_ROOT="/home/j/anick/patent-classifier/ontology/creation/data/patents"
+# FUSE_CORPUS_ROOT="/home/j/corpuswork/fuse/FUSEData/corpora"
+# LOCAL_CORPUS_ROOT="/home/j/anick/patent-classifier/ontology/creation/data/patents"
+# LOCAL_CORPUS_ROOT="/home/j/anick/patent-classifier/ontology/roles/data/patents"
+# get the corpus roots from roles.config.sh
+
+# 10/2/14 PGA removed the creation of the tf.f file, which is redundant with the .terms file information.
 
 # get start time to compute elapsed time
 START_TIME=$(date +%s)
 
 # get path info
 source ./roles_config.sh
+
+
 
 CORPUS=$1
 START_YEAR=$2
@@ -88,6 +97,10 @@ LOCAL_ROOT="$LOCAL_CORPUS_ROOT/$CORPUS"
 
 # Make sure target directory tree exists before running this script
 
+
+
+echo "[run_term_features.sh]LOCAT_ROOT: $LOCAL_ROOT, LOCAL_CORPUS_ROOT: $LOCAL_CORPUS_ROOT" 
+
 mkdir $LOCAL_ROOT
 mkdir $LOCAL_ROOT/data
 mkdir $LOCAL_ROOT/data/term_features
@@ -99,8 +112,9 @@ mkdir $LOCAL_ROOT/data/act
 TF_DIR=$LOCAL_ROOT/data/term_features/
 TV_DIR=$LOCAL_ROOT/data/tv/
 
-echo "Created local_root directory: $LOCAL_ROOT"
+echo "[run_term_features.sh]Created local_root directory: $LOCAL_ROOT"
 
+#exit 
 # loop over the years for which we have data
 
 YEAR=$START_YEAR
@@ -118,6 +132,8 @@ while [ $YEAR -le $END_YEAR ] ; do
 
     echo "year: $YEAR"
 
+
+
     sh term_features.sh $FUSE_ROOT/subcorpora/$YEAR/config/files.txt $FUSE_ROOT/subcorpora/$YEAR/data/d3_phr_feats/01/files $LOCAL_ROOT/data/term_features tas
     
     YEAR=$[ $YEAR + 1 ]
@@ -133,21 +149,22 @@ python tf.py $TF_DIR $TV_DIR $START_YEAR $END_YEAR
 echo "[run_term_features.sh]Finished."
 echo "Elaspsed time: $(date -d @$(($(date +%s)-$START_TIME)) +"%M minutes %S seconds")"
 
+: <<"COMMENT"
 # Finally, create tf.f files from the tf files
 # This replaces the separate file make_tf_f.sh
 echo "[run_term_features.sh]Creating tf.f files"
 TF_QUAL="tf"
-TFF_QUAL="tf.f"
+#TFF_QUAL="tf.f"
 
 while [ $YEAR -le $END_YEAR ] ; do
     
     echo "year: $YEAR"
     TF_FILE=$TV_DIR$YEAR.$TF_QUAL
-    TFF_FILE=$TV_DIR$YEAR.$TFF_QUAL
+    #TFF_FILE=$TV_DIR$YEAR.$TFF_QUAL
     # clear the output file in case it already exists
-    > $TFF_FILE
+    #> $TFF_FILE
     #GREP_RESULT=$(grep "last_word" $TF_FILE | cut -f1,3)
-    grep "last_word" $TF_FILE | cut -f1,3 >> $TFF_FILE
+    #grep "last_word" $TF_FILE | cut -f1,3 >> $TFF_FILE
     
     YEAR=$[ $YEAR + 1 ]
 
@@ -158,5 +175,5 @@ done
 echo "[run_term_features.sh]Finished creating tf.f files"
 echo "Elaspsed time: $(date -d @$(($(date +%s)-$START_TIME)) +"%M minutes %S seconds")"
 
-#COMMENT
+COMMENT
 

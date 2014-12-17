@@ -23,8 +23,22 @@ while read YEAR SOURCE YEAR_FILE; do
     # output file fully specified
     outpath=$outdir/$outfile
 
+    # if output file already exists, do not overwrite
+    if [ -f $outpath ];
+    then
+	#echo "File $outpath exists.  NOT overwriting!"
+	# no op
+	:
+    else
+	#echo "Creating $outpath."
+
+
+
+
     # assume input file is compressed
     infile=$INROOT/$YEAR_FILE.gz
+
+
 
     #echo "output: $outfile, $outpath, $infile"
     #echo "file $file_no: $outpath"
@@ -41,6 +55,10 @@ while read YEAR SOURCE YEAR_FILE; do
     else
 	echo "missing SECTIONS parameter (ta or tas)"
 	
+    # end loop for section option
+    fi
+
+    # end the loop for each individual file
     fi
 
 done < $FILELIST

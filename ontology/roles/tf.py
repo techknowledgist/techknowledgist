@@ -22,136 +22,147 @@ import collections
 import os
 import glob
 import codecs
+import roles_config
 
 def dir2features_count(inroot, outroot, year):
     outfilename = str(year)
     # term-feature output file
     outfile = outroot + outfilename + ".tf"
-    terms_file = outroot + outfilename + ".terms"
-    feats_file = outroot + outfilename + ".feats"
-    corpus_size_file = outroot +  outfilename + ".cs"
 
-    # count of number of docs a term pair cooccurs in
-    d_pair_freq = collections.defaultdict(int)
-    # count of number of docs a term occurs in
-    d_term_freq = collections.defaultdict(int)
-    # count of number of instances of a term
-    d_term_instance_freq = collections.defaultdict(int)
-    # count of number of instances of a feature
-    d_feat_instance_freq = collections.defaultdict(int)
-    # count of number of docs a feature occurs in
-    d_feat_freq = collections.defaultdict(int)
+    # Do not continue if the .tf file already exists for this corpus and year
+    if os.path.isfile(outfile):
+        print "[tf.py]file already exists: %s.  No need to recompute." % outfile 
+    else:
 
-    # Be safe, check if outroot path exists, and create it if not
-    if not os.path.exists(outroot):
-        os.makedirs(outroot)
-        print "Created outroot dir: %s" % outroot
+        terms_file = outroot + outfilename + ".terms"
+        feats_file = outroot + outfilename + ".feats"
+        corpus_size_file = outroot +  outfilename + ".cs"
 
-    # doc_count needed for computing probs
-    doc_count = 0
+        # count of number of docs a term pair cooccurs in
+        d_pair_freq = collections.defaultdict(int)
+        # count of number of docs a term occurs in
+        d_term_freq = collections.defaultdict(int)
+        # count of number of instances of a term
+        d_term_instance_freq = collections.defaultdict(int)
+        # count of number of instances of a feature
+        d_feat_instance_freq = collections.defaultdict(int)
+        # count of number of docs a feature occurs in
+        d_feat_freq = collections.defaultdict(int)
 
-    # make a list of all the files in the inroot directory
-    filelist = glob.glob(inroot + "/*")
-    
-    #print "inroot: %s, filelist: %s" % (inroot, filelist)
-    
-    for infile in filelist:
+        # Be safe, check if outroot path exists, and create it if not
+        if not os.path.exists(outroot):
+            os.makedirs(outroot)
+            print "Created outroot dir: %s" % outroot
 
-        # process the term files
-        # for each file, create a set of all term-feature pairs in the file
-        pair_set = set()
-        term_set = set()
-        feature_set = set()
-        #pdb.set_trace()
-        s_infile = codecs.open(infile, encoding='utf-8')
-        for term_line in s_infile:
-            term_line = term_line.strip("\n")
-            l_fields = term_line.split("\t")
-            term = l_fields[0]
-            feature = l_fields[1]
-            term_feature_within_doc_count = int(l_fields[2])
-            #print "term: %s, feature: %s" % (term, feature)
+        # doc_count needed for computing probs
+        doc_count = 0
 
-            """
-            # filter out non alphabetic phrases, noise terms
-            if alpha_phrase_p(term):
-                pair = term + "\t" + feature
-                print "term matches: %s, pair is: %s" % (term, pair)
-                pair_set.add(pair)
-            """
+        # make a list of all the files in the inroot directory
+        filelist = glob.glob(inroot + "/*")
 
-            # if the feature field is "", then we use this line to count term
-            # instances
-            if feature == "":
-                d_term_instance_freq[term] += term_feature_within_doc_count
-                # add term to set for this document to accumulate term-doc count
-                term_set.add(term)
-                # note:  In ln-us-cs-500k 1997.tf, it appears that one term (e.g. u'y \u2033')
-                # does not get added to the set.  Perhaps the special char is treated as the same
-                # as another term and therefore is excluded from the set add.  As a result
-                # the set of terms in d_term_freq may be missing some odd terms that occur in .tf.
-                # Later will will use terms from .tf as keys into d_term_freq, so we have to allow for
-                # an occasional missing key at that point (in nbayes.py)
-            else:
-                # the line is a term_feature pair
-                # alpha filter removed to handle chinese
-                pair = term + "\t" + feature
-                ##print "term matches: %s, pair is: %s" % (term, pair)
-                pair_set.add(pair)
-                feature_set.add(feature)
-                d_feat_instance_freq[feature] += term_feature_within_doc_count
-                
-        s_infile.close()
+        #print "inroot: %s, filelist: %s" % (inroot, filelist)
 
-        # increment the doc_freq for term-feature pairs in the doc
-        # By making the list a set, we know we are only counting each term-feature combo once
-        # per document
-        for pair in pair_set:
-            d_pair_freq[pair] += 1
-            
-        # also increment doc_freq for features and terms
-        
-        for term in term_set:
-            d_term_freq[term] +=1
+        for infile in filelist:
 
-        for feature in feature_set:
-            d_feat_freq[feature] += 1
+            # process the term files
+            # for each file, create a set of all term-feature pairs in the file
+            pair_set = set()
+            term_set = set()
+            feature_set = set()
+            #pdb.set_trace()
+            s_infile = codecs.open(infile, encoding='utf-8')
+            for term_line in s_infile:
+                term_line = term_line.strip("\n")
+                l_fields = term_line.split("\t")
+                term = l_fields[0]
+                feature = l_fields[1]
+                term_feature_within_doc_count = int(l_fields[2])
+                #print "term: %s, feature: %s" % (term, feature)
 
-        # track total number of docs
-        doc_count += 1
+                """
+                # filter out non alphabetic phrases, noise terms
+                if alpha_phrase_p(term):
+                    pair = term + "\t" + feature
+                    print "term matches: %s, pair is: %s" % (term, pair)
+                    pair_set.add(pair)
+                """
 
-    s_outfile = codecs.open(outfile, "w", encoding='utf-8')
-    s_terms_file = codecs.open(terms_file, "w", encoding='utf-8')
-    s_feats_file = codecs.open(feats_file, "w", encoding='utf-8')
-    print "Writing to %s" % outfile
+                # if the feature field is "", then we use this line to count term
+                # instances
+                if feature == "":
+                    d_term_instance_freq[term] += term_feature_within_doc_count
+                    # add term to set for this document to accumulate term-doc count
+                    term_set.add(term)
+                    # note:  In ln-us-cs-500k 1997.tf, it appears that one term (e.g. u'y \u2033')
+                    # does not get added to the set.  Perhaps the special char is treated as the same
+                    # as another term and therefore is excluded from the set add.  As a result
+                    # the set of terms in d_term_freq may be missing some odd terms that occur in .tf.
+                    # Later will will use terms from .tf as keys into d_term_freq, so we have to allow for
+                    # an occasional missing key at that point (in nbayes.py)
+                else:
+                    # the line is a term_feature pair
+                    # alpha filter removed to handle chinese
+                    pair = term + "\t" + feature
+                    ##print "term matches: %s, pair is: %s" % (term, pair)
+                    pair_set.add(pair)
+                    feature_set.add(feature)
+                    d_feat_instance_freq[feature] += term_feature_within_doc_count
 
-    # compute prob
-    print "Processed %i files" % doc_count
+            s_infile.close()
 
-    for pair in d_pair_freq.keys():
-        pair_prob = float(d_pair_freq[pair])/doc_count
-        l_pair = pair.split("\t")
-        term = l_pair[0]
-        #print "term after split: %s, pair is: %s" % (term, pair)
-        feature = l_pair[1]
-        s_outfile.write( "%s\t%s\t%i\t%f\n" % (term, feature, d_pair_freq[pair], pair_prob))
+            # increment the doc_freq for term-feature pairs in the doc
+            # By making the list a set, we know we are only counting each term-feature combo once
+            # per document
+            for pair in pair_set:
+                d_pair_freq[pair] += 1
 
-    for term in d_term_freq.keys():
-        term_prob = float(d_term_freq[term])/doc_count
-        s_terms_file.write( "%s\t%i\t%i\t%f\n" % (term, d_term_freq[term], d_term_instance_freq[term], term_prob))
+            # also increment doc_freq for features and terms
 
-    for feat in d_feat_freq.keys():
-        feat_prob = float(d_feat_freq[feat])/doc_count
-        s_feats_file.write( "%s\t%i\t%i\t%f\n" % (feat, d_feat_freq[feat], d_feat_instance_freq[feat], feat_prob))
+            for term in term_set:
+                d_term_freq[term] +=1
 
-    s_outfile.close()
-    s_terms_file.close()
-    s_feats_file.close()
-    
-    # Finally, create a file to store the corpus size (# docs in the source directory)
-    cmd = "ls -1 " + inroot + " | wc -l > " + corpus_size_file
-    print "[dir2features_count]Storing corpus size in %s " % corpus_size_file
-    os.system(cmd)
+            for feature in feature_set:
+                d_feat_freq[feature] += 1
+
+            # track total number of docs
+            doc_count += 1
+
+        s_outfile = codecs.open(outfile, "w", encoding='utf-8')
+        s_terms_file = codecs.open(terms_file, "w", encoding='utf-8')
+        s_feats_file = codecs.open(feats_file, "w", encoding='utf-8')
+        print "Writing to %s" % outfile
+
+        # compute prob
+        print "Processed %i files" % doc_count
+
+        for pair in d_pair_freq.keys():
+            pair_prob = float(d_pair_freq[pair])/doc_count
+            l_pair = pair.split("\t")
+            term = l_pair[0]
+            #print "term after split: %s, pair is: %s" % (term, pair)
+            feature = l_pair[1]
+            # probability of the feature occurring with the term in a doc, given that 
+            # the term appears in the doc
+            prob_fgt = d_pair_freq[pair]/float(d_term_freq[term])
+            s_outfile.write( "%s\t%s\t%i\t%f\t%f\n" % (term, feature, d_pair_freq[pair], pair_prob, prob_fgt))
+
+        # /// TODO: this table makes tf.f file redundant!  Replace use of tf.f
+        for term in d_term_freq.keys():
+            term_prob = float(d_term_freq[term])/doc_count
+            s_terms_file.write( "%s\t%i\t%i\t%f\n" % (term, d_term_freq[term], d_term_instance_freq[term], term_prob))
+
+        for feat in d_feat_freq.keys():
+            feat_prob = float(d_feat_freq[feat])/doc_count
+            s_feats_file.write( "%s\t%i\t%i\t%f\n" % (feat, d_feat_freq[feat], d_feat_instance_freq[feat], feat_prob))
+
+        s_outfile.close()
+        s_terms_file.close()
+        s_feats_file.close()
+
+        # Finally, create a file to store the corpus size (# docs in the source directory)
+        cmd = "ls -1 " + inroot + " | wc -l > " + corpus_size_file
+        print "[dir2features_count]Storing corpus size in %s " % corpus_size_file
+        os.system(cmd)
 
 #---
 # Create a single file of term feature count for each year (from the .xml extracts of phr_feats data)
@@ -185,6 +196,8 @@ def run_dir2features_count(inroot, outroot, start_range, end_range):
     #inroot = "/home/j/anick/patent-classifier/ontology/creation/data/patents/ln-cn-all-600k/data/term_features"
     #outroot = "/home/j/anick/patent-classifier/ontology/creation/data/patents/ln-cn-all-600k/data/tv"
 
+
+
     print "Output dir: %s" % outroot
 
     # range should be start_year and end_year + 1
@@ -201,7 +214,10 @@ def run_dir2features_count(inroot, outroot, start_range, end_range):
         print "Completed: %s" % year
 
 
-# python /home/j/anick/patent-classifier/ontology/creation/data/patents/ln-us-cs-500k/data/term_features ...
+# python tf.py /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A28-mechanical-engineering/data/term_features/ /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A28-mechanical-engineering/data/tv/ 1998 2007
+
+# python tf.py /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/term_features/ /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/tv/ 1997 2007
+
 if __name__ == "__main__":
     args = sys.argv
     inroot = args[1]

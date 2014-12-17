@@ -50,6 +50,9 @@ The first step is to set up the directory structure needed to process the subcor
 This directory has one file for each document in the domain/year.  It is a subset of the lines and features in the source phr_feats files, 
 limited to the sections desired (e.g. title, asbstract, summary) and features of interest for the current tasks.
 
+Configuration info is kept in two files: roles_config.py and roles_config.sh
+Make sure the corpus root paths are properly specified before doing anything else!
+
 1. Create directory for corpus and populate term_features subdirectory and initial files in tv directory
 
 Modify the values of FUSE_CORPUS_ROOT and LOCAL_CORPUS_ROOT in the script run_term_features.sh to correspond to
@@ -77,6 +80,8 @@ Additionally, several files will be added to the <corpus>/data/tv directory for 
 <year>.tf   
 <term> <feature> <doc_freq> <prob>
 e.g., heterologous sequence   prev_V=flanks   5       0.000136
+doc_freq is the number of docs (in the year) that the term feature pair occurs in
+prob is the prob of the term_feature pair occurring within a doc in the corpus.  
 
 <year>.terms
 <term> <doc_freq> <term_freq> <prob>
@@ -102,6 +107,9 @@ rather than hard coded.
 This creates the <year>.tf.f file
 
 <year>.tf.f
+<term> <doc_freq>
+doc_freq is the number of docs in the corpus that contain this term (within the fields used to extract sentences
+for the term_features extracts, e.g. title, abstract, summary for patents).
 
 run fan.py (feature analysis)
 
@@ -127,7 +135,7 @@ This creates:
 Now run nbayes.py:
 python
 import nbayes
-# (3) nbayes.run_steps("ln-us-A27-molecular-biology", 2002, ["nb", "ds", "cf"])
+# nbayes.run_steps("ln-us-A27-molecular-biology", 2002, ["nb", "ds", "cf"])
 
 This creates
 -rw-r--r-- 1 anick grad  49842024 Aug 19 23:18 2002.act.cat.w0.1
@@ -163,5 +171,16 @@ This creates
 -rw-r--r-- 1 anick grad    357121 Aug 20 13:25 2002.a.pn.cat.w0.0_r2-10_ds1.5
 
 
-TBD: make corpus_root a config parameter in nbayes.py
+TBD: 
+- add an attribute filtering step
+- migrate to mallet NB
+- incorporate utils/file.py to extract sentences that match term and feature combinations
+to use for manual annotation
 
+- remove the tf.f file and use <year>.terms instead (2nd column is doc freq)
+(this is created in run_term_features.sh and used ???)
+
+
+# corpora fully loaded by Marc 10/2/14
+/home/j/corpuswork/fuse/FUSEData/corpora/ln-us-A22-communications
+/home/j/corpuswork/fuse/FUSEData/corpora/ln-us-A27-molecular-biology

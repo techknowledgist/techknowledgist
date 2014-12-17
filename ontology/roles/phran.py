@@ -20,6 +20,8 @@ import codecs
 import pnames
 import roles_config
 
+corpus_root = "/home/j/anick/patent-classifier/ontology/roles/data/patents"
+
 # for WoS
 # sources are in, e.g. /home/j/corpuswork/fuse/FUSEData/corpora/wos-cs-520k/subcorpora/2000/data/d0_xml/01/files/WoS.out.2000000024
 

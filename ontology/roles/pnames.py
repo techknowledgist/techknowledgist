@@ -6,7 +6,7 @@ import roles_config
 def tv_filepath(corpus_root, corpus, year, file_type, subset, cat_type=""):
     # check for illegal parameter values
     # note: for file_type, we allow values of the form "cat.<cutoff>"
-    if file_type not in ["diff", "tf", "cs", "cat", "cat_prob", "fc", "fc_kl", "fc_prob", "fc_uc", "tc", "tcs", "tfc", "feats", "terms", "ds"] and not file_type[0:5] == "cat.w":
+    if file_type not in ["diff", "tf", "cs", "cat", "cat_prob", "fc", "fc_kl", "fc_prob", "fc_uc", "tc", "tcs", "tfc", "feats", "terms", "ds", "filt.gold", "feats.1000", "unlab", "train", "tstart"] and not file_type[0:5] == "cat.w":
         print "[tv_filepath]WARNING: unknown file type: %s" % file_type
         
     if subset not in ["", "a", "t", "c"]:

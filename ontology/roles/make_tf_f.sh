@@ -4,7 +4,7 @@
 
 # uses <year>.tf to create <year>.tf.f
 # which gives # docs containing the term for that year for each term
-# sh make_tf_f.sh ln-us-cs-500k
+# sh make_tf_f.sh ln-us-A28-mechanical-engineering  "1997 1998 1999 2000 2001 2002 2003 2004 2005 2006 2007"
 # .tf.f is of the form:  <term>\t<doc_freq>
 #e.g.
 # mixed-endian computing systems  1
@@ -15,14 +15,16 @@
 # number of docs the NP occurred in (as a full chunk).  
 
 CORPUS=$1
+YEARS=$2
 
-#ROOT="/home/j/anick/patent-classifier/ontology/creation/data/patents"
+source ./roles_config.sh
+#ROOT="/home/j/anick/patent-classifier/ontology/roles/data/patents"
 
-DIR=$ROOT/$CORPUS/data/tv
+DIR=$LOCAL_CORPUS_ROOT/$CORPUS/data/tv
 TF_QUAL="tf"
 TFF_QUAL="tf.f"
 
-YEARS='1997 1998 1999 2000 2001 2002 2003 2004 2005 2006'
+#YEARS="1997 1998 1999 2000 2001 2002 2003 2004 2005 2006 2007"
 #YEARS='1997'
 
 for YEAR in $YEARS; do
