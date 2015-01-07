@@ -1,6 +1,7 @@
 # pnames.py
 # functions to construct path names
 
+import os
 import roles_config
 
 def tv_filepath(corpus_root, corpus, year, file_type, subset, cat_type=""):
@@ -54,4 +55,16 @@ def tv_dir_year_file(corpus_root, corpus, year, qualifier):
     full_filename = path + year + "." + qualifier
     return(full_filename)
 
-    
+# full name of file containing the list of files for a given patent corpus and application year
+# e.g. /home/j/corpuswork/fuse/FUSEData/corpora/ln-us-A21-computers/subcorpora/1997/config/files.txt
+def fuse_filelist(fuse_corpus_root, corpus, year):
+    year = str(year)
+    full_filename = os.path.join(fuse_corpus_root, corpus, "subcorpora", year, "config", "files.txt")
+    return(full_filename)
+
+# e.g., /home/j/corpuswork/fuse/FUSEData/corpora/ln-us-A21-computers/subcorpora/1997/data/d3_phr_feats/01/files/1998    
+def fuse_phr_feats_file(fuse_corpus_root, corpus, pipeline_step, year, filename):
+    year = str(year)
+    full_filename = os.path.join(fuse_corpus_root, corpus, "subcorpora", year, "data", pipeline_step, "01", "files", filename)
+    return(full_filename)
+
