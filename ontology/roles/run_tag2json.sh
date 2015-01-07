@@ -1,18 +1,49 @@
-# script to run term_features.sh with set parameters
-# this populates the directory $TARGET/data/term_features/ with a subdirectory for each year
+# run_tag2json.sh
+# script to run tag2json.sh with set parameters
+# this populates the directory $TARGET/data/tv/ with a file for each year
 # specified, creating one file for each d3_phr_feats file in the source corpus.  Each 
 # file contains a term, a feature, and the count of appearances of the feature with the term.
 # The option ta/tas indicates which source file sections to use (title, abstract, summary)
 
+# NOT FINISHED!
+
+# uses tf.py and term_features.sh
+
+# example calls
 # modified to take three parameters corpus, start_year, end_year
 # sh run_term_features.sh wos-cs-520k 1997 1997
+# sh run_term_features.sh ln-us-all-600k 1997 2007
+
+# sh run_term_features.sh ln-us-A30-electrical-circuits 2002 2002
+# 
+# sh run_term_features.sh ln-us-A27-molecular-biology 1997 2007
+# sh run_term_features.sh ln-us-A22-communications 1997 2007
+# sh run_term_features.sh ln-us-A30-electrical-circuits 1998 2007
+
+# PARAMETERS TO SET BEFORE RUNNING SCRIPT:
+# FUSE_CORPUS_ROOT="/home/j/corpuswork/fuse/FUSEData/corpora"
+# LOCAL_CORPUS_ROOT="/home/j/anick/patent-classifier/ontology/creation/data/patents"
+# LOCAL_CORPUS_ROOT="/home/j/anick/patent-classifier/ontology/roles/data/patents"
+# get the corpus roots from roles.config.sh
+
+# 10/2/14 PGA removed the creation of the tf.f file, which is redundant with the .terms file information.
+
+# sh run_tag2json.sh ln-us-A21-computers 2002 2003
+
+# get start time to compute elapsed time
+START_TIME=$(date +%s)
+
+# get path info
+source ./roles_config.sh
 
 CORPUS=$1
 START_YEAR=$2
 END_YEAR=$3
 
-ROOT="/home/j/corpuswork/fuse/FUSEData/corpora/$CORPUS"                                                       
-TARGET="/home/j/anick/patent-classifier/ontology/creation/data/patents/$CORPUS"                             
+#ROOT="/home/j/corpuswork/fuse/FUSEData/corpora/$CORPUS"
+FUSE_ROOT=$FUSE_CORPUS_ROOT/$CORPUS
+#TARGET="/home/j/anick/patent-classifier/ontology/creation/data/patents/$CORPUS"
+LOCAL_ROOT="$LOCAL_CORPUS_ROOT/$CORPUS"
 
 #sh run_term_features.sh
 
@@ -66,26 +97,45 @@ TARGET="/home/j/anick/patent-classifier/ontology/creation/data/patents/$CORPUS"
 #TARGET="/home/j/anick/patent-classifier/ontology/creation/data/patents/ln-us-14-health"
 
 # Make sure target directory tree exists before running this script
-mkdir $TARGET
-mkdir $TARGET/data
-mkdir $TARGET/data/term_features
-mkdir $TARGET/data/tv
-# create a directory for ACT specific files
-mkdir $TARGET/data/act
 
+echo "[run_term_features.sh]LOCAT_ROOT: $LOCAL_ROOT, LOCAL_CORPUS_ROOT: $LOCAL_CORPUS_ROOT" 
+
+mkdir $LOCAL_ROOT
+mkdir $LOCAL_ROOT/data
+mkdir $LOCAL_ROOT/data/term_features
+mkdir $LOCAL_ROOT/data/tv
+# create a directory for ACT specific files
+mkdir $LOCAL_ROOT/data/act
+
+# we use final "/" for the parameters to run_dir2features_count
+TF_DIR=$LOCAL_ROOT/data/term_features/
+TV_DIR=$LOCAL_ROOT/data/tv
+
+echo "[run_term_features.sh]Created local_root directory: $LOCAL_ROOT"
+
+#exit 
 # loop over the years for which we have data
-#"COMMENT"
+
 YEAR=$START_YEAR
 #YEAR=1998
 #YEAR=2003
 #while [ $YEAR -le 1998 ] ; do
-while [ $YEAR -le $END_YEAR ] ; do
-#while [ $YEAR -le 2007 ] ; do
-    echo "year: $YEAR"
+# populate the local term_features directory for the range of years specified
 
-    sh term_features.sh $ROOT/subcorpora/$YEAR/config/files.txt $ROOT/subcorpora/$YEAR/data/d3_phr_feats/01/files $TARGET/data/term_features tas
+#<<"COMMENT"
+echo "[run_tag2json.sh]Populating tv directory for each year in range"
+#exit
+
+while [ $YEAR -le $END_YEAR ] ; do
+
+    OUTFILE=$TV_DIR/$YEAR.json
+
+    echo "[run_tag2json]year: [$YEAR], outfile: $OUTFILE"
+    # create (or re-initialize to empty) the yearly outfile
+    ###> $OUTFILE
+
+    sh tag2json.sh $FUSE_ROOT/subcorpora/$YEAR/config/files.txt $FUSE_ROOT/subcorpora/$YEAR/data/d2_tag/01/files $OUTFILE tas
     
     YEAR=$[ $YEAR + 1 ]
 done
-#COMMENT
 

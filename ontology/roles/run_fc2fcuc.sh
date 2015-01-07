@@ -32,10 +32,10 @@ fi
 
 # We cannot add the year to the filepath string since it gets set in a loop later
 # But we can construct the pieces around it.
-FILESTR_BEFORE_YEAR=$CORPUS_ROOT$CORPUS$TV_PATH/
+FILESTR_BEFORE_YEAR="$CORPUS_ROOT/$CORPUS$TV_PATH/"
 FILESTR_AFTER_YEAR=$SUBSET$CAT_TYPE
 
-echo "[run_fc2fcuc.sh] SUBSET is [$SUBSET], cat_type is [$CAT_TYPE], filestr_after_year is [$FILESTR_AFTER_YEAR]"
+echo "[run_fc2fcuc.sh] SUBSET is [$SUBSET], cat_type is [$CAT_TYPE], filestr_before_year is [$FILESTR_BEFORE_YEAR], filestr_after_year is [$FILESTR_AFTER_YEAR]"
 
 # loop over the years for which we have data
 #"COMMENT"
