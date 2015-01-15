@@ -29,8 +29,8 @@
 
 
 <p>Installation is a matter of (1) getting the git repository and installing the
-sub modules, (2) installing third party software (Stanford tools and Mallet
-classifier), and (3) dowloading the classifier models.</p>
+sub modules, (2) installing the Stanford tools, (3) installing Mallet, and (4)
+dowloading the classifier models.</p>
 
 <ol>
 
@@ -58,7 +58,6 @@ $ git submodule update
 
 <li>Stanford Tools.
 
-
 <li>The code uses version 2.0.7 of the Mallet toolkit<sup>1</sup>, available
 at <a href="http://mallet.cs.umass.edu/"
 target="_blank">http://mallet.cs.umass.edu/</a>. Other versions will most likely
@@ -82,8 +81,26 @@ target="_blank">http://www.cs.brandeis.edu/~marc/fuse/downloads/models/</a>
 <p>There is currently only one model available. You can easily create your own
 models, as described in the manual section on the technology classifier.
 
-
 </ol>
+
+<p>In some cases, you may have to set some environment variables to avoid
+encoding issues. If you use Linux with a bash shell, add the following to
+.bash_profile if you have problems:</p>
+
+<pre class="example">
+export LC_ALL=en_US.UTF-8  
+export LANG=en_US.UTF-8
+</pre>
+
+<p>The equivalent for a Linux csh is to add the following to .cshrc:</p>
+
+<pre class="example">
+setenv LC_ALL en_US.UTF-8  
+setenv LANG en_US.UTF-8
+</pre>
+
+<p>The problem has not been observed for Mac OSX and, oddly, problematic Linux
+servers have no problem when you log in from a Mac.</p>
 
 
 <hr/>

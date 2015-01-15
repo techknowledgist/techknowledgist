@@ -24,6 +24,9 @@ Options:
          not, the directory is taken as a path relative to the script directory
          (unless it is an absolute path)
 
+    --language (en|cn) - the language, determines what pattern set will be used,
+         the default is to use 'en'
+
     --verbose - print progress
 
 Results are written to the output directory in two files, one with a line for
