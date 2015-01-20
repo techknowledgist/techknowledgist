@@ -30,9 +30,10 @@ in the lists in /home/j/corpuswork/fuse/FUSEData/lists/.
 Here is an example on how to do the entire list of US patents using three
 processors:
 
-    $ python create-date-idx.py /home/j/corpuswork/fuse/FUSEData/lists/ln_uspto.all.shuffled.txt ln-uspto-1.txt warnings-1.txt 0 2500000
-    $ python create-date-idx.py /home/j/corpuswork/fuse/FUSEData/lists/ln_uspto.all.shuffled.txt ln-uspto-2.txt warnings-2.txt 2500000 5000000
-    $ python create-date-idx.py /home/j/corpuswork/fuse/FUSEData/lists/ln_uspto.all.shuffled.txt ln-uspto-3.txt warnings-3.txt 5000000 7500000
+    $ setenv LIST /home/j/corpuswork/fuse/FUSEData/lists/ln_uspto.all.shuffled.txt
+    $ python create-date-idx.py $LIST ln-uspto-1.txt warnings-1.txt 0 2500000
+    $ python create-date-idx.py $LIST ln-uspto-2.txt warnings-2.txt 2500000 5000000
+    $ python create-date-idx.py $LIST ln-uspto-3.txt warnings-3.txt 5000000 7500000
 
 On the CS machines, this takes about 2-3 days.
 
