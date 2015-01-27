@@ -3,7 +3,7 @@
 Create a random index of CNKI file paths, indexed on the short name of the path
 (the base name with '.fuse.xml' removed).
 
-Takes as input the grepped vlists.
+Takes as input the grepped vlists, but removes the spurious part of the path.
 
 Creates cnki-all-random.txt and cnki-all-random.log. The first has two columns
 (short name and path), the second has all the cases where there were duplicates
@@ -34,14 +34,17 @@ for fname in os.listdir(LISTS_DIR):
     for line in open(fpath):
         c += 1
         if c % 100000 == 0: print '  ', c
-        if c > 200000: break
+        if c > 100: break
+        # get the path and the base, but loose the suprious part of the path
         path = line.split()[-1]
-        basename = os.path.basename(path)
+        dir, basename = os.path.split(path)
+        dir, rest = os.path.split(dir)
         basename = basename.replace('.fuse.xml', '')
+        path = os.path.join(dir, basename)
         if INDEX.has_key(basename):
             warnings += 1
             FH_WARNINGS.write("duplicate entry for %s\n" % basename)
-            FH_WARNINGS.write("   %s\n" % INDEX[basename])
+            FH_WARNINGS.write("   %s\n" % INDEX[basename][0])
             FH_WARNINGS.write("   %s\n" % path)
             INDEX[basename].append(path)
         else:
