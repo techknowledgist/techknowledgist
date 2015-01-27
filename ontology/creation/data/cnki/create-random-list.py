@@ -39,8 +39,8 @@ for fname in os.listdir(LISTS_DIR):
         path = line.split()[-1]
         dir, basename = os.path.split(path)
         dir, rest = os.path.split(dir)
-        basename = basename.replace('.fuse.xml', '')
         path = os.path.join(dir, basename)
+        basename = basename.replace('.fuse.xml', '')
         if INDEX.has_key(basename):
             warnings += 1
             FH_WARNINGS.write("duplicate entry for %s\n" % basename)

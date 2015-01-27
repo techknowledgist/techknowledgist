@@ -6,13 +6,15 @@ utils/tries/*
 ontology/creation/log.dat
 ontology/doc_processing/log.dat
 
-ontology/creation/data/*
-!ontology/creation/data/wos
 ontology/creation/data/wos/cs-*
-!ontology/creation/data/patents
 ontology/creation/data/patents/*
 !ontology/creation/data/patents/*py
+ontology/creation/data/cnki/*
+!ontology/creation/data/cnki/*py
 
-ontology/classifier/data/*
-# this does not work, I have no idea why not
-!ontology/classifier/data/models/inventions-standard-20130713
+ontology/classifier/data/classifications/*
+ontology/classifier/data/models/*
+# only the third of these work, not sure why
+\!ontology/classifier/data/models/inventions-standard-20130713
+!ontology/classifier/data/models/inventions-standard-20130713/*
+!ontology/classifier/data/models/inventions-standard-2013*
