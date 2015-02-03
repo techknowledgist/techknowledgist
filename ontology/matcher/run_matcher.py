@@ -412,7 +412,7 @@ if __name__ == '__main__':
     # TODO: language should not be an option after step1_initialize since it is
     # associated with a corpus, should therefore also not be given to the config
     # object, but for now we keep it
-    rconfig = RuntimeConfig(corpus, None, None, language, pipeline_config)
+    rconfig = RuntimeConfig(corpus, None, None, language, None, pipeline_config)
 
     matcher = Matcher(rconfig, filelist, output)
     matcher.pp()
