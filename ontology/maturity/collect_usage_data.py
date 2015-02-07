@@ -12,10 +12,6 @@ Usage:
 
     --corpus DIRECTORY - the name/location of the corpus
 
-    --matches DIRECTORY - the name of the matches directory inside the corpus,
-      residing in the corpus directory in data/o2_matcher, the script picks out
-      the file match.results.summ.txt in DIRECTORY
-
     --tscores DIRECTORY - a directory created by the technology classifier
       (ontology/classifier/tclassify.py), the script picks out the file
       classify.MaxEnt.out.s4.scores.sum.az; it is the responsibility of the user
@@ -23,21 +19,25 @@ Usage:
 
     --output FILE - output file to write the results to. 
 
+    --matches DIRECTORY - the name of the matches directory inside the corpus,
+      residing in the corpus directory in data/o2_matcher, the script picks out
+      the file match.results.summ.txt in DIRECTORY, the default is 'maturity'
+
     --language (en|cn) - the language, default is to use 'en'
 
     --limit INTEGER - the maximum number of lines to take from the file with
       technology scores, useful for debugging only, defaults to using all scores
 
-    The first four options are required. For each required option there is a
-    short version (-c, -m, -t and -o).
+    The first three options are required. For each required option there is a
+    short version (-c, -t and -o).
 
-The output is a file with for each term the technology score, the number of
-documents the term occurs in and the number of matches for the term. The file
-also has a header with information on how it was generated, input sources and a
-few counts including total number of terms, total number of matches, highest
-match count and highest document count. Terms are filtered, removing some
-obvious crap. The total counts do not include the filtered terms or any data
-relating to those filtered terms.
+The output is a file with for each term the technology score, the usage rate,
+the number of documents the term occurs in and the number of matches for the
+term. The file also has a header with information on how it was generated, input
+sources and a few counts including total number of terms, total number of
+matches, highest match count and highest document count. Terms are filtered,
+removing some obvious crap. The total counts do not include the filtered terms
+or any data relating to those filtered terms.
 
 The terms are presented with four numbers as follows:
 
@@ -87,6 +87,10 @@ def create_usage_file(corpus, matches, tscores, output,
     tscores_file = os.path.join(tscores, 'classify.MaxEnt.out.s4.scores.sum.az')
     _print_header(corpus, matches, tscores, language, output)
     term_matches = _read_matches(matches_file)
+    print matches_file
+    print tscores_file
+    print len(term_matches)
+    #exit()
     stats = TermStats()
     print "Reading technology scores and document counts..."
     c = 0
@@ -96,6 +100,7 @@ def create_usage_file(corpus, matches, tscores, output,
         if c % 100000 == 0: print "%dk" % (c/1000,),
         term, score, doc_count, min, max = line.rstrip("\n\r\f").split("\t")
         if filter_term(term, language):
+            print "filtering", term
             continue
         stats.update(term, score, doc_count, term_matches)
     print "\nCalculating usage rates..."
@@ -145,31 +150,31 @@ def _print_header(corpus, matches, tscores, langauge, output):
     print "  language =", language
     print "  output   =", output, "\n"
 
-def _write_info(fh_out, corpus, matches, tscores):
-    fh_out.write("#\n# $ python %s\n#\n" % ' '.join(sys.argv))
-    fh_out.write("# git_commit = %s\n#\n" % get_git_commit())
-    fh_out.write("# corpus  = %s\n" % corpus)
-    fh_out.write("# matches = %s\n" % _condense_path(matches, corpus))
-    fh_out.write("# tscores = %s\n" % _condense_path(tscores, corpus))
-    fh_out.write("#\n")
+def _write_info(fh, corpus, matches, tscores):
+    fh.write("#\n# $ python %s\n#\n" % ' '.join(sys.argv))
+    fh.write("# git_commit = %s\n#\n" % get_git_commit())
+    fh.write("# corpus  = %s\n" % corpus)
+    fh.write("# matches = %s\n" % _condense_path(matches, corpus))
+    fh.write("# tscores = %s\n" % _condense_path(tscores, corpus))
+    fh.write("#\n")
 
 def _condense_path(path, prefix):
     if path.startswith(prefix):
         return "<corpus>" + path[len(prefix):]
     return path
 
-def _write_aggregate_counts(fh_out, stats):
-    fh_out.write("# TOTAL_TERMS = %d\n" % stats.total_terms)
-    fh_out.write("# TOTAL_MATCHES = %d\n" % stats.total_matches)
-    fh_out.write("# TOTAL_TERMS_WITH_MATCHES = %d\n" % stats.total_terms_with_matches)
-    fh_out.write("# HIGHEST_MATCH_COUNT = %d\n" % stats.highest_match_count)
-    fh_out.write("# HIGHEST_DOC_COUNT = %d\n#\n" % stats.highest_doc_count)
+def _write_aggregate_counts(fh, stats):
+    fh.write("# TOTAL_TERMS = %d\n" % stats.total_terms)
+    fh.write("# TOTAL_MATCHES = %d\n" % stats.total_matches)
+    fh.write("# TOTAL_TERMS_WITH_MATCHES = %d\n" % stats.total_terms_with_matches)
+    fh.write("# HIGHEST_MATCH_COUNT = %d\n" % stats.highest_match_count)
+    fh.write("# HIGHEST_DOC_COUNT = %d\n#\n" % stats.highest_doc_count)
 
-def _write_term_data(fh_out, usage_data):
+def _write_term_data(fh, usage_data):
     for term in sorted(usage_data.keys()):
         tscore, uscore, doc_count, match_count = usage_data[term]
-        fh_out.write("%.4f\t%.4f\t%d\t%d\t%s\n" %
-                     (tscore, uscore, doc_count, match_count, term))
+        fh.write("%.4f\t%.4f\t%d\t%d\t%s\n" %
+                 (tscore, uscore, doc_count, match_count, term))
 
 def _read_matches(match_file):
     """Return a hash for match_file, contains the number of matches for all
@@ -227,22 +232,22 @@ def check_args(corpus, matches, tscores, output):
 if __name__ == '__main__':
     
     options = ['output=', 'corpus=', 'matches=', 'tscores=', 'limit=', 'language=']
-    (opts, args) = getopt.getopt(sys.argv[1:], 'o:c:m:t:l:', options)
-    
+    (opts, args) = getopt.getopt(sys.argv[1:], 'o:c:t:', options)
+
     output = None
     corpus = None
-    matches = None
     tscores = None
+    matches = 'maturity'
     language = "en"
     limit = sys.maxint
     
     for opt, val in opts:
         if opt in ('--output', '-o'): output = val
         elif opt in ('--corpus', '-c'): corpus = val
-        elif opt in ('--matches', '-m'): matches = val
         elif opt in ('--tscores', '-t'): tscores = val
+        elif opt in ('--language'): language = val
+        elif opt in ('--matches'): matches = val
         elif opt in ('--limit'): limit = int(val)
-        elif opt in ('--language'): language = int(val)
 
     check_args(corpus, matches, tscores, output)
     create_usage_file(corpus, matches, tscores, output, limit, language)
