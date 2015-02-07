@@ -75,9 +75,7 @@ def process(args, term_freqs):
     for year, fname in years_fnames:
         print year, fname
         read_scores(frequent_terms, year, fname, scores)
-        print 'done'
     print_time_series(years, scores)
-
 
 def collect_year_sizes(years_fnames):
     """Collect the sizes for all corpora and identify the largest corpus. Size
@@ -140,11 +138,15 @@ def read_terms(terms_file):
 
 def read_scores(frequent_terms, year, fname, scores):
     header = ''
+    c = 0
     for line in codecs.open(fname, encoding='utf8'):
         if line.startswith('#'):
             header += line
         else:
-            (tscore, urate, docs, matches, term) = line.strip().split("\t")
+            c += 1
+            #if c > 100000: break
+            (tscore, urate, docs, matches, term) = line.split("\t")
+            term = term.rstrip("\n\f\r")
             if frequent_terms.has_key(term):
                 scores.setdefault(term, {})[year] = [tscore, urate, docs, matches]
     return header
@@ -213,14 +215,4 @@ if __name__ == '__main__':
         if opt == '-t': terms = val
     if terms is None:
         exit("Error: no terms file specified")
-
     process(args, terms)
-
-
-
-
-
-
-
-
-

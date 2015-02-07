@@ -4,20 +4,26 @@
 Takes the tables in maturity-freq-based.txt and maturity-match-based.txt
 and splits them into simpler tables for each year.
 
+Usage:
+
+    $ python split_time_series.py DIRECTORY?
+
+    The optional DIRECTORY is the directory with the maturity scores tables that
+    need to be split.
+
 """
 
 
-import os, codecs
+import sys, os, codecs
 
-CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-us-cs-500k'
 CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-us-all-600k'
 CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-cn-all-600k'
 
-TIME_SERIES_DIR = CORPUS_DIR + '/time-series-v2/maturity-scores'
-TIME_SERIES_DIR = CORPUS_DIR + '/time-series-v3/maturity-scores'
 TIME_SERIES_DIR = CORPUS_DIR + '/time-series-v4/maturity-scores'
-TIME_SERIES_DIR = CORPUS_DIR + '/time-series-v2/maturity-scores-cn'
 TIME_SERIES_DIR = CORPUS_DIR + '/time-series-v4/maturity-scores-cn'
+
+if len(sys.argv) > 1:
+    TIME_SERIES_DIR = sys.argv[1]
 
 maturity_scores1_file = TIME_SERIES_DIR + '/maturity-freq-based.txt'
 maturity_scores2_file = TIME_SERIES_DIR + '/maturity-match-based.txt'
