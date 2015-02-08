@@ -17,7 +17,7 @@ Usage:
       classify.MaxEnt.out.s4.scores.sum.az; it is the responsibility of the user
       to make sure that the classifier results selected match the corpus
 
-    --output FILE - output file to write the results to. 
+    --output FILE - output file to write the results to.
 
     --matches DIRECTORY - the name of the matches directory inside the corpus,
       residing in the corpus directory in data/o2_matcher, the script picks out
@@ -39,7 +39,16 @@ matches, highest match count and highest document count. Terms are filtered,
 removing some obvious crap. The total counts do not include the filtered terms
 or any data relating to those filtered terms.
 
-The terms are presented with four numbers as follows:
+Example:
+
+    $ setenv CORPUS /home/j/corpuswork/fuse/FUSEData/corpora/ln-cn-all-600k
+    $ python collect_usage_data.py \
+         --corpus $CORPUS/subcorpora/1995 \
+         --tscores $CORPUS/classifications/technologies-201502/1995 \
+         --output usage-1995.txt \
+         --language cn
+
+In the output, terms are presented with four numbers as follows:
 
     0.0029   0.0000   2   0   accelerometer senses
     1.0000   0.0000   1   0   accelerometer sensor
@@ -87,10 +96,6 @@ def create_usage_file(corpus, matches, tscores, output,
     tscores_file = os.path.join(tscores, 'classify.MaxEnt.out.s4.scores.sum.az')
     _print_header(corpus, matches, tscores, language, output)
     term_matches = _read_matches(matches_file)
-    print matches_file
-    print tscores_file
-    print len(term_matches)
-    #exit()
     stats = TermStats()
     print "Reading technology scores and document counts..."
     c = 0
@@ -100,7 +105,6 @@ def create_usage_file(corpus, matches, tscores, output,
         if c % 100000 == 0: print "%dk" % (c/1000,),
         term, score, doc_count, min, max = line.rstrip("\n\r\f").split("\t")
         if filter_term(term, language):
-            print "filtering", term
             continue
         stats.update(term, score, doc_count, term_matches)
     print "\nCalculating usage rates..."
@@ -182,7 +186,7 @@ def _read_matches(match_file):
     particular year."""
     print "Reading term matches..."
     term_matches = {}
-    for line in codecs.open(match_file):
+    for line in codecs.open(match_file, encoding='utf-8'):
         fields = line.split()
         matches = fields[0]
         term = ' '.join(fields[1:])
@@ -215,7 +219,6 @@ class TermStats(object):
         if doc_count > self.highest_doc_count:
             self.highest_doc_count = doc_count
         self.usage_data[term] = [score, doc_count, match_count]
-
 
 def check_args(corpus, matches, tscores, output):
     if corpus is None:

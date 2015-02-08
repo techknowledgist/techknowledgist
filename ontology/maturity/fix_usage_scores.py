@@ -16,6 +16,8 @@ Note. This is to work around a bug in collect_usage_scores.py that shows up with
 Chinese data. I have not found the fix yet, but something seems to go wrong when
 terms with Chinese charaters are stored in the hash.
 
+Update. This script is now obsolete since collect_usage_scores.py was fixed.
+
 """
 
 
