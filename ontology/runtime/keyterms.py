@@ -168,11 +168,12 @@ sys.path.insert(0, os.getcwd())
 os.chdir(script_dir)
 
 from utils.docstructure.main import Parser
-from ontology.creation import txt2tag, tag2chunk
-from ontology.classifier.run_iclassify import add_phr_feats_file
-from ontology.classifier.run_iclassify import patent_invention_classify
+from ontology.doc_processing import txt2tag, tag2chunk
+from ontology.classifier.invention import patent_invention_classify
+from ontology.classifier.invention import make_instance_key
 from ontology.classifier.run_iclassify import process_label_file
 from ontology.utils.git import get_git_commit
+from ontology.utils.file import open_input_file
 from ontology.runtime.utils.text import parse_fact_line
 from ontology.runtime.utils.misc import read_filelist, default_id
 
@@ -184,6 +185,9 @@ import ontology.classifier.config
 
 # the model used by this invention classifier
 MODEL = '../classifier/data/models/inventions-standard-20130713/'
+
+# used by add_phr_feats_file(), is probably useless
+output_count = 0
 
 
 def process(filelist, run_id, mallet_path, stanford_path, condense_results):
@@ -285,14 +289,19 @@ def run_classifier(chk_files, run_id, condense_results):
     with codecs.open(mallet_file, "w", encoding='utf-8') as s_mallet:
         for chk_file in chk_files:
             add_phr_feats_file(chk_file, s_mallet)
-    patent_invention_classify(MODEL, results_dir, verbose=VERBOSE)
-    label_file='iclassify.MaxEnt.label'
+    patent_invention_classify(None, MODEL, results_dir, verbose=VERBOSE)
+    label_file = 'iclassify.MaxEnt.label'
     create_info_file(results_dir)
     command = "cat %s/%s | egrep -v '^name' | egrep '\|.*\|' | python %s > %s/%s" \
               % (results_dir, 'iclassify.MaxEnt.out', '../classifier/invention_top_scores.py',
                  results_dir, label_file)
     if VERBOSE: print '$', command
     subprocess.call(command, shell=True)
+    # TODO: the problem with this is that the first argument is used by
+    # merge_scores in invention.py to find the processed file and lift the title
+    # out of their, but merge_scores expects a corpus directory and its implied
+    # strucutre; however, in keyterms we have no corpus and we use a flat
+    # structure
     process_label_file(results_dir, results_dir, label_file, VERBOSE)
     if condense_results:
         for fname in ['iclassify.MaxEnt.label', 'iclassify.MaxEnt.label.cat',
@@ -305,6 +314,38 @@ def create_info_file(classification):
         fh.write("$ python %s\n\n" % ' '.join(sys.argv))
         fh.write("classification        =  %s\n" % classification)
         fh.write("git_commit            =  %s\n" % get_git_commit())
+
+
+def add_phr_feats_file(phr_feats_file, s_mallet):
+    """Loop through phr_feats_file and add the first 30 lines to s_mallet. Only
+    add the lines if the chunk is in the title or abstract."""
+    # TODO: was originally imported from run_iclassify, belongs in mallet?
+    # TODO: should maybe be in separate utilities file (classifier_utils.py)
+    global output_count
+    num_lines_output = 0
+    # handle compressed or uncompressed files
+    s_phr_feats = open_input_file(phr_feats_file)
+    # keep first 30 chunks, if they are from title/abstract
+    num_chunks = 0
+    for line in s_phr_feats:
+        if num_chunks >= 30:
+            break
+        line = line.strip("\n")
+        if line.find("TITLE") > 0 or line.find("ABSTRACT") > 0:
+            l_data = line.split("\t")
+            chunkid = l_data[0]
+            year = l_data[1]
+            phrase = l_data[2]
+            l_feats = l_data[3:]
+            key = make_instance_key(chunkid, year, phrase)
+            # add dummy "n" as class label
+            instance_line = key + " n " + " ".join(l_feats) + "\n"
+            output_count += 1
+            s_mallet.write(instance_line)
+            num_chunks += 1
+            num_lines_output += 1
+    s_phr_feats.close()
+    return num_lines_output
 
 
 
