@@ -131,11 +131,12 @@ def filter_term(term, language):
 
 def filter_term_en(term):
     """Filter out some obvious crap. Do not allow (i) terms with spaces only,
-    (ii) terms with three or more hyphens/underscores in a row, (iii) terms
-    where half or less of the characters are alphabetical, and (iv) terms that
-    are longer than 75 characters. The latter avoids using what could be huge
-    outliers."""
+    (ii) terms that do not start with a letter or digit, (iii) terms with three
+    or more hyphens/underscores in a row, (iv) terms where half or less of the
+    characters are letters, and (v) terms with more than 75 characters. The last
+    avoids using what could be huge outliers like gene sequences."""
     if term.strip() == '' \
+       or not term[0].isalnum() \
        or term.find('---') > -1 \
        or term.find('___') > -1 \
        or len([c for c in term if c.isalpha()]) * 2 < len(term) \
