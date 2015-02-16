@@ -19,6 +19,12 @@ Usage:
         create scores-frequency-raw.txt with document counts
         create scores-frequency-rel.txt with relative frequencies
 
+    --keyterms:
+        create scores-keyterms-count.txt
+        create scores-keyterms-role-i.txt
+        create scores-keyterms-role-ct.txt
+        create scores-keyterms-role-ca.txt
+
     --all:
         create all the above
 
@@ -41,6 +47,8 @@ read because there are needed for the filter.
 
 """
 
+TEST = False
+#TEST = True
 
 import os, sys, codecs, math, getopt, StringIO
 from utils import filter_term_en, filter_term
@@ -48,7 +56,8 @@ sys.path.append(os.path.abspath('../..'))
 from ontology.utils.file import open_input_file
 
 YEARS = range(1995, 2013 + 1)
-#YEARS = range(1995, 1996 + 1)
+if TEST:
+    YEARS = range(1995, 1996 + 1)
 
 YEAR_STRINGS = ["%s" % y for y in YEARS]
 
@@ -57,14 +66,14 @@ TERMS_FILE = os.path.join(TIME_SERIES, 'terms-0025.txt')
 
 
 
-def initialize_terms(mscores, fscores):
+def initialize_terms(mscores, fscores, kscores):
     """Initialize the terms dictionary using frequent terms."""
     print "Initializing terms from frequent terms..."
     terms = {}
     c = 0
     for line in codecs.open(TERMS_FILE, encoding='utf8'):
         c += 1
-        #if c > 100000: break
+        if TEST and c > 100000: break
         if c % 100000 == 0: print c
         term = line.strip()
         if not filter_term(term, 'en'):
@@ -74,6 +83,11 @@ def initialize_terms(mscores, fscores):
             if fscores:
                 terms[term]['fscores'] = dict.fromkeys(YEAR_STRINGS, 0)
                 terms[term]['ascores'] = dict.fromkeys(YEAR_STRINGS, 0)
+            if kscores:
+                terms[term]['kf_scores'] = dict.fromkeys(YEAR_STRINGS, 0)
+                terms[term]['kct_scores'] = dict.fromkeys(YEAR_STRINGS, 0)
+                terms[term]['kca_scores'] = dict.fromkeys(YEAR_STRINGS, 0)
+                terms[term]['ki_scores'] = dict.fromkeys(YEAR_STRINGS, 0)
     print "loaded", len(terms), "terms"
     return terms
 
@@ -100,7 +114,7 @@ def add_scores(terms, fname, year, scoretype):
     c = 0
     for line in fh:
         c += 1
-        #if c >= 100000: break
+        if TEST and c >= 100000: break
         if c % 100000 == 0: print c
         term, score = line.rstrip().split("\t")
         if terms.has_key(term):
@@ -117,7 +131,7 @@ def remove_non_technologies(terms):
 
 def add_ascores(terms):
     """Calculate adjusted frequency scores from the raw frequencies."""
-    print "Adding adjusted fscores..."
+    print "Calculating adjusted fscores..."
     for year in YEAR_STRINGS:
         scores = []
         for term in terms.keys():
@@ -130,37 +144,78 @@ def add_ascores(terms):
                 ascore = math.log(fscore + 1) / math.log(maxscore + 1)
             terms[term]['ascores'][year] = ascore
 
-def print_terms(terms, tscores, mscores, fscores):
+def add_kscores(terms):
+    for year in YEAR_STRINGS:
+        add_kscores_for_year(terms, 'ki_scores', 'i', year)
+        add_kscores_for_year(terms, 'kct_scores', 'ct', year)
+        add_kscores_for_year(terms, 'kca_scores', 'ca', year)
+
+def add_kscores_for_year(terms, key, roletype, year):
+    fname = os.path.join(TIME_SERIES, 'keyterms', "roles-%s-%s.txt" % (roletype, year))
+    print "k%s_scores" % roletype, fname
+    fh = open_input_file(fname)
+    c = 0
+    for line in fh:
+        c += 1
+        if TEST and c >= 100000: break
+        if c % 100000 == 0: print c
+        (term, count, ratio) = line.rstrip("\n\f\r").split("\t")
+        if terms.has_key(term):
+            terms[term]['kf_scores'][year] += int(count)
+            terms[term][key][year] = float(ratio)
+
+def print_terms(terms, tscores, mscores, fscores, kscores):
     print "Printing terms..."
     s_fscores = StringIO.StringIO()
     s_ascores = StringIO.StringIO()
     s_tscores = StringIO.StringIO()
     s_mscores = StringIO.StringIO()
+    s_kf_scores = StringIO.StringIO()
+    s_ki_scores = StringIO.StringIO()
+    s_kct_scores = StringIO.StringIO()
+    s_kca_scores = StringIO.StringIO()
     c = 0
     for term in terms:
         c += 1
         if c % 10000 == 0: print c
-        add_term_to_stream(terms, term, 'tscores', s_tscores, tscores)
-        add_term_to_stream(terms, term, 'mscores', s_mscores, mscores)
-        if fscores:
-            for year in sorted(terms[term]['fscores'].keys()):
-                fscore = terms[term]['fscores'][year]
-                fscore = 'None' if fscore is None else "%d" % fscore
-                s_fscores.write("%s\t" % fscore)
-            s_fscores.write("%s\n" % term)
-        add_term_to_stream(terms, term, 'ascores', s_ascores, fscores)
+        add_term_to_stream(terms, term, 'tscores', s_tscores, tscores, float)
+        add_term_to_stream(terms, term, 'mscores', s_mscores, mscores, float)
+        add_term_to_stream(terms, term, 'fscores', s_fscores, fscores, int)
+        add_term_to_stream(terms, term, 'ascores', s_ascores, fscores, float)
+        add_term_to_stream(terms, term, 'kf_scores', s_kf_scores, kscores, int)
+        add_term_to_stream(terms, term, 'ki_scores', s_ki_scores, kscores, float)
+        add_term_to_stream(terms, term, 'kct_scores', s_kct_scores, kscores, float)
+        add_term_to_stream(terms, term, 'kca_scores', s_kca_scores, kscores, float)
     print_from_stream(s_tscores, 'scores-technologies.txt', tscores)
     print_from_stream(s_mscores, 'scores-maturity.txt', mscores)
     print_from_stream(s_fscores, 'scores-frequencies-raw.txt', fscores)
     print_from_stream(s_ascores, 'scores-frequencies-rel.txt', fscores)
+    print_from_stream(s_kf_scores, 'scores-keyterms-count.txt', kscores)
+    print_from_stream(s_ki_scores, 'scores-keyterms-role-i.txt', kscores)
+    print_from_stream(s_kct_scores, 'scores-keyterms-role-ct.txt', kscores)
+    print_from_stream(s_kca_scores, 'scores-keyterms-role-ca.txt', kscores)
 
-def add_term_to_stream(terms, term, scoretype, fh, scores_p):
-    if scores_p:
-        for year in sorted(terms[term][scoretype].keys()):
-            score = terms[term][scoretype][year]
-            score = 'None' if score is None else "%.2f" % score
-            fh.write("%s\t" % score)
-        fh.write("%s\n" % term)
+def add_term_to_stream(terms, term, scoretype, fh, scores_p, valuetype):
+    if not scores_p:
+        return
+    if valuetype is float:
+        add_term_to_stream_using_float(terms, term, scoretype, fh)
+    elif valuetype is int:
+        add_term_to_stream_using_int(terms, term, scoretype, fh)
+
+def add_term_to_stream_using_float(terms, term, scoretype, fh):
+    for year in sorted(terms[term][scoretype].keys()):
+        score = terms[term][scoretype][year]
+        score = 'None' if score is None else "%.2f" % score
+        fh.write("%s\t" % score)
+    fh.write("%s\n" % term)
+
+def add_term_to_stream_using_int(terms, term, scoretype, fh):
+    for year in sorted(terms[term][scoretype].keys()):
+        score = terms[term][scoretype][year]
+        score = 'None' if score is None else "%d" % score
+        fh.write("%s\t" % score)
+    fh.write("%s\n" % term)
 
 def print_from_stream(stream, outfile, scores_p):
     if scores_p:
@@ -173,18 +228,21 @@ if __name__ == '__main__':
     tscores_p = False
     mscores_p = False
     fscores_p = False
-    options = ['technology', 'frequency', 'maturity', 'all']
+    kscores_p = False
+    options = ['technology', 'frequency', 'maturity', 'keyterms', 'all']
     (opts, args) = getopt.getopt(sys.argv[1:], '', options)
     for opt, val in opts:
         if opt == '--technology': tscores_p = True
         if opt == '--maturity': mscores_p = True
         if opt == '--frequency': fscores_p = True
+        if opt == '--keyterms': kscores_p = True
         if opt == '--all':
             tscores_p = True
             mscores_p = True
             fscores_p = True
+            kscores_p = True
 
-    terms = initialize_terms(mscores_p, fscores_p)
+    terms = initialize_terms(mscores_p, fscores_p, kscores_p)
     add_tscores(terms)
     remove_non_technologies(terms)
 
@@ -193,5 +251,7 @@ if __name__ == '__main__':
     if fscores_p:
         add_fscores(terms)
         add_ascores(terms)
+    if kscores_p:
+        add_kscores(terms)
 
-    print_terms(terms, tscores_p, mscores_p, fscores_p)
+    print_terms(terms, tscores_p, mscores_p, fscores_p, kscores_p)
