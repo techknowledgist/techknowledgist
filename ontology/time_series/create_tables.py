@@ -20,7 +20,6 @@ Usage:
         create scores-frequency-rel.txt with relative frequencies
 
     --keyterms:
-        create scores-keyterms-count.txt
         create scores-keyterms-role-i.txt
         create scores-keyterms-role-ct.txt
         create scores-keyterms-role-ca.txt
@@ -162,7 +161,7 @@ def add_kscores_for_year(terms, key, roletype, year):
         (term, count, ratio) = line.rstrip("\n\f\r").split("\t")
         if terms.has_key(term):
             terms[term]['kf_scores'][year] += int(count)
-            terms[term][key][year] = float(ratio)
+            terms[term][key][year] = int(count)
 
 def print_terms(terms, tscores, mscores, fscores, kscores):
     print "Printing terms..."
@@ -170,7 +169,6 @@ def print_terms(terms, tscores, mscores, fscores, kscores):
     s_ascores = StringIO.StringIO()
     s_tscores = StringIO.StringIO()
     s_mscores = StringIO.StringIO()
-    s_kf_scores = StringIO.StringIO()
     s_ki_scores = StringIO.StringIO()
     s_kct_scores = StringIO.StringIO()
     s_kca_scores = StringIO.StringIO()
@@ -182,15 +180,13 @@ def print_terms(terms, tscores, mscores, fscores, kscores):
         add_term_to_stream(terms, term, 'mscores', s_mscores, mscores, float)
         add_term_to_stream(terms, term, 'fscores', s_fscores, fscores, int)
         add_term_to_stream(terms, term, 'ascores', s_ascores, fscores, float)
-        add_term_to_stream(terms, term, 'kf_scores', s_kf_scores, kscores, int)
-        add_term_to_stream(terms, term, 'ki_scores', s_ki_scores, kscores, float)
-        add_term_to_stream(terms, term, 'kct_scores', s_kct_scores, kscores, float)
-        add_term_to_stream(terms, term, 'kca_scores', s_kca_scores, kscores, float)
+        add_term_to_stream(terms, term, 'ki_scores', s_ki_scores, kscores, int)
+        add_term_to_stream(terms, term, 'kct_scores', s_kct_scores, kscores, int)
+        add_term_to_stream(terms, term, 'kca_scores', s_kca_scores, kscores, int)
     print_from_stream(s_tscores, 'scores-technologies.txt', tscores)
     print_from_stream(s_mscores, 'scores-maturity.txt', mscores)
     print_from_stream(s_fscores, 'scores-frequencies-raw.txt', fscores)
     print_from_stream(s_ascores, 'scores-frequencies-rel.txt', fscores)
-    print_from_stream(s_kf_scores, 'scores-keyterms-count.txt', kscores)
     print_from_stream(s_ki_scores, 'scores-keyterms-role-i.txt', kscores)
     print_from_stream(s_kct_scores, 'scores-keyterms-role-ct.txt', kscores)
     print_from_stream(s_kca_scores, 'scores-keyterms-role-ca.txt', kscores)
