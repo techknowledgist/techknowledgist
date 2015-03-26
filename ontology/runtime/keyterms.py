@@ -299,7 +299,7 @@ def run_classifier(chk_files, run_id, condense_results):
     subprocess.call(command, shell=True)
     # TODO: the problem with this is that the first argument is used by
     # merge_scores in invention.py to find the processed file and lift the title
-    # out of their, but merge_scores expects a corpus directory and its implied
+    # out of there, but merge_scores expects a corpus directory and its implied
     # strucutre; however, in keyterms we have no corpus and we use a flat
     # structure
     process_label_file(results_dir, results_dir, label_file, VERBOSE)
