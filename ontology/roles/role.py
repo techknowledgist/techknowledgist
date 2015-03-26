@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # role.py
 # rewrite of term_verb_count focusing on role detection rather than mutual information
 
@@ -55,6 +56,7 @@ Input: .tf term + feature cooccurrences for a domain and year
 output
 <cat_type>.tfc: term feature category count
 <cat_type>.tc: term category term_category_pair_frequency term_frequency probability
+Note that a term can appear in multiple categories here.
 
 ########
 function tc2tcs(corpus_root, corpus, year, min_prob, min_pair_freq, cat_type, subset)
