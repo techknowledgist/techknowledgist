@@ -1,7 +1,8 @@
 <html>
 
 <head>
-<title>TOC - Classifier</title>
+<meta charset="UTF-8">
+<title>Maturity Scores</title>
 <link rel="stylesheet" href="main.css" type="text/css" />
 </head>
 
@@ -13,6 +14,8 @@
 <p class="navigation">
 <a href="index.html">index</a> > <a href="maturity.html">maturity scores</a>
 </p>
+
+<p>NOTE: MASSIVE UPDATING NEEDED</p>
 
 <p class="abstract">Maturity scores indicate the maturity of a technology. They
 are calculated with a (i) pattern matcher that picks up textual features in the
@@ -32,7 +35,7 @@ frequently enough.</p>
 <a name="input"></a>
 <h2>Input description</h2>
 
-<p>The input to this components is partially the same as the input to the
+<p>The input to this component is partially the same as the input to the
 technology classifier, that is, it takes feature files where lines have the
 following format (all fields are tab-separated):</p>
 
@@ -159,12 +162,136 @@ the version of the code used and all the names of the files that were merged.</p
 
 
 
-
-
 <a name="howto3"></a>
 <h2>Generating the scores</h2>
 
+The next step is to calculate usage rates from the results of the pattern
+matcher. The usage rate is a number between 0 and 1 that is calculated as
+follows:
 
+<pre class="example">
+log⁡(match-count+1)/(log⁡(highest-match-count+1))
+</pre>
+
+Most terms have zero scores, which corresponds to no matches found (that is, no
+evidence of usage found). The closer the number gets to 1, the closer the term
+usage is relative to the term with the most matches.  To calculate usage rates
+we use the script in
+
+<pre class="example">
+ontology/maturity/collect_usage_data.py 
+</pre>
+
+which combines the match results and the results of the technology classifier,
+where the technology classifier, apart from the technology scores, also provides
+frequency data needed for calculating the usage rate. Assuming matcher results
+and technology scores as created with the example commands above, we create the
+usage scores as follows:
+
+<pre class="example">
+python collect_usage_data.py \
+   --corpus ../doc_processing/data/sample-us \
+   --tscores ../classifier/data/classifications/sample-us \
+   --output data/usage-sample-us.txt \
+   --language en
+</pre>
+
+In the output, terms are presented with four numbers as follows:
+
+<pre class="example">
+0.0029   0.0000   2   0   accelerometer senses
+1.0000   0.0000   1   0   accelerometer sensor
+0.0555   0.1201   5   2   accelerometer signal
+0.9189   0.0757   1   1   accelerometer signal accel
+0.9656   0.0757   1   1   accelerometer signal trace
+</pre>
+
+The first column has the average technology score for the term in the corpus,
+the second the usage rate, the third the number of documents the term occurs in,
+and the fourth the number of matches for the term.
+
+<p>The last step is creating the time series. This is slightly more involved as
+with the technology scores, where we could simply take a set of classification
+results, each for a particular year, and grab the scores for that year. Maturity
+scores are different in several ways:
+
+<ol class="spacy">
+
+<li>Maturity scores tend to be meaningless below a certain term frequency
+threshold, we stipulate that a term has to occur in at least 25 documents, but
+this is a bit arbitrary.
+
+<li>Maturity scores do not rise and fall like the technology scores can, and
+sometimes do. Rather, we assume that maturity scores do not fall in lockstep
+with the usage rates and that there is a delay.
+
+<li>Usage scores do not tend to carry great meaning for terms that are not
+technologies. For example, the term "caution" can have a high maturity score
+because it is often found on the context “use caution”, which triggers one of
+the usage patterns.
+</ol>
+
+When creating the maturity score time series, we enforce the first two, but not
+the last. Now, let’s assume we have four files with usage scores, from the years
+2010-2013:
+
+<pre class="example"> 
+usage-2010.txt
+usage-2011.txt
+usage-2012.txt
+usage-2013.txt
+</pre>
+
+We can create a file with terms with a document frequency of 25 or higher with
+the count_terms.py script (also in ontology/maturity):
+
+<pre class="example">
+python count_terms.py usage-201*.txt
+</pre>
+
+This script will write its output to terms-0025.txt. This is a memory intensive
+step. With a few dozen corpora, each with 20-50K files, the machine running this
+likely needs 16GB of memory.
+
+<p>Finally, the create_time_series.py script takes the usage files and the file
+with frequent terms and creates the time series:</p>
+
+<pre class="example">
+python create_time_series.py –t terms-0025.txt usage-201*.txt
+</pre>
+
+The script creates two output files, one with a maturity time series based on
+usage rates and one with maturity time series based on raw frequencies. The
+first of these should be much more useful, the second file is created because an
+early version of the system did not generate enough matches to create scores
+based on usage rates. The names of the output files are hard-coded and include a
+timestamp, for example:
+
+<pre class="example">
+out-20141120:195652-frequency-based.txt
+out-20141120:195652-usage-based.txt 
+</pre>
+
+The first file has scores as given in FUSE phase 1, where each term-year pair
+got a 0, 1, or 2 (unavailable, immature, mature). These scores are based on
+frequency counts only and are a fallback. The second file has a score between 0
+and 1 for each term-year. These scores are based on the usage rates. The content
+of the second file looks as follows:
+
+<pre class="example">
+0.0228	0.0182	0.0146	0.0117	abrasive fluid
+0.0179	0.0143	0.0115	0.0092	abrasive fluids
+0.0572	0.0458	0.0706	0.0565	abrasive force
+0.0748	0.0598	0.0479	0.0383	abrasive forces
+0.1145	0.1155	0.2240	0.2754	abrasive grain
+0.3196	0.2934	0.2571	0.2206	abrasive grains
+0.1329	0.1063	0.0850	0.0680	abrasive grit
+</pre>
+
+The top of the file has a row with headers, which contain the years. These
+headers are calculated from the file names, so if the file names do not have
+years in them (a sequence of four digits) then the year will not be printed as a
+header.
 
 
 
@@ -206,7 +333,7 @@ of the matcher:</p>
 term for which we had a match, and the fifth the actual value of the feature
 that matched.</p>
 
-<p>And <code>match.results.summ.txt</code> contains a summary with match counts
+<p>Finally, <code>match.results.summ.txt</code> contains a summary with match counts
 for each term:</p>
 
 <pre class="example">
@@ -221,7 +348,7 @@ for each term:</p>
 
 <p>This file, like the previous file, is tab-separated, but note that there can
 be leading spaces (this is for the convenience of the person opening the file and
-looking at it.</p>
+inspecting its contents).</p>
 
 
 </body>

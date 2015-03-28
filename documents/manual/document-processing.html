@@ -40,10 +40,10 @@ two or three tab-separated fields: a year, a file path and an optional shortened
 path. An example is printed below.</p>
 
 <pre class="example">
-1980    /data/patents/xml/us/1980/12.xml   1980/12.xml
-1980    /data/patents/xml/us/1980/13.xml   1980/13.xml
-1980    /data/patents/xml/us/1980/14.xml
-0000    /data/patents/xml/us/1980/15.xml
+1980    data/patents/xml/us/1980/12.xml   1980/12.xml
+1980    data/patents/xml/us/1980/13.xml   1980/13.xml
+1980    data/patents/xml/us/1980/14.xml
+0000    data/patents/xml/us/1980/15.xml
 </pre>
 
 <p>The file path points to the actual location of the file to be processed for
@@ -149,8 +149,8 @@ $ python main.py -f data/lists/sample-us.txt -c data/patents/corpora/sample-us
 </pre>
 
 <p>This creates a directory <code>data/patents/corpora/sample-us</code>, in
-which the corpus is inritialized and populated with the files
-in <code>data/patents/corpora/sample-us</code>. The directory structure is as
+which the corpus is initialized and populated with the files listed
+in <code>data/lists/sample-us.txt</code>. The directory structure is as
 follows:
 
 <pre class="example">

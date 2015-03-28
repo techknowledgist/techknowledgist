@@ -75,5 +75,5 @@ p.abstract {
 .nowrap {
     white-space: nowrap; }
 
-ul.spacy > li {
+ul.spacy, ol.spacy > li {
     margin-bottom: 10pt; }
