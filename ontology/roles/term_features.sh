@@ -9,6 +9,16 @@ OUTROOT=$3
 # SECTIONS should be ta (title abstract) or tas (title abstract summary)
 SECTIONS=$4
 
+# for title and abstract data only, we output to term_features_ta directory
+# Otherwise we write to term_features directory
+if [ $SECTIONS == "ta" ]
+    then 
+    OUTROOT+=_ta
+fi
+
+echo [term_features.sh]Writing to outroot: $OUTROOT
+#exit
+
 CODEDIR="/home/j/anick/patent-classifier/ontology/creation"
 
 file_no=0
@@ -32,13 +42,8 @@ while read YEAR SOURCE YEAR_FILE; do
     else
 	#echo "Creating $outpath."
 
-
-
-
     # assume input file is compressed
     infile=$INROOT/$YEAR_FILE.gz
-
-
 
     #echo "output: $outfile, $outpath, $infile"
     #echo "file $file_no: $outpath"

@@ -16,6 +16,8 @@ from collections import defaultdict
 # log is our own log routines for timing runs
 import log
 from ontology.utils.file import get_year_and_docid, open_input_file
+# for sorting dict by value
+import operator
 
 import logging
 logging.basicConfig()
@@ -68,6 +70,7 @@ def npr2spn_sp(head, phr, phr_subset="f"):
 
 # To test that the index has content:
 # curl -XGET localhost:9200/i_nps/_search?pretty=true&q={'matchAll':{''}}
+# curl -XGET localhost:9200/i_testg/_search?pretty=true&q={'matchAll':{''}}
 
 # main function for querying NP's.
 # contains a match_all query and optional set of bool filters
@@ -78,7 +81,8 @@ def npr2spn_sp(head, phr, phr_subset="f"):
 # es_np.qmaf("sp", "cell", index_name="i_np_bio", query_type="count")
 # es_np.qmaf(field, value, l_must=[], doc_type="np", index_name="i_np_bio", query_type="search")
 # es_np.qmaf("length", 3, l_must=[], doc_type="np", index_name="i_np_bio", query_type="search")
-# es_np.qmaf("length", 2, index_name="test2", query_type="search")
+# es_np_query.qmaf("length", 2, index_name="test2", query_type="search")
+# es_np_query.qmaf("length", 2, index_name="i_testg", query_type="search")
 def qmaf(field, value, l_must=[], doc_type="np", index_name="i_nps_bio", query_type="search"):
     
     l_must_filter = make_must_filter_list(l_must)
@@ -191,7 +195,7 @@ def qmamf_long(l_query_must=[], l_filter_must=[], l_fields=[], doc_type="np", in
 
     # do the initial search to get back a scroll_id
     
-    r = qmamf(l_query_must=l_query_must,l_fields=l_fields, size=size, query_type="scan" )
+    r = qmamf(l_query_must=l_query_must,l_fields=l_fields, size=size, query_type="scan", index_name=index_name, doc_type=doc_type )
     all_results = []
     scroll_size = r['hits']['total']
     #print "scroll size: %s" % scroll_size
@@ -212,7 +216,18 @@ def qmamf_long(l_query_must=[], l_filter_must=[], l_fields=[], doc_type="np", in
 # l_filter_must is a list of field/value term restrictions on unanalyzed fields, which are
 # turned into { "term": { field : value }}
 # r = es_np_query.qmamf(l_query_must=[["length", 3]],l_fields=["doc_id", "phr"], size=3, query_type="scan" )
+
+# r = es_np_query.qmamf(l_query_must=[["length", 3]],l_fields=["doc_id", "phr"], size=3, query_type="search", index_name="i_testg")
+# r = es_np_query.qmamf(l_query_must=[["section", "BACKGROUND" ], ["spv", "increase"], ["sp", "cost ]"] ],l_fields=["spv", "cphr", "section"], size=3, query_type="search", index_name="i_cs_2002")
+
+# r = es_np_query.qmamf(l_query_must=[["spv", "increase"], ["sp", "cost ]"] ],l_fields=["spv", "cphr", "section"], query_type="search", index_name="i_cs_2002")
+
 def qmamf(l_query_must=[], l_filter_must=[], l_fields=[], doc_type="np", index_name="i_nps_bio", query_type="search", debug_p=False, size=max_result_size):
+
+    #pdb.set_trace()
+    # fields are illegal for a count query, so ignore them
+    if query_type == "count":
+        l_fields = []
 
     l_must_query = make_must_query_phr_list(l_query_must, debug_p=debug_p)    
     l_must_filter = make_must_filter_list(l_filter_must)
@@ -256,6 +271,51 @@ def qmamf(l_query_must=[], l_filter_must=[], l_fields=[], doc_type="np", index_n
     elif query_type == "scan":
         res = es.search(index=index_name, doc_type = doc_type, body=queryBody, scroll='60s', search_type='scan', size=size)
     return(res)
+
+# returns parents that meet child constraints
+
+# r = es_np_query.qpmamf(l_query_must=[["length", 3]], doc_type="doc", size=3, query_type="scan" )
+
+# r = es_np_query.qpmamf(l_query_must=[["length", 3]], doc_type="doc", size=3, query_type="count", index_name="i_testg")
+# r = es_np_query.qpmamf(l_query_must=[["length", 3]], doc_type="doc", size=3, query_type="count", index_name="i_testg")
+
+# Make sure the index you are running against has the parent-child mapping for the requested type.
+def qpmamf(l_query_must=[], l_filter_must=[], l_fields=[], doc_type="doc", child_type="np", index_name="i_nps_bio", query_type="search", debug_p=False, size=max_result_size):
+
+    l_must_query = make_must_query_phr_list(l_query_must, debug_p=debug_p)    
+    l_must_filter = make_must_filter_list(l_filter_must)
+
+    ###print "[qmaf] l_must_term: %s" % l_must_term
+
+    queryBody = {
+        "query": {
+            "bool": {
+                "must": [
+                    {
+                        "has_child": {
+                            "type": child_type,
+                            "query": l_must_query
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    
+
+    if debug_p:
+        print "[qmaf] queryBody: %s" % queryBody
+
+    if query_type == "search":
+        res = es.search(index=index_name, doc_type = doc_type, body=queryBody, size=size)
+    elif query_type == "count":
+        res = es.count(index=index_name, doc_type = doc_type, body=queryBody)
+    elif query_type == "scan":
+        res = es.search(index=index_name, doc_type = doc_type, body=queryBody, scroll='60s', search_type='scan', size=size)
+    return(res)
+
+
+
 
 """
 # how to deal with "read timed out" errors for long queries
@@ -625,6 +685,70 @@ def diversity(phr):
     print "spn: %i (%.2f) %.2f" % (spn_len, spn_ratio, log_spn_ratio)
     print "spv: %i (%.2f) %.2f" % (spv_len, spv_ratio, log_spv_ratio)
 
+# entropy of modifiers of the phr
+def mod_entropy(phr):
+    # create an sp form of the phrase, to allow stemming and enforce bounds of the phrase
+    sp_right = phr2sp(phr, phr_subset="r")
+    
+    d_mod2count = defaultdict(int)
+    d_head2count = defaultdict(int)
+    l_freqs = []
+
+    phr_len = len(phr.split(" "))
+
+    # fetch full matches to get the Npr and prev_V values
+
+    # TBD match on canonical form, so we collapse variations into a single phrase name
+    res = qmamf(l_query_must=[["sp", sp_right ]],l_fields=["phr"])["hits"]["hits"]
+
+    # do we want to count by one-instance-per-doc or by all instances within doc
+    res_count = 0
+    # how often a modifier occurs with this phrase
+    mod_occurrence_freq = 0
+    sum_entropy = 0
+    entropy = 0
+
+    #return("done")
+    for result in res:
+        res_count += 1
+        if result.has_key("fields"):
+            fields = result["fields"]
+
+            # only include the rightmost word of the modifier
+            match = fields["phr"][0]
+            l_match_words = match.split(" ")[(-1)*(phr_len+1):]
+            trimmed_phr = " ".join(l_match_words)
+
+            d_mod2count[trimmed_phr] += 1
+            mod_occurrence_freq += 1
+            
+    if mod_occurrence_freq == 0:
+        entropy = 0
+        print "in if"
+    else:
+        for key in d_mod2count.keys():
+            freq = d_mod2count[key]
+            #pdb.set_trace()
+    
+            prob_mod =  (freq * 1.0) / mod_occurrence_freq
+            l_freqs.append([key, freq])
+            
+            sum_entropy += prob_mod * math.log(prob_mod, 2)
+            
+        if sum_entropy == 0:
+            entropy = 0
+        else:
+            entropy = (-1)*sum_entropy
+    num_mods = len(l_freqs)
+    l_freqs = sorted(l_freqs, key=lambda(k,v): v, reverse=True)
+    print "sum_entropy: %f, #mods: %i, l_freqs: %s" % (entropy, num_mods, l_freqs[0:10])
+    return(entropy)
+
+    # we compute entropy as prob of the (mod | head) where phr is the head
+    # H(mod) = - sum (prob (mod) * log2 prob(mod) )
+    # we need the total number of mod occurrences
+    # and the freq for each mod
+
 # find the most freq features in a given list of phrases
 def freq_features(l_phr):
     d_spv2count = defaultdict(int)
@@ -667,3 +791,48 @@ def freq_features(l_phr):
     l_spn = sorted(d_spn2count.items(), key=lambda (k, v): v)
     print "spv: %s\n" % l_spv
     print "spv: %s\n" % l_spn
+
+# related terms using sterms in sent doc_type
+# es_np_query.related("airline ticket", "i_cs_2002", size=200)
+# If multiword == True, only output phrases containing > 1 word.
+def related(phr, index_name, size=2000,  multiword_p=True, max=20):
+    l_phr = phr.split(" ")
+    term = "_".join(l_phr)
+    l_query_must = [["sterm", term] ]
+    l_fields=[ "sterms", "section"]
+    l_hits = qmamf_long(l_query_must=l_query_must, l_filter_must=[], l_fields=l_fields, doc_type="sent", index_name=index_name, size=size, debug_p=False)
+
+    #l_hits = res["hits"]["hits"]
+
+    d_rel2freq = defaultdict(int)
+    for hit in l_hits:
+        for term in hit["fields"]["sterms"]:
+            d_rel2freq[term] += 1
+    # sort dictionary keys by value
+    sorted_terms = sorted(d_rel2freq.items(), key=operator.itemgetter(1), reverse=True)
+    #pdb.set_trace()
+    i = 1
+    for item in sorted_terms:
+        
+        if (not multiword_p) or ("_" in item[0]):
+        #
+            print "%s:%i" % item
+            if i > max:
+                break
+            i += 1
+
+#es_np_query.doc_freq("airline ticket", "i_cs_2002")
+def doc_freq(phr, index_name, phr_subset="f"):
+    value = phr2sp(phr, phr_subset="f")
+    query_must = [ "sp", value ]
+    res = qpmamf(l_query_must=[query_must], doc_type="doc", child_type="np", index_name=index_name, query_type="count", debug_p=False)
+
+    query_must_cphr = ["cphr", phr]
+    cphr_res = qpmamf(l_query_must=[query_must_cphr], doc_type="doc", child_type="np", index_name=index_name, query_type="count", debug_p=False)
+
+    query_must_phr = ["phr", phr]
+    phr_res = qpmamf(l_query_must=[query_must_phr], doc_type="doc", child_type="np", index_name=index_name, query_type="count", debug_p=False)
+
+    return([res, cphr_res, phr_res])
+
+

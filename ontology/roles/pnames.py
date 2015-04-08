@@ -29,8 +29,11 @@ def tv_filepath(corpus_root, corpus, year, file_type, subset, cat_type=""):
     print "[tv_filepath]file: %s" % full_filename
     return(full_filename)
 
-def tf_dir(corpus_root, corpus):
+# sections is ta or tas, depending on the sections included (title, abstract, summary)
+def tf_dir(corpus_root, corpus, sections="tas"):
     tf_subpath = "/data/term_features/"
+    if sections == "ta":
+        tf_subpath = "/data/term_features_ta/"
     # make sure we don't create double slashes in the name
     if corpus_root[-1] != "/":
         corpus_root += "/"

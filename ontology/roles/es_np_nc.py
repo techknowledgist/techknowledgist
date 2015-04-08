@@ -22,6 +22,9 @@ from collections import defaultdict
 import log
 from ontology.utils.file import get_year_and_docid, open_input_file
 
+# canonicalization and noise word detection
+import canon
+
 import logging
 logging.basicConfig()
 # from http://excid3.com/blog/no-handlers-could-be-found-for-logger/
@@ -43,48 +46,6 @@ from es_np_query import *
 import inflect
 ie = inflect.engine()
 
-
-# noise detection
-
-re_noise_phrase = re.compile('[\,\+\=\.\:\\\\′\®\±\%\═\≅\>\>\<\≡\≡\″\≡\→]')
-
-# bibliography names, e.g. "nestle f o"
-re_bib_name = re.compile('[a-z]+ [a-z] [a-z]')
-
-# if these words appear in a phrase, we reject the phrase as
-# incomplete or inappropriate for bracketing analysis
-# u'\u2212' is a type of dash found in doc US20040248097A1  (year 2000 biomed patents)
-illegal_words = set([u'\u2212', u'\u2032', u'\u2550', "−", "-", "'s", "'", "′", "co", "et", "much", "millimeter", "milliliter", "mm", "ml", "example"])
-
-max_legal_word_len = 30
-def illegal_word_len_p(phr, max_len=max_legal_word_len):
-
-    for word in phr.split(" "):
-        if len(word) > max_len:
-            return(True)
-    return(False)
-
-# return True if phr contains illegal punc or a word
-# matching an illegal word
-def illegal_phrase_p(phr):
-    # use debugging here to catch illegal words/characters
-    #if phr.find("nestle") >= 0:
-    #    pdb.set_trace()
-    # first character of phrase should be alpha
-    if not phr[0].isalpha():
-        return(True)
-    if illegal_word_len_p(phr):
-        return(True)
-
-    illegal_punc_p = bool(re_noise_phrase.search(phr)) or bool(re_bib_name.search(phr))
-    if illegal_punc_p:
-        return(True)
-    l_words = phr.split(" ")
-
-    if list(illegal_words & set(l_words)) == []:
-        return(False)
-    else:
-        return(True)
         
 # remove illegal phrases from a .inst file (phrase\tdoc)
 # es_np_nc.filter_phr_doc_file("bio.2000.3.inst")
@@ -95,7 +56,7 @@ def filter_phr_doc_file(phr_doc_file):
 
     for line in s_phr_doc:
         phrase = line.split("\t")[0]
-        if not(illegal_phrase_p(phrase)):
+        if not(canon.illegal_phrase_p(phrase)):
             s_filt.write("%s" % (line)) 
 
     s_phr_doc.close()
@@ -103,6 +64,7 @@ def filter_phr_doc_file(phr_doc_file):
 
 
 #############################
+# deprecated. use canon.py instead
 
 # es_np_nc.canonical_np("cats monkeys")
 # reduce all words in a noun phrase to singular form
@@ -146,6 +108,7 @@ d_cbigram2info = {}
 # canonicalize the phr_doc file
 # This replaces the phrase in (phrase doc_id pair) with the canonicalized phrase (.c)
 # It also creates a file mapping canonicalized phrases to all surface forms (.c2s)
+# DEPRECATED: no longer needed since index has canonical phr (cphr)
 def can_phr_doc_file(phr_doc_file):
     # create the output file names given the input file name
     c_phr_doc_file = phr_doc_file + ".c"
@@ -989,7 +952,7 @@ def get_corpus_freq(phr, l_filter_must=[]):
 # es_np_nc.get_loc1("US7189536B2", "human cell", phr_subset="l")
 def get_loc1_tf(doc_id, phr, phr_subset="f"):
     sp_pattern = phr2sp(phr, phr_subset=phr_subset)
-    print "sp_pattern: %s" % sp_pattern
+    #print "sp_pattern: %s" % sp_pattern
     r = qmamf(l_query_must=[["sp", sp_pattern]], l_filter_must=[["doc_id", doc_id]], l_fields=["phr", "loc"], doc_type="np", index_name="i_nps_bio", query_type="search")
     l_locs = []
     l_hits = r["hits"]["hits"]
@@ -1013,8 +976,8 @@ def doc_compounds(doc_id, phr_len):
     # print info for all phrase of length phr_len
     d.print_pinfo_len(phr_len)
     
-# es_np_nc.dump_phr_vectors("human cell line", "ba_vectors.hcl.txt")
-def dump_phr_vectors(phr, output_file):
+# es_np_nc.dump_phr_vectors("human cell line", "ba_vectors.hcl_test10.txt", 10)
+def dump_phr_vectors(phr, output_file, max_files=0):
     s_output = codecs.open(output_file, "w", encoding='utf-8')
     # get list of doc_ids matching the phrase
     l_docs = docs_matching(phr)
@@ -1023,6 +986,9 @@ def dump_phr_vectors(phr, output_file):
         dnc = docNc(doc_id)
         dnc.print_pinfo_len(s_output, phr_len=3, verbose_p=False)
         i += 1
+        # quit after max_files for testing
+        if max_files != 0 and i > max_files:
+            break
     print "[dump_phr_vectors]%i file vectors written to %s" % (i, output_file)
     s_output.close
 
@@ -1056,7 +1022,7 @@ class docNc():
         # in d_length2phr
         for phr_len in range(1,5):
             # retrieve all phrases of each length
-            result = qs_mult([["length", phr_len ], ["doc_id", self.doc_id ]], l_fields=["phr", "term", "loc"]) 
+            result = qs_mult([["length", phr_len ], ["doc_id", self.doc_id ]], l_fields=["phr", "cphr", "term", "loc"]) 
             # result is a list of dictionaries of the form:
             # {u'_score': 1.0, u'_type': u'np', u'_id': u'US20070082860A1.xml_93', u'fields': {u'loc': [u'18'], u'phr': [u'amino acid residues']}, u'_index': u'i_nps_bio'}
             # for each phrase occurrence, extract the phrase and loc.
@@ -1065,12 +1031,14 @@ class docNc():
                 # extract and store the phrase
                 
                 phr = phr_info["phr"][0]
+                # obsolete, handled when indexing:
                 # we will index on the canonical phrase to collapse all variants together
-                cphr = canonical_np(phr)
+                # cphr = canonical_np(phr)
+                cphr = phr_info["cphr"][0]
 
-                term = phr_info["term"][0]
-                # TODO: remove the int call after reindexing to fix bug where loc was stored as a string
-                loc = int(phr_info["loc"][0])
+                #term = phr_info["term"][0]
+                # TODO: DONE: remove the int call after reindexing to fix bug where loc was stored as a string
+                loc = phr_info["loc"][0]
 
                 # extract and store the loc in a phrInfo instance
                 # create one if one does not already exist for this doc and phrase
@@ -1103,6 +1071,7 @@ class docNc():
             pinfo.freq = len(pinfo.l_locs)
                 
     # return phrases consisting of adjacent or separated (by 1) pairs of words in the phrase
+    # ie. bigrams
     def get_phr_pairs(self, phr):
         l_words = phr.split(" ")
         l_pairs = []
@@ -1260,9 +1229,13 @@ class docNc():
             full_phrase_surface = list(self.d_phr2info[cphr].surface_forms)[0]
             # term freq is the number of locations the phrase appears in the doc
             full_phrase_tf = len(self.d_phr2info[cphr].l_locs)
+
             # loc1 is the first sentence in which the term appears in the doc as
             # a full np.
             full_phrase_loc1 = self.d_phr2info[cphr].loc1
+
+            if self.doc_id == "US20040053258A1":
+                pdb.set_trace()
 
             # sort based on loc1
             l_components = sorted(l_components, key=lambda x: x[1].loc1)
@@ -1281,7 +1254,7 @@ class docNc():
                     print("key: %s, rel_loc: %s " % (str(key), rel_loc)),
                     self.print_pinfo(pinfo)
 
-            full_phrase_vector = "\t".join([full_phrase_surface, str(full_phrase_tf), str(full_phrase_loc1)])
+            full_phrase_vector = "\t".join([self.doc_id, full_phrase_surface, str(full_phrase_tf), str(full_phrase_loc1)])
             ba_vector = self.make_ba_vector(d_subphrase2rel_loc)
 
             # create the d_pp_key2info dictionary here ///
@@ -1442,7 +1415,7 @@ def print_annotation_file(doc_list, l_phr_length=[3], output_file_prefix="sample
         '''
 
 
-        if not illegal_phrase_p(surface_variant):
+        if not canon.illegal_phrase_p(surface_variant):
             #print(" | %s | \n" % surface_variant)
             s_output_annot.write(" | %s | \n" % surface_variant)
 

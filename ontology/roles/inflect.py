@@ -677,7 +677,7 @@ pl_sb_uninflected_bysize = bysize(pl_sb_uninflected_endings)
 # SINGULAR WORDS ENDING IN ...s (ALL INFLECT WITH ...es)
 
 pl_sb_singular_s_complete = [
-    "acropolis", "aegis", "alias", "asbestos", "bathos", "bias",
+    "acropolis", "aegis", "alias", "analysis", "asbestos", "bathos", "bias",
     "bronchitis", "bursitis", "caddis", "cannabis",
     "canvas", "chaos", "cosmos", "dais", "digitalis",
     "epidermis", "ethos", "eyas", "gas", "glottis", 

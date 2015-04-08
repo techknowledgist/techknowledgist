@@ -17,6 +17,9 @@
 # sh run_term_features.sh ln-us-A22-communications 1997 2007
 # sh run_term_features.sh ln-us-A30-electrical-circuits 1998 2007
 
+# 4/7/15
+# sh run_term_features.sh ln-us-A21-computers 2002 2002 ta
+
 # PARAMETERS TO SET BEFORE RUNNING SCRIPT:
 # FUSE_CORPUS_ROOT="/home/j/corpuswork/fuse/FUSEData/corpora"
 # LOCAL_CORPUS_ROOT="/home/j/anick/patent-classifier/ontology/creation/data/patents"
@@ -31,13 +34,11 @@ START_TIME=$(date +%s)
 # get path info
 source ./roles_config.sh
 
-
-
 CORPUS=$1
 START_YEAR=$2
 END_YEAR=$3
-
-
+#SECTIONS should be ta (title, abstract) or tas (t, a, summary)
+SECTIONS=$4
 
 #ROOT="/home/j/corpuswork/fuse/FUSEData/corpora/$CORPUS"
 FUSE_ROOT=$FUSE_CORPUS_ROOT/$CORPUS
@@ -104,11 +105,14 @@ echo "[run_term_features.sh]LOCAT_ROOT: $LOCAL_ROOT, LOCAL_CORPUS_ROOT: $LOCAL_C
 mkdir $LOCAL_ROOT
 mkdir $LOCAL_ROOT/data
 mkdir $LOCAL_ROOT/data/term_features
+# 4/7/15 PGA added a dir for title-abstract only data
+mkdir $LOCAL_ROOT/data/term_features_ta
 mkdir $LOCAL_ROOT/data/tv
 # create a directory for ACT specific files
 mkdir $LOCAL_ROOT/data/act
 
 # we use final "/" for the parameters to run_dir2features_count
+
 TF_DIR=$LOCAL_ROOT/data/term_features/
 TV_DIR=$LOCAL_ROOT/data/tv/
 
@@ -123,22 +127,28 @@ YEAR=$START_YEAR
 #while [ $YEAR -le 1998 ] ; do
 # populate the local term_features directory for the range of years specified
 
-
 #<<"COMMENT"
 echo "[run_term_features.sh]Populating term_features directory for each year in range"
 #exit
+
+
+
 
 while [ $YEAR -le $END_YEAR ] ; do
 
     echo "year: $YEAR"
 
+    
 
-
-    sh term_features.sh $FUSE_ROOT/subcorpora/$YEAR/config/files.txt $FUSE_ROOT/subcorpora/$YEAR/data/d3_phr_feats/01/files $LOCAL_ROOT/data/term_features tas
+    sh term_features.sh $FUSE_ROOT/subcorpora/$YEAR/config/files.txt $FUSE_ROOT/subcorpora/$YEAR/data/d3_phr_feats/01/files $LOCAL_ROOT/data/term_features $SECTIONS
     
     YEAR=$[ $YEAR + 1 ]
 done
 #COMMENT
+
+: <<"COMMENT"
+
+#Below is now handled by tf.py file
 
 # Now populate the tv files
 echo "Elaspsed time: $(date -d @$(($(date +%s)-$START_TIME)) +"%M minutes %S seconds")"
@@ -149,7 +159,7 @@ python tf.py $TF_DIR $TV_DIR $START_YEAR $END_YEAR
 echo "[run_term_features.sh]Finished."
 echo "Elaspsed time: $(date -d @$(($(date +%s)-$START_TIME)) +"%M minutes %S seconds")"
 
-: <<"COMMENT"
+
 # Finally, create tf.f files from the tf files
 # This replaces the separate file make_tf_f.sh
 echo "[run_term_features.sh]Creating tf.f files"

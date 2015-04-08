@@ -16,6 +16,17 @@
 
 # inroot and outroot should terminate in a directory separator ("/")
 
+# 4/4/15 added canonicalization and prob(term|feature) to .tf
+"""
+ .tf file sample
+program prev_VNP=performs|debugging|on  1       0.000022        0.000142
+pre-paid card   prev_Npr=amount_of
+
+Need to canonicalize term and feature separately
+Remember that features in the seed set have to be consistent (e.g. canonicalized or not) with features here
+for probabilities to be consistent.  For now, we will only canonicalize the terms (not the features)
+"""
+
 import pdb
 import sys
 import collections
@@ -23,8 +34,12 @@ import os
 import glob
 import codecs
 import roles_config
+import canon
 
-def dir2features_count(inroot, outroot, year):
+# canonicalizer object
+can = canon.Canon()
+
+def dir2features_count(inroot, outroot, year, canonicalize_p=True, filter_noise_p=True):
     outfilename = str(year)
     # term-feature output file
     outfile = outroot + outfilename + ".tf"
@@ -71,7 +86,10 @@ def dir2features_count(inroot, outroot, year):
             feature_set = set()
             #pdb.set_trace()
             s_infile = codecs.open(infile, encoding='utf-8')
+            i = 0
             for term_line in s_infile:
+                i += 1
+
                 term_line = term_line.strip("\n")
                 l_fields = term_line.split("\t")
                 term = l_fields[0]
@@ -87,9 +105,16 @@ def dir2features_count(inroot, outroot, year):
                     pair_set.add(pair)
                 """
 
+
                 # if the feature field is "", then we use this line to count term
                 # instances
                 if feature == "":
+
+                    if canonicalize_p:
+                        # Do canonicalization of term before incrementing counts
+                        # note we don't canonicalize feature here since feature == ""
+                        term = can.get_canon_np(term)
+
                     d_term_instance_freq[term] += term_feature_within_doc_count
                     # add term to set for this document to accumulate term-doc count
                     term_set.add(term)
@@ -101,12 +126,30 @@ def dir2features_count(inroot, outroot, year):
                     # an occasional missing key at that point (in nbayes.py)
                 else:
                     # the line is a term_feature pair
-                    # alpha filter removed to handle chinese
-                    pair = term + "\t" + feature
-                    ##print "term matches: %s, pair is: %s" % (term, pair)
-                    pair_set.add(pair)
-                    feature_set.add(feature)
-                    d_feat_instance_freq[feature] += term_feature_within_doc_count
+                    # (filter_noise_p should be False to handle chinese)
+
+                    # Do not process noise (illegal) terms or features
+
+                    if (filter_noise_p and canon.illegal_phrase_p(term)) or canon.illegal_feature_p(feature):
+                        pass
+
+                    else:
+
+                        if canonicalize_p:
+                            # Do canonicalization of term and feature before incrementing counts
+                            feature = can.get_canon_feature(feature)
+                            term = can.get_canon_np(term)
+
+                        #pdb.set_trace()
+                        pair = term + "\t" + feature
+                        ##print "term matches: %s, pair is: %s" % (term, pair)
+                        pair_set.add(pair)
+                        feature_set.add(feature)
+                        d_feat_instance_freq[feature] += term_feature_within_doc_count
+
+                        #print "pair: %s, term: %s, feature: %s" % (pair, term, feature)
+                        #pdb.set_trace()
+
 
             s_infile.close()
 
@@ -127,6 +170,8 @@ def dir2features_count(inroot, outroot, year):
             # track total number of docs
             doc_count += 1
 
+
+
         s_outfile = codecs.open(outfile, "w", encoding='utf-8')
         s_terms_file = codecs.open(terms_file, "w", encoding='utf-8')
         s_feats_file = codecs.open(feats_file, "w", encoding='utf-8')
@@ -143,8 +188,19 @@ def dir2features_count(inroot, outroot, year):
             feature = l_pair[1]
             # probability of the feature occurring with the term in a doc, given that 
             # the term appears in the doc
-            prob_fgt = d_pair_freq[pair]/float(d_term_freq[term])
-            s_outfile.write( "%s\t%s\t%i\t%f\t%f\n" % (term, feature, d_pair_freq[pair], pair_prob, prob_fgt))
+            try:
+                prob_fgt = d_pair_freq[pair]/float(d_term_freq[term])
+            except:
+                pdb.set_trace()
+
+            # added 4/4/15: prob of the feature occurring with the term in a doc, given that 
+            # the feature appears in the doc
+            try:
+                prob_tgf = d_pair_freq[pair]/float(d_feat_freq[feature])
+            except:
+                pdb.set_trace()
+
+            s_outfile.write( "%s\t%s\t%i\t%f\t%f\t%f\n" % (term, feature, d_pair_freq[pair], pair_prob, prob_fgt, prob_tgf))
 
         # /// TODO: this table makes tf.f file redundant!  Replace use of tf.f
         for term in d_term_freq.keys():
@@ -218,6 +274,11 @@ def run_dir2features_count(inroot, outroot, start_range, end_range):
 
 # python tf.py /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/term_features/ /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/tv/ 1997 2007
 
+# python tf.py /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/term_features/ /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/tv/ 2002 2002
+
+# 4/7/15 title and abstract data
+# python tf.py /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/term_features_ta/ /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/tv/ 2002 2002
+
 if __name__ == "__main__":
     args = sys.argv
     inroot = args[1]
@@ -226,5 +287,6 @@ if __name__ == "__main__":
     # note that for python the end range is not included in the iteration, so
     # we add 1 here to the end_year to make sure the last year is included in the range.
     end_range = int(args[4]) + 1
-    
+
+    # take the defaults, including canonicalization
     run_dir2features_count(inroot, outroot, start_range, end_range)

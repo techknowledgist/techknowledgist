@@ -119,7 +119,7 @@ import math
 import collections
 from collections import defaultdict
 import codecs
-import utils
+import putils
 import pnames
 import pickle
 import roles_config
@@ -644,7 +644,7 @@ def fcuc2fcprob(corpus_root, corpus, year, cat_list, cat_type, subset):
         kld = kl_div(cgf_prob_list, cat_prob_list)
 
         # compute max and runner up prob categories
-        fcat_prob_list.sort(utils.list_element_2_sort)
+        fcat_prob_list.sort(putils.list_element_2_sort)
         #print "fcat_prob_list: %s" % fcat_prob_list
         #pdb.set_trace()
         max_cat = fcat_prob_list[0][0]
@@ -1208,7 +1208,7 @@ def get_te(corpus, terms_filename, d_term_year2freq, d_term_year2feats, d_term_f
             entropy = d_term_feat2entropy[tf_key]
             l_feat_entropy.append([feat, entropy])
         #pdb.set_trace()
-        l_feat_entropy.sort(utils.list_element_2_sort)
+        l_feat_entropy.sort(putils.list_element_2_sort)
         d_term2feat_entropy[term] = l_feat_entropy
         s_entropy.write("%s\t%s\n" % (term, d_term2feat_entropy[term]))
 
@@ -1569,7 +1569,7 @@ def feat_kl_div(l_retained_feats, d_l_ygf_actual, d_l_ygf_expected):
                 diff_sign += "-"
         l_kl.append([feat, kl_score, l_diff, diff_sign])
 
-    l_kl.sort(utils.list_element_2_sort)
+    l_kl.sort(putils.list_element_2_sort)
     for (feat, kl_score, l_diff, diff_sign) in l_kl:
 
         if kl_score > 0:
@@ -1652,15 +1652,22 @@ def run_time_kl(d_term_year2freq, d_term_year2feats, d_term_feat_year2freq):
 # 2014 12/9
 # role.run_tf_steps("ln-us-A21-computers_test_pa", 2002, 2002, "pn", ["tc", "tcs", "fc", "uc", "prob"], "a")
 
+# 2015 4/6/15
+# role.run_tf_steps("ln-us-A21-computers", 2002, 2002, "act", ["tc", "tcs", "fc", "uc", "prob"])
+# role.run_tf_steps("ln-us-A21-computers", 2002, 2002, "pn", ["tc", "tcs", "fc", "uc", "prob"], "a")
+
+
 # note: tf removed from todo_list.  This should be done beforehand by tf.py to create the
 # .tf, .terms, .feats, .cs files for a year range
-def run_tf_steps(corpus, start, end, cat_type="act", todo_list=[ "tc", "tcs", "fc", "uc", "prob", "train"], subset=""):
+def run_tf_steps(corpus, start, end, cat_type="act", todo_list=[ "tc", "tcs", "fc", "uc", "prob", "train"], subset="", sections="ta"):
 
     # tv_subpath
     tv_subpath = "/data/tv/"
     # term_subpath
     term_subpath = "/data/term_features"
-
+    if sections == "ta":
+        term_subpath += "_ta"
+        print "[role.py]run_tf_steps reading input from: %s" % term_subpath
     #tv_root = "/home/j/anick/patent-classifier/ontology/creation/data/patents/ln-us-all-600k/data/tv"
     #tv_root = "/home/j/anick/patent-classifier/ontology/creation/data/patents/ln-us-cs-500k/data/tv"
     #tv_root = "/home/j/anick/patent-classifier/ontology/creation/data/patents/ln-us-12-chemical/data/tv"

@@ -1,0 +1,162 @@
+
+python networkx package is installed on sarpedon and pasiphae for python2.7
+Gitit's page rank code in /home/j/llc/gititkeh/PageRank
+The files are in /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers_test_pa/data/tv
+2002.a.pn.tcs has the training terms and their labels
+
+
+computer domain data is at /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/tv
+code to create .tf, .feats, .terms, and .cs is in tf.py
+
+.tf: term, feature, pair_freq, pair_prob, prob_fgt
+
+prob_fgt = pair_freq/term_freq where
+pair_freq is the # docs in which feature/term cooccur
+term_freq = # docs in which term occurs
+
+.terms: term term_freq term_instance_freq term_prob
+
+.feats: feature, feat_freq, feat_instnace_freq, feat_prob
+
+4/4/15 Rerunning tv files using canonicalization
+# first make a copy of the old directory
+cd /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/
+mv tv tv_20150404_uncanon
+mkidr tv
+
+# create 2002 computer data
+[anick@sarpedon roles]$ python tf.py /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/term_features/ /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/tv/ 2002 2002
+
+To get a set of candidate attribute terms, extract those which occur with a feature prev_Npr and value including "_of".  Sort by 
+dispersion of the feature across different terms.
+cat 2002.tf | grep prev_Npr | grep _of | sed -e 's/^.*=//' | sed -e 's/_of.*$//' | sort | uniq -c | sortnr -k1 > 2002.tf.attr_of.uc
+
+In tf.py,  TODO: canonicalize and filter .terms and .feats
+
+
+------
+import role
+
+>>> role.run_tf_steps("ln-us-A21-computers", 2002, 2002, "act", ["tc", "tcs", "fc", "uc", "prob"]) 
+[run_tf_steps]tv_root: /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/tv/, fcat_file: /home/j/anick/patent-classifier/ontology/roles/seed.act.en.dat, cat_list: ['a', 'c', 't']
+[tv_filepath]file: /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/tv/
+Mon Apr  6 20:09:13 2015        0       Starting run_tf_steps for years: 2002 2002
+
+Mon Apr  6 20:09:13 2015        0       Starting tc step
+
+[run_tf_steps]Creating .tc, .tfc
+[run_tf2tfc]Processing dir: 2002
+[tv_filepath]file: /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/tv/2002.tf
+[tv_filepath]file: /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/tv/2002.act.tc
+[tv_filepath]file: /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/tv/2002.act.tfc
+[run_tf2tfc]Completed: 2002.tc
+Mon Apr  6 20:34:01 2015        1487    Completing tc step
+
+Mon Apr  6 20:34:01 2015        0       Starting tcs step
+
+[run_tf_steps]Creating .tcs
+[run_tc2tcs]Processing dir: 2002
+[tv_filepath]file: /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/tv/2002.act.tc
+[tv_filepath]file: /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/tv/2002.act.tcs
+Mon Apr  6 20:34:25 2015        24      Completing tcs step
+
+Mon Apr  6 20:34:25 2015        0       Starting fc step
+
+[run_tf_steps]Creating .fc
+[run_tcs2fc]Processing dir: 2002
+[tv_filepath]file: /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/tv/2002.act.tcs
+[tv_filepath]file: /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/tv/2002.tf
+[tv_filepath]file: /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/tv/2002.act.fc
+Mon Apr  6 20:48:24 2015        838     Completing fc step
+
+Mon Apr  6 20:48:24 2015        0       Starting uc step
+
+[run_tf_steps]Creating .fc_uc
+[run_fc2fcuc.sh] SUBSET is [.], cat_type is [act], filestr_before_year is [/home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/tv/], filestr_after_year is [.act]
+[run_fc2fcuc.sh]input_file: /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/tv/2002.act.fc, output_file: /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/tv/2002.act.fc_uc 
+Mon Apr  6 20:48:31 2015        7       Completing uc step
+
+Mon Apr  6 20:48:31 2015        0       Starting prob step
+
+[run_tf_steps]Creating .fc_prob, fc_cat_prob and .fc_kl
+[run_fcuc2fcprob]Processing dir: 2002
+[fcuc2fcprob]cat_list: ['a', 'c', 't']
+[tv_filepath]file: /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/tv/2002.act.fc_uc
+[tv_filepath]file: /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/tv/2002.act.fc_prob
+[tv_filepath]file: /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/tv/2002.act.cat_prob
+[tv_filepath]file: /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/tv/2002.act.tcs
+[tv_filepath]file: /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/tv/2002.act.fc_kl
+[fcuc2fcprob]category: a, cum_fgc_prob (should total to 1.0): 1.000000
+[fcuc2fcprob]category: c, cum_fgc_prob (should total to 1.0): 1.000000
+[fcuc2fcprob]category: t, cum_fgc_prob (should total to 1.0): 1.000000
+Mon Apr  6 20:53:41 2015        310     Completing prob step
+
+[run_tf_steps]Completed
+Mon Apr  6 20:53:41 2015        2668    [run_tf_steps]Completed
+
+------------------------
+from nbayes.py
+
+# (3) nbayes.run_steps("ln-us-A21-computers", 2002, ["nb", "ds", "cf"])
+# (4) nbayes.run_filter_tf_file("ln-us-A21-computers", 2002, "0.0") # create a.tf, needed for running polarity
+# (5) role.run_tf_steps("ln-us-A21-computers", 2002, 2002, "pn", ["tc", "tcs", "fc", "uc", "prob"], "a")
+# (6) nbayes.run_steps("ln-us-A21-computers", 2002, ["nb", "ds", "cf"], cat_type="pn", subset="a") 
+
+To see attrs sorted by freq:
+cat 2002.act.cat.w0.0 | grep '     a       ' | sortnr -k3 | cut -f1,2,3 | more
+
+Note that "cost" is categorized as positive, along with many specializations.  Often there are conflicting features (increase/decrease).
+cat 2002.a.pn.cat.w0.1 | cut -f1,3,4,7,8,9 | grep '        p       ' | sortnr -k2 | grep cost | more
+
+cost    1918    p       -11763.1400271  -14084.0394336  prev_V=increase^866 prev_V=incur^124 prev_V=raise^23 prev_V=allow_for^5 prev_V=prevent^1 prev_V=
+experience^2 prev_V=desire^1 prev_J=substantial^58 prev_V=assess^8 prev_Npr=lack_of^1 prev_J=potential^8 prev_Npr=%_of^12 prev_V=generate^7 prev_V=satis
+fy^2 prev_V=avoid^58 prev_V=concern^2 prev_V=minimize^176 prev_V=decrease^120 prev_V=support^8 prev_J=considerable^54 prev_V=suffer_from^15 prev_Npr=adv
+antage_of^8 prev_V=relate_to^12 prev_V=eliminate^39 prev_V=lower^148 prev_V=cause^41 prev_V=establish^8 prev_V=facilitate^1 prev_V=realize^6 prev_V=cont
+ribute_to^19 prev_V=suffer^5 prev_J=excessive^27 prev_V=lead_to^28 prev_V=suppress^2 prev_V=reflect^6 prev_V=introduce^17
+manufacturing cost      80      p       -349.705180981  -667.265848847  prev_V=raise^2 prev_Npr=%_of^3 prev_V=decrease^3 prev_V=cause^2 prev_V=lower^3 p
+rev_V=increase^60 prev_V=incur^1 prev_V=minimize^5 prev_V=suppress^1
+system cost     39      p       -152.696877136  -336.058240038  prev_V=minimize^4 prev_V=increase^32 prev_Npr=%_of^1 prev_V=raise^2
+
+? Do we get most of the increase cost occurrences within the background section?
+As seen below, in the abstract we get:
+reduce cost: 101
+increase cost: 8
+
+in the summary, we get:
+reduce cost: 4
+increase cost: 1463
+
+This suggests that the abstract is more likely to reflect the "positive review" than the patent as a whole.
+
+>>> r = es_np_query.qmamf(l_query_must=[["spv", "reduce"], ["sp", "cost ]"], ["section", "ABSTRACT"] ],l_fields=["spv", "cphr", "section"], query_type="count", index_name="i_cs_2002") 
+>>> r
+{u'count': 101, u'_shards': {u'successful': 5, u'failed': 0, u'total': 5}}
+>>> r = es_np_query.qmamf(l_query_must=[["spv", "increase"], ["sp", "cost ]"], ["section", "ABSTRACT"] ],l_fields=["spv", "cphr", "section"], query_type="count", index_name="i_cs_2002") 
+>>> r
+{u'count': 8, u'_shards': {u'successful': 5, u'failed': 0, u'total': 5}}
+>>> r = es_np_query.qmamf(l_query_must=[["spv", "increase"], ["sp", "cost ]"], ["section", "SUMMARY"] ],l_fields=["spv", "cphr", "section"], query_type="count", index_name="i_cs_2002") 
+>>> r
+{u'count': 1463, u'_shards': {u'successful': 5, u'failed': 0, u'total': 5}}
+>>> r = es_np_query.qmamf(l_query_must=[["spv", "reduce"], ["sp", "cost ]"], ["section", "SUMMARY"] ],l_fields=["spv", "cphr", "section"], query_type="count", index_name="i_cs_2002") 
+>>> 4
+
+# create new directories for title-abstract data only
+# the ta parameter causes output to be written to /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/term_features_ta/2002
+sh run_term_features.sh ln-us-A21-computers 2002 2002 ta 
+
+ls -1 | wc -l
+45431
+
+# I moved the tv directory
+cd /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data
+mv tv tv_20150407_tas
+mkdir tv
+
+# I reran the Bayes analysis using just abstract data.  The results (in /tv) are better but much, much smaller.
+# It might be possible to combine abstracts across many years to get enough data.
+
+#I also created canonical seed sets in fr_code dir (/roles):
+seed.pn.en.canon.dat
+seed.act.en.canon.dat
+
+Conversion was done using: canon_seed_set.py
