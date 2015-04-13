@@ -11,6 +11,9 @@ OPTIONS:
    Contains a list of paths to the input files. This is the only required
    option.
 
+--language en|cn
+   The language of the input, the default is to use 'en'.
+
 --run-id STRING
    The optional run-id option defines an identifier for the current run. The
    default is to use the current timestamp. The run-id determines where
@@ -168,7 +171,7 @@ sys.path.insert(0, os.getcwd())
 os.chdir(script_dir)
 
 from utils.docstructure.main import Parser
-from ontology.doc_processing import txt2tag, tag2chunk
+from ontology.doc_processing import txt2tag, cn_txt2seg, cn_seg2tag, tag2chunk
 from ontology.classifier.invention import patent_invention_classify
 from ontology.classifier.invention import make_instance_key
 from ontology.classifier.run_iclassify import process_label_file
@@ -183,33 +186,40 @@ import ontology.creation.config
 import ontology.classifier.config
 
 
-# the model used by this invention classifier
-MODEL = '../classifier/data/models/inventions-standard-20130713/'
+# the models used by this invention classifier
+EN_MODEL = '../classifier/data/models/inventions-standard-20130713/'
+CN_MODEL = '../classifier/data/models/inventions-standard-cn-20130713/'
 
 # used by add_phr_feats_file(), is probably useless
 output_count = 0
 
 
-def process(filelist, run_id, mallet_path, stanford_path, condense_results):
+def process(filelist, language, run_id, mallet_path, stanford_path, condense):
     update_directories(mallet_path, stanford_path)
     os.mkdir('workspace/tmp/' + run_id)
     os.mkdir('workspace/results/' + run_id)
     t1 = time.time()
     infiles = read_filelist(filelist)
     chk_files = []
-    tagger = txt2tag.get_tagger('en')
+    segmenter = cn_txt2seg.SegmenterWrapper() if language == 'cn' else None
+    tagger = txt2tag.get_tagger(language)
     if VERBOSE: print '[process] pre-processing files'
     for text_file, fact_file in infiles:
         if VERBOSE: print '  ', text_file
         basename = os.path.splitext(os.path.basename(text_file))[0]
         txt_file = os.path.join("workspace/tmp/%s/%s.txt" % (run_id, basename))
+        seg_file = os.path.join("workspace/tmp/%s/%s.seg" % (run_id, basename))
         tag_file = os.path.join("workspace/tmp/%s/%s.tag" % (run_id, basename))
         chk_file = os.path.join("workspace/tmp/%s/%s.chk" % (run_id, basename))
         chk_files.append(chk_file)
         run_xml2txt(text_file, fact_file, txt_file)
-        run_txt2tag(txt_file, tag_file, tagger)
+        if language == 'en':
+            run_txt2tag(txt_file, tag_file, tagger)
+        else:
+            run_txt2seg(txt_file, seg_file, segmenter)
+            run_seg2tag(seg_file, tag_file, tagger)            
         run_tag2chk(tag_file, chk_file)
-    run_classifier(chk_files, run_id, condense_results)
+    run_classifier(chk_files, language, run_id, condense)
     cleanup(run_id)
     if VERBOSE: print "Time elapsed: %f" % (time.time() - t1)
 
@@ -272,23 +282,31 @@ def run_xml2txt(text_file, fact_file, outfile):
 def run_txt2tag(txt_file, tag_file, tagger):
     txt2tag.tag(txt_file, tag_file, tagger)
 
+def run_txt2seg(txt_file, seg_file, segmenter):
+    segmenter.process(txt_file, seg_file)
+
+def run_seg2tag(seg_file, tag_file, tagger):
+    cn_seg2tag.tag(file_in, file_out, tagger)
+
 def run_tag2chk(tag_file, chk_file):
     tag2chunk.Doc(tag_file, chk_file, '9999', 'en',
                   filter_p=False, chunker_rules='en', compress=False)
 
 def cleanup(run_id):
     """Remove all temporary files."""
+    return
     tmp_dir = "workspace/tmp/" + run_id
     for f in os.listdir(tmp_dir):
         os.remove(os.path.join(tmp_dir, f))
     os.rmdir(tmp_dir)
 
-def run_classifier(chk_files, run_id, condense_results):
+def run_classifier(chk_files, language, run_id, condense_results):
     results_dir = os.path.join('workspace', 'results', run_id)
     mallet_file = os.path.join(results_dir, 'iclassify.mallet')
     with codecs.open(mallet_file, "w", encoding='utf-8') as s_mallet:
         for chk_file in chk_files:
             add_phr_feats_file(chk_file, s_mallet)
+    MODEL = EN_MODEL if language == 'en' else CN_MODEL
     patent_invention_classify(None, MODEL, results_dir, verbose=VERBOSE)
     label_file = 'iclassify.MaxEnt.label'
     create_info_file(results_dir)
@@ -352,22 +370,24 @@ def add_phr_feats_file(phr_feats_file, s_mallet):
 if __name__ == '__main__':
 
     options = ['run-id=', 'mallet-dir=', 'stanford-tagger-dir=',
-               'filelist=', 'verbose', 'condense-results']
+               'filelist=', 'language=', 'verbose', 'condense-results']
     (opts, args) = getopt.getopt(sys.argv[1:], '', options)
 
     VERBOSE = False
     filelist = None
+    language = 'en'
     run_id = default_id()
     mallet_path = None
     stanford_path = None
-    condense_results = False
+    condense = False
 
     for opt, val in opts:
         if opt == '--verbose': VERBOSE = True
         if opt == '--filelist': filelist = val
+        if opt == '--language': language = val
         if opt == '--run-id':  run_id = val
         if opt == '--mallet-dir': mallet_path = val
         if opt == '--stanford-tagger-dir': stanford_path = val
-        if opt == '--condense-results': condense_results = True
+        if opt == '--condense-results': condense = True
 
-    process(filelist, run_id, mallet_path, stanford_path, condense_results)
+    process(filelist, language, run_id, mallet_path, stanford_path, condense)
