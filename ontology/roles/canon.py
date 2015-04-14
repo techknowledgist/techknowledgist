@@ -175,16 +175,19 @@ class Canon():
 
 
 # noise detection
-
-re_noise_phrase = re.compile('[\,\+\=\.\:\\\\′\®\±\%\═\≅\>\>\<\≡\≡\″\≡\→\®]')
+# note the need for ur and flags in order for the regex to match unicode characters!
+re_noise_phrase = re.compile(ur'[\,\+\=\.\:\\\\′\®\±\%\═\≅\>\>\<\≡\≡\″\≡\→\°]', flags=re.UNICODE)
 
 # bibliography names, e.g. "nestle f o"
 re_bib_name = re.compile('[a-z]+ [a-z] [a-z]')
 
+# journal name
+re_journal_name = re.compile('j[ .][a-z.]+')
+
 # if these words appear in a phrase, we reject the phrase as
 # incomplete or inappropriate for bracketing analysis
 # u'\u2212' is a type of dash found in doc US20040248097A1  (year 2000 biomed patents)
-illegal_words = set([u'\u2212', u'\u2032', u'\u2550', "−", "-", "'s", "'", "′", "co", "et", "much", "millimeter", "milliliter", "mm", "ml", "example"])
+illegal_words = set([u'\u2212', u'\u2032', u'\u2550', "−", "-", "'s", "'", "′", "co", "et", "much", "millimeter", "milliliter", "mm", "ml", "mg", "example"])
 
 max_legal_word_len = 30
 def illegal_word_len_p(phr, max_len=max_legal_word_len):
@@ -206,7 +209,7 @@ def illegal_phrase_p(phr):
     if illegal_word_len_p(phr):
         return(True)
 
-    illegal_punc_p = bool(re_noise_phrase.search(phr)) or bool(re_bib_name.search(phr))
+    illegal_punc_p = bool(re_noise_phrase.search(phr)) or bool(re_bib_name.search(phr)) or bool(re_journal_name.search(phr))
     if illegal_punc_p:
         return(True)
     l_words = phr.split(" ")

@@ -150,6 +150,8 @@ def qcfhv(field, doc_type="np", index_name="i_nps_bio"):
 # (i.e. r["hits"]["hist"]).  Otherwise, we assume we have the output exactly how es 
 # returns it.
 
+# Given a result a list of field names, returns a list of field-value lists, one list for each
+# result
 def rfields(es_result, l_fieldnames, delist_fields_p=True, result_type="es"):
     # list of lists of values for fields in the order specified in l_fieldnames
     l_values = []
@@ -182,6 +184,27 @@ def dump_rfields(es_result, l_fieldnames=[], l_fieldtypes=[], delist_fields_p=Tr
         s_output.write("\n")
     s_output.close()
 
+
+# es_np_query.dump_rfields(r_gen, l_fieldnames=["phr", "doc_id"], l_fieldtypes=["s", "s"], output_file="bio.2000.3.inst")
+def dump_gen_rfields(es_result_generator, l_fieldnames=[], l_fieldtypes=[], delist_fields_p=True, output_file="rfields.out", result_type="hits"):
+    s_output = codecs.open(output_file, "w", encoding='utf-8')
+    res_count = 0
+    for l_result in es_result_generator:
+        rf = rfields(l_result, l_fieldnames, delist_fields_p=delist_fields_p, result_type=result_type)
+
+        for res in rf:
+            i = 0
+            for field in res:
+                type_string = "%" + l_fieldtypes[i] + "\t"
+                s_output.write(type_string % field)
+                i += 1
+            s_output.write("\n")
+            res_count += 1
+        print "[dump_gen_rfields]%i results written to %s" % (res_count, output_file)
+    print "[dump_gen_rfields]Completed: %i results written to %s" % (res_count, output_file)
+    s_output.close()
+
+
 # use of scan/scroll to handle long result sets described here:
 # http://vichargrave.com/elasticsearch-client-programming-python/
 
@@ -191,6 +214,7 @@ def dump_rfields(es_result, l_fieldnames=[], l_fieldtypes=[], delist_fields_p=Tr
 # r = es_np_query.qmamf_long(l_query_must=[["length", 2]],l_fields=["doc_id", "phr"], size=1000)
 # r = es_np_query.qmamf_long(l_query_must=[["sp", "[nucleic | acid | probe]" ],l_fields=["spv", "spn"], size=10000)
 # NOTE: This returns a list of "hits".
+
 def qmamf_long(l_query_must=[], l_filter_must=[], l_fields=[], doc_type="np", index_name="i_nps_bio", size=1000, debug_p=False):
 
     # do the initial search to get back a scroll_id
@@ -203,14 +227,47 @@ def qmamf_long(l_query_must=[], l_filter_must=[], l_fields=[], doc_type="np", in
         try:
             #print "scroll_size: %i" % scroll_size
             #pdb.set_trace()
-            scroll_id = r['_scroll_id']
-            r = es.scroll(scroll_id=scroll_id, scroll='60s')
             all_results += r['hits']['hits']
+            scroll_id = r['_scroll_id']
+            #print "scroll_id: %s" % scroll_id
+            r = es.scroll(scroll_id=scroll_id, scroll='60s')
             scroll_size = len(r['hits']['hits'])
         except:
+            print "[qmamf_long] Exception when handling scroll_id."
             break
     return(all_results)
 
+# for queries with very large result sets, run as a generator
+def gen_qmamf_long(l_query_must=[], l_filter_must=[], l_fields=[], doc_type="np", index_name="i_nps_bio", size=500, debug_p=False):
+
+    # do the initial search to get back a scroll_id
+    l_results = []    
+    res = qmamf(l_query_must=l_query_must,l_fields=l_fields, size=size, query_type="scan", index_name=index_name, doc_type=doc_type )
+    scroll_size = res['hits']['total']
+    print "[gen_qmamf_long]scroll size: %s" % scroll_size
+    while (scroll_size > 0):
+        try:
+            #print "scroll_size: %i" % scroll_size
+
+            # next iteration of scrolled results
+            # Note that when using scan search, the first set of hits is always []
+            # 60 second timeout for holding scroll results.
+            l_results += res['hits']['hits']
+            scroll_id = res['_scroll_id']
+            res = es.scroll(scroll_id=scroll_id, scroll='60s')
+            #pdb.set_trace()
+            # recalculate next scroll_size based on number hits returned for next iteration
+            # When it is 0, we are done with the loop.
+            scroll_size = len(res['hits']['hits'])
+            #print "scroll_id: %s" % scroll_id
+            # return results for this iteration
+            yield l_results
+
+            l_results = []
+            print "[gen_qmamf_long]num_hits: %s" % scroll_size
+        except:
+            print "[gen_qmamf_long] Exception when handling scroll_id."
+            break
 
 # query applying match_phrase to multiple fields (and optional filters) 
 # l_filter_must is a list of field/value term restrictions on unanalyzed fields, which are
@@ -221,6 +278,8 @@ def qmamf_long(l_query_must=[], l_filter_must=[], l_fields=[], doc_type="np", in
 # r = es_np_query.qmamf(l_query_must=[["section", "BACKGROUND" ], ["spv", "increase"], ["sp", "cost ]"] ],l_fields=["spv", "cphr", "section"], size=3, query_type="search", index_name="i_cs_2002")
 
 # r = es_np_query.qmamf(l_query_must=[["spv", "increase"], ["sp", "cost ]"] ],l_fields=["spv", "cphr", "section"], query_type="search", index_name="i_cs_2002")
+# r = es_np_query.qmamf(l_query_must=[["spv", "increase"], ["sp", "cost ]"] ],l_fields=["spv", "cphr", "section"], query_type="search", index_name="i_bio_2002")
+
 
 def qmamf(l_query_must=[], l_filter_must=[], l_fields=[], doc_type="np", index_name="i_nps_bio", query_type="search", debug_p=False, size=max_result_size):
 
@@ -269,6 +328,7 @@ def qmamf(l_query_must=[], l_filter_must=[], l_fields=[], doc_type="np", index_n
     elif query_type == "count":
         res = es.count(index=index_name, doc_type = doc_type, body=queryBody)
     elif query_type == "scan":
+        # scan is an efficient way of doing scrolled search by turning off sorting of results.
         res = es.search(index=index_name, doc_type = doc_type, body=queryBody, scroll='60s', search_type='scan', size=size)
     return(res)
 
@@ -835,4 +895,8 @@ def doc_freq(phr, index_name, phr_subset="f"):
 
     return([res, cphr_res, phr_res])
 
-
+# es_np_query.dump_ngrams("i_bio_2003", 2, "bio.2003.2.inst")
+def dump_ngrams(index_name, ngram_length, output_file):
+    res_generator = gen_qmamf_long(l_query_must=[["length", ngram_length]],l_fields=["doc_id", "phr", "cphr"], size=500, index_name="i_bio_2003")
+    dump_gen_rfields(res_generator, l_fieldnames=["cphr", "phr", "doc_id"], l_fieldtypes=["s", "s", "s"], output_file=output_file)
+    

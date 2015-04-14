@@ -116,10 +116,10 @@ corpus statistics for biomed patents year 2003
 38343
 
 # Search ES for all instances of a 3 word phrase.  Return a list of [phr doc_id] pairs
-r = es_np_query.qmamf_long(l_query_must=[["length", 3]],l_fields=["doc_id", "phr"], size=3)
+res = es_np_query.qmamf_long(l_query_must=[["length", 3]],l_fields=["doc_id", "phr"])  ///
 
 # Using the result r, write out the phrase and doc_id data for length 3 instances to bio.2003.3.inst
-es_np_query.dump_rfields(r, l_fieldnames=["phr", "doc_id"], l_fieldtypes=["s", "s"], output_file="bio.2003.3.inst")
+es_np_query.dump_rfields(res, l_fieldnames=["phr", "doc_id"], l_fieldtypes=["s", "s"], output_file="bio.2003.3.inst")
 (Note this file has been overwritten!)
 
 # apply the illegal phrase filter to the length 3 instances
@@ -808,3 +808,158 @@ curl -XPOST 'http://localhost:9200/_aliases' -d '
 }'
 
 
+##############################################################
+4/10/15 corpus statistics for biomed patents year 2003
+Redoing after rebuilding index with cphr and phr
+
+/home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A27-molecular-biology/data/term_features/2003
+[anick@sarpedon 2003]$ ls -1 | wc -l
+38343
+
+# nc data is now in /home/j/anick/patent-classifier/ontology/roles/data/nc/
+
+# subdirectory bio_2003
+
+# Search ES for all instances of a 3 word phrase.  Return a list of [phr doc_id] pairs
+res = es_np_query.qmamf_long(l_query_must=[["length", 3]],l_fields=["doc_id", "phr", "cphr"], index_name="i_bio_2003") 
+
+# Using the result r, write out the phrase and doc_id data for length 3 instances to trigrams.inst
+# l_fieldtypes are the python print statement data types (e.g. "s" for "%s").  You need one per field, in correct order.
+es_np_query.dump_rfields(res, l_fieldnames=["cphr", "phr", "doc_id"], l_fieldtypes=["s", "s", "s"], output_file="/home/j/anick/patent-classifier/ontology/roles/data/nc/bio_2003/trigrams.inst")
+
+[anick@sarpedon bio_2003]$ wc -l trigrams.inst
+5904129 trigrams.inst
+
+# apply the illegal phrase filter to the length 3 instances
+# to produce trigrams.inst.filt
+cat trigrams.inst | egrep '^[a-z]' | python2.7 /home/j/anick/patent-classifier/ontology/roles/filter_phr_doc_file.py
+
+[anick@sarpedon bio_2003]$ wc -l trigrams.inst.filt
+3988629 trigrams.inst.filt
+([anick@sarpedon roles]$ wc -l bio.2003.3.inst.filt2
+2126633 bio.2003.3.inst.filt2 )  note: old version did not include background sections
+
+# sort uniq to get document frequencies rather than collection frequencies
+cat trigrams.inst.filt | cut -f1,3 | sort | uniq > trigrams.inst.filt.su
+
+[anick@sarpedon bio_2003]$ wc -l trigrams.inst.filt.su
+2303675 trigrams.inst.filt.su
+([anick@sarpedon roles]$ wc -l trigrams.inst.filt.su
+1320668 bio.2003.3.inst.filt2.su )
+
+# get doc freq of each phrase, sort by number reverse
+cat trigrams.inst.filt.su | cut -f1 | sortuc1 | sortnr > trigrams.inst.filt.su.f1.uc1.nr
+
+# How many triples only occur in one doc?
+[anick@sarpedon bio_2003]$ cat trigrams.inst.filt.su.f1.uc1.nr | egrep '^1      ' | wc -l
+715209
+([anick@sarpedon roles]$ cat trigrams.inst.filt2.su.f1.uc1.nr | egrep '^1      ' | wc -l
+333565 )
+
+# Now do the same for bigram phrases
+res = es_np_query.qmamf_long(l_query_must=[["length", 2]],l_fields=["doc_id", "phr", "cphr"], size=1000, index_name="i_bio_2003") ///
+
+This gives an error: WARNING:elasticsearch:POST /_search/scroll?scroll=60s [status:404 request:0.270s]
+
+The log message in /indexes/elasticsearch/logs/elasticsearch.log :
+
+[2015-04-12 09:09:16,115][DEBUG][action.search.type       ] [John Ryker] [383] Failed to execute query phase
+org.elasticsearch.search.SearchContextMissingException: No search context found for id [383]
+
+I reran, setting size to 500.  The python process was still killed.  Log indicates:
+
+[2015-04-12 01:16:00,502][WARN ][index.engine.internal    ] [Terrax the Tamer] [i_bio][2] failed to read latest segment infos on flush
+java.io.FileNotFoundException: No such file [segments_2]
+
+I suspect it may have run out of memory since all results were retained before writing out.  Wrote dump_ngrams to write out 
+results incrementally using gen_qmamf_long and dump_gen_rfields.
+
+es_np_query.dump_ngrams("i_bio_2003", 2, "/home/j/anick/patent-classifier/ontology/roles/data/nc/bio_2003/bigrams.inst")  
+NOTE: including the background sections seems to quadruple the number of bigram occurrences (from 9,812,508 to 36,604,883)
+
+# Do the filtering of illegal phrases (all folded into a single function now)
+>>> es_np_nc.filter_phr_doc_file("/home/j/anick/patent-classifier/ontology/roles/data/nc/bio_2003/bigrams.inst")
+
+[anick@sarpedon bio_2003]$ wc -l bigrams.inst.filt
+31437309 bigrams.inst.filt
+
+# sort uniq to get document frequencies rather than collection frequencies
+cd /home/j/anick/patent-classifier/ontology/roles/data/nc/bio_2003
+# At this point, we throw away the surface form of the term amd keep the
+# canonical form only.
+cat bigrams.inst.filt | cut -f1,3 | sort | uniq > bigrams.inst.filt.su
+
+wc -l bigrams.inst.filt.su
+15229456 bigrams.inst.filt.su
+
+# unique bigram doc_id pairs
+[anick@sarpedon roles]$ wc -l bio.2003.2.inst.filt.su
+5052994 bio.2003.2.inst.filt.su
+
+
+# get doc freq of each phrase, sort by number reverse
+cat bigrams.inst.filt.su | cut -f1 | sortuc1 | sortnr > bigrams.inst.filt.su.f1.uc1.nr
+
+# number of unique bigrams for the year 2003
+[anick@sarpedon roles]$ wc -l bio.2003.2.inst.filt.su.f1.uc1.nr
+912549 bio.2003.2.inst.filt.su.f1.uc1.nr
+
+wc -l bigrams.inst.filt.su.f1.uc1.nr
+2177289 bigrams.inst.filt.su.f1.uc1.nr
+
+# How many bigrams only occur in one doc?
+cat bigrams.inst.filt.su.f1.uc1.nr | egrep '^1       ' | wc -l
+1231157
+
+NOTES on using scan, scroll for large query result sets:
+When using scan, the first set of scroll results is empty. See http://www.elastic.co/guide/en/elasticsearch/reference/1.4/search-request-scroll.html
+Do we want to clear scroll between yields to release memory?  Appears to be unnecessary to do this explicitly.  By making the scroll size
+small enough, memory is released automatically.
+http://stackoverflow.com/questions/13464821/how-do-i-reduce-elasticsearch-scroll-response-time suggests that smaller scroll sizes are better 
+both for memory use and speed.  (size is multiplied by number of shards, usually 5).
+
+# 4/14/15 generating nc data from i_bio_2002
+///
+
+# Create the subdirectory for output
+cd /home/j/anick/patent-classifier/ontology/roles/data/nc
+mkdir bio_2002
+
+# bigrams
+es_np_query.dump_ngrams("i_bio_2002", 2, "/home/j/anick/patent-classifier/ontology/roles/data/nc/bio_2002/bigrams.inst")  
+wc -l bigrams.inst
+36604883 bigrams.inst
+
+# trigrams
+es_np_query.dump_ngrams("i_bio_2002", 3, "/home/j/anick/patent-classifier/ontology/roles/data/nc/bio_2002/trigrams.inst")  
+
+///
+# Do the filtering of illegal phrases (all folded into a single function now)
+>>> es_np_nc.filter_phr_doc_file("/home/j/anick/patent-classifier/ontology/roles/data/nc/bio_2002/bigrams.inst")
+>>> es_np_nc.filter_phr_doc_file("/home/j/anick/patent-classifier/ontology/roles/data/nc/bio_2002/trigrams.inst")
+
+wc -l trigrams.inst.filt
+wc -l bigrams.inst.filt
+
+
+# sort uniq to get document frequencies rather than collection frequencies
+cd /home/j/anick/patent-classifier/ontology/roles/data/nc/bio_2002
+# At this point, we throw away the surface form of the term amd keep the
+# canonical form only.
+cat trigrams.inst.filt | cut -f1,3 | sort | uniq > trigrams.inst.filt.su
+cat bigrams.inst.filt | cut -f1,3 | sort | uniq > bigrams.inst.filt.su
+
+wc -l trigrams.inst.filt.su
+wc -l bigrams.inst.filt.su
+
+# get doc freq of each phrase, sort by number reverse
+cat trigrams.inst.filt.su | cut -f1 | sortuc1 | sortnr > trigrams.inst.filt.su.f1.uc1.nr
+cat bigrams.inst.filt.su | cut -f1 | sortuc1 | sortnr > bigrams.inst.filt.su.f1.uc1.nr
+
+# number of unique trigrams for the year 2002
+wc -l trigrams.inst.filt.su.f1.uc1.nr
+wc -l bigrams.inst.filt.su.f1.uc1.nr
+
+# How many trigrams only occur in one doc?
+cat trigrams.inst.filt.su.f1.uc1.nr | egrep '^1       ' | wc -l
+cat bigrams.inst.filt.su.f1.uc1.nr | egrep '^1       ' | wc -l

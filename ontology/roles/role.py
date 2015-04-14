@@ -41,8 +41,13 @@ variants, such as more/less restrictive cutoffs for the classifier categories.  
 are very close, is it better to count polarity as neutral or to assume ambiguity between T and C?
 
 Seed features are in code_dir as
+
 seed.act.en.dat : ACT seed features
 seed.pn.en.dat : Polarity seed features
+
+canonicalized versions (converted from the above using canon_seed_set.py):
+seed.pn.en.canon.dat
+seed.act.en.canon.dat
 
 ########
 function tf2tfc(corpus_root, corpus, year, fcat_file, cat_list, cat_type, subset):
@@ -830,8 +835,8 @@ def run_tf2tfc(corpus_root, corpus, start_range, end_range, fcat_file, cat_list,
     #inroot = "/home/j/anick/patent-classifier/ontology/creation/data/patents/ln-us-all-600k/data/tv"
     #inroot = "/home/j/anick/patent-classifier/ontology/creation/data/patents/wos-cs-520k_old/data/tv"
     #inroot = "/home/j/anick/patent-classifier/ontology/creation/data/patents/ln-us-cs-500k/data/tv"
-    #fcat_file = "/home/j/anick/patent-classifier/ontology/creation/feature.cat.en.dat"
-    #fcat_file = "/home/j/anick/patent-classifier/ontology/creation/seed.cat.en.dat"
+    #fcat_file = "/home/j/anick/patent-classifier/ontology/creation/feature.cat.en.canon.dat"
+    #fcat_file = "/home/j/anick/patent-classifier/ontology/creation/seed.cat.en.canon.dat"
 
     # category r and n are useful but overlap with other cats.  Better to work with them separately.
     #cat_list = ["a", "b", "c", "p", "t", "o"]
@@ -1693,10 +1698,10 @@ def run_tf_steps(corpus, start, end, cat_type="act", todo_list=[ "tc", "tcs", "f
     fcat_file = ""
     cat_list = []
     if cat_type == "act":
-        fcat_file = code_root + "/seed." + cat_type + ".en.dat"
+        fcat_file = code_root + "/seed." + cat_type + ".en.canon.dat"
         cat_list = ["a", "c", "t"]
     elif cat_type == "pn":
-        fcat_file = "/home/j/anick/patent-classifier/ontology/creation/seed." + cat_type + ".en.dat"
+        fcat_file = code_root + "/seed." + cat_type + ".en.canon.dat"
         cat_list = ["p", "n"]
 
     # Be safe, check if tv_root path exists, and create it if not

@@ -536,7 +536,7 @@ def gen_bulk_lists(index_name, type_name, domain, corpus, start, end, lines_per_
 # new index with doc, np, sent object types 3/30/15
 # full db: es_np_index.np_populate("i_bio", "biology", "ln-us-A27-molecular-biology", 2003, 2003, 10000, True, True, 0)
 # we will alias i_bio to i_bio_2003
-# todo: es_np_index.np_populate("i_bio_2002", "biology", "ln-us-A27-molecular-biology", 2002, 2002, 10000, True, True, 0)
+# full db: es_np_index.np_populate("i_bio_2002", "biology", "ln-us-A27-molecular-biology", 2002, 2002, 10000, True, True, 0)
 
 
 #  ACT/PN info in /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/tv

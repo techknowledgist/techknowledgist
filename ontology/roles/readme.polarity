@@ -31,8 +31,8 @@ To get a set of candidate attribute terms, extract those which occur with a feat
 dispersion of the feature across different terms.
 cat 2002.tf | grep prev_Npr | grep _of | sed -e 's/^.*=//' | sed -e 's/_of.*$//' | sort | uniq -c | sortnr -k1 > 2002.tf.attr_of.uc
 
-In tf.py,  TODO: canonicalize and filter .terms and .feats
-
+///In tf.py,  TODO: canonicalize and filter .terms and .feats
+DONE
 
 ------
 import role
@@ -160,3 +160,92 @@ seed.pn.en.canon.dat
 seed.act.en.canon.dat
 
 Conversion was done using: canon_seed_set.py
+
+-----------------------------------------
+Running all steps on bio domain
+
+# Move the existing tv directory and create a new empty one
+cd /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data
+mv tv tv_20150407_tas
+mkdir tv
+
+# populate the term features dir with abstract only data (ta) or all (tas)
+cd /home/j/anick/patent-classifier/ontology/roles
+sh run_term_features.sh ln-us-A27-molecular-biology 2002 2002 tas
+
+# in bash, populate the tv directory and run nbayes for act and pn classification
+# first make a copy of the old directory
+cd /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A27-molecular-biology/data/
+mv tv tv_21050408_uncanon
+mkidr tv
+
+NOTE: after populating the tv directory, move the files to another location before rerunning using a different
+term_features set (ta vs. tas)
+
+# note: (using term_features) for title/abstract and summary/background sections
+python tf.py /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A27-molecular-biology/data/term_features/ /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A27-molecular-biology/data/tv/ 2002 2002
+(this is slow)
+
+# version for title/abstract only (using use term_features_ta) 
+python tf.py /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A27-molecular-biology/data/term_features_ta/ /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A27-molecular-biology/data/tv/ 2002 2002
+
+# in python, do nbayes for act and pn over the abstract data
+import role
+import nbayes.py
+
+# (2) role.run_tf_steps("ln-us-A27-molecular-biology", 2002, 2002, "act", ["tc", "tcs", "fc", "uc", "prob"]) 
+# (3) nbayes.run_steps("ln-us-A27-molecular-biology", 2002, ["nb", "ds", "cf"])
+# (4) nbayes.run_filter_tf_file("ln-us-A27-molecular-biology", 2002, "0.0") # create a.tf, needed for running polarity
+# (5) role.run_tf_steps("ln-us-A27-molecular-biology", 2002, 2002, "pn", ["tc", "tcs", "fc", "uc", "prob"], "a")
+
+# (6) nbayes.run_steps("ln-us-A27-molecular-biology", 2002, ["nb", "ds", "cf"], cat_type="pn", subset="a") 
+
+4/9/15 Fixed a bug in canon.py to make sure unicode characters were detected in illegal char regex.  So any data prior to 
+this date might contain some illegal terms e.g. 3 dash equals sign or R sign)
+
+!! potential problem with doing canonicalization.  "increased" as past participle modifier may be used as a negative, whereas
+other forms may have invention as subject and hence be positive.
+e.g. inflammatory response, cell death (negatives)
+
+# 4/13/15 creating polarity functions for pagerank in polarity.py
+
+#####################################
+
+# Move the existing tv directory and create a new empty one  (not necessary for new domain)
+cd /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A23-semiconductors/data
+mv tv_20141125_uncanon tv_20141125_uncanon_tas
+mkdir tv
+
+# populate the term features dir with abstract only data (ta) or all (tas)
+cd /home/j/anick/patent-classifier/ontology/roles
+#sh run_term_features.sh ln-us-A23-semiconductors 2002 2002 tas
+not necessary since tas output exists for all years
+
+# in bash, populate the tv directory and run nbayes for act and pn classification
+
+NOTE: after populating the tv directory, move the files to another location before rerunning using a different
+term_features set (ta vs. tas)
+
+# note: (using term_features) for title/abstract and summary/background sections
+python2.7 tf.py /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A23-semiconductors/data/term_features/ /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A23-semiconductors/data/tv/ 2002 2002
+(this is slow)
+
+/////
+# version for title/abstract only (using term_features_ta) 
+python tf.py /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A23-semiconductors/data/term_features_ta/ /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A23-semiconductors/data/tv/ 2002 2002
+
+# in python, do nbayes for act and pn over the abstract data
+import role
+import nbayes.py
+
+# (2) role.run_tf_steps("ln-us-A23-semiconductors", 2002, 2002, "act", ["tc", "tcs", "fc", "uc", "prob"]) 
+///
+# (3) nbayes.run_steps("ln-us-A23-semiconductors", 2002, ["nb", "ds", "cf"])
+# (4) nbayes.run_filter_tf_file("ln-us-A23-semiconductors", 2002, "0.0") # create a.tf, needed for running polarity
+# (5) role.run_tf_steps("ln-us-A23-semiconductors", 2002, 2002, "pn", ["tc", "tcs", "fc", "uc", "prob"], "a")
+
+# (6) nbayes.run_steps("ln-us-A23-semiconductors", 2002, ["nb", "ds", "cf"], cat_type="pn", subset="a") 
+
+
+
+

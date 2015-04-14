@@ -110,26 +110,30 @@ def dir2features_count(inroot, outroot, year, canonicalize_p=True, filter_noise_
                 # instances
                 if feature == "":
 
-                    if canonicalize_p:
-                        # Do canonicalization of term before incrementing counts
-                        # note we don't canonicalize feature here since feature == ""
-                        term = can.get_canon_np(term)
+                    if (filter_noise_p and canon.illegal_phrase_p(term)):
+                        pass
+                    else:
+                        if canonicalize_p:
+                            # Do canonicalization of term before incrementing counts
+                            # note we don't canonicalize feature here since feature == ""
+                            term = can.get_canon_np(term)
 
-                    d_term_instance_freq[term] += term_feature_within_doc_count
-                    # add term to set for this document to accumulate term-doc count
-                    term_set.add(term)
-                    # note:  In ln-us-cs-500k 1997.tf, it appears that one term (e.g. u'y \u2033')
-                    # does not get added to the set.  Perhaps the special char is treated as the same
-                    # as another term and therefore is excluded from the set add.  As a result
-                    # the set of terms in d_term_freq may be missing some odd terms that occur in .tf.
-                    # Later will will use terms from .tf as keys into d_term_freq, so we have to allow for
-                    # an occasional missing key at that point (in nbayes.py)
+                        d_term_instance_freq[term] += term_feature_within_doc_count
+                        # add term to set for this document to accumulate term-doc count
+                        term_set.add(term)
+                        # note:  In ln-us-cs-500k 1997.tf, it appears that one term (e.g. u'y \u2033')
+                        # does not get added to the set.  Perhaps the special char is treated as the same
+                        # as another term and therefore is excluded from the set add.  As a result
+                        # the set of terms in d_term_freq may be missing some odd terms that occur in .tf.
+                        # Later will will use terms from .tf as keys into d_term_freq, so we have to allow for
+                        # an occasional missing key at that point (in nbayes.py)
                 else:
                     # the line is a term_feature pair
                     # (filter_noise_p should be False to handle chinese)
 
                     # Do not process noise (illegal) terms or features
-
+                    #///  for cases where feat = "", need to filter!  todo
+                    #pdb.set_trace()
                     if (filter_noise_p and canon.illegal_phrase_p(term)) or canon.illegal_feature_p(feature):
                         pass
 
@@ -290,3 +294,6 @@ if __name__ == "__main__":
 
     # take the defaults, including canonicalization
     run_dir2features_count(inroot, outroot, start_range, end_range)
+
+# test using 
+# python tf.py /home/j/anick/temp/term_features/ /home/j/anick/temp/tv/ 2002 2002
