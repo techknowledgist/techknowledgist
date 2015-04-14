@@ -29,7 +29,7 @@ h2:before {
 h3:before {
    content: counter(section) "." counter(subsection) ". "; }
 
-p, li, td {
+p, li, table, tr, td {
    font-size: 100%; }
 
 .navigation {

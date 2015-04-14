@@ -23,7 +23,7 @@ OPTIONS:
 
 --verbose
    In verbose mode, messages will be printed to the terminal. Information
-   printed includes: location of classifier and tagger, file that i sbeing
+   printed includes: location of classifier and tagger, file that is being
    pre-processed (tagging and chunking), and commands executed during
    classification.
 
@@ -73,7 +73,7 @@ all have the prefix 'iclassify':
     iclassify.MaxEnt.out - output file of the cassifier
     iclassify.MaxEnt.stderr - messages from the classifier
 
-    iclassify.MaxEnt.label - condensed verison of classifier output
+    iclassify.MaxEnt.label - condensed version of classifier output
     iclassify.MaxEnt.label.cat - minimal keyterm information
     iclassify.MaxEnt.label.merged - keyterms per document
     iclassify.MaxEnt.label.merged.tab - tabbed version of the previous
