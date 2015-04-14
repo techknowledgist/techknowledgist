@@ -16,9 +16,9 @@ OPTIONS:
 
 --run-id STRING
    The optional run-id option defines an identifier for the current run. The
-   default is to use the current timestamp. The run-id determines where
-   temporary and results file are written to. For example, with a run-id of
-   'run-018', temporary files are written to workspace/tmp/run-018 and result
+   default is to use the current timestamp. The run-id determines where the
+   temporary files and results file are written to. For example, with a run-id
+   of 'run-018', temporary files are written to workspace/tmp/run-018 and result
    files are written to workspace/results/run-018.
 
 --verbose
@@ -171,7 +171,7 @@ sys.path.insert(0, os.getcwd())
 os.chdir(script_dir)
 
 from utils.docstructure.main import Parser
-from ontology.doc_processing import txt2tag, cn_txt2seg, cn_seg2tag, tag2chunk
+from ontology.doc_processing import xml2txt, txt2tag, cn_txt2seg, cn_seg2tag, tag2chunk
 from ontology.classifier.invention import patent_invention_classify
 from ontology.classifier.invention import make_instance_key
 from ontology.classifier.run_iclassify import process_label_file
@@ -188,7 +188,7 @@ import ontology.classifier.config
 
 # the models used by this invention classifier
 EN_MODEL = '../classifier/data/models/inventions-standard-20130713/'
-CN_MODEL = '../classifier/data/models/inventions-standard-cn-20130713/'
+CN_MODEL = '../classifier/data/models/inventions-standard-cn-20150105/'
 
 # used by add_phr_feats_file(), is probably useless
 output_count = 0
@@ -200,7 +200,9 @@ def process(filelist, language, run_id, mallet_path, stanford_path, condense):
     os.mkdir('workspace/results/' + run_id)
     t1 = time.time()
     infiles = read_filelist(filelist)
+    # two data structures to be fed into the classification stage
     chk_files = []
+    saved_titles = {}
     segmenter = cn_txt2seg.SegmenterWrapper() if language == 'cn' else None
     tagger = txt2tag.get_tagger(language)
     if VERBOSE: print '[process] pre-processing files'
@@ -212,14 +214,14 @@ def process(filelist, language, run_id, mallet_path, stanford_path, condense):
         tag_file = os.path.join("workspace/tmp/%s/%s.tag" % (run_id, basename))
         chk_file = os.path.join("workspace/tmp/%s/%s.chk" % (run_id, basename))
         chk_files.append(chk_file)
-        run_xml2txt(text_file, fact_file, txt_file)
+        run_xml2txt(text_file, fact_file, txt_file, language, saved_titles)
         if language == 'en':
             run_txt2tag(txt_file, tag_file, tagger)
         else:
             run_txt2seg(txt_file, seg_file, segmenter)
             run_seg2tag(seg_file, tag_file, tagger)            
         run_tag2chk(tag_file, chk_file)
-    run_classifier(chk_files, language, run_id, condense)
+    run_classifier(chk_files, language, run_id, condense, saved_titles)
     cleanup(run_id)
     if VERBOSE: print "Time elapsed: %f" % (time.time() - t1)
 
@@ -255,29 +257,46 @@ def update_directories(mallet_path, stanford_path):
         print 'MALLET_DIR =', ontology.classifier.config.MALLET_DIR
         print 'STANFORD_TAGGER_DIR =', ontology.creation.config.STANFORD_TAGGER_DIR
 
-def run_xml2txt(text_file, fact_file, outfile):
+def run_xml2txt(text_file, fact_file, outfile, language, saved_titles):
+    """This is a simplistic and fast document structure parser that just takes
+    the title and abstract, relying on the xml tags as recognized in code that
+    generates the FACT files. Chinese patents often have an English and a
+    Chinese abstract, there is some code included that makes a decent guess as
+    to the language."""
     fh_in = codecs.open(text_file, encoding='utf-8')
     fh_out = codecs.open(outfile, 'w', encoding='utf-8')
     text = fh_in.read()
     title, abstract = None, None
+    fname = os.path.basename(text_file)[:-4]
     for line in open(fact_file):
         fields = line.split()
         if fields[0] == 'STRUCTURE':
             fclass, ftype, start, end = parse_fact_line(fields)
-            if ftype == 'TITLE':
+            if ftype == 'TITLE' and language == 'en':
                 if title is None:
+                    saved_titles[fname] = text[start:end]
                     title = text[start:end]
-                else:
+                elif VERBOSE:
                     print "WARNING: more than one title"
-            if ftype == 'ABSTRACT':
+            elif ftype == 'TITLE' and language == 'cn':
+                title_text = text[start:end]
+                if is_chinese(title_text):
+                    saved_titles[fname] = title_text
+                    title = title_text
+            elif ftype == 'ABSTRACT' and language == 'en':
                 if abstract is None:
                     abstract = text[start:end]
-                else:
+                elif VERBOSE:
                     print "WARNING: more than one abstract"
+            elif ftype == 'ABSTRACT' and language == 'cn':
+                abstract_text = text[start:end]
+                if is_chinese(abstract_text):
+                    abstract = abstract_text
     if title is None: title = ''
     if abstract is None: abstract = ''
     fh_out.write("FH_TITLE:\n%s\n" % title.strip())
-    fh_out.write("FH_ABSTRACT:\n%s\nEND\n" % abstract.strip())
+    fh_out.write("FH_ABSTRACT:\n%s\n" % abstract.strip())
+
 
 def run_txt2tag(txt_file, tag_file, tagger):
     txt2tag.tag(txt_file, tag_file, tagger)
@@ -286,21 +305,27 @@ def run_txt2seg(txt_file, seg_file, segmenter):
     segmenter.process(txt_file, seg_file)
 
 def run_seg2tag(seg_file, tag_file, tagger):
-    cn_seg2tag.tag(file_in, file_out, tagger)
+    cn_seg2tag.tag(seg_file, tag_file, tagger)
 
 def run_tag2chk(tag_file, chk_file):
     tag2chunk.Doc(tag_file, chk_file, '9999', 'en',
                   filter_p=False, chunker_rules='en', compress=False)
 
+def is_chinese(text):
+    """Stipulate that a text is Chinese if at least half the characters are
+    Chinese. Not so good for very short texts with some roman characters."""
+    text_length = len(text.strip())
+    cchars = len([b for b in [xml2txt.is_chinese(c) for c in text.strip()] if b])
+    return text_length and float(cchars) / text_length > 0.5
+
 def cleanup(run_id):
     """Remove all temporary files."""
-    return
     tmp_dir = "workspace/tmp/" + run_id
     for f in os.listdir(tmp_dir):
         os.remove(os.path.join(tmp_dir, f))
     os.rmdir(tmp_dir)
 
-def run_classifier(chk_files, language, run_id, condense_results):
+def run_classifier(chk_files, language, run_id, condense_results, saved_titles):
     results_dir = os.path.join('workspace', 'results', run_id)
     mallet_file = os.path.join(results_dir, 'iclassify.mallet')
     with codecs.open(mallet_file, "w", encoding='utf-8') as s_mallet:
@@ -309,28 +334,27 @@ def run_classifier(chk_files, language, run_id, condense_results):
     MODEL = EN_MODEL if language == 'en' else CN_MODEL
     patent_invention_classify(None, MODEL, results_dir, verbose=VERBOSE)
     label_file = 'iclassify.MaxEnt.label'
-    create_info_file(results_dir)
+    create_info_file(results_dir, language, condense_results)
     command = "cat %s/%s | egrep -v '^name' | egrep '\|.*\|' | python %s > %s/%s" \
               % (results_dir, 'iclassify.MaxEnt.out', '../classifier/invention_top_scores.py',
                  results_dir, label_file)
     if VERBOSE: print '$', command
     subprocess.call(command, shell=True)
-    # TODO: the problem with this is that the first argument is used by
-    # merge_scores in invention.py to find the processed file and lift the title
-    # out of there, but merge_scores expects a corpus directory and its implied
-    # strucutre; however, in keyterms we have no corpus and we use a flat
-    # structure
     process_label_file(results_dir, results_dir, label_file, VERBOSE)
+    # this is to fix some problems with process_label_file()
+    fix_titles(results_dir, label_file, saved_titles)
     if condense_results:
         for fname in ['iclassify.MaxEnt.label', 'iclassify.MaxEnt.label.cat',
                       'iclassify.MaxEnt.label.merged', 'iclassify.MaxEnt.out',
                       'iclassify.MaxEnt.stderr', 'iclassify.mallet' ]:
             os.remove(os.path.join(results_dir, fname))
 
-def create_info_file(classification):
+def create_info_file(classification, language, condense_results):
     with open(os.path.join(classification, 'iclassify.info'), 'w') as fh:
         fh.write("$ python %s\n\n" % ' '.join(sys.argv))
         fh.write("classification        =  %s\n" % classification)
+        fh.write("language              =  %s\n" % language)
+        fh.write("condense_results      =  %s\n" % condense_results)
         fh.write("git_commit            =  %s\n" % get_git_commit())
 
 
@@ -364,6 +388,28 @@ def add_phr_feats_file(phr_feats_file, s_mallet):
             num_lines_output += 1
     s_phr_feats.close()
     return num_lines_output
+
+def fix_titles(results_dir, label_file, saved_titles):
+    """When processing the label file with process_label_file() there is a
+    problem in that that function uses another function merge_scores() in
+    invention.py, which relies on having a corpus available to lift out the
+    title. In the keyterms.py context, there is no corpus. As a result, the
+    title is a string with an error message. This function replaces that error
+    message with the real title."""
+    in_file = os.path.join(results_dir, label_file + '.merged')
+    out_file = os.path.join(results_dir, label_file + '.merged.fixed')
+    fh_in = codecs.open(in_file, encoding='utf-8')
+    fh_out = codecs.open(out_file, 'w', encoding='utf-8')
+    for line in fh_in:
+        if line.startswith('title: '):
+            fname = line.split()[1][1:-9]
+            fh_out.write("file: %s\ntitle: %s\n" % (fname, saved_titles.get(fname)))
+        else:
+            fh_out.write(line)
+    fh_in.close()
+    fh_out.close()
+    os.remove(in_file)
+    os.rename(out_file, in_file)
 
 
 

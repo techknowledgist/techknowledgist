@@ -1,0 +1,442 @@
+
+   
+      
+         
+            CN
+            101314556
+            A
+            20081203
+         
+      
+      
+         
+            CN
+            200710078517
+            20070528
+         
+      
+      eng
+      chi
+      
+         
+            CN
+            200710078517
+            20070528
+         
+      
+      
+         
+            20081203
+         
+         
+            20081203
+         
+      
+      24-48
+      
+         
+            C07C  15/00        20060101CFI20081203BHCN        
+            
+               20060101
+            
+            C
+            C
+            07
+            C
+            15
+            00
+            F
+            I
+            
+               20081203
+            
+            
+               CN
+            
+            B
+            H
+         
+         
+            C07C  15/24        20060101AFI20081203BHCN        
+            
+               20060101
+            
+            A
+            C
+            07
+            C
+            15
+            24
+            F
+            I
+            
+               20081203
+            
+            
+               CN
+            
+            B
+            H
+         
+         
+            C04B  24/00        20060101CLI20081203BHCN        
+            
+               20060101
+            
+            C
+            C
+            04
+            B
+            24
+            00
+            L
+            I
+            
+               20081203
+            
+            
+               CN
+            
+            B
+            H
+         
+         
+            C04B  24/00        20060101ALI20081203BHCN        
+            
+               20060101
+            
+            A
+            C
+            04
+            B
+            24
+            00
+            L
+            I
+            
+               20081203
+            
+            
+               CN
+            
+            B
+            H
+         
+         
+            C07C   7/00        20060101CLI20081203BHCN        
+            
+               20060101
+            
+            C
+            C
+            07
+            C
+            7
+            00
+            L
+            I
+            
+               20081203
+            
+            
+               CN
+            
+            B
+            H
+         
+         
+            C07C   7/04        20060101ALI20081203BHCN        
+            
+               20060101
+            
+            A
+            C
+            07
+            C
+            7
+            04
+            L
+            I
+            
+               20081203
+            
+            
+               CN
+            
+            B
+            H
+         
+      
+      1
+      萘系减水剂合成中残留萘的回收方法
+      Naphthalene water reducer remains the recovery method of naphthalene synthesizes,
+      
+         
+            
+               
+                  重庆达华砼外加剂科技发展有限公司
+                  
+                     400023重庆市江北区红土地红地苑B栋4－2号
+                  
+               
+               
+                  CHONGQING DAHUA CONCRETE ADDITIVE TECHNOLOGY DEVELOPMENT CO., LTD.
+                  
+                     CN
+                  
+               
+            
+            
+               
+                  重庆达华砼外加剂科技发展有限公司
+                  
+                     400023重庆市江北区红土地红地苑B栋4－2号
+                  
+               
+            
+            
+               
+                  CHONGQING DAHUA CONCRETE ADDIT
+                  
+                     CN
+                  
+               
+            
+            
+               
+                  CHONGQING DAHUA CONCRETE ADDITIVE TECHNOLOGY DEVELOPMENT CO., LTD.
+                  
+                     CN
+                  
+               
+            
+         
+         
+            
+               
+                  蒋德双
+               
+               
+                  JIANG DESHUANG
+                  
+                     CN
+                  
+               
+            
+            
+               
+                  蒋德双
+               
+            
+            
+               
+                  DESHUANG JIANG
+                  
+                     CN
+                  
+               
+            
+            
+               
+                  JIANG DESHUANG
+                  
+                     CN
+                  
+               
+            
+         
+         
+            
+               
+                  重庆市恒信知识产权代理有限公司 (陆志强)
+               
+            
+            
+               
+                  重庆市恒信知识产权代理有限公司 (陆志强)
+               
+            
+         
+      
+      
+         
+            
+               
+                  CN
+                  101314556
+                  A
+                  20081203
+               
+               
+                  20070528
+               
+            
+         
+         
+            
+               
+                  CN
+                  101314556
+                  A
+                  20081203
+               
+               
+                  20070528
+               
+            
+         
+      
+   
+   
+      萘系减水剂合成中残留萘的回收方法涉及水泥混凝土使用的萘系减水剂。针对现有生产萘系减水剂采用磺化－水解－缩合－中和等合成工艺流程而成，目前的生产工艺有严重缺陷，无法在磺化反应过程中将萘完全彻底反应，造成资源浪费，污染环境的不足，而提出一种回收萘的简单方法，在原有合成工艺流程的磺化反应的基础上增加设备装置而回收残留萘的方法。所采用的技术方案是，磺化反应釜内通有0.1－0.3MPa的水蒸汽，使釜内物料沸腾，釜内未彻底反应的残留萘以气态形式流出，再经降温、溶解、过滤、离心脱水，而得到回收萘。
+   
+   
+      The patent refers to the field of 'acyclic or carbocyclic compounds'. naphthalene water reducer remain recovery method of naphthalene, it involves whom portland cement concrete uses to be water reducer in naphthalene synthesize. Adopt sulfonation-hydrolysis-condense-neutralize etc. and synthesize the technological process to get final product to existing producing naphthalene water reducer, present preparation method have major defect, it is totally thorough reaction naphthalene in sulfonation reaction to be unable, cause the wasteful use of resources, the deficiency of polluting the environment, and propose a recovery naphthalene straightforward procedure, increase the equipment configuration and reclaim the method of residual naphthalene on the basis that original to synthesize sulfonation reaction of the technological process. Technological scheme not adopted, sulfonation coherent steam to have 0.1-0.3MPa under reactor, make the supplies in the kettle boil, thorough reaction's residual naphthalene is flowed out in gaseous form in the kettle, lower the temperature, dissolve, filtration, centrifugal dewatering, get and reclaim naphthalene.
+   
+   
+      
+         
+            20081203
+         
+         C06
+         +
+         PUBLICATION
+         N
+          CN   101314556A
+      
+      
+         
+            20090128
+         
+         C10
+         REQUEST OF EXAMINATION AS TO SUBSTANCE
+         N
+          CN   101314556A
+      
+      
+         
+            20110420
+         
+         C02
+         -
+         DEEMED WITHDRAWAL OF PATENT APPLICATION AFTER PUBLICATION (PATENT LAW 2001)
+         N
+          CN   101314556A
+      
+   
+   
+      
+         一、技术领域
+  
+         本发明涉及水泥混凝土使用的萘系减水剂，尤其是萘系减水剂合成中
+    残留萘的回收方法。
+    
+      
+      
+         二、背景技术
+  
+         萘系减水剂目前是高效减水剂中运用范围最广，使用量最大，也是生产
+    量最大的混凝土外加剂，据不完全统计，全国年产量近30多万吨萘系减水
+    剂粉剂，其生产工艺比较成熟，采用磺化、水解、缩合、中和等合成工艺而
+    成。
+    
+         但该工艺有严重缺陷，无法在磺化反应过程中将萘完全彻底反应，有8％
+    左右的萘残留于减水剂中，不但萘的功效得不到充分的发挥和利用，而且减
+    水剂中还带有萘的气味，对人体有不同程度的危害，不利于环境的保护，同
+    时萘的价值目前昂贵，达到9元/公斤左右。按投入1000公斤萘生产6500
+    公斤浓度约39％左右的萘系水剂回收萘最低6％估算，回收萘60公斤，价值
+    540元，每吨水剂节约成本83元，粉剂每吨节约210元左右，对于生产萘系
+    减水剂量大的企业来说，每年可节省成本1000多万元以上，技术经济效益
+    十分显著。
+    
+      
+      
+         三、发明内容
+  
+         本发明的目的是提供一种萘回收的简单方法，是在原有合成工艺流程磺
+    化反应中增加设备装置回收残留萘5-8％，以降低成本，提高效益，增强企
+    业的竞争力，节约资源，保护人类赖以生存的环境。
+    
+         本发明所采用的技术方案，其回收方法及步骤如下：
+    
+         a、磺化反应釜中输入加压蒸汽：在磺化反应釜的下部连通蒸汽管道，
+    0.1-0.3MPa压力的蒸汽直通磺化反应釜内，使磺化反应釜内的物料液体沸
+    腾，通蒸汽时间1-3小时，使磺化反应釜内未彻底反应的残留萘以气态形式
+    进入磺化反应釜上部的管道，同时保持磺化反应釜夹层通有蒸汽，磺化反应
+    釜内的温度为160℃--165℃；
+    
+         b、萘回收：气态的萘从磺化反应釜上部的管道流入萘回收釜内，萘回收
+    釜内的水控制在二分之一，磺化反应釜生产8-12次减水剂，可将萘回收釜
+    下部的管道阀门打开，使溶解有萘的水溶液流入过滤池，萘回收釜内的非萘
+    气体经萘回收釜上部管道流向冷凝器；
+    
+         c、过滤脱水：从萘回收釜流出来的含有萘的溶液流入过滤池中，过滤池
+    上有80目-100目的过滤网，经过滤的溶液进入离心机进行脱水，即得回收
+    萘，离心机脱出的水，可重复使用；
+    
+         d、冷凝：萘回收釜中的非萘气体，经萘回收釜上部管道流入冷凝器进行
+    热交换，使流入的气体降温，经降温的气体，通过管道流入除臭罐；
+    
+         e、除臭：进入除臭罐内的气体用水喷淋净化，进一步降低气体的温度，
+    同时除臭罐内装有少量液碱，进行中和处理，中和后的水呈中性，可重复使
+    用，除臭罐上端装有排空管道，进行排空。
+    
+         本发明，具有回收流程简单，设备易得，成本低，回收效果明显等特点。
+    
+      
+      
+         四、附图说明
+  
+         结合附图进一步说明本发明。
+    
+         附图是本发明工艺流程示意图。
+    
+         图中：1-磺化反应釜  2-萘回收釜  3-冷凝器  4-除臭罐  5-过滤池
+    6-离心机  7-萘  8-蒸气管道  9-管道  10-排空管
+    
+      
+      
+         五、具体实施方式
+  
+         下面结合一个实施例子进一步说明本发明。0.15MPa的蒸汽直通磺化反
+    应釜内，时间2小时，使磺化反应釜内的液体沸腾，未彻底反应的残留萘以
+    气态形式从磺化反应釜上部连通的管道流入萘回收釜内，磺化反应釜内温度
+    为160℃，在萘回收釜内有二分之一的水，当磺化反应釜生产10次减水剂时，
+    打开萘回收釜下部阀门，使萘溶液流入过滤池，过滤池上有100目的过滤网
+    过滤，过滤后再进入离心机进行脱水，即得回收萘；萘回收釜内的非萘气体
+    从萘回收釜上部连通的管道流入冷凝器进行热交换，降温后通过管道流入除
+    臭罐进行喷淋、净化、降温，同时，除臭罐内有液碱，进行中和处理，剩余
+    的气体从除臭罐上端的排空管中排出；离心机脱出的水和除臭罐内的中和
+    水，可重复使用。
+    
+      
+   
+   
+      
+         1、一种萘系减水剂合成中残留萘的回收方法，其特征在于回收方法及步
+      骤如下：
+      
+         a、磺化反应釜中输入加压蒸汽：在磺化反应釜的下部连通蒸汽管道，
+      0.1-0.3MPa压力的蒸汽直通磺化反应釜内，使磺化反应釜内的物料液体沸
+      腾，通蒸汽时间1-3小时，使磺化反应釜内未彻底反应的残留萘以气态形式
+      进入磺化反应釜上部的管道，同时保持磺化反应釜夹层通有蒸汽，磺化反应
+      釜内的温度为160℃--165℃；
+      
+         b、萘回收：气态的萘从磺化反应釜上部的管道流入萘回收釜内，萘回收
+      釜内的水控制在二分之一，磺化反应釜生产8-12次减水剂，可将萘回收釜
+      下部的管道阀门打开，使溶解有萘的水溶液流入过滤池，萘回收釜内的非萘
+      气体经萘回收釜上部管道流向冷凝器；
+      
+         c、过滤脱水：从萘回收釜流出来的含有萘的溶液流入过滤池中，过滤池
+      上有80目-100目的过滤网，经过滤的溶液进入离心机进行脱水，即得回收
+      萘，离心机脱出的水，可重复使用；
+      
+         d、冷凝：萘回收釜中的非萘气体，经萘回收釜上部管道流入冷凝器进行
+      热交换，使流入的气体降温，经降温的气体，通过管道流入除臭罐；
+      
+         e、除臭：进入除臭罐内的气体用水喷淋净化，进一步降低气体的温度，
+      同时除臭罐内装有少量液碱，进行中和处理，中和后的水呈中性，可重复使
+      用，除臭罐上端装有排空管道，进行排空。
+      
+      
+   

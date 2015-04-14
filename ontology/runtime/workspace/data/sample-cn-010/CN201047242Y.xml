@@ -1,0 +1,340 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright ©2011 LexisNexis Univentio, The Netherlands. -->
+<lexisnexis-patent-document schema-version="1.08" date-produced="20111006" file="CN201047242Y.xml" produced-by="LexisNexis-Univentio" lang="eng" date-inserted="20080502" time-inserted="125551" date-changed="20110408" time-changed="030415">
+  <bibliographic-data lang="chi">
+    <publication-reference publ-type="undefined" publ-desc="Granted patent for utility model">
+      <document-id>
+        <country>CN</country>
+        <doc-number>201047242</doc-number>
+        <kind>Y</kind>
+        <date>20080416</date>
+      </document-id>
+    </publication-reference>
+    <application-reference>
+      <document-id>
+        <country>CN</country>
+        <doc-number>200720012534</doc-number>
+        <date>20070608</date>
+      </document-id>
+    </application-reference>
+    <language-of-filing>eng</language-of-filing>
+    <language-of-publication>chi</language-of-publication>
+    <priority-claims date-changed="20080502">
+      <priority-claim sequence="1" kind="national">
+        <country>CN</country>
+        <doc-number>200720012534</doc-number>
+        <date>20070608</date>
+      </priority-claim>
+    </priority-claims>
+    <dates-of-public-availability date-changed="20091230">
+      <gazette-reference>
+        <date>20080416</date>
+      </gazette-reference>
+      <printed-with-grant>
+        <date>20080416</date>
+      </printed-with-grant>
+    </dates-of-public-availability>
+    <classifications-ipcr date-changed="20080724">
+      <classification-ipcr sequence="1">
+        <text>E06B   9/52        20060101CFI20080416BHCN        </text>
+        <ipc-version-indicator>
+          <date>20060101</date>
+        </ipc-version-indicator>
+        <classification-level>C</classification-level>
+        <section>E</section>
+        <class>06</class>
+        <subclass>B</subclass>
+        <main-group>9</main-group>
+        <subgroup>52</subgroup>
+        <symbol-position>F</symbol-position>
+        <classification-value>I</classification-value>
+        <action-date>
+          <date>20080416</date>
+        </action-date>
+        <generating-office>
+          <country>CN</country>
+        </generating-office>
+        <classification-status>B</classification-status>
+        <classification-data-source>H</classification-data-source>
+      </classification-ipcr>
+      <classification-ipcr sequence="2">
+        <text>E06B   9/52        20060101AFI20080416BHCN        </text>
+        <ipc-version-indicator>
+          <date>20060101</date>
+        </ipc-version-indicator>
+        <classification-level>A</classification-level>
+        <section>E</section>
+        <class>06</class>
+        <subclass>B</subclass>
+        <main-group>9</main-group>
+        <subgroup>52</subgroup>
+        <symbol-position>F</symbol-position>
+        <classification-value>I</classification-value>
+        <action-date>
+          <date>20080416</date>
+        </action-date>
+        <generating-office>
+          <country>CN</country>
+        </generating-office>
+        <classification-status>B</classification-status>
+        <classification-data-source>H</classification-data-source>
+      </classification-ipcr>
+      <classification-ipcr sequence="3">
+        <text>E06B   3/32        20060101CLI20080416BHCN        </text>
+        <ipc-version-indicator>
+          <date>20060101</date>
+        </ipc-version-indicator>
+        <classification-level>C</classification-level>
+        <section>E</section>
+        <class>06</class>
+        <subclass>B</subclass>
+        <main-group>3</main-group>
+        <subgroup>32</subgroup>
+        <symbol-position>L</symbol-position>
+        <classification-value>I</classification-value>
+        <action-date>
+          <date>20080416</date>
+        </action-date>
+        <generating-office>
+          <country>CN</country>
+        </generating-office>
+        <classification-status>B</classification-status>
+        <classification-data-source>H</classification-data-source>
+      </classification-ipcr>
+      <classification-ipcr sequence="4">
+        <text>E06B   3/36        20060101ALI20080416BHCN        </text>
+        <ipc-version-indicator>
+          <date>20060101</date>
+        </ipc-version-indicator>
+        <classification-level>A</classification-level>
+        <section>E</section>
+        <class>06</class>
+        <subclass>B</subclass>
+        <main-group>3</main-group>
+        <subgroup>36</subgroup>
+        <symbol-position>L</symbol-position>
+        <classification-value>I</classification-value>
+        <action-date>
+          <date>20080416</date>
+        </action-date>
+        <generating-office>
+          <country>CN</country>
+        </generating-office>
+        <classification-status>B</classification-status>
+        <classification-data-source>H</classification-data-source>
+      </classification-ipcr>
+    </classifications-ipcr>
+    <number-of-claims calculated="yes">1</number-of-claims>
+    <invention-title id="title_chi" date-changed="20091230" lang="chi" format="original">平开窗用纱窗</invention-title>
+    <invention-title id="title_eng" date-changed="20091230" lang="eng" format="original">Mesh window for horizontal drawing window</invention-title>
+    <parties date-changed="20091230">
+      <applicants>
+        <applicant sequence="1" app-type="applicant">
+          <addressbook lang="chi">
+            <orgname>范永彪</orgname>
+            <address>
+              <address-1>115003辽宁省营口市站前区爱国里005－41号</address-1>
+            </address>
+          </addressbook>
+          <addressbook lang="eng">
+            <orgname>FAN YONGBIAO</orgname>
+            <address>
+              <country>CN</country>
+            </address>
+          </addressbook>
+        </applicant>
+        <applicant sequence="1" app-type="applicant" data-format="original">
+          <addressbook lang="chi">
+            <orgname>范永彪</orgname>
+            <address>
+              <address-1>115003辽宁省营口市站前区爱国里005－41号</address-1>
+            </address>
+          </addressbook>
+        </applicant>
+        <applicant sequence="1" app-type="applicant" data-format="docdb">
+          <addressbook lang="eng">
+            <orgname>YONGBIAO FAN</orgname>
+            <address>
+              <country>CN</country>
+            </address>
+          </addressbook>
+        </applicant>
+        <applicant sequence="1" app-type="applicant" data-format="docdba">
+          <addressbook lang="eng">
+            <orgname>FAN YONGBIAO</orgname>
+            <address>
+              <country>CN</country>
+            </address>
+          </addressbook>
+        </applicant>
+      </applicants>
+      <inventors>
+        <inventor sequence="1">
+          <addressbook lang="chi">
+            <name>范永彪</name>
+          </addressbook>
+          <addressbook lang="eng">
+            <name>FAN YONGBIAO</name>
+            <address>
+              <country>CN</country>
+            </address>
+          </addressbook>
+        </inventor>
+        <inventor sequence="1" data-format="original">
+          <addressbook lang="chi">
+            <name>范永彪</name>
+          </addressbook>
+        </inventor>
+        <inventor sequence="1" data-format="docdb">
+          <addressbook lang="eng">
+            <name>YONGBIAO FAN</name>
+            <address>
+              <country>CN</country>
+            </address>
+          </addressbook>
+        </inventor>
+        <inventor sequence="1" data-format="docdba">
+          <addressbook lang="eng">
+            <name>FAN YONGBIAO</name>
+            <address>
+              <country>CN</country>
+            </address>
+          </addressbook>
+        </inventor>
+      </inventors>
+      <agents>
+        <agent sequence="1" rep-type="attorney">
+          <addressbook lang="chi">
+            <name>沈阳科苑专利商标代理有限公司 (张宇晨)</name>
+          </addressbook>
+        </agent>
+        <agent sequence="1" rep-type="attorney" data-format="original">
+          <addressbook lang="chi">
+            <name>沈阳科苑专利商标代理有限公司 (张宇晨)</name>
+          </addressbook>
+        </agent>
+      </agents>
+    </parties>
+    <patent-family date-changed="20080502">
+      <main-family family-id="111428401">
+        <family-member>
+          <document-id>
+            <country>CN</country>
+            <doc-number>201047242</doc-number>
+            <kind>Y</kind>
+            <date>20080416</date>
+          </document-id>
+          <application-date>
+            <date>20070608</date>
+          </application-date>
+        </family-member>
+      </main-family>
+      <complete-family family-id="111427914">
+        <family-member>
+          <document-id>
+            <country>CN</country>
+            <doc-number>201047242</doc-number>
+            <kind>Y</kind>
+            <date>20080416</date>
+          </document-id>
+          <application-date>
+            <date>20070608</date>
+          </application-date>
+        </family-member>
+      </complete-family>
+    </patent-family>
+  </bibliographic-data>
+  <abstract id="abstr_chi" date-changed="20091230" lang="chi" format="original">
+    <p num="1">平开窗用纱窗，属纱窗的设计与制造技术领域。由外框和里框构成。在外框外上、下框里侧带有里框挡，在里框的外周边上带有嵌槽，在里框内侧带有毛条，纱布槽内带有胶条。里框下部嵌槽内带有垫块。本产品是应用在平开窗上的。将外框固定在窗口上，将外框上的里框挡嵌入嵌槽内即可。它的特点是密封性极好，纱布在胶条的限制下，不易脱出。另外，由于结构简单，拆卸、清洗和维修都十分方便。解决了现有平开窗隐形纱窗的结构复杂、容易损坏和不易维修、清洗等问题。</p>
+  </abstract>
+  <abstract id="abstr_eng" date-changed="20091230" lang="eng" format="original">
+    <p>The utility model which relates to a screen window used in casement windows belongs to the technical field of the design and the manufacture of the screen window; the utility model comprises an external frame and an internal frame; the outside of the external frame and the inside of the internal frame is provided with an internal frame retainer, the external periphery of the internal frame is provided with a caulking groove, the internal side of the internal frame is provided with a wool top, an adhesive strip is arranged in a gauze groove, and a cushion block is arranged in the caulking groove at the lower part of the internal frame. The utility model which is applied to the casement windows can be ok if the external frame is fixed at the window and the internal frame of the external frame is inserted into the caulking groove. The utility model is characterized in that the utility model is good in sealing, and the gauze is uneasy to detach under the restriction of the adhesive strip, otherwise, as the utility is simple in structure and convenient in disassembly, cleaning and maintenance and solves the problem that the invisible screen windows of the existing casement windows are complex in structure, easy in destroy and uneasy in maintenance and cleaning.</p>
+  </abstract>
+  <legal-data date-changed="20090514">
+    <legal-event sequence="1">
+      <publication-date>
+        <date>20080416</date>
+      </publication-date>
+      <event-code-1>C14</event-code-1>
+      <effect>+</effect>
+      <legal-description>GRANTED</legal-description>
+      <status-identifier>N</status-identifier>
+      <docdb-publication-number> CN   201047242Y</docdb-publication-number>
+    </legal-event>
+  </legal-data>
+  <description id="descr_chi" lang="chi" format="original" date-changed="20091230">
+    <technical-field>
+      <p id="p-0001-zh" num="0001">技术领域  		  	 
+  </p>
+      <p id="p-0002-zh" num="0002">本实用新型属纱窗的设计与制造技术领域。 	    	 
+    </p>
+    </technical-field>
+    <background-art>
+      <p id="p-0003-zh" num="0003">背景技术 		 	 	 
+  </p>
+      <p id="p-0004-zh" num="0004">随着住宅楼建筑的不断高档化，曾流行一时的推拉式铝材窗或铝塑	 	 	 	 
+    <br />窗已逐渐被平开窗所取代。因为平开窗地密封效果好，并且结构简单， 	    	 
+    <br />窗上的零部件不易损坏。所以被广泛采用。但现有与平开窗配套的纱窗 		 	 	 
+    <br />在设计上却不理想。它采用隐形安装形式。就是在纱窗框上部有一轴，  		  	 
+    <br />纱布网缠绕在轴上，需要用纱窗时，将它慢慢拉下；不用时，再慢慢向	 	 	 	 
+    <br />上推卷在轴上。但在拉下或推上时，要特别注意速度和两边用力均匀， 	    	 
+    <br />稍推拉的速度过快或两边用力不均，就会出现纱窗布“打兜”现象，还 		 	 	 
+    <br />会出现纱布脱边的现象。一旦出现脱边，再往回装就非常麻烦。另外，  		  	 
+    <br />因纱布已被固定在轴上，所以不能摘下清洗和维修。因此说，现有的隐	 	 	 	 
+    <br />形纱窗在使用上不是很理想。 	    	 
+    </p>
+    </background-art>
+    <disclosure>
+      <p id="p-0005-zh" num="0005">发明内容 		 	 	 
+  </p>
+      <p id="p-0006-zh" num="0006">针对上述情况，本实用新型提供一种清洗和维修非常方便且不易损	 	 	 	 
+    <br />坏的平开窗用纱窗。以解决现有产品在使用上存在的问题。 	    	 
+    </p>
+      <p id="p-0007-zh" num="0007">本实用新型的结构如附图所示：由里框和外框构成，外框由外上、	 	 	 	 
+    <br />下框和外侧框构成。在外上、下框的里侧，有一里框挡，外框里侧周边 	    	 
+    <br />上带有挡边。外框内带有里框。在里框的外周边上有一嵌槽。在里框内 		 	 	 
+    <br />侧上带有毛条，在里框内周边上带有纱布槽，纱布槽内带有胶条。在里  		  	 
+    <br />框的下部有一擎手。在里框下部嵌槽内带有垫块。	 	 	 	 
+    </p>
+      <p id="p-0008-zh" num="0008">本产品的安装非常简单，将外框固定在窗口上。将纱布铺覆在里框  		  	 
+    <br />内侧，将胶条塞进纱布槽即可把纱布固定在里框上。再将里框装入外框	 	 	 	 
+    <br />内，外框上的里框挡嵌入嵌槽内，由外框上、下部的里框挡将里框限制 	    	 
+    <br />在外框内即成。当不需要纱窗时，只需将里框下部的擎手向上擎，即可 		 	 	 
+    <br />卸下里框。本产品结构简单，设计合理。因为里框和外框可以分离，所  		  	 
+    <br />以拆装、清洗和维修都十分方便。由于带有毛条，其密封效果更好。纱	 	 	 	 
+    <br />布内带有胶条，可以很牢固的限制纱布使其不能出现脱边现象。 	    	 
+    </p>
+    </disclosure>
+    <description-of-drawings>
+      <p id="p-0009-zh" num="0009">附图说明 		 	 	 
+  </p>
+      <p id="p-0010-zh" num="0010">附图为本实用新型结构示意图	 	 	 	 
+    </p>
+      <p id="p-0011-zh" num="0011">1-胶条 2-毛条 3-外上框 4-外侧框 5-纱布 6-擎手 7-垫  		  	 
+    <br />块 8-里框 9-里框挡	 	 	 	 
+    </p>
+    </description-of-drawings>
+    <mode-for-invention>
+      <p id="p-0012-zh" num="0012">具体实施方式 		 	 	 
+  </p>
+      <p id="p-0013-zh" num="0013">本实用新型的结构如附图所示：由里框(8)和外框构成，外框由	 	 	 	 
+    <br />外上框(3)和下框及外侧框(4)构成。外上框、外下框及外侧框通过 	    	 
+    <br />螺钉相联结。在外上、下框的里侧有一里框挡(9)。外框里侧周边上带 		 	 	 
+    <br />有挡边。在里框的外周边上带有嵌槽。在里框内侧上带有毛条(2)，毛  		  	 
+    <br />条通过粘结剂粘结在里框周边。在里框的周边上带有纱布槽，纱布槽内	 	 	 	 
+    <br />带有胶条(1)。在里框的下部有一擎手(6)。在里框下部的嵌槽内带有 	    	 
+    <br />垫块(7)。里框上带有纱布(5)。外框和里框均由塑料或铝材制。 		 	 	 
+    </p>
+    </mode-for-invention>
+  </description>
+  <claims id="claims_chi" lang="chi" format="original" date-changed="20091230">
+    <claim num="1">
+      <claim-text>1.平开窗用纱窗，由里框(8)和外框构成，外框由外上框(3)和下 		 	 	 
+      <br />框及外侧框(4)构成，其特征是：在外上、下框的里侧有一里框挡(9)，  		  	 
+      <br />外框里侧周边上带有挡边，在里框的外周边上带有嵌槽，在里框内侧上	 	 	 	 
+      <br />带有毛条(2)，在里框的周边上带有纱布槽，纱布槽内带有胶条(1)， 	    	 
+      <br />在里框的下部有一擎手(6)，在里框下部的嵌槽内带有垫块(7)。 		 	 	 
+      </claim-text>
+    </claim>
+  </claims>
+</lexisnexis-patent-document>

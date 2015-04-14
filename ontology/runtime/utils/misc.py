@@ -1,7 +1,7 @@
 import time
 
 def default_id():
-    """Returns a string represenatation of the current timestamp."""
+    """Returns a string representation of the current timestamp."""
     return time.strftime('%Y%m%d-%H%M%S')
 
 

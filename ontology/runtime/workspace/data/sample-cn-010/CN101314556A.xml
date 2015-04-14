@@ -1,0 +1,445 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright ©2011 LexisNexis Univentio, The Netherlands. -->
+<lexisnexis-patent-document schema-version="1.08" date-produced="20111007" file="CN101314556A.xml" produced-by="LexisNexis-Univentio" lang="eng" date-inserted="20081229" time-inserted="071827" date-changed="20110708" time-changed="025243">
+  <bibliographic-data lang="chi">
+    <publication-reference publ-type="Application" publ-desc="Unexamined application for a patent for invention">
+      <document-id>
+        <country>CN</country>
+        <doc-number>101314556</doc-number>
+        <kind>A</kind>
+        <date>20081203</date>
+      </document-id>
+    </publication-reference>
+    <application-reference>
+      <document-id>
+        <country>CN</country>
+        <doc-number>200710078517</doc-number>
+        <date>20070528</date>
+      </document-id>
+    </application-reference>
+    <language-of-filing>eng</language-of-filing>
+    <language-of-publication>chi</language-of-publication>
+    <priority-claims date-changed="20081229">
+      <priority-claim sequence="1" kind="national">
+        <country>CN</country>
+        <doc-number>200710078517</doc-number>
+        <date>20070528</date>
+      </priority-claim>
+    </priority-claims>
+    <dates-of-public-availability date-changed="20091226">
+      <gazette-reference>
+        <date>20081203</date>
+      </gazette-reference>
+      <unexamined-printed-without-grant>
+        <date>20081203</date>
+      </unexamined-printed-without-grant>
+    </dates-of-public-availability>
+    <kind-of-official-gazette lang="eng">24-48</kind-of-official-gazette>
+    <classifications-ipcr date-changed="20090310">
+      <classification-ipcr sequence="1">
+        <text>C07C  15/00        20060101CFI20081203BHCN        </text>
+        <ipc-version-indicator>
+          <date>20060101</date>
+        </ipc-version-indicator>
+        <classification-level>C</classification-level>
+        <section>C</section>
+        <class>07</class>
+        <subclass>C</subclass>
+        <main-group>15</main-group>
+        <subgroup>00</subgroup>
+        <symbol-position>F</symbol-position>
+        <classification-value>I</classification-value>
+        <action-date>
+          <date>20081203</date>
+        </action-date>
+        <generating-office>
+          <country>CN</country>
+        </generating-office>
+        <classification-status>B</classification-status>
+        <classification-data-source>H</classification-data-source>
+      </classification-ipcr>
+      <classification-ipcr sequence="2">
+        <text>C07C  15/24        20060101AFI20081203BHCN        </text>
+        <ipc-version-indicator>
+          <date>20060101</date>
+        </ipc-version-indicator>
+        <classification-level>A</classification-level>
+        <section>C</section>
+        <class>07</class>
+        <subclass>C</subclass>
+        <main-group>15</main-group>
+        <subgroup>24</subgroup>
+        <symbol-position>F</symbol-position>
+        <classification-value>I</classification-value>
+        <action-date>
+          <date>20081203</date>
+        </action-date>
+        <generating-office>
+          <country>CN</country>
+        </generating-office>
+        <classification-status>B</classification-status>
+        <classification-data-source>H</classification-data-source>
+      </classification-ipcr>
+      <classification-ipcr sequence="3">
+        <text>C04B  24/00        20060101CLI20081203BHCN        </text>
+        <ipc-version-indicator>
+          <date>20060101</date>
+        </ipc-version-indicator>
+        <classification-level>C</classification-level>
+        <section>C</section>
+        <class>04</class>
+        <subclass>B</subclass>
+        <main-group>24</main-group>
+        <subgroup>00</subgroup>
+        <symbol-position>L</symbol-position>
+        <classification-value>I</classification-value>
+        <action-date>
+          <date>20081203</date>
+        </action-date>
+        <generating-office>
+          <country>CN</country>
+        </generating-office>
+        <classification-status>B</classification-status>
+        <classification-data-source>H</classification-data-source>
+      </classification-ipcr>
+      <classification-ipcr sequence="4">
+        <text>C04B  24/00        20060101ALI20081203BHCN        </text>
+        <ipc-version-indicator>
+          <date>20060101</date>
+        </ipc-version-indicator>
+        <classification-level>A</classification-level>
+        <section>C</section>
+        <class>04</class>
+        <subclass>B</subclass>
+        <main-group>24</main-group>
+        <subgroup>00</subgroup>
+        <symbol-position>L</symbol-position>
+        <classification-value>I</classification-value>
+        <action-date>
+          <date>20081203</date>
+        </action-date>
+        <generating-office>
+          <country>CN</country>
+        </generating-office>
+        <classification-status>B</classification-status>
+        <classification-data-source>H</classification-data-source>
+      </classification-ipcr>
+      <classification-ipcr sequence="5">
+        <text>C07C   7/00        20060101CLI20081203BHCN        </text>
+        <ipc-version-indicator>
+          <date>20060101</date>
+        </ipc-version-indicator>
+        <classification-level>C</classification-level>
+        <section>C</section>
+        <class>07</class>
+        <subclass>C</subclass>
+        <main-group>7</main-group>
+        <subgroup>00</subgroup>
+        <symbol-position>L</symbol-position>
+        <classification-value>I</classification-value>
+        <action-date>
+          <date>20081203</date>
+        </action-date>
+        <generating-office>
+          <country>CN</country>
+        </generating-office>
+        <classification-status>B</classification-status>
+        <classification-data-source>H</classification-data-source>
+      </classification-ipcr>
+      <classification-ipcr sequence="6">
+        <text>C07C   7/04        20060101ALI20081203BHCN        </text>
+        <ipc-version-indicator>
+          <date>20060101</date>
+        </ipc-version-indicator>
+        <classification-level>A</classification-level>
+        <section>C</section>
+        <class>07</class>
+        <subclass>C</subclass>
+        <main-group>7</main-group>
+        <subgroup>04</subgroup>
+        <symbol-position>L</symbol-position>
+        <classification-value>I</classification-value>
+        <action-date>
+          <date>20081203</date>
+        </action-date>
+        <generating-office>
+          <country>CN</country>
+        </generating-office>
+        <classification-status>B</classification-status>
+        <classification-data-source>H</classification-data-source>
+      </classification-ipcr>
+    </classifications-ipcr>
+    <number-of-claims calculated="yes">1</number-of-claims>
+    <invention-title id="title_chi" date-changed="20091229" lang="chi" format="original">萘系减水剂合成中残留萘的回收方法</invention-title>
+    <invention-title id="title_eng" date-changed="20091229" lang="eng" format="original">Naphthalene water reducer remains the recovery method of naphthalene synthesizes,</invention-title>
+    <parties date-changed="20091226">
+      <applicants>
+        <applicant sequence="1" app-type="applicant">
+          <addressbook lang="chi">
+            <orgname>重庆达华砼外加剂科技发展有限公司</orgname>
+            <address>
+              <address-1>400023重庆市江北区红土地红地苑B栋4－2号</address-1>
+            </address>
+          </addressbook>
+          <addressbook lang="eng">
+            <orgname>CHONGQING DAHUA CONCRETE ADDITIVE TECHNOLOGY DEVELOPMENT CO., LTD.</orgname>
+            <address>
+              <country>CN</country>
+            </address>
+          </addressbook>
+        </applicant>
+        <applicant sequence="1" app-type="applicant" data-format="original">
+          <addressbook lang="chi">
+            <orgname>重庆达华砼外加剂科技发展有限公司</orgname>
+            <address>
+              <address-1>400023重庆市江北区红土地红地苑B栋4－2号</address-1>
+            </address>
+          </addressbook>
+        </applicant>
+        <applicant sequence="1" app-type="applicant" data-format="docdb">
+          <addressbook lang="eng">
+            <orgname>CHONGQING DAHUA CONCRETE ADDIT</orgname>
+            <address>
+              <country>CN</country>
+            </address>
+          </addressbook>
+        </applicant>
+        <applicant sequence="1" app-type="applicant" data-format="docdba">
+          <addressbook lang="eng">
+            <orgname>CHONGQING DAHUA CONCRETE ADDITIVE TECHNOLOGY DEVELOPMENT CO., LTD.</orgname>
+            <address>
+              <country>CN</country>
+            </address>
+          </addressbook>
+        </applicant>
+      </applicants>
+      <inventors>
+        <inventor sequence="1">
+          <addressbook lang="chi">
+            <name>蒋德双</name>
+          </addressbook>
+          <addressbook lang="eng">
+            <name>JIANG DESHUANG</name>
+            <address>
+              <country>CN</country>
+            </address>
+          </addressbook>
+        </inventor>
+        <inventor sequence="1" data-format="original">
+          <addressbook lang="chi">
+            <name>蒋德双</name>
+          </addressbook>
+        </inventor>
+        <inventor sequence="1" data-format="docdb">
+          <addressbook lang="eng">
+            <name>DESHUANG JIANG</name>
+            <address>
+              <country>CN</country>
+            </address>
+          </addressbook>
+        </inventor>
+        <inventor sequence="1" data-format="docdba">
+          <addressbook lang="eng">
+            <name>JIANG DESHUANG</name>
+            <address>
+              <country>CN</country>
+            </address>
+          </addressbook>
+        </inventor>
+      </inventors>
+      <agents>
+        <agent sequence="1" rep-type="attorney">
+          <addressbook lang="chi">
+            <name>重庆市恒信知识产权代理有限公司 (陆志强)</name>
+          </addressbook>
+        </agent>
+        <agent sequence="1" rep-type="attorney" data-format="original">
+          <addressbook lang="chi">
+            <name>重庆市恒信知识产权代理有限公司 (陆志强)</name>
+          </addressbook>
+        </agent>
+      </agents>
+    </parties>
+    <patent-family date-changed="20081230">
+      <main-family family-id="115858393">
+        <family-member>
+          <document-id>
+            <country>CN</country>
+            <doc-number>101314556</doc-number>
+            <kind>A</kind>
+            <date>20081203</date>
+          </document-id>
+          <application-date>
+            <date>20070528</date>
+          </application-date>
+        </family-member>
+      </main-family>
+      <complete-family family-id="115858091">
+        <family-member>
+          <document-id>
+            <country>CN</country>
+            <doc-number>101314556</doc-number>
+            <kind>A</kind>
+            <date>20081203</date>
+          </document-id>
+          <application-date>
+            <date>20070528</date>
+          </application-date>
+        </family-member>
+      </complete-family>
+    </patent-family>
+  </bibliographic-data>
+  <abstract id="abstr_chi" date-changed="20091229" lang="chi" format="original">
+    <p num="1">萘系减水剂合成中残留萘的回收方法涉及水泥混凝土使用的萘系减水剂。针对现有生产萘系减水剂采用磺化－水解－缩合－中和等合成工艺流程而成，目前的生产工艺有严重缺陷，无法在磺化反应过程中将萘完全彻底反应，造成资源浪费，污染环境的不足，而提出一种回收萘的简单方法，在原有合成工艺流程的磺化反应的基础上增加设备装置而回收残留萘的方法。所采用的技术方案是，磺化反应釜内通有0.1－0.3MPa的水蒸汽，使釜内物料沸腾，釜内未彻底反应的残留萘以气态形式流出，再经降温、溶解、过滤、离心脱水，而得到回收萘。</p>
+  </abstract>
+  <abstract id="abstr_eng" date-changed="20091229" lang="eng" format="original">
+    <p>The patent refers to the field of 'acyclic or carbocyclic compounds'. naphthalene water reducer remain recovery method of naphthalene, it involves whom portland cement concrete uses to be water reducer in naphthalene synthesize. Adopt sulfonation-hydrolysis-condense-neutralize etc. and synthesize the technological process to get final product to existing producing naphthalene water reducer, present preparation method have major defect, it is totally thorough reaction naphthalene in sulfonation reaction to be unable, cause the wasteful use of resources, the deficiency of polluting the environment, and propose a recovery naphthalene straightforward procedure, increase the equipment configuration and reclaim the method of residual naphthalene on the basis that original to synthesize sulfonation reaction of the technological process. Technological scheme not adopted, sulfonation coherent steam to have 0.1-0.3MPa under reactor, make the supplies in the kettle boil, thorough reaction's residual naphthalene is flowed out in gaseous form in the kettle, lower the temperature, dissolve, filtration, centrifugal dewatering, get and reclaim naphthalene.</p>
+  </abstract>
+  <legal-data date-changed="20110708">
+    <legal-event sequence="1">
+      <publication-date>
+        <date>20081203</date>
+      </publication-date>
+      <event-code-1>C06</event-code-1>
+      <effect>+</effect>
+      <legal-description>PUBLICATION</legal-description>
+      <status-identifier>N</status-identifier>
+      <docdb-publication-number> CN   101314556A</docdb-publication-number>
+    </legal-event>
+    <legal-event sequence="2">
+      <publication-date>
+        <date>20090128</date>
+      </publication-date>
+      <event-code-1>C10</event-code-1>
+      <legal-description>REQUEST OF EXAMINATION AS TO SUBSTANCE</legal-description>
+      <status-identifier>N</status-identifier>
+      <docdb-publication-number> CN   101314556A</docdb-publication-number>
+    </legal-event>
+    <legal-event sequence="3">
+      <publication-date>
+        <date>20110420</date>
+      </publication-date>
+      <event-code-1>C02</event-code-1>
+      <effect>-</effect>
+      <legal-description>DEEMED WITHDRAWAL OF PATENT APPLICATION AFTER PUBLICATION (PATENT LAW 2001)</legal-description>
+      <status-identifier>N</status-identifier>
+      <docdb-publication-number> CN   101314556A</docdb-publication-number>
+    </legal-event>
+  </legal-data>
+  <description id="descr_chi" lang="chi" format="original" date-changed="20100327">
+    <technical-field>
+      <p id="p-0001-zh" num="0001">一、技术领域
+  </p>
+      <p id="p-0002-zh" num="0002">本发明涉及水泥混凝土使用的萘系减水剂，尤其是萘系减水剂合成中
+    <br />残留萘的回收方法。
+    </p>
+    </technical-field>
+    <background-art>
+      <p id="p-0003-zh" num="0003">二、背景技术
+  </p>
+      <p id="p-0004-zh" num="0004">萘系减水剂目前是高效减水剂中运用范围最广，使用量最大，也是生产
+    <br />量最大的混凝土外加剂，据不完全统计，全国年产量近30多万吨萘系减水
+    <br />剂粉剂，其生产工艺比较成熟，采用磺化、水解、缩合、中和等合成工艺而
+    <br />成。
+    </p>
+      <p id="p-0005-zh" num="0005">但该工艺有严重缺陷，无法在磺化反应过程中将萘完全彻底反应，有8％
+    <br />左右的萘残留于减水剂中，不但萘的功效得不到充分的发挥和利用，而且减
+    <br />水剂中还带有萘的气味，对人体有不同程度的危害，不利于环境的保护，同
+    <br />时萘的价值目前昂贵，达到9元/公斤左右。按投入1000公斤萘生产6500
+    <br />公斤浓度约39％左右的萘系水剂回收萘最低6％估算，回收萘60公斤，价值
+    <br />540元，每吨水剂节约成本83元，粉剂每吨节约210元左右，对于生产萘系
+    <br />减水剂量大的企业来说，每年可节省成本1000多万元以上，技术经济效益
+    <br />十分显著。
+    </p>
+    </background-art>
+    <disclosure>
+      <p id="p-0006-zh" num="0006">三、发明内容
+  </p>
+      <p id="p-0007-zh" num="0007">本发明的目的是提供一种萘回收的简单方法，是在原有合成工艺流程磺
+    <br />化反应中增加设备装置回收残留萘5-8％，以降低成本，提高效益，增强企
+    <br />业的竞争力，节约资源，保护人类赖以生存的环境。
+    </p>
+      <p id="p-0008-zh" num="0008">本发明所采用的技术方案，其回收方法及步骤如下：
+    </p>
+      <p id="p-0009-zh" num="0009">a、磺化反应釜中输入加压蒸汽：在磺化反应釜的下部连通蒸汽管道，
+    <br />0.1-0.3MPa压力的蒸汽直通磺化反应釜内，使磺化反应釜内的物料液体沸
+    <br />腾，通蒸汽时间1-3小时，使磺化反应釜内未彻底反应的残留萘以气态形式
+    <br />进入磺化反应釜上部的管道，同时保持磺化反应釜夹层通有蒸汽，磺化反应
+    <br />釜内的温度为160℃--165℃；
+    </p>
+      <p id="p-0010-zh" num="0010">b、萘回收：气态的萘从磺化反应釜上部的管道流入萘回收釜内，萘回收
+    <br />釜内的水控制在二分之一，磺化反应釜生产8-12次减水剂，可将萘回收釜
+    <br />下部的管道阀门打开，使溶解有萘的水溶液流入过滤池，萘回收釜内的非萘
+    <br />气体经萘回收釜上部管道流向冷凝器；
+    </p>
+      <p id="p-0011-zh" num="0011">c、过滤脱水：从萘回收釜流出来的含有萘的溶液流入过滤池中，过滤池
+    <br />上有80目-100目的过滤网，经过滤的溶液进入离心机进行脱水，即得回收
+    <br />萘，离心机脱出的水，可重复使用；
+    </p>
+      <p id="p-0012-zh" num="0012">d、冷凝：萘回收釜中的非萘气体，经萘回收釜上部管道流入冷凝器进行
+    <br />热交换，使流入的气体降温，经降温的气体，通过管道流入除臭罐；
+    </p>
+      <p id="p-0013-zh" num="0013">e、除臭：进入除臭罐内的气体用水喷淋净化，进一步降低气体的温度，
+    <br />同时除臭罐内装有少量液碱，进行中和处理，中和后的水呈中性，可重复使
+    <br />用，除臭罐上端装有排空管道，进行排空。
+    </p>
+      <p id="p-0014-zh" num="0014">本发明，具有回收流程简单，设备易得，成本低，回收效果明显等特点。
+    </p>
+    </disclosure>
+    <description-of-drawings>
+      <p id="p-0015-zh" num="0015">四、附图说明
+  </p>
+      <p id="p-0016-zh" num="0016">结合附图进一步说明本发明。
+    </p>
+      <p id="p-0017-zh" num="0017">附图是本发明工艺流程示意图。
+    </p>
+      <p id="p-0018-zh" num="0018">图中：1-磺化反应釜  2-萘回收釜  3-冷凝器  4-除臭罐  5-过滤池
+    <br />6-离心机  7-萘  8-蒸气管道  9-管道  10-排空管
+    </p>
+    </description-of-drawings>
+    <mode-for-invention>
+      <p id="p-0019-zh" num="0019">五、具体实施方式
+  </p>
+      <p id="p-0020-zh" num="0020">下面结合一个实施例子进一步说明本发明。0.15MPa的蒸汽直通磺化反
+    <br />应釜内，时间2小时，使磺化反应釜内的液体沸腾，未彻底反应的残留萘以
+    <br />气态形式从磺化反应釜上部连通的管道流入萘回收釜内，磺化反应釜内温度
+    <br />为160℃，在萘回收釜内有二分之一的水，当磺化反应釜生产10次减水剂时，
+    <br />打开萘回收釜下部阀门，使萘溶液流入过滤池，过滤池上有100目的过滤网
+    <br />过滤，过滤后再进入离心机进行脱水，即得回收萘；萘回收釜内的非萘气体
+    <br />从萘回收釜上部连通的管道流入冷凝器进行热交换，降温后通过管道流入除
+    <br />臭罐进行喷淋、净化、降温，同时，除臭罐内有液碱，进行中和处理，剩余
+    <br />的气体从除臭罐上端的排空管中排出；离心机脱出的水和除臭罐内的中和
+    <br />水，可重复使用。
+    </p>
+    </mode-for-invention>
+  </description>
+  <claims id="claims_chi" lang="chi" format="original" date-changed="20100327">
+    <claim num="1">
+      <claim-text>1、一种萘系减水剂合成中残留萘的回收方法，其特征在于回收方法及步
+      <br />骤如下：
+      </claim-text>
+      <claim-text>a、磺化反应釜中输入加压蒸汽：在磺化反应釜的下部连通蒸汽管道，
+      <br />0.1-0.3MPa压力的蒸汽直通磺化反应釜内，使磺化反应釜内的物料液体沸
+      <br />腾，通蒸汽时间1-3小时，使磺化反应釜内未彻底反应的残留萘以气态形式
+      <br />进入磺化反应釜上部的管道，同时保持磺化反应釜夹层通有蒸汽，磺化反应
+      <br />釜内的温度为160℃--165℃；
+      </claim-text>
+      <claim-text>b、萘回收：气态的萘从磺化反应釜上部的管道流入萘回收釜内，萘回收
+      <br />釜内的水控制在二分之一，磺化反应釜生产8-12次减水剂，可将萘回收釜
+      <br />下部的管道阀门打开，使溶解有萘的水溶液流入过滤池，萘回收釜内的非萘
+      <br />气体经萘回收釜上部管道流向冷凝器；
+      </claim-text>
+      <claim-text>c、过滤脱水：从萘回收釜流出来的含有萘的溶液流入过滤池中，过滤池
+      <br />上有80目-100目的过滤网，经过滤的溶液进入离心机进行脱水，即得回收
+      <br />萘，离心机脱出的水，可重复使用；
+      </claim-text>
+      <claim-text>d、冷凝：萘回收釜中的非萘气体，经萘回收釜上部管道流入冷凝器进行
+      <br />热交换，使流入的气体降温，经降温的气体，通过管道流入除臭罐；
+      </claim-text>
+      <claim-text>e、除臭：进入除臭罐内的气体用水喷淋净化，进一步降低气体的温度，
+      <br />同时除臭罐内装有少量液碱，进行中和处理，中和后的水呈中性，可重复使
+      <br />用，除臭罐上端装有排空管道，进行排空。
+      </claim-text>
+    </claim>
+  </claims>
+</lexisnexis-patent-document>

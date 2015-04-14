@@ -1,0 +1,337 @@
+
+   
+      
+         
+            CN
+            201047242
+            Y
+            20080416
+         
+      
+      
+         
+            CN
+            200720012534
+            20070608
+         
+      
+      eng
+      chi
+      
+         
+            CN
+            200720012534
+            20070608
+         
+      
+      
+         
+            20080416
+         
+         
+            20080416
+         
+      
+      
+         
+            E06B   9/52        20060101CFI20080416BHCN        
+            
+               20060101
+            
+            C
+            E
+            06
+            B
+            9
+            52
+            F
+            I
+            
+               20080416
+            
+            
+               CN
+            
+            B
+            H
+         
+         
+            E06B   9/52        20060101AFI20080416BHCN        
+            
+               20060101
+            
+            A
+            E
+            06
+            B
+            9
+            52
+            F
+            I
+            
+               20080416
+            
+            
+               CN
+            
+            B
+            H
+         
+         
+            E06B   3/32        20060101CLI20080416BHCN        
+            
+               20060101
+            
+            C
+            E
+            06
+            B
+            3
+            32
+            L
+            I
+            
+               20080416
+            
+            
+               CN
+            
+            B
+            H
+         
+         
+            E06B   3/36        20060101ALI20080416BHCN        
+            
+               20060101
+            
+            A
+            E
+            06
+            B
+            3
+            36
+            L
+            I
+            
+               20080416
+            
+            
+               CN
+            
+            B
+            H
+         
+      
+      1
+      平开窗用纱窗
+      Mesh window for horizontal drawing window
+      
+         
+            
+               
+                  范永彪
+                  
+                     115003辽宁省营口市站前区爱国里005－41号
+                  
+               
+               
+                  FAN YONGBIAO
+                  
+                     CN
+                  
+               
+            
+            
+               
+                  范永彪
+                  
+                     115003辽宁省营口市站前区爱国里005－41号
+                  
+               
+            
+            
+               
+                  YONGBIAO FAN
+                  
+                     CN
+                  
+               
+            
+            
+               
+                  FAN YONGBIAO
+                  
+                     CN
+                  
+               
+            
+         
+         
+            
+               
+                  范永彪
+               
+               
+                  FAN YONGBIAO
+                  
+                     CN
+                  
+               
+            
+            
+               
+                  范永彪
+               
+            
+            
+               
+                  YONGBIAO FAN
+                  
+                     CN
+                  
+               
+            
+            
+               
+                  FAN YONGBIAO
+                  
+                     CN
+                  
+               
+            
+         
+         
+            
+               
+                  沈阳科苑专利商标代理有限公司 (张宇晨)
+               
+            
+            
+               
+                  沈阳科苑专利商标代理有限公司 (张宇晨)
+               
+            
+         
+      
+      
+         
+            
+               
+                  CN
+                  201047242
+                  Y
+                  20080416
+               
+               
+                  20070608
+               
+            
+         
+         
+            
+               
+                  CN
+                  201047242
+                  Y
+                  20080416
+               
+               
+                  20070608
+               
+            
+         
+      
+   
+   
+      平开窗用纱窗，属纱窗的设计与制造技术领域。由外框和里框构成。在外框外上、下框里侧带有里框挡，在里框的外周边上带有嵌槽，在里框内侧带有毛条，纱布槽内带有胶条。里框下部嵌槽内带有垫块。本产品是应用在平开窗上的。将外框固定在窗口上，将外框上的里框挡嵌入嵌槽内即可。它的特点是密封性极好，纱布在胶条的限制下，不易脱出。另外，由于结构简单，拆卸、清洗和维修都十分方便。解决了现有平开窗隐形纱窗的结构复杂、容易损坏和不易维修、清洗等问题。
+   
+   
+      The utility model which relates to a screen window used in casement windows belongs to the technical field of the design and the manufacture of the screen window; the utility model comprises an external frame and an internal frame; the outside of the external frame and the inside of the internal frame is provided with an internal frame retainer, the external periphery of the internal frame is provided with a caulking groove, the internal side of the internal frame is provided with a wool top, an adhesive strip is arranged in a gauze groove, and a cushion block is arranged in the caulking groove at the lower part of the internal frame. The utility model which is applied to the casement windows can be ok if the external frame is fixed at the window and the internal frame of the external frame is inserted into the caulking groove. The utility model is characterized in that the utility model is good in sealing, and the gauze is uneasy to detach under the restriction of the adhesive strip, otherwise, as the utility is simple in structure and convenient in disassembly, cleaning and maintenance and solves the problem that the invisible screen windows of the existing casement windows are complex in structure, easy in destroy and uneasy in maintenance and cleaning.
+   
+   
+      
+         
+            20080416
+         
+         C14
+         +
+         GRANTED
+         N
+          CN   201047242Y
+      
+   
+   
+      
+         技术领域  		  	 
+  
+         本实用新型属纱窗的设计与制造技术领域。 	    	 
+    
+      
+      
+         背景技术 		 	 	 
+  
+         随着住宅楼建筑的不断高档化，曾流行一时的推拉式铝材窗或铝塑	 	 	 	 
+    窗已逐渐被平开窗所取代。因为平开窗地密封效果好，并且结构简单， 	    	 
+    窗上的零部件不易损坏。所以被广泛采用。但现有与平开窗配套的纱窗 		 	 	 
+    在设计上却不理想。它采用隐形安装形式。就是在纱窗框上部有一轴，  		  	 
+    纱布网缠绕在轴上，需要用纱窗时，将它慢慢拉下；不用时，再慢慢向	 	 	 	 
+    上推卷在轴上。但在拉下或推上时，要特别注意速度和两边用力均匀， 	    	 
+    稍推拉的速度过快或两边用力不均，就会出现纱窗布“打兜”现象，还 		 	 	 
+    会出现纱布脱边的现象。一旦出现脱边，再往回装就非常麻烦。另外，  		  	 
+    因纱布已被固定在轴上，所以不能摘下清洗和维修。因此说，现有的隐	 	 	 	 
+    形纱窗在使用上不是很理想。 	    	 
+    
+      
+      
+         发明内容 		 	 	 
+  
+         针对上述情况，本实用新型提供一种清洗和维修非常方便且不易损	 	 	 	 
+    坏的平开窗用纱窗。以解决现有产品在使用上存在的问题。 	    	 
+    
+         本实用新型的结构如附图所示：由里框和外框构成，外框由外上、	 	 	 	 
+    下框和外侧框构成。在外上、下框的里侧，有一里框挡，外框里侧周边 	    	 
+    上带有挡边。外框内带有里框。在里框的外周边上有一嵌槽。在里框内 		 	 	 
+    侧上带有毛条，在里框内周边上带有纱布槽，纱布槽内带有胶条。在里  		  	 
+    框的下部有一擎手。在里框下部嵌槽内带有垫块。	 	 	 	 
+    
+         本产品的安装非常简单，将外框固定在窗口上。将纱布铺覆在里框  		  	 
+    内侧，将胶条塞进纱布槽即可把纱布固定在里框上。再将里框装入外框	 	 	 	 
+    内，外框上的里框挡嵌入嵌槽内，由外框上、下部的里框挡将里框限制 	    	 
+    在外框内即成。当不需要纱窗时，只需将里框下部的擎手向上擎，即可 		 	 	 
+    卸下里框。本产品结构简单，设计合理。因为里框和外框可以分离，所  		  	 
+    以拆装、清洗和维修都十分方便。由于带有毛条，其密封效果更好。纱	 	 	 	 
+    布内带有胶条，可以很牢固的限制纱布使其不能出现脱边现象。 	    	 
+    
+      
+      
+         附图说明 		 	 	 
+  
+         附图为本实用新型结构示意图	 	 	 	 
+    
+         1-胶条 2-毛条 3-外上框 4-外侧框 5-纱布 6-擎手 7-垫  		  	 
+    块 8-里框 9-里框挡	 	 	 	 
+    
+      
+      
+         具体实施方式 		 	 	 
+  
+         本实用新型的结构如附图所示：由里框(8)和外框构成，外框由	 	 	 	 
+    外上框(3)和下框及外侧框(4)构成。外上框、外下框及外侧框通过 	    	 
+    螺钉相联结。在外上、下框的里侧有一里框挡(9)。外框里侧周边上带 		 	 	 
+    有挡边。在里框的外周边上带有嵌槽。在里框内侧上带有毛条(2)，毛  		  	 
+    条通过粘结剂粘结在里框周边。在里框的周边上带有纱布槽，纱布槽内	 	 	 	 
+    带有胶条(1)。在里框的下部有一擎手(6)。在里框下部的嵌槽内带有 	    	 
+    垫块(7)。里框上带有纱布(5)。外框和里框均由塑料或铝材制。 		 	 	 
+    
+      
+   
+   
+      
+         1.平开窗用纱窗，由里框(8)和外框构成，外框由外上框(3)和下 		 	 	 
+      框及外侧框(4)构成，其特征是：在外上、下框的里侧有一里框挡(9)，  		  	 
+      外框里侧周边上带有挡边，在里框的外周边上带有嵌槽，在里框内侧上	 	 	 	 
+      带有毛条(2)，在里框的周边上带有纱布槽，纱布槽内带有胶条(1)， 	    	 
+      在里框的下部有一擎手(6)，在里框下部的嵌槽内带有垫块(7)。 		 	 	 
+      
+      
+   
