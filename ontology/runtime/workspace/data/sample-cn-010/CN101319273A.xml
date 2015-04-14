@@ -1,0 +1,368 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright ©2011 LexisNexis Univentio, The Netherlands. -->
+<lexisnexis-patent-document schema-version="1.08" date-produced="20111007" file="CN101319273A.xml" produced-by="LexisNexis-Univentio" lang="eng" date-inserted="20090115" time-inserted="062032" date-changed="20110805" time-changed="005507">
+  <bibliographic-data lang="chi">
+    <publication-reference publ-type="Application" publ-desc="Unexamined application for a patent for invention">
+      <document-id>
+        <country>CN</country>
+        <doc-number>101319273</doc-number>
+        <kind>A</kind>
+        <date>20081210</date>
+      </document-id>
+    </publication-reference>
+    <application-reference>
+      <document-id>
+        <country>CN</country>
+        <doc-number>200810048403</doc-number>
+        <date>20080715</date>
+      </document-id>
+    </application-reference>
+    <language-of-filing>eng</language-of-filing>
+    <language-of-publication>chi</language-of-publication>
+    <priority-claims date-changed="20090115">
+      <priority-claim sequence="1" kind="national">
+        <country>CN</country>
+        <doc-number>200810048403</doc-number>
+        <date>20080715</date>
+      </priority-claim>
+    </priority-claims>
+    <dates-of-public-availability date-changed="20091226">
+      <gazette-reference>
+        <date>20081210</date>
+      </gazette-reference>
+      <unexamined-printed-without-grant>
+        <date>20081210</date>
+      </unexamined-printed-without-grant>
+    </dates-of-public-availability>
+    <kind-of-official-gazette lang="eng">24-49</kind-of-official-gazette>
+    <classifications-ipcr date-changed="20090310">
+      <classification-ipcr sequence="1">
+        <text>C21D   9/24        20060101CFI20081210BHCN        </text>
+        <ipc-version-indicator>
+          <date>20060101</date>
+        </ipc-version-indicator>
+        <classification-level>C</classification-level>
+        <section>C</section>
+        <class>21</class>
+        <subclass>D</subclass>
+        <main-group>9</main-group>
+        <subgroup>24</subgroup>
+        <symbol-position>F</symbol-position>
+        <classification-value>I</classification-value>
+        <action-date>
+          <date>20081210</date>
+        </action-date>
+        <generating-office>
+          <country>CN</country>
+        </generating-office>
+        <classification-status>B</classification-status>
+        <classification-data-source>H</classification-data-source>
+      </classification-ipcr>
+      <classification-ipcr sequence="2">
+        <text>C21D   9/24        20060101AFI20081210BHCN        </text>
+        <ipc-version-indicator>
+          <date>20060101</date>
+        </ipc-version-indicator>
+        <classification-level>A</classification-level>
+        <section>C</section>
+        <class>21</class>
+        <subclass>D</subclass>
+        <main-group>9</main-group>
+        <subgroup>24</subgroup>
+        <symbol-position>F</symbol-position>
+        <classification-value>I</classification-value>
+        <action-date>
+          <date>20081210</date>
+        </action-date>
+        <generating-office>
+          <country>CN</country>
+        </generating-office>
+        <classification-status>B</classification-status>
+        <classification-data-source>H</classification-data-source>
+      </classification-ipcr>
+    </classifications-ipcr>
+    <number-of-claims calculated="yes">2</number-of-claims>
+    <invention-title id="title_chi" date-changed="20091229" lang="chi" format="original">热处理开槽压盘</invention-title>
+    <invention-title id="title_eng" date-changed="20091229" lang="eng" format="original">Slot presser plate of heat treatment</invention-title>
+    <parties date-changed="20091226">
+      <applicants>
+        <applicant sequence="1" app-type="applicant">
+          <addressbook lang="chi">
+            <orgname>宜昌黑旋风锯业有限责任公司</orgname>
+            <address>
+              <address-1>443003湖北省宜昌市东山开发区大连路黑旋风科技园</address-1>
+            </address>
+          </addressbook>
+          <addressbook lang="eng">
+            <orgname>YICHANG HXF CIRCULAR SAW INDUSTRIAL CO., LTD.</orgname>
+            <address>
+              <country>CN</country>
+            </address>
+          </addressbook>
+        </applicant>
+        <applicant sequence="1" app-type="applicant" data-format="original">
+          <addressbook lang="chi">
+            <orgname>宜昌黑旋风锯业有限责任公司</orgname>
+            <address>
+              <address-1>443003湖北省宜昌市东山开发区大连路黑旋风科技园</address-1>
+            </address>
+          </addressbook>
+        </applicant>
+        <applicant sequence="1" app-type="applicant" data-format="docdb">
+          <addressbook lang="eng">
+            <orgname>YICHANG HXF CIRCULAR SAW IND C</orgname>
+            <address>
+              <country>CN</country>
+            </address>
+          </addressbook>
+        </applicant>
+        <applicant sequence="1" app-type="applicant" data-format="docdba">
+          <addressbook lang="eng">
+            <orgname>YICHANG HXF CIRCULAR SAW INDUSTRIAL CO., LTD.</orgname>
+            <address>
+              <country>CN</country>
+            </address>
+          </addressbook>
+        </applicant>
+      </applicants>
+      <inventors>
+        <inventor sequence="1">
+          <addressbook lang="chi">
+            <name>李仁德</name>
+          </addressbook>
+          <addressbook lang="eng">
+            <name>LI RENDE</name>
+            <address>
+              <country>CN</country>
+            </address>
+          </addressbook>
+        </inventor>
+        <inventor sequence="2">
+          <addressbook lang="chi">
+            <name>范祖华</name>
+          </addressbook>
+          <addressbook lang="eng">
+            <name>FAN ZUHUA</name>
+            <address>
+              <country>CN</country>
+            </address>
+          </addressbook>
+        </inventor>
+        <inventor sequence="3">
+          <addressbook lang="chi">
+            <name>冯春</name>
+          </addressbook>
+          <addressbook lang="eng">
+            <name>FENG CHUN</name>
+            <address>
+              <country>CN</country>
+            </address>
+          </addressbook>
+        </inventor>
+        <inventor sequence="1" data-format="original">
+          <addressbook lang="chi">
+            <name>李仁德</name>
+          </addressbook>
+        </inventor>
+        <inventor sequence="1" data-format="docdb">
+          <addressbook lang="eng">
+            <name>RENDE LI</name>
+            <address>
+              <country>CN</country>
+            </address>
+          </addressbook>
+        </inventor>
+        <inventor sequence="1" data-format="docdba">
+          <addressbook lang="eng">
+            <name>LI RENDE</name>
+            <address>
+              <country>CN</country>
+            </address>
+          </addressbook>
+        </inventor>
+        <inventor sequence="2" data-format="original">
+          <addressbook lang="chi">
+            <name>范祖华</name>
+          </addressbook>
+        </inventor>
+        <inventor sequence="2" data-format="docdba">
+          <addressbook lang="eng">
+            <name>FAN ZUHUA</name>
+            <address>
+              <country>CN</country>
+            </address>
+          </addressbook>
+        </inventor>
+        <inventor sequence="2" data-format="docdb">
+          <addressbook lang="eng">
+            <name>ZUHUA FAN</name>
+            <address>
+              <country>CN</country>
+            </address>
+          </addressbook>
+        </inventor>
+        <inventor sequence="3" data-format="original">
+          <addressbook lang="chi">
+            <name>冯春</name>
+          </addressbook>
+        </inventor>
+        <inventor sequence="3" data-format="docdb">
+          <addressbook lang="eng">
+            <name>CHUN FENG</name>
+            <address>
+              <country>CN</country>
+            </address>
+          </addressbook>
+        </inventor>
+        <inventor sequence="3" data-format="docdba">
+          <addressbook lang="eng">
+            <name>FENG CHUN</name>
+            <address>
+              <country>CN</country>
+            </address>
+          </addressbook>
+        </inventor>
+      </inventors>
+      <agents>
+        <agent sequence="1" rep-type="attorney">
+          <addressbook lang="chi">
+            <name>宜昌市三峡专利事务所 (成钢)</name>
+          </addressbook>
+        </agent>
+        <agent sequence="1" rep-type="attorney" data-format="original">
+          <addressbook lang="chi">
+            <name>宜昌市三峡专利事务所 (成钢)</name>
+          </addressbook>
+        </agent>
+      </agents>
+    </parties>
+    <patent-family date-changed="20090115">
+      <main-family family-id="116049566">
+        <family-member>
+          <document-id>
+            <country>CN</country>
+            <doc-number>101319273</doc-number>
+            <kind>A</kind>
+            <date>20081210</date>
+          </document-id>
+          <application-date>
+            <date>20080715</date>
+          </application-date>
+        </family-member>
+      </main-family>
+      <complete-family family-id="116049175">
+        <family-member>
+          <document-id>
+            <country>CN</country>
+            <doc-number>101319273</doc-number>
+            <kind>A</kind>
+            <date>20081210</date>
+          </document-id>
+          <application-date>
+            <date>20080715</date>
+          </application-date>
+        </family-member>
+      </complete-family>
+    </patent-family>
+  </bibliographic-data>
+  <abstract id="abstr_chi" date-changed="20091229" lang="chi" format="original">
+    <p num="1">一种热处理开槽压盘，为金属热处理过程中所用的设备。其主要包括压盘，压盘表面上设有贯穿压盘表面的沟槽。沟槽为横向和纵向相交的通槽。本发明提供的热处理开槽压盘，通过在压盘表面开出若干条沟槽的结构，使压盘和锯片之间的空气可在沟槽中流通，使锯片各部分保持均匀受热状态，回火后的锯片基体变形小，硬度均匀，便于校平。</p>
+  </abstract>
+  <abstract id="abstr_eng" date-changed="20091229" lang="eng" format="original">
+    <p>The patent refers to the field of 'modifying the physical structure of ferrous metals; general devices for heat treatment of ferrous or non-ferrous metals or alloys; making metal malleable by decarburisation, tempering, or other treatments'. A kind of heat treatment slot presser plate, for apparatuses used in metal heat treatment process. It mainly includes the presser plate, run through the presser plate superficial slot on the surface of the presser plate. The slot is horizontal with the through groove intersecting longitudinally. The presser plate of slots of heat treatment offered in this invention, through opening the structure of several slots on the surface of the presser plate, make the air between presser plate and blade can circulate in the slot, make blade each portion keep the thermally equivalent state, after blade basal body out of shape neither the little nor the homogeneous, easy not to smooth in hardness.</p>
+  </abstract>
+  <legal-data date-changed="20110805">
+    <legal-event sequence="1">
+      <publication-date>
+        <date>20081210</date>
+      </publication-date>
+      <event-code-1>C06</event-code-1>
+      <effect>+</effect>
+      <legal-description>PUBLICATION</legal-description>
+      <status-identifier>N</status-identifier>
+      <docdb-publication-number> CN   101319273A</docdb-publication-number>
+    </legal-event>
+    <legal-event sequence="2">
+      <publication-date>
+        <date>20090429</date>
+      </publication-date>
+      <event-code-1>C41</event-code-1>
+      <legal-description>TRANSFER OF THE RIGHT OF PATENT APPLICATION OR THE PATENT RIGHT</legal-description>
+      <status-identifier>N</status-identifier>
+      <docdb-publication-number> CN   101319273A</docdb-publication-number>
+    </legal-event>
+    <legal-event sequence="3">
+      <publication-date>
+        <date>20110525</date>
+      </publication-date>
+      <event-code-1>C10</event-code-1>
+      <legal-description>REQUEST OF EXAMINATION AS TO SUBSTANCE</legal-description>
+      <status-identifier>N</status-identifier>
+      <docdb-publication-number> CN   101319273A</docdb-publication-number>
+    </legal-event>
+  </legal-data>
+  <description id="descr_chi" lang="chi" format="original" date-changed="20100327">
+    <technical-field>
+      <p id="p-0001-zh" num="0001">技术领域
+  </p>
+      <p id="p-0002-zh" num="0002">本发明涉及一种金属热处理过程中所用的设备，主要作用是对金属锯片基体在回火
+    <br />处理时进行加压。
+    </p>
+    </technical-field>
+    <background-art>
+      <p id="p-0003-zh" num="0003">背景技术
+  </p>
+      <p id="p-0004-zh" num="0004">金刚石锯片是建材、木材加工、机械加工行业的常用工具。在锯片基体的生产过程
+    <br />中，热处理工艺是核心，直接影响到锯片基体的内在性能。传统的热处理回火压盘是结
+    <br />构简单，功能单一，在压紧回火的过程中，由于受热不均匀，以及接触面紧密，阻碍空
+    <br />气流通，使得回火后的锯片基体变形大，硬度不均匀，后期很难进行校平。
+    </p>
+    </background-art>
+    <disclosure>
+      <p id="p-0005-zh" num="0005">发明内容
+  </p>
+      <p id="p-0006-zh" num="0006">本发明的目的是提供一种使锯片在压紧回火过程中，保持锯片与压盘之间的空气流
+    <br />动，使锯片受热均匀，回火后的锯片基体变形小，硬度均匀，便于校平的热处理开槽压
+    <br />盘。
+    </p>
+      <p id="p-0007-zh" num="0007">本发明的目的是这样实现的：一种热处理开槽压盘，包括压盘，压盘表面上设有贯
+    <br />穿压盘表面的沟槽。所述的沟槽为横向和纵向相交的通槽。
+    </p>
+      <p id="p-0008-zh" num="0008">本发明提供的热处理开槽压盘，通过在压盘表面开出若干条沟槽的结构，使压盘和
+    <br />锯片之间的空气可在沟槽中流通，使锯片各部分保持均匀受热状态，回火后的锯片基体
+    <br />变形小，硬度均匀，便于校平。
+    </p>
+    </disclosure>
+    <description-of-drawings>
+      <p id="p-0009-zh" num="0009">附图说明
+  </p>
+      <p id="p-0010-zh" num="0010">下面结合附图和实施例对本发明作进一步说明。
+    </p>
+      <p id="p-0011-zh" num="0011">图1是本发明的结构示意图。
+    </p>
+    </description-of-drawings>
+    <mode-for-invention>
+      <p id="p-0012-zh" num="0012">具体实施方式
+  </p>
+      <p id="p-0013-zh" num="0013">如图1所示，一种热处理开槽压盘，包括压盘1，压盘1表面上设有贯穿压盘表面
+    <br />的沟槽2。所述的沟槽2为横向和纵向相交的通槽。横向和纵向相交、相通的沟槽更便
+    <br />于空气流动。
+    </p>
+      <p id="p-0014-zh" num="0014">本发明使用时，锯片基体置于压盘1上，由于压盘1表面上的沟槽2的作用，使压
+    <br />盘1和锯片之间的空气可在沟槽2中流通，使锯片各部分保持均匀受热状态。
+    </p>
+    </mode-for-invention>
+  </description>
+  <claims id="claims_chi" lang="chi" format="original" date-changed="20100327">
+    <claim num="1">
+      <claim-text>1、一种热处理开槽压盘，包括压盘(1)，其特征在于：压盘(1)表面上设有贯穿
+      <br />压盘表面的沟槽(2)。
+      </claim-text>
+    </claim>
+    <claim num="2">
+      <claim-text>2、根据权利要求1所述的热处理开槽压盘，其特征在于：所述的沟槽(2)为横向
+      <br />和纵向相交的通槽。
+      </claim-text>
+    </claim>
+  </claims>
+</lexisnexis-patent-document>

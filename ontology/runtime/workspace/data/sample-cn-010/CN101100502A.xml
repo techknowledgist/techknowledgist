@@ -1,0 +1,440 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright ©2011 LexisNexis Univentio, The Netherlands. -->
+<lexisnexis-patent-document schema-version="1.08" date-produced="20111006" file="CN101100502A.xml" produced-by="LexisNexis-Univentio" lang="eng" date-inserted="20080221" time-inserted="094016" date-changed="20100409" time-changed="023259">
+  <bibliographic-data lang="chi">
+    <publication-reference publ-type="Application" publ-desc="Unexamined application for a patent for invention">
+      <document-id>
+        <country>CN</country>
+        <doc-number>101100502</doc-number>
+        <kind>A</kind>
+        <date>20080109</date>
+      </document-id>
+    </publication-reference>
+    <application-reference>
+      <document-id>
+        <country>CN</country>
+        <doc-number>200710044725</doc-number>
+        <date>20070809</date>
+      </document-id>
+    </application-reference>
+    <language-of-filing>eng</language-of-filing>
+    <language-of-publication>chi</language-of-publication>
+    <priority-claims date-changed="20080221">
+      <priority-claim sequence="1" kind="national">
+        <country>CN</country>
+        <doc-number>200710044725</doc-number>
+        <date>20070809</date>
+      </priority-claim>
+    </priority-claims>
+    <dates-of-public-availability date-changed="20091225">
+      <gazette-reference>
+        <date>20080109</date>
+      </gazette-reference>
+      <unexamined-printed-without-grant>
+        <date>20080109</date>
+      </unexamined-printed-without-grant>
+    </dates-of-public-availability>
+    <kind-of-official-gazette lang="eng">24-01</kind-of-official-gazette>
+    <classifications-ipcr date-changed="20080221">
+      <classification-ipcr sequence="1">
+        <text>C08G  59/00        20060101CFI20080109BHCN        </text>
+        <ipc-version-indicator>
+          <date>20060101</date>
+        </ipc-version-indicator>
+        <classification-level>C</classification-level>
+        <section>C</section>
+        <class>08</class>
+        <subclass>G</subclass>
+        <main-group>59</main-group>
+        <subgroup>00</subgroup>
+        <symbol-position>F</symbol-position>
+        <classification-value>I</classification-value>
+        <action-date>
+          <date>20080109</date>
+        </action-date>
+        <generating-office>
+          <country>CN</country>
+        </generating-office>
+        <classification-status>B</classification-status>
+        <classification-data-source>H</classification-data-source>
+      </classification-ipcr>
+      <classification-ipcr sequence="2">
+        <text>C08G  59/22        20060101AFI20080109BHCN        </text>
+        <ipc-version-indicator>
+          <date>20060101</date>
+        </ipc-version-indicator>
+        <classification-level>A</classification-level>
+        <section>C</section>
+        <class>08</class>
+        <subclass>G</subclass>
+        <main-group>59</main-group>
+        <subgroup>22</subgroup>
+        <symbol-position>F</symbol-position>
+        <classification-value>I</classification-value>
+        <action-date>
+          <date>20080109</date>
+        </action-date>
+        <generating-office>
+          <country>CN</country>
+        </generating-office>
+        <classification-status>B</classification-status>
+        <classification-data-source>H</classification-data-source>
+      </classification-ipcr>
+    </classifications-ipcr>
+    <number-of-claims calculated="yes">2</number-of-claims>
+    <invention-title id="title_chi" date-changed="20091229" lang="chi" format="original">一种B阶段环氧树脂溶液及其制备方法</invention-title>
+    <invention-title id="title_eng" date-changed="20091229" lang="eng" format="original">B stage epoxy resin solution and preparing method thereof</invention-title>
+    <parties date-changed="20091225">
+      <applicants>
+        <applicant sequence="1" app-type="applicant">
+          <addressbook lang="chi">
+            <orgname>同济大学</orgname>
+            <address>
+              <address-1>200092上海市四平路1239号</address-1>
+            </address>
+          </addressbook>
+          <addressbook lang="eng">
+            <orgname>TONGJI UNIVERSITY</orgname>
+            <address>
+              <country>CN</country>
+            </address>
+          </addressbook>
+        </applicant>
+        <applicant sequence="1" app-type="applicant" data-format="original">
+          <addressbook lang="chi">
+            <orgname>同济大学</orgname>
+            <address>
+              <address-1>200092上海市四平路1239号</address-1>
+            </address>
+          </addressbook>
+        </applicant>
+        <applicant sequence="1" app-type="applicant" data-format="docdb">
+          <addressbook lang="eng">
+            <orgname>UNIV TONGJI</orgname>
+            <address>
+              <country>CN</country>
+            </address>
+          </addressbook>
+        </applicant>
+        <applicant sequence="1" app-type="applicant" data-format="docdba">
+          <addressbook lang="eng">
+            <orgname>TONGJI UNIVERSITY</orgname>
+            <address>
+              <country>CN</country>
+            </address>
+          </addressbook>
+        </applicant>
+      </applicants>
+      <inventors>
+        <inventor sequence="1">
+          <addressbook lang="chi">
+            <name>钟世云</name>
+          </addressbook>
+          <addressbook lang="eng">
+            <name>ZHONG SHIYUN</name>
+            <address>
+              <country>CN</country>
+            </address>
+          </addressbook>
+        </inventor>
+        <inventor sequence="1" data-format="original">
+          <addressbook lang="chi">
+            <name>钟世云</name>
+          </addressbook>
+        </inventor>
+        <inventor sequence="1" data-format="docdb">
+          <addressbook lang="eng">
+            <name>SHIYUN ZHONG</name>
+            <address>
+              <country>CN</country>
+            </address>
+          </addressbook>
+        </inventor>
+        <inventor sequence="1" data-format="docdba">
+          <addressbook lang="eng">
+            <name>ZHONG SHIYUN</name>
+            <address>
+              <country>CN</country>
+            </address>
+          </addressbook>
+        </inventor>
+      </inventors>
+      <agents>
+        <agent sequence="1" rep-type="attorney">
+          <addressbook lang="chi">
+            <name>上海正旦专利代理有限公司 (张磊)</name>
+          </addressbook>
+        </agent>
+        <agent sequence="1" rep-type="attorney" data-format="original">
+          <addressbook lang="chi">
+            <name>上海正旦专利代理有限公司 (张磊)</name>
+          </addressbook>
+        </agent>
+      </agents>
+    </parties>
+    <patent-family date-changed="20090310">
+      <main-family family-id="117881737">
+        <family-member>
+          <document-id>
+            <country>CN</country>
+            <doc-number>101100502</doc-number>
+            <kind>A</kind>
+            <date>20080109</date>
+          </document-id>
+          <application-date>
+            <date>20070809</date>
+          </application-date>
+        </family-member>
+      </main-family>
+      <complete-family family-id="117881735">
+        <family-member>
+          <document-id>
+            <country>CN</country>
+            <doc-number>101100502</doc-number>
+            <kind>A</kind>
+            <date>20080109</date>
+          </document-id>
+          <application-date>
+            <date>20070809</date>
+          </application-date>
+        </family-member>
+      </complete-family>
+    </patent-family>
+  </bibliographic-data>
+  <abstract id="abstr_chi" date-changed="20091228" lang="chi" format="original">
+    <p num="1">本发明属于化工技术领域，具体涉及一种B阶段环氧树脂溶液及其制备方法。采用酯环族环氧树脂——二氧化双环戊二烯为原料树脂，马来酸酐为固化剂，三羟甲基丙烷为催化剂，以二甲苯为溶剂，通过溶液聚合工艺合成了B阶段的环氧树脂溶液，合成反应时间大为缩短，产物可以用作浸渍料、胶粘剂和自粘结漆与涂料等。</p>
+  </abstract>
+  <abstract id="abstr_eng" date-changed="20091228" lang="eng" format="original">
+    <p>The patent refers to the field of 'macromolecular compounds obtained otherwise than by reactions only involving carbon-to-carbon unsaturated bonds'. A B-stage epoxy resin solution and its preparation are disclosed. The process is carried out by taking bicylclic pentadiene as raw material resin, taking maleic anhydride as curing agent, taking tri-hydroxymethyl propane as catalyst, taking dimethyl benzene as solvent, polymerizing and synthesizing to obtain final product. It shortens synthetic time and can be used as impregnating material, binder and self-adhesive pigment and coating.</p>
+  </abstract>
+  <legal-data date-changed="20100409">
+    <legal-event sequence="1">
+      <publication-date>
+        <date>20080109</date>
+      </publication-date>
+      <event-code-1>C06</event-code-1>
+      <effect>+</effect>
+      <legal-description>PUBLICATION</legal-description>
+      <status-identifier>N</status-identifier>
+      <docdb-publication-number> CN   101100502A</docdb-publication-number>
+    </legal-event>
+    <legal-event sequence="2">
+      <publication-date>
+        <date>20080227</date>
+      </publication-date>
+      <event-code-1>C10</event-code-1>
+      <legal-description>REQUEST OF EXAMINATION AS TO SUBSTANCE</legal-description>
+      <status-identifier>N</status-identifier>
+      <docdb-publication-number> CN   101100502A</docdb-publication-number>
+    </legal-event>
+    <legal-event sequence="3">
+      <publication-date>
+        <date>20100113</date>
+      </publication-date>
+      <event-code-1>C02</event-code-1>
+      <effect>-</effect>
+      <legal-description>DEEMED WITHDRAWAL OF PATENT APPLICATION AFTER PUBLICATION (PATENT LAW 2001)</legal-description>
+      <status-identifier>N</status-identifier>
+      <docdb-publication-number> CN   101100502A</docdb-publication-number>
+    </legal-event>
+  </legal-data>
+  <description id="descr_chi" lang="chi" format="original" date-changed="20091226">
+    <technical-field>
+      <p id="p-0001-zh" num="0001">技术领域 		 	 	 
+                </p>
+      <p id="p-0002-zh" num="0002">本发明属于化工技术领域，具体涉及一种B阶段环氧树脂溶液及其制备方法。 	    	 
+                </p>
+    </technical-field>
+    <background-art>
+      <p id="p-0003-zh" num="0003">背景技术 		 	 	 
+                </p>
+      <p id="p-0004-zh" num="0004">B阶段环氧树脂溶液在许多领域都有应用，例如印刷线路板的基板制造、漆包线制造、 	    	 
+                <br />复合材料的预浸料等。但普通环氧树脂的耐热性不高，因此，对环氧树脂进行改性或者使 		 	 	 
+                <br />用特种环氧树脂，是提高环氧树脂最终产品耐热性的主要途径。酯环族环氧树脂就是一种  		  	 
+                <br />耐热性比较高的特种环氧树脂。采用酯环族环氧树脂——二氧化双环戊二烯为原料树脂，	 	 	 	 
+                <br />酸酐为固化剂，多元醇为催化剂，可以制备B阶段环氧树脂或溶液，但关于其制备方法的 	    	 
+                <br />研究还很不充分，文献报道的制备方法存在反应时间长，反应终点不能控制的问题。 		 	 	 
+                </p>
+    </background-art>
+    <disclosure>
+      <p id="p-0005-zh" num="0005">发明内容  		  	 
+                </p>
+      <p id="p-0006-zh" num="0006">本发明的目的在于提出一种反应时间短，制备条件容易控制的B阶段环氧树脂溶液及 		 	 	 
+                <br />其制备方法。  		  	 
+                </p>
+      <p id="p-0007-zh" num="0007">本发明提出的B阶段环氧树脂溶液，由二氧化双环戊二烯树脂、马来酸酐、三羟甲基 		 	 	 
+                <br />丙烷、二甲苯和丙酮组成，其组分配比如下：  		  	 
+                </p>
+      <p id="p-0008-zh" num="0008">组分                    摩尔配比 		 	 	 
+                </p>
+      <p id="p-0009-zh" num="0009">二氧化双环戊二烯树脂    1 	    	 
+                </p>
+      <p id="p-0010-zh" num="0010">马来酸酐                0.75-0.85	 	 	 	 
+                </p>
+      <p id="p-0011-zh" num="0011">三羟甲基丙烷            0.12-0.14  		  	 
+                </p>
+      <p id="p-0012-zh" num="0012">二甲苯                  1.1-1.3 		 	 	 
+                </p>
+      <p id="p-0013-zh" num="0013">丙酮                    0.7-0.9。 	    	 
+                </p>
+      <p id="p-0014-zh" num="0014">本发明提出的B阶段环氧树脂溶液地制备方法，其具体步骤如下：在常温下将二甲苯	 	 	 	 
+                <br />加入反应釜，在搅拌状态下加入二氧化双环戊二烯树脂、马来酸酐和三羟甲基丙烷，然后 	    	 
+                <br />在回流条件下开始升温，控制搅拌速度在400转/分钟-600转/分钟，升温速率为1.5℃/ 		 	 	 
+                <br />分钟-3℃/分钟，使反应物温度升高至120-140℃，并维持这个温度继续反应1～3小时，其  		  	 
+                <br />间，在反应1小时以后每隔10-20分钟，取出试样进行观察，如果所取试样静置后分层，	 	 	 	 
+                <br />即表明该反应已经达到B阶段，然后将反应物冷却至50℃以下，加入丙酮，搅拌均匀，即 	    	 
+                <br />得到B阶段环氧树脂溶液。 		 	 	 
+                </p>
+      <p id="p-0015-zh" num="0015">本发明的有益效果：通过使用二甲苯作为溶剂，提高了反应温度，缩短了反应时间； 		 	 	 
+                <br />同时，利用该B阶段环氧树脂在二甲苯中溶解不良的特点，通过观察所取样静置后是否分  		  	 
+                <br />层来判断反应终点，方法简单。	 	 	 	 
+                </p>
+    </disclosure>
+    <mode-for-invention>
+      <p id="p-0016-zh" num="0016">具体实施方式 	    	 
+                </p>
+      <p id="p-0017-zh" num="0017">下面结合实施例对本发明的技术方案作进一步描述。	 	 	 	 
+                </p>
+      <p id="p-0018-zh" num="0018">实施例1  		  	 
+                </p>
+      <p id="p-0019-zh" num="0019">本实施例的B阶段环氧树脂溶液合成配比见下表1： 		 	 	 
+                </p>
+      <p id="p-0020-zh" num="0020">表1 	    	 
+                </p>
+      <p id="p-0021-zh" num="0021">
+        <tables id="table1-zh" num="001">
+          <table>
+            <tgroup cols="3">
+              <colspec colname="c001" colwidth="30%" />
+              <colspec colname="c002" colwidth="55%" />
+              <colspec colname="c003" colwidth="14%" />
+              <thead>
+                <row>
+                  <entry morerows="1"> 	    	                                            材料 		 	 	                                              </entry>
+                  <entry morerows="1"> 	    	                                            生产厂、牌号或规格 		 	 	                                              </entry>
+                  <entry morerows="1"> 	    	                                            摩尔配比 		 	 	                                              </entry>
+                </row>
+              </thead>
+              <tbody>
+                <row>
+                  <entry morerows="1"> 	    	                                            二氧化双环戊二烯树脂 		 	 	                                                 马来酸酐  		  	                                                 三羟甲基丙烷	 	 	 	                                                 二甲苯 	    	                                                 丙酮 		 	 	                                              </entry>
+                  <entry morerows="1"> 	    	                                            天津市津东化工厂、207# 		 	 	                                                 常州曙光化工厂、含量≥99.5％  		  	                                                 吉化集团海特化工有限责任公司，羟值≥37.5％	 	 	 	                                                 含量≥99％ 	    	                                                 含量≥99％ 		 	 	                                              </entry>
+                  <entry morerows="1"> 	    	                                              1 		 	 	                                                   0.75  		  	                                                   0.14	 	 	 	                                                   1.2 	    	                                                   0.7 		 	 	                                              </entry>
+                </row>
+              </tbody>
+            </tgroup>
+          </table>
+        </tables>
+      </p>
+      <p id="p-0022-zh" num="0022">制备方法：常温下，将溶剂二甲苯加入反应釜中，在搅拌状态下加入二氧化双环戊二  		  	 
+                <br />烯树脂、马来酸酐和三羟甲基丙烷，然后在回流条件下开始升温，控制搅拌速度为600转	 	 	 	 
+                <br />/分钟，升温速率为2℃/分钟，使反应物温度升高至135℃，并在该温度下继续反应2小时， 	    	 
+                <br />此时所取观察试样静置后已经分层，然后将反应物快速冷却至50℃以下，加入溶剂丙酮， 		 	 	 
+                <br />搅拌均匀，即得到固体含量约为60％的B阶段树脂溶液。  		  	 
+                </p>
+      <p id="p-0023-zh" num="0023">实施例2 		 	 	 
+                </p>
+      <p id="p-0024-zh" num="0024">本实施例的涂料合成配比见表2。 	    	 
+                </p>
+      <p id="p-0025-zh" num="0025">表2	 	 	 	 
+                </p>
+      <p id="p-0026-zh" num="0026">
+        <tables id="table2-zh" num="002">
+          <table>
+            <tgroup cols="3">
+              <colspec colname="c001" colwidth="30%" />
+              <colspec colname="c002" colwidth="56%" />
+              <colspec colname="c003" colwidth="14%" />
+              <thead>
+                <row>
+                  <entry morerows="1">	 	 	 	                                            材料 	    	                                              </entry>
+                  <entry morerows="1">	 	 	 	                                            生产厂、牌号或规格 	    	                                              </entry>
+                  <entry morerows="1">	 	 	 	                                          摩尔配比 	    	                                              </entry>
+                </row>
+              </thead>
+              <tbody>
+                <row>
+                  <entry morerows="1">	 	 	 	                                            二氧化双环戊二烯树脂 	    	                                                 马来酸酐 		 	 	                                                 三羟甲基丙烷  		  	                                                 二甲苯	 	 	 	                                                 丙酮 	    	                                              </entry>
+                  <entry morerows="1">	 	 	 	                                            天津市津东化工厂、207# 	    	                                                 常州曙光化工厂、含量：≥99.5％ 		 	 	                                                 吉化集团海特化工有限责任公司、羟值≥37.5％  		  	                                                 含量≥99％	 	 	 	                                                 含量≥99％ 	    	                                              </entry>
+                  <entry morerows="1">	 	 	 	                                              1 	    	                                                   0.85 		 	 	                                                   0.12  		  	                                                   1.3	 	 	 	                                                   0.8 	    	                                              </entry>
+                </row>
+              </tbody>
+            </tgroup>
+          </table>
+        </tables>
+      </p>
+      <p id="p-0027-zh" num="0027">制备方法：常温下，将溶剂二甲苯加入反应釜中，在搅拌状态下加入二氧化双环戊二 		 	 	 
+                <br />烯树脂、马来酸酐和三羟甲基丙烷，然后在回流条件下开始升温，控制搅拌速度为500转	 	 	 	 
+                <br />/分钟，升温速率约为1.5℃/分钟，使反应物温度升高至140℃，并在该温度下继续反应1 	    	 
+                <br />小时，此时所取观察试样静置后已经分层，然后将反应物快速冷却至50℃以下，加入溶剂 		 	 	 
+                <br />丙酮，搅拌均匀，即得到固体含量约为59％的B阶段树脂溶液。  		  	 
+                </p>
+      <p id="p-0028-zh" num="0028">实施例3 		 	 	 
+                </p>
+      <p id="p-0029-zh" num="0029">本实施例的涂料合成配比见表3。 	    	 
+                </p>
+      <p id="p-0030-zh" num="0030">表3	 	 	 	 
+                </p>
+      <p id="p-0031-zh" num="0031">
+        <tables id="table3-zh" num="003">
+          <table>
+            <tgroup cols="3">
+              <colspec colname="c001" colwidth="29%" />
+              <colspec colname="c002" colwidth="55%" />
+              <colspec colname="c003" colwidth="15%" />
+              <thead>
+                <row>
+                  <entry morerows="1">	 	 	 	                                            材料 	    	                                              </entry>
+                  <entry morerows="1">	 	 	 	                                              生产厂、牌号或规格 	    	                                              </entry>
+                  <entry morerows="1">	 	 	 	                                            摩尔配比 	    	                                              </entry>
+                </row>
+              </thead>
+              <tbody>
+                <row>
+                  <entry morerows="1">	 	 	 	                                            二氧化双环戊二烯树脂 	    	                                                 马来酸酐 		 	 	                                                 三羟甲基丙烷  		  	                                                 二甲苯	 	 	 	                                                 丙酮 	    	                                              </entry>
+                  <entry morerows="1">	 	 	 	                                              天津市津东化工厂、207# 	    	                                                   常州曙光化工厂、含量：≥99.5％ 		 	 	                                                   吉化集团海特化工有限责任公司，羟值≥37.5％  		  	                                                   含量≥99％	 	 	 	                                                   含量≥99％ 	    	                                              </entry>
+                  <entry morerows="1">	 	 	 	                                              1 	    	                                                   0.80 		 	 	                                                   0.13  		  	                                                   1.3	 	 	 	                                                   0.8 	    	                                              </entry>
+                </row>
+              </tbody>
+            </tgroup>
+          </table>
+        </tables>
+      </p>
+      <p id="p-0032-zh" num="0032">制备方法：常温下，将溶剂二甲苯加入反应釜中，在搅拌状态下加入二氧化双环戊二 		 	 	 
+                <br />烯树脂、马来酸酐和三羟甲基丙烷，然后在回流条件下开始升温，控制搅拌速度为400转  		  	 
+                <br />/分钟，升温速率约为2℃/分钟，使反应物温度升高至120℃，并在该温度下继续反应3小	 	 	 	 
+                <br />时，此时所取观察试样静置后已经分层，然后将反应物快速冷却至50℃以下，加入溶剂丙 	    	 
+                <br />酮，搅拌均匀，即得到固体含量约为58.5％的B阶段树脂溶液。 		 	 	 
+                </p>
+    </mode-for-invention>
+  </description>
+  <claims id="claims_chi" lang="chi" format="original" date-changed="20091226">
+    <claim num="1">
+      <claim-text>1、一种B阶段环氧树脂溶液，其特征在于由二氧化双环戊二烯树脂、马来酸酐、三 		 	 	 
+                <br />羟甲基丙烷、二甲苯和丙酮组成，其组分配比如下：  		  	 
+                </claim-text>
+      <claim-text>组分                     摩尔配比 		 	 	 
+                </claim-text>
+      <claim-text>二氧化双环戊二烯树脂     1 	    	 
+                </claim-text>
+      <claim-text>马来酸酐                 0.75-0.85	 	 	 	 
+                </claim-text>
+      <claim-text>三羟甲基丙烷             0.12-0.14  		  	 
+                </claim-text>
+      <claim-text>二甲苯                   1.1-1.3 		 	 	 
+                </claim-text>
+      <claim-text>丙酮                     0.7-0.9。 	    	 
+                </claim-text>
+    </claim>
+    <claim num="2">
+      <claim-text>2、一种如权利要求1所述的B阶段环氧树脂溶液的制备方法，其特征在于具体步骤 		 	 	 
+                <br />如下：在常温下将二甲苯加入反应釜，在搅拌状态下加入二氧化双环戊二烯树脂、马来酸  		  	 
+                <br />酐和三羟甲基丙烷，然后在回流条件下开始升温，控制搅拌速度在400转/分钟-600转/	 	 	 	 
+                <br />分钟，升温速率为1.5℃/分钟-3℃/分钟，使反应物温度升高至120-140℃，并维持这个温 	    	 
+                <br />度继续反应1～3小时，其间，在反应1小时以后每隔10-20分钟，取出试样进行观察，如 		 	 	 
+                <br />果所取试样静置后分层，即表明该反应已经达到B阶段，然后将反应物冷却至50℃以下，  		  	 
+                <br />加入丙酮，搅拌均匀，即得到B阶段环氧树脂溶液。	 	 	 	 
+                </claim-text>
+    </claim>
+  </claims>
+</lexisnexis-patent-document>

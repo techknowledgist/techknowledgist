@@ -1,0 +1,365 @@
+
+   
+      
+         
+            CN
+            101319273
+            A
+            20081210
+         
+      
+      
+         
+            CN
+            200810048403
+            20080715
+         
+      
+      eng
+      chi
+      
+         
+            CN
+            200810048403
+            20080715
+         
+      
+      
+         
+            20081210
+         
+         
+            20081210
+         
+      
+      24-49
+      
+         
+            C21D   9/24        20060101CFI20081210BHCN        
+            
+               20060101
+            
+            C
+            C
+            21
+            D
+            9
+            24
+            F
+            I
+            
+               20081210
+            
+            
+               CN
+            
+            B
+            H
+         
+         
+            C21D   9/24        20060101AFI20081210BHCN        
+            
+               20060101
+            
+            A
+            C
+            21
+            D
+            9
+            24
+            F
+            I
+            
+               20081210
+            
+            
+               CN
+            
+            B
+            H
+         
+      
+      2
+      热处理开槽压盘
+      Slot presser plate of heat treatment
+      
+         
+            
+               
+                  宜昌黑旋风锯业有限责任公司
+                  
+                     443003湖北省宜昌市东山开发区大连路黑旋风科技园
+                  
+               
+               
+                  YICHANG HXF CIRCULAR SAW INDUSTRIAL CO., LTD.
+                  
+                     CN
+                  
+               
+            
+            
+               
+                  宜昌黑旋风锯业有限责任公司
+                  
+                     443003湖北省宜昌市东山开发区大连路黑旋风科技园
+                  
+               
+            
+            
+               
+                  YICHANG HXF CIRCULAR SAW IND C
+                  
+                     CN
+                  
+               
+            
+            
+               
+                  YICHANG HXF CIRCULAR SAW INDUSTRIAL CO., LTD.
+                  
+                     CN
+                  
+               
+            
+         
+         
+            
+               
+                  李仁德
+               
+               
+                  LI RENDE
+                  
+                     CN
+                  
+               
+            
+            
+               
+                  范祖华
+               
+               
+                  FAN ZUHUA
+                  
+                     CN
+                  
+               
+            
+            
+               
+                  冯春
+               
+               
+                  FENG CHUN
+                  
+                     CN
+                  
+               
+            
+            
+               
+                  李仁德
+               
+            
+            
+               
+                  RENDE LI
+                  
+                     CN
+                  
+               
+            
+            
+               
+                  LI RENDE
+                  
+                     CN
+                  
+               
+            
+            
+               
+                  范祖华
+               
+            
+            
+               
+                  FAN ZUHUA
+                  
+                     CN
+                  
+               
+            
+            
+               
+                  ZUHUA FAN
+                  
+                     CN
+                  
+               
+            
+            
+               
+                  冯春
+               
+            
+            
+               
+                  CHUN FENG
+                  
+                     CN
+                  
+               
+            
+            
+               
+                  FENG CHUN
+                  
+                     CN
+                  
+               
+            
+         
+         
+            
+               
+                  宜昌市三峡专利事务所 (成钢)
+               
+            
+            
+               
+                  宜昌市三峡专利事务所 (成钢)
+               
+            
+         
+      
+      
+         
+            
+               
+                  CN
+                  101319273
+                  A
+                  20081210
+               
+               
+                  20080715
+               
+            
+         
+         
+            
+               
+                  CN
+                  101319273
+                  A
+                  20081210
+               
+               
+                  20080715
+               
+            
+         
+      
+   
+   
+      一种热处理开槽压盘，为金属热处理过程中所用的设备。其主要包括压盘，压盘表面上设有贯穿压盘表面的沟槽。沟槽为横向和纵向相交的通槽。本发明提供的热处理开槽压盘，通过在压盘表面开出若干条沟槽的结构，使压盘和锯片之间的空气可在沟槽中流通，使锯片各部分保持均匀受热状态，回火后的锯片基体变形小，硬度均匀，便于校平。
+   
+   
+      The patent refers to the field of 'modifying the physical structure of ferrous metals; general devices for heat treatment of ferrous or non-ferrous metals or alloys; making metal malleable by decarburisation, tempering, or other treatments'. A kind of heat treatment slot presser plate, for apparatuses used in metal heat treatment process. It mainly includes the presser plate, run through the presser plate superficial slot on the surface of the presser plate. The slot is horizontal with the through groove intersecting longitudinally. The presser plate of slots of heat treatment offered in this invention, through opening the structure of several slots on the surface of the presser plate, make the air between presser plate and blade can circulate in the slot, make blade each portion keep the thermally equivalent state, after blade basal body out of shape neither the little nor the homogeneous, easy not to smooth in hardness.
+   
+   
+      
+         
+            20081210
+         
+         C06
+         +
+         PUBLICATION
+         N
+          CN   101319273A
+      
+      
+         
+            20090429
+         
+         C41
+         TRANSFER OF THE RIGHT OF PATENT APPLICATION OR THE PATENT RIGHT
+         N
+          CN   101319273A
+      
+      
+         
+            20110525
+         
+         C10
+         REQUEST OF EXAMINATION AS TO SUBSTANCE
+         N
+          CN   101319273A
+      
+   
+   
+      
+         技术领域
+  
+         本发明涉及一种金属热处理过程中所用的设备，主要作用是对金属锯片基体在回火
+    处理时进行加压。
+    
+      
+      
+         背景技术
+  
+         金刚石锯片是建材、木材加工、机械加工行业的常用工具。在锯片基体的生产过程
+    中，热处理工艺是核心，直接影响到锯片基体的内在性能。传统的热处理回火压盘是结
+    构简单，功能单一，在压紧回火的过程中，由于受热不均匀，以及接触面紧密，阻碍空
+    气流通，使得回火后的锯片基体变形大，硬度不均匀，后期很难进行校平。
+    
+      
+      
+         发明内容
+  
+         本发明的目的是提供一种使锯片在压紧回火过程中，保持锯片与压盘之间的空气流
+    动，使锯片受热均匀，回火后的锯片基体变形小，硬度均匀，便于校平的热处理开槽压
+    盘。
+    
+         本发明的目的是这样实现的：一种热处理开槽压盘，包括压盘，压盘表面上设有贯
+    穿压盘表面的沟槽。所述的沟槽为横向和纵向相交的通槽。
+    
+         本发明提供的热处理开槽压盘，通过在压盘表面开出若干条沟槽的结构，使压盘和
+    锯片之间的空气可在沟槽中流通，使锯片各部分保持均匀受热状态，回火后的锯片基体
+    变形小，硬度均匀，便于校平。
+    
+      
+      
+         附图说明
+  
+         下面结合附图和实施例对本发明作进一步说明。
+    
+         图1是本发明的结构示意图。
+    
+      
+      
+         具体实施方式
+  
+         如图1所示，一种热处理开槽压盘，包括压盘1，压盘1表面上设有贯穿压盘表面
+    的沟槽2。所述的沟槽2为横向和纵向相交的通槽。横向和纵向相交、相通的沟槽更便
+    于空气流动。
+    
+         本发明使用时，锯片基体置于压盘1上，由于压盘1表面上的沟槽2的作用，使压
+    盘1和锯片之间的空气可在沟槽2中流通，使锯片各部分保持均匀受热状态。
+    
+      
+   
+   
+      
+         1、一种热处理开槽压盘，包括压盘(1)，其特征在于：压盘(1)表面上设有贯穿
+      压盘表面的沟槽(2)。
+      
+      
+      
+         2、根据权利要求1所述的热处理开槽压盘，其特征在于：所述的沟槽(2)为横向
+      和纵向相交的通槽。
+      
+      
+   

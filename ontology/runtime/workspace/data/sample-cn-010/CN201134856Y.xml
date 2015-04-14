@@ -1,0 +1,409 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright ©2011 LexisNexis Univentio, The Netherlands. -->
+<lexisnexis-patent-document schema-version="1.08" date-produced="20111007" file="CN201134856Y.xml" produced-by="LexisNexis-Univentio" lang="eng" date-inserted="20081211" time-inserted="054855" date-changed="20110415" time-changed="030440">
+  <bibliographic-data lang="chi">
+    <publication-reference publ-type="undefined" publ-desc="Granted patent for utility model">
+      <document-id>
+        <country>CN</country>
+        <doc-number>201134856</doc-number>
+        <kind>Y</kind>
+        <date>20081015</date>
+      </document-id>
+    </publication-reference>
+    <application-reference>
+      <document-id>
+        <country>CN</country>
+        <doc-number>200720306577</doc-number>
+        <date>20071227</date>
+      </document-id>
+    </application-reference>
+    <language-of-filing>eng</language-of-filing>
+    <language-of-publication>chi</language-of-publication>
+    <priority-claims date-changed="20081211">
+      <priority-claim sequence="1" kind="national">
+        <country>CN</country>
+        <doc-number>200720306577</doc-number>
+        <date>20071227</date>
+      </priority-claim>
+    </priority-claims>
+    <dates-of-public-availability date-changed="20091230">
+      <gazette-reference>
+        <date>20081015</date>
+      </gazette-reference>
+      <printed-with-grant>
+        <date>20081015</date>
+      </printed-with-grant>
+    </dates-of-public-availability>
+    <kind-of-official-gazette lang="eng">24-41</kind-of-official-gazette>
+    <classifications-ipcr date-changed="20090105">
+      <classification-ipcr sequence="1">
+        <text>H04N   5/253       20060101CFI20081015BHCN        </text>
+        <ipc-version-indicator>
+          <date>20060101</date>
+        </ipc-version-indicator>
+        <classification-level>C</classification-level>
+        <section>H</section>
+        <class>04</class>
+        <subclass>N</subclass>
+        <main-group>5</main-group>
+        <subgroup>253</subgroup>
+        <symbol-position>F</symbol-position>
+        <classification-value>I</classification-value>
+        <action-date>
+          <date>20081015</date>
+        </action-date>
+        <generating-office>
+          <country>CN</country>
+        </generating-office>
+        <classification-status>B</classification-status>
+        <classification-data-source>H</classification-data-source>
+      </classification-ipcr>
+      <classification-ipcr sequence="2">
+        <text>H04N   5/253       20060101AFI20081015BHCN        </text>
+        <ipc-version-indicator>
+          <date>20060101</date>
+        </ipc-version-indicator>
+        <classification-level>A</classification-level>
+        <section>H</section>
+        <class>04</class>
+        <subclass>N</subclass>
+        <main-group>5</main-group>
+        <subgroup>253</subgroup>
+        <symbol-position>F</symbol-position>
+        <classification-value>I</classification-value>
+        <action-date>
+          <date>20081015</date>
+        </action-date>
+        <generating-office>
+          <country>CN</country>
+        </generating-office>
+        <classification-status>B</classification-status>
+        <classification-data-source>H</classification-data-source>
+      </classification-ipcr>
+      <classification-ipcr sequence="3">
+        <text>H04N   9/11        20060101CLI20081015BHCN        </text>
+        <ipc-version-indicator>
+          <date>20060101</date>
+        </ipc-version-indicator>
+        <classification-level>C</classification-level>
+        <section>H</section>
+        <class>04</class>
+        <subclass>N</subclass>
+        <main-group>9</main-group>
+        <subgroup>11</subgroup>
+        <symbol-position>L</symbol-position>
+        <classification-value>I</classification-value>
+        <action-date>
+          <date>20081015</date>
+        </action-date>
+        <generating-office>
+          <country>CN</country>
+        </generating-office>
+        <classification-status>B</classification-status>
+        <classification-data-source>H</classification-data-source>
+      </classification-ipcr>
+      <classification-ipcr sequence="4">
+        <text>H04N   9/11        20060101ALI20081015BHCN        </text>
+        <ipc-version-indicator>
+          <date>20060101</date>
+        </ipc-version-indicator>
+        <classification-level>A</classification-level>
+        <section>H</section>
+        <class>04</class>
+        <subclass>N</subclass>
+        <main-group>9</main-group>
+        <subgroup>11</subgroup>
+        <symbol-position>L</symbol-position>
+        <classification-value>I</classification-value>
+        <action-date>
+          <date>20081015</date>
+        </action-date>
+        <generating-office>
+          <country>CN</country>
+        </generating-office>
+        <classification-status>B</classification-status>
+        <classification-data-source>H</classification-data-source>
+      </classification-ipcr>
+    </classifications-ipcr>
+    <number-of-claims calculated="yes">5</number-of-claims>
+    <invention-title id="title_chi" date-changed="20091230" lang="chi" format="original">将胶片影像转换为数字资料的装置</invention-title>
+    <invention-title id="title_eng" date-changed="20091230" lang="eng" format="original">Apparatus converting film image to digital data</invention-title>
+    <parties date-changed="20091230">
+      <applicants>
+        <applicant sequence="1" app-type="applicant">
+          <addressbook lang="chi">
+            <orgname>豪佳电子股份有限公司</orgname>
+            <address>
+              <address-1>台湾省台北县</address-1>
+            </address>
+          </addressbook>
+          <addressbook lang="eng">
+            <orgname>CRS ELECTRONIC CO., LTD.</orgname>
+            <address>
+              <country>CN</country>
+            </address>
+          </addressbook>
+        </applicant>
+        <applicant sequence="1" app-type="applicant" data-format="original">
+          <addressbook lang="chi">
+            <orgname>豪佳电子股份有限公司</orgname>
+            <address>
+              <address-1>台湾省台北县</address-1>
+            </address>
+          </addressbook>
+        </applicant>
+        <applicant sequence="1" app-type="applicant" data-format="docdb">
+          <addressbook lang="eng">
+            <orgname>CRS ELECTRONIC CO LTD</orgname>
+            <address>
+              <country>CN</country>
+            </address>
+          </addressbook>
+        </applicant>
+        <applicant sequence="1" app-type="applicant" data-format="docdba">
+          <addressbook lang="eng">
+            <orgname>CRS ELECTRONIC CO., LTD.</orgname>
+            <address>
+              <country>CN</country>
+            </address>
+          </addressbook>
+        </applicant>
+      </applicants>
+      <inventors>
+        <inventor sequence="1">
+          <addressbook lang="chi">
+            <name>许俊杰</name>
+          </addressbook>
+          <addressbook lang="eng">
+            <name>XU JUNJIE</name>
+            <address>
+              <country>CN</country>
+            </address>
+          </addressbook>
+        </inventor>
+        <inventor sequence="1" data-format="original">
+          <addressbook lang="chi">
+            <name>许俊杰</name>
+          </addressbook>
+        </inventor>
+        <inventor sequence="1" data-format="docdb">
+          <addressbook lang="eng">
+            <name>JUNJIE XU</name>
+            <address>
+              <country>CN</country>
+            </address>
+          </addressbook>
+        </inventor>
+        <inventor sequence="1" data-format="docdba">
+          <addressbook lang="eng">
+            <name>XU JUNJIE</name>
+            <address>
+              <country>CN</country>
+            </address>
+          </addressbook>
+        </inventor>
+      </inventors>
+      <agents>
+        <agent sequence="1" rep-type="attorney">
+          <addressbook lang="chi">
+            <name>北京科龙寰宇知识产权代理有限责任公司 (孙皓晨)</name>
+          </addressbook>
+        </agent>
+        <agent sequence="1" rep-type="attorney" data-format="original">
+          <addressbook lang="chi">
+            <name>北京科龙寰宇知识产权代理有限责任公司 (孙皓晨)</name>
+          </addressbook>
+        </agent>
+      </agents>
+    </parties>
+    <patent-family date-changed="20081211">
+      <main-family family-id="115686597">
+        <family-member>
+          <document-id>
+            <country>CN</country>
+            <doc-number>201134856</doc-number>
+            <kind>Y</kind>
+            <date>20081015</date>
+          </document-id>
+          <application-date>
+            <date>20071227</date>
+          </application-date>
+        </family-member>
+      </main-family>
+      <complete-family family-id="115686106">
+        <family-member>
+          <document-id>
+            <country>CN</country>
+            <doc-number>201134856</doc-number>
+            <kind>Y</kind>
+            <date>20081015</date>
+          </document-id>
+          <application-date>
+            <date>20071227</date>
+          </application-date>
+        </family-member>
+      </complete-family>
+    </patent-family>
+  </bibliographic-data>
+  <abstract id="abstr_chi" date-changed="20091230" lang="chi" format="original">
+    <p num="1">本实用新型是一种将胶片影像转换为数字资料的装置，包括有一主体、一架体、一底支架以及一底盖，其中架体结合在底支架的上部，整体容置在主体内，而底盖从下方组合封闭的。架体的上部设有一摄影镜头，底支架内设有一背光机构，而主体的两侧各设有一长槽，提供一胶片夹从一侧插入，所述的胶片夹可将胶片固设其内，并定位于背光机构的上方，利用摄影镜头取得胶片的影像，并转为数字资料，提供传输到另一电脑主机储存，达成快速将胶片上的影像转换为数字资料，便利于修改以及永久保存。</p>
+  </abstract>
+  <abstract id="abstr_eng" date-changed="20091230" lang="eng" format="original">
+    <p>The utility model relates to a device used for switching film images to digital data, which comprises a main body, a frame body, a bottom support and a bottom cover, wherein the frame body is combined on the upper portion of the bottom support, and the whole body thereof is arranged in the main body, the bottom cover is combined closely from the lower portion, a camera lens is arranged on the upper portion of the support body, a backlight mechanism is arranged in the bottom support, a long groove is respectively arranged on each side of the main body, a film clip is inserted into the long grooves from one side, wherein film can be fixed in the film clip through the film clip, and can be located on the upper portion of the backlight mechanism, images can be obtained through the camera lens, and then the images are switched into digital data and can be transmitted and stored in the other host machine of a computer, thereby the rapid switching images on films to digital data is realized, and the device is convenient to alter and permanently store.</p>
+  </abstract>
+  <legal-data date-changed="20090514">
+    <legal-event sequence="1">
+      <publication-date>
+        <date>20081015</date>
+      </publication-date>
+      <event-code-1>C14</event-code-1>
+      <effect>+</effect>
+      <legal-description>GRANTED</legal-description>
+      <status-identifier>N</status-identifier>
+      <docdb-publication-number> CN   201134856Y</docdb-publication-number>
+    </legal-event>
+  </legal-data>
+  <description id="descr_chi" lang="chi" format="original" date-changed="20100327">
+    <technical-field>
+      <p id="p-0001-zh" num="0001">技术领域
+  </p>
+      <p id="p-0002-zh" num="0002">本实用新型是有关一种将胶片影像转换为数字资料的装置，凭借单一主体，
+    <br />以内部的背光机构配合摄影镜头，在简易的操作下，快速的将胶片上的影像转
+    <br />换为数字资料，提供传送到电脑上，以利于保存以及修改其影像。
+    </p>
+    </technical-field>
+    <background-art>
+      <p id="p-0003-zh" num="0003">背景技术
+  </p>
+      <p id="p-0004-zh" num="0004">早期用来记录影像的方式，主要是以传统的照相机，内部设以感光胶片(正
+    <br />片或负片)，以取得影像，然后使用胶片冲洗出现有的相片，以供观看以及欣赏。
+    <br />由于此现有的胶片为塑胶材质，保存不易，在一段时间后便容易损坏或遗失，
+    <br />而无法再洗出原留存的影像，常造成使用者的遗憾。另外，现有胶片所存的影
+    <br />像也是固定状态，无法修改，此也为使用上的缺失，有待改良。
+    </p>
+    </background-art>
+    <disclosure>
+      <p id="p-0005-zh" num="0005">发明内容
+  </p>
+      <p id="p-0006-zh" num="0006">本实用新型的目的在于：提供一种将胶片影像转换为数字资料的装置，可
+    <br />将胶片上的影像快速转换为数字资料，因此可长久保存，且在电脑上可简易修
+    <br />改。
+    </p>
+      <p id="p-0007-zh" num="0007">为实现上述目的，本实用新型采用的技术方案是：
+    </p>
+      <p id="p-0008-zh" num="0008">一种将胶片影像转换为数字资料的装置，其特征在于：包括有一主体、一
+    <br />架体、一底支架以及一底盖，其中架体的上部设有一组合有摄影镜头的电路板，
+    <br />底支架结合在架体的下部，其内部设有背光机构，并在一侧设以一定位卡榫，
+    <br />架体与底支架容置在主体内部，而底盖从下部结合固定；主体的两侧与底盖间
+    <br />形成为两个相通的长槽，并在架体内相对处分别设有入口防尘门，以及出口防
+    <br />尘门，提供一胶片夹从入口端置入。
+    </p>
+      <p id="p-0009-zh" num="0009">与现有技术相比较，采用上述技术方案的本实用新型具有的优点在于：利
+    <br />用摄影镜头取得胶片的影像，并转为数字资料，提供传输到另一电脑主机储存，
+    <br />达成快速将胶片上的影像转换为数字资料，便利于修改以及永久保存。
+    </p>
+    </disclosure>
+    <description-of-drawings>
+      <p id="p-0010-zh" num="0010">附图说明
+  </p>
+      <p id="p-0011-zh" num="0011">图1为本实用新型的立体外观图；
+    </p>
+      <p id="p-0012-zh" num="0012">图2为本实用新型的立体分解图；
+    </p>
+      <p id="p-0013-zh" num="0013">图3为本实用新型的组合剖视平面图；
+    </p>
+      <p id="p-0014-zh" num="0014">图4为本实用新型的正片胶片夹的立体图；
+    </p>
+      <p id="p-0015-zh" num="0015">图5为本实用新型的负片胶片夹的立体图；
+    </p>
+      <p id="p-0016-zh" num="0016">图6为图4的开启后立体图；
+    </p>
+      <p id="p-0017-zh" num="0017">图7为图5的开启后立体图；
+    </p>
+      <p id="p-0018-zh" num="0018">图8为本实用新型实施转换时的构造状态图；
+    </p>
+      <p id="p-0019-zh" num="0019">图9为图8另一角度的部份剖视图。
+    </p>
+    </description-of-drawings>
+    <mode-for-invention>
+      <p id="p-0020-zh" num="0020">具体实施方式
+  </p>
+      <p id="p-0021-zh" num="0021">请参阅图1至图3所示，本实用新型包括有一主体1、一架体2、一底支架
+    <br />3以及一底盖4，其中架体2的上部设有一组合有摄影镜头51的电路板5，底支
+    <br />架3结合在架体2的下部，其内部设有背光机构31，并在一侧设以一定位卡榫
+    <br />32，架体2与底支架3是容置在主体1内部，而底盖4从下部结合固定。主体1
+    <br />的两侧与底盖4间形成为二相通的长槽1112，并在架体2内相对处分别设有利
+    <br />用扭簧定位的入口防尘门21，以及结合拉簧22的出口防尘门23。另可结合以
+    <br />一连接线13使内部电路凭借连接头131传送到电脑主机。而架体2上也可设以
+    <br />一开关24，配合主体1上部的按键14，以进行操作以及控制的动作。
+    </p>
+      <p id="p-0022-zh" num="0022">请再参阅图4、图6所示，是本实用新型配合实施的正片胶片夹6，包括有
+    <br />一下壳61、一上壳62，在一侧相枢接，另一侧以上壳62的卡勾621配合下壳
+    <br />61的扣合部611，形成可简易开启以及关闭的构造，在下壳61以及上壳62的
+    <br />相对处各设有数个方形开孔612以及622，而下壳61的内部形成为数个凹陷部
+    <br />613，提供放置正片胶片63在其内，然后以上下壳盖合固定，并使胶片63对准
+    <br />于方形开孔612、622。另在下壳61的外侧下缘设有数个定位孔614。请再参阅
+    <br />图5、图7所示，为一负片胶片夹7，与正片胶片夹6的外部结构相似，主要是
+    <br />在下壳71的内部设有数凸柱713，提供定位卡合一般负片胶片73两侧的小孔
+    <br />731，而上壳72以及下壳71具有多个方形开孔721、711，另，下壳71的一侧
+    <br />下缘也设有多个定位孔714。
+    </p>
+      <p id="p-0023-zh" num="0023">使用时，如图8，以负片胶片73为例，是将夹有胶片的胶片夹7从主体1
+    <br />的入口长槽11插入，使某一方形开孔内的胶片对准于摄影镜头51，此时定位卡
+    <br />榫32恰是与一定位孔714相卡合(如图9)，以获得稳固的定位，而后凭借电
+    <br />脑经由连接线13的控制或直接按压按键14，即可启动背光机构31发出光线投
+    <br />射到胶片，并由摄影镜头51拍摄取得影像后，经程式处理，转换为数字资料，
+    <br />而传送电脑主机，提供修改或直接储存。然后可再次推动胶片夹7向出口端移
+    <br />动，以进行下一张胶片的影像取得。
+    </p>
+      <p id="p-0024-zh" num="0024">当同一胶片夹的胶片全部取得转换后，胶片夹从出口长槽12端取出，可再
+    <br />更换内部的胶片，继续上述的操作，便可快速完成。而针对负片胶片的操作方
+    <br />式也为相同，均非常的轻而易举。
+    </p>
+      <p id="p-0025-zh" num="0025">以上说明对本实用新型而言只是说明性的，而非限制性的，本领域普通技
+    <br />术人员理解，在不脱离权利要求所限定的精神和范围的情况下，可作出许多修
+    <br />改、变化或等效，但都将落入本实用新型的保护范围之内。
+    </p>
+    </mode-for-invention>
+  </description>
+  <claims id="claims_chi" lang="chi" format="original" date-changed="20100327">
+    <claim num="1">
+      <claim-text>1.一种将胶片影像转换为数字资料的装置，其特征在于：包括有一主体、一
+      <br />架体、一底支架以及一底盖，其中架体的上部设有一组合有摄影镜头的电路板，
+      <br />底支架结合在架体的下部，其内部设有背光机构，并在一侧设以一定位卡榫，
+      <br />架体与底支架容置在主体内部，而底盖从下部结合固定；主体的两侧与底盖间
+      <br />形成为两个相通的长槽，并在架体内相对处分别设有入口防尘门，以及出口防
+      <br />尘门，提供一胶片夹从入口端置入。
+      </claim-text>
+    </claim>
+    <claim num="2">
+      <claim-text>2.根据权利要求1所述的将胶片影像转换为数字资料的装置，其特征在于：
+      <br />在电路板结合以一连接线向外延伸，而连接线的外端为一连接头，所述的连接
+      <br />头与电脑主机相接，以供将数字资料传送。
+      </claim-text>
+    </claim>
+    <claim num="3">
+      <claim-text>3.根据权利要求1所述的将胶片影像转换为数字资料的装置，其特征在于：
+      <br />所述的胶片夹是夹合正片胶片的胶片夹，包括有一下壳、一上壳，在一侧相枢
+      <br />接，另一侧以上壳的卡勾配合下壳的扣合部，形成可简易开启以及关闭的构造，
+      <br />在下壳以及上壳的相对处各设有数个方形开孔，而下壳的内部形成为数个凹陷
+      <br />部，提供放置正片胶片在其内，然后以上下壳盖合固定，并使胶片对准于方形
+      <br />开孔，另在下壳的外侧下缘设有数个定位孔。
+      </claim-text>
+    </claim>
+    <claim num="4">
+      <claim-text>4.根据权利要求1所述的将胶片影像转换为数字资料的装置，其特征在于：
+      <br />所述的胶片夹是夹合负胶片的胶片夹，包括有一下壳、一上壳，在一侧相枢接，
+      <br />另一侧以上壳的卡勾配合下壳的扣合部，形成可开启与关闭的构造，在下壳的
+      <br />内部设有数凸柱，提供定位卡合负片胶片两侧的小孔，而上壳以及下壳具有多
+      <br />个方形开孔，下壳的一侧下缘设有多个定位孔。
+      </claim-text>
+    </claim>
+    <claim num="5">
+      <claim-text>5.根据权利要求1所述的将胶片影像转换为数字资料的装置，其特征在于：
+      <br />在架体上设有一开关以及与所述的开关相连的电路，而主体上部设以一按键，
+      <br />用来按压所述的开关以连通所述的电路，以供启动摄像的动作。
+      </claim-text>
+    </claim>
+  </claims>
+</lexisnexis-patent-document>

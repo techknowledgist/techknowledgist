@@ -1,0 +1,771 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright ©2011 LexisNexis Univentio, The Netherlands. -->
+<lexisnexis-patent-document schema-version="1.08" date-produced="20111006" file="CN101096965A.xml" produced-by="LexisNexis-Univentio" lang="eng" date-inserted="20080221" time-inserted="093920" date-changed="20110508" time-changed="150020">
+  <bibliographic-data lang="chi">
+    <publication-reference publ-type="Application" publ-desc="Unexamined application for a patent for invention">
+      <document-id>
+        <country>CN</country>
+        <doc-number>101096965</doc-number>
+        <kind>A</kind>
+        <date>20080102</date>
+      </document-id>
+    </publication-reference>
+    <application-reference>
+      <document-id>
+        <country>CN</country>
+        <doc-number>200710112087</doc-number>
+        <date>20070622</date>
+      </document-id>
+    </application-reference>
+    <language-of-filing>eng</language-of-filing>
+    <language-of-publication>chi</language-of-publication>
+    <priority-claims date-changed="20090309">
+      <priority-claim sequence="1" kind="national">
+        <country>JP</country>
+        <doc-number>2006175532</doc-number>
+        <kind>A</kind>
+        <date>20060626</date>
+      </priority-claim>
+      <priority-claim sequence="1" data-format="original">
+        <doc-number>2006-175532</doc-number>
+      </priority-claim>
+      <priority-claim sequence="1" data-format="epodoc">
+        <doc-number>JP20060175532</doc-number>
+      </priority-claim>
+    </priority-claims>
+    <dates-of-public-availability date-changed="20091225">
+      <gazette-reference>
+        <date>20080102</date>
+      </gazette-reference>
+      <unexamined-printed-without-grant>
+        <date>20080102</date>
+      </unexamined-printed-without-grant>
+    </dates-of-public-availability>
+    <kind-of-official-gazette lang="eng">24-00</kind-of-official-gazette>
+    <classifications-ipcr date-changed="20080221">
+      <classification-ipcr sequence="1">
+        <text>F04D  29/38        20060101CFI20080102BHCN        </text>
+        <ipc-version-indicator>
+          <date>20060101</date>
+        </ipc-version-indicator>
+        <classification-level>C</classification-level>
+        <section>F</section>
+        <class>04</class>
+        <subclass>D</subclass>
+        <main-group>29</main-group>
+        <subgroup>38</subgroup>
+        <symbol-position>F</symbol-position>
+        <classification-value>I</classification-value>
+        <action-date>
+          <date>20080102</date>
+        </action-date>
+        <generating-office>
+          <country>CN</country>
+        </generating-office>
+        <classification-status>B</classification-status>
+        <classification-data-source>H</classification-data-source>
+      </classification-ipcr>
+      <classification-ipcr sequence="2">
+        <text>F04D  29/38        20060101AFI20080102BHCN        </text>
+        <ipc-version-indicator>
+          <date>20060101</date>
+        </ipc-version-indicator>
+        <classification-level>A</classification-level>
+        <section>F</section>
+        <class>04</class>
+        <subclass>D</subclass>
+        <main-group>29</main-group>
+        <subgroup>38</subgroup>
+        <symbol-position>F</symbol-position>
+        <classification-value>I</classification-value>
+        <action-date>
+          <date>20080102</date>
+        </action-date>
+        <generating-office>
+          <country>CN</country>
+        </generating-office>
+        <classification-status>B</classification-status>
+        <classification-data-source>H</classification-data-source>
+      </classification-ipcr>
+    </classifications-ipcr>
+    <number-of-claims calculated="yes">3</number-of-claims>
+    <invention-title id="title_chi" date-changed="20091229" lang="chi" format="original">轴流送风机</invention-title>
+    <invention-title id="title_eng" date-changed="20091229" lang="eng" format="original">Axial flow forced draft fan</invention-title>
+    <parties date-changed="20091225">
+      <applicants>
+        <applicant sequence="1" app-type="applicant">
+          <addressbook lang="chi">
+            <orgname>三菱电机株式会社</orgname>
+            <address>
+              <address-1>日本东京</address-1>
+            </address>
+          </addressbook>
+          <addressbook lang="eng">
+            <orgname>MITSUBISHI ELECTRIC CORP.</orgname>
+            <address>
+              <country>JP</country>
+            </address>
+          </addressbook>
+        </applicant>
+        <applicant sequence="1" app-type="applicant" data-format="original">
+          <addressbook lang="chi">
+            <orgname>三菱电机株式会社</orgname>
+            <address>
+              <address-1>日本东京</address-1>
+            </address>
+          </addressbook>
+        </applicant>
+        <applicant sequence="1" app-type="applicant" data-format="docdb">
+          <addressbook lang="eng">
+            <orgname>MITSUBISHI ELECTRIC CORP</orgname>
+            <address>
+              <country>JP</country>
+            </address>
+          </addressbook>
+        </applicant>
+        <applicant sequence="1" app-type="applicant" data-format="docdba">
+          <addressbook lang="eng">
+            <orgname>MITSUBISHI ELECTRIC CORP.</orgname>
+            <address>
+              <country>JP</country>
+            </address>
+          </addressbook>
+        </applicant>
+      </applicants>
+      <inventors>
+        <inventor sequence="1">
+          <addressbook lang="chi">
+            <name>新井俊胜</name>
+          </addressbook>
+          <addressbook lang="eng">
+            <name>ARAI TOSHIKATSU</name>
+            <address>
+              <country>JP</country>
+            </address>
+          </addressbook>
+        </inventor>
+        <inventor sequence="2">
+          <addressbook lang="chi">
+            <name>菊地仁</name>
+          </addressbook>
+          <addressbook lang="eng">
+            <name>KIKUCHI HITOSHI</name>
+            <address>
+              <country>JP</country>
+            </address>
+          </addressbook>
+        </inventor>
+        <inventor sequence="3">
+          <addressbook lang="chi">
+            <name>荒木克己</name>
+          </addressbook>
+          <addressbook lang="eng">
+            <name>ARAKI KATSUMI</name>
+            <address>
+              <country>JP</country>
+            </address>
+          </addressbook>
+        </inventor>
+        <inventor sequence="4">
+          <addressbook lang="chi">
+            <name>滨田慎悟</name>
+          </addressbook>
+          <addressbook lang="eng">
+            <name>HAMADA SHIGO</name>
+            <address>
+              <country>JP</country>
+            </address>
+          </addressbook>
+        </inventor>
+        <inventor sequence="5">
+          <addressbook lang="chi">
+            <name>中岛诚治</name>
+          </addressbook>
+          <addressbook lang="eng">
+            <name>NAKAJIMA SEIJI</name>
+            <address>
+              <country>JP</country>
+            </address>
+          </addressbook>
+        </inventor>
+        <inventor sequence="6">
+          <addressbook lang="chi">
+            <name>青木普道</name>
+          </addressbook>
+          <addressbook lang="eng">
+            <name>AOGI HIROMICHI</name>
+            <address>
+              <country>JP</country>
+            </address>
+          </addressbook>
+        </inventor>
+        <inventor sequence="1" data-format="original">
+          <addressbook lang="chi">
+            <name>新井俊胜</name>
+          </addressbook>
+        </inventor>
+        <inventor sequence="1" data-format="docdb">
+          <addressbook lang="eng">
+            <name>TOSHIKATSU ARAI</name>
+            <address>
+              <country>JP</country>
+            </address>
+          </addressbook>
+        </inventor>
+        <inventor sequence="1" data-format="docdba">
+          <addressbook lang="eng">
+            <name>ARAI TOSHIKATSU</name>
+            <address>
+              <country>JP</country>
+            </address>
+          </addressbook>
+        </inventor>
+        <inventor sequence="2" data-format="original">
+          <addressbook lang="chi">
+            <name>菊地仁</name>
+          </addressbook>
+        </inventor>
+        <inventor sequence="2" data-format="docdba">
+          <addressbook lang="eng">
+            <name>KIKUCHI HITOSHI</name>
+            <address>
+              <country>JP</country>
+            </address>
+          </addressbook>
+        </inventor>
+        <inventor sequence="2" data-format="docdb">
+          <addressbook lang="eng">
+            <name>HITOSHI KIKUCHI</name>
+            <address>
+              <country>JP</country>
+            </address>
+          </addressbook>
+        </inventor>
+        <inventor sequence="3" data-format="original">
+          <addressbook lang="chi">
+            <name>荒木克己</name>
+          </addressbook>
+        </inventor>
+        <inventor sequence="3" data-format="docdb">
+          <addressbook lang="eng">
+            <name>KATSUMI ARAKI</name>
+            <address>
+              <country>JP</country>
+            </address>
+          </addressbook>
+        </inventor>
+        <inventor sequence="3" data-format="docdba">
+          <addressbook lang="eng">
+            <name>ARAKI KATSUMI</name>
+            <address>
+              <country>JP</country>
+            </address>
+          </addressbook>
+        </inventor>
+        <inventor sequence="4" data-format="original">
+          <addressbook lang="chi">
+            <name>滨田慎悟</name>
+          </addressbook>
+        </inventor>
+        <inventor sequence="4" data-format="docdba">
+          <addressbook lang="eng">
+            <name>HAMADA SHIGO</name>
+            <address>
+              <country>JP</country>
+            </address>
+          </addressbook>
+        </inventor>
+        <inventor sequence="4" data-format="docdb">
+          <addressbook lang="eng">
+            <name>SHIGO HAMADA</name>
+            <address>
+              <country>JP</country>
+            </address>
+          </addressbook>
+        </inventor>
+        <inventor sequence="5" data-format="original">
+          <addressbook lang="chi">
+            <name>中岛诚治</name>
+          </addressbook>
+        </inventor>
+        <inventor sequence="5" data-format="docdb">
+          <addressbook lang="eng">
+            <name>SEIJI NAKAJIMA</name>
+            <address>
+              <country>JP</country>
+            </address>
+          </addressbook>
+        </inventor>
+        <inventor sequence="5" data-format="docdba">
+          <addressbook lang="eng">
+            <name>NAKAJIMA SEIJI</name>
+            <address>
+              <country>JP</country>
+            </address>
+          </addressbook>
+        </inventor>
+        <inventor sequence="6" data-format="original">
+          <addressbook lang="chi">
+            <name>青木普道</name>
+          </addressbook>
+        </inventor>
+        <inventor sequence="6" data-format="docdba">
+          <addressbook lang="eng">
+            <name>AOGI HIROMICHI</name>
+            <address>
+              <country>JP</country>
+            </address>
+          </addressbook>
+        </inventor>
+        <inventor sequence="6" data-format="docdb">
+          <addressbook lang="eng">
+            <name>HIROMICHI AOGI</name>
+            <address>
+              <country>JP</country>
+            </address>
+          </addressbook>
+        </inventor>
+      </inventors>
+      <agents>
+        <agent sequence="1" rep-type="attorney">
+          <addressbook lang="chi">
+            <name>中国国际贸易促进委员会专利商标事务所 (何腾云)</name>
+          </addressbook>
+        </agent>
+        <agent sequence="1" rep-type="attorney" data-format="original">
+          <addressbook lang="chi">
+            <name>中国国际贸易促进委员会专利商标事务所 (何腾云)</name>
+          </addressbook>
+        </agent>
+      </agents>
+    </parties>
+    <patent-family date-changed="20110616">
+      <main-family family-id="110776220">
+        <family-member>
+          <document-id>
+            <country>KR</country>
+            <doc-number>1020070122376</doc-number>
+            <kind>A</kind>
+            <date>20071231</date>
+          </document-id>
+          <application-date>
+            <date>20070620</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>JP</country>
+            <doc-number>4680840</doc-number>
+            <kind>B2</kind>
+            <date>20110511</date>
+          </document-id>
+          <application-date>
+            <date>20060626</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>CN</country>
+            <doc-number>101096965</doc-number>
+            <kind>A</kind>
+            <date>20080102</date>
+          </document-id>
+          <application-date>
+            <date>20070622</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>JP</country>
+            <doc-number>2008002441</doc-number>
+            <kind>A</kind>
+            <date>20080110</date>
+          </document-id>
+          <application-date>
+            <date>20060626</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>KR</country>
+            <doc-number>100858395</doc-number>
+            <kind>B1</kind>
+            <date>20080911</date>
+          </document-id>
+          <application-date>
+            <date>20070620</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>JP</country>
+            <doc-number>4680840</doc-number>
+            <kind>B9</kind>
+            <date>20110210</date>
+          </document-id>
+          <application-date>
+            <date>20060626</date>
+          </application-date>
+        </family-member>
+      </main-family>
+      <complete-family family-id="110776133">
+        <family-member>
+          <document-id>
+            <country>CN</country>
+            <doc-number>101096965</doc-number>
+            <kind>A</kind>
+            <date>20080102</date>
+          </document-id>
+          <application-date>
+            <date>20070622</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>JP</country>
+            <doc-number>2008002441</doc-number>
+            <kind>A</kind>
+            <date>20080110</date>
+          </document-id>
+          <application-date>
+            <date>20060626</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>KR</country>
+            <doc-number>1020070122376</doc-number>
+            <kind>A</kind>
+            <date>20071231</date>
+          </document-id>
+          <application-date>
+            <date>20070620</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>KR</country>
+            <doc-number>100858395</doc-number>
+            <kind>B1</kind>
+            <date>20080911</date>
+          </document-id>
+          <application-date>
+            <date>20070620</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>JP</country>
+            <doc-number>4680840</doc-number>
+            <kind>B9</kind>
+            <date>20110210</date>
+          </document-id>
+          <application-date>
+            <date>20060626</date>
+          </application-date>
+        </family-member>
+        <family-member>
+          <document-id>
+            <country>JP</country>
+            <doc-number>4680840</doc-number>
+            <kind>B2</kind>
+            <date>20110511</date>
+          </document-id>
+          <application-date>
+            <date>20060626</date>
+          </application-date>
+        </family-member>
+      </complete-family>
+    </patent-family>
+  </bibliographic-data>
+  <abstract id="abstr_chi" date-changed="20091228" lang="chi" format="original">
+    <p num="1">本发明的目的是获得可不增加轴流送风机的轴方向的尺寸、而降低噪音的轴流送风机。该轴流送风机，具有：轴毂部(2)和多个旋转叶片(1)，轴毂部(2)被电动机旋转驱动；多个旋转叶片(1)放射状地安装在所述轴毂部(2)上、向旋转轴(3)方向送风，其中，使上述旋转叶片(1)的、从所述轴毂部(2)到径方向中间部的弯曲点Pw的第一区域中的翼弦中心线Pr1，以大于0°的一定的第一前倾角δzw向上游侧倾斜，使从所述弯曲点Pw到叶片外周部的第二区域中的翼弦中心线Pr1比所述第一前倾角δzw更向上游侧倾斜，且使所述叶片外周部上的翼弦中心线Pr1的切线(15)的前倾角δzs在30°～45°的范围内。</p>
+  </abstract>
+  <abstract id="abstr_eng" date-changed="20091228" lang="eng" format="original">
+    <p>The patent refers to the field of 'non-positive-displacement pumps'. The objective of the invention is to acquire an axial-flow supply blower which can reduce the noise without increasing the axle direction dimension of the axial-flow supply blower. The axial-flow supply blower is provided with the following components: an axle hub part (2) which is rotated and activated by the axle hub part (2) and a plurality of rotating vanes (1); the plurality of rotating vanes (1) are radially installed on the axle hub part (2) and supply wind in the direction of the rotating axle (3), wherein, inclining the airfoil chord center line Pr1 which is in the rotating vane (1) and starts from the axle hub part (2) to the first area of the bending point Pw at the intermediate part in the radial direction to the upstream side with a definite first front inclining angle delta zw which is larger that zero degree, inclining the airfoil chord center line Pr1 which starts form the bending point Pw to the second area of the periphery part of the blade to the upstream side for a front inclining degree which is larger than the first top inclining angle delta zw, and keeping the front inclining angle delta zs of the tangent (15) of the airfoil chord center line Pr1 at the periphery part of the blade in the scope between 30 degree to 45 degree.</p>
+  </abstract>
+  <legal-data date-changed="20110211">
+    <legal-event sequence="1">
+      <publication-date>
+        <date>20080102</date>
+      </publication-date>
+      <event-code-1>C06</event-code-1>
+      <effect>+</effect>
+      <legal-description>PUBLICATION</legal-description>
+      <status-identifier>N</status-identifier>
+      <docdb-publication-number> CN   101096965A</docdb-publication-number>
+    </legal-event>
+    <legal-event sequence="2">
+      <publication-date>
+        <date>20080227</date>
+      </publication-date>
+      <event-code-1>C10</event-code-1>
+      <legal-description>REQUEST OF EXAMINATION AS TO SUBSTANCE</legal-description>
+      <status-identifier>N</status-identifier>
+      <docdb-publication-number> CN   101096965A</docdb-publication-number>
+    </legal-event>
+    <legal-event sequence="3">
+      <publication-date>
+        <date>20081219</date>
+      </publication-date>
+      <event-code-1>REG</event-code-1>
+      <legal-description>REFERENCE TO A NATIONAL CODE</legal-description>
+      <status-identifier>N</status-identifier>
+      <docdb-publication-number> CN   101096965A</docdb-publication-number>
+      <designated-state-authority>
+        <country>HK</country>
+      </designated-state-authority>
+      <designated-state-event-code>DE</designated-state-event-code>
+      <designated-state-description>REQUESTS TO DESIGNATE PATENT IN HONG KONG</designated-state-description>
+      <corresponding-publication-number>1116238</corresponding-publication-number>
+      <corresponding-authority>
+        <country>HK</country>
+      </corresponding-authority>
+    </legal-event>
+    <legal-event sequence="4">
+      <publication-date>
+        <date>20101124</date>
+      </publication-date>
+      <event-code-1>C02</event-code-1>
+      <effect>-</effect>
+      <legal-description>DEEMED WITHDRAWAL OF PATENT APPLICATION AFTER PUBLICATION (PATENT LAW 2001)</legal-description>
+      <status-identifier>N</status-identifier>
+      <docdb-publication-number> CN   101096965A</docdb-publication-number>
+    </legal-event>
+  </legal-data>
+  <description id="descr_chi" lang="chi" format="original" date-changed="20091226">
+    <technical-field>
+      <p id="p-0001-zh" num="0001">技术领域 		 	 	 
+                </p>
+      <p id="p-0002-zh" num="0002">本发明涉及用于换气扇或空调等的轴流送风机。 	    	 
+                </p>
+    </technical-field>
+    <background-art>
+      <p id="p-0003-zh" num="0003">背景技术 		 	 	 
+                </p>
+      <p id="p-0004-zh" num="0004">作为目前的轴流送风机具有轴毂部和旋转叶片，所述轴毂部安装 	    	 
+                <br />有旋转叶片、进行旋转；所述旋转叶片由面对旋转方向的叶片前缘部、 		 	 	 
+                <br />面对旋转方向地相反方向的叶片后缘部以及与上述轴毂部相对的叶片  		  	 
+                <br />外周部形成一周，在这样的轴流送风机中，使对应于存在于从上述轴	 	 	 	 
+                <br />毂部到位于上述叶片外周部之间的弯曲点之间的第一区域中的、各翼 	    	 
+                <br />弦线中心点的第一前倾角一定，且使对应于存在于上述第一区域和上 		 	 	 
+                <br />述叶片外周部之间的第二区域中的、各翼弦线中心点的第二前倾角大  		  	 
+                <br />于上述第一前倾角(例如，参照专利文献1)。	 	 	 	 
+                </p>
+      <p id="p-0005-zh" num="0005">专利文献1：日本专利第3203994号公报  		  	 
+                </p>
+      <p id="p-0006-zh" num="0006">但是，根据上述现有的技术，虽然可以降低因叶梢涡流引起的噪 		 	 	 
+                <br />音，但通过在旋转叶片上形成第一、第二前倾角，叶片外周部从轴毂  		  	 
+                <br />部向前方(上游侧)突出很多，因此，轴流送风机的轴方向的尺寸增	 	 	 	 
+                <br />加。因此，具有整个产品的尺寸增大的问题。 	    	 
+                </p>
+    </background-art>
+    <disclosure>
+      <p id="p-0007-zh" num="0007">发明内容 		 	 	 
+                </p>
+      <p id="p-0008-zh" num="0008">本发明就是鉴于上述问题而提出的，其目的在于获得可不增加轴 	    	 
+                <br />流送风机的轴方向的尺寸、而降低噪音的轴流送风机。 		 	 	 
+                </p>
+      <p id="p-0009-zh" num="0009">为了解决上述课题、实现本发明的目的，本发明提供一种轴流送 	    	 
+                <br />风机，具有：轴毂部和多个旋转叶片，所述轴毂部被电动机旋转驱动； 		 	 	 
+                <br />所述多个旋转叶片放射状地安装在所述轴毂部上、向旋转轴方向送风，  		  	 
+                <br />其特征在于，使所述旋转叶片的、从所述轴毂部到径方向中间部的弯	 	 	 	 
+                <br />曲点的第一区域中的翼弦中心线，以大于0°的一定的第一前倾角向上 	    	 
+                <br />游侧倾斜，使从所述弯曲点到叶片外周部的第二区域中的翼弦中心线 		 	 	 
+                <br />比所述第一前倾角更向上游侧倾斜，且使所述叶片外周部上的翼弦中	 	 	 	 
+                <br />心线的切线的前倾角在30°～45°的范围内。 	    	 
+                </p>
+      <p id="p-0010-zh" num="0010">根据本发明，可起到以下效果，即，不增大旋转叶片的轴方向尺	 	 	 	 
+                <br />寸，就可得到降低因叶梢涡流而引起的噪音、且送风性能降低少的轴 	    	 
+                <br />流送风机。 		 	 	 
+                </p>
+    </disclosure>
+    <description-of-drawings>
+      <p id="p-0011-zh" num="0011">附图说明  		  	 
+                </p>
+      <p id="p-0012-zh" num="0012">图1是轴流送风机的叶轮的立体图。 		 	 	 
+                </p>
+      <p id="p-0013-zh" num="0013">图2是将叶轮向与旋转轴直交的平面投影的平面投影图。 	    	 
+                </p>
+      <p id="p-0014-zh" num="0014">图3是将图2中的各翼弦线中心点Pr’的轨迹以半径R向包括旋	 	 	 	 
+                <br />转轴和OX轴的垂直平面上旋转投影的图。 	    	 
+                </p>
+      <p id="p-0015-zh" num="0015">图4是与表示本发明的实施方式的翼弦中心线Pr1的图3相同的	 	 	 	 
+                <br />图。 	    	 
+                </p>
+      <p id="p-0016-zh" num="0016">图5是表示实施方式的各翼弦线中心点Pr2的轨迹(翼弦中心线	 	 	 	 
+                <br />Pr1)的定义方法的与图4相同的图。 	    	 
+                </p>
+      <p id="p-0017-zh" num="0017">图6是实验性地求出实施方式的叶轮的流量系数与单位噪音	 	 	 	 
+                <br />K<sub>T</sub>、流量系数与风扇效率ηs的关系的结果图。 	    	 
+                </p>
+    </description-of-drawings>
+    <mode-for-invention>
+      <p id="p-0018-zh" num="0018">具体实施方式	 	 	 	 
+                </p>
+      <p id="p-0019-zh" num="0019">以下，根据附图、就本发明的轴流送风机的实施方式进行具体说  		  	 
+                <br />明。但本发明并不受该实施方式的限制。	 	 	 	 
+                </p>
+      <p id="p-0020-zh" num="0020">实施方式  		  	 
+                </p>
+      <p id="p-0021-zh" num="0021">图1是轴流送风机的叶轮的立体图；图2是将叶轮向与旋转轴3 		 	 	 
+                <br />直交的平面Sc投影的平面投影图；图3是从图2中的轴毂部翼弦线中  		  	 
+                <br />心点Pb’到外周部翼弦线中心点Pt’的各翼弦线中心点的轨迹图，即，	 	 	 	 
+                <br />是关于Pb’-Pr’-Pt’、将任意半径R上的各翼弦线中心点Pr’、向包括 	    	 
+                <br />旋转轴3和OX轴的垂直平面上以半径R进行旋转投影的各翼弦线中 		 	 	 
+                <br />心点Pr的轨迹图；图4是表示本发明的实施方式的各翼弦线中心点  		  	 
+                <br />Pr2的轨迹的与图3相同的图；图5是表示实施方式的各翼弦线中心	 	 	 	 
+                <br />点Pr2的轨迹的定义方法的与图4相同的图；图6是实验性地求出实 	    	 
+                <br />施方式的叶轮的流量系数与单位噪音(比騒音)KT、流量系数 		 	 	 
+                <br />与风扇效率ηs的关系的结果图。	 	 	 	 
+                </p>
+      <p id="p-0022-zh" num="0022">如1所示，实施方式的叶轮具有三根叶片，但本发明的叶轮的旋  		  	 
+                <br />转叶片数量也可以是其他数量。以下，主要就一个旋转叶片的形状进	 	 	 	 
+                <br />行说明，其他旋转叶片的形状也是相同的形状。 	    	 
+                </p>
+      <p id="p-0023-zh" num="0023">具有三维立体形状的旋转叶片1被无图示的电动机旋转驱动，放	 	 	 	 
+                <br />射状地安装在围绕旋转轴3向箭头4方向旋转的圆柱形的轴毂部2的 	    	 
+                <br />外周。通过旋转叶片1的旋转，产生箭头A方向的气流。 		 	 	 
+                </p>
+      <p id="p-0024-zh" num="0024">一旦将图1所示的旋转叶轮1向与旋转轴3直交的平面Sc(参照 	    	 
+                <br />图3、图4)投影，则形成图2所示的旋转叶片1的形状。图2所示的 		 	 	 
+                <br />点Pb’表示从轴毂部2的外周上的叶片前缘部1b’到叶片后缘部1c’的  		  	 
+                <br />翼弦线中心点(中点)。	 	 	 	 
+                </p>
+      <p id="p-0025-zh" num="0025">同样，Pt’表示从叶片外周部1d上的叶片前缘部1b到叶片后缘部  		  	 
+                <br />1c’的翼弦线中心点(中点)。图2所示的线Pr’表示从轴毂部的翼弦线	 	 	 	 
+                <br />中心点Pb’到外周部的翼弦线中心点Pt’的任意的半径R上的各翼弦线 	    	 
+                <br />中心点的轨迹(翼弦中心线)。 		 	 	 
+                </p>
+      <p id="p-0026-zh" num="0026">图3是将从图2中的轴毂部的翼弦线中心点Pb’到外周部的翼弦 	    	 
+                <br />线中心点Pt’的各翼弦线中心点的轨迹(翼弦中心线)，即，关于Pb’- 		 	 	 
+                <br />Pr’-Pt’，将在任意的半径R上的各翼弦线中心点Pr’以半径R向包括  		  	 
+                <br />旋转轴3和OX轴的垂直平面上进行旋转投影后的各翼弦线中心点Pr’	 	 	 	 
+                <br />的轨迹(翼弦中心线)图。 	    	 
+                </p>
+      <p id="p-0027-zh" num="0027">如图3所示，向包括旋转轴3和OX轴的垂直平面上进行旋转投	 	 	 	 
+                <br />影后的翼弦中心线Pr(各翼弦线中心点Pr的轨迹)，可作为如下的线 	    	 
+                <br />进行表示，即，从轴毂部的翼弦线中心点Pb到叶片外周部的翼弦线 		 	 	 
+                <br />中心点Pt，向空气流的上游侧倾斜的前倾角δz与垂直于旋转轴3的  		  	 
+                <br />平面Sc形成一定角度的线。	 	 	 	 
+                </p>
+      <p id="p-0028-zh" num="0028">图4的虚线所示的翼弦中心线Pr，是图3所示的、前倾角δz为  		  	 
+                <br />一定角度的旋转叶片1的翼弦中心点的轨迹，使本发明的实施方式的	 	 	 	 
+                <br />翼弦中心线Pr1位于翼弦中心线Pr和OX轴(前倾角＝0°)所夹持的 	    	 
+                <br />区域内，所述翼弦中心线Pr是指从轴毂部的翼弦线中心点Pb到叶片 		 	 	 
+                <br />外周部的翼弦中心点Pt’的区域中、前倾角为一定的情况下的翼弦线中	 	 	 	 
+                <br />心线，所述OX轴通过轴毂部的翼弦线中心点Pb、与旋转轴3直交。 	    	 
+                </p>
+      <p id="p-0029-zh" num="0029">在翼弦线中心线Pr和翼弦线中心线Pr1中，轴毂部的翼弦线中	 	 	 	 
+                <br />心点Pb与叶片外周部的翼弦线中心点Pt在同一位置，叶片外周部的 	    	 
+                <br />翼弦线中心点Pt从OX轴起的距离为H。 		 	 	 
+                </p>
+      <p id="p-0030-zh" num="0030">图5表示实施方式的各翼弦线中心点Pr2的轨迹和前倾角。使从 	    	 
+                <br />旋转轴3起在任意半径R处的翼弦线中心点为Pr2，使位于翼弦线中 		 	 	 
+                <br />心线Pr1上的翼弦线中心点Pr2的、从与旋转轴3直交的OX轴起的  		  	 
+                <br />距离为Ls。	 	 	 	 
+                </p>
+      <p id="p-0031-zh" num="0031">在实施方式的旋转叶片1中，使从轴毂部2(半径Rb)到径方向  		  	 
+                <br />中间部的弯曲点Pw为止的第一区域以一定的第一前倾角δzw向上游	 	 	 	 
+                <br />侧倾斜，使从弯曲点Pw到叶片外周部的第二区域向上述第一区域的 	    	 
+                <br />更上游侧倾斜。 		 	 	 
+                </p>
+      <p id="p-0032-zh" num="0032">使翼弦中心线Pr1上的弯曲点Pw的半径为Rw，使第二前倾角为 	    	 
+                <br />δzt，该第二前倾角δzt是使连接叶片外周部上的翼弦线中心点Pt和轴 		 	 	 
+                <br />毂部2的外周上的翼弦中心点Pb的线Pr向上游侧倾斜的角。第一前  		  	 
+                <br />倾角δzw用以下公式表示。	 	 	 	 
+                </p>
+      <p id="p-0033-zh" num="0033">δzw＝tan<sup>-1</sup>(Ls/(R-Rb))  		  	 
+                </p>
+      <p id="p-0034-zh" num="0034">(Rb＜R≤Rw) 		 	 	 
+                </p>
+      <p id="p-0035-zh" num="0035">对应于从弯曲点Pw到叶片外周部(半径Rt)之间的第二区域中 	    	 
+                <br />的任意半径R处的翼弦线中心点Pr2的倾斜角δzd，如下所示地以成 		 	 	 
+                <br />为半径R的n次函数(1≤n)的方式形成，而且，使叶片外周部的翼  		  	 
+                <br />弦线中心点Pt上的翼弦中心线Pr1的切线15的倾斜角δzs在30°～45°	 	 	 	 
+                <br />的范围内。 	    	 
+                </p>
+      <p id="p-0036-zh" num="0036">δzd＝α(R-Rb)<sup>n</sup>+δzw	 	 	 	 
+                </p>
+      <p id="p-0037-zh" num="0037">α＝(δzt-δzw)/(Rt-Rw)<sup>n</sup></p>
+      <p id="p-0038-zh" num="0038">(Rw＜R≤Rt) 		 	 	 
+                </p>
+      <p id="p-0039-zh" num="0039">另外，也可不将上述的前倾角δzd形成为半径R的n次函数 	    	 
+                <br />(1≤n)，而是使第二区域中的翼弦中心线Pr1以一定的前倾角直线形 		 	 	 
+                <br />地向上游侧倾斜。	 	 	 	 
+                </p>
+      <p id="p-0040-zh" num="0040">如图6所示，在上述的实施方式的轴流送风机中，使弯曲点半径  		  	 
+                <br />Rw＝0.7×Rt，并通过半径R的二次函数决定倾斜角δzd，该倾斜角δzd	 	 	 	 
+                <br />对应于从弯曲点Pw到叶片外周部(半径Rt)之间的第二区域中的任 	    	 
+                <br />意半径R处的翼弦线中心点Pr2，而且，图6表示在如图5所示那样 		 	 	 
+                <br />使叶片外周部的翼弦线中心点Pt上的翼弦中心线Pr1的切线15的倾  		  	 
+                <br />斜角δzs＝30°的情况下以及使切线15的倾斜角δzs＝45°的情况下、实	 	 	 	 
+                <br />验性地求出的流量系数与单位噪音K<sub>T</sub>、流量系数与风扇效率ηs 	    	 
+                <br />的关系的结果。 		 	 	 
+                </p>
+      <p id="p-0041-zh" num="0041">如图6所示，在叶片外周部的翼弦线中心点Pt上的旋转叶片1 	    	 
+                <br />的翼弦中心线Pr1的切线15的倾斜角δzs为30°的轴流送风机中，在 		 	 	 
+                <br />流量系数大的动作区域中，与现有的、前倾角δz为一定的轴流送  		  	 
+                <br />风机相比较，降低了单位噪音K<sub>T</sub>(-2～-3dB(A))，并且提高了风扇效	 	 	 	 
+                <br />率η<sub>T</sub>(1％左右)。 	    	 
+                </p>
+      <p id="p-0042-zh" num="0042">并且，在叶片外周部的翼弦线中心点Pt上的翼弦中心线Pr1的切	 	 	 	 
+                <br />线15的倾斜角δzs为45°的轴流送风机上，具有风扇效率η<sub>T</sub>稍微降低 	    	 
+                <br />的动作区域，但在开放点上，与现有的、前倾角δz为一定的轴流送 		 	 	 
+                <br />风机相比较，降低了单位噪音K<sub>T</sub>(-2～-3dB(A))，且提高了风扇效  		  	 
+                <br />率η<sub>T</sub>(0.5％左右)。	 	 	 	 
+                </p>
+      <p id="p-0043-zh" num="0043">另外，流量系数、单位噪音K<sub>T</sub>以及风扇效率η<sub>T</sub>利用以下公式  		  	 
+                <br />进行定义。	 	 	 	 
+                </p>
+      <p id="p-0044-zh" num="0044">Ф＝Q/((π<sup>2</sup>/4)D<sup>3</sup>·(1-υ<sup>2</sup>)N)  		  	 
+                </p>
+      <p id="p-0045-zh" num="0045">K<sub>T</sub>＝SPL<sub>A</sub>-10LogQ·(P<sub>T</sub><sup>2.5</sup>)  		  	 
+                </p>
+      <p id="p-0046-zh" num="0046">η<sub>T</sub>＝(P<sub>T</sub>·Q)/(60P<sub>W</sub>) 		 	 	 
+                </p>
+      <p id="p-0047-zh" num="0047">Q：风量[m<sup>3</sup>/min] 	    	 
+                </p>
+      <p id="p-0048-zh" num="0048">P<sub>T</sub>：全压[Pa]	 	 	 	 
+                </p>
+      <p id="p-0049-zh" num="0049">SPL<sub>A</sub>：噪音特性(A修正)[dB(A)]  		  	 
+                </p>
+      <p id="p-0050-zh" num="0050">D：轴流送风机外径[m] 		 	 	 
+                </p>
+      <p id="p-0051-zh" num="0051">υ：轴毂比(＝轴毂部外径/轴流送风机外径) 	    	 
+                </p>
+      <p id="p-0052-zh" num="0052">N：转速[rpm] 	    	 
+                </p>
+      <p id="p-0053-zh" num="0053">P<sub>W</sub>：轴动力[W]	 	 	 	 
+                </p>
+      <p id="p-0054-zh" num="0054">如上所述，本发明的轴流送风机适用于换气扇、空调等。  		  	 
+                </p>
+    </mode-for-invention>
+  </description>
+  <claims id="claims_chi" lang="chi" format="original" date-changed="20091226">
+    <claim num="1">
+      <claim-text>1.一种轴流送风机，具有：轴毂部和多个旋转叶片，所述轴毂部  		  	 
+                <br />被电动机旋转驱动；所述多个旋转叶片放射状地安装在所述轴毂部上、	 	 	 	 
+                <br />向旋转轴方向送风，其特征在于， 	    	 
+                </claim-text>
+      <claim-text>使所述旋转叶片的、从所述轴毂部到径方向中间部的弯曲点的第	 	 	 	 
+                <br />一区域中的翼弦中心线，以大于0°的一定的第一前倾角向上游侧倾斜， 	    	 
+                <br />使从所述弯曲点到叶片外周部的第二区域中的翼弦中心线比所述第一 		 	 	 
+                <br />前倾角更向上游侧倾斜，且使所述叶片外周部上的翼弦中心线的切线  		  	 
+                <br />的前倾角在30°～45°的范围内。	 	 	 	 
+                </claim-text>
+    </claim>
+    <claim num="2">
+      <claim-text>2.如权利要求1所述的轴流送风机，其特征在于，连接所述轴毂 	    	 
+                <br />部上的翼弦线中心点和所述第二区域中的翼弦线中心点的线向上游侧 		 	 	 
+                <br />的倾斜角，成为所述第二区域中的翼弦线中心点的半径的n次函数  		  	 
+                <br />(1≤n)。	 	 	 	 
+                </claim-text>
+    </claim>
+    <claim num="3">
+      <claim-text>3.如权利要求1所述的轴流送风机，其特征在于，以一定的前倾 	    	 
+                <br />角使所述第二区域中的翼弦中心线向上游侧倾斜。 		 	 	 
+                </claim-text>
+    </claim>
+  </claims>
+</lexisnexis-patent-document>

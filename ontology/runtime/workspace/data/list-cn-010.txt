@@ -1,0 +1,10 @@
+workspace/data/sample-cn-100/CN101100502A
+workspace/data/sample-cn-100/CN201081743Y
+workspace/data/sample-cn-100/CN101096965A
+workspace/data/sample-cn-100/CN101314556A
+workspace/data/sample-cn-100/CN201134856Y
+workspace/data/sample-cn-100/CN101223695A
+workspace/data/sample-cn-100/CN201094265Y
+workspace/data/sample-cn-100/CN101319273A
+workspace/data/sample-cn-100/CN201047242Y
+workspace/data/sample-cn-100/CN101108287A

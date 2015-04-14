@@ -67,7 +67,7 @@ The usage rate is calculated as follows:
     log(highest_match_count + 1)
 
 The result is a numner between 0 and 1. Most terms have zero scores, which
-correspond to no matches found (that is, no evidence of usage found). The closer
+corresponds to no matches found (that is, no evidence of usage found). The closer
 the number gets to 1, the closer the term usage is relative to the term with the
 most matches.
 

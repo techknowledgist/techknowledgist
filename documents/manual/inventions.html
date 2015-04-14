@@ -15,6 +15,178 @@
 </p>
 
 
+<p class="abstract">
+Invention key terms are terms that fill some function relative to the invention
+described in the patent (US or CN). There are two versions of this
+functionality: one that runs on the result of document processing of a corpus
+and one that builds key terms from scratch using a list of files. The latter is
+much faster and is the one that is decribed here. It uses a slightly simplified
+document processing pipeline, applies the invention key terms model and then
+reorganizes the results in seversal ways.
+</p>
+
+<p class="navigationx">
+[ <a href="#input">input description</a>
+| <a href="#howto">generating keyterms</a>
+| <a href="#output">output description</a> ]
+</p>
+
+
+<a name="input"></a>
+<h2>Input Description</h2>
+
+<p>The input is a list with file path specifications, an example is printed
+below.</p>
+
+<pre class="example">
+workspace/data/sample-010/US6673330B1
+workspace/data/sample-010/US6674661B1
+workspace/data/sample-010/US6675175B2
+workspace/data/sample-010/US6676627B1.txt   workspace/data/sample-010/US6676627B1.fact
+workspace/data/sample-010/US6678572B1.txt   workspace/data/sample-010/US6678572B1.fact
+</pre>
+
+<p>This is a fragement of the example file list bundled with the code, which can
+be found at <code>ontology/runtime/workspace/data/list-010.txt</code>. A line
+includes either just a file name with extension or two tab-separated file paths,
+one for the text file and one for the fact file. In the former case the text
+file and fact file are assumed to be in the same directory.</p>
+
+<a name="howto"></a>
+<h2>Generating Keyterms</h2>
+
+<p>The toplevel code is in <code>ontology/runtime</code>. To run the code on a
+  list of files, change into that directory and do the following:</p>
+
+<pre class="example">
+$ python keyterms.py --filelist workspace/data/list-010.txt
+</pre>
+
+<p>With this invocation, results are written to a time stamped directory
+  in <code>workspace/results</code>. There are a couple of other options, all
+  optional:</p>
+
+<pre class="example">
+--language en|cn
+--run-id STRING
+--mallet-dir PATH
+--stanford-tagger-dir PATH
+--verbose
+--condense-results
+</pre>
+
+<p>With <code>--language</code> the language of the input can be specified, the
+default is to use 'en'.</p>
+
+<p>The <code>--run-id</code> option defines an identifier for the current
+run. The default is to use the current timestamp. The run-id determines where
+the temporary files and results file are written to. For example, with a run-id
+of 'run-018', temporary files are written to workspace/tmp/run-018 and result
+files are written to workspace/results/run-018.</p>
+
+<p>The options <code>--mallet-dir</code> and
+<code>--stanford-tagger-dir</code> can be used to overrule the default
+directories for the mallet classifier and the stanford tagger. There are
+actually two ways of doing this. One is to edit the config.py file in this
+directory. The other is to use these options. If both are used, the command line
+options overrule the values in config.py. See config.py for more information. In
+short, one should use a path like
+"/tools/stanford/stanford-postagger-full-2012-07-09" or
+"/tools/mallet/mallet-2.0.7/bin".
+
+<p>With <code>--verbose</code> progress messages will be printed to the
+terminal. Information printed includes: location of classifier and tagger, file
+that is being pre-processed (tagging and chunking), and commands executed during
+classification.
+
+<p>With <code>--condense-results</code>, not all result files will be present in
+the results directory. Only the two tab files (iclassify.MaxEnt.label.merged.tab
+and iclassify.MaxEnt.label.relations.tab) and the info file will be written.</p>
+
+
+<a name="output"></a>
+<h2>Output Description</h2>
+
+<p>Results are printed to a set of files in the results directory. All files
+have the prefix 'iclassify'. The table below has a short description of the
+output files. Note that in <code>--condense-results</code> only the two tab 
+files and the info file will be available.</p>
+
+<blockquote>
+<table cellpadding=5 cellspacing=0 border=1>
+<tr>
+  <td>iclassify.info 
+  <td>some minimal info about the completed run
+<tr>
+  <td>iclassify.mallet
+  <td>input file for the mallet classifier
+<tr>
+  <td>iclassify.MaxEnt.out
+  <td>output file of the cassifier
+<tr>
+  <td>iclassify.MaxEnt.stderr
+  <td>error messages from the classifier
+<tr>
+  <td>iclassify.MaxEnt.label
+  <td>condensed version of classifier output
+<tr>
+  <td>iclassify.MaxEnt.label.cat
+  <td>minimal keyterm information
+<tr>
+  <td>iclassify.MaxEnt.label.merged
+  <td>keyterms per document
+<tr>
+  <td>iclassify.MaxEnt.label.merged.tab
+  <td>tabbed version of the previous
+<tr>
+  <td>iclassify.MaxEnt.label.relations.tab
+  <td>relations between terms
+</table>
+</blockquote>
+
+<p>Most usable for the inventions may
+be <code>iclassify.MaxEnt.label.merged.tab</code>, which has four columns:</p>
+
+<pre class="example">
+6674661 US6674661B1.txt i       dense metal programmable rom
+6674661 US6674661B1.txt i       metal programmable rom
+6674661 US6674661B1.txt ct      terminals
+6674661 US6674661B1.txt ct      memory transistor
+6674661 US6674661B1.txt ct      depth
+6674661 US6674661B1.txt ct      wordlines
+6674661 US6674661B1.txt ct      width
+6674661 US6674661B1.txt ct      bitlines
+6674661 US6674661B1.txt ct      group
+6674661 US6674661B1.txt ct      bitline
+6674661 US6674661B1.txt ct      memory cell
+6674661 US6674661B1.txt ct      end
+6674661 US6674661B1.txt ca      memory cell array
+6674661 US6674661B1.txt ca      memory cells
+6674661 US6674661B1.txt ca      ground conection
+6674661 US6674661B1.txt ca      memory cell group
+6674661 US6674661B1.txt ca      memory cell transistor
+</pre>
+
+<p>The first column is the patent id and it is followed by the basename of the
+file processed. The third column has the type of the term: i for invention, t
+for invention type, ct for contextual term, and ca for component/attribute. The
+last column has the term.</p>
+
+<p>The file iclassify.MaxEnt.label.relations.tab contains relations between
+terms. Three types of relations are extracted:
+
+<pre class="example">
+i-ca   relation between invention and a component/attribute
+i-ct   relation between an invention and a contextual term
+ca-ca  two terms that are both components/attributes of the same invention
+</pre>
+
+<p>The file itself has three columns, the relation type, the first term and the
+second term.</p>
+
+<p>See the documentsation string in <code>keyterms.py</code> for more
+information on the output.</p>
+
 
 </body>
 </html>

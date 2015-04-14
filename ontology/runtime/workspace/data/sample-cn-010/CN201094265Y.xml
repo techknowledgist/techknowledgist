@@ -1,0 +1,386 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright ©2011 LexisNexis Univentio, The Netherlands. -->
+<lexisnexis-patent-document schema-version="1.08" date-produced="20111007" file="CN201094265Y.xml" produced-by="LexisNexis-Univentio" lang="eng" date-inserted="20081113" time-inserted="055142" date-changed="20110913" time-changed="074216">
+  <bibliographic-data lang="eng">
+    <publication-reference publ-type="undefined" publ-desc="Granted patent for utility model">
+      <document-id>
+        <country>CN</country>
+        <doc-number>201094265</doc-number>
+        <kind>Y</kind>
+        <date>20080806</date>
+      </document-id>
+    </publication-reference>
+    <application-reference>
+      <document-id>
+        <country>CN</country>
+        <doc-number>200720183102</doc-number>
+        <date>20071024</date>
+      </document-id>
+    </application-reference>
+    <language-of-filing>eng</language-of-filing>
+    <language-of-publication>eng</language-of-publication>
+    <priority-claims date-changed="20100119">
+      <priority-claim sequence="1" kind="national">
+        <country>CN</country>
+        <doc-number>200720183102</doc-number>
+        <kind>U</kind>
+        <date>20071024</date>
+      </priority-claim>
+      <priority-claim sequence="1" data-format="docdb">
+        <country>CN</country>
+        <doc-number>200720183102</doc-number>
+        <kind>U</kind>
+        <date>20071024</date>
+      </priority-claim>
+      <priority-claim sequence="1" data-format="epodoc">
+        <doc-number>CN20072183102U</doc-number>
+      </priority-claim>
+    </priority-claims>
+    <dates-of-public-availability date-changed="20091230">
+      <gazette-reference>
+        <date>20080806</date>
+      </gazette-reference>
+      <printed-with-grant>
+        <date>20080806</date>
+      </printed-with-grant>
+    </dates-of-public-availability>
+    <kind-of-official-gazette lang="eng">24-31</kind-of-official-gazette>
+    <classifications-ipcr date-changed="20110913">
+      <classification-ipcr sequence="1">
+        <text>A23N   5/00        20060101AFI20110906BHCN        </text>
+        <ipc-version-indicator>
+          <date>20060101</date>
+        </ipc-version-indicator>
+        <classification-level>A</classification-level>
+        <section>A</section>
+        <class>23</class>
+        <subclass>N</subclass>
+        <main-group>5</main-group>
+        <subgroup>00</subgroup>
+        <symbol-position>F</symbol-position>
+        <classification-value>I</classification-value>
+        <action-date>
+          <date>20110906</date>
+        </action-date>
+        <generating-office>
+          <country>CN</country>
+        </generating-office>
+        <classification-status>B</classification-status>
+        <classification-data-source>H</classification-data-source>
+      </classification-ipcr>
+    </classifications-ipcr>
+    <number-of-claims calculated="yes">3</number-of-claims>
+    <invention-title id="title_chi" date-changed="20101019" lang="chi" format="original">巴旦姆破壳机</invention-title>
+    <invention-title id="title_eng" date-changed="20101019" lang="eng" format="original">Almond hulling machine</invention-title>
+    <parties date-changed="20110913">
+      <applicants>
+        <applicant sequence="1" app-type="applicant">
+          <addressbook lang="chi">
+            <orgname>新疆农业科学院农业机械化研究所</orgname>
+            <address>
+              <address-1>830091新疆维吾尔自治区乌鲁木齐市南昌南路291号</address-1>
+            </address>
+          </addressbook>
+          <addressbook lang="eng">
+            <orgname>XINJIANG AGRICULTURAL SCIENCE ACADEMY, AGRICULTURAL MECHANIZATION RESEARCH INSTITUTE</orgname>
+            <address>
+              <country>CN</country>
+            </address>
+          </addressbook>
+        </applicant>
+        <applicant sequence="1" app-type="applicant" data-format="original">
+          <addressbook lang="chi">
+            <orgname>新疆农业科学院农业机械化研究所</orgname>
+            <address>
+              <address-1>830091新疆维吾尔自治区乌鲁木齐市南昌南路291号</address-1>
+            </address>
+          </addressbook>
+        </applicant>
+        <applicant sequence="1" app-type="applicant" data-format="docdb">
+          <addressbook lang="eng">
+            <orgname>XINJIANG AGRICULTURAL SCIENCE</orgname>
+            <address>
+              <country>CN</country>
+            </address>
+          </addressbook>
+        </applicant>
+        <applicant sequence="1" app-type="applicant" data-format="docdba">
+          <addressbook lang="eng">
+            <orgname>XINJIANG AGRICULTURAL SCIENCE ACADEMY, AGRICULTURAL MECHANIZATION RESEARCH INSTITUTE</orgname>
+            <address>
+              <country>CN</country>
+            </address>
+          </addressbook>
+        </applicant>
+      </applicants>
+      <inventors>
+        <inventor sequence="1">
+          <addressbook lang="chi">
+            <name>吐鲁洪</name>
+          </addressbook>
+          <addressbook lang="eng">
+            <name>TU LUHONG</name>
+          </addressbook>
+        </inventor>
+        <inventor sequence="2">
+          <addressbook lang="chi">
+            <name>刘向东</name>
+          </addressbook>
+          <addressbook lang="eng">
+            <name>LIU XIANGDONG</name>
+          </addressbook>
+        </inventor>
+        <inventor sequence="3">
+          <addressbook lang="chi">
+            <name>马月虹</name>
+          </addressbook>
+          <addressbook lang="eng">
+            <name>MA YUEHONG</name>
+          </addressbook>
+        </inventor>
+        <inventor sequence="4">
+          <addressbook lang="chi">
+            <name>阿依木妮沙</name>
+          </addressbook>
+          <addressbook lang="eng">
+            <name>AYIMUNISHA</name>
+          </addressbook>
+        </inventor>
+        <inventor sequence="1" data-format="original">
+          <addressbook lang="chi">
+            <name>吐鲁洪</name>
+          </addressbook>
+        </inventor>
+        <inventor sequence="1" data-format="docdb">
+          <addressbook lang="eng">
+            <name>LUHONG TU</name>
+          </addressbook>
+        </inventor>
+        <inventor sequence="1" data-format="docdba">
+          <addressbook lang="eng">
+            <name>TU LUHONG</name>
+          </addressbook>
+        </inventor>
+        <inventor sequence="2" data-format="original">
+          <addressbook lang="chi">
+            <name>刘向东</name>
+          </addressbook>
+        </inventor>
+        <inventor sequence="2" data-format="docdba">
+          <addressbook lang="eng">
+            <name>LIU XIANGDONG</name>
+          </addressbook>
+        </inventor>
+        <inventor sequence="2" data-format="docdb">
+          <addressbook lang="eng">
+            <name>XIANGDONG LIU</name>
+          </addressbook>
+        </inventor>
+        <inventor sequence="3" data-format="original">
+          <addressbook lang="chi">
+            <name>马月虹</name>
+          </addressbook>
+        </inventor>
+        <inventor sequence="3" data-format="docdb">
+          <addressbook lang="eng">
+            <name>YUEHONG MA</name>
+          </addressbook>
+        </inventor>
+        <inventor sequence="3" data-format="docdba">
+          <addressbook lang="eng">
+            <name>MA YUEHONG</name>
+          </addressbook>
+        </inventor>
+        <inventor sequence="4" data-format="original">
+          <addressbook lang="chi">
+            <name>阿依木妮沙</name>
+          </addressbook>
+        </inventor>
+        <inventor sequence="4" data-format="docdba">
+          <addressbook lang="eng">
+            <name>AYIMUNISHA</name>
+          </addressbook>
+        </inventor>
+        <inventor sequence="4" data-format="docdb">
+          <addressbook lang="eng">
+            <name>AYIMUNISHA</name>
+          </addressbook>
+        </inventor>
+      </inventors>
+      <agents>
+        <agent sequence="1" rep-type="attorney">
+          <addressbook lang="chi">
+            <name>乌鲁木齐新科联专利代理事务所（有限公司） (李振中)</name>
+          </addressbook>
+        </agent>
+        <agent sequence="1" rep-type="attorney" data-format="original">
+          <addressbook lang="chi">
+            <name>乌鲁木齐新科联专利代理事务所（有限公司） (李振中)</name>
+          </addressbook>
+        </agent>
+      </agents>
+    </parties>
+    <patent-family date-changed="20081113">
+      <main-family family-id="114465014">
+        <family-member>
+          <document-id>
+            <country>CN</country>
+            <doc-number>201094265</doc-number>
+            <kind>Y</kind>
+            <date>20080806</date>
+          </document-id>
+          <application-date>
+            <date>20071024</date>
+          </application-date>
+        </family-member>
+      </main-family>
+      <complete-family family-id="114464517">
+        <family-member>
+          <document-id>
+            <country>CN</country>
+            <doc-number>201094265</doc-number>
+            <kind>Y</kind>
+            <date>20080806</date>
+          </document-id>
+          <application-date>
+            <date>20071024</date>
+          </application-date>
+        </family-member>
+      </complete-family>
+    </patent-family>
+  </bibliographic-data>
+  <abstract id="abstr_chi" date-changed="20110913" lang="chi" format="original">
+    <p num="1">一种巴旦姆破壳机，在机架的中部内水平设置着由电动机驱动的输送带，输送带后部上方的机架上设置着进料斗，进料斗底部水平设置着一根由电动机驱动的破壳辊，破壳辊与输送带相互垂直；在破壳辊的轴向辊面上均布间隔设置着环形凹槽，各环形凹槽两侧的破壳辊圆周辊面上均布设置着定位凹坑，各定位凹坑底部分别与环形凹槽相连通，定位凹坑大小与巴旦姆的大小相匹配；在进料斗后方的机架上设置着刀架，刀架前部竖直间隔均布设置着破壳刀，破壳刀的刀刃呈月牙形，破壳刀的刀刃分别伸入到各环形凹槽内，破壳刀的刀刃与环形凹槽外表面之间构成弧形挤压通道。本实用新型能够有效地对巴旦姆进行机械破壳，破壳速度快，工作效率高，使用方便。</p>
+  </abstract>
+  <abstract id="abstr_eng" date-changed="20110913" lang="eng" format="original">
+    <p>An almond rejuvenator has an electromotor-driven conveyer belt vertically installed in the center of the frame. A feeding hopper is installed on the frame at the top of the back of the conveyer. An electric shell breaking roller is vertically installed at the bottom of the feeding hopper, apeak with the conveyer belt; annular grooves are installed equally and at intervals on the axial direction surface of the shell breaking roller. Position-fixed concave holes are arranged equally on the circle surface of each annular groove on both sides. The bottom of each concave hole is connected with an annular groove, and the size of the position-fixed concave hole is matched with the size of the almond; a knife rest is arranged on the frame at the back of the feeding hopper. Shell breaking knives are arranged equally and vertically at intervals in the front of the knife rest. The blade of the shell breaking knife is in a crescent shape, and extends into each annular groove respectively. A cambered extrusion channel is formed between the blade of the shell breaking knife and the surface of the annular groove. The almond rejuvenator can break the shell of almond mechanically, efficiently and quickly, and is convenient in use.</p>
+  </abstract>
+  <legal-data date-changed="20090514">
+    <legal-event sequence="1">
+      <publication-date>
+        <date>20080806</date>
+      </publication-date>
+      <event-code-1>C14</event-code-1>
+      <effect>+</effect>
+      <legal-description>GRANTED</legal-description>
+      <status-identifier>N</status-identifier>
+      <docdb-publication-number> CN   201094265Y</docdb-publication-number>
+    </legal-event>
+  </legal-data>
+  <description id="descr_chi" lang="chi" format="original" date-changed="20091230">
+    <technical-field>
+      <p id="p-0001-zh" num="0001">技术领域  		  	 
+    </p>
+      <p id="p-0002-zh" num="0002">本实用新型属于坚果破壳装置，特别是巴旦姆破壳机。 		 	 	 
+    </p>
+    </technical-field>
+    <background-art>
+      <p id="p-0003-zh" num="0003">背景技术  		  	 
+    </p>
+      <p id="p-0004-zh" num="0004">巴旦姆(扁桃)是世界四大干果之一，在我国主要分布在新疆，是新疆名 		 	 	 
+    <br />贵特产，其营养价值很高，属于高级滋补食品，由于其丰富的营养价值和药用  		  	 
+    <br />价值而深受人们的喜爱和欢迎。为了制取巴旦姆的整仁，依靠传统的手工破壳，	 	 	 	 
+    <br />功效较低，不能满足大规模生产高级食品的需求。 	    	 
+    </p>
+    </background-art>
+    <disclosure>
+      <p id="p-0005-zh" num="0005">实用新型内容 		 	 	 
+    </p>
+      <p id="p-0006-zh" num="0006">本实用新型的目的在于提供一种巴旦姆破壳机，其结构简单，易于制造， 	    	 
+    <br />用机械代替人工破壳取仁，不仅破壳速度快，而且工作效率高，降低工人劳动 		 	 	 
+    <br />强度，使用方便。  		  	 
+    </p>
+      <p id="p-0007-zh" num="0007">本实用新型的目的是这样实现地：一种巴旦姆破壳机，包括安装有电动机 		 	 	 
+    <br />的机架，在机架的中部内水平设置着由电动机驱动的输送带，输送带两侧的机  		  	 
+    <br />架上分别设置着挡板，输送带后部上方的机架上设置着进料斗，进料斗底部水	 	 	 	 
+    <br />平设置着一根由电动机驱动的破壳辊，破壳辊与输送带相互垂直；在破壳辊的 	    	 
+    <br />轴向辊面上均布间隔设置着环形凹槽，各环形凹槽两侧的破壳辊圆周辊面上均 		 	 	 
+    <br />布设置着定位凹坑，各定位凹坑底部分别与环形凹槽相连通，定位凹坑大小与  		  	 
+    <br />巴旦姆的大小相匹配；在进料斗后方的机架上设置着刀架，刀架前部竖直间隔	 	 	 	 
+    <br />均布设置着与所说的各环形凹槽相对应的破壳刀，破壳刀的刀刃呈月牙形，破 	    	 
+    <br />壳刀的刀刃分别伸入到各环形凹槽内，破壳刀的刀刃与环形凹槽外表面之间构 		 	 	 
+    <br />成弧形挤压通道。  		  	 
+    </p>
+      <p id="p-0008-zh" num="0008">使用时，将巴旦姆放入进料斗中，电动机带动破壳辊和输送带运转，破壳 		 	 	 
+    <br />辊在转动过程中巴旦姆分别填入各定位凹坑内，由于破壳刀的刀刃伸入到各环  		  	 
+    <br />形凹槽内，随着破壳辊的转动和挤压，破壳刀锋利的月牙形刀刃将果壳切出一	 	 	 	 
+    <br />条裂缝并被挤裂，果壳从破壳刀刀刃与环形凹槽之间形成的挤压通道被挤出落 	    	 
+    <br />到输送带上，即可将巴旦姆仁取出。本实用新型结构简单，易于制造，用机械 		 	 	 
+    <br />代替人工制取巴旦姆仁，能够有效地对巴旦姆进行机械破壳，破壳速度快，工  		  	 
+    <br />作效率高，降低了工人的劳动强度，使用方便，易于推广。	 	 	 	 
+    </p>
+    </disclosure>
+    <description-of-drawings>
+      <p id="p-0009-zh" num="0009">附图说明 	    	 
+    </p>
+      <p id="p-0010-zh" num="0010">下面将结合附图对本实用新型作进一步说明。	 	 	 	 
+    </p>
+      <p id="p-0011-zh" num="0011">图1为本实用新型的主视结构示意图；  		  	 
+    </p>
+      <p id="p-0012-zh" num="0012">图2为本实用新型的俯视结构示意图。 		 	 	 
+    </p>
+    </description-of-drawings>
+    <mode-for-invention>
+      <p id="p-0013-zh" num="0013">具体实施方式	 	 	 	 
+    </p>
+      <p id="p-0014-zh" num="0014">一种巴旦姆破壳机，如图1、图2所示，包括安装有电动机13、14的机架  		  	 
+    <br />1，在机架1的中部内水平设置着由电动机14驱动的输送带6，输送带6的主传	 	 	 	 
+    <br />动轴位于机架1的前部，输送带6的副传动轴7位于机架1的后部。主传动轴 	    	 
+    <br />的端部设置着与电动机14通过传动带相连的从动传动轮16，机架1的前部、输 		 	 	 
+    <br />送带6下方向下倾斜设置着出料斗17。输送带6两侧的机架上分别设置着挡板，  		  	 
+    <br />用以防止巴旦姆仁掉落。输送带6后部上方的机架1上设置着进料斗3，进料斗	 	 	 	 
+    <br />3的宽度与机架1的宽度相适应，以便提高进料量。进料斗3底部水平设置着一 	    	 
+    <br />根由电动机13驱动的破壳辊4，破壳辊4与输送带6相互垂直。在破壳辊4的 		 	 	 
+    <br />轴向辊面上均布间隔设置着环形凹槽9，各环形凹槽9两侧的破壳辊4圆周辊面  		  	 
+    <br />上均布设置着定位凹坑11，各定位凹坑11底部分别与环形凹槽9相连通，定位	 	 	 	 
+    <br />凹坑11大小与巴旦姆的大小相匹配。工作时，巴旦姆落入定位凹坑11内，由 	    	 
+    <br />定位凹坑11对巴旦姆进行定位卡住。在进料斗3后方的机架1上设置着刀架5， 		 	 	 
+    <br />刀架5前部竖直间隔均布设置着与所说的各环形凹槽9相对应的破壳刀8，破壳  		  	 
+    <br />刀8的刀刃呈月牙形，破壳刀8的刀刃分别伸入到各环形凹槽9内，破壳刀8	 	 	 	 
+    <br />的刀刃与环形凹槽9外表面之间构成弧形挤压通道。使用时，将巴旦姆放入进 	    	 
+    <br />料斗3中，电动机13、14分别带动破壳辊4和输送带6运转，破壳辊4在转动 		 	 	 
+    <br />过程中巴旦姆分别填入各定位凹坑11内，由于破壳刀8的刀刃伸入到各环形凹  		  	 
+    <br />槽9内，随着破壳辊4的转动和挤压，破壳刀8锋利的月牙形刀刃将果壳切出	 	 	 	 
+    <br />一条裂缝并被挤裂，果壳从破壳刀8刀刃与环形凹槽9之间形成的挤压通道被 	    	 
+    <br />挤出落到输送带6上，由输送带6将巴旦姆通过出料斗17送出。 		 	 	 
+    </p>
+      <p id="p-0015-zh" num="0015">如图1、图2所示，在输送带6上方的机架1内横置着至少一根由电动机驱 	    	 
+    <br />动的压壳辊2，压壳辊2与破壳辊4相互平行，压壳辊2与安装在输送带6上、 		 	 	 
+    <br />下工作带面之间用以支撑其上工作带面的托辊10相对应，压壳辊2下底面与输  		  	 
+    <br />送带6上工作带面之间的距离小于巴旦姆的厚度，这样如果有没有被充分破壳	 	 	 	 
+    <br />的巴旦姆，就会受到压壳辊2的进一步挤压而被压碎，用以消除没有被充分破 	    	 
+    <br />壳的巴旦姆。压壳辊2的数目为3根，各压壳辊2之间相互间隔平行布置。 		 	 	 
+    </p>
+    </mode-for-invention>
+  </description>
+  <claims id="claims_chi" lang="chi" format="original" date-changed="20091230">
+    <claim num="1">
+      <claim-text>1、一种巴旦姆破壳机，包括安装有电动机(13、14)的机架(1)，其特征是： 		 	 	 
+      <br />在机架(1)的中部内水平设置着由电动机(14)驱动的输送带(6)，输  		  	 
+      <br />送带(6)两侧的机架上分别设置着挡板，输送带(6)后部上方的机架(1)	 	 	 	 
+      <br />上设置着进料斗(3)，进料斗(3)底部水平设置着一根由电动机(13) 	    	 
+      <br />驱动的破壳辊(4)，破壳辊(4)与输送带(6)相互垂直；在破壳辊(4) 		 	 	 
+      <br />的轴向辊面上均布间隔设置着环形凹槽(9)，各环形凹槽(9)两侧的破  		  	 
+      <br />壳辊(4)圆周辊面上均布设置着定位凹坑(11)，各定位凹坑(11)底部	 	 	 	 
+      <br />分别与环形凹槽(9)相连通，定位凹坑(11)大小与巴旦姆的大小相匹 	    	 
+      <br />配；在进料斗(3)后方的机架(1)上设置着刀架(5)，刀架(5)前部 		 	 	 
+      <br />竖直间隔均布设置着与所说的各环形凹槽(9)相对应的破壳刀(8)，破  		  	 
+      <br />壳刀(8)的刀刃呈月牙形，破壳刀(8)的刀刃分别伸入到各环形凹槽(9)	 	 	 	 
+      <br />内，破壳刀(8)的刀刃与环形凹槽(9)外表面之间构成弧形挤压通道。 	    	 
+      </claim-text>
+    </claim>
+    <claim num="2">
+      <claim-text>2、根据权利要求1所述的巴旦姆破壳机，其特征是：在输送带(6)上方的 		 	 	 
+      <br />机架(1)内横置着至少一根由电动机驱动的压壳辊(2)，压壳辊(2)与  		  	 
+      <br />破壳辊(4)相互平行，压壳辊(2)与安装在输送带(6)上、下工作带	 	 	 	 
+      <br />面之间用以支撑其上工作带面的托辊(10)相对应，压壳辊(2)下底面 	    	 
+      <br />与输送带(6)上工作带面之间的距离小于巴旦姆的厚度。 		 	 	 
+      </claim-text>
+    </claim>
+    <claim num="3">
+      <claim-text>3、根据权利要求2所述的巴旦姆破壳机，其特征是：压壳辊(2)的数目为3  		  	 
+      <br />根，各压壳辊(2)之间相互间隔平行布置。	 	 	 	 
+      </claim-text>
+    </claim>
+  </claims>
+</lexisnexis-patent-document>
