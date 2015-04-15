@@ -28,9 +28,10 @@ OPTIONS:
    classification.
 
 --mallet-dir PATH
---stanford-tagger-dir PATH
+--segmenter-dir PATH
+--tagger-dir PATH
    These can be used to overrule the default directories for the mallet
-   classifier and the stanford tagger. There are actually two ways of doing
+   classifier and the stanford tools. There are actually two ways of doing
    this. One is to edit the config.py file in this directory. The other is to
    use these options. If both are used, the command line options overrule the
    values in config.py. See config.py for more information.
@@ -194,8 +195,7 @@ CN_MODEL = '../classifier/data/models/inventions-standard-cn-20150105/'
 output_count = 0
 
 
-def process(filelist, language, run_id, mallet_path, stanford_path, condense):
-    update_directories(mallet_path, stanford_path)
+def process(filelist, language, run_id, condense):
     os.mkdir('workspace/tmp/' + run_id)
     os.mkdir('workspace/results/' + run_id)
     t1 = time.time()
@@ -225,14 +225,14 @@ def process(filelist, language, run_id, mallet_path, stanford_path, condense):
     cleanup(run_id)
     if VERBOSE: print "Time elapsed: %f" % (time.time() - t1)
 
-def update_directories(mallet_path, stanford_path):
-    """Updates the MALLET_DIR and STANFORD_TAGGER_DIR paths in the module
-    ontology.creation.config and ontology.classifier.config with the values in
-    the local module ontology.runtime.config or the values handed in by command
-    line options. TODO: this a bit of a hack and I would like to have a better
-    way to deal with all the directory settings. """
+
+def update_config(mallet_path, segmenter_path, tagger_path):
+    """Updates the MALLET_DIR, STANFORD_SEGMENTER_DIR and STANFORD_TAGGER_DIR
+    paths in the module ontology.creation.config and ontology.classifier.config
+    with the values in the local module ontology.runtime.config or the values
+    handed in by command line options."""
     # check the local config
-    for var in ('MALLET_DIR', 'STANFORD_TAGGER_DIR'):
+    for var in ('MALLET_DIR', 'STANFORD_SEGMENTER_DIR', 'STANFORD_TAGGER_DIR'):
         path = config.__dict__.get(var)
         if path is not None:
             if os.path.isdir(path):
@@ -241,22 +241,24 @@ def update_directories(mallet_path, stanford_path):
             else:
                 exit("Invalid %s directory: %s" % (var, path))
     # check the values from the command line options
-    if mallet_path is not None:
-        if os.path.isdir(mallet_path):
-            ontology.creation.config.__dict__['MALLET_DIR'] = mallet_path
-            ontology.classifier.config.__dict__['MALLET_DIR'] = mallet_path
-        else:
-            exit("Invalid mallet directory: " + mallet_path)
-    if stanford_path is not None:
-        if os.path.isdir(stanford_path):
-            ontology.creation.config.__dict__['STANFORD_TAGGER_DIR'] = stanford_path
-            ontology.classifier.config.__dict__['STANFORD_TAGGER_DIR'] = stanford_path
-        else:
-            exit("Invalid stanford directory: " + stanford_path)
+    update_config_path('MALLET_DIR', mallet_path)
+    update_config_path('STANFORD_SEGMENTER_DIR', segmenter_path)
+    update_config_path('STANFORD_TAGGER_DIR', tagger_path)
     if VERBOSE:
         print 'MALLET_DIR =', ontology.classifier.config.MALLET_DIR
+        print 'STANFORD_SWEGMENTER_DIR =', ontology.creation.config.STANFORD_SEGMENTER_DIR
         print 'STANFORD_TAGGER_DIR =', ontology.creation.config.STANFORD_TAGGER_DIR
 
+def update_config_path(variable, path):
+    """Set variale to path in the modules ontology.creation.config and
+    ontology.classifier.config."""
+    if path is not None:
+        if os.path.isdir(path):
+            ontology.creation.config.__dict__[variable] = path
+            ontology.classifier.config.__dict__[variable] = path
+        else:
+            exit("Invalid directory for %s: %s" % (variable, path))
+        
 def run_xml2txt(text_file, fact_file, outfile, language, saved_titles):
     """This is a simplistic and fast document structure parser that just takes
     the title and abstract, relying on the xml tags as recognized in code that
@@ -415,8 +417,9 @@ def fix_titles(results_dir, label_file, saved_titles):
 
 if __name__ == '__main__':
 
-    options = ['run-id=', 'mallet-dir=', 'stanford-tagger-dir=',
-               'filelist=', 'language=', 'verbose', 'condense-results']
+    options = ['run-id=', 'filelist=', 'language=', 'mallet-dir=',
+               'segmenter-dir=', 'tagger-dir=',               
+               'verbose', 'condense-results']
     (opts, args) = getopt.getopt(sys.argv[1:], '', options)
 
     VERBOSE = False
@@ -424,7 +427,8 @@ if __name__ == '__main__':
     language = 'en'
     run_id = default_id()
     mallet_path = None
-    stanford_path = None
+    segmenter_path = None
+    tagger_path = None
     condense = False
 
     for opt, val in opts:
@@ -433,7 +437,9 @@ if __name__ == '__main__':
         if opt == '--language': language = val
         if opt == '--run-id':  run_id = val
         if opt == '--mallet-dir': mallet_path = val
-        if opt == '--stanford-tagger-dir': stanford_path = val
+        if opt == '--segmenter-dir': segmenter_path = val
+        if opt == '--tagger-dir': tagger_path = val
         if opt == '--condense-results': condense = True
 
-    process(filelist, language, run_id, mallet_path, stanford_path, condense)
+    update_config(mallet_path, segmenter_path, tagger_path)
+    process(filelist, language, run_id, condense)

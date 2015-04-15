@@ -70,7 +70,8 @@ $ python keyterms.py --filelist workspace/data/list-010.txt
 --language en|cn
 --run-id STRING
 --mallet-dir PATH
---stanford-tagger-dir PATH
+--segmenter-dir PATH
+--tagger-dir PATH
 --verbose
 --condense-results
 </pre>
@@ -84,14 +85,14 @@ the temporary files and results file are written to. For example, with a run-id
 of 'run-018', temporary files are written to workspace/tmp/run-018 and result
 files are written to workspace/results/run-018.</p>
 
-<p>The options <code>--mallet-dir</code> and
-<code>--stanford-tagger-dir</code> can be used to overrule the default
-directories for the mallet classifier and the stanford tagger. There are
-actually two ways of doing this. One is to edit the config.py file in this
-directory. The other is to use these options. If both are used, the command line
-options overrule the values in config.py. See config.py for more information. In
-short, one should use a path like
-"/tools/stanford/stanford-postagger-full-2012-07-09" or
+<p>The options <code>--mallet-dir</code>, <code>--segmenter-dir</code>
+and <code>--tagger-dir</code> can be used to overrule the default directories
+for the mallet classifier and the stanford segmenter and tagger. There are
+actually two ways of doing this. One is to edit the <code>config.py</code> file
+in <code>ontology/runtime</code>this directory. The other is to use these
+options. If both are used, the command line options overrule the values in
+config.py. See config.py for more information. In short, one should use a path
+like "/tools/stanford/stanford-postagger-full-2012-07-09" or
 "/tools/mallet/mallet-2.0.7/bin".
 
 <p>With <code>--verbose</code> progress messages will be printed to the
