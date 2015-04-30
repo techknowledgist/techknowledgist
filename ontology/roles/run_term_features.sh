@@ -98,14 +98,14 @@ LOCAL_ROOT="$LOCAL_CORPUS_ROOT/$CORPUS"
 
 # Make sure target directory tree exists before running this script
 
-
-
 echo "[run_term_features.sh]LOCAT_ROOT: $LOCAL_ROOT, LOCAL_CORPUS_ROOT: $LOCAL_CORPUS_ROOT" 
 
 mkdir $LOCAL_ROOT
 mkdir $LOCAL_ROOT/data
 mkdir $LOCAL_ROOT/data/term_features
 # 4/7/15 PGA added a dir for title-abstract only data
+# If the sections parameter to this script is set to "ta", then only title/abstracts are 
+# used and output is placed in term_features_ta subdirectory by term_features.sh
 mkdir $LOCAL_ROOT/data/term_features_ta
 mkdir $LOCAL_ROOT/data/tv
 # create a directory for ACT specific files
@@ -131,14 +131,9 @@ YEAR=$START_YEAR
 echo "[run_term_features.sh]Populating term_features directory for each year in range"
 #exit
 
-
-
-
 while [ $YEAR -le $END_YEAR ] ; do
 
     echo "year: $YEAR"
-
-    
 
     sh term_features.sh $FUSE_ROOT/subcorpora/$YEAR/config/files.txt $FUSE_ROOT/subcorpora/$YEAR/data/d3_phr_feats/01/files $LOCAL_ROOT/data/term_features $SECTIONS
     

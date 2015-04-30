@@ -362,14 +362,19 @@ def create_json_chunks_file(index_name, type_name, corpus, start, end, docs_per_
     s_log.close()
     s_file_list.close()
 
+    """
+    # unfinished section to create chunk index
     # prepare data for chunk index
     for chunk in d_chunk2docs.keys():
+
         l_docs = d_chunk2docs[chunk]
         l_prev_V = d_chunk2prev_V[chunk]
         l_prev_Npr = d_chunk2prev_Npr[chunk]
 
-///
+    """
 
+
+    # todo: eventually, return two lists
     return(l_colloc_bulk_lists)
 
 # docs.populate_colloc_index("computers", "ln-us-A21-computers", 1997, 1997, 500, True, True)

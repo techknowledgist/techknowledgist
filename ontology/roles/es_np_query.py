@@ -13,6 +13,7 @@ import pdb
 import math
 import copy
 from collections import defaultdict
+import canon
 # log is our own log routines for timing runs
 import log
 from ontology.utils.file import get_year_and_docid, open_input_file
@@ -123,7 +124,7 @@ def qmaf(field, value, l_must=[], doc_type="np", index_name="i_nps_bio", query_t
 # es_np.qcfhv("phr")
 # es_np.qcfhv("prev_Npr")
 # field has value
-def qcfhv(field, doc_type="np", index_name="i_nps_bio"):
+def qcfhv(field, doc_type="np", index_name=""):
     
     query_type = "count"
 
@@ -184,7 +185,7 @@ def dump_rfields(es_result, l_fieldnames=[], l_fieldtypes=[], delist_fields_p=Tr
         s_output.write("\n")
     s_output.close()
 
-
+# write out a line containing the set of fields in l_fieldnames, using a generator result (r_gen) which returns fields matching a query.
 # es_np_query.dump_rfields(r_gen, l_fieldnames=["phr", "doc_id"], l_fieldtypes=["s", "s"], output_file="bio.2000.3.inst")
 def dump_gen_rfields(es_result_generator, l_fieldnames=[], l_fieldtypes=[], delist_fields_p=True, output_file="rfields.out", result_type="hits"):
     s_output = codecs.open(output_file, "w", encoding='utf-8')
@@ -204,6 +205,30 @@ def dump_gen_rfields(es_result_generator, l_fieldnames=[], l_fieldtypes=[], deli
     print "[dump_gen_rfields]Completed: %i results written to %s" % (res_count, output_file)
     s_output.close()
 
+# This version assumes that the first field in l_fieldtypes is a phrase and applies illegal phrase filtering using
+# canon.illegal_phrase_p
+def dump_gen_rfields_filtered(es_result_generator, l_fieldnames=[], l_fieldtypes=[], delist_fields_p=True, output_file="rfields.out", result_type="hits"):
+    s_output = codecs.open(output_file, "w", encoding='utf-8')
+    res_count = 0
+    for l_result in es_result_generator:
+        rf = rfields(l_result, l_fieldnames, delist_fields_p=delist_fields_p, result_type=result_type)
+
+        # test legality of phrase field (first field in l_fieldnames)
+        # only output lines containing legal phrases
+
+        for res in rf:
+            if not(canon.illegal_phrase_p(res[0])): 
+                i = 0
+                for field in res:
+                    type_string = "%" + l_fieldtypes[i] + "\t"
+                    s_output.write(type_string % field)
+                    i += 1
+                s_output.write("\n")
+                res_count += 1
+        print "[dump_gen_rfields]%i results written to %s" % (res_count, output_file)
+    print "[dump_gen_rfields]Completed: %i results written to %s" % (res_count, output_file)
+    s_output.close()
+
 
 # use of scan/scroll to handle long result sets described here:
 # http://vichargrave.com/elasticsearch-client-programming-python/
@@ -215,7 +240,8 @@ def dump_gen_rfields(es_result_generator, l_fieldnames=[], l_fieldtypes=[], deli
 # r = es_np_query.qmamf_long(l_query_must=[["sp", "[nucleic | acid | probe]" ],l_fields=["spv", "spn"], size=10000)
 # NOTE: This returns a list of "hits".
 
-def qmamf_long(l_query_must=[], l_filter_must=[], l_fields=[], doc_type="np", index_name="i_nps_bio", size=1000, debug_p=False):
+# r = es_np_query.qmamf_long(l_query_must=[["length", 3]["cphr", "putative regulatory region"]],l_fields=["doc_id", "phr"], size=3, index_name="i_bio_2003")
+def qmamf_long(l_query_must=[], l_filter_must=[], l_fields=[], doc_type="np", index_name="", size=1000, debug_p=False):
 
     # do the initial search to get back a scroll_id
     
@@ -238,7 +264,7 @@ def qmamf_long(l_query_must=[], l_filter_must=[], l_fields=[], doc_type="np", in
     return(all_results)
 
 # for queries with very large result sets, run as a generator
-def gen_qmamf_long(l_query_must=[], l_filter_must=[], l_fields=[], doc_type="np", index_name="i_nps_bio", size=500, debug_p=False):
+def gen_qmamf_long(l_query_must=[], l_filter_must=[], l_fields=[], doc_type="np", index_name="", size=500, debug_p=False):
 
     # do the initial search to get back a scroll_id
     l_results = []    
@@ -281,7 +307,7 @@ def gen_qmamf_long(l_query_must=[], l_filter_must=[], l_fields=[], doc_type="np"
 # r = es_np_query.qmamf(l_query_must=[["spv", "increase"], ["sp", "cost ]"] ],l_fields=["spv", "cphr", "section"], query_type="search", index_name="i_bio_2002")
 
 
-def qmamf(l_query_must=[], l_filter_must=[], l_fields=[], doc_type="np", index_name="i_nps_bio", query_type="search", debug_p=False, size=max_result_size):
+def qmamf(l_query_must=[], l_filter_must=[], l_fields=[], doc_type="np", index_name="", query_type="search", debug_p=False, size=max_result_size):
 
     #pdb.set_trace()
     # fields are illegal for a count query, so ignore them
@@ -340,7 +366,7 @@ def qmamf(l_query_must=[], l_filter_must=[], l_fields=[], doc_type="np", index_n
 # r = es_np_query.qpmamf(l_query_must=[["length", 3]], doc_type="doc", size=3, query_type="count", index_name="i_testg")
 
 # Make sure the index you are running against has the parent-child mapping for the requested type.
-def qpmamf(l_query_must=[], l_filter_must=[], l_fields=[], doc_type="doc", child_type="np", index_name="i_nps_bio", query_type="search", debug_p=False, size=max_result_size):
+def qpmamf(l_query_must=[], l_filter_must=[], l_fields=[], doc_type="doc", child_type="np", index_name="", query_type="search", debug_p=False, size=max_result_size):
 
     l_must_query = make_must_query_phr_list(l_query_must, debug_p=debug_p)    
     l_must_filter = make_must_filter_list(l_filter_must)
@@ -413,7 +439,7 @@ def qssp(sp_value):
 # r = es_np_query.qp("phr", "human skin fibroblast cell line", fields=["phr"])
 # see http://stackoverflow.com/questions/21343549/can-i-specify-the-result-fields-in-elasticsearch-query
 # returns the list of hits, restricted to the fields specified.
-def qp(field, value, fields=["phr"], doc_type="np", index_name="i_nps_bio", pp=True, size=max_result_size):
+def qp(field, value, fields=["phr"], doc_type="np", index_name="", pp=True, size=max_result_size):
     #queryBody = {"query": {"match_phrase":{field : value}}}
     queryBody = {}
     if field != "":
@@ -438,14 +464,14 @@ def qc_mult(l_query_must, l_filter_must=[], debug_p=False):
 # es_np_query.qs_mult([["spn", "[ skin" ], ["sp", "human ]" ]])
 # es_np_query.qs_mult([["phr", "human cell line" ]], l_fields=["phr", "doc_id"] )
 # search for multiple phrase matched fields
-def qs_mult(l_query_must, l_filter_must=[], l_fields=[], debug_p=False):
-    index_name = "i_nps_bio"
+def qs_mult(l_query_must, l_filter_must=[], l_fields=[], debug_p=False, index_name=""):
+    #index_name = "i_nps_bio"
     r = qmamf(l_query_must=l_query_must, l_filter_must=l_filter_must, l_fields=l_fields, doc_type="np", index_name=index_name, query_type="search", debug_p=debug_p )["hits"]["hits"]
     return(r)
     
 
 # es_np.qbp("sp", "third | term ]", "np", "i_np")
-def qbp(field, value, doc_type="tf", index_name="test1"):
+def qbp(field, value, doc_type="tf", index_name=""):
     queryBody = {
        "query" : {
           "filtered" : { 
@@ -457,7 +483,7 @@ def qbp(field, value, doc_type="tf", index_name="test1"):
 
 # constant_score prevents scoring, so saves time
 # es_np.csq("sp", "third | term ]")
-def csq(field, value, doc_type="np", index_name="i_np"):
+def csq(field, value, doc_type="np", index_name=""):
     queryBody = {
         "query" : {
             "constant_score" : {
@@ -477,7 +503,7 @@ def csq(field, value, doc_type="np", index_name="i_np"):
 # constant_score prevents scoring, so saves time
 # filtered constrains the search
 # es_np.csqf("sp", "third | term ]", year=2000)
-def csqf(field, value, year=2000, doc_type="np", index_name="i_np"):
+def csqf(field, value, year=2000, doc_type="np", index_name=""):
     queryBody = {
         "query" : {
             "constant_score" : {
@@ -503,7 +529,7 @@ def csqf(field, value, year=2000, doc_type="np", index_name="i_np"):
 # filtered constrains the search, here using a boolean expression, in which
 # all exact matches ("term" matches unanalyzed fields exactly) must be satisfied.
 # es_np.csqfb("sp", "third | term ]", domain="cs", year=2000, doc_id='pat2')
-def csqfb(field, value, year=2000, doc_type="np", index_name="i_np", domain="cs", doc_id="pat2"):
+def csqfb(field, value, year=9999, doc_type="np", index_name="", domain="", doc_id=""):
 
     queryBody = {
         "query" : {
@@ -539,7 +565,7 @@ def csqfb(field, value, year=2000, doc_type="np", index_name="i_np", domain="cs"
     return(res)
 
 # constant score query filtered boolean must
-def csqfb_null_must(field, value, year=2000, doc_type="np", index_name="i_np", domain="cs", doc_id="pat2"):
+def csqfb_null_must(field, value, year=9999, doc_type="np", index_name="", domain="", doc_id=""):
 
     queryBody = {
         "query" : {
@@ -570,7 +596,7 @@ def csqfb_null_must(field, value, year=2000, doc_type="np", index_name="i_np", d
 
 # boolean without scoring
 # es_np.qb("0", "term", "1", "third", "np", "i_np")
-def qb(f1, v1, f2, v2, doc_type="np", index_name="i_np"):
+def qb(f1, v1, f2, v2, doc_type="np", index_name=""):
 
     queryBody = {
        "query" : {
@@ -596,7 +622,7 @@ def qb(f1, v1, f2, v2, doc_type="np", index_name="i_np"):
 # boolean without scoring
 # es_np.qbm("sp", "[ here", "sp", "third | term ]", "np", "i_np")
 # incorrect syntax ///
-def qbm(f1, v1, f2, v2, doc_type="np", index_name="i_np"):
+def qbm(f1, v1, f2, v2, doc_type="np", index_name=""):
 
     queryBody = {
        "query" : {
@@ -619,7 +645,7 @@ def qbm(f1, v1, f2, v2, doc_type="np", index_name="i_np"):
     return(res)
 
 # es_np.qf("phr", "third term", "np", "i_np")
-def qf(field, value, doc_type="tf", index_name="test1"):
+def qf(field, value, doc_type="np", index_name=""):
     queryBody = {"query": {"filtered" : {
                              "query": { "match_all": {}},
                               
@@ -660,7 +686,7 @@ def make_must_query_phr_list(l_must, debug_p=False):
 
 # no filter terms
 # es_np.qfnull("phr", "third term", "np", "i_np")
-def qfnull(field, value, doc_type="tf", index_name="test1"):
+def qfnull(field, value, doc_type="np", index_name=""):
     queryBody = {"query": {"filtered" : {
                              "query": { "match_all": {}},
                               
@@ -670,7 +696,7 @@ def qfnull(field, value, doc_type="tf", index_name="test1"):
     return(res)
 
 # query with only filter
-def qf2(field, value, doc_type="tf", index_name="test1"):
+def qf2(field, value, doc_type="np", index_name=""):
     queryBody = {                              
                               "filter": {
                                   "bool": {
@@ -689,12 +715,15 @@ def qf2(field, value, doc_type="tf", index_name="test1"):
 # Note that we are matching individual phrases, so the same
 # doc_id can match multiple times.  Hence, we use doc_set to
 # remove dup docs from the result. But return a list (with no dups)
-def docs_matching(phr):
+# modified 4/19/15 to search on canonical phr (cphr) instead of phr
+def docs_matching(cphr):
     doc_set = set()
-    result = qs_mult([["phr", phr ]], l_fields=["doc_id"] )
+    result = qs_mult([["cphr", cphr ]], l_fields=["doc_id"] )
     for r in result:
         doc_set.add(r["fields"]["doc_id"][0])
     return(list(doc_set))
+
+#def all_docs() ///
 
 # given a phrase, return several measures of diversity:
 # count of different governing verbs
@@ -882,6 +911,8 @@ def related(phr, index_name, size=2000,  multiword_p=True, max=20):
             i += 1
 
 #es_np_query.doc_freq("airline ticket", "i_cs_2002")
+# Since this actually returns duplicate docs when phrase occurs in the same doc multiple times, we
+# actually are getting corpus freq, not doc_freq.   I don't know how to avoid this in elasticsearch - PGA
 def doc_freq(phr, index_name, phr_subset="f"):
     value = phr2sp(phr, phr_subset="f")
     query_must = [ "sp", value ]
@@ -889,14 +920,74 @@ def doc_freq(phr, index_name, phr_subset="f"):
 
     query_must_cphr = ["cphr", phr]
     cphr_res = qpmamf(l_query_must=[query_must_cphr], doc_type="doc", child_type="np", index_name=index_name, query_type="count", debug_p=False)
+    cphr_res_docs = qpmamf(l_query_must=[query_must_cphr], doc_type="doc", child_type="np", l_fields=["doc_id"], index_name=index_name, query_type="search", debug_p=False)
 
     query_must_phr = ["phr", phr]
     phr_res = qpmamf(l_query_must=[query_must_phr], doc_type="doc", child_type="np", index_name=index_name, query_type="count", debug_p=False)
 
+    return([res, cphr_res, phr_res, cphr_res_docs])
+
+def corpus_freq(phr, index_name, phr_subset="f"):
+    value = phr2sp(phr, phr_subset="f")
+    query_must = [ "sp", value ]
+    res = qmamf(l_query_must=[query_must], doc_type="np", index_name=index_name, query_type="count", debug_p=False)
+
+    query_must_cphr = ["cphr", phr]
+    cphr_res = qmamf(l_query_must=[query_must_cphr], doc_type="np", index_name=index_name, query_type="count", debug_p=False)
+
+    query_must_phr = ["phr", phr]
+    phr_res = qmamf(l_query_must=[query_must_phr], doc_type="np", index_name=index_name, query_type="count", debug_p=False)
+
     return([res, cphr_res, phr_res])
+
+# compute corpus and doc freq for a phrase.  phr_type is {sp, cphr, phr}
+# r = es_np_query.corpus_doc_freq("putative regulatory region", "i_bio_2003", phr_type="cphr") 
+# r = es_np_query.corpus_doc_freq("putative regulatory region", "i_bio_2003", phr_type="cphr") 
+def corpus_doc_freq(phr, index_name, phr_subset="f", phr_type="cphr"):
+    if phr_type == "cphr":
+        query_must = ["cphr", phr]
+        cf_res = qmamf(l_query_must=[query_must], doc_type="np", index_name=index_name, query_type="count", debug_p=False)
+        l_hits = qmamf_long(l_query_must=[query_must], doc_type="np", l_fields=["doc_id"], index_name=index_name, debug_p=False)
+
+    elif phr_type == "sp":
+        value = phr2sp(phr, phr_subset="f")
+        query_must = [ "sp", value ]
+        cf_res = qmamf(l_query_must=[query_must], doc_type="np", index_name=index_name, query_type="count", debug_p=False)
+        l_hits = qmamf_long(l_query_must=[query_must], doc_type="np", l_fields=["doc_id"], index_name=index_name, debug_p=False)
+
+    elif phr_type == "phr":
+        query_must = ["phr", phr]
+        cf_res = qmamf(l_query_must=[query_must], doc_type="np", index_name=index_name, query_type="count", debug_p=False)
+        l_hits = qmamf_long(l_query_must=[query_must], doc_type="np", l_fields=["doc_id"], index_name=index_name, debug_p=False)
+
+    # count number of doc_ids in res
+    l_doc_id = set()
+    #l_doc_id = []
+    for hit in l_hits:
+        l_doc_id.add(hit["fields"]["doc_id"][0])
+        #doc_id = hit["fields"]["doc_id"][0]
+        #l_doc_id.append(doc_id)
+        #print "%s" % doc_id
+    doc_freq = len(l_doc_id)
+
+    return([cf_res["count"], doc_freq])
+
+# return counts for corpus freq and doc freq given a query over np instances.
+# r = es_np_query.q_corpus_doc_freq([["length", 3]], "i_bio_2003")
+def q_corpus_doc_freq(l_query_must, index_name):
+    cf_res = qmamf(l_query_must=l_query_must, doc_type="np", index_name=index_name, query_type="count", debug_p=False)
+    l_hits = qmamf_long(l_query_must=l_query_must, doc_type="np", l_fields=["doc_id"], index_name=index_name, debug_p=False)
+
+    # count number of doc_ids in l_hits
+    l_doc_id = set()
+    for hit in l_hits:
+        l_doc_id.add(hit["fields"]["doc_id"][0])
+    doc_freq = len(l_doc_id)
+
+    return([cf_res["count"], doc_freq])
 
 # es_np_query.dump_ngrams("i_bio_2003", 2, "bio.2003.2.inst")
 def dump_ngrams(index_name, ngram_length, output_file):
-    res_generator = gen_qmamf_long(l_query_must=[["length", ngram_length]],l_fields=["doc_id", "phr", "cphr"], size=500, index_name="i_bio_2003")
-    dump_gen_rfields(res_generator, l_fieldnames=["cphr", "phr", "doc_id"], l_fieldtypes=["s", "s", "s"], output_file=output_file)
+    res_generator = gen_qmamf_long(l_query_must=[["length", ngram_length]],l_fields=["doc_id", "phr", "cphr", "pos"], size=500, index_name=index_name)
+    dump_gen_rfields_filtered(res_generator, l_fieldnames=["cphr", "phr", "doc_id", "pos"], l_fieldtypes=["s", "s", "s", "s"], output_file=output_file)
     

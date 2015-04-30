@@ -107,7 +107,7 @@ class Canon():
     # get_canon_l_npr(["dialysis",  "in"])
     def get_canon_l_npr(self, l_npr):
         head = l_npr[0] 
-        canon_head = get_canon_n(head)
+        canon_head = self.get_canon_n(head)
 
         if canon_head != head:
             l_npr[0] = canon_head
@@ -119,7 +119,7 @@ class Canon():
     def get_canon_l_vp(self, l_vp):
         head = l_vp[0] 
 
-        canon_head = get_canon_v(head)
+        canon_head = self.get_canon_v(head)
         
         #replace the head in the phrase if canonical form is different
         if canon_head != head:
@@ -187,7 +187,7 @@ re_journal_name = re.compile('j[ .][a-z.]+')
 # if these words appear in a phrase, we reject the phrase as
 # incomplete or inappropriate for bracketing analysis
 # u'\u2212' is a type of dash found in doc US20040248097A1  (year 2000 biomed patents)
-illegal_words = set([u'\u2212', u'\u2032', u'\u2550', "−", "-", "'s", "'", "′", "co", "et", "much", "millimeter", "milliliter", "mm", "ml", "mg", "example"])
+illegal_words = set([u'\u2212', u'\u2032', u'\u2550', "−", "-", "'s", "'", "′", "co", "et", "much", "millimeter", "milliliter", "mm", "ml", "mg", "kg", "kl", "km", "example"])
 
 max_legal_word_len = 30
 def illegal_word_len_p(phr, max_len=max_legal_word_len):

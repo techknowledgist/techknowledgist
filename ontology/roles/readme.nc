@@ -243,6 +243,8 @@ cat bio.2003.2.inst.filt.c.su | cut -f1 | sortuc1 | sortnr > bio.2003.2.inst.fil
 Corpus statistics in directory /home/j/anick/patent-classifier/ontology/roles
 File: bio.2003.3.inst.filt.c.su.f1.uc1.nr.stats
 
+///
+
 The fields in the output file
 1. trigram, 2. trigram doc freq, 3. freq(AB), 4. freq(BC), 5. freq(AC), 6. diff(AB - BC), 7. ratio(|AB - BC)/(AB + BC), 8. bracketing, 9. Trigram prominence
 
@@ -919,7 +921,6 @@ http://stackoverflow.com/questions/13464821/how-do-i-reduce-elasticsearch-scroll
 both for memory use and speed.  (size is multiplied by number of shards, usually 5).
 
 # 4/14/15 generating nc data from i_bio_2002
-///
 
 # Create the subdirectory for output
 cd /home/j/anick/patent-classifier/ontology/roles/data/nc
@@ -933,9 +934,10 @@ wc -l bigrams.inst
 # trigrams
 es_np_query.dump_ngrams("i_bio_2002", 3, "/home/j/anick/patent-classifier/ontology/roles/data/nc/bio_2002/trigrams.inst")  
 
-///
+
 # Do the filtering of illegal phrases (all folded into a single function now)
 >>> es_np_nc.filter_phr_doc_file("/home/j/anick/patent-classifier/ontology/roles/data/nc/bio_2002/bigrams.inst")
+
 >>> es_np_nc.filter_phr_doc_file("/home/j/anick/patent-classifier/ontology/roles/data/nc/bio_2002/trigrams.inst")
 
 wc -l trigrams.inst.filt
@@ -952,6 +954,7 @@ cat bigrams.inst.filt | cut -f1,3 | sort | uniq > bigrams.inst.filt.su
 wc -l trigrams.inst.filt.su
 wc -l bigrams.inst.filt.su
 
+///
 # get doc freq of each phrase, sort by number reverse
 cat trigrams.inst.filt.su | cut -f1 | sortuc1 | sortnr > trigrams.inst.filt.su.f1.uc1.nr
 cat bigrams.inst.filt.su | cut -f1 | sortuc1 | sortnr > bigrams.inst.filt.su.f1.uc1.nr
@@ -963,3 +966,523 @@ wc -l bigrams.inst.filt.su.f1.uc1.nr
 # How many trigrams only occur in one doc?
 cat trigrams.inst.filt.su.f1.uc1.nr | egrep '^1       ' | wc -l
 cat bigrams.inst.filt.su.f1.uc1.nr | egrep '^1       ' | wc -l
+
+---------------------
+4/21/15
+Build i_bio_1997
+
+Now try to create the full bio 1997 index:
+>>> es_np_index.np_populate("i_bio_1997", "biology", "ln-us-A27-molecular-biology", 1997, 1997, 5000, True, True, 0) 
+
+output of index creation:
+
+Tue Apr 21 21:23:23 2015        0       [es_np_index.py]Completed make_bulk_lists for years: 1997 1997. Number of lines: 42859083
+
+[gen_bulk_lists]42859083 lines from 11894 files written to index i_bio_1997
+[es_np_index.py] Bulk loaded sublist 6970
+[es_np_index.py] bulk loading completed
+[es_np_index.py] index refreshed
+[se_np_index.py]np_populate completed at Tue Apr 21 21:23:24 2015
+ (elapsed time in hr:min:sec: 2:53:17.896356)
+
+NOTE bio_2002 and 2003 appear to have identical data.  2002 is incorrect because the index_name 2003 was hardwired into a query function!
+
+#  create trigram and bigram output for 1997
+
+
+# trigrams
+es_np_query.dump_ngrams("i_bio_1997", 3, "/home/j/anick/patent-classifier/ontology/roles/data/nc/bio_1997/trigrams.inst")  
+# I added pos to the output, let's test by running a few:
+es_np_query.dump_ngrams("i_bio_1997", 3, "/home/j/anick/patent-classifier/ontology/roles/data/nc/bio_1997/trigrams.inst.pos")
+
+I added filtering of illegal phrases to dump_ngrams.  Let's try that:
+es_np_query.dump_ngrams("i_bio_1997", 3, "/home/j/anick/patent-classifier/ontology/roles/data/nc/bio_1997/trigrams.inst.filt")
+
+# bigrams
+es_np_query.dump_ngrams("i_bio_1997", 2, "/home/j/anick/patent-classifier/ontology/roles/data/nc/bio_1997/bigrams.inst.filt")  
+///
+wc -l bigrams.inst
+36604883 bigrams.inst
+
+wc -l trigrams.inst.filt
+wc -l bigrams.inst.filt
+
+
+# sort uniq to get document frequencies rather than collection frequencies
+cd /home/j/anick/patent-classifier/ontology/roles/data/nc/bio_1997
+# At this point, we throw away the surface form of the term amd keep the
+# canonical form only.
+
+cat trigrams.inst.filt | grep "JJ " | cut -f1,3 | sort | uniq > trigrams.inst.filt.JJ.su
+# NN will be any ngram that does not include a JJ.  Note that FW is typically a noun tag (foreign word)
+cat trigrams.inst.filt | grep -v "JJ " | cut -f1,3 | sort | uniq > trigrams.inst.filt.NN.su
+
+cat bigrams.inst.filt | grep "JJ " | cut -f1,3 | sort | uniq > bigrams.inst.filt.JJ.su
+cat bigrams.inst.filt | grep -v "JJ " | cut -f1,3 | sort | uniq > bigrams.inst.filt.NN.su
+
+DO it for all
+cat trigrams.inst.filt | cut -f1,3 | sort | uniq > trigrams.inst.filt.su
+cat bigrams.inst.filt | cut -f1,3 | sort | uniq > bigrams.inst.filt.su
+
+wc -l trigrams.inst.filt.su
+wc -l bigrams.inst.filt.su
+
+# get doc freq of each phrase, sort by number reverse
+cat trigrams.inst.filt.NN.su | cut -f1 | sortuc1 | sortnr > trigrams.inst.filt.NN.su.f1.uc1.nr
+cat bigrams.inst.filt.NN.su | cut -f1 | sortuc1 | sortnr > bigrams.inst.filt.NN.su.f1.uc1.nr
+
+cat trigrams.inst.filt.JJ.su | cut -f1 | sortuc1 | sortnr > trigrams.inst.filt.JJ.su.f1.uc1.nr
+cat bigrams.inst.filt.JJ.su | cut -f1 | sortuc1 | sortnr > bigrams.inst.filt.JJ.su.f1.uc1.nr
+
+# all data
+cat trigrams.inst.filt.su | cut -f1 | sortuc1 | sortnr > trigrams.inst.filt.su.f1.uc1.nr
+cat bigrams.inst.filt.su | cut -f1 | sortuc1 | sortnr > bigrams.inst.filt.su.f1.uc1.nr
+
+# number of unique trigrams for the year 1997
+wc -l trigrams.inst.filt.su.f1.uc1.nr
+wc -l bigrams.inst.filt.su.f1.uc1.nr
+
+# How many trigrams only occur in one doc?
+cat trigrams.inst.filt.su.f1.uc1.nr | egrep '^1       ' | wc -l
+cat bigrams.inst.filt.su.f1.uc1.nr | egrep '^1       ' | wc -l
+
+#Compute trigram statistics
+# NN
+es_np_nc.trigram2info("/home/j/anick/patent-classifier/ontology/roles/data/nc/bio_1997", "trigrams.inst.filt.NN.su.f1.uc1.nr" , "bigrams.inst.filt.NN.su.f1.uc1.nr") 
+
+# all
+es_np_nc.trigram2info("/home/j/anick/patent-classifier/ontology/roles/data/nc/bio_1997", "trigrams.inst.filt.su.f1.uc1.nr" , "bigrams.inst.filt.su.f1.uc1.nr")
+
+TODO: Check whether any NN and JJ terms overlap.  We may not be able to compute stats correctly if we separate out the phrase types early.
+TODO: add gene sequences to illegal terms in canon.py  (done)
+Conclusion: it is better to filter out JJ triples at the end, since they may be interpreted differently in different docs.
+
+///
+es_np_nc.trigram2info("/home/j/anick/patent-classifier/ontology/roles/data/nc/bio_1997", "trigrams.inst.filt.su.f1.uc1.nr" , "bigrams.inst.filt.su.f1.uc1.nr") 
+
+#Redo trigram stats for 2003 (note that we haven't divided 2003 data into NN and JJ phrases)
+es_np_nc.trigram2info("/home/j/anick/patent-classifier/ontology/roles/data/nc/bio_2003", "trigrams.inst.filt.su.f1.uc1.nr" , "bigrams.inst.filt.su.f1.uc1.nr") 
+
+# Run the growth function (after adjusting file names accordingly in the function!)
+es_np_nc.run_dump_growth() 
+
+#This creates a growth file in eval dir: /home/j/anick/patent-classifier/ontology/roles/data/nc/eval
+
+cd /home/j/anick/patent-classifier/ontology/roles/data/nc/eval
+cat growth.bio_1997_2003.stats | sortnr -k3 | cut -f1,2,3,4,5,6,12,14,15,21 > growth.bio_1997_2003.stats.sorted_summary
+
+.stats contains: (phr, df3gram, dfab, dfbc, dfac, raw_diff, ratio, bibranch, top_gram, bracketing)
+growth contains: phr diff diff_ratio df ab bc ac ab-bc ab/bc bb(Y/N) tg(B,T) br(LRU) df ab bc ac ab-bc ab/bc bb(Y/N) tg(B,T) br(LRU)
+                 1   2    3          4  5  6  7  8     9     10      11      12      13 14 15 16 17    18    19      20      21
+
+cat growth.bio_1997_2003.stats | sortnr -k3 | cut -f1,2,3,4,10,11,12,13,19,20,21 > growth.bio_1997_2003.stats.sorted_summary
+
+#######################################
+4/23/15
+By comparing doc_freq sizes in i_bio_2003 with trigrams.inst.filt.doc_id, I found that the data for bio_2003 is incorrect.
+hence rerunning!
+
+trigrams
+es_np_query.dump_ngrams("i_bio_2003", 3, "/home/j/anick/patent-classifier/ontology/roles/data/nc/bio_2003/trigrams.inst.filt")
+
+# bigrams
+es_np_query.dump_ngrams("i_bio_2003", 2, "/home/j/anick/patent-classifier/ontology/roles/data/nc/bio_2003/bigrams.inst.filt")  
+///
+wc -l bigrams.inst
+36604883 bigrams.inst
+
+wc -l trigrams.inst.filt
+wc -l bigrams.inst.filt
+
+Functions below can be run using bash script in local directory
+
+/home/j/anick/patent-classifier/ontology/roles/grams.sh   
+
+# sort uniq to get document frequencies rather than collection frequencies
+cd /home/j/anick/patent-classifier/ontology/roles/data/nc/bio_2003
+# At this point, we throw away the surface form of the term amd keep the
+# canonical form only.
+
+cat trigrams.inst.filt | grep "JJ " | cut -f1,3 | sort | uniq > trigrams.inst.filt.JJ.su
+# NN will be any ngram that does not include a JJ.  Note that FW is typically a noun tag (foreign word)
+cat trigrams.inst.filt | grep -v "JJ " | cut -f1,3 | sort | uniq > trigrams.inst.filt.NN.su
+
+cat bigrams.inst.filt | grep "JJ " | cut -f1,3 | sort | uniq > bigrams.inst.filt.JJ.su
+cat bigrams.inst.filt | grep -v "JJ " | cut -f1,3 | sort | uniq > bigrams.inst.filt.NN.su
+
+DO it for all
+cat trigrams.inst.filt | cut -f1,3 | sort | uniq > trigrams.inst.filt.su
+cat bigrams.inst.filt | cut -f1,3 | sort | uniq > bigrams.inst.filt.su
+
+wc -l trigrams.inst.filt.su
+wc -l bigrams.inst.filt.su
+
+# get doc freq of each phrase, sort by number reverse
+cat trigrams.inst.filt.NN.su | cut -f1 | sortuc1 | sortnr > trigrams.inst.filt.NN.su.f1.uc1.nr
+cat bigrams.inst.filt.NN.su | cut -f1 | sortuc1 | sortnr > bigrams.inst.filt.NN.su.f1.uc1.nr
+
+cat trigrams.inst.filt.JJ.su | cut -f1 | sortuc1 | sortnr > trigrams.inst.filt.JJ.su.f1.uc1.nr
+cat bigrams.inst.filt.JJ.su | cut -f1 | sortuc1 | sortnr > bigrams.inst.filt.JJ.su.f1.uc1.nr
+
+# all data
+cat trigrams.inst.filt.su | cut -f1 | sortuc1 | sortnr > trigrams.inst.filt.su.f1.uc1.nr
+cat bigrams.inst.filt.su | cut -f1 | sortuc1 | sortnr > bigrams.inst.filt.su.f1.uc1.nr
+
+# number of unique trigrams for the year 2003
+wc -l trigrams.inst.filt.su.f1.uc1.nr
+wc -l bigrams.inst.filt.su.f1.uc1.nr
+
+# How many trigrams only occur in one doc?
+cat trigrams.inst.filt.su.f1.uc1.nr | egrep '^1       ' | wc -l
+cat bigrams.inst.filt.su.f1.uc1.nr | egrep '^1       ' | wc -l
+
+#Compute trigram statistics
+# NN
+es_np_nc.trigram2info("/home/j/anick/patent-classifier/ontology/roles/data/nc/bio_2003", "trigrams.inst.filt.NN.su.f1.uc1.nr" , "bigrams.inst.filt.NN.su.f1.uc1.nr") 
+
+# all
+es_np_nc.trigram2info("/home/j/anick/patent-classifier/ontology/roles/data/nc/bio_2003", "trigrams.inst.filt.su.f1.uc1.nr" , "bigrams.inst.filt.su.f1.uc1.nr")
+
+TODO: Check whether any NN and JJ terms overlap.  We may not be able to compute stats correctly if we separate out the phrase types early.
+TODO: add gene sequences to illegal terms in canon.py  (done)
+Conclusion: it is better to identify JJ triples at the end, since they may be interpreted differently in different docs.
+
+Use grams.sh to run the next operations (massaging ngrams files) in the respective ngram directories.
+
+
+4/26/15
+
+#Redo trigram stats for 2003 (note that we haven't divided 2003 data into NN and JJ phrases)
+es_np_nc.trigram2info("/home/j/anick/patent-classifier/ontology/roles/data/nc/bio_2003", "trigrams.inst.filt.su.f1.uc1.nr" , "bigrams.inst.filt.su.f1.uc1.nr") 
+
+
+# Run the growth function (after adjusting file names accordingly in the function!)
+es_np_nc.run_dump_growth() 
+
+#This creates a growth file in eval dir: /home/j/anick/patent-classifier/ontology/roles/data/nc/eval
+///
+cd /home/j/anick/patent-classifier/ontology/roles/data/nc/eval
+
+.stats contains: (phr, df3gram, dfab, dfbc, dfac, raw_diff, ratio, bibranch, top_gram, bracketing)
+bb(Y/N) is it bibranching?
+tg(B,T) is the trigram or at least one bigram more frequent?
+br(LRU) based on AB, BC, is the phrase left, right, or undecided branching?
+growth contains: phr diff diff_ratio df ab bc ac ab-bc ab/bc bb(Y/N) tg(B,T) br(LRU) df ab bc ac ab-bc ab/bc bb(Y/N) tg(B,T) br(LRU)
+                 1   2    3          4  5  6  7  8     9     10      11      12      13 14 15 16 17    18    19      20      21
+
+cat growth.bio_1997_2003.stats | sortnr -k3 | cut -f1,2,3,4,10,11,12,13,19,20,21 > growth.bio_1997_2003.stats.sorted_summary
+
+summary contains:
+term                            diff diff_ratio df     bb      tg      br       df     bb      tg      br          
+biological library approach     307     0.9935  2       Y       B       R       309     N       B       L
+1                               2       3       4       5       6       7       8       9       10      11
+
+left vs. right branching:
+
+[anick@sarpedon eval]$ cat growth.bio_1997_2003.stats.sorted_summary | cut -f1,5,6,7,9,10,11 | cut -f1,4,7 | grep "L    L" | wc -l
+45446
+[anick@sarpedon eval]$ cat growth.bio_1997_2003.stats.sorted_summary | cut -f1,5,6,7,9,10,11 | cut -f1,4,7 | grep "L    R" | wc -l
+2592
+[anick@sarpedon eval]$ cat growth.bio_1997_2003.stats.sorted_summary | cut -f1,5,6,7,9,10,11 | cut -f1,4,7 | grep "R    L" | wc -l
+2300
+[anick@sarpedon eval]$ cat growth.bio_1997_2003.stats.sorted_summary | cut -f1,5,6,7,9,10,11 | cut -f1,4,7 | grep "R    R" | wc -l
+103690
+
+unknown
+[anick@sarpedon eval]$ cat growth.bio_1997_2003.stats.sorted_summary | cut -f1,5,6,7,9,10,11 | cut -f1,4,7 | grep "U    U" | wc -l
+9003
+[anick@sarpedon eval]$ cat growth.bio_1997_2003.stats.sorted_summary | cut -f1,5,6,7,9,10,11 | cut -f1,4,7 | grep "U    R" | wc -l
+4895
+[anick@sarpedon eval]$ cat growth.bio_1997_2003.stats.sorted_summary | cut -f1,5,6,7,9,10,11 | cut -f1,4,7 | grep "U    L" | wc -l
+2347
+[anick@sarpedon eval]$ cat growth.bio_1997_2003.stats.sorted_summary | cut -f1,5,6,7,9,10,11 | cut -f1,4,7 | grep "L    U" | wc -l
+859
+[anick@sarpedon eval]$ cat growth.bio_1997_2003.stats.sorted_summary | cut -f1,5,6,7,9,10,11 | cut -f1,4,7 | grep "R    U" | wc -l
+1246
+
+top gram
+[anick@sarpedon eval]$ cat growth.bio_1997_2003.stats.sorted_summary | cut -f1,6,10 | grep "B   B" | wc -l
+150374
+[anick@sarpedon eval]$ cat growth.bio_1997_2003.stats.sorted_summary | cut -f1,6,10 | grep "T   T" | wc -l
+13042
+[anick@sarpedon eval]$ cat growth.bio_1997_2003.stats.sorted_summary | cut -f1,6,10 | grep "T   B" | wc -l
+5745
+[anick@sarpedon eval]$ cat growth.bio_1997_2003.stats.sorted_summary | cut -f1,6,10 | grep "B   T" | wc -l
+3217
+
+bibranching
+[anick@sarpedon eval]$ cat growth.bio_1997_2003.stats.sorted_summary | cut -f1,5,9 | grep "Y    Y" | wc -l
+9793
+[anick@sarpedon eval]$ cat growth.bio_1997_2003.stats.sorted_summary | cut -f1,5,9 | grep "N    N" | wc -l
+151794
+[anick@sarpedon eval]$ cat growth.bio_1997_2003.stats.sorted_summary | cut -f1,5,9 | grep "N    Y" | wc -l
+5845
+[anick@sarpedon eval]$ cat growth.bio_1997_2003.stats.sorted_summary | cut -f1,5,9 | grep "Y    N" | wc -l
+4946
+
+top gram for 2003 comparing most freq 5000 to all
+[anick@sarpedon eval]$ cat growth.bio_1997_2003.stats.sorted_summary.sort_df_2003 | head -5000 | cut -f1,6,10 | grep "B B" | wc -l
+3845
+[anick@sarpedon eval]$ cat growth.bio_1997_2003.stats.sorted_summary.sort_df_2003 | head -5000 | cut -f1,6,10 | grep "T T" | wc -l
+778
+[anick@sarpedon eval]$ cat growth.bio_1997_2003.stats.sorted_summary.sort_df_2003 | head -5000 | cut -f1,6,10 | grep "B T" | wc -l
+282
+[anick@sarpedon eval]$ cat growth.bio_1997_2003.stats.sorted_summary.sort_df_2003 | head -5000 | cut -f1,6,10 | grep "T B" | wc -l
+95
+top 5000 in 2003:
+[anick@sarpedon eval]$ cat growth.bio_1997_2003.stats.sorted_summary.sort_df_2003 | head -5000 | cut -f1,10 | grep "B" | wc -l
+3940
+[anick@sarpedon eval]$ cat growth.bio_1997_2003.stats.sorted_summary.sort_df_2003 | head -5000 | cut -f1,10 | grep "T" | wc -l
+1060
+overall:
+[anick@sarpedon eval]$ cat growth.bio_1997_2003.stats.sorted_summary.sort_df_2003 | cut -f1,10 | grep "B" | wc -l
+156119
+[anick@sarpedon eval]$ cat growth.bio_1997_2003.stats.sorted_summary.sort_df_2003 | cut -f1,10 | grep "T" | wc -l
+16259
+
+Among most frequent terms, 27% are trigram favored terms
+Among all, 10% are trigram favored
+
+2003 bibranching
+[anick@sarpedon eval]$ cat growth.bio_1997_2003.stats.sorted_summary.sort_df_2003 | head -5000 | cut -f1,9 | grep "Y" | wc -l
+651
+[anick@sarpedon eval]$ cat growth.bio_1997_2003.stats.sorted_summary.sort_df_2003 | head -5000 | cut -f1,9 | grep "N" | wc -l
+4349
+[anick@sarpedon eval]$ cat growth.bio_1997_2003.stats.sorted_summary.sort_df_2003 | cut -f1,9 | grep "N" | wc -l
+156740
+[anick@sarpedon eval]$ cat growth.bio_1997_2003.stats.sorted_summary.sort_df_2003 | cut -f1,9 | grep "Y" | wc -l
+15638
+
+Among most frequent terms: 15% are bibranching, 
+Among all: 10%
+
+To filter files with awk
+cd /home/j/anick/patent-classifier/ontology/roles/data/nc/eval
+
+cat <file> | awk -F <delimiter tab> '$<field> <relation> <value>' | more 
+To get output delimiter to be tab: {OFS = FS}
+and: &&
+or: ||
+
+
+# Create a subset of terms with 1997 count = 1 and 2003 count >= 10
+# output is not sorted by field 14 (doc freq in 2003)
+cat growth.bio_1997_2003.stats.cat | awk -F $'\t' 'BEGIN {OFS = FS} $4 == 1 && $14>=10'  > growth.bio_1997_2003.stats.cat.1_10
+
+# 
+[anick@sarpedon eval]$ cat growth.bio_1997_2003.stats.cat.1_10 | cut -f25 | sort | uniq -c | sort -nr | more
+    846 LLLLNB_NNN
+    674 RRRRNB_JNN
+    602 RRRRNB_JJN
+    533 LLLLNB_JNN
+    352 RRRRNB_NNN
+    247 RRLLNB_NNN
+    224 RRLLNB_JNN
+    173 RRRRNB_NJN
+    120 RRUUNB_JNN
+    115 RRUUNB_NNN
+     99 RRUUNB_JJN
+...
+
+# number of different categories
+[anick@sarpedon eval]$ cat growth.bio_1997_2003.stats.cat.1_10 | cut -f25 | sort | uniq -c | sort -nr | wc -l
+309
+# number of noun-only categories
+[anick@sarpedon eval]$ cat growth.bio_1997_2003.stats.cat.1_10 | grep -v "J" | cut -f25 | sort | uniq -c | sort -nr | wc -l
+109
+
+# create a subset of 1000 nouns-only with highest frequency
+[anick@sarpedon eval]$ cat growth.bio_1997_2003.stats.cat | grep NNN | sortnr -k14 | head -1000 > growth.bio_1997_2003.stats.cat.N.1000
+[anick@sarpedon eval]$ cat growth.bio_1997_2003.stats.cat.N.1000 | cut -f25 | sort | uniq -c | sortnr -k1 > growth.bio_1997_2003.stats.cat.N.1000.su
+[anick@sarpedon eval]$ more growth.bio_1997_2003.stats.cat.N.1000.su
+    321 LLLLNB_NNN
+    125 RRRRNB_NNN
+     98 RRLLNB_NNN
+     73 LLLLNT_NNN
+     55 RRRRNT_NNN
+     53 RRLLYB_NNN
+
+
+# cases where Adjacency and Dependency models differ:
+[anick@sarpedon eval]$ cat growth.bio_1997_2003.stats.cat.N.1000 | grep RRLLNB_NNN | cut -f1,15,16,17,18,19,25 | more
+translation termination codon   138     1222    10      -1084   -128    RRLLNB_NNN
+Defintion of termination codon includes termination, so BC is a shorter form of ABC
+Question for annotators: Does BC imply ABC?
+We could use entropy to test for this.
+Interpretation could follow from whether Adj and Dep agree or disagree and how:
+[anick@sarpedon eval]$ cat growth.bio_1997_2003.stats.cat | grep " termination codon" | grep J | cut -f1,14,25 | more 
+translational termination codon 22      RRLLNB_JNN # this is the definitional long form
+native termination codon        1       RRRRNB_JNN # adjective refers to codon
+natural termination codon       4       RRRRNB_JNN
+suppressible termination codon  4       RRRRNB_JNN
+premature termination codon     37      RRLLNB_JNN # the premature refers to termination
+
+[anick@sarpedon eval]$ cat growth.bio_1997_2003.stats.cat | grep " termination codon" | grep -v J | cut -f1,14,25 | more 
+opal termination codon  2       RRRRNB_NNN 
+tga termination codon   6       RRRRNB_NNN
+chain termination codon 6       RRLLNB_NNN # definitional
+amber termination codon 2       RRRRNB_NNN
+suppressor termination codon    1       RRRRNB_NNN
+tag termination codon   5       RRRRNB_NNN
+translation termination codon   366     RRLLNB_NNN # definitional
+taa termination codon   12      RRRRNB_NNN
+transcription termination codon 4       RRLLYB_NNN
+
+# bibranching cases
+[anick@sarpedon eval]$ cat growth.bio_1997_2003.stats.cat.1_10 | grep '[A-Z]Y' | grep -v J | cut -f1,14,15,16,17,25 | sortnr -k2 | more
+plant gene promoter     33      504     304     855     LLRRYB_NNN
+
+plant gene promoter = plant promoter  (promoter implies gene)
+
+blood serum concentration       34      447     601     474     RRLRYB_NNN  (serum implies blood)
+
+
+TODO: replace the canonical form with a surface form to avoid showing truncated phrases for evaluation.  Use the most frequent surface 
+variant in year 2.
+
+First create a file with variant frequencies for the year (2003)
+cd /home/j/anick/patent-classifier/ontology/roles/data/nc/bio_2003
+cat trigrams.inst.filt | cut -f1,2 | sortuc1 > trigrams.inst.filt.variants.uc
+
+
+Evaluation comments:
+For compounds involving adjectival modifiers, mark a phrase as not a concept if the modifier isn't part of
+a concept.
+
+not-a-concept
+single active compound
+larger molecular structure
+comparable water-in-oil emulsion
+less inhibitory effect
+
+concepts:
+non-coding regulatory sequence
+mature protein portion
+abnormal blood vessel
+oleic acid diglyceride
+pulmonary viral infection
+cmv-infected human fibroblast
+
+misparsed phrase (not-a-phrase)
+molecular weight characteristic
+
+
+Maybe we can remove a lot of these by looking for frequent first terms?
+No, most of them could be part of a legit compound.
+
+cat growth.bio_1997_2003.stats.cat.1_10 | grep -v J > growth.bio_1997_2003.stats.cat.1_10.N
+cat growth.bio_1997_2003.stats.cat.1_10 | grep J > growth.bio_1997_2003.stats.cat.1_10.J
+-rw-r--r-- 1 anick grad   313857 Apr 29 17:11 growth.bio_1997_2003.stats.cat.1_10.N
+-rw-r--r-- 1 anick grad   491961 Apr 29 17:12 growth.bio_1997_2003.stats.cat.1_10.J
+
+# generate samples (adjust files and paramaters)
+es_np_nc.run_nc_cat_sample_N()    
+es_np_nc.run_nc_cat_sample_J()
+
+These create:
+-rw-r--r-- 1 anick grad   313857 Apr 29 20:12 growth.bio_1997_2003.stats.cat.1_10.N.3300
+-rw-r--r-- 1 anick grad   430763 Apr 29 20:15 growth.bio_1997_2003.stats.cat.1_10.J.3300    
+
+Now create a summary file and annotation file (just the surface forms)
+[anick@sarpedon eval]$ cat growth.bio_1997_2003.stats.cat.1_10.N.3300 | cut -f1,4,14,25,26 > growth.bio_1997_2003.stats.cat.1_10.N.3300.condensed
+[anick@sarpedon eval]$ cat growth.bio_1997_2003.stats.cat.1_10.N.3300 | cut -f26 > growth.bio_1997_2003.stats.cat.1_10.N.3300.annot
+
+DOCUMENTATION 4/29/15
+
+I have created several files to summarize noun compound data in preparation for annotation.
+All are based on a subset of terms for which their 1997 doc_freq = 1 and 2003 doc_freq >= 10.
+Out of this subset of terms, I extracted those made up of nouns only and took a diverse sample
+of 3300 terms.
+
+Files are in /home/j/anick/patent-classifier/ontology/roles/data/nc/eval
+
+file: growth.bio_1997_2003.stats.cat.1_10.N.3300.condensed contains
+<canonical_form> <1997_doc_freq> <2003_doc_freq> <category> <surface_form>
+
+canonical_form is often the surface form but could be truncated in rare cases.  We will
+presentonly  surface forms for evaluation by annotators.
+
+The category field (e.g., LLRRYB_NNN) is composed of the following one-letter fields:
+1. bracketing prediction {L,R} using simple raw bigram adjacency (diff AB - BC) 1997
+2. bracketing prediction using simple raw dependency (diff AC - AB) 1997
+3. bracketing prediction using simple raw adjacency (diff AB - BC) 2003
+4. bracketing prediction using simple raw dependency (diff AC - AB) 2003
+5. Bibranching in 2003? {Y,N}
+6. Does trigram or some component bigram have highest frequency in 2003? {T,B}
+After the underscore is the part-of-speech signature of the component words (e.g., _NNN)
+
+The file is sorted to maximize diversity of categories at the front, so annotation should start
+at the front, in case we don't get to do the entire set.  Number of terms is 3300.  Assuming a 10%
+bad phrase rate, we will still get 3000 good phrases to annotate.
+
+file: growth.bio_1997_2003.stats.cat.1_10.N.3300.cat_freq counts terms
+by category and sorts categories by frequency.  The head of the file is:
+846     LLLLNB_NNN
+352     RRRRNB_NNN
+247     RRLLNB_NNN
+115     RRUUNB_NNN
+88      RRLLYB_NNN
+88      LLLLYB_NNN ....
+
+Based on the simple measures, left bracketing exceeds right by more than 2:1.
+
+file: growth.bio_1997_2003.stats.cat.1_10.N.3300.annot
+contains the terms alone, in diversity order, without other fields
+
+We should do a few ourselves and compare bracketing.  Based on our experience, we should create annotation
+guidelines that are easy to follow, including examples.  In addition to bracketing, we need to ask about
+bibranching and whether the trigram is an established concept (as in cases where trigram frequency exceeds 
+component bigram frequencies).
+
+
+-----------------
+rewrite
+
+I have created several files to summarize noun compound data in preparation for annotation.
+All are based on a subset of trigrams for which their 1997 doc_freq = 1 and their 2003 doc_freq >= 10.
+
+This allows us to explore bracketing for the same term when "rare" and "more common".
+Out of this subset of terms, I extracted those trigrams made up of nouns only and took a diverse sample
+of 3300 terms.  (I can make up a similar set later for compounds including adjectives.)
+
+Files are in /home/j/anick/patent-classifier/ontology/roles/data/nc/eval
+
+FILE: growth.bio_1997_2003.stats.cat.1_10.N.3300.condensed
+
+contains  <canonical_form> <1997_doc_freq> <2003_doc_freq> <category> <surface_form>
+
+canonical_form is often the surface form but could be truncated in rare cases.  We will
+presentonly  surface forms for evaluation by annotators.
+
+The category field (e.g., LLRRYB_NNN) is composed of the following one-letter fields:
+1. bracketing prediction {L,R,U} using simple raw bigram adjacency (diff AB - BC) 1997
+2. bracketing prediction using simple raw dependency (diff AC - AB) 1997
+3. bracketing prediction using simple raw adjacency (diff AB - BC) 2003
+4. bracketing prediction using simple raw dependency (diff AC - AB) 2003
+5. Bibranching in 2003? {Y,N}
+6. Does trigram or some component bigram have highest frequency in 2003? {T,B}
+After the underscore is the part-of-speech signature of the component words (e.g., _NNN)
+
+The file is sorted to maximize diversity of categories at the front, so annotation should start
+at the front, in case we don't get to do the entire set.  Number of terms is 3300.  Assuming a 10%
+bad phrase rate, we will still get 3000 good phrases to annotate.
+
+FILE: growth.bio_1997_2003.stats.cat.1_10.N.3300.cat_freq
+
+shows the frequency of each category.  The head of the file is shown here:
+846     LLLLNB_NNN
+352     RRRRNB_NNN
+247     RRLLNB_NNN
+115     RRUUNB_NNN
+88      RRLLYB_NNN
+88      LLLLYB_NNN ....
+
+Based on the simple measures, left bracketing exceeds right by more than 2:1.
+
+FILE: growth.bio_1997_2003.stats.cat.1_10.N.3300.annot
+contains the terms alone, in diversity order, without other fields
+
+We should do a few ourselves and compare bracketing.  Based on our experience, we should try to create annotation guidelines that are easy to follow, including examples.  In addition to bracketing, we need to ask about bibranching and whether the trigram is an established concept (as in cases where trigram frequency exceeds component bigram frequencies).
+
+
+

@@ -148,8 +148,16 @@ d_bigram2df = defaultdict(int)
 # create a file with a set of statistics for trigrams (.df)
 # es_np_nc.trigram2info("bio.2003.3.inst.filt.c.su.f1.uc1.nr" , "bio.2003.2.inst.filt.c.su.f1.uc1.nr")
 # es_np_nc.trigram2info("bio.2003.3.inst.filt.c.su.f1.uc1.nr.1k", "bio.2003.2.inst.filt.c.su.f1.uc1.nr.5k")
-def trigram2info(trigram_file, bigram_file):
-    stats_file = trigram_file + ".stats"
+# 4/19/15
+# es_np_nc.trigram2info("/home/j/anick/patent-classifier/ontology/roles/data/nc/bio_2003", "trigrams.inst.filt.su.f1.uc1.nr" , "bigrams.inst.filt.su.f1.uc1.nr")
+
+# es_np_nc.trigram2info("/home/j/anick/patent-classifier/ontology/roles/data/nc/bio_1997", "trigrams.inst.filt.NN.su.f1.uc1.nr" , "bigrams.inst.filt.NN.su.f1.uc1.nr")
+def trigram2info(path, trigram_file, bigram_file):
+
+    stats_file = os.sep.join([path, trigram_file +  ".stats"])    
+    trigram_file = os.sep.join([path, trigram_file])
+    bigram_file = os.sep.join([path, bigram_file])
+
     s_bigram = codecs.open(bigram_file, encoding='utf-8')
     s_trigram = codecs.open(trigram_file, encoding='utf-8')
     s_stats = codecs.open(stats_file, "w", encoding='utf-8')
@@ -192,20 +200,18 @@ def trigram2info(trigram_file, bigram_file):
         elif raw_diff < 0:
             bracketing = "R"
             
-        # If the bigram scores are relatively balanced, mark trigram as possible bi-branching.
+        # If the bigram scores are relatively balanced, mark trigram as possible bi-branching (using "Y"es and "N"o)
+        bibranch = "N"
         if ratio < .5 and ratio > 0:
-            bracketing += "B"
+            bibranch = "Y"
 
         # top_gram indicates whether the trigram or one of the bigrams has the highest frequency
         top_gram = "B"
         if (df3gram > dfab) and (df3gram > dfbc):
             top_gram = "T"
 
-
-        
         #pdb.set_trace()
-        s_stats.write("%s\t%i\t%i\t%i\t%i\t%i\t%.2f\t%s\t%s\n" % (phr, df3gram, dfab, dfbc, dfac, raw_diff, ratio, bracketing, top_gram))
-        
+        s_stats.write("%s\t%i\t%i\t%i\t%i\t%i\t%.2f\t%s\t%s\t%s\n" % (phr, df3gram, dfab, dfbc, dfac, raw_diff, ratio, bibranch, top_gram, bracketing))
 
     s_bigram.close()
     s_trigram.close()
@@ -1004,8 +1010,9 @@ class docNc():
     TODO: add a canonical form field to the es mapping.  Currently we rely on es minimal_english stemmer
     for canonicalizing phrases added to the es index.
     """
-    def __init__(self, doc_id):
+    def __init__(self, doc_id, index_name):
         self.doc_id = doc_id
+        self.index_name = index_name
         # lists of noun compounds within the doc, indexed by token length
         self.d_length2phr = defaultdict(list)
         # map nc (as a canonical phrase string, cphr) to a phrInfo object
@@ -1015,14 +1022,14 @@ class docNc():
         # make sure l_locs is sorted within each phrInfo instance for this doc
         self.sort_pinfo()
 
-    # TODO: use canonical phrase for phrase but keep surface phrase
+    # Use canonical phrase (cphr) for phrase but keep surface phrases (phr)
     def populate_d_length2phr(self):
         # for each phrase length, retrieve all phrases in current doc
         # with that length and store the sorted list of sentence locations
         # in d_length2phr
         for phr_len in range(1,5):
             # retrieve all phrases of each length
-            result = qs_mult([["length", phr_len ], ["doc_id", self.doc_id ]], l_fields=["phr", "cphr", "term", "loc"]) 
+            result = qs_mult([["length", phr_len ], ["doc_id", self.doc_id ]], l_fields=["phr", "cphr", "term", "loc", "pos"], index_name=self.index_name) 
             # result is a list of dictionaries of the form:
             # {u'_score': 1.0, u'_type': u'np', u'_id': u'US20070082860A1.xml_93', u'fields': {u'loc': [u'18'], u'phr': [u'amino acid residues']}, u'_index': u'i_nps_bio'}
             # for each phrase occurrence, extract the phrase and loc.
@@ -1039,6 +1046,8 @@ class docNc():
                 #term = phr_info["term"][0]
                 # TODO: DONE: remove the int call after reindexing to fix bug where loc was stored as a string
                 loc = phr_info["loc"][0]
+                # part of speech tag signature
+                pos = phr_info["pos"][0]
 
                 # extract and store the loc in a phrInfo instance
                 # create one if one does not already exist for this doc and phrase
@@ -1462,6 +1471,253 @@ def test_docNc(doc_id):
     dnc = docNc(doc_id)    
     return(dnc)
 
+################################
+# growth
+
+# es_np_nc.dump_growth("/home/j/anick/patent-classifier/ontology/roles/data/nc/bio_2003/trigrams.inst.filt.su.f1.uc1.nr.stats", "/home/j/anick/patent-classifier/ontology/roles/data/nc/bio_1997/trigrams.inst.filt.NN.su.f1.uc1.nr.stats", "/home/j/anick/patent-classifier/ontology/roles/data/nc/eval/growth.bio_1997_2003.stats")
+# Takes 2 stats files and output file.  All files need to be full paths
+# stats_1 should be the temporally earlier data file
+def dump_growth(stats_1_file, stats_2_file, outfile):
+    
+    s_s1 = codecs.open(stats_1_file, encoding='utf-8')
+    s_s2 = codecs.open(stats_2_file, encoding='utf-8')
+    s_out = codecs.open(outfile, "w", encoding='utf-8')
+
+    # dicts map from phrase to the full line of data (as a string)
+    d_p1data = {}
+    d_p2data = {}
+
+    for line in s_s1:
+        line = line.strip()
+        l_fields = line.split("\t")
+        term = l_fields[0]
+        doc_freq = int(l_fields[1])
+        rest_of_line = line[len(term)+1:]
+        # we'll write out the rest of the line later, so save it intact
+        # we'll use the doc_freq to compute growth from year to year
+        d_p1data[term] = [doc_freq, rest_of_line]
+
+    for line in s_s2:
+        line = line.strip()
+        l_fields = line.split("\t")
+        term = l_fields[0]
+        doc_freq = int(l_fields[1])
+        rest_of_line = line[len(term)+1:]
+        # we'll write out the rest of the line later, so save it intact
+        # we'll use the doc_freq to compute growth from year to year
+        d_p2data[term] = [doc_freq, rest_of_line]
+
+    # calculate the freq difference two ways
+    # raw_growth = freq2 - freq1
+    # relative_growth = raw_growth/freq2
+    for term in d_p1data.keys():
+        (freq1, rest1) = d_p1data[term]
+        if d_p2data.has_key(term):
+            (freq2, rest2) = d_p2data[term]
+            raw_growth = freq2 - freq1
+            relative_growth = raw_growth / float(freq2)
+            out_string = "\t".join([term, str(raw_growth), ("%.4f" % relative_growth), rest1, rest2]) + "\n"
+            s_out.write(out_string)
+
+    s_s1.close()
+    s_s2.close()
+    s_out.close()
+
+# es_np_nc.run_dump_growth()
+def run_dump_growth():
+    """
+    # using NN data only for 1997.
+    s1 = "/home/j/anick/patent-classifier/ontology/roles/data/nc/bio_1997/trigrams.inst.filt.NN.su.f1.uc1.nr.stats"
+    s2 = "/home/j/anick/patent-classifier/ontology/roles/data/nc/bio_2003/trigrams.inst.filt.su.f1.uc1.nr.stats"
+    s_out = "/home/j/anick/patent-classifier/ontology/roles/data/nc/eval/growth.bio_1997_2003.NN.stats"
+    """
+    # using all data for 1997, 2003
+    s1 = "/home/j/anick/patent-classifier/ontology/roles/data/nc/bio_1997/trigrams.inst.filt.su.f1.uc1.nr.stats"
+    s2 = "/home/j/anick/patent-classifier/ontology/roles/data/nc/bio_2003/trigrams.inst.filt.su.f1.uc1.nr.stats"
+    s_out = "/home/j/anick/patent-classifier/ontology/roles/data/nc/eval/growth.bio_1997_2003.stats"
+
+    dump_growth(s1, s2, s_out)
+
+########
+# generating a multi-dimensional test set
+
+# legal_tag_classes are a list of letters indicating the first character of 
+# part of speech tags considered "legal" for use in the acronym (e.g. ["N", J"])
+# This is used here to filter out compounds containing words labeled as "FW" (foreign word).
+def tags2acronym(tag_string, legal_tag_classes=[]):
+    l_tags = tag_string.split(" ")
+    acronym = ""
+    for tag in l_tags:
+        tag_class = tag[0:1]
+        if (legal_tag_classes == [] or tag_class in legal_tag_classes): 
+            acronym += tag[0:1]
+        else:
+            return(None)
+    return(acronym)
+
+def feature_tuple2string(feature_tuple):
+    feature_string = ""
+    for item in feature_tuple:
+        feature_string += str(item)
+    return(feature_string)
+
+
+# stats_file contains data relating terms from two separate years
+# tag_file contains term and Stanford tags for terms in year 2
+# outfile includes data in stats_file along with part_of_speech classes
+# and a category based on a subset of features, to be used for partitioning
+# terms into separate evaluation classes.
+def nc_classify(stats_file, tag_file, variant_file, outfile):
+    s_stats = codecs.open(stats_file, encoding='utf-8')
+    s_tag = codecs.open(tag_file, encoding='utf-8')
+    s_variant = codecs.open(variant_file, encoding='utf-8')
+    s_out = codecs.open(outfile, "w", encoding='utf-8')
+
+    # map a term to its part of speech tags
+    d_term2pos = {}
+    
+    # map a term to the entire list of fields
+    d_term2fields = {}
+    
+    # map a canonical term to its most frequent surface form
+    d_canon2surface = {}
+
+    # read in the pos tags for terms
+    for line in s_tag:
+        line = line.strip()
+        #pdb.set_trace()
+        (can_term, tag_string) = line.split("\t")
+        d_term2pos[can_term] = tag_string
+
+    # read in the variants for canonical terms
+    # Since we are creating data for eventual evaluation by end users, we need to 
+    # have a surface form for each term in case the canonical term is a truncated form.
+    # The variant file is sorted by document frequency, so we can use the last variant seen as the 
+    # surface form (= most frequent)
+    for line in s_variant:
+        line = line.strip()
+        (freq, canon, surface) = line.split("\t")
+        d_canon2surface[canon] = surface
+
+    for line in s_stats:
+        line = line.strip()
+        (phr, diff, diff_ratio, y1_df, y1_ab, y1_bc, y1_ac, y1_ab_bc, y1_ab_bc_ratio, y1_bb, y1_tg, y1_br, y2_df, y2_ab, y2_bc, y2_ac, y2_ab_bc, y2_ab_bc_ratio, y2_bb, y2_tg, y2_br) = line.split("\t")
+
+        # for now we need to add fields for y1_ac_ab (ac minus ab) and y2_ac_ab in order to test dependency model
+        # these should eventually be computed earlier and be included in the .stats file fields
+        y1_ac_ab = int(y1_ac) - int(y1_ab) 
+        y2_ac_ab = int(y2_ac) - int(y2_ab) 
+        if y1_ac_ab > 0:
+            y1_dbr = "R"
+        elif y1_ac_ab < 0:
+            y1_dbr = "L"
+        else:
+            y1_dbr = "U"
+
+        if y2_ac_ab > 0:
+            y2_dbr = "R"
+        elif y2_ac_ab < 0:
+            y2_dbr = "L"
+        else:
+            y2_dbr = "U"
+
+        # prepare field for printing as string
+        y1_ac_ab = str(y1_ac_ab)
+        y2_ac_ab = str(y2_ac_ab)
+
+        # get the acronym of tags for the term
+        # It is possible that d_term2pos does not contain entries for all terms since it
+        # only contains those terms appearing in year 2, although the stats file contains
+        # terms in both year 1 and 2 files.  Hence we embed this section in try/except.
+        try:
+            tag_string = d_term2pos[phr]
+            pos = tags2acronym(tag_string, legal_tag_classes=["N", "J"])
+
+            # classify the line based on a tuple of fields
+            # We'll replace the y1_ab_ac ratio with the new y1_ac_ab field and add the new y1_dbr at the end of each year's fields
+            # dbr stands for dependency bracketing.
+            if pos != None:
+                # only include terms for part of speech combinations of interest (e.g. J and N)
+                # This eliminates terms containing, e.g. FW (foreign word, as in "in vivo")
+                category = feature_tuple2string((y1_br, y2_br, y1_dbr, y2_dbr, y2_bb, y2_tg, "_", pos))
+
+                # include the most frequent surface form (from year 2)
+                surface = d_canon2surface[phr]
+                d_term2fields[phr] = [phr, diff, diff_ratio, y1_df, y1_ab, y1_bc, y1_ac, y1_ab_bc, y1_ac_ab, y1_bb, y1_tg, y1_br, y1_dbr, y2_df, y2_ab, y2_bc, y2_ac, y2_ab_bc, y2_ac_ab, y2_bb, y2_tg, y2_br, y2_dbr, pos, category, surface]
+            
+        except:
+            # skip this term if it is not in year 2 data
+            pass
+
+
+    for term in d_term2fields.keys():
+        line = "\t".join(d_term2fields[term]) + "\n"
+        #print line
+        s_out.write(line)
+        
+    s_stats.close()
+    s_tag.close()
+    s_variant.close()
+    s_out.close()
+
+# es_np_nc.run_nc_classify()
+def run_nc_classify():
+    stats_file = "/home/j/anick/patent-classifier/ontology/roles/data/nc/eval/growth.bio_1997_2003.stats"
+    tag_file = "/home/j/anick/patent-classifier/ontology/roles/data/nc/bio_2003/trigrams.pos"
+    # variant file is created using
+    # cat trigrams.inst.filt | cut -f1,2 | sortuc1 > trigrams.inst.filt.variants.uc
+    # variants are sorted in ascending order of doc freq
+    variant_file = "/home/j/anick/patent-classifier/ontology/roles/data/nc/bio_2003/trigrams.inst.filt.variants.uc"
+    outfile = "/home/j/anick/patent-classifier/ontology/roles/data/nc/eval/growth.bio_1997_2003.stats.cat"
+    
+    nc_classify(stats_file, tag_file, variant_file, outfile)
+
+def nc_cat_sample(cat_file, outfile, max_lines):
+    # map category to a list of lines matching the category
+    d_cat2lines = defaultdict(list)
+
+    s_cat = codecs.open(cat_file, encoding='utf-8')
+    s_out = codecs.open(outfile, "w", encoding='utf-8')
+    
+    # populate category dictionary
+    for line in s_cat:
+        #line = line.strip()
+        #pdb.set_trace()
+        l_fields = line.split("\t")
+        category = l_fields[24]
+        # append full line, including terminal newline
+        d_cat2lines[category].append(line)
+        
+    # extract items from the category dictionary in round robin fashion until max_terms is reached.
+    # Get list of categories
+    l_cats = d_cat2lines.keys()
+    
+    line_count = 0
+    while (len(l_cats) > 0) and (line_count <= max_lines):
+        for cat in l_cats:
+            if d_cat2lines[cat] == []:
+                l_cats.remove(cat)
+            else:
+                line = d_cat2lines[cat].pop()
+                s_out.write(line)
+                #print "line: %s" % line
+                line_count += 1
+
+# create a mixed sample of lines from a cat file. 
+# es_np_nc.run_nc_cat_sample_N()
+def run_nc_cat_sample_N():
+    cat_file = "/home/j/anick/patent-classifier/ontology/roles/data/nc/eval/growth.bio_1997_2003.stats.cat.1_10.N"
+    outfile = "/home/j/anick/patent-classifier/ontology/roles/data/nc/eval/growth.bio_1997_2003.stats.cat.1_10.N.3300"
+    # To extract a sample of 3000 lines, assuming a 10% error rate (300 lines)
+    max_lines = 3300
+    nc_cat_sample(cat_file, outfile, max_lines)
+
+def run_nc_cat_sample_J():
+    cat_file = "/home/j/anick/patent-classifier/ontology/roles/data/nc/eval/growth.bio_1997_2003.stats.cat.1_10.J"
+    outfile = "/home/j/anick/patent-classifier/ontology/roles/data/nc/eval/growth.bio_1997_2003.stats.cat.1_10.J.3300"
+    # To extract a sample of 3000 lines, assuming a 10% error rate (300 lines)
+    max_lines = 3300
+    nc_cat_sample(cat_file, outfile, max_lines)
 
 """
 ISSUES

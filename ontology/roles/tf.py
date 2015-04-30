@@ -17,6 +17,7 @@
 # inroot and outroot should terminate in a directory separator ("/")
 
 # 4/4/15 added canonicalization and prob(term|feature) to .tf
+# 4/18/15 added MI to .tf
 """
  .tf file sample
 program prev_VNP=performs|debugging|on  1       0.000022        0.000142
@@ -35,6 +36,7 @@ import glob
 import codecs
 import roles_config
 import canon
+import math
 
 # canonicalizer object
 can = canon.Canon()
@@ -185,26 +187,39 @@ def dir2features_count(inroot, outroot, year, canonicalize_p=True, filter_noise_
         print "Processed %i files" % doc_count
 
         for pair in d_pair_freq.keys():
-            pair_prob = float(d_pair_freq[pair])/doc_count
+            freq_pair = d_pair_freq[pair]
+            prob_pair = float(freq_pair)/doc_count
             l_pair = pair.split("\t")
             term = l_pair[0]
             #print "term after split: %s, pair is: %s" % (term, pair)
             feature = l_pair[1]
+            freq_term = d_term_freq[term]
+            freq_feat = d_feat_freq[feature]
+
             # probability of the feature occurring with the term in a doc, given that 
             # the term appears in the doc
             try:
-                prob_fgt = d_pair_freq[pair]/float(d_term_freq[term])
+                prob_fgt = freq_pair/float(freq_term)
             except:
                 pdb.set_trace()
 
             # added 4/4/15: prob of the feature occurring with the term in a doc, given that 
             # the feature appears in the doc
             try:
-                prob_tgf = d_pair_freq[pair]/float(d_feat_freq[feature])
+                prob_tgf = freq_pair/float(freq_feat)
             except:
                 pdb.set_trace()
 
-            s_outfile.write( "%s\t%s\t%i\t%f\t%f\t%f\n" % (term, feature, d_pair_freq[pair], pair_prob, prob_fgt, prob_tgf))
+            # 4/18/15 adding mutual information based on count of pairs, terms, feats (counted once per doc),
+            # and corpus size (# docs)
+            # MI = prob(pair) / prob(term) * prob(feature)
+            #prob_term = float(d_term_freq[term])/doc_count
+            #prob_feature = float(d_feat_freq[term])/doc_count
+            mi_denom = (freq_term) * (freq_feat) / float(doc_count)
+            mi = math.log(freq_pair / mi_denom)
+            # normalize to -1 to 1
+            npmi = mi / (-math.log(prob_pair))
+            s_outfile.write( "%s\t%s\t%i\t%f\t%f\t%f\t%i\t%i\t%f\t%f\n" % (term, feature, freq_pair, prob_pair, prob_fgt, prob_tgf, freq_term, freq_feat, mi, npmi))
 
         # /// TODO: this table makes tf.f file redundant!  Replace use of tf.f
         for term in d_term_freq.keys():
