@@ -133,13 +133,16 @@ def filter_term_en(term):
     """Filter out some obvious crap. Do not allow (i) terms with spaces only,
     (ii) terms that do not start with a letter or digit, (iii) terms with three
     or more hyphens/underscores in a row, (iv) terms where half or less of the
-    characters are letters, and (v) terms with more than 75 characters. The last
-    avoids using what could be huge outliers like gene sequences."""
+    characters are letters, (v) term is on a short list of terms that are
+    generated sometime during processing (untitle, None, end), and (vi) terms
+    with more than 75 characters. The last avoids using what could be huge
+    outliers like gene sequences."""
     if term.strip() == '' \
        or not term[0].isalnum() \
        or term.find('---') > -1 \
        or term.find('___') > -1 \
        or len([c for c in term if c.isalpha()]) * 2 < len(term) \
+       or term in ('end', 'None', 'untitled') \
        or len(term) > 75:
         return True
     return False
