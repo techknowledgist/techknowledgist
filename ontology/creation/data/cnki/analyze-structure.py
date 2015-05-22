@@ -2,7 +2,7 @@
 
 Analyze the structure of CNKI.
 
-Prints results to stabdard output.
+Prints results to standard output.
 
 Does not actualle parse the structure but uses the vlist-grep files in
 information/tar-lists/targz-fuse-xml-all/vlist-grep.
@@ -23,7 +23,7 @@ Warning: non-unique basename ZHPF200708034.fuse.xml
    HY3/2007/E/ZHPF/ZHPF200708034.PDF/ZHPF200708034.fuse.xml
 
 The directory named HY3/2007/E/ZHPF/ZHPF200708034.PDF/ did show up in the result
-and the fies were identical so I deleted the ZHPF200708034.PDF version.
+and the files were identical so I deleted the ZHPF200708034.PDF version.
 
 """
 
