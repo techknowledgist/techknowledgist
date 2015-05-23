@@ -20,6 +20,7 @@ CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-us-all-600k'
 CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/ln-cn-all-600k'
 CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/wos-A01-multi-disciplinary'
 CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/wos-A04-physics'
+CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/wos-A07-materials'
 CORPUS_DIR = '/home/j/corpuswork/fuse/FUSEData/corpora/wos-A10-biochemistry'
 
 TIME_SERIES_DIR = CORPUS_DIR + '/time-series-v4/maturity-scores'

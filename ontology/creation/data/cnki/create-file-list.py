@@ -51,4 +51,5 @@ for line in open(CNKI_LIST):
     # but this is a better way for larger copora, the short path keeps the CNKI
     # structure but chops off the common path prefix from CNKI_DIR
     short_path = path[len(CNKI_DIR)+1:]
+    # another way would be to use the journal name, perhaps with the year
     fh_out.write("%s\t%s\t%s\n" % (year, path, short_path))

@@ -5,10 +5,10 @@ the cnki-all-random.txt list in CNKI_DIR.
 
 Usage:
 
-    $ python expand-random-list.py LIMIT?
+    $ python expand-random-list.py (SKIP LIMIT)?
 
-    The optional argument puts a limit on the number of paths processed, the
-    default is 10.
+    The optional arguments will cause the script to skip the first SKIP lines
+    and to stop after line LIMIT. The defaults are 0 and 10.
     
 For each document, it checks whether it exists, what the size it is, and from
 what year it is (as taken from the file path). Results are written to two files:
