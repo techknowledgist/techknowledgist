@@ -56,7 +56,12 @@ $ git submodule update
 </pre>
 
 
-<li>Stanford Tools.
+<li>Stanford Tools. The code uses version 3.1.3 of the tagger and version 1.6.6
+of the segmenter. These versions can be downloaded from
+
+<blockquote>
+<a href="http://nlp.stanford.edu/software/index.shtml">http://nlp.stanford.edu/software/index.shtml</a>.
+</blockquote>
 
 <li>The code uses version 2.0.7 of the Mallet toolkit<sup>1</sup>, available
 at <a href="http://mallet.cs.umass.edu/"
@@ -84,8 +89,9 @@ models, as described in the manual section on the technology classifier.
 </ol>
 
 <p>In some cases, you may have to set some environment variables to avoid
-encoding issues. If you use Linux with a bash shell, add the following to
-.bash_profile if you have problems:</p>
+encoding issues. In particular, the tagger may report errors on certain input
+lines and hang after some number of errors. If you use Linux with a bash shell,
+add the following to .bash_profile if you have problems:</p>
 
 <pre class="example">
 export LC_ALL=en_US.UTF-8  

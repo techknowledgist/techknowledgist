@@ -95,7 +95,10 @@ tagger and segmenter:</p>
 </pre>
 
 <p>The paths point to the root of the installation of these tools, that is, the
-directory that includes the <code>bin</code> directory.</p>
+directory that includes the <code>bin</code> directory. The path may not contain
+spaces. Also, the code checks whether PATH is an existing directory, but it does
+not check whether the directory includes the needed binaries. If PATH does not
+point at the desired Stanford tool then the code will enter a loop and hang.</p>
 
 <p>The main limitation with the one-size-fits-all <code>main.py</code> script is
 that processing time can get rather high for large corpora, for example,
