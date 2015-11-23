@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # role.py
 # rewrite of term_verb_count focusing on role detection rather than mutual information
 
@@ -40,8 +41,13 @@ variants, such as more/less restrictive cutoffs for the classifier categories.  
 are very close, is it better to count polarity as neutral or to assume ambiguity between T and C?
 
 Seed features are in code_dir as
+
 seed.act.en.dat : ACT seed features
 seed.pn.en.dat : Polarity seed features
+
+canonicalized versions (converted from the above using canon_seed_set.py):
+seed.pn.en.canon.dat
+seed.act.en.canon.dat
 
 ########
 function tf2tfc(corpus_root, corpus, year, fcat_file, cat_list, cat_type, subset):
@@ -55,6 +61,7 @@ Input: .tf term + feature cooccurrences for a domain and year
 output
 <cat_type>.tfc: term feature category count
 <cat_type>.tc: term category term_category_pair_frequency term_frequency probability
+Note that a term can appear in multiple categories here.
 
 ########
 function tc2tcs(corpus_root, corpus, year, min_prob, min_pair_freq, cat_type, subset)
@@ -117,7 +124,7 @@ import math
 import collections
 from collections import defaultdict
 import codecs
-import utils
+import putils
 import pnames
 import pickle
 import roles_config
@@ -642,7 +649,7 @@ def fcuc2fcprob(corpus_root, corpus, year, cat_list, cat_type, subset):
         kld = kl_div(cgf_prob_list, cat_prob_list)
 
         # compute max and runner up prob categories
-        fcat_prob_list.sort(utils.list_element_2_sort)
+        fcat_prob_list.sort(putils.list_element_2_sort)
         #print "fcat_prob_list: %s" % fcat_prob_list
         #pdb.set_trace()
         max_cat = fcat_prob_list[0][0]
@@ -828,8 +835,8 @@ def run_tf2tfc(corpus_root, corpus, start_range, end_range, fcat_file, cat_list,
     #inroot = "/home/j/anick/patent-classifier/ontology/creation/data/patents/ln-us-all-600k/data/tv"
     #inroot = "/home/j/anick/patent-classifier/ontology/creation/data/patents/wos-cs-520k_old/data/tv"
     #inroot = "/home/j/anick/patent-classifier/ontology/creation/data/patents/ln-us-cs-500k/data/tv"
-    #fcat_file = "/home/j/anick/patent-classifier/ontology/creation/feature.cat.en.dat"
-    #fcat_file = "/home/j/anick/patent-classifier/ontology/creation/seed.cat.en.dat"
+    #fcat_file = "/home/j/anick/patent-classifier/ontology/creation/feature.cat.en.canon.dat"
+    #fcat_file = "/home/j/anick/patent-classifier/ontology/creation/seed.cat.en.canon.dat"
 
     # category r and n are useful but overlap with other cats.  Better to work with them separately.
     #cat_list = ["a", "b", "c", "p", "t", "o"]
@@ -1206,7 +1213,7 @@ def get_te(corpus, terms_filename, d_term_year2freq, d_term_year2feats, d_term_f
             entropy = d_term_feat2entropy[tf_key]
             l_feat_entropy.append([feat, entropy])
         #pdb.set_trace()
-        l_feat_entropy.sort(utils.list_element_2_sort)
+        l_feat_entropy.sort(putils.list_element_2_sort)
         d_term2feat_entropy[term] = l_feat_entropy
         s_entropy.write("%s\t%s\n" % (term, d_term2feat_entropy[term]))
 
@@ -1567,7 +1574,7 @@ def feat_kl_div(l_retained_feats, d_l_ygf_actual, d_l_ygf_expected):
                 diff_sign += "-"
         l_kl.append([feat, kl_score, l_diff, diff_sign])
 
-    l_kl.sort(utils.list_element_2_sort)
+    l_kl.sort(putils.list_element_2_sort)
     for (feat, kl_score, l_diff, diff_sign) in l_kl:
 
         if kl_score > 0:
@@ -1650,15 +1657,22 @@ def run_time_kl(d_term_year2freq, d_term_year2feats, d_term_feat_year2freq):
 # 2014 12/9
 # role.run_tf_steps("ln-us-A21-computers_test_pa", 2002, 2002, "pn", ["tc", "tcs", "fc", "uc", "prob"], "a")
 
+# 2015 4/6/15
+# role.run_tf_steps("ln-us-A21-computers", 2002, 2002, "act", ["tc", "tcs", "fc", "uc", "prob"])
+# role.run_tf_steps("ln-us-A21-computers", 2002, 2002, "pn", ["tc", "tcs", "fc", "uc", "prob"], "a")
+
+
 # note: tf removed from todo_list.  This should be done beforehand by tf.py to create the
 # .tf, .terms, .feats, .cs files for a year range
-def run_tf_steps(corpus, start, end, cat_type="act", todo_list=[ "tc", "tcs", "fc", "uc", "prob", "train"], subset=""):
+def run_tf_steps(corpus, start, end, cat_type="act", todo_list=[ "tc", "tcs", "fc", "uc", "prob", "train"], subset="", sections="ta"):
 
     # tv_subpath
     tv_subpath = "/data/tv/"
     # term_subpath
     term_subpath = "/data/term_features"
-
+    if sections == "ta":
+        term_subpath += "_ta"
+        print "[role.py]run_tf_steps reading input from: %s" % term_subpath
     #tv_root = "/home/j/anick/patent-classifier/ontology/creation/data/patents/ln-us-all-600k/data/tv"
     #tv_root = "/home/j/anick/patent-classifier/ontology/creation/data/patents/ln-us-cs-500k/data/tv"
     #tv_root = "/home/j/anick/patent-classifier/ontology/creation/data/patents/ln-us-12-chemical/data/tv"
@@ -1684,10 +1698,10 @@ def run_tf_steps(corpus, start, end, cat_type="act", todo_list=[ "tc", "tcs", "f
     fcat_file = ""
     cat_list = []
     if cat_type == "act":
-        fcat_file = code_root + "/seed." + cat_type + ".en.dat"
+        fcat_file = code_root + "/seed." + cat_type + ".en.canon.dat"
         cat_list = ["a", "c", "t"]
     elif cat_type == "pn":
-        fcat_file = "/home/j/anick/patent-classifier/ontology/creation/seed." + cat_type + ".en.dat"
+        fcat_file = code_root + "/seed." + cat_type + ".en.canon.dat"
         cat_list = ["p", "n"]
 
     # Be safe, check if tv_root path exists, and create it if not

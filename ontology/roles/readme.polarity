@@ -1,0 +1,406 @@
+
+python networkx package is installed on sarpedon and pasiphae for python2.7
+Gitit's page rank code in /home/j/llc/gititkeh/PageRank
+The files are in /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers_test_pa/data/tv
+2002.a.pn.tcs has the training terms and their labels
+
+
+computer domain data is at /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/tv
+code to create .tf, .feats, .terms, and .cs is in tf.py
+
+.tf: term, feature, pair_freq, pair_prob, prob_fgt
+
+prob_fgt = pair_freq/term_freq where
+pair_freq is the # docs in which feature/term cooccur
+term_freq = # docs in which term occurs
+
+.terms: term term_freq term_instance_freq term_prob
+
+.feats: feature, feat_freq, feat_instnace_freq, feat_prob
+
+4/4/15 Rerunning tv files using canonicalization
+# first make a copy of the old directory
+cd /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/
+mv tv tv_20150404_uncanon
+mkidr tv
+
+# create 2002 computer data
+[anick@sarpedon roles]$ python tf.py /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/term_features/ /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/tv/ 2002 2002
+
+To get a set of candidate attribute terms, extract those which occur with a feature prev_Npr and value including "_of".  Sort by 
+dispersion of the feature across different terms.
+cat 2002.tf | grep prev_Npr | grep _of | sed -e 's/^.*=//' | sed -e 's/_of.*$//' | sort | uniq -c | sortnr -k1 > 2002.tf.attr_of.uc
+
+///In tf.py,  TODO: canonicalize and filter .terms and .feats
+DONE
+
+------
+import role
+
+>>> role.run_tf_steps("ln-us-A21-computers", 2002, 2002, "act", ["tc", "tcs", "fc", "uc", "prob"]) 
+[run_tf_steps]tv_root: /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/tv/, fcat_file: /home/j/anick/patent-classifier/ontology/roles/seed.act.en.dat, cat_list: ['a', 'c', 't']
+[tv_filepath]file: /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/tv/
+Mon Apr  6 20:09:13 2015        0       Starting run_tf_steps for years: 2002 2002
+
+Mon Apr  6 20:09:13 2015        0       Starting tc step
+
+[run_tf_steps]Creating .tc, .tfc
+[run_tf2tfc]Processing dir: 2002
+[tv_filepath]file: /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/tv/2002.tf
+[tv_filepath]file: /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/tv/2002.act.tc
+[tv_filepath]file: /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/tv/2002.act.tfc
+[run_tf2tfc]Completed: 2002.tc
+Mon Apr  6 20:34:01 2015        1487    Completing tc step
+
+Mon Apr  6 20:34:01 2015        0       Starting tcs step
+
+[run_tf_steps]Creating .tcs
+[run_tc2tcs]Processing dir: 2002
+[tv_filepath]file: /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/tv/2002.act.tc
+[tv_filepath]file: /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/tv/2002.act.tcs
+Mon Apr  6 20:34:25 2015        24      Completing tcs step
+
+Mon Apr  6 20:34:25 2015        0       Starting fc step
+
+[run_tf_steps]Creating .fc
+[run_tcs2fc]Processing dir: 2002
+[tv_filepath]file: /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/tv/2002.act.tcs
+[tv_filepath]file: /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/tv/2002.tf
+[tv_filepath]file: /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/tv/2002.act.fc
+Mon Apr  6 20:48:24 2015        838     Completing fc step
+
+Mon Apr  6 20:48:24 2015        0       Starting uc step
+
+[run_tf_steps]Creating .fc_uc
+[run_fc2fcuc.sh] SUBSET is [.], cat_type is [act], filestr_before_year is [/home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/tv/], filestr_after_year is [.act]
+[run_fc2fcuc.sh]input_file: /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/tv/2002.act.fc, output_file: /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/tv/2002.act.fc_uc 
+Mon Apr  6 20:48:31 2015        7       Completing uc step
+
+Mon Apr  6 20:48:31 2015        0       Starting prob step
+
+[run_tf_steps]Creating .fc_prob, fc_cat_prob and .fc_kl
+[run_fcuc2fcprob]Processing dir: 2002
+[fcuc2fcprob]cat_list: ['a', 'c', 't']
+[tv_filepath]file: /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/tv/2002.act.fc_uc
+[tv_filepath]file: /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/tv/2002.act.fc_prob
+[tv_filepath]file: /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/tv/2002.act.cat_prob
+[tv_filepath]file: /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/tv/2002.act.tcs
+[tv_filepath]file: /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/tv/2002.act.fc_kl
+[fcuc2fcprob]category: a, cum_fgc_prob (should total to 1.0): 1.000000
+[fcuc2fcprob]category: c, cum_fgc_prob (should total to 1.0): 1.000000
+[fcuc2fcprob]category: t, cum_fgc_prob (should total to 1.0): 1.000000
+Mon Apr  6 20:53:41 2015        310     Completing prob step
+
+[run_tf_steps]Completed
+Mon Apr  6 20:53:41 2015        2668    [run_tf_steps]Completed
+
+------------------------
+from nbayes.py
+
+# (3) nbayes.run_steps("ln-us-A21-computers", 2002, ["nb", "ds", "cf"])
+# (4) nbayes.run_filter_tf_file("ln-us-A21-computers", 2002, "0.0") # create a.tf, needed for running polarity
+# (5) role.run_tf_steps("ln-us-A21-computers", 2002, 2002, "pn", ["tc", "tcs", "fc", "uc", "prob"], "a")
+# (6) nbayes.run_steps("ln-us-A21-computers", 2002, ["nb", "ds", "cf"], cat_type="pn", subset="a") 
+
+To see attrs sorted by freq:
+cat 2002.act.cat.w0.0 | grep '     a       ' | sortnr -k3 | cut -f1,2,3 | more
+
+Note that "cost" is categorized as positive, along with many specializations.  Often there are conflicting features (increase/decrease).
+cat 2002.a.pn.cat.w0.1 | cut -f1,3,4,7,8,9 | grep '        p       ' | sortnr -k2 | grep cost | more
+
+cost    1918    p       -11763.1400271  -14084.0394336  prev_V=increase^866 prev_V=incur^124 prev_V=raise^23 prev_V=allow_for^5 prev_V=prevent^1 prev_V=
+experience^2 prev_V=desire^1 prev_J=substantial^58 prev_V=assess^8 prev_Npr=lack_of^1 prev_J=potential^8 prev_Npr=%_of^12 prev_V=generate^7 prev_V=satis
+fy^2 prev_V=avoid^58 prev_V=concern^2 prev_V=minimize^176 prev_V=decrease^120 prev_V=support^8 prev_J=considerable^54 prev_V=suffer_from^15 prev_Npr=adv
+antage_of^8 prev_V=relate_to^12 prev_V=eliminate^39 prev_V=lower^148 prev_V=cause^41 prev_V=establish^8 prev_V=facilitate^1 prev_V=realize^6 prev_V=cont
+ribute_to^19 prev_V=suffer^5 prev_J=excessive^27 prev_V=lead_to^28 prev_V=suppress^2 prev_V=reflect^6 prev_V=introduce^17
+manufacturing cost      80      p       -349.705180981  -667.265848847  prev_V=raise^2 prev_Npr=%_of^3 prev_V=decrease^3 prev_V=cause^2 prev_V=lower^3 p
+rev_V=increase^60 prev_V=incur^1 prev_V=minimize^5 prev_V=suppress^1
+system cost     39      p       -152.696877136  -336.058240038  prev_V=minimize^4 prev_V=increase^32 prev_Npr=%_of^1 prev_V=raise^2
+
+? Do we get most of the increase cost occurrences within the background section?
+As seen below, in the abstract we get:
+reduce cost: 101
+increase cost: 8
+
+in the summary, we get:
+reduce cost: 4
+increase cost: 1463
+
+This suggests that the abstract is more likely to reflect the "positive review" than the patent as a whole.
+
+>>> r = es_np_query.qmamf(l_query_must=[["spv", "reduce"], ["sp", "cost ]"], ["section", "ABSTRACT"] ],l_fields=["spv", "cphr", "section"], query_type="count", index_name="i_cs_2002") 
+>>> r
+{u'count': 101, u'_shards': {u'successful': 5, u'failed': 0, u'total': 5}}
+>>> r = es_np_query.qmamf(l_query_must=[["spv", "increase"], ["sp", "cost ]"], ["section", "ABSTRACT"] ],l_fields=["spv", "cphr", "section"], query_type="count", index_name="i_cs_2002") 
+>>> r
+{u'count': 8, u'_shards': {u'successful': 5, u'failed': 0, u'total': 5}}
+>>> r = es_np_query.qmamf(l_query_must=[["spv", "increase"], ["sp", "cost ]"], ["section", "SUMMARY"] ],l_fields=["spv", "cphr", "section"], query_type="count", index_name="i_cs_2002") 
+>>> r
+{u'count': 1463, u'_shards': {u'successful': 5, u'failed': 0, u'total': 5}}
+>>> r = es_np_query.qmamf(l_query_must=[["spv", "reduce"], ["sp", "cost ]"], ["section", "SUMMARY"] ],l_fields=["spv", "cphr", "section"], query_type="count", index_name="i_cs_2002") 
+>>> 4
+
+# create new directories for title-abstract data only
+# the ta parameter causes output to be written to /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/term_features_ta/2002
+sh run_term_features.sh ln-us-A21-computers 2002 2002 ta 
+
+ls -1 | wc -l
+45431
+
+# I moved the tv directory
+cd /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data
+mv tv tv_20150407_tas
+mkdir tv
+
+# I reran the Bayes analysis using just abstract data.  The results (in /tv) are better but much, much smaller.
+# It might be possible to combine abstracts across many years to get enough data.
+
+#I also created canonical seed sets in fr_code dir (/roles):
+seed.pn.en.canon.dat
+seed.act.en.canon.dat
+
+Conversion was done using: canon_seed_set.py
+
+-----------------------------------------
+Running all steps on bio domain
+
+# Move the existing tv directory and create a new empty one
+cd /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data
+mv tv tv_20150407_tas
+mkdir tv
+
+# populate the term features dir with abstract only data (ta) or all (tas)
+cd /home/j/anick/patent-classifier/ontology/roles
+sh run_term_features.sh ln-us-A27-molecular-biology 2002 2002 tas
+
+# in bash, populate the tv directory and run nbayes for act and pn classification
+# first make a copy of the old directory
+cd /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A27-molecular-biology/data/
+mv tv tv_21050408_uncanon
+mkidr tv
+
+NOTE: after populating the tv directory, move the files to another location before rerunning using a different
+term_features set (ta vs. tas)
+
+# note: (using term_features) for title/abstract and summary/background sections
+python tf.py /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A27-molecular-biology/data/term_features/ /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A27-molecular-biology/data/tv/ 2002 2002
+(this is slow)
+
+# version for title/abstract only (using use term_features_ta) 
+python tf.py /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A27-molecular-biology/data/term_features_ta/ /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A27-molecular-biology/data/tv/ 2002 2002
+
+# in python, do nbayes for act and pn over the abstract data
+import role
+import nbayes.py
+
+# (2) role.run_tf_steps("ln-us-A27-molecular-biology", 2002, 2002, "act", ["tc", "tcs", "fc", "uc", "prob"]) 
+# (3) nbayes.run_steps("ln-us-A27-molecular-biology", 2002, ["nb", "ds", "cf"])
+# (4) nbayes.run_filter_tf_file("ln-us-A27-molecular-biology", 2002, "0.0") # create a.tf, needed for running polarity
+# (5) role.run_tf_steps("ln-us-A27-molecular-biology", 2002, 2002, "pn", ["tc", "tcs", "fc", "uc", "prob"], "a")
+
+# (6) nbayes.run_steps("ln-us-A27-molecular-biology", 2002, ["nb", "ds", "cf"], cat_type="pn", subset="a") 
+
+4/9/15 Fixed a bug in canon.py to make sure unicode characters were detected in illegal char regex.  So any data prior to 
+this date might contain some illegal terms e.g. 3 dash equals sign or R sign)
+
+!! potential problem with doing canonicalization.  "increased" as past participle modifier may be used as a negative, whereas
+other forms may have invention as subject and hence be positive.
+e.g. inflammatory response, cell death (negatives)
+
+# 4/13/15 creating polarity functions for pagerank in polarity.py
+
+#####################################
+
+# Move the existing tv directory and create a new empty one  (not necessary for new domain)
+cd /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A23-semiconductors/data
+mv tv_20141125_uncanon tv_20141125_uncanon_tas
+mkdir tv
+
+# populate the term features dir with abstract only data (ta) or all (tas)
+cd /home/j/anick/patent-classifier/ontology/roles
+#sh run_term_features.sh ln-us-A23-semiconductors 2002 2002 tas
+not necessary since tas output exists for all years
+
+# the "ta" option will write output to term_features_ta subdirectory
+#sh run_term_features.sh ln-us-A23-semiconductors 2002 2002 ta
+///
+
+# in bash, populate the tv directory and run nbayes for act and pn classification
+
+NOTE: after populating the tv directory, move the files to another location before rerunning using a different
+term_features set (ta vs. tas)
+
+mv tv tv_20140415_canon_tas
+
+# note: (using term_features) for title/abstract and summary/background sections
+# currently term_features
+#for tas:
+python2.7 tf.py /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A23-semiconductors/data/term_features/ /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A23-semiconductors/data/tv/ 2002 2002
+(this is slow)
+
+# for tas
+python2.7 tf.py /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A23-semiconductors/data/term_features/ /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A23-semiconductors/data/tv/ 2002 2002
+
+# version for title/abstract only (using term_features_ta) 
+python tf.py /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A23-semiconductors/data/term_features_ta/ /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A23-semiconductors/data/tv/ 2002 2002
+
+# in python, do nbayes for act and pn over the abstract data
+import role
+import nbayes.py
+
+# (2) role.run_tf_steps("ln-us-A23-semiconductors", 2002, 2002, "act", ["tc", "tcs", "fc", "uc", "prob"]) 
+
+
+# (3) nbayes.run_steps("ln-us-A23-semiconductors", 2002, ["nb", "ds", "cf"])
+
+# (4) nbayes.run_filter_tf_file("ln-us-A23-semiconductors", 2002, "0.0") # create a.tf, needed for running polarity
+
+# (5) role.run_tf_steps("ln-us-A23-semiconductors", 2002, 2002, "pn", ["tc", "tcs", "fc", "uc", "prob"], "a")
+
+# (6) nbayes.run_steps("ln-us-A23-semiconductors", 2002, ["nb", "ds", "cf"], cat_type="pn", subset="a") 
+
+4/16/15 completed NBayes analsysis of semiconductors 2002
+term_features contains tas data
+term_features_ta contains ta data
+tv_20140415_canon_ta contains ta files
+tv_20140415_canon_tas contains tas files
+
+------------------------------------------
+4/18/15 Adding MI to .tf file
+
+///NOTE: verify that term_features dir for 2002 semiconductors is full tas, not just ta data
+
+Rerun tf.py on all domains/subsets
+
+/home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/tv_ta
+
+# for tas
+python2.7 tf.py /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A23-semiconductors/data/term_features_tas/ /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A23-semiconductors/data/tv_tas_mi/ 2002 2002
+
+# version for title/abstract only (using term_features_ta) 
+python tf.py /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A23-semiconductors/data/term_features_ta/ /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A23-semiconductors/data/tv_ta_mi/ 2002 2002
+
+# for tas
+python2.7 tf.py /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/term_features/ /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/tv_tas_mi/ 2002 2002
+
+# version for title/abstract only (using term_features_ta) 
+python tf.py /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/term_features_ta/ /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/tv_ta_mi/ 2002 2002
+
+
+# for tas
+python2.7 tf.py /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A27-molecular-biology/data/term_features/ /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A27-molecular-biology/data/tv_tas_mi/ 2002 2002
+
+# version for title/abstract only (using term_features_ta) 
+python tf.py /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A27-molecular-biology/data/term_features_ta/ /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A27-molecular-biology/data/tv_ta_mi/ 2002 2002
+
+Creating a file with 
+term, feature, term_freq, npmi
+removing last_word, prev_J features and any terms with freq = 1
+
+cd /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A23-semiconductors/data/tv_ta_mi
+cat 2002.tf | cut -f1,2,7,9 | grep -v '      1       ' | grep -v "last_word" | grep -v "prev_J" | sortnr -k4 > 2002.tf.npmi
+cat 2002.tf.npmi | wc -l
+195773
+
+
+Uses of polarity.  Determine sentiment regarding systems/inventions outside of patents (e.g. papers) where there will be criticism of prior work.  
+Knowing the default polarity of attributes can determine the author's sentiment towards a technology.  It will reduce bandwidth = negative.
+It will reduce memory requirements = positive. 
+
+The following steps assume that the directory is called tv.  This means we have to mv tv_ta (and then tv_tas) to tv before running and then
+move them back before running the other.  This is needed because we are rerunning the first <year>.tf file to include mutual info fields, which 
+are needed when we create the <year>.a.tf file.
+
+So first recreate .tf file, then move the directory into tv and run the steps below.
+cd /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A23-semiconductors/data
+mv tv_ta tv
+
+# (4) nbayes.run_filter_tf_file("ln-us-A23-semiconductors", 2002, "0.0") # create a.tf, needed for running polarity
+
+The following are not needed for running pagerank:
+# (5) role.run_tf_steps("ln-us-A23-semiconductors", 2002, 2002, "pn", ["tc", "tcs", "fc", "uc", "prob"], "a")
+
+# (6) nbayes.run_steps("ln-us-A23-semiconductors", 2002, ["nb", "ds", "cf"], cat_type="pn", subset="a") 
+
+# now run pagerank using the npmi field
+run_pr.run_prs("ln-us-A23-semiconductors", 2002, "tv", size=0, wt_type="mi") 
+#Note we get warnings for 0 out-degree (for those with 0 wt)
+
+We need to rerun tf.py for tf file only.
+move the tf and other files into tv
+rerun nbayes.run_filter_tf_file
+run_pr.run_prs("ln-us-A23-semiconductors", 2002, "tv", size=0, wt_type="mi")
+
+diff fields 8,9 seem to create good pos/neg sorts
+cat 2002.t.diff.mi.0 | cut -f1,8 | sortnr -k2 | more
+
+------------------------------------------
+computer domain
+
+# for ta
+# version for title/abstract only (using term_features_ta) 
+python tf.py /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/term_features_ta/ /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/tv/ 2002 2002
+
+# to create the tf.a file, we also need the corresponding 2002.act.cat.w0.0
+cd /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/tv_ta_cond
+cp 2002.act.cat.w0.0 ../tv
+
+nbayes.run_filter_tf_file("ln-us-A21-computers", 2002, "0.0")
+run_pr.run_prs("ln-us-A21-computers", 2002, "tv", size=0, wt_type="mi")
+
+
+# for tas
+python2.7 tf.py /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/term_features/ /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/tv/ 2002 2002
+
+# to create the tf.a file, we also need the corresponding 2002.act.cat.w0.0
+cd /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data/tv_tas_cond
+cp 2002.act.cat.w0.0 ../tv
+
+
+nbayes.run_filter_tf_file("ln-us-A21-computers", 2002, "0.0")
+run_pr.run_prs("ln-us-A21-computers", 2002, "tv", size=0, wt_type="mi")
+
+run_pr.run_prs("ln-us-A21-computers", 2002, "tv", size=0, wt_type="mi") 
+
+# move tv data to a labeled subdirectory
+cd /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A21-computers/data
+mv tv tv_tas_mi
+
+
+bio domain
+
+# for tas
+python2.7 tf.py /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A27-molecular-biology/data/term_features/ /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A27-molecular-biology/data/tv/ 2002 2002
+
+# act file already existed
+cd /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A27-molecular-biology/data/tv_tas
+cp 2002.act.cat.w0.0 ../tv
+
+nbayes.run_filter_tf_file("ln-us-A27-molecular-biology", 2002, "0.0")
+run_pr.run_prs("ln-us-A27-molecular-biology", 2002, "tv", size=0, wt_type="mi")
+///
+
+
+# for ta
+# version for title/abstract only (using term_features_ta) 
+python tf.py /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A27-molecular-biology/data/term_features_ta/ /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A27-molecular-biology/data/tv/ 2002 2002
+
+
+communications domain
+
+# for tas
+python2.7 tf.py /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A22-communications/data/term_features/ /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A22-communications/data/tv/ 2002 2002
+
+///
+
+
+# for ta
+# version for title/abstract only (using term_features_ta) 
+python tf.py /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A22-communications/data/term_features_ta/ /home/j/anick/patent-classifier/ontology/roles/data/patents/ln-us-A22-communications/data/tv/ 2002 2002
+
+
+# Where is the data for bio domain?
+
+
+
+
