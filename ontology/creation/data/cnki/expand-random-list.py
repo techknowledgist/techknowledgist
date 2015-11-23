@@ -5,10 +5,10 @@ the cnki-all-random.txt list in CNKI_DIR.
 
 Usage:
 
-    $ python expand-random-list.py LIMIT?
+    $ python expand-random-list.py (SKIP LIMIT)?
 
-    The optional argument puts a limit on the number of paths processed, the
-    default is 10.
+    The optional arguments will cause the script to skip the first SKIP lines
+    and to stop after line LIMIT. The defaults are 0 and 10.
     
 For each document, it checks whether it exists, what the size it is, and from
 what year it is (as taken from the file path). Results are written to two files:
@@ -26,22 +26,23 @@ seconds for 1000 CNKI documents) so it needs to run in parallel on segments of
 the input file. This is not yet supported by the code.
 
 """
-        
+
 import os, sys, re, time
 
 CNKI_DIR = '/home/j/corpuswork/fuse/FUSEData/cnki'
-RANDOM_LIST = '/home/j/corpuswork/fuse/FUSEData/cnki/cnki-all-random.txt'
+RANDOM_LIST = os.path.join(CNKI_DIR, 'cnki-all-random.txt')
 
 YEAR_EXP = re.compile('/(\d\d\d\d)/')
 
 
-def process_list(limit):
+def process_list(skip=0, limit=10):
     c = 0
     for line in open(RANDOM_LIST):
         c += 1
         if c % 1000 == 0:
             LOG.write("PROGRESS\t%s\t%s\n" % (time.strftime("%x %X"), c))
             LOG.flush()
+        if c <= skip: continue
         if c > limit: break
         name, path = line.split()
         year = get_year(path)
@@ -66,11 +67,17 @@ def get_year(path):
 
 if __name__ == '__main__':
 
-    limit = 10
-    if len(sys.argv) > 1:
+    if len(sys.argv) > 2:
+        skip = int(sys.argv[1])
+        limit = int(sys.argv[2])
+    elif len(sys.argv) > 1:
+        skip = 0
         limit = int(sys.argv[1])
+    else:
+        skip = 0
+        limit = 10
     OUT = open("cnki-all-random-idx-%07d.txt" % limit, 'w')
     LOG = open("cnki-all-random-idx-%07d.log" % limit, 'w')
     t1 = time.time()
-    process_list(limit)
+    process_list(skip, limit)
     print "Time elapsed: %d seconds" % (time.time() - t1)
